@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 성경공부</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .alternative-link:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg w-full max-w-md mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">오늘의 성경공부</h1>
+            <div class="flex items-center justify-center mt-4">
+                <button id="prev-day" class="p-2 rounded-full hover:bg-gray-200 transition-colors">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <p id="current-date" class="text-gray-600 text-lg font-medium mx-4 w-48 text-center"></p>
+                <button id="next-day" class="p-2 rounded-full hover:bg-gray-200 transition-colors">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+        </header>
+        
+        <main class="space-y-4">
+            <div class="flex items-center space-x-2 link-container" data-prefix="mc">
+                <button class="bible-link w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-4 rounded-lg text-center transition duration-300 transform hover:-translate-y-0.5 shadow-md">
+                    맥체인 성경읽기
+                </button>
+                <a href="#" target="_blank" class="alternative-link p-2 text-gray-500 rounded-full hover:bg-gray-100" title="대체 연결">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </a>
+            </div>
+            <div class="flex items-center space-x-2 link-container" data-prefix="db">
+                <button class="bible-link w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-lg text-center transition duration-300 transform hover:-translate-y-0.5 shadow-md">
+                    매일성경 (새벽기도)
+                </button>
+                <a href="#" target="_blank" class="alternative-link p-2 text-gray-500 rounded-full hover:bg-gray-100" title="대체 연결">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </a>
+            </div>
+            <div class="flex items-center space-x-2 link-container" data-prefix="day">
+                <button class="bible-link w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg text-center transition duration-300 transform hover:-translate-y-0.5 shadow-md">
+                    날마다 교리
+                </button>
+                <a href="#" target="_blank" class="alternative-link p-2 text-gray-500 rounded-full hover:bg-gray-100" title="대체 연결">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </a>
+            </div>
+            <div class="flex items-center space-x-2 link-container" data-prefix="ms">
+                <button class="bible-link w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 px-4 rounded-lg text-center transition duration-300 transform hover:-translate-y-0.5 shadow-md">
+                    주일설교말씀
+                </button>
+                <a href="#" target="_blank" class="alternative-link p-2 text-gray-500 rounded-full hover:bg-gray-100" title="대체 연결">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </a>
+            </div>
+        </main>
+        
+        <!-- 수정된 안내 메시지 영역 -->
+        <footer class="mt-8 p-4 bg-gray-50 rounded-lg">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-gray-600">
+                        페이지가 열리지 않으면 옆의 <svg class="w-4 h-4 inline-block -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> 아이콘을 눌러보세요.
+                        <br>
+                        두 링크 모두 연결되지 않으면 아직 업로드 전이니, 이전 날짜의 말씀을 확인해주세요.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let currentDate = new Date();
+
+        const dateDisplay = document.getElementById('current-date');
+        const prevDayBtn = document.getElementById('prev-day');
+        const nextDayBtn = document.getElementById('next-day');
+        const linkContainers = document.querySelectorAll('.link-container');
+
+        function pad(num) {
+            return num < 10 ? '0' + num : String(num);
+        }
+
+        function updatePageForDate(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+            const dayOfWeek = daysOfWeek[date.getDay()];
+
+            dateDisplay.textContent = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
+
+            linkContainers.forEach(container => {
+                const prefix = container.dataset.prefix;
+                const mainButton = container.querySelector('.bible-link');
+                const altLink = container.querySelector('.alternative-link');
+                let dateSuffix;
+
+                if (prefix === 'ms') {
+                    const lastSunday = new Date(date);
+                    lastSunday.setDate(date.getDate() - date.getDay());
+                    dateSuffix = `${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
+                } else {
+                    dateSuffix = `${pad(month)}${pad(day)}`;
+                }
+                
+                const primaryUrl = `https://kbd71.github.io/${prefix}${dateSuffix}`;
+                const secondaryUrl = `https://${prefix}${dateSuffix}.vercel.app`;
+                
+                mainButton.dataset.url = primaryUrl;
+                altLink.href = secondaryUrl;
+            });
+        }
+        
+        window.onload = () => {
+            updatePageForDate(currentDate);
+
+            prevDayBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 1);
+                updatePageForDate(currentDate);
+            });
+
+            nextDayBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 1);
+                updatePageForDate(currentDate);
+            });
+            
+            document.querySelectorAll('.bible-link').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const url = event.currentTarget.dataset.url;
+                    if (url) {
+                        window.open(url, '_blank');
+                    }
+                });
+            });
+        };
+    </script>
+</body>
+</html>
+
