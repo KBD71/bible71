@@ -78,10 +78,21 @@
         }
         
         .date-display {
+             /* 기본 스타일은 유지하고, 색상 관련 스타일은 아래 요일별 클래스로 이동 */
+        }
+        
+        /* [수정 1] 요일별 색상 클래스 추가 */
+        .weekday-color {
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+        .saturday-color {
+            color: #2563eb; /* 토요일: 파란색 */
+        }
+        .sunday-color {
+            color: #dc2626; /* 주일: 빨간색 */
         }
         
         .notification-card {
@@ -126,7 +137,6 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
-    <!-- 배경 장식 -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
         <div class="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-5 rounded-full"></div>
         <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-white opacity-5 rounded-full"></div>
@@ -135,10 +145,8 @@
     </div>
 
     <div class="modern-card rounded-3xl w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto relative z-10 overflow-hidden">
-        <!-- 헤더 섹션 -->
         <header class="text-center p-6 sm:p-8 relative shine-effect">
             <div class="mb-6">
-                <!-- 아이콘 -->
                 <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
@@ -149,7 +157,6 @@
                 <p class="text-sm text-gray-500 font-light">Daily Bible Study</p>
             </div>
             
-            <!-- 날짜 네비게이션 -->
             <div class="flex items-center justify-center space-x-4">
                 <button id="prev-day" class="icon-button p-3 rounded-2xl">
                     <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -169,9 +176,7 @@
             </div>
         </header>
         
-        <!-- 메인 콘텐츠 -->
         <main class="p-6 sm:p-8 space-y-4">
-            <!-- 맥체인 성경읽기 -->
             <div class="flex items-center space-x-3 link-container group" data-prefix="mc">
                 <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
                         style="--gradient-from: #3b82f6; --gradient-to: #1d4ed8;">
@@ -189,7 +194,6 @@
                 </a>
             </div>
             
-            <!-- 매일성경 (새벽기도) -->
             <div class="flex items-center space-x-3 link-container group" data-prefix="db">
                 <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
                         style="--gradient-from: #059669; --gradient-to: #047857;">
@@ -207,7 +211,6 @@
                 </a>
             </div>
             
-            <!-- 날마다 교리 -->
             <div class="flex items-center space-x-3 link-container group" data-prefix="day">
                 <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
                         style="--gradient-from: #7c3aed; --gradient-to: #5b21b6;">
@@ -225,7 +228,6 @@
                 </a>
             </div>
             
-            <!-- 주일설교말씀 -->
             <div class="flex items-center space-x-3 link-container group" data-prefix="ms">
                 <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
                         style="--gradient-from: #dc2626; --gradient-to: #991b1b;">
@@ -244,7 +246,6 @@
             </div>
         </main>
         
-        <!-- 알림 카드 -->
         <footer class="p-6 sm:p-8 pt-0">
             <div class="notification-card p-4 rounded-2xl">
                 <div class="flex items-start space-x-3">
@@ -278,54 +279,41 @@
             return num < 10 ? '0' + num : String(num);
         }
 
+        // [수정 2] 자바스크립트 함수 전체 수정
         function updatePageForDate(date) {
             const year = date.getFullYear();
             const month = date.getMonth() + 1;
             const day = date.getDate();
             const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
             const dayOfWeek = daysOfWeek[date.getDay()];
-            const dayIndex = date.getDay(); // 0: 일요일, 1-5: 평일, 6: 토요일
+            const dayIndex = date.getDay(); // 0: 일요일, 6: 토요일
 
-            // DOM 요소가 존재하는지 확인
             if (!dateDisplay) {
                 console.error('dateDisplay element not found');
                 return;
             }
 
-            // 날짜 표시 텍스트 설정
+            // 날짜 텍스트 업데이트
             if (window.innerWidth < 640) {
                 dateDisplay.textContent = `${month}/${day} (${dayOfWeek})`;
             } else {
                 dateDisplay.textContent = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
             }
-
-            // 날짜 컨테이너와 텍스트에 요일별 클래스 적용
-            const dateContainer = document.getElementById('date-container');
             
-            if (dateContainer && dateDisplay) {
-                // 기존 클래스 제거
-                dateDisplay.classList.remove('weekday', 'saturday', 'sunday');
-                dateContainer.classList.remove('weekday', 'saturday', 'sunday');
-                
-                // 요일에 따른 클래스 추가 (약간의 지연을 두어 DOM 업데이트 보장)
-                setTimeout(() => {
-                    if (dayIndex === 0) { // 일요일
-                        dateDisplay.classList.add('sunday');
-                        dateContainer.classList.add('sunday');
-                        console.log('Sunday class applied');
-                    } else if (dayIndex === 6) { // 토요일
-                        dateDisplay.classList.add('saturday');
-                        dateContainer.classList.add('saturday');
-                        console.log('Saturday class applied');
-                    } else { // 평일 (월-금)
-                        dateDisplay.classList.add('weekday');
-                        dateContainer.classList.add('weekday');
-                        console.log('Weekday class applied');
-                    }
-                }, 10);
+            // CSS 클래스를 이용해 색상 변경
+            // 먼저 기존 요일 클래스를 모두 제거
+            dateDisplay.classList.remove('weekday-color', 'saturday-color', 'sunday-color');
+
+            // 요일에 맞는 클래스 추가
+            if (dayIndex === 0) { // 주일
+                dateDisplay.classList.add('sunday-color');
+            } else if (dayIndex === 6) { // 토요일
+                dateDisplay.classList.add('saturday-color');
+            } else { // 평일
+                dateDisplay.classList.add('weekday-color');
             }
 
-            // 링크 업데이트
+            // 링크 업데이트 (기존 로직 유지)
             if (linkContainers) {
                 linkContainers.forEach(container => {
                     const prefix = container.dataset.prefix;
@@ -355,22 +343,18 @@
         }
         
         function initializeApp() {
-            // DOM 요소들을 가져오기
             dateDisplay = document.getElementById('current-date');
             prevDayBtn = document.getElementById('prev-day');
             nextDayBtn = document.getElementById('next-day');
             linkContainers = document.querySelectorAll('.link-container');
 
-            // 요소들이 제대로 로드되었는지 확인
             if (!dateDisplay || !prevDayBtn || !nextDayBtn) {
                 console.error('Required DOM elements not found');
                 return;
             }
 
-            // 초기 날짜 설정
             updatePageForDate(currentDate);
 
-            // 이벤트 리스너 추가
             prevDayBtn.addEventListener('click', () => {
                 currentDate.setDate(currentDate.getDate() - 1);
                 updatePageForDate(currentDate);
@@ -381,7 +365,6 @@
                 updatePageForDate(currentDate);
             });
             
-            // 버튼 클릭 이벤트
             document.querySelectorAll('.gradient-button').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const url = event.currentTarget.dataset.url;
@@ -391,11 +374,9 @@
                 });
             });
 
-            // 리사이즈 이벤트
             window.addEventListener('resize', handleResize);
         }
         
-        // DOM이 완전히 로드된 후 초기화
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initializeApp);
         } else {
