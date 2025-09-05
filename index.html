@@ -7,110 +7,264 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
-        }
-        .alternative-link:hover {
-            opacity: 0.7;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
         
-        /* 추가적인 반응형 스타일 */
-        @media (max-width: 375px) {
-            .bible-link {
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-button {
+            background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .gradient-button:hover::before {
+            left: 100%;
+        }
+        
+        .gradient-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .icon-button {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .modern-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .date-display {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .notification-card {
+            background: linear-gradient(135deg, rgba(103, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 1px solid rgba(103, 126, 234, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* 모바일 최적화 */
+        @media (max-width: 640px) {
+            .gradient-button {
                 font-size: 0.9rem;
-                padding: 0.75rem 1rem;
+                padding: 0.875rem 1rem;
             }
             
-            .alternative-link {
-                padding: 0.5rem;
-            }
-            
-            .alternative-link svg {
-                width: 1.25rem;
-                height: 1.25rem;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .main-container {
-                max-width: 32rem;
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .main-container {
-                max-width: 36rem;
+            .floating-animation {
+                animation: none;
             }
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-2 sm:p-4">
+<body class="flex items-center justify-center min-h-screen p-4">
+    <!-- 배경 장식 -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-5 rounded-full"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-white opacity-5 rounded-full"></div>
+        <div class="absolute top-20 left-20 w-32 h-32 bg-white opacity-10 rounded-full floating-animation"></div>
+        <div class="absolute bottom-20 right-20 w-24 h-24 bg-white opacity-10 rounded-full floating-animation" style="animation-delay: -3s;"></div>
+    </div>
 
-    <div class="main-container bg-white p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-lg w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
-        <header class="text-center mb-6 sm:mb-8">
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">오늘의 성경공부</h1>
-            <div class="flex items-center justify-center mt-3 sm:mt-4">
-                <button id="prev-day" class="p-1.5 sm:p-2 rounded-full hover:bg-gray-200 transition-colors touch-manipulation">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    <div class="modern-card rounded-3xl w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto relative z-10 overflow-hidden">
+        <!-- 헤더 섹션 -->
+        <header class="text-center p-6 sm:p-8 relative shine-effect">
+            <div class="mb-6">
+                <!-- 아이콘 -->
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">오늘의 성경공부</h1>
+                <p class="text-sm text-gray-500 font-light">Daily Bible Study</p>
+            </div>
+            
+            <!-- 날짜 네비게이션 -->
+            <div class="flex items-center justify-center space-x-4">
+                <button id="prev-day" class="icon-button p-3 rounded-2xl">
+                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
                 </button>
-                <p id="current-date" class="text-gray-600 text-base sm:text-lg lg:text-xl font-medium mx-3 sm:mx-4 w-36 sm:w-48 lg:w-56 text-center"></p>
-                <button id="next-day" class="p-1.5 sm:p-2 rounded-full hover:bg-gray-200 transition-colors touch-manipulation">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                
+                <div class="bg-white/50 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/30">
+                    <p id="current-date" class="date-display text-lg sm:text-xl font-semibold text-center min-w-[160px] sm:min-w-[200px]"></p>
+                </div>
+                
+                <button id="next-day" class="icon-button p-3 rounded-2xl">
+                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
                 </button>
             </div>
         </header>
         
-        <main class="space-y-3 sm:space-y-4">
-            <div class="flex items-center space-x-2 sm:space-x-3 link-container" data-prefix="mc">
-                <button class="bible-link w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-lg text-center transition duration-300 transform hover:-translate-y-0.5 shadow-md text-sm sm:text-base lg:text-lg touch-manipulation">
-                    맥체인 성경읽기
+        <!-- 메인 콘텐츠 -->
+        <main class="p-6 sm:p-8 space-y-4">
+            <!-- 맥체인 성경읽기 -->
+            <div class="flex items-center space-x-3 link-container group" data-prefix="mc">
+                <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
+                        style="--gradient-from: #3b82f6; --gradient-to: #1d4ed8;">
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span>맥체인 성경읽기</span>
+                    </div>
                 </button>
-                <a href="#" target="_blank" class="alternative-link p-1.5 sm:p-2 text-gray-500 rounded-full hover:bg-gray-100 touch-manipulation flex-shrink-0" title="대체 연결">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                <a href="#" target="_blank" class="alternative-link icon-button p-3 rounded-2xl group-hover:scale-105 transition-all" title="대체 연결">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                    </svg>
                 </a>
             </div>
-            <div class="flex items-center space-x-2 sm:space-x-3 link-container" data-prefix="db">
-                <button class="bible-link w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-2.5 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-lg text-center transition duration-300 transform hover:-translate-y-0.5 shadow-md text-sm sm:text-base lg:text-lg touch-manipulation">
-                    매일성경 (새벽기도)
+            
+            <!-- 매일성경 (새벽기도) -->
+            <div class="flex items-center space-x-3 link-container group" data-prefix="db">
+                <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
+                        style="--gradient-from: #059669; --gradient-to: #047857;">
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <span>매일성경 (새벽기도)</span>
+                    </div>
                 </button>
-                <a href="#" target="_blank" class="alternative-link p-1.5 sm:p-2 text-gray-500 rounded-full hover:bg-gray-100 touch-manipulation flex-shrink-0" title="대체 연결">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                <a href="#" target="_blank" class="alternative-link icon-button p-3 rounded-2xl group-hover:scale-105 transition-all" title="대체 연결">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                    </svg>
                 </a>
             </div>
-            <div class="flex items-center space-x-2 sm:space-x-3 link-container" data-prefix="day">
-                <button class="bible-link w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-lg text-center transition duration-300 transform hover:-translate-y-0.5 shadow-md text-sm sm:text-base lg:text-lg touch-manipulation">
-                    날마다 교리
+            
+            <!-- 날마다 교리 -->
+            <div class="flex items-center space-x-3 link-container group" data-prefix="day">
+                <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
+                        style="--gradient-from: #7c3aed; --gradient-to: #5b21b6;">
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                        <span>날마다 교리</span>
+                    </div>
                 </button>
-                <a href="#" target="_blank" class="alternative-link p-1.5 sm:p-2 text-gray-500 rounded-full hover:bg-gray-100 touch-manipulation flex-shrink-0" title="대체 연결">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                <a href="#" target="_blank" class="alternative-link icon-button p-3 rounded-2xl group-hover:scale-105 transition-all" title="대체 연결">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                    </svg>
                 </a>
             </div>
-            <div class="flex items-center space-x-2 sm:space-x-3 link-container" data-prefix="ms">
-                <button class="bible-link w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-lg text-center transition duration-300 transform hover:-translate-y-0.5 shadow-md text-sm sm:text-base lg:text-lg touch-manipulation">
-                    주일설교말씀
+            
+            <!-- 주일설교말씀 -->
+            <div class="flex items-center space-x-3 link-container group" data-prefix="ms">
+                <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
+                        style="--gradient-from: #dc2626; --gradient-to: #991b1b;">
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                        </svg>
+                        <span>주일설교말씀</span>
+                    </div>
                 </button>
-                <a href="#" target="_blank" class="alternative-link p-1.5 sm:p-2 text-gray-500 rounded-full hover:bg-gray-100 touch-manipulation flex-shrink-0" title="대체 연결">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                <a href="#" target="_blank" class="alternative-link icon-button p-3 rounded-2xl group-hover:scale-105 transition-all" title="대체 연결">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                    </svg>
                 </a>
             </div>
         </main>
         
-        <!-- 반응형으로 개선된 안내 메시지 영역 -->
-        <footer class="mt-6 sm:mt-8 p-3 sm:p-4 bg-gray-50 rounded-lg">
-            <div class="flex items-start">
-                <div class="flex-shrink-0">
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                    </svg>
-                </div>
-                <div class="ml-2 sm:ml-3">
-                    <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                        페이지가 열리지 않으면 옆의 <svg class="w-3 h-3 sm:w-4 sm:h-4 inline-block -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> 아이콘을 눌러보세요.
-                        <br class="hidden sm:inline">
-                        <span class="sm:inline block mt-1 sm:mt-0">두 링크 모두 연결되지 않으면 아직 업로드 전이니, 이전 날짜의 말씀을 확인해주세요.</span>
-                    </p>
+        <!-- 알림 카드 -->
+        <footer class="p-6 sm:p-8 pt-0">
+            <div class="notification-card p-4 rounded-2xl">
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0 mt-0.5">
+                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            <span class="font-medium">연결 안내:</span> 메인 버튼이 열리지 않으면 옆의 
+                            <svg class="w-4 h-4 inline-block mx-1 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                            </svg>
+                            아이콘을 클릭해보세요.
+                        </p>
+                        <p class="text-xs text-gray-500 mt-1">
+                            두 링크 모두 연결되지 않으면 이전 날짜를 확인해주세요.
+                        </p>
+                    </div>
                 </div>
             </div>
         </footer>
@@ -135,7 +289,7 @@
             const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
             const dayOfWeek = daysOfWeek[date.getDay()];
 
-            // 화면 크기에 따른 날짜 표시 형식 변경
+            // 반응형 날짜 표시
             if (window.innerWidth < 640) {
                 dateDisplay.textContent = `${month}/${day} (${dayOfWeek})`;
             } else {
@@ -144,7 +298,7 @@
 
             linkContainers.forEach(container => {
                 const prefix = container.dataset.prefix;
-                const mainButton = container.querySelector('.bible-link');
+                const mainButton = container.querySelector('.gradient-button');
                 const altLink = container.querySelector('.alternative-link');
                 let dateSuffix;
 
@@ -164,7 +318,6 @@
             });
         }
         
-        // 화면 크기 변경 감지
         function handleResize() {
             updatePageForDate(currentDate);
         }
@@ -184,7 +337,7 @@
                 updatePageForDate(currentDate);
             });
             
-            document.querySelectorAll('.bible-link').forEach(button => {
+            document.querySelectorAll('.gradient-button').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const url = event.currentTarget.dataset.url;
                     if (url) {
