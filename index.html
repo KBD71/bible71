@@ -307,17 +307,22 @@
                 dateDisplay.classList.remove('weekday', 'saturday', 'sunday');
                 dateContainer.classList.remove('weekday', 'saturday', 'sunday');
                 
-                // 요일에 따른 클래스 추가
-                if (dayIndex === 0) { // 일요일
-                    dateDisplay.classList.add('sunday');
-                    dateContainer.classList.add('sunday');
-                } else if (dayIndex === 6) { // 토요일
-                    dateDisplay.classList.add('saturday');
-                    dateContainer.classList.add('saturday');
-                } else { // 평일 (월-금)
-                    dateDisplay.classList.add('weekday');
-                    dateContainer.classList.add('weekday');
-                }
+                // 요일에 따른 클래스 추가 (약간의 지연을 두어 DOM 업데이트 보장)
+                setTimeout(() => {
+                    if (dayIndex === 0) { // 일요일
+                        dateDisplay.classList.add('sunday');
+                        dateContainer.classList.add('sunday');
+                        console.log('Sunday class applied');
+                    } else if (dayIndex === 6) { // 토요일
+                        dateDisplay.classList.add('saturday');
+                        dateContainer.classList.add('saturday');
+                        console.log('Saturday class applied');
+                    } else { // 평일 (월-금)
+                        dateDisplay.classList.add('weekday');
+                        dateContainer.classList.add('weekday');
+                        console.log('Weekday class applied');
+                    }
+                }, 10);
             }
 
             // 링크 업데이트
