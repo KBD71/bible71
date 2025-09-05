@@ -272,11 +272,7 @@
 
     <script>
         let currentDate = new Date();
-
-        const dateDisplay = document.getElementById('current-date');
-        const prevDayBtn = document.getElementById('prev-day');
-        const nextDayBtn = document.getElementById('next-day');
-        const linkContainers = document.querySelectorAll('.link-container');
+        let dateDisplay, prevDayBtn, nextDayBtn, linkContainers;
 
         function pad(num) {
             return num < 10 ? '0' + num : String(num);
@@ -288,45 +284,88 @@
             const day = date.getDate();
             const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
             const dayOfWeek = daysOfWeek[date.getDay()];
+            const dayIndex = date.getDay(); // 0: 일요일, 1-5: 평일, 6: 토요일
 
-            // 반응형 날짜 표시
+            // DOM 요소가 존재하는지 확인
+            if (!dateDisplay) {
+                console.error('dateDisplay element not found');
+                return;
+            }
+
+            // 날짜 표시 텍스트 설정
             if (window.innerWidth < 640) {
                 dateDisplay.textContent = `${month}/${day} (${dayOfWeek})`;
             } else {
                 dateDisplay.textContent = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
             }
 
-            linkContainers.forEach(container => {
-                const prefix = container.dataset.prefix;
-                const mainButton = container.querySelector('.gradient-button');
-                const altLink = container.querySelector('.alternative-link');
-                let dateSuffix;
-
-                if (prefix === 'ms') {
-                    const lastSunday = new Date(date);
-                    lastSunday.setDate(date.getDate() - date.getDay());
-                    dateSuffix = `${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
-                } else {
-                    dateSuffix = `${pad(month)}${pad(day)}`;
+            // 날짜 컨테이너와 텍스트에 요일별 클래스 적용
+            const dateContainer = document.getElementById('date-container');
+            
+            if (dateContainer && dateDisplay) {
+                // 기존 클래스 제거
+                dateDisplay.classList.remove('weekday', 'saturday', 'sunday');
+                dateContainer.classList.remove('weekday', 'saturday', 'sunday');
+                
+                // 요일에 따른 클래스 추가
+                if (dayIndex === 0) { // 일요일
+                    dateDisplay.classList.add('sunday');
+                    dateContainer.classList.add('sunday');
+                } else if (dayIndex === 6) { // 토요일
+                    dateDisplay.classList.add('saturday');
+                    dateContainer.classList.add('saturday');
+                } else { // 평일 (월-금)
+                    dateDisplay.classList.add('weekday');
+                    dateContainer.classList.add('weekday');
                 }
-                
-                const primaryUrl = `https://kbd71.github.io/${prefix}${dateSuffix}`;
-                const secondaryUrl = `https://${prefix}${dateSuffix}.vercel.app`;
-                
-                mainButton.dataset.url = primaryUrl;
-                altLink.href = secondaryUrl;
-            });
+            }
+
+            // 링크 업데이트
+            if (linkContainers) {
+                linkContainers.forEach(container => {
+                    const prefix = container.dataset.prefix;
+                    const mainButton = container.querySelector('.gradient-button');
+                    const altLink = container.querySelector('.alternative-link');
+                    let dateSuffix;
+
+                    if (prefix === 'ms') {
+                        const lastSunday = new Date(date);
+                        lastSunday.setDate(date.getDate() - date.getDay());
+                        dateSuffix = `${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
+                    } else {
+                        dateSuffix = `${pad(month)}${pad(day)}`;
+                    }
+                    
+                    const primaryUrl = `https://kbd71.github.io/${prefix}${dateSuffix}`;
+                    const secondaryUrl = `https://${prefix}${dateSuffix}.vercel.app`;
+                    
+                    if (mainButton) mainButton.dataset.url = primaryUrl;
+                    if (altLink) altLink.href = secondaryUrl;
+                });
+            }
         }
         
         function handleResize() {
             updatePageForDate(currentDate);
         }
         
-        window.addEventListener('resize', handleResize);
-        
-        window.onload = () => {
+        function initializeApp() {
+            // DOM 요소들을 가져오기
+            dateDisplay = document.getElementById('current-date');
+            prevDayBtn = document.getElementById('prev-day');
+            nextDayBtn = document.getElementById('next-day');
+            linkContainers = document.querySelectorAll('.link-container');
+
+            // 요소들이 제대로 로드되었는지 확인
+            if (!dateDisplay || !prevDayBtn || !nextDayBtn) {
+                console.error('Required DOM elements not found');
+                return;
+            }
+
+            // 초기 날짜 설정
             updatePageForDate(currentDate);
 
+            // 이벤트 리스너 추가
             prevDayBtn.addEventListener('click', () => {
                 currentDate.setDate(currentDate.getDate() - 1);
                 updatePageForDate(currentDate);
@@ -337,6 +376,7 @@
                 updatePageForDate(currentDate);
             });
             
+            // 버튼 클릭 이벤트
             document.querySelectorAll('.gradient-button').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const url = event.currentTarget.dataset.url;
@@ -345,7 +385,17 @@
                     }
                 });
             });
-        };
+
+            // 리사이즈 이벤트
+            window.addEventListener('resize', handleResize);
+        }
+        
+        // DOM이 완전히 로드된 후 초기화
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
     </script>
 </body>
 </html>
