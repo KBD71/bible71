@@ -78,10 +78,16 @@
         }
         
         .date-display {
-             /* 기본 스타일은 유지하고, 색상 관련 스타일은 아래 요일별 클래스로 이동 */
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        /* [수정 1] 요일별 색상 클래스 추가 */
+        .date-display:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* 메인 날짜 요일별 색상 */
         .weekday-color {
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
@@ -89,10 +95,10 @@
             background-clip: text;
         }
         .saturday-color {
-            color: #2563eb; /* 토요일: 파란색 */
+            color: #2563eb;
         }
         .sunday-color {
-            color: #dc2626; /* 주일: 빨간색 */
+            color: #dc2626;
         }
         
         .notification-card {
@@ -122,6 +128,98 @@
             0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
             100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
+
+        /* 달력 스타일 */
+        .calendar-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .calendar-container {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            max-height: 90vh;
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        /* --- ✨ 수정된 부분 1: 달력 요일 색상 --- */
+        .saturday-header-color {
+            color: #2563eb;
+        }
+        .sunday-header-color {
+            color: #dc2626;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            font-size: 0.875rem;
+        }
+
+        .calendar-day:hover {
+            background: #f3f4f6;
+            transform: scale(1.05);
+        }
+
+        .calendar-day.other-month {
+            color: #d1d5db;
+        }
+
+        .calendar-day.today {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-day.selected {
+            background: #3b82f6;
+            color: white;
+            font-weight: 600;
+        }
         
         /* 모바일 최적화 */
         @media (max-width: 640px) {
@@ -132,6 +230,23 @@
             
             .floating-animation {
                 animation: none;
+            }
+
+            .calendar-container {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .calendar-header {
+                padding: 1rem;
+            }
+
+            .calendar-grid {
+                padding: 0.5rem;
+            }
+
+            .calendar-day {
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -164,8 +279,8 @@
                     </svg>
                 </button>
                 
-                <div class="bg-white/50 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/30">
-                    <p id="current-date" class="date-display text-lg sm:text-xl font-semibold text-center min-w-[160px] sm:min-w-[200px]"></p>
+                <div class="bg-white/50 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/30 date-display" id="date-picker">
+                    <p id="current-date" class="text-lg sm:text-xl font-semibold text-center min-w-[160px] sm:min-w-[200px]"></p>
                 </div>
                 
                 <button id="next-day" class="icon-button p-3 rounded-2xl">
@@ -177,7 +292,7 @@
         </header>
         
         <main class="p-6 sm:p-8 space-y-4">
-            <div class="flex items-center space-x-3 link-container group" data-prefix="mc">
+            <div class="link-container" data-prefix="mc">
                 <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
                         style="--gradient-from: #3b82f6; --gradient-to: #1d4ed8;">
                     <div class="flex items-center justify-center space-x-2">
@@ -187,14 +302,9 @@
                         <span>맥체인 성경읽기</span>
                     </div>
                 </button>
-                <a href="#" target="_blank" class="alternative-link icon-button p-3 rounded-2xl group-hover:scale-105 transition-all" title="대체 연결">
-                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
-                    </svg>
-                </a>
             </div>
             
-            <div class="flex items-center space-x-3 link-container group" data-prefix="db">
+            <div class="link-container" data-prefix="db">
                 <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
                         style="--gradient-from: #059669; --gradient-to: #047857;">
                     <div class="flex items-center justify-center space-x-2">
@@ -204,14 +314,9 @@
                         <span>매일성경 (새벽기도)</span>
                     </div>
                 </button>
-                <a href="#" target="_blank" class="alternative-link icon-button p-3 rounded-2xl group-hover:scale-105 transition-all" title="대체 연결">
-                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
-                    </svg>
-                </a>
             </div>
             
-            <div class="flex items-center space-x-3 link-container group" data-prefix="day">
+            <div class="link-container" data-prefix="day">
                 <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
                         style="--gradient-from: #7c3aed; --gradient-to: #5b21b6;">
                     <div class="flex items-center justify-center space-x-2">
@@ -221,14 +326,9 @@
                         <span>날마다 교리</span>
                     </div>
                 </button>
-                <a href="#" target="_blank" class="alternative-link icon-button p-3 rounded-2xl group-hover:scale-105 transition-all" title="대체 연결">
-                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
-                    </svg>
-                </a>
             </div>
             
-            <div class="flex items-center space-x-3 link-container group" data-prefix="ms">
+            <div class="link-container" data-prefix="ms">
                 <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
                         style="--gradient-from: #dc2626; --gradient-to: #991b1b;">
                     <div class="flex items-center justify-center space-x-2">
@@ -238,11 +338,6 @@
                         <span>주일설교말씀</span>
                     </div>
                 </button>
-                <a href="#" target="_blank" class="alternative-link icon-button p-3 rounded-2xl group-hover:scale-105 transition-all" title="대체 연결">
-                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
-                    </svg>
-                </a>
             </div>
         </main>
         
@@ -256,37 +351,56 @@
                     </div>
                     <div class="flex-1">
                         <p class="text-sm text-gray-700 leading-relaxed">
-                            <span class="font-medium">연결 안내:</span> 메인 버튼이 열리지 않으면 옆의 
-                            <svg class="w-4 h-4 inline-block mx-1 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
-                            </svg>
-                            아이콘을 클릭해보세요.
+                            <span class="font-medium">날짜 선택:</span> 가운데 날짜를 클릭하면 달력에서 원하는 날짜를 선택할 수 있습니다.
                         </p>
-                        <p class="text-xs text-gray-500 mt-1">
-                            두 링크 모두 연결되지 않으면 이전 날짜를 확인해주세요.
-                        </p>
-                    </div>
+                        </div>
                 </div>
             </div>
         </footer>
     </div>
 
+    <div id="calendar-modal" class="calendar-modal" style="display: none;">
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prev-month" class="icon-button p-2 rounded-xl">
+                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <h3 id="calendar-title" class="text-lg font-semibold text-gray-800"></h3>
+                <button id="next-month" class="icon-button p-2 rounded-xl">
+                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+                </div>
+            <div class="p-4 border-t border-gray-200">
+                <button id="close-calendar" class="w-full bg-gray-500 text-white py-2 px-4 rounded-xl hover:bg-gray-600 transition-colors">
+                    닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         let currentDate = new Date();
+        let calendarDate = new Date();
         let dateDisplay, prevDayBtn, nextDayBtn, linkContainers;
+        let calendarModal, calendarGrid, calendarTitle, prevMonthBtn, nextMonthBtn, closeCalendarBtn, datePickerBtn;
 
         function pad(num) {
             return num < 10 ? '0' + num : String(num);
         }
 
-        // [수정 2] 자바스크립트 함수 전체 수정
         function updatePageForDate(date) {
             const year = date.getFullYear();
             const month = date.getMonth() + 1;
             const day = date.getDate();
             const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
             const dayOfWeek = daysOfWeek[date.getDay()];
-            const dayIndex = date.getDay(); // 0: 일요일, 6: 토요일
+            const dayIndex = date.getDay();
 
             if (!dateDisplay) {
                 console.error('dateDisplay element not found');
@@ -301,24 +415,21 @@
             }
             
             // CSS 클래스를 이용해 색상 변경
-            // 먼저 기존 요일 클래스를 모두 제거
             dateDisplay.classList.remove('weekday-color', 'saturday-color', 'sunday-color');
 
-            // 요일에 맞는 클래스 추가
-            if (dayIndex === 0) { // 주일
+            if (dayIndex === 0) {
                 dateDisplay.classList.add('sunday-color');
-            } else if (dayIndex === 6) { // 토요일
+            } else if (dayIndex === 6) {
                 dateDisplay.classList.add('saturday-color');
-            } else { // 평일
+            } else {
                 dateDisplay.classList.add('weekday-color');
             }
 
-            // 링크 업데이트 (기존 로직 유지)
+            // 링크 업데이트
             if (linkContainers) {
                 linkContainers.forEach(container => {
                     const prefix = container.dataset.prefix;
                     const mainButton = container.querySelector('.gradient-button');
-                    const altLink = container.querySelector('.alternative-link');
                     let dateSuffix;
 
                     if (prefix === 'ms') {
@@ -330,12 +441,94 @@
                     }
                     
                     const primaryUrl = `https://kbd71.github.io/${prefix}${dateSuffix}`;
-                    const secondaryUrl = `https://${prefix}${dateSuffix}.vercel.app`;
                     
                     if (mainButton) mainButton.dataset.url = primaryUrl;
-                    if (altLink) altLink.href = secondaryUrl;
                 });
             }
+        }
+
+        function generateCalendar(year, month) {
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const firstDayOfWeek = firstDay.getDay();
+            const daysInMonth = lastDay.getDate();
+            const today = new Date();
+
+            calendarTitle.textContent = `${year}년 ${month + 1}월`;
+            calendarGrid.innerHTML = '';
+
+            // --- ✨ 수정된 부분 3: 요일 헤더 색상 적용 ---
+            const dayHeaders = ['일', '월', '화', '수', '목', '금', '토'];
+            dayHeaders.forEach((day, index) => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day-header';
+                dayHeader.textContent = day;
+                if (index === 0) {
+                    dayHeader.classList.add('sunday-header-color');
+                } else if (index === 6) {
+                    dayHeader.classList.add('saturday-header-color');
+                }
+                calendarGrid.appendChild(dayHeader);
+            });
+
+            // 이전 달의 빈 날짜들
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+            for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day other-month';
+                dayElement.textContent = prevMonthLastDay - i;
+                calendarGrid.appendChild(dayElement);
+            }
+
+            // 현재 달의 날짜들
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                const dayDate = new Date(year, month, day);
+                
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+
+                // 오늘 날짜 표시
+                if (dayDate.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+
+                // 선택된 날짜 표시
+                if (dayDate.toDateString() === currentDate.toDateString()) {
+                    dayElement.classList.add('selected');
+                }
+
+                // --- ✨ 수정된 부분 4: 날짜에 링크 표시하는 기능 삭제 ---
+
+                dayElement.addEventListener('click', () => {
+                    currentDate = new Date(year, month, day);
+                    updatePageForDate(currentDate);
+                    closeCalendar();
+                });
+
+                calendarGrid.appendChild(dayElement);
+            }
+
+            // 다음 달의 빈 날짜들
+            const totalCells = firstDayOfWeek + daysInMonth;
+            const remainingCells = (totalCells > 35) ? (42 - totalCells) : (35 - totalCells);
+            
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day other-month';
+                dayElement.textContent = day;
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        function showCalendar() {
+            calendarDate = new Date(currentDate);
+            generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            calendarModal.style.display = 'flex';
+        }
+
+        function closeCalendar() {
+            calendarModal.style.display = 'none';
         }
         
         function handleResize() {
@@ -347,6 +540,14 @@
             prevDayBtn = document.getElementById('prev-day');
             nextDayBtn = document.getElementById('next-day');
             linkContainers = document.querySelectorAll('.link-container');
+            datePickerBtn = document.getElementById('date-picker');
+            
+            calendarModal = document.getElementById('calendar-modal');
+            calendarGrid = document.getElementById('calendar-grid');
+            calendarTitle = document.getElementById('calendar-title');
+            prevMonthBtn = document.getElementById('prev-month');
+            nextMonthBtn = document.getElementById('next-month');
+            closeCalendarBtn = document.getElementById('close-calendar');
 
             if (!dateDisplay || !prevDayBtn || !nextDayBtn) {
                 console.error('Required DOM elements not found');
@@ -363,6 +564,26 @@
             nextDayBtn.addEventListener('click', () => {
                 currentDate.setDate(currentDate.getDate() + 1);
                 updatePageForDate(currentDate);
+            });
+
+            datePickerBtn.addEventListener('click', showCalendar);
+
+            prevMonthBtn.addEventListener('click', () => {
+                calendarDate.setMonth(calendarDate.getMonth() - 1);
+                generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            });
+
+            nextMonthBtn.addEventListener('click', () => {
+                calendarDate.setMonth(calendarDate.getMonth() + 1);
+                generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            });
+
+            closeCalendarBtn.addEventListener('click', closeCalendar);
+
+            calendarModal.addEventListener('click', (e) => {
+                if (e.target === calendarModal) {
+                    closeCalendar();
+                }
             });
             
             document.querySelectorAll('.gradient-button').forEach(button => {
