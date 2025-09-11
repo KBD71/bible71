@@ -291,20 +291,19 @@
     </div>
 
     <script>
-        // 1. YouTube IFrame API 비동기 로드
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        const videoId = '<!-- %%VIDEO_ID%% -->'; // 유튜브 비디오 ID 자리표시자
+        const videoId = '<!-- %%VIDEO_ID%% -->';
         const playPauseBtn = document.getElementById('floatingPlayPauseBtn');
 
-        // 2. API 코드가 다운로드된 후 실행될 함수
         function onYouTubeIframeAPIReady() {
-            if (!videoId || videoId === '<!-- %%VIDEO_ID%% -->') {
-                console.error("YouTube Video ID is not set.");
+            if (!videoId || videoId.startsWith('<!--')) {
+                console.error("YouTube Video ID not provided. Hiding player button.");
+                if(playPauseBtn) playPauseBtn.style.display = 'none';
                 return;
             }
             player = new YT.Player('player-container', {
@@ -325,22 +324,19 @@
             });
         }
 
-        // 3. 플레이어가 준비되었을 때 실행될 함수
         function onPlayerReady(event) {
             playPauseBtn.disabled = false;
-            playPauseBtn.classList.add('paused'); // 초기 상태: 일시정지 (재생 아이콘 보임)
+            playPauseBtn.classList.add('paused');
         }
 
-        // 4. 플레이어 상태가 변경될 때 실행될 함수
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.PLAYING) {
-                playPauseBtn.classList.remove('paused'); // 재생 중: 일시정지 아이콘 보임
+                playPauseBtn.classList.remove('paused');
             } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
-                playPauseBtn.classList.add('paused'); // 일시정지 또는 종료: 재생 아이콘 보임
+                playPauseBtn.classList.add('paused');
             }
         }
 
-        // 5. 버튼 클릭 시 재생/일시정지 토글 함수
         function togglePlayPause() {
             if (playPauseBtn.disabled) return;
             if (player && typeof player.getPlayerState === 'function') {
@@ -355,15 +351,13 @@
 
         playPauseBtn.addEventListener('click', togglePlayPause);
         
-        // 6. 스페이스바 키보드 이벤트 추가
         document.addEventListener('keydown', function(event) {
-            // 입력 필드나 텍스트 영역에 포커스된 경우는 제외
             const target = event.target;
             if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
                 return;
             }
             if (event.code === 'Space') {
-                event.preventDefault(); // 페이지 스크롤 방지
+                event.preventDefault();
                 togglePlayPause();
             }
         });
