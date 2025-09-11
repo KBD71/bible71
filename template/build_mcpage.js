@@ -41,11 +41,11 @@ async function buildPage(videoId) {
     const response = await fetch('../template/mc_layout.html');
     let template = await response.text();
 
-    template = template.replace(//g, `${contentData.date} 맥체인 성경읽기`);
-    template = template.replace(//g, videoId);
+    template = template.replace(/<!-- %%PAGE_TITLE%% -->/g, `${contentData.date} 맥체인 성경읽기`);
+    template = template.replace(/<!-- %%VIDEO_ID%% -->/g, videoId);
 
-    const titleHtml = `<h1>${contentData.date} 맥체인 성경읽기<br><span class="subtitle">${contentData.mainTitle}</span></h1><p class="intro-passage">${contentData.passages}</p>`;
-    template = template.replace('', titleHtml);
+    const titleHtml = `<h1>${contentData.date} 맥체인 성경읽기<br><span class="subtitle">${contentData.title}</span></h1>`;
+    template = template.replace('<!-- %%TITLE_SECTION%% -->', titleHtml);
 
     let mainContentHtml = '';
     contentData.cards.forEach(card => {
@@ -68,7 +68,7 @@ async function buildPage(videoId) {
         cardHtml += `</section>`;
         mainContentHtml += cardHtml;
     });
-    template = template.replace('', mainContentHtml);
+    template = template.replace('<!-- %%MAIN_CONTENT%% -->', mainContentHtml);
 
     document.documentElement.innerHTML = template;
 }
