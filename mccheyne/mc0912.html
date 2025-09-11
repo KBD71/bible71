@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mc0912.html</title>
+</head>
+<body>
+    <script>
+        // 1. 그날의 성경 본문, 해설 등 데이터 객체 (videoId는 초기에 비어있음)
+        const contentData = {
+            "date": "9월 12일",
+            "mainTitle": "인간의 한계를 넘는 하나님의 신실한 언약",
+            "passages": "사무엘하 7장, 고린도후서 1장, 에스겔 15장, 시편 56-57편",
+            "videoId": "",
+            "cards": [
+                {
+                    "cardClass": "card-book1",
+                    "title": "사무엘하 7장",
+                    "overview": "다윗이 하나님을 위해 성전을 건축하려는 경건한 열망을 표현하지만, 하나님께서는 오히려 다윗을 위해 영원한 '집'(왕조)을 세우시겠다는 주권적이고 은혜로운 언약을 계시하십니다. 이 '다윗 언약'은 인간의 계획을 초월하는 하나님의 위대한 구속 경륜을 보여주며, 장차 오실 메시아 왕국에 대한 구체적인 청사진을 제시하는 구약의 핵심 본문입니다.",
+                    "svg": `
+                        <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="5" width="390" height="210" rx="10" fill="#E3F2FD" />
+                            <text x="200" y="35" font-family="Noto Serif KR, serif" font-size="16" text-anchor="middle" fill="#1565C0">인간의 계획 vs 하나님의 언약</text>
+                            
+                            <g>
+                                <rect x="30" y="60" width="160" height="100" rx="8" fill="#FFFFFF" stroke="#4A89DC" stroke-width="1"/>
+                                <text x="110" y="80" font-family="Noto Serif KR, serif" font-size="14" text-anchor="middle" fill="#1976D2">다윗의 계획</text>
+                                <text x="110" y="110" font-family="Noto Sans KR, sans-serif" font-size="12" text-anchor="middle">"내가 하나님을 위해</text>
+                                <text x="110" y="130" font-family="Noto Sans KR, sans-serif" font-size="12" text-anchor="middle">집을 건축하리라"</text>
+                                <text x="110" y="150" font-family="Noto Sans KR, sans-serif" font-size="10" text-anchor="middle">(인간의 열심)</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="210" y="60" width="160" height="100" rx="8" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                                <text x="290" y="80" font-family="Noto Serif KR, serif" font-size="14" text-anchor="middle" fill="#0D47A1">하나님의 언약</text>
+                                <text x="290" y="110" font-family="Noto Sans KR, sans-serif" font-size="12" text-anchor="middle">"내가 너를 위해</text>
+                                <text x="290" y="130" font-family="Noto Sans KR, sans-serif" font-size="12" text-anchor="middle">집을 세우리라"</text>
+                                <text x="290" y="150" font-family="Noto Sans KR, sans-serif" font-size="10" text-anchor="middle">(주권적 은혜)</text>
+                            </g>
+
+                            <path d="M 50 180 Q 200 200 350 180" stroke="#1976D2" stroke-width="2" fill="none"/>
+                            <text x="200" y="200" font-family="Noto Sans KR, sans-serif" font-size="12" text-anchor="middle">핵심: 우리의 최선보다 위대하신 하나님의 은혜</text>
+                        </svg>
+                    `,
+                    "context": "역사적으로 고대 근동의 왕들은 자신의 권위와 신심을 과시하기 위해 신들을 위한 거대한 신전을 건축하는 것이 관례였습니다. 다윗의 성전 건축 계획 역시 이러한 시대적 배경 속에서 나온 자연스럽고 경건한 발상입니다. 그러나 하나님은 이 인간적인 최선의 계획을 막으시고, 하나님의 주권이 인간의 열심보다 선행함을 분명히 하십니다. 칼빈은 이 지점에서 '하나님은 우리의 섬김을 받기 전에 먼저 은혜로 우리에게 찾아오시는 분'임을 강조했습니다. 개혁주의 신학은 다윗 언약을 구속사의 중요한 분수령으로 봅니다. 이는 아브라함에게 주신 '큰 민족'과 '창대한 이름'의 약속이(창 12장) 다윗의 왕조를 통해 구체화되는 과정이며, '땅의 모든 족속이 너로 말미암아 복을 얻을 것'이라는 약속이 다윗의 자손으로 오실 예수 그리스도를 통해 성취될 것을 예표하기 때문입니다. 하나님은 눈에 보이는 건물보다, 당신의 백성과의 살아있는 관계와 그들을 통해 이루실 영원한 나라에 더 큰 관심이 있으십니다.",
+                    "keyVerses": [
+                        { "verse": "삼하 7:12-13", "text": "네 수한이 차서 네 조상들과 함께 누울 때에 내가 네 몸에서 날 네 씨를 네 뒤에 세워 그의 나라를 견고하게 하리라 그는 내 이름을 위하여 집을 건축할 것이요 나는 그의 나라 왕위를 영원히 견고하게 하리라", "commentary": "이 구절은 언약의 핵심 내용으로, 일차적으로 아들 솔로몬을 통해 성취되지만(성전 건축, 왕위 계승), '영원히'라는 단어는 솔로몬을 넘어선 궁극적 성취를 가리킵니다. 여기서 '네 씨'는 단수로서, 장차 오실 완전한 아들이자 왕이신 예수 그리스도를 지목하는 명백한 메시아 예언입니다. 그분이 참된 성전(요 2:21)이시며 영원한 나라의 왕이심을 보여줍니다." },
+                        { "verse": "삼하 7:16", "text": "네 집과 네 나라가 내 앞에서 영원히 보전되고 네 왕위가 영원히 견고하리라 하셨다 하라", "commentary": "이 구절은 하나님의 약속의 '무조건성'과 '영원성'을 강조합니다. 사울 왕조가 불순종으로 폐위된 것과 달리, 다윗 왕조는 (비록 죄에 대한 징계는 있을지라도) 하나님의 은혜로운 선택으로 인해 영원히 보전될 것입니다. 이 은혜 언약의 궁극적인 보증은 훗날 다윗의 자손으로 오셔서 십자가에서 모든 죄를 대속하시고 부활하사 영원한 왕권을 확립하신 예수 그리스도 자신입니다. 우리의 구원이 우리의 행위가 아닌 하나님의 신실한 약속에 근거함을 보여주는 위대한 선포입니다." }
+                    ],
+                    "bibleText": `
+                        <div class="bible-text">
+                            <strong>다윗의 성전 건축 제안</strong>
+                            <p><span class="verse-number">1</span>여호와께서 주위의 모든 원수를 무찌르사 왕으로 궁에 평안히 살게 하신 때에</p>
+                            <p><span class="verse-number">2</span>왕이 선지자 나단에게 이르되 볼지어다 나는 백향목 궁에 살거늘 하나님의 궤는 휘장 가운데에 있도다</p>
+                            <p><span class="verse-number">3</span>나단이 왕께 아뢰되 여호와께서 왕과 함께 계시니 마음에 있는 모든 것을 행하소서 하니라</p>
+                            <strong>하나님의 거절과 약속</strong>
+                            <p><span class="verse-number">4</span>그 밤에 여호와의 말씀이 나단에게 임하여 이르시되</p>
+                            <p><span class="verse-number">5</span>가서 내 종 다윗에게 말하기를 여호와께서 이와 같이 말씀하시되 네가 나를 위하여 내가 살 집을 건축하겠느냐</p>
+                            <p><span class="verse-number">6</span>내가 이스라엘 자손을 애굽에서 인도하여 내던 날부터 오늘까지 집에 살지 아니하고 장막과 성막 안에서 다녔나니</p>
+                            <p><span class="verse-number">7</span>이스라엘 자손과 더불어 다니는 모든 곳에서 내가 내 백성 이스라엘을 먹이라고 명령한 이스라엘 어느 지파들 가운데 하나에게 내가 말하기를 너희가 어찌하여 나를 위하여 백향목 집을 건축하지 아니하였느냐고 말하였느냐</p>
+                            <p><span class="verse-number">8</span>그러므로 이제 내 종 다윗에게 이와 같이 말하라 만군의 여호와께서 이와 같이 말씀하시기를 내가 너를 목장 곧 양을 따르는 데에서 데려다가 내 백성 이스라엘의 주권자로 삼고</p>
+                            <p><span class="verse-number">9</span>네가 가는 모든 곳에서 내가 너와 함께 있어 네 모든 원수를 네 앞에서 멸하였은즉 땅에서 위대한 자들의 이름 같이 네 이름을 위대하게 만들어 주리라</p>
+                            <p><span class="verse-number">10</span>내가 또 내 백성 이스라엘을 위하여 한 곳을 정하여 그를 심고 그를 거주하게 하고 다시 옮기지 못하게 하며 악한 종류로 전과 같이 그들을 해하지 못하게 하여</p>
+                            <p><span class="verse-number">11</span>전에 내가 사사에게 명령하여 내 백성 이스라엘을 다스리던 때와 같지 아니하게 하고 너를 모든 원수에게서 벗어나 편히 쉬게 하리라 여호와가 또 네게 이르노니 여호와가 너를 위하여 집을 짓고</p>
+                            <strong>다윗 언약</strong>
+                            <p><span class="verse-number">12</span>네 수한이 차서 네 조상들과 함께 누울 때에 내가 네 몸에서 날 네 씨를 네 뒤에 세워 그의 나라를 견고하게 하리라</p>
+                            <p><span class="verse-number">13</span>그는 내 이름을 위하여 집을 건축할 것이요 나는 그의 나라 왕위를 영원히 견고하게 하리라</p>
+                            <p><span class="verse-number">14</span>나는 그에게 아버지가 되고 그는 내게 아들이 되리니 그가 만일 죄를 범하면 내가 사람의 매와 인생의 채찍으로 징계하려니와</p>
+                            <p><span class="verse-number">15</span>내가 네 앞에서 물러나게 한 사울에게서 내 은총을 빼앗은 것처럼 그에게서 빼앗지는 아니하리라</p>
+                            <p><span class="verse-number">16</span>네 집과 네 나라가 내 앞에서 영원히 보전되고 네 왕위가 영원히 견고하리라 하셨다 하라</p>
+                            <p><span class="verse-number">17</span>나단이 이 모든 말씀들과 이 모든 계시대로 다윗에게 말하니라</p>
+                            <strong>다윗의 감사 기도</strong>
+                            <p><span class="verse-number">18</span>다윗 왕이 여호와 앞에 들어가 앉아서 이르되 주 여호와여 나는 누구이오며 내 집은 무엇이기에 나를 여기까지 이르게 하셨나이까</p>
+                            <p><span class="verse-number">19</span>주 여호와여 주께서 이것을 오히려 적게 여기시고 또 종의 집에 있을 먼 장래의 일까지도 말씀하셨나이다 주 여호와여 이것이 사람의 법이니이다</p>
+                            <p><span class="verse-number">20</span>주 여호와는 주의 종을 아시오니 다윗이 다시 주께 무슨 말씀을 하오리이까</p>
+                            <p><span class="verse-number">21</span>주의 말씀으로 말미암아 주의 뜻대로 이 모든 큰 일을 행하사 주의 종에게 알게 하셨나이다</p>
+                            <p><span class="verse-number">22</span>그런즉 주 여호와여 주는 위대하시니 이는 우리 귀로 들은 대로는 주와 같은 이가 없고 주 외에는 신이 없음이니이다</p>
+                            <p><span class="verse-number">23</span>땅의 어느 한 나라가 주의 백성 이스라엘과 같으리이까 하나님이 가서 구속하사 자기 백성으로 삼아 주의 명성을 내시며 그들을 위하여 큰 일을, 주의 땅을 위하여 두려운 일을 애굽과 많은 나라들과 그의 신들에게서 구속하신 백성 앞에서 행하셨사오며</p>
+                            <p><span class="verse-number">24</span>주께서 주의 백성 이스라엘을 세우사 영원히 주의 백성으로 삼으셨사오니 여호와여 주께서 그들의 하나님이 되셨나이다</p>
+                            <p><span class="verse-number">25</span>여호와 하나님이여 이제 주의 종과 종의 집에 대하여 말씀하신 것을 영원히 세우시며 말씀하신 대로 행하사</p>
+                            <p><span class="verse-number">26</span>사람이 영원히 주의 이름을 크게 높여 이르기를 만군의 여호와는 이스라엘의 하나님이라 하게 하시며 주의 종 다윗의 집이 주 앞에 견고하게 하옵소서</p>
+                            <p><span class="verse-number">27</span>만군의 여호와 이스라엘의 하나님이여 주의 종의 귀를 여시며 이르시기를 내가 너를 위하여 집을 세우리라 하셨으므로 주의 종이 이 기도로 주께 간구할 마음이 생겼나이다</p>
+                            <p><span class="verse-number">28</span>주 여호와여 오직 주는 하나님이시며 주의 말씀들이 참되시니이다 주께서 이 좋은 것을 주의 종에게 말씀하셨사오니</p>
+                            <p><span class="verse-number">29</span>이제 청하건대 종의 집에 복을 주사 주 앞에 영원히 있게 하옵소서 주 여호와께서 말씀하셨사오니 주의 종의 집이 영원히 복을 받게 하옵소서 하니라</p>
+                        </div>
+                    `
+                },
+                {
+                    "cardClass": "card-book2",
+                    "title": "고린도후서 1장",
+                    "overview": "바울은 극심한 환난 속에서 경험한 하나님의 위로를 나누며 '고난의 신학'을 전개합니다. 성도가 겪는 고난은 무의미한 고통이 아니라, 하나님의 위로를 깊이 체험하고 그 위로를 다른 지체에게 흘려보내는 통로임을 역설합니다. 또한 자신의 여행 계획 변경에 대한 오해를 해명하며, 하나님의 모든 약속이 그리스도 안에서 '예'로 성취되는 절대적 신실함에 근거하여 자신의 사역 역시 진실됨을 변호합니다.",
+                    "svg": `
+                        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="5" width="390" height="190" rx="10" fill="#FFF0F1" />
+                            <text x="200" y="30" font-family="Noto Serif KR, serif" font-size="16" text-anchor="middle" fill="#C62828">고난을 통해 흐르는 위로의 강</text>
+                            
+                            <g>
+                                <path d="M 50,60 Q 70,40 90,60 T 130,60" stroke="#E53935" stroke-width="2" fill="none"/>
+                                <text x="90" y="80" font-family="Noto Serif KR, serif" font-size="14" text-anchor="middle" fill="#B71C1C">모든 위로의 하나님</text>
+                            </g>
+                            
+                            <path d="M 90,90 C 90,110 140,110 140,130" stroke="#E57373" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
+                            
+                            <g>
+                                <rect x="140" y="130" width="120" height="40" rx="20" fill="#FFCDD2" />
+                                <text x="200" y="155" font-family="Noto Sans KR, sans-serif" font-size="12" text-anchor="middle">바울의 고난</text>
+                            </g>
+                            
+                            <path d="M 260,130 C 260,110 310,110 310,90" stroke="#E57373" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
+
+                            <g>
+                                <path d="M 310,60 Q 330,40 350,60 T 390,60" stroke="#E53935" stroke-width="2" fill="none"/>
+                                <text x="350" y="80" font-family="Noto Serif KR, serif" font-size="14" text-anchor="middle" fill="#B71C1C">환난 당한 성도</text>
+                            </g>
+                            
+                            <defs>
+                                <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#E57373" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    `,
+                    "context": "바울은 '아시아에서 당한 환난'이 '살 소망까지 끊어질' 정도로 극심했다고 회고합니다(1:8). 이 서신은 이전에 보냈던 '눈물로 쓴 편지'(고후 2:4) 이후, 고린도 교회와의 관계 회복을 도모하는 배경에서 쓰였습니다. 따라서 본문은 단순히 개인적인 간증을 넘어, 자신의 사도적 진실성을 입증하려는 목적을 가집니다. 매튜 헨리는 '하나님은 때로 그의 백성을 가장 깊은 고통의 골짜기로 인도하시는데, 이는 그들로 하여금 가장 높은 위로의 산을 경험하게 하기 위함이다'라고 주석했습니다. 개혁주의적 관점에서 고난은 성화를 위한 하나님의 필수적인 도구입니다. 하나님은 고난을 통해 우리가 자신을 의지하지 않고 '오직 죽은 자를 다시 살리시는 하나님만 의지하게'(1:9) 하십니다. 이는 인간의 전적 부패와 하나님의 전적 은혜라는 교리를 실제적으로 체험하게 하는 과정입니다.",
+                    "keyVerses": [
+                        { "verse": "고후 1:5", "text": "그리스도의 고난이 우리에게 넘친 것 같이 우리가 받는 위로도 그리스도로 말미암아 넘치는도다", "commentary": "이 구절은 성도의 고난과 위로를 그리스도와의 연합이라는 관점에서 설명합니다. 우리가 겪는 고난은 단순히 개인적인 불행이 아니라 '그리스도의 고난'에 동참하는 것입니다. 마찬가지로, 우리가 받는 위로 역시 인간적인 격려를 넘어 '그리스도로 말미암는' 초자연적이고 충만한 위로입니다. 고난의 깊이와 위로의 높이가 비례한다는 이 원리는, 성도가 고난을 피하기보다 믿음으로 통과해야 할 이유를 제시합니다." },
+                        { "verse": "고후 1:20-22", "text": "하나님의 약속은 얼마든지 그리스도 안에서 예가 되니 그런즉 그로 말미암아 우리가 아멘 하여 하나님께 영광을 돌리게 되느니라 우리를 너희와 함께 그리스도 안에서 굳건하게 하시고 우리에게 기름을 부으신 이는 하나님이시니 그가 또한 우리에게 인치시고 보증으로 우리 마음에 성령을 주셨느니라", "commentary": "이 구절은 기독교 신앙의 객관적이고 확실한 근거를 제시합니다. 구약의 모든 언약(다윗 언약 포함)과 약속들은 변덕스러운 인간 세상에서 불확실한 것이 아니라, 예수 그리스도의 삶과 죽음, 부활을 통해 절대적인 '예'로 성취되고 확증되었습니다. 우리의 '아멘'은 이 진리에 대한 동의이며, 이 모든 것을 보증하시는 분은 바로 우리 마음에 내주하시는 '성령'이십니다. 성부의 약속, 성자의 성취, 성령의 보증이라는 삼위일체 하나님의 사역이 우리의 구원을 얼마나 굳건하게 하는지를 보여주는 장엄한 선포입니다." }
+                    ],
+                    "bibleText": `
+                        <div class="bible-text">
+                            <strong>인사와 찬송</strong>
+                            <p><span class="verse-number">1</span>하나님의 뜻으로 말미암아 그리스도 예수의 사도 된 바울과 형제 디모데는 고린도에 있는 하나님의 교회와 또 온 아가야에 있는 모든 성도에게</p>
+                            <p><span class="verse-number">2</span>하나님 우리 아버지와 주 예수 그리스도로부터 은혜와 평강이 있기를 원하노라</p>
+                            <p><span class="verse-number">3</span>찬송하리로다 그는 우리 주 예수 그리스도의 하나님이시요 자비의 아버지시요 모든 위로의 하나님이시며</p>
+                            <p><span class="verse-number">4</span>우리의 모든 환난 중에서 우리를 위로하사 우리로 하여금 하나님께 받는 위로로써 모든 환난 중에 있는 자들을 능히 위로하게 하시는 이시로다</p>
+                            <strong>고난과 위로의 원리</strong>
+                            <p><span class="verse-number">5</span>그리스도의 고난이 우리에게 넘친 것 같이 우리가 받는 위로도 그리스도로 말미암아 넘치는도다</p>
+                            <p><span class="verse-number">6</span>우리가 환난 당하는 것도 너희가 위로와 구원을 받게 하려는 것이요 우리가 위로를 받는 것도 너희가 위로를 받게 하려는 것이니 이 위로가 너희 속에 역사하여 우리가 받는 것 같은 고난을 너희도 견디게 하느니라</p>
+                            <p><span class="verse-number">7</span>너희를 위한 우리의 소망이 견고함은 너희가 고난에 참여하는 자가 된 것 같이 위로에도 그러할 줄을 앎이라</p>
+                            <p><span class="verse-number">8</span>형제들아 우리가 아시아에서 당한 환난을 너희가 모르기를 원하지 아니하노니 힘에 겹도록 심한 고난을 당하여 살 소망까지 끊어지고</p>
+                            <p><span class="verse-number">9</span>우리는 우리 자신이 사형 선고를 받은 줄 알았으니 이는 우리로 자기를 의지하지 말고 오직 죽은 자를 다시 살리시는 하나님만 의지하게 하심이라</p>
+                            <p><span class="verse-number">10</span>그가 이같이 큰 사망에서 우리를 건지셨고 또 건지실 것이며 이 후에도 건지시기를 그에게 바라노라</p>
+                            <p><span class="verse-number">11</span>너희도 우리를 위하여 간구함으로 도우라 이는 우리가 많은 사람의 기도로 얻은 은사로 말미암아 많은 사람이 우리를 위하여 감사하게 하려 함이라</p>
+                            <strong>바울의 진실성 변호</strong>
+                            <p><span class="verse-number">12</span>우리가 세상에서 특별히 너희에 대하여 하나님의 거룩함과 진실함으로 행하되 육체의 지혜로 하지 아니하고 하나님의 은혜로 행함은 우리 양심이 증언하는 바니 이것이 우리의 자랑이라</p>
+                            <p><span class="verse-number">13</span>오직 너희가 읽고 아는 것 외에 우리가 다른 것을 쓰지 아니하노니 너희가 완전히 알기를 내가 바라는 것은</p>
+                            <p><span class="verse-number">14</span>너희가 우리를 부분적으로 알았으나 우리 주 예수의 날에는 너희가 우리의 자랑이 되고 우리가 너희의 자랑이 되는 그것이라</p>
+                            <p><span class="verse-number">15</span>내가 이 확신을 가지고 너희로 두 번 은혜를 얻게 하기 위하여 먼저 너희에게 이르렀다가</p>
+                            <p><span class="verse-number">16</span>너희를 지나 마게도냐로 갔다가 다시 마게도냐에서 너희에게 가서 너희의 도움으로 유대로 가기를 계획하였으니</p>
+                            <p><span class="verse-number">17</span>이렇게 계획할 때에 어찌 경솔히 하였으리요 혹 계획하기를 육체를 따라 계획하여 예 예 하면서 아니라 아니라 하는 일이 내게 있었겠느냐</p>
+                            <p><span class="verse-number">18</span>하나님은 미쁘시니라 우리가 너희에게 한 말은 예 하고 아니라 함이 없노라</p>
+                            <p><span class="verse-number">19</span>우리 곧 나와 실루아노와 디모데로 말미암아 너희 가운데 전파된 하나님의 아들 예수 그리스도는 예 하고 아니라 함이 되지 아니하셨으니 그에게는 예만 되었느니라</p>
+                            <p><span class="verse-number">20</span>하나님의 약속은 얼마든지 그리스도 안에서 예가 되니 그런즉 그로 말미암아 우리가 아멘 하여 하나님께 영광을 돌리게 되느니라</p>
+                            <p><span class="verse-number">21</span>우리를 너희와 함께 그리스도 안에서 굳건하게 하시고 우리에게 기름을 부으신 이는 하나님이시니</p>
+                            <p><span class="verse-number">22</span>그가 또한 우리에게 인치시고 보증으로 우리 마음에 성령을 주셨느니라</p>
+                            <p><span class="verse-number">23</span>내가 내 목숨을 걸고 하나님을 불러 증언하시게 하노니 내가 다시 고린도에 가지 아니한 것은 너희를 아끼려 함이라</p>
+                            <p><span class="verse-number">24</span>우리가 너희 믿음을 주관하려는 것이 아니요 오직 너희 기쁨을 돕는 자가 되려 함이니 이는 너희가 믿음에 섰음이라</p>
+                        </div>
+                    `
+                },
+                {
+                    "cardClass": "card-book3",
+                    "title": "에스겔 15장",
+                    "overview": "하나님은 '쓸모없는 포도나무' 비유를 통해 언약 백성의 책임을 망각한 예루살렘의 운명을 선포하십니다. 포도나무의 유일한 가치는 열매에 있는데, 열매 맺지 못하는 포도나무는 땔감 외에 아무런 가치가 없듯, 언약적 사명을 저버린 예루살렘은 하나님의 심판의 불에 던져질 수밖에 없음을 강력하게 경고하는 심판의 메시지입니다.",
+                    "svg": `
+                        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="5" width="390" height="190" rx="10" fill="#FFF8E1" />
+                            <text x="200" y="30" font-family="Noto Serif KR, serif" font-size="16" text-anchor="middle" fill="#F57F17">포도나무의 두 갈래 길</text>
+
+                            <path d="M 80,150 C 60,100 120,100 100,50" stroke="#8D6E63" stroke-width="5" fill="none"/>
+                            <text x="70" y="170" font-family="Noto Serif KR, serif" font-size="14">이스라엘</text>
+                            
+                            <g>
+                                <path d="M100,50 C 150,40 180,80 200,100" stroke="#F9A825" stroke-width="2" fill="none" stroke-dasharray="4,4"/>
+                                <circle cx="200" cy="100" r="25" fill="#FFFDE7"/>
+                                <text x="200" y="105" font-size="24">🍇</text>
+                                <text x="200" y="145" font-family="Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" font-weight="bold" fill="#33691E">열매 (생명)</text>
+                                <text x="200" y="165" font-family="Noto Sans KR, sans-serif" font-size="10" text-anchor="middle">(존재 목적 달성)</text>
+                            </g>
+                            
+                            <g>
+                                <path d="M100,50 C 150,60 270,40 300,100" stroke="#BF360C" stroke-width="2" fill="none" stroke-dasharray="4,4"/>
+                                <circle cx="300" cy="100" r="25" fill="#FFEBEE"/>
+                                <text x="300" y="105" font-size="24">🔥</text>
+                                <text x="300" y="145" font-family="Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" font-weight="bold" fill="#B71C1C">땔감 (심판)</text>
+                                <text x="300" y="165" font-family="Noto Sans KR, sans-serif" font-size="10" text-anchor="middle">(열매 없음)</text>
+                            </g>
+                        </svg>
+                    `,
+                    "context": "이 비유는 바벨론 포로로 잡혀온 유다 백성들 가운데 여전히 예루살렘의 안전을 맹신하는 자들에게 던져지는 충격적인 메시지입니다. 그들은 자신들이 하나님께 선택받은 '포도나무'이기에 결코 망하지 않을 것이라는 선민의식에 빠져 있었습니다. 그러나 하나님은 이 비유를 통해 선택에는 반드시 책임이 따름을 분명히 하십니다. 개혁주의 신학은 '언약'을 쌍무적인 관계로 이해합니다. 하나님의 주권적 선택과 은혜가 시작이지만, 그에 대한 인간의 믿음과 순종의 반응이 반드시 요구됩니다. 열매 없는 삶은 그가 참된 언약 관계 안에 있지 않다는 증거이며, 이는 신약에서 예수님이 '나를 떠나서는 너희가 아무 것도 할 수 없음이라... 열매를 맺지 아니하는 가지는 아버지께서 그것을 제거해 버리시고'(요 15:5, 2)라고 말씀하신 것과 정확히 일치합니다.",
+                    "keyVerses": [
+                        { "verse": "겔 15:4", "text": "불에 던질 땔감이 될 뿐이라 불이 그 두 끝을 사르고 그 가운데도 태웠으면 만들기에 무슨 소용이 있겠느냐", "commentary": "이 구절은 심판의 철저함과 돌이킬 수 없음을 보여줍니다. '두 끝을 사르고 가운데도 태웠다'는 것은 이미 심판이 시작되었고(1, 2차 포로), 남아있는 예루살렘(가운데) 역시 완전히 불타 없어질 운명임을 암시합니다. 죄악으로 인해 존재 목적을 완전히 상실한 백성은 하나님 앞에서 아무런 소용이 없게 되며, 심판 외에는 다른 길이 없다는 무서운 경고입니다." },
+                        { "verse": "겔 15:7-8", "text": "내가 그들을 대적한즉 그들이 그 불에서 나와도 불이 그들을 사르리니 내가 그들을 대적할 때에 내가 여호와인 줄 너희가 알리라 내가 그 땅을 황폐하게 하리니 이는 그들이 범법함이니라 나 주 여호와의 말이니라", "commentary": "이 구절은 심판의 주체가 바로 '하나님 자신'이심을 분명히 합니다. 예루살렘의 멸망은 바벨론이라는 강대국에 의한 우연한 사건이 아니라, 언약을 어긴 백성을 향한 하나님의 능동적이고 공의로운 심판입니다. 이 끔찍한 심판을 통해 이스라엘은 역설적으로 자신들이 대적했던 하나님이 누구신지('내가 여호와인 줄 너희가 알리라') 깨닫게 될 것입니다. 이는 하나님의 자기 계시의 또 다른 방식이며, 회복은 이 준엄한 자기 인식에서부터 시작됩니다." }
+                    ],
+                    "bibleText": `
+                        <div class="bible-text">
+                            <strong>포도나무 비유</strong>
+                            <p><span class="verse-number">1</span>여호와의 말씀이 내게 임하여 이르시되</p>
+                            <p><span class="verse-number">2</span>인자야 포도나무가 모든 나무보다 나은 것이 무엇이랴 숲속의 여러 나무 가운데에 있는 그 포도나무 가지가 나은 것이 무엇이랴</p>
+                            <p><span class="verse-number">3</span>그 나무를 가지고 무엇을 만들 수 있겠느냐 그것으로 무슨 그릇을 걸 못을 만들 수 있겠느냐</p>
+                            <p><span class="verse-number">4</span>불에 던질 땔감이 될 뿐이라 불이 그 두 끝을 사르고 그 가운데도 태웠으면 만들기에 무슨 소용이 있겠느냐</p>
+                            <p><span class="verse-number">5</span>그것이 온전할 때에도 아무 만들기에 소용이 없었거든 하물며 불에 살라지고 탄 후에야 어찌 만들기에 소용이 있겠느냐</p>
+                            <strong>예루살렘을 향한 심판 선언</strong>
+                            <p><span class="verse-number">6</span>그러므로 주 여호와께서 이와 같이 말씀하셨느니라 내가 숲속의 나무 가운데에 있는 포도나무를 불에 던질 땔감이 되게 한 것 같이 내가 예루살렘 주민도 그같이 할지라</p>
+                            <p><span class="verse-number">7</span>내가 그들을 대적한즉 그들이 그 불에서 나와도 불이 그들을 사르리니 내가 그들을 대적할 때에 내가 여호와인 줄 너희가 알리라</p>
+                            <p><span class="verse-number">8</span>내가 그 땅을 황폐하게 하리니 이는 그들이 범법함이니라 나 주 여호와의 말이니라 하시니라</p>
+                        </div>
+                    `
+                },
+                {
+                    "cardClass": "card-book4",
+                    "title": "시편 56-57편",
+                    "overview": "두 시편은 모두 다윗이 생명의 위협을 받는 극단적인 상황 속에서 드리는 절박한 기도이자 담대한 신앙 고백입니다. 56편은 적들의 위협 앞에서 '두려워하는 날에 주를 의지'하며 하나님의 말씀을 붙드는 신뢰를, 57편은 굴에 숨은 절망 속에서도 '주의 날개 그늘 아래' 피하며 '내 마음이 확정되었다'고 선포하며 새벽을 깨워 찬양하는 결단을 보여줍니다. 두 시편 모두 고통의 현실을 압도하는 하나님을 향한 믿음으로 승화됩니다.",
+                    "svg": `
+                        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="5" width="390" height="190" rx="10" fill="#F1F8E9" />
+                            <text x="200" y="30" font-family="Noto Serif KR, serif" font-size="16" text-anchor="middle" fill="#558B2F">고난에서 찬양으로의 전환</text>
+                            
+                            <path d="M 50,120 C 150,150 250,50 350,80" stroke="#7CB342" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+                            
+                            <g>
+                                <circle cx="50" cy="120" r="15" fill="#EF5350"/>
+                                <text x="50" y="125" text-anchor="middle" fill="white" font-size="14" font-weight="bold">!</text>
+                                <text x="50" y="155" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12">두려움/위협</text>
+                                <text x="50" y="172" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#555">(시 56:1, 57:4)</text>
+                            </g>
+                            
+                            <g>
+                                <circle cx="200" cy="90" r="15" fill="#FFEE58"/>
+                                <text x="200" y="95" text-anchor="middle" fill="#3E2723" font-size="14" font-weight="bold">🙏</text>
+                                <text x="200" y="60" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12">신뢰의 결단</text>
+                                <text x="200" y="43" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#555">(시 56:3, 57:1)</text>
+                            </g>
+                            
+                            <g>
+                                <circle cx="350" cy="80" r="15" fill="#66BB6A"/>
+                                <text x="350" y="85" text-anchor="middle" fill="white" font-size="14" font-weight="bold">♪</text>
+                                <text x="350" y="115" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12">확신/찬양</text>
+                                <text x="350" y="132" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#555">(시 56:13, 57:7)</text>
+                            </g>
+                        </svg>
+                    `,
+                    "context": "시편 56편의 표제어는 다윗이 '가드에서 블레셋인에게 잡힌 때에', 57편은 '사울을 피하여 굴에 있던 때에'라고 기록되어 있습니다. 이는 그의 생명이 문자 그대로 바람 앞의 등불과 같은 상황이었음을 보여줍니다. 이러한 극한의 상황에서 다윗은 자신의 감정(두려움, 억울함)을 솔직하게 토로하면서도, 거기에 매몰되지 않습니다. 그는 의지적으로 자신의 시선을 위협적인 '사람'에게서 전능하신 '하나님'과 그의 '말씀'으로 옮깁니다. 칼빈은 시편 주석에서 '참된 믿음은 고난이 없을 때가 아니라, 고난의 한복판에서 하나님의 선하심을 붙드는 것'이라고 말했습니다. 다윗의 기도는 성도가 고난 중에 어떻게 기도해야 하는지에 대한 완벽한 모델을 제시합니다.",
+                    "keyVerses": [
+                        { "verse": "시 56:8-9", "text": "나의 유리함을 주께서 계수하셨사오니 나의 눈물을 주의 병에 담으소서 이것이 주의 책에 기록되지 아니하였나이까 내가 아뢰는 날에 내 원수들이 물러가리니 이것으로 하나님이 내 편이심을 내가 아나이다", "commentary": "이 구절은 고통받는 성도를 향한 하나님의 세밀한 관심과 공감을 보여주는 아름다운 표현입니다. 하나님은 우리의 모든 방황(유리함)을 아시고, 우리의 모든 눈물을 귀하게 여기사 '주의 병'에 담으십니다. 이는 우리의 고통이 결코 헛되지 않음을 의미합니다. 이 깊은 공감에 대한 확신이 '하나님이 내 편이심을 내가 아나이다'라는 담대한 믿음의 선포로 이어집니다." },
+                        { "verse": "시 57:7", "text": "하나님이여 내 마음이 확정되었고 내 마음이 확정되었사오니 내가 노래하고 내가 찬송하리이다", "commentary": "'내 마음이 확정되었고'라는 반복은 요동치는 상황과 감정 속에서 믿음으로 중심을 잡으려는 다윗의 강력한 의지적 결단을 보여줍니다. 히브리어 '나콘 리비'(נָכ֣וֹן לִבִּי)는 '내 마음이 준비되었나이다', '내 마음이 견고하나이다'라는 뜻입니다. 외부 환경은 여전히 위협적이지만, 그의 내면은 하나님 안에서 평안과 안정을 찾았습니다. 이 '확정된 마음'이 바로 찬양의 원천입니다." }
+                    ],
+                    "bibleText": `
+                        <div class="bible-text">
+                            <strong>시편 56편</strong>
+                            <p><span class="verse-number">1</span>하나님이여 내게 은혜를 베푸소서 사람이 나를 삼키려고 종일 치며 압제하나이다</p>
+                            <p><span class="verse-number">2</span>내 원수가 종일 나를 삼키려 하며 나를 교만하게 치는 자들이 많사오니</p>
+                            <p><span class="verse-number">3</span>내가 두려워하는 날에는 내가 주를 의지하리이다</p>
+                            <p><span class="verse-number">4</span>내가 하나님을 의지하고 그 말씀을 찬송하올지라 내가 하나님을 의지하였은즉 두려워하지 아니하리니 혈육을 가진 사람이 내게 어찌하리이까</p>
+                            <p><span class="verse-number">5</span>그들이 종일 내 말을 곡해하며 나를 치는 그들의 모든 생각은 사악이라</p>
+                            <p><span class="verse-number">6</span>그들이 내 생명을 엿보았던 것과 같이 또 모여 숨어 내 발자취를 지켜보나이다</p>
+                            <p><span class="verse-number">7</span>그들이 악을 행하고야 안전하오리이까 하나님이여 분노하사 뭇 백성을 낮추소서</p>
+                            <p><span class="verse-number">8</span>나의 유리함을 주께서 계수하셨사오니 나의 눈물을 주의 병에 담으소서 이것이 주의 책에 기록되지 아니하였나이까</p>
+                            <p><span class="verse-number">9</span>내가 아뢰는 날에 내 원수들이 물러가리니 이것으로 하나님이 내 편이심을 내가 아나이다</p>
+                            <p><span class="verse-number">10</span>내가 하나님을 의지하여 그의 말씀을 찬송하며 여호와를 의지하여 그의 말씀을 찬송하리이다</p>
+                            <p><span class="verse-number">11</span>내가 하나님을 의지하였은즉 두려워하지 아니하리니 사람이 내게 어찌하리이까</p>
+                            <p><span class="verse-number">12</span>하나님이여 내가 주께 서원함이 있사온즉 내가 감사제를 주께 드리리니</p>
+                            <p><span class="verse-number">13</span>주께서 내 생명을 사망에서 건지셨음이라 주께서 나로 하나님 앞, 생명의 빛에 다니게 하시려고 실족하지 아니하게 하지 아니하셨나이까</p>
+                            <strong>시편 57편</strong>
+                            <p><span class="verse-number">1</span>하나님이여 내게 은혜를 베푸소서 내게 은혜를 베푸소서 내 영혼이 주께로 피하되 주의 날개 그늘 아래에서 이 재앙들이 지나기까지 피하리이다</p>
+                            <p><span class="verse-number">2</span>내가 지존하신 하나님께 부르짖음이여 곧 나를 위하여 모든 것을 이루시는 하나님께로다</p>
+                            <p><span class="verse-number">3</span>그가 하늘에서 보내사 나를 삼키려는 자의 비방에서 나를 구원하실지라 (셀라) 하나님이 그의 인자와 진리를 보내시리로다</p>
+                            <p><span class="verse-number">4</span>내 영혼이 사자들 가운데에서 살며 내가 불사르는 자들 중에 누웠으니 곧 사람의 아들들 중에라 그들의 이는 창과 화살이요 그들의 혀는 날카로운 칼 같도다</p>
+                            <p><span class="verse-number">5</span>하나님이여 주는 하늘 위에 높이 들리시며 주의 영광이 온 세계 위에 높아지기를 원하나이다</p>
+                            <p><span class="verse-number">6</span>그들이 내 걸음을 막으려고 그물을 준비하였으니 내 영혼이 억울하도다 그들이 내 앞에 웅덩이를 팠으나 자기들이 그 중에 빠졌도다 (셀라)</p>
+                            <p><span class="verse-number">7</span>하나님이여 내 마음이 확정되었고 내 마음이 확정되었사오니 내가 노래하고 내가 찬송하리이다</p>
+                            <p><span class="verse-number">8</span>내 영광아 깰지어다 비파야, 수금아, 깰지어다 내가 새벽을 깨우리로다</p>
+                            <p><span class="verse-number">9</span>주여 내가 만민 중에서 주께 감사하오며 뭇 나라 중에서 주를 찬송하리이다</p>
+                            <p><span class="verse-number">10</span>무릇 주의 인자는 커서 하늘에 미치고 주의 진리는 궁창에 이르나이다</p>
+                            <p><span class="verse-number">11</span>하나님이여 주는 하늘 위에 높이 들리시며 주의 영광이 온 세계 위에 높아지기를 원하나이다</p>
+                        </div>
+                    `
+                },
+                {
+                    "cardClass": "integration-card",
+                    "title": "통합적 이해",
+                    "integrationTheme": "오늘의 본문들은 '인간의 실패와 한계를 뛰어넘는 하나님의 신실하심'이라는 하나의 장엄한 주제를 향해 나아갑니다. 사무엘하 7장은 인간의 최선의 계획을 넘어 영원한 언약을 세우시는 하나님의 주권적 은혜, 즉 '신실하심의 약속'을 보여줍니다. 그러나 에스겔 15장은 언약 백성이 그 약속에 합당한 열매를 맺지 못하고 실패했을 때, 그들이 마주할 수밖에 없는 '신실하심의 공의로운 심판'을 드러냅니다. 이 약속과 심판의 긴장 속에서, 시편 56-57편은 실패하고 연약한 인간이 그럼에도 불구하고 붙들어야 할 유일한 소망, 즉 '하나님의 신실하심을 향한 믿음의 반응'을 보여줍니다. 마지막으로 고린도후서 1장은 이 모든 약속과 소망이 어떻게 그리스도 안에서 궁극적으로 '예'가 되었으며, 그로 인해 우리가 어떤 고난과 실패 속에서도 흔들리지 않는 위로를 얻게 되는지에 대한 '신실하심의 최종적 성취'를 선포합니다.",
+                    "redemptivePanorama": `
+                        <svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="500" height="250" fill="#F4F2F7"/>
+                            <text x="250" y="30" text-anchor="middle" font-size="16" font-family="Noto Serif KR, serif" fill="#967ADC">하나님의 신실하심: 약속에서 성취까지</text>
+                            
+                            <line x1="30" y1="150" x2="470" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrow-end)"/>
+                            
+                            <g>
+                                <circle cx="80" cy="150" r="12" fill="#4A89DC"/>
+                                <line x1="80" y1="138" x2="80" y2="70" stroke="#4A89DC" stroke-dasharray="2,2"/>
+                                <text x="80" y="60" text-anchor="middle" font-size="11" font-weight="bold">약속</text>
+                                <text x="80" y="80" text-anchor="middle" font-size="10">다윗 언약 (삼하 7)</text>
+                            </g>
+                            
+                            <g>
+                                <circle cx="190" cy="150" r="12" fill="#F6BB42"/>
+                                <line x1="190" y1="162" x2="190" y2="210" stroke="#F6BB42" stroke-dasharray="2,2"/>
+                                <text x="190" y="220" text-anchor="middle" font-size="11" font-weight="bold">실패</text>
+                                <text x="190" y="200" text-anchor="middle" font-size="10">열매 없는 포도나무 (겔 15)</text>
+                            </g>
+                            
+                            <g>
+                                <circle cx="300" cy="150" r="12" fill="#8CC152"/>
+                                <line x1="300" y1="138" x2="300" y2="70" stroke="#8CC152" stroke-dasharray="2,2"/>
+                                <text x="300" y="60" text-anchor="middle" font-size="11" font-weight="bold">신뢰</text>
+                                <text x="300" y="80" text-anchor="middle" font-size="10">고난 속의 확신 (시 56-57)</text>
+                            </g>
+                            
+                            <g>
+                                <circle cx="410" cy="150" r="15" fill="#DA4453"/>
+                                <line x1="410" y1="165" x2="410" y2="210" stroke="#DA4453" stroke-dasharray="2,2"/>
+                                <text x="410" y="220" text-anchor="middle" font-size="11" font-weight="bold">성취</text>
+                                <text x="410" y="200" text-anchor="middle" font-size="10">그리스도 안에서 '예' (고후 1)</text>
+                            </g>
+
+                            <defs>
+                                <marker id="arrow-end" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    `,
+                    "redemptiveContext": "구속사의 관점에서 볼 때, 하나님은 다윗 언약(삼하 7장)을 통해 메시아 왕국의 도래를 약속하셨습니다. 그러나 이스라엘은 열매 없는 포도나무(겔 15장)처럼 언약에 실패하여 심판과 포로라는 절망적 현실에 직면합니다. 바로 이 지점에서 다윗의 시편(56-57편)은 이스라엘의 남은 자들이 가져야 할 신앙의 자세를 보여줍니다. 즉, 인간적인 실패와 절망 속에서도 오직 신실하신 언약의 하나님께 소망을 두는 것입니다. 신약 시대에 이르러, 바울은 이 모든 그림이 가리키던 실체이신 예수 그리스도를 선포합니다(고후 1장). 예수님은 다윗 언약의 완전한 성취자이시며, 열매 맺지 못한 옛 언약 백성의 죄를 대신하여 십자가라는 심판의 불을 통과하신 참 포도나무이십니다. 그러므로 이제 그리스도 안에 있는 자들은 어떤 고난과 실패 속에서도 하나님의 모든 약속이 '예'가 됨을 확신할 수 있으며, 성령의 보증 안에서 다윗과 같이 '내 마음이 확정되었다'고 노래하며 참된 위로를 누릴 수 있습니다.",
+                    "analysisTable": `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>주제</th>
+                                    <th>사무엘하 7</th>
+                                    <th>고린도후서 1</th>
+                                    <th>에스겔 15</th>
+                                    <th>시편 56-57</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>하나님의 주권적 은혜</strong></td>
+                                    <td>인간의 계획을 넘어선 영원한 언약을 세우심</td>
+                                    <td>고난을 통해 위로하고 약속을 '예'로 보증하심</td>
+                                    <td>심판의 경고를 통해 돌이킬 기회를 주심</td>
+                                    <td>가장 절망적인 상황에서 피난처가 되시고 구원하심</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>인간의 상태와 반응</strong></td>
+                                    <td>경건하지만 제한적인 계획을 세움 (수동적 수혜자)</td>
+                                    <td>환난 속에서 자신의 무력함을 깨닫고 하나님을 의지함</td>
+                                    <td>언약적 책임을 망각하고 쓸모없는 존재가 됨 (심판의 대상)</td>
+                                    <td>두려움과 위협 속에서 믿음으로 반응하고 신뢰함</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>언약의 결과</strong></td>
+                                    <td>영원한 왕조와 나라에 대한 소망</td>
+                                    <td>그리스도 안에서 오는 흔들리지 않는 위로와 확신</td>
+                                    <td>불순종 시 따르는 공의로운 심판</td>
+                                    <td>믿음으로 반응할 때 오는 구원과 찬양의 회복</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `,
+                    "application": "오늘의 말씀은 우리 신앙의 기초를 점검하게 합니다. **첫째, 나의 계획이 하나님의 뜻을 앞서고 있지는 않습니까?** 다윗처럼 하나님을 위해 무언가를 계획하기 전에, 하나님이 나를 위해 그리스도 안에서 이미 행하신 영원한 언약을 깊이 묵상하고 감사하는 것이 먼저입니다. **둘째, 고난을 어떻게 해석하고 있습니까?** 고난을 하나님의 버리심의 증거로 여기지 말고, 나를 낮추시고 그리스도의 위로를 채우사 다른 이를 섬기게 하시려는 하나님의 선한 도구로 받아들입시다. **셋째, 나는 삶으로 열매를 맺고 있습니까?** 예수님이라는 참 포도나무에 붙어있다고 고백하면서, 삶에서는 아무런 성령의 열매가 없다면 오늘 에스겔의 경고를 두렵게 받아들여야 합니다. **넷째, 당신의 마음은 어디에 '확정'되어 있습니까?** 불안한 세상의 소식과 개인적인 문제들 속에서도, 다윗처럼 하나님의 신실한 말씀 위에 믿음의 닻을 내리고 마음을 확정하여 찬양하기로 결단하십시오. 그 어떤 상황도 그리스도 안에 있는 우리를 향한 하나님의 사랑과 약속을 흔들 수 없습니다.\n\n**[기도 제목]**\n주님, 저의 계획이 아닌 주님의 영원한 언약을 신뢰하게 하소서. 고난의 때에 인간적인 방법으로 해결하려 하지 않고, 오직 모든 위로의 하나님께 피하며 주님이 주시는 힘으로 다른 이를 위로하는 통로가 되게 하옵소서. 열매 없는 가지처럼 되지 않도록 늘 성령 안에서 깨어 있게 하시고, 어떤 두려운 상황 속에서도 주님을 향한 찬양이 끊이지 않는 확정된 마음을 주옵소서. 예수 그리스도의 이름으로 기도합니다. 아멘."
+                }
+            ]
+        };
+
+        // 2. 페이지 초기화 및 빌드 로직
+        async function initializePage() {
+            try {
+                const dateStr = contentData.date;
+                const [month, day] = dateStr.match(/\d+/g).map(s => s.padStart(2, '0'));
+                const addressFilePath = `../address/${month}${day}.txt`;
+
+                const addressResponse = await fetch(addressFilePath);
+                if (!addressResponse.ok) throw new Error(`주소 파일을 찾을 수 없습니다: ${addressFilePath}`);
+                const addressText = await addressResponse.text();
+                
+                const mcLine = addressText.split('\n').find(line => line.startsWith('mc:'));
+                if (!mcLine) throw new Error(`'mc:' 접두사를 가진 주소를 '${addressFilePath}' 파일에서 찾을 수 없습니다.`);
+                
+                const youtubeUrl = mcLine.substring(3).trim();
+                const videoId = extractVideoID(youtubeUrl);
+                if (!videoId) throw new Error(`유튜브 주소에서 비디오 ID를 추출할 수 없습니다: ${youtubeUrl}`);
+
+                contentData.videoId = videoId;
+                await buildPage();
+
+            } catch (error) {
+                console.error("페이지 초기화 오류:", error);
+                document.body.innerHTML = `<div style="padding:20px; text-align:center; font-family:sans-serif;">
+                    <h2>페이지 로딩 실패</h2><p style="color:red;">${error.message}</p>
+                    <p>'address' 폴더에 오늘 날짜의 .txt 파일이 있고, 그 안에 'mc:'로 시작하는 정확한 유튜브 주소가 있는지 확인해주세요.</p></div>`;
+            }
+        }
+
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        async function buildPage() {
+            const response = await fetch('../template/mc_layout.html');
+            let template = await response.text();
+
+            template = template.replace(//g, `${contentData.date} 맥체인 성경읽기`);
+            template = template.replace(//g, contentData.videoId);
+
+            const titleHtml = `<h1>${contentData.date} 맥체인 성경읽기<br><span class="subtitle">${contentData.mainTitle}</span></h1><p class="intro-passage">${contentData.passages}</p>`;
+            template = template.replace('', titleHtml);
+
+            let mainContentHtml = '';
+            contentData.cards.forEach(card => {
+                let cardHtml = `<section class="chapter-card ${card.cardClass}"><h2>${card.title}</h2>`;
+                if (card.overview) cardHtml += `<h3>개요 (Overview)</h3><p>${card.overview}</p>`;
+                if (card.svg) cardHtml += `<h3>시각적 분석 (Visual Analysis)</h3>${card.svg}`;
+                if (card.context) cardHtml += `<h3>배경지식 및 신학적 통찰 (Context & Theology)</h3><p>${card.context}</p>`;
+                if (card.keyVerses && card.keyVerses.length > 0) {
+                    cardHtml += `<h3>주요 구절 해설 (Key Verse Commentary)</h3>`;
+                    card.keyVerses.forEach(kv => {
+                        cardHtml += `<div class="commentary"><p><strong>${kv.verse}</strong> - "${kv.text}"</p><p>${kv.commentary}</p></div>`;
+                    });
+                }
+                if (card.integrationTheme) cardHtml += `<h3>관통하는 주제 (Overarching Theme)</h3><p>${card.integrationTheme}</p>`;
+                if (card.redemptivePanorama) cardHtml += `<h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>${card.redemptivePanorama}`;
+                if (card.redemptiveContext) cardHtml += `<h3>구속사적 맥락 (Redemptive-Historical Context)</h3><p>${card.redemptiveContext}</p>`;
+                if (card.analysisTable) cardHtml += `<h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>${card.analysisTable}`;
+                if (card.application) cardHtml += `<h3>오늘의 교훈 (Application)</h3><p>${card.application}</p>`;
+                if (card.bibleText) cardHtml += `<h3>성경 본문 (Full Text)</h3>${card.bibleText}`; // bibleText now contains the parent div
+                cardHtml += `</section>`;
+                mainContentHtml += cardHtml;
+            });
+            template = template.replace('', mainContentHtml);
+
+            document.documentElement.innerHTML = template;
+        }
+
+        // 페이지 로드 시 초기화 함수 실행
+        initializePage();
+    </script>
+</body>
+</html>
