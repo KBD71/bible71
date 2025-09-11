@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 10일 맥체인 성경 해설</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Orbit&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-main: 'Noto Sans KR', sans-serif;
+            --font-title: 'Orbit', sans-serif;
+            --color-bg: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-text-main: #212529;
+            --color-text-secondary: #495057;
+            --color-text-commentary: #005f73;
+            --color-accent-ruth: #e57373;
+            --color-accent-acts: #64b5f6;
+            --color-accent-jeremiah: #ffb74d;
+            --color-accent-psalms: #81c784;
+            --color-accent-integration: #9575cd;
+        }
+
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 절대 원칙: 단일 열 레이아웃 */
+            gap: 2.5rem;
+        }
+
+        .card {
+            background-color: var(--color-card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            border-left: 8px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter-card {
+            padding: 2rem;
+        }
+        
+        .integration-card {
+            border: 2px solid var(--color-accent-integration);
+            padding: 2rem;
+        }
+
+        .chapter-card.ruth { border-left-color: var(--color-accent-ruth); }
+        .chapter-card.acts { border-left-color: var(--color-accent-acts); }
+        .chapter-card.jeremiah { border-left-color: var(--color-accent-jeremiah); }
+        .chapter-card.psalms { border-left-color: var(--color-accent-psalms); }
+
+        h2, h3 {
+            font-family: var(--font-title);
+            margin-top: 0;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3::before {
+            content: '';
+            display: inline-block;
+            width: 5px;
+            height: 24px;
+            background-color: currentColor;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+        
+        .ruth h3 { color: var(--color-accent-ruth); }
+        .acts h3 { color: var(--color-accent-acts); }
+        .jeremiah h3 { color: var(--color-accent-jeremiah); }
+        .psalms h3 { color: var(--color-accent-psalms); }
+        .integration-card h3 { color: var(--color-accent-integration); }
+
+        .info-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .commentary-block {
+            margin: 1rem 0;
+        }
+        
+        .commentary-verse {
+            font-weight: bold;
+            color: var(--color-text-secondary);
+        }
+        
+        .commentary-text {
+            color: var(--color-text-commentary);
+            padding-left: 1rem;
+            border-left: 3px solid #ced4da;
+            margin-top: 0.5rem;
+        }
+
+        .full-text p {
+            margin-bottom: 1.5em;
+        }
+        
+        .full-text p strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #343a40;
+        }
+
+        .svg-container {
+            text-align: center;
+            padding: 1.5rem 0;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Table Styles */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .styled-table thead tr {
+            background: linear-gradient(135deg, #5c6bc0, #42a5f5);
+            color: #ffffff;
+            text-align: left;
+        }
+        .styled-table th, .styled-table td {
+            padding: 12px 15px;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid var(--color-accent-integration);
+        }
+        
+        /* Timeline Styles -- UPDATED */
+        .timeline {
+            position: relative;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 1rem 0;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #78909c;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            box-sizing: border-box; /* Prevents padding from adding to width */
+        }
+        .timeline-container.left {
+            left: 0;
+        }
+        .timeline-container.right {
+            left: 50%;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid;
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-container.left::after {
+            right: -14px; /* (20px + 4px*2) / 2 = 14px */
+        }
+        .timeline-container.right::after {
+            left: -14px; /* (20px + 4px*2) / 2 = 14px */
+        }
+        .timeline-container .content {
+            padding: 20px 25px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-top: 4px solid;
+        }
+        .timeline-container.ruth .content, .timeline-container.ruth::after { border-color: var(--color-accent-ruth); }
+        .timeline-container.jeremiah .content, .timeline-container.jeremiah::after { border-color: var(--color-accent-jeremiah); }
+        .timeline-container.acts .content, .timeline-container.acts::after { border-color: var(--color-accent-acts); }
+        .timeline-container.future .content, .timeline-container.future::after { border-color: #78909c; }
+        
+        .timeline h4 { margin-top: 0; font-family: var(--font-title); }
+        
+        /* Connection Card Styles */
+        .connection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .connection-card {
+            border: 1px solid #ddd;
+            border-top: 5px solid;
+            border-radius: 8px;
+            padding: 1rem;
+            background-color: #fdfdff;
+        }
+        .connection-card h4 { margin-top: 0; }
+        .connection-card.ruth { border-top-color: var(--color-accent-ruth); }
+        .connection-card.acts { border-top-color: var(--color-accent-acts); }
+        .connection-card.jeremiah { border-top-color: var(--color-accent-jeremiah); }
+        .connection-card.psalms { border-top-color: var(--color-accent-psalms); }
+
+        /* Media Query for Mobile -- UPDATED */
+        @media screen and (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .header p { font-size: 1rem; }
+            .timeline::after {
+                left: 30px; /* Set line position */
+                margin-left: 0;
+            }
+            .timeline-container {
+                width: 100%;
+                padding-left: 80px; /* Make space for line and circle */
+                padding-right: 25px;
+            }
+            .timeline-container.left, .timeline-container.right {
+                left: 0;
+            }
+            .timeline-container::after {
+                left: 16px; /* Position circle's left edge. (30px line - 14px radius) */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>8월 10일: 맥체인 성경읽기</h1>
+            <p>환난 속에서 신실하신 언약의 하나님</p>
+        </header>
+
+        <div class="chapter-grid">
+            <!-- 룻기 3-4장 -->
+            <div class="card chapter-card ruth">
+                <h2>룻기 3-4장 분석</h2>
+                
+                <h3>개요 (Overview)</h3>
+                <p>룻기 3-4장은 룻 이야기의 절정입니다. 나오미의 지혜로운 계획에 따라 룻은 타작마당에서 잠든 보아스에게 나아가 기업 무를 자의 책임을 요청하는 담대한 행동을 합니다. 보아스는 룻의 현숙함과 신앙에 감동하여, 율법 절차에 따라 자신보다 더 가까운 친족에게 먼저 기회를 줍니다. 그 친족이 책임을 포기하자, 보아스는 기꺼이 기업 무를 자(고엘)가 되어 룻과 결혼합니다. 이 결혼을 통해 태어난 아들 오벳은 나오미에게 큰 위로가 되며, 장차 다윗 왕의 할아버지가 됨으로써 예수 그리스도의 계보를 잇는 중요한 역할을 감당하게 됩니다. 이는 개인의 비극을 넘어 하나님의 위대한 구속사가 어떻게 성취되는지를 보여주는 감동적인 결말입니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <div class="svg-container">
+                    <svg width="600" height="450" viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#495057" />
+                            </marker>
+                        </defs>
+                        <style>
+                            .node { fill: #fff; stroke: #495057; stroke-width: 2; }
+                            .node-ruth { fill: #ffebee; stroke: var(--color-accent-ruth); }
+                            .node-boaz { fill: #e3f2fd; stroke: var(--color-accent-acts); }
+                            .node-legal { fill: #fff3e0; stroke: var(--color-accent-jeremiah); }
+                            .node-result { fill: #e8f5e9; stroke: var(--color-accent-psalms); }
+                            .label { font-family: var(--font-main); font-size: 14px; text-anchor: middle; fill: #212529; }
+                            .line { stroke: #495057; stroke-width: 1.5; marker-end: url(#arrow); }
+                        </style>
+                        
+                        <!-- Nodes -->
+                        <rect x="200" y="20" width="200" height="50" rx="10" class="node node-ruth" />
+                        <text x="300" y="50" class="label">1. 나오미의 계획 & 룻의 순종</text>
+                        
+                        <rect x="200" y="110" width="200" height="60" rx="10" class="node node-ruth" />
+                        <text x="300" y="135" class="label">
+                            <tspan x="300">2. 타작마당에서의 만남</tspan>
+                            <tspan x="300" dy="1.3em">(기업 무를 것을 요청)</tspan>
+                        </text>
+                        
+                        <rect x="40" y="200" width="200" height="50" rx="10" class="node node-boaz" />
+                        <text x="140" y="228" class="label">3. 보아스의 약속</text>
+                        
+                        <rect x="360" y="200" width="200" height="60" rx="10" class="node node-legal" />
+                        <text x="460" y="225" class="label">
+                            <tspan x="460">4. 성문에서의 법적 절차</tspan>
+                            <tspan x="460" dy="1.3em">(더 가까운 친족과 협상)</tspan>
+                        </text>
+                        
+                        <rect x="200" y="290" width="200" height="60" rx="10" class="node node-boaz" />
+                        <text x="300" y="315" class="label">
+                            <tspan x="300">5. 보아스가 기업을 무름</tspan>
+                            <tspan x="300" dy="1.3em">(결혼과 토지 매입)</tspan>
+                        </text>
+
+                        <rect x="200" y="380" width="200" height="60" rx="10" class="node node-result" />
+                        <text x="300" y="405" class="label">
+                           <tspan x="300">6. 오벳의 출생</tspan>
+                           <tspan x="300" dy="1.3em">(다윗의 계보로 이어짐)</tspan>
+                        </text>
+
+                        <!-- Lines -->
+                        <path d="M 300 70 V 110" class="line" />
+                        <path d="M 300 170 C 300 185, 140 185, 140 200" class="line" />
+                        <path d="M 300 170 C 300 185, 460 185, 460 200" class="line" />
+                        <path d="M 140 250 C 140 270, 300 270, 300 290" class="line" />
+                        <path d="M 460 260 C 460 275, 300 275, 300 290" class="line" />
+                        <path d="M 300 350 V 380" class="line" />
+                    </svg>
+                </div>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <div class="info-box" style="border-color: var(--color-accent-ruth);">
+                    <strong>기업 무를 자 (고엘, Goel):</strong> '고엘'은 '구속자', '보호자'를 의미하는 히브리어로, 가까운 친족이 어려움에 처했을 때 그를 돕는 의무를 지닌 사람을 말합니다. 주요 책임은 빚 때문에 팔린 땅을 되찾아주고(레 25:25), 종으로 팔렸을 때 속량해주며, 자녀 없이 죽은 형제를 위해 아들을 낳아 대를 잇게 하는(신 25:5-6) 것이었습니다. 룻기에서 보아스는 이 '고엘'의 의무를 충실히 이행함으로써, 자신을 희생하여 우리를 죄와 사망에서 구속하신 예수 그리스도의 아름다운 예표가 됩니다. 그리스도는 우리의 가장 가까운 구속자로서 십자가를 통해 우리의 모든 빚을 갚으시고 우리를 하나님의 자녀로 삼으셨습니다.
+                </div>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="commentary-block">
+                    <p class="commentary-verse">룻기 3:11 - 이제 내 딸아 두려워하지 말라 내가 네 말대로 네게 다 행하리라 네가 현숙한 여자인 줄을 나의 성읍 백성이 다 아느니라</p>
+                    <p class="commentary-text">보아스는 룻의 행동을 음탕하거나 기회주의적인 것으로 보지 않고, 그녀의 '현숙함'(히, 하일)을 꿰뚫어 봅니다. '하일'은 재물, 능력, 덕행 등 다양한 의미를 지닌 단어로, 여기서는 잠언 31장의 현숙한 여인처럼 고결한 인품을 의미합니다. 룻의 평소 삶의 태도와 신앙이 그녀의 평판을 만들었고, 이 평판이 그녀의 담대한 행동의 진정성을 보증해주었습니다. 이는 우리의 일상 속 신실함이 결정적인 순간에 얼마나 중요한지를 보여줍니다.</p>
+                </div>
+                <div class="commentary-block">
+                    <p class="commentary-verse">룻기 4:9-10 - 보아스가 모든 백성과 장로들에게 이르되 내가 엘리멜렉과 기룐과 말론에게 있던 모든 것을 나오미의 손에서 산 일에 너희가 오늘 증인이 되었고 또 말론의 아내 모압 여인 룻을 사서 나의 아내로 맞이하고...</p>
+                    <p class="commentary-text">이 구절은 성문에서 이루어진 공개적이고 법적인 선언입니다. 보아스는 단순히 룻과 결혼하는 것이 아니라, 죽은 자의 이름이 그의 기업에서 끊어지지 않도록 하기 위해 엘리멜렉 가문의 모든 것을 회복시키는 책임을 다합니다. 이는 개인적인 사랑을 넘어선 언약적 신실함의 표현입니다. 그는 자신의 재산을 희생하여 가문을 구속합니다. 이처럼 그리스도의 구속은 감정적인 차원을 넘어, 십자가라는 값을 치르고 우리를 사신 법적이고 완전한 구원입니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="full-text">
+                    <h4>룻기 3장</h4>
+                    <p><strong>나오미의 계획</strong><br>
+                    1 룻의 시어머니 나오미가 그에게 이르되 내 딸아 내가 너를 위하여 안식할 곳을 구하여 너를 복되게 하여야 하지 않겠느냐 2 네가 함께 하던 하녀들을 둔 보아스는 우리의 친족이 아니냐 보라 그가 오늘 밤에 타작 마당에서 보리를 까불리라 3 그런즉 너는 목욕하고 기름을 바르고 의복을 입고 타작 마당에 내려가서 그 사람이 먹고 마시기를 다 하기까지는 그에게 보이지 말고 4 그가 누울 때에 너는 그가 눕는 곳을 알았다가 들어가서 그의 발치 이불을 들고 거기 누우라 그가 네 할 일을 네게 알게 하리라 하니 5 룻이 시어머니에게 이르되 어머니의 말씀대로 내가 다 행하리이다 하니라</p>
+                    <p><strong>타작마당에서의 만남</strong><br>
+                    6 그가 타작 마당으로 내려가서 시어머니의 명령대로 다 하니라 7 보아스가 먹고 마시고 마음이 즐거워 가서 곡식 단 더미의 끝에 눕는지라 룻이 가만히 가서 그의 발치 이불을 들고 거기 누웠더라 8 밤중에 그가 놀라 몸을 돌이켜 본즉 한 여인이 자기 발치에 누워 있는지라 9 이르되 네가 누구냐 하니 대답하되 나는 당신의 여종 룻이오니 당신의 옷자락을 펴 당신의 여종을 덮으소서 이는 당신이 기업을 무를 자가 됨이니이다 하니 10 그가 이르되 내 딸아 여호와께서 네게 복 주시기를 원하노라 네가 가난하건 부하건 젊은 자를 따르지 아니하였으니 네가 베푼 인애가 처음보다 나중이 더하도다 11 그리고 이제 내 딸아 두려워하지 말라 내가 네 말대로 네게 다 행하리라 네가 현숙한 여자인 줄을 나의 성읍 백성이 다 아느니라 12 참으로 나는 기업을 무를 자이나 기업 무를 자로서 나보다 더 가까운 사람이 있으니 13 이 밤에 여기서 머무르라 아침에 그가 기업 무를 자의 책임을 네게 이행하려 하면 좋으니 그가 그 기업 무를 자의 책임을 행할 것이니라 만일 그가 기업 무를 자의 책임을 네게 이행하기를 기뻐하지 아니하면 여호와께서 살아 계심을 두고 맹세하노니 내가 기업 무를 자의 책임을 네게 이행하리라 아침까지 누워 있을지니라 하는지라</p>
+                    <p><strong>나오미에게 돌아온 룻</strong><br>
+                    14 룻이 새벽까지 그의 발치에 누웠다가 사람이 서로 알아보기 어려울 때에 일어났으니 보아스가 말하기를 여인이 타작 마당에 들어온 것을 사람이 알지 못하여야 할 것이라 하였음이라 15 보아스가 이르되 네 겉옷을 가져다가 그것을 펴서 잡으라 하매 그것을 펴서 잡으니 보리를 여섯 번 되어 룻에게 씌워 주고 성읍으로 들어가니라 16 룻이 시어머니에게 가니 그가 이르되 내 딸아 어떻게 되었느냐 하니 룻이 그 사람이 자기에게 행한 것을 다 알리고 17 이르되 그가 내게 이 보리를 여섯 번 되어 주며 이르기를 빈 손으로 네 시어머니에게 가지 말라 하더이다 하니라 18 이에 시어머니가 이르되 내 딸아 이 사건이 어떻게 될지 알기까지 앉아 있으라 그 사람이 오늘 이 일을 성취하기 전에는 쉬지 아니하리라 하니라</p>
+                    
+                    <h4>룻기 4장</h4>
+                    <p><strong>성문에서의 협상</strong><br>
+                    1 보아스가 성문으로 올라가서 거기 앉아 있더니 마침 보아스가 말하던 기업 무를 자가 지나가는지라 보아스가 그에게 이르되 아무개여 이리로 와서 앉으라 하니 그가 와서 앉으매 2 보아스가 그 성읍 장로 열 명을 청하여 이르되 당신들은 여기 앉으라 하니 그들이 앉으매 3 보아스가 그 기업 무를 자에게 이르되 모압 지방에서 돌아온 나오미가 우리 형제 엘리멜렉의 소유지를 팔려 하므로 4 내가 여기 앉은 이들과 내 백성의 장로들 앞에서 그것을 사라고 네게 말하여 알게 하려 하였노라 만일 네가 무르려면 무르려니와 만일 네가 무르지 아니하려거든 내게 고하여 알게 하라 네 다음은 나요 그 외에는 무를 자가 없느니라 하니 그가 이르되 내가 무르리라 하는지라 5 보아스가 이르되 네가 나오미의 손에서 그 밭을 사는 날에 곧 죽은 자의 아내 모압 여인 룻에게서 사서 그 죽은 자의 기업을 그의 이름으로 세워야 할지니라 하니 6 그 기업 무를 자가 이르되 나는 내 기업에 손해가 있을까 하여 나를 위하여 무르지 못하노니 내가 무를 것을 네가 무르라 나는 무르지 못하겠노라 하는지라 7 옛적 이스라엘 중에는 모든 것을 무르거나 교환하는 일을 확정하기 위하여 사람이 그의 신을 벗어 그의 이웃에게 주더니 이것이 이스라엘 중에 증명하는 전례가 된지라 8 이에 그 기업 무를 자가 보아스에게 이르되 네가 너를 위하여 사라 하고 그의 신을 벗는지라</p>
+                    <p><strong>보아스가 룻을 아내로 맞이하다</strong><br>
+                    9 보아스가 모든 백성과 장로들에게 이르되 내가 엘리멜렉과 기룐과 말론에게 있던 모든 것을 나오미의 손에서 산 일에 너희가 오늘 증인이 되었고 10 또 말론의 아내 모압 여인 룻을 사서 나의 아내로 맞이하고 그 죽은 자의 기업을 그의 이름으로 세워 그의 이름이 그의 형제 중과 그 곳 성문에서 끊어지지 아니하게 함에 너희가 오늘 증인이 되었느니라 하니 11 성문에 있는 모든 백성과 장로들이 이르되 우리가 증인이 되나니 여호와께서 네 집에 들어가는 여인으로 이스라엘의 집을 세운 라헬과 레아 두 사람과 같게 하시고 네가 에브랏에서 유력하고 베들레헴에서 유명하게 하시기를 원하며 12 여호와께서 이 젊은 여자로 말미암아 네게 상속자를 주사 네 집이 다말이 유다에게 낳아준 베레스의 집과 같게 하시기를 원하노라 하니라</p>
+                    <p><strong>다윗의 계보</strong><br>
+                    13 이에 보아스가 룻을 맞이하여 아내로 삼고 그에게 들어갔더니 여호와께서 그에게 임신하게 하시므로 그가 아들을 낳은지라 14 여인들이 나오미에게 이르되 찬송할지로다 여호와께서 오늘 네게 기업 무를 자가 없게 하지 아니하셨도다 이 아이의 이름이 이스라엘 중에 유명하게 되기를 원하노라 15 이는 네 생명의 회복자이며 네 노년의 봉양자라 곧 너를 사랑하며 일곱 아들보다 귀한 네 며느리가 낳은 자로다 하니라 16 나오미가 아기를 받아 품에 품고 그의 양육자가 되니 17 그의 이웃 여인들이 그에게 이름을 지어 주되 나오미에게 아들이 태어났다 하여 그의 이름을 오벳이라 하였는데 그는 다윗의 아버지인 이새의 아버지였더라 18 베레스의 계보는 이러하니라 베레스는 헤스론을 낳고 19 헤스론은 람을 낳았고 람은 암미나답을 낳았고 20 암미나답은 나손을 낳았고 나손은 살몬을 낳았고 21 살몬은 보아스를 낳았고 보아스는 오벳을 낳았고 22 오벳은 이새를 낳고 이새는 다윗을 낳았더라</p>
+                </div>
+            </div>
+
+            <!-- 사도행전 28장 -->
+            <div class="card chapter-card acts">
+                <h2>사도행전 28장 분석</h2>
+                
+                <h3>개요 (Overview)</h3>
+                <p>사도행전의 마지막 장인 28장은 바울의 로마 여정의 최종 단계를 기록합니다. 풍랑에서 구출된 바울 일행은 멜리데(몰타) 섬에 도착하여 원주민들의 환대를 받습니다. 그곳에서 바울이 독사에 물렸으나 해를 입지 않고, 섬의 추장 보블리오의 부친을 치유하는 등 이적을 행합니다. 석 달 후 로마로 향한 바울은 마침내 그토록 원하던 로마에 도착하여 형제들의 영접을 받습니다. 가택 연금 상태에서도 바울은 유대 지도자들을 초청하여 예수와 하나님 나라를 담대히 증거하고, 2년 동안 자신을 찾아오는 모든 사람에게 '거침없이' 복음을 전하며 사도행전의 대단원의 막을 내립니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <div class="svg-container">
+                    <svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrow-acts" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-accent-acts)" />
+                            </marker>
+                        </defs>
+                        <style>
+                            .label-acts { font-family: var(--font-main); font-size: 14px; text-anchor: middle; }
+                            .line-acts { stroke: var(--color-accent-acts); stroke-width: 2; marker-end: url(#arrow-acts); stroke-dasharray: 5, 5; }
+                            .stop-circle { fill: #fff; stroke: var(--color-accent-acts); stroke-width: 3; }
+                            .stop-label { font-size: 13px; font-weight: bold; }
+                        </style>
+
+                        <!-- Path -->
+                        <path d="M 50 150 C 150 50, 250 50, 350 150 S 450 250, 550 150" stroke="var(--color-accent-acts)" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+                        
+                        <!-- Stops -->
+                        <g transform="translate(50, 150)">
+                            <circle r="10" class="stop-circle"/>
+                            <text y="-20" class="label-acts stop-label">멜리데 섬</text>
+                            <text y="30" class="label-acts">(독사, 치유)</text>
+                        </g>
+                        <g transform="translate(200, 71)">
+                           <circle r="10" class="stop-circle"/>
+                           <text y="-20" class="label-acts stop-label">수라구사</text>
+                        </g>
+                        <g transform="translate(350, 150)">
+                           <circle r="10" class="stop-circle"/>
+                           <text y="-20" class="label-acts stop-label">보디올</text>
+                        </g>
+                        <g transform="translate(485, 205)">
+                           <circle r="10" class="stop-circle"/>
+                           <text y="28" class="label-acts stop-label">압비오 광장</text>
+                        </g>
+                        <g transform="translate(550, 150)">
+                           <circle r="15" class="stop-circle" style="fill: var(--color-accent-acts)"/>
+                           <text y="-25" class="label-acts stop-label">로마</text>
+                           <text y="35" class="label-acts">(가택연금, 복음전파)</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <div class="info-box" style="border-color: var(--color-accent-acts);">
+                    <strong>'거침없이' (Unhindered):</strong> 사도행전은 바울의 순교나 죽음으로 끝나지 않습니다. 대신, 마지막 단어인 '아콜뤼토스'(ἀκωλύτως), 즉 '거침없이'로 끝맺습니다. 이는 누가복음-사도행전 전체의 핵심 주제를 압축적으로 보여줍니다. 예루살렘에서 시작된 복음은 수많은 반대와 핍박, 오해, 심지어 자연재해 속에서도 결코 멈추지 않았습니다. 죄수 신분인 바울이 로마 제국의 심장부에서, 황제의 코앞에서 아무런 방해 없이 하나님 나라를 가르치고 있다는 사실은, 인간의 그 어떤 계획이나 권세도 하나님의 주권적인 복음 전파를 막을 수 없다는 강력한 선언입니다. 교회의 사명은 이 '거침없는' 복음을 들고 세상 끝까지 나아가는 것입니다.
+                </div>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="commentary-block">
+                    <p class="commentary-verse">사도행전 28:6 - 그들은 그가 붓든지 혹은 갑자기 쓰러져 죽을 줄로 기다렸다가 오래 기다려도 그에게 아무 이상이 없음을 보고 돌이켜 생각하여 말하되 그를 신이라 하더라</p>
+                    <p class="commentary-text">독사에 물렸으나 아무렇지 않은 이 사건은 예수님께서 약속하신 표적(막 16:18)의 성취입니다. 원주민들은 처음엔 바울을 살인자로 여겼다가, 이내 신으로 간주합니다. 이 극적인 반전은 바울 개인의 신성함을 드러내는 것이 아니라, 그와 함께하시고 그를 보호하시는 하나님의 능력을 보여주는 사건입니다. 이를 통해 바울은 섬에서 복음을 전할 수 있는 기회와 신뢰를 얻게 됩니다. 하나님은 초자연적인 방식으로 복음의 문을 여실 수 있습니다.</p>
+                </div>
+                <div class="commentary-block">
+                    <p class="commentary-verse">사도행전 28:30-31 - 바울이 온 이태를 자기 셋집에 머물면서 자기에게 오는 사람을 다 영접하고 하나님의 나라를 전파하며 주 예수 그리스도에 관한 모든 것을 담대하게 거침없이 가르치더라</p>
+                    <p class="commentary-text">사도행전의 장엄한 결론입니다. 바울은 비록 쇠사슬에 매여 있지만, 복음은 매이지 않았습니다. 그는 '셋집'이라는 제한된 공간에 있었지만, 그곳은 로마를 향한 복음의 전초기지가 되었습니다. '담대하게'(with all boldness)와 '거침없이'(without hindrance)라는 두 부사는 복음의 속성을 완벽하게 요약합니다. 세상의 어떤 권력도, 어떤 방해도 하나님의 주권적인 복음 전파를 막을 수 없다는 메시지는 오늘날 교회를 향한 강력한 격려이자 도전입니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="full-text">
+                    <h4>사도행전 28장</h4>
+                    <p><strong>멜리데 섬에서</strong><br>
+                    1 우리가 구조된 후에 안즉 그 섬은 멜리데라 하더라 2 비가 오고 날이 차매 원주민들이 우리에게 특별한 동정을 하여 불을 피워 우리를 다 영접하더라 3 바울이 나뭇가지를 한 묶음 거두어 불에 넣으니 뜨거움으로 말미암아 독사가 나와 그 손을 물고 있는지라 4 원주민들이 이 짐승이 그 손에 매달려 있음을 보고 서로 말하되 진실로 이 사람은 살인한 자로다 바다에서는 구조를 받았으나 공의가 그를 살지 못하게 함이로다 하더니 5 바울이 그 짐승을 불에 떨어 버리매 조금도 상함이 없더라 6 그들은 그가 붓든지 혹은 갑자기 쓰러져 죽을 줄로 기다렸다가 오래 기다려도 그에게 아무 이상이 없음을 보고 돌이켜 생각하여 말하되 그를 신이라 하더라 7 이 섬에서 가장 높은 사람 보블리오라 하는 이가 그 근처에 토지가 있는지라 그가 우리를 영접하여 사흘이나 친절히 머물게 하더니 8 보블리오의 부친이 열병과 이질에 걸려 누워 있거늘 바울이 들어가서 기도하고 그에게 안수하여 낫게 하매 9 이러므로 섬 가운데에서 다른 병든 사람들이 와서 고침을 받고 10 후한 예로 우리를 대접하고 떠날 때에 우리 쓸 것을 배에 실었더라</p>
+                    <p><strong>로마에 이르다</strong><br>
+                    11 석 달 후에 우리가 그 섬에서 겨울을 난 알렉산드리아 배를 타고 떠나니 그 배의 머리 장식은 디오스구로라 12 수라구사에 대고 사흘을 있다가 13 거기서 둘러가서 레기온에 이르러 하루를 지낸 후 남풍이 일어나므로 이튿날 보디올에 이르러 14 거기서 형제들을 만나 그들의 청함을 받아 이레를 함께 머무니라 그래서 우리는 이와 같이 로마로 가니라 15 그 곳 형제들이 우리 소식을 듣고 압비오 광장과 트레이스 타베르네까지 맞으러 오니 바울이 그들을 보고 하나님께 감사하고 담대한 마음을 얻으니라 16 우리가 로마에 들어가니 바울에게는 자기를 지키는 한 군인과 함께 따로 있게 허락하더라</p>
+                    <p><strong>로마에서 복음을 전하다</strong><br>
+                    17 사흘 후에 바울이 유대인 중 높은 사람들을 청하여 그들이 모인 후에 이르되 여러분 형제들아 내가 이스라엘 백성이나 우리 조상의 관습을 배척한 일이 없는데 예루살렘에서 로마인의 손에 죄수로 내준 바 되었으니 18 로마인은 나를 심문하여 죽일 죄목이 없으므로 석방하려 하였으나 19 유대인들이 반대하기로 내가 마지못하여 가이사에게 상소함이요 내 민족을 고발하려는 것이 아니니라 20 이러므로 너희를 보고 함께 이야기하려고 청하였으니 이스라엘의 소망으로 말미암아 내가 이 쇠사슬에 매인 바 되었노라 21 그들이 이르되 우리가 유대에서 네게 대한 편지도 받은 일이 없고 또 형제 중 누가 와서 네게 대하여 좋지 못한 것을 전하든지 이야기한 일도 없느니라 22 이에 우리가 너의 사상이 어떠한가 듣고자 하니 이 파에 대하여는 어디서든지 반대를 받는 줄 알기 때문이라 하더라 23 그들이 날짜를 정하고 그가 유숙하는 집에 많이 오니 바울이 아침부터 저녁까지 강론하여 하나님의 나라를 증언하고 모세의 율법과 선지자의 말을 가지고 예수에 대하여 권하더라 24 그 말을 믿는 사람도 있고 믿지 아니하는 사람도 있어 25 서로 맞지 아니하여 흩어질 때에 바울이 한 말로 이르되 성령이 선지자 이사야를 통하여 너희 조상들에게 말씀하신 것이 옳도다 26 일렀으되 이 백성에게 가서 말하기를 너희가 듣기는 들어도 도무지 깨닫지 못하며 보기는 보아도 도무지 알지 못하는도다 27 이 백성들의 마음이 우둔하여져서 그 귀로는 둔하게 듣고 그 눈은 감았으니 이는 눈으로 보고 귀로 듣고 마음으로 깨달아 돌아오면 내가 고쳐 줄까 함이라 하였으니 28 그런즉 하나님의 이 구원이 이방인에게로 보내어진 줄 알라 그들은 그것을 들으리라 하더라 29 (없음) 30 바울이 온 이태를 자기 셋집에 머물면서 자기에게 오는 사람을 다 영접하고 31 하나님의 나라를 전파하며 주 예수 그리스도에 관한 모든 것을 담대하게 거침없이 가르치더라</p>
+                </div>
+            </div>
+            
+            <!-- 예레미야 39장 -->
+            <div class="card chapter-card jeremiah">
+                <h2>예레미야 39장 분석</h2>
+                
+                <h3>개요 (Overview)</h3>
+                <p>예레미야 39장은 남유다 왕국의 비극적인 최후를 역사적으로 서술합니다. 오랜 포위 끝에 예루살렘 성벽이 뚫리고, 바벨론 군대가 도시를 점령합니다. 시드기야 왕은 도망치려다 붙잡혀 바벨론 왕 앞에서 두 아들이 살해당하는 것을 목격한 후, 자신도 두 눈이 뽑힌 채 쇠사슬에 묶여 바벨론으로 끌려갑니다. 성전과 왕궁은 불타고 백성들은 포로로 잡혀갑니다. 이 끔찍한 심판의 현장 속에서, 하나님은 당신의 말씀을 신실하게 전한 예레미야와, 그를 도왔던 구스인 에벳멜렉을 보호하고 구원하십니다. 이는 하나님의 공의로운 심판과 그 가운데서도 당신께 속한 자를 기억하시는 신실한 사랑을 극명하게 대조하여 보여줍니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <div class="svg-container">
+                    <svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <marker id="arrow-jer" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#795548"/>
+                          </marker>
+                        </defs>
+                        <style>
+                          .box { stroke-width: 2; rx: 8; }
+                          .cause { fill: #fff8e1; stroke: #ffab00; }
+                          .effect { fill: #fbe9e7; stroke: #ff5722; }
+                          .contrast { fill: #e0f2f1; stroke: #00796b; }
+                          .txt { font-family: var(--font-main); font-size: 14px; text-anchor: middle; }
+                          .conn { stroke: #795548; stroke-width: 1.5; marker-end: url(#arrow-jer); }
+                        </style>
+                        
+                        <rect x="150" y="20" width="300" height="60" class="box cause"/>
+                        <text x="300" y="45" class="txt">
+                            <tspan x="300" style="font-weight:bold;">원인: 유다의 불순종</tspan>
+                            <tspan x="300" dy="1.4em">시드기야 왕의 반역과 회개 거부</tspan>
+                        </text>
+                        
+                        <path class="conn" d="M300,80 v 40"/>
+                        
+                        <rect x="20" y="140" width="260" height="80" class="box effect"/>
+                        <text x="150" y="165" class="txt">
+                            <tspan x="150" style="font-weight:bold;">결과 1: 예루살렘의 함락</tspan>
+                            <tspan x="150" dy="1.4em">성벽 파괴, 성전과 왕궁 소실</tspan>
+                        </text>
+                        
+                        <rect x="320" y="140" width="260" height="80" class="box effect"/>
+                        <text x="450" y="165" class="txt">
+                            <tspan x="450" style="font-weight:bold;">결과 2: 시드기야의 비참한 최후</tspan>
+                            <tspan x="450" dy="1.4em">아들들 처형, 두 눈 뽑힘, 포로</tspan>
+                        </text>
+
+                        <path class="conn" d="M300,120 v 20"/>
+                        
+                        <rect x="150" y="240" width="300" height="60" class="box effect"/>
+                        <text x="300" y="265" class="txt">
+                            <tspan x="300" style="font-weight:bold;">결과 3: 백성의 운명</tspan>
+                            <tspan x="300" dy="1.4em">대부분 포로, 가난한 자만 남음</tspan>
+                        </text>
+                        
+                        <path class="conn" d="M150,220 C 150 230, 225 230, 225 240" />
+                        <path class="conn" d="M450,220 C 450 230, 375 230, 375 240" />
+                        
+                        <rect x="20" y="320" width="560" height="60" class="box contrast"/>
+                        <text x="300" y="345" class="txt">
+                            <tspan x="300" style="font-weight:bold;">대조: 하나님의 신실한 구원</tspan>
+                            <tspan x="300" dy="1.4em">예레미야와 에벳멜렉의 생명을 보존하심 (약속의 성취)</tspan>
+                        </text>
+                    </svg>
+                </div>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <div class="info-box" style="border-color: var(--color-accent-jeremiah);">
+                    <strong>심판 속의 구원:</strong> 예레미야 39장은 하나님의 심판이 얼마나 무섭고 철저한지를 보여줍니다. 수십 년간의 경고를 무시한 대가는 국가의 완전한 멸망이었습니다. 그러나 이 잿더미 속에서 하나님은 두 사람, 예레미야와 에벳멜렉을 특별히 구원하십니다. 예레미야는 신실하게 말씀을 전한 선지자였고, 에벳멜렉은 그 선지자를 구덩이에서 구해준 이방인 내시였습니다. 특히 하나님은 에벳멜렉에게 "네가 나를 신뢰하였으므로 내가 반드시 너를 구원할 것" (39:18)이라고 약속하셨고, 그 약속을 정확히 지키셨습니다. 이는 하나님의 심판이 맹목적인 파괴가 아님을 보여줍니다. 하나님은 가장 어두운 순간에도 당신을 신뢰하는 자를 정확히 아시고, 그들의 믿음에 따라 구원을 베푸시는 신실하신 분입니다.
+                </div>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="commentary-block">
+                    <p class="commentary-verse">예레미야 39:9 - 성중에 남아 있는 백성과 우리에게 항복한 자와 그 외의 남은 백성은 사령관 느부사라단이 바벨론으로 잡아갔고</p>
+                    <p class="commentary-text">이 구절은 유다 왕국의 공식적인 종말과 바벨론 유수의 시작을 알리는 비극적인 선언입니다. '남아 있는 백성', '항복한 자', '그 외의 남은 백성' 등 모든 부류의 사람들이 예외 없이 포로가 되었습니다. 이는 하나님의 심판이 임할 때, 인간적인 지위나 처세술이 아무런 소용이 없음을 보여줍니다. 수백 년간 이어져 온 다윗 왕조와 약속의 땅에서의 삶이 끝나는 순간이며, 예레미야가 눈물로 전했던 예언이 그대로 성취되는 장면입니다.</p>
+                </div>
+                <div class="commentary-block">
+                    <p class="commentary-verse">예레미야 39:17-18 - 그 날에 내가 너를 구원하리니... 내가 반드시 너를 구원할 것인즉... 이는 네가 나를 신뢰함이라 여호와의 말씀이니라</p>
+                    <p class="commentary-text">이 구절은 온 나라가 멸망하는 혼란 속에서 하나님께서 에벳멜렉에게 주신 개인적인 구원의 약속입니다. 구원의 이유는 그의 민족이나 지위가 아니라, 단 하나, '네가 나를 신뢰함이라'는 것이었습니다. 에벳멜렉은 왕의 분노를 무릅쓰고 예레미야를 구하며 하나님을 향한 믿음을 행동으로 보였습니다. 하나님은 이 믿음을 기억하시고, 그의 생명을 '전리품'처럼 건져주셨습니다. 이는 어떤 상황 속에서도 하나님을 신뢰하는 믿음이 가장 안전한 피난처임을 보여주는 강력한 증거입니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="full-text">
+                    <h4>예레미야 39장</h4>
+                    <p><strong>예루살렘이 함락되다</strong><br>
+                    1 유다의 시드기야 왕의 제구년 열째 달에 바벨론의 느부갓네살 왕과 그의 모든 군대가 와서 예루살렘을 에워싸고 치더니 2 시드기야의 제십일년 넷째 달 아홉째 날에 성이 함락되니라 예루살렘이 함락되매 3 바벨론의 왕의 모든 고관이 나타나 중문에 앉으니 곧 네르갈사레셀과 삼갈르보와 내시장 살스김과 박사장 네르갈사레셀과 바벨론의 왕의 기타 모든 고관이었더라</p>
+                    <p><strong>시드기야의 최후</strong><br>
+                    4 유다의 시드기야 왕과 모든 군사가 그들을 보고 도망하여 밤에 왕의 동산 길을 따라 두 담 샛문을 통하여 성읍을 벗어나서 아라바로 갔더니 5 갈대아인의 군대가 그들의 뒤를 따라 여리고 평지에서 시드기야에게 미쳐 그를 잡아 가지고 하맛 땅 리블라에 있는 바벨론의 느부갓네살 왕에게로 끌고 가매 그가 시드기야를 심문하니라 6 바벨론의 왕이 리블라에서 시드기야의 눈 앞에서 그의 아들들을 죽이고 왕이 또 유다의 모든 귀족을 죽였으며 7 왕이 또 시드기야의 두 눈을 빼게 하고 바벨론으로 옮기려고 놋사슬로 그를 결박하였더라</p>
+                    <p><strong>성전이 불타다</strong><br>
+                    8 갈대아인들이 왕궁과 백성의 집을 불사르며 예루살렘 성벽을 헐었고 9 사령관 느부사라단이 성중에 남아 있는 백성과 우리에게 항복한 자와 그 외의 남은 백성은 바벨론으로 잡아갔고 10 사령관 느부사라단이 아무 소유가 없는 빈민을 유다 땅에 남겨 두고 그 날에 포도원과 밭을 그들에게 주었더라</p>
+                    <p><strong>예레미야가 풀려나다</strong><br>
+                    11 바벨론의 느부갓네살 왕이 예레미야에 대하여 사령관 느부사라단에게 명령하여 이르되 12 그를 데려다가 선대하고 해하지 말며 그가 네게 말하는 대로 행하라 13 이에 사령관 느부사라단과 내시장 느부사스반과 박사장 네르갈사레셀과 바벨론 왕의 모든 장관이 14 사람을 보내어 예레미야를 감옥 뜰에서 데리고 나와서 사반의 손자 아히감의 아들 그다랴에게 넘겨 주어 그를 집으로 데려가게 하매 그가 백성 가운데에 사니라</p>
+                    <p><strong>에벳멜렉을 구원하시다</strong><br>
+                    15 예레미야가 감옥 뜰에 갇혔을 때에 여호와의 말씀이 그에게 임하니라 이르시되 16 너는 가서 구스인 에벳멜렉에게 말하기를 만군의 여호와 이스라엘의 하나님의 말씀에 내가 이 성에 재앙을 내리리라 한 나의 말이 그 날에 네 눈 앞에 이루리라 17 여호와의 말씀이니라 내가 그 날에 너를 구원하리니 네가 두려워하는 사람들의 손에 넘겨지지 아니하리라 18 내가 반드시 너를 구원할 것인즉 네가 칼에 죽지 아니하고 네 생명이 전리품과 같이 되리니 이는 네가 나를 신뢰함이라 여호와의 말씀이니라</p>
+                </div>
+            </div>
+
+            <!-- 시편 11-12편 -->
+            <div class="card chapter-card psalms">
+                <h2>시편 11-12편 분석</h2>
+                
+                <h3>개요 (Overview)</h3>
+                <p>시편 11편과 12편은 악이 만연한 세상 속에서 신자가 가져야 할 자세를 노래합니다. 11편은 "새 같이 네 산으로 도망하라"는 현실적인 충고에 맞서 "내가 여호와께 피하였거늘"이라며 하나님의 절대 주권을 선포하는 신뢰의 시입니다. 세상의 기초(터)가 무너지는 것 같은 위기 속에서도, 시인은 하늘 보좌에 앉아 모든 것을 감찰하시는 의로우신 하나님을 바라봅니다. 12편은 경건한 자가 끊어지고 거짓과 아첨이 가득한 사회를 향한 탄식으로 시작합니다. 그러나 시인은 곧 부패한 인간의 말과 대조되는, 일곱 번 단련한 은처럼 순결하고 영원한 여호와의 말씀을 의지하며, 하나님께서 가련한 자들을 위해 일어나실 것을 확신합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <div class="svg-container">
+                    <svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                        <style>
+                            .bg-wicked { fill: #fafafa; }
+                            .bg-righteous { fill: #f1f8e9; }
+                            .title-wicked { font-size: 16px; font-weight: bold; fill: #d32f2f; text-anchor: middle; }
+                            .title-righteous { font-size: 16px; font-weight: bold; fill: #388e3c; text-anchor: middle; }
+                            .text-item { font-size: 14px; fill: #212529; }
+                        </style>
+                        
+                        <rect x="0" y="0" width="300" height="300" class="bg-wicked" />
+                        <rect x="300" y="0" width="300" height="300" class="bg-righteous" />
+                        
+                        <line x1="300" y1="0" x2="300" y2="300" stroke="#bdbdbd" stroke-width="2" />
+                        
+                        <text x="150" y="40" class="title-wicked">세상의 소리 / 악인의 길</text>
+                        <text x="450" y="40" class="title-righteous">믿음의 고백 / 의인의 길</text>
+                        
+                        <!-- Wicked Side -->
+                        <text x="30" y="85" class="text-item">▶ "새 같이 산으로 도망하라" (11:1)</text>
+                        <text x="30" y="125" class="text-item">▶ "터가 무너졌으니..." (11:3)</text>
+                        <text x="30" y="165" class="text-item">▶ 경건한 자가 끊어짐 (12:1)</text>
+                        <text x="30" y="205" class="text-item">▶ 거짓과 아첨하는 혀 (12:2)</text>
+                        <text x="30" y="245" class="text-item">▶ 비열함이 높임을 받음 (12:8)</text>
+                        
+                        <!-- Righteous Side -->
+                        <text x="330" y="85" class="text-item">▶ "내가 여호와께 피하였거늘" (11:1)</text>
+                        <text x="330" y="125" class="text-item">▶ "여호와는 그의 성전에 계시니" (11:4)</text>
+                        <text x="330" y="165" class="text-item">▶ 여호와께서 일어나심 (12:5)</text>
+                        <text x="330" y="205" class="text-item">▶ "여호와의 말씀은 순결함이여" (12:6)</text>
+                        <text x="330" y="245" class="text-item">▶ 주께서 영원히 보존하심 (12:7)</text>
+                    </svg>
+                </div>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <div class="info-box" style="border-color: var(--color-accent-psalms);">
+                    <strong>무너진 터와 순결한 말씀:</strong> 시편 11편의 "터가 무너지면 의인이 무엇을 하랴"(11:3)는 질문은 신앙의 근본적인 위기 상황을 묘사합니다. 사회의 법, 정의, 도덕과 같은 기초가 흔들릴 때, 신자는 어디에 서야 하는가? 이에 대한 답은 하늘에 있습니다. 땅의 터는 무너져도 하늘의 보좌는 견고하며, 그곳에 계신 하나님이 모든 것을 보고 계십니다. 시편 12편은 이 답을 더욱 구체화합니다. 세상은 거짓된 말로 가득하지만, "여호와의 말씀은 순결함이여 흙 도가니에 일곱 번 단련한 은 같도다"(12:6). 세상의 말은 우리를 속이고 무너뜨리지만, 하나님의 말씀은 절대적으로 순수하고 신뢰할 수 있는 진리입니다. 따라서 무너지는 세상 속에서 의인이 붙들어야 할 유일한 기초는 바로 이 순결하고 영원한 하나님의 말씀입니다.
+                </div>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="commentary-block">
+                    <p class="commentary-verse">시편 11:3 - 터가 무너지면 의인이 무엇을 하랴</p>
+                    <p class="commentary-text">이 구절은 시인을 향한 회의주의자들의 질문입니다. '터'는 사회의 법과 질서, 정의와 같은 근본적인 기초를 의미합니다. 이것들이 모두 무너져 내리는 절망적인 상황에서 의인이 할 수 있는 일이 무엇이 있겠냐는 냉소적인 물음입니다. 이는 오늘날 불의가 승리하는 것처럼 보이는 세상 속에서 신자들이 종종 마주하는 영적 도전과 같습니다. 그러나 시인은 이 질문에 절망으로 답하지 않고, 바로 다음 구절에서 하늘 보좌에 계신 하나님을 선포하며 믿음으로 응답합니다.</p>
+                </div>
+                <div class="commentary-block">
+                    <p class="commentary-verse">시편 12:6 - 여호와의 말씀은 순결함이여 흙 도가니에 일곱 번 단련한 은 같도다</p>
+                    <p class="commentary-text">이 구절은 시편 전체에서 가장 강력한 성경관 중 하나를 보여줍니다. '일곱 번 단련한 은'이라는 표현은 하나님의 말씀에 어떠한 불순물이나 오류, 거짓도 없음을 강조하는 최상급의 비유입니다. 세상의 말들은 상황에 따라 변하고, 종종 우리를 속이지만, 하나님의 말씀은 영원히 신뢰할 수 있는 완전한 진리입니다. 이 말씀은 혼란스러운 세상 속에서 우리의 유일한 기준이 되며, 우리를 보호하고 인도하는 견고한 피난처가 됩니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="full-text">
+                    <h4>시편 11편</h4>
+                    <p><strong>하나님만 의지하는 믿음</strong><br>
+                    1 내가 여호와께 피하였거늘 너희가 내 영혼에게 새 같이 네 산으로 도망하라 함은 어찌함인가 2 악인이 활을 당기고 시위를 당겨 어둠 속에서 마음이 바른 자를 쏘려 하는도다 3 터가 무너지면 의인이 무엇을 하랴 4 여호와께서는 그의 성전에 계시고 여호와의 보좌는 하늘에 있음이여 그의 눈이 인생을 통촉하시고 그의 안목이 그들을 감찰하시도다 5 여호와는 의인을 감찰하시고 악인과 폭력을 좋아하는 자를 마음에 미워하시도다 6 악인에게 그물을 던지시리니 불과 유황과 태우는 바람이 그들의 잔의 소득이 되리로다 7 여호와는 의로우사 의로운 일을 좋아하시나니 정직한 자는 그의 얼굴을 뵈오리로다</p>
+                    
+                    <h4>시편 12편</h4>
+                    <p><strong>거짓된 세상 속의 기도</strong><br>
+                    1 여호와여 도우소서 경건한 자가 끊어지며 충실한 자들이 인생 중에 없어지나이다 2 그들이 이웃에게 각기 거짓을 말함이여 아첨하는 입술과 두 마음으로 말하는도다 3 여호와께서 모든 아첨하는 입술과 자랑하는 혀를 끊으시리니 4 그들이 말하기를 우리의 혀가 이기리라 우리 입술은 우리 것이니 우리를 주관할 자 누구리요 함이로다 5 여호와의 말씀에 가련한 자들의 눌림과 궁핍한 자들의 탄식으로 말미암아 내가 이제 일어나 그를 그가 원하는 안전한 지대에 두리라 하시도다 6 여호와의 말씀은 순결함이여 흙 도가니에 일곱 번 단련한 은 같도다 7 여호와여 그들을 지키사 이 세대로부터 영원까지 보존하시리이다 8 비열함이 인생 중에 높임을 받는 때에 악인들이 곳곳에서 날뛰는도다</p>
+                </div>
+            </div>
+            
+            <!-- 통합 분석 -->
+            <div class="card integration-card">
+                <h2>통합적 이해: 환난 속 신실하신 하나님</h2>
+
+                <h3>관통하는 주제</h3>
+                <p>오늘의 네 본문(룻기, 사도행전, 예레미야, 시편)은 서로 다른 시대와 상황 속에서 하나의 거대한 주제, 바로 <strong>'환난 속에서 신실하신 언약의 하나님'</strong>을 증거합니다. 기근과 사별이라는 개인적 비극에서부터 국가의 멸망, 사회 전체에 만연한 거짓과 불의에 이르기까지, 성도들은 다양한 형태의 '무너진 터'를 경험합니다. 그러나 본문들은 한결같이 그 잿더미와 혼돈 속에서도 당신의 백성을 구원하시고, 당신의 선한 계획을 한 치의 오차 없이 이루어 가시는 하나님의 신실하심을 선포합니다.</p>
+
+                <h3>본문별 연결고리</h3>
+                <div class="connection-grid">
+                    <div class="connection-card ruth">
+                        <h4>룻기 3-4장</h4>
+                        <p>개인적 환난(기근, 사별) 속에서 '헤세드'(인애)를 실천한 이방 여인과 기업 무를 자를 통해, 하나님께서 자신의 구속 계획을 신실하게 이어가시는지를 보여줍니다.</p>
+                    </div>
+                    <div class="connection-card acts">
+                        <h4>사도행전 28장</h4>
+                        <p>외부적 환난(풍랑, 핍박) 속에서도, 하나님은 자신의 종(바울)을 보호하시고 복음이 세상의 중심부까지 전파되도록 신실하게 인도하십니다.</p>
+                    </div>
+                    <div class="connection-card jeremiah">
+                        <h4>예레미야 39장</h4>
+                        <p>국가적 환난(멸망) 속에서, 하나님은 죄를 공의로 심판하시지만, 동시에 신실한 자(예레미야, 에벳멜렉)를 구원하시는 언약의 하나님이심을 드러냅니다.</p>
+                    </div>
+                    <div class="connection-card psalms">
+                        <h4>시편 11-12편</h4>
+                        <p>사회/영적 환난(거짓, 불의) 속에서, 신자는 흔들리지 않는 하나님의 보좌와 순결한 말씀을 의지하며 신실함을 지킬 근거를 발견합니다.</p>
+                    </div>
+                </div>
+
+                <h3>구속사적 맥락</h3>
+                <div class="timeline">
+                    <div class="timeline-container left ruth">
+                        <div class="content">
+                            <h4>족장/사사시대 (룻기)</h4>
+                            <p>다윗 왕조의 계보를 예비하시는 하나님의 구속 경륜이 나타납니다. 보아스는 장차 오실 진정한 기업 무를 자, 예수 그리스도의 예표입니다.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-container right jeremiah">
+                        <div class="content">
+                            <h4>왕정/포로기 (예레미야)</h4>
+                            <p>이스라엘의 불순종으로 인한 심판과 언약의 파괴를 보여줍니다. 그러나 이는 동시에 더 완전한 '새 언약'의 필요성을 드러내는 과정입니다.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-container left acts">
+                        <div class="content">
+                            <h4>교회시대 (사도행전)</h4>
+                            <p>그리스도의 구속 사역 완성 후, 성령을 통해 땅끝(로마)까지 복음이 확장되는 구속의 성취 과정을 보여줍니다.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-container right future">
+                        <div class="content">
+                            <h4>재림과 완성</h4>
+                            <p>모든 환난이 끝나고 하나님의 완전한 통치가 이루어질 것을 소망합니다. 오늘의 본문들은 그날까지 우리가 어떻게 믿음으로 살아야 할지를 가르칩니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>주제별 심층 분석</h3>
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>세부 주제</th>
+                            <th>룻기 3-4장</th>
+                            <th>사도행전 28장</th>
+                            <th>예레미야 39장</th>
+                            <th>시편 11-12편</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>환난의 종류</strong></td>
+                            <td>개인적 (기근, 사별, 가난)</td>
+                            <td>외부적 (풍랑, 핍박, 투옥)</td>
+                            <td>국가적 (전쟁, 멸망, 포로)</td>
+                            <td>사회/영적 (악의, 거짓, 불의)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>하나님의 신실하심</strong></td>
+                            <td>기업 무를 자(보아스)를 통해 가문을 회복시키심</td>
+                            <td>바울을 모든 위험에서 구출하고 복음 전파를 가능케 하심</td>
+                            <td>심판 중에도 신뢰하는 자(에벳멜렉)를 구원하심</td>
+                            <td>악한 세상 속 의인을 보호하고 순결한 말씀으로 위로하심</td>
+                        </tr>
+                        <tr>
+                            <td><strong>인간의 신실한 반응</strong></td>
+                            <td>룻의 순종과 보아스의 의로운 책임감</td>
+                            <td>바울의 담대한 복음 전파</td>
+                            <td>에벳멜렉의 하나님을 향한 신뢰</td>
+                            <td>시인의 흔들리지 않는 믿음과 기도</td>
+                        </tr>
+                        <tr>
+                            <td><strong>구속사적 연결점</strong></td>
+                            <td>그리스도의 예표(보아스)</td>
+                            <td>복음의 땅끝 전파</td>
+                            <td>새 언약의 필요성</td>
+                            <td>하나님의 말씀 의지</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>오늘의 교훈</h3>
+                <p>우리가 마주하는 삶의 환난은 다양합니다. 때로는 룻과 같이 개인적인 상실감에, 때로는 바울처럼 외부의 거센 압박에, 때로는 예레미야처럼 소망이 보이지 않는 시대적 절망감에, 때로는 시편 기자처럼 만연한 거짓과 불의에 둘러싸일 수 있습니다. 그러나 오늘의 본문들은 어떤 상황 속에서도 변치 않는 진리를 가르칩니다. 바로 하나님은 당신의 언약에 신실하시며, 모든 것을 합력하여 선을 이루시고, 당신의 백성을 끝까지 보호하며 구속 계획을 이루어 가신다는 것입니다.</p>
+                <p>그러므로 우리는 세상의 위협 앞에서 도망치거나 타협하는 대신, 하늘 보좌에 계신 하나님과 그분의 순결한 말씀을 굳게 붙들어야 합니다. 룻의 담대한 순종, 바울의 거침없는 복음 전파, 에벳멜렉의 하나님을 향한 신뢰가 오늘 우리의 믿음의 고백이 되어야 할 것입니다.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

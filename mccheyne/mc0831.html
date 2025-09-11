@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 31일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        h1 .subtitle {
+            display: block;
+            font-size: 0.5em;
+            color: #7f8c8d;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+        
+        .bible-passages {
+            font-size: 1.2em;
+            color: #888;
+        }
+
+        .chapter-card {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid #ccc;
+            overflow: hidden;
+        }
+
+        .card-book1 { border-left-color: #4285F4; }
+        .card-book2 { border-left-color: #DB4437; }
+        .card-book3 { border-left-color: #F4B400; }
+        .card-book4 { border-left-color: #0F9D58; }
+        .integration-card { border-left-color: #808080; }
+        
+        .card-book1 h3 strong { color: #4285F4; }
+        .card-book2 h3 strong { color: #DB4437; }
+        .card-book3 h3 strong { color: #F4B400; }
+        .card-book4 h3 strong { color: #0F9D58; }
+        .integration-card h3 strong { color: #808080; }
+
+        h2 {
+            font-size: 2em;
+            font-weight: 700;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #eee;
+            color: #34495e;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #34495e;
+            padding-left: 10px;
+            border-left: 4px solid #eee;
+        }
+        
+        .integration-card h2 {
+            color: #808080;
+        }
+
+        .analysis-svg {
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        li {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .key-verse {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin: 0 0 10px 0;
+        }
+        
+        .commentary-text {
+            font-size: 1em;
+            color: #555;
+            margin: 0;
+            padding-left: 15px;
+            border-left: 3px solid #ddd;
+        }
+
+        .bible-text {
+            background-color: #fdfdfd;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+        .verse-number {
+            font-weight: 700;
+            color: #888888;
+            margin-right: 8px;
+            font-size: 0.9em;
+        }
+        
+        .bible-text div {
+            margin-bottom: 5px;
+        }
+
+        .bible-text strong {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .card-book1 .bible-text strong { color: #4285F4; }
+        .card-book2 .bible-text strong { color: #DB4437; }
+        .card-book3 .bible-text strong { color: #F4B400; }
+        .card-book4 .bible-text strong { color: #0F9D58; }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: 700;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #999;
+            font-size: 0.9em;
+            border-top: 1px solid #eee;
+        }
+
+        #audio-control-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        #audio-control-button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        #audio-control-button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #player {
+            position: absolute;
+            left: -9999px; /* Hide the player */
+            width: 1px;
+            height: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+    <button id="audio-control-button" disabled>오디오 로딩 중...</button>
+    
+    <div class="container">
+        <header>
+            <h1>8월 31일 맥체인 성경읽기<br><span class="subtitle">하나님의 사람은 세상의 악과 죄악된 현실, 그리고 인생의 허무함 속에서 인간적인 방법을 의지하지 않고, 오직 하나님의 주권과 말씀을 신뢰하며 맡겨진 사명(긍휼, 거룩, 경고)을 감당하고 그의 구원을 소망한다.</span></h1>
+            <p class="bible-passages">사무엘상 24, 고린도전서 5, 에스겔 3, 시편 39</p>
+        </header>
+
+        <main>
+            <!-- Card 1: 사무엘상 24 -->
+            <div class="chapter-card card-book1">
+                <h2>사무엘상 24장 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>엔게디 광야의 한 동굴에 숨어 있던 다윗에게 사울을 죽일 절호의 기회가 찾아옵니다. 그러나 다윗은 "여호와의 기름 부음 받은 자"를 해할 수 없다는 신앙적인 원칙에 따라 사울을 살려주고, 대신 그의 겉옷 자락만 몰래 벱니다. 그는 이 행위마저도 마음에 찔림을 받습니다. 이후 다윗은 멀리서 사울에게 겉옷 자락을 보여주며 자신의 결백과 충성심을 증명합니다. 이에 사울은 감정적으로 크게 뉘우치며 눈물을 흘리고, 다윗의 의로움과 그가 장차 왕이 될 것을 인정하며 다윗에게 자신의 후손을 보살펴 줄 것을 맹세하게 합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <style>.svg-text { font-family: 'Noto Sans KR', sans-serif; font-size: 12px; text-anchor: middle; }</style>
+                    <g transform="translate(200, 100)">
+                        <circle cx="0" cy="0" r="20" fill="#e3f2fd"/>
+                        <text y="5" class="svg-text">다윗의 선택</text>
+                    </g>
+                    <path d="M 200 80 L 100 40" stroke="#c62828" stroke-width="2" marker-end="url(#arrow-red-end)"/>
+                    <text x="100" y="30" class="svg-text" fill="#c62828">인간적 방법 (복수)</text>
+                    <path d="M 100,45 L 120,25 M 120,45 L 100,25" stroke="#c62828" stroke-width="2"/>
+                    
+                    <path d="M 200 120 L 300 160" stroke="#1565c0" stroke-width="2" marker-end="url(#arrow-blue-end)"/>
+                    <text x="300" y="180" class="svg-text" fill="#1565c0">하나님의 방법 (긍휼)</text>
+                    <defs>
+                        <marker id="arrow-red-end" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c62828"/></marker>
+                        <marker id="arrow-blue-end" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1565c0"/></marker>
+                    </defs>
+                    <text x="200" y="150" class="svg-text" font-weight="bold">"여호와의 기름 부음 받은 자"</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>이 사건은 다윗의 신앙 인격이 얼마나 성숙했는지를 보여주는 결정적인 장면입니다. 그는 개인적인 원한이나 정치적인 유불리가 아닌, '여호와의 기름 부음 받은 자'라는 신학적 권위에 대한 경외심을 행동의 기준으로 삼습니다. 이는 하나님의 주권과 시간표를 온전히 신뢰하는 믿음의 표현입니다. 그는 자신의 손으로 왕위를 쟁취하지 않고, 하나님께서 친히 사울을 심판하시고 자신을 세우실 때까지 기다리기로 선택합니다. 이러한 다윗의 모습은 자신을 십자가에 못 박는 자들을 향해 "아버지 저들을 사하여 주옵소서"라고 기도하셨던 예수 그리스도의 용서와 긍휼을 예표합니다. 반면 사울의 회개는 감정적이고 일시적일 뿐, 그의 삶을 변화시키는 근본적인 회심으로 이어지지 못합니다. 이는 참된 회개와 거짓된 뉘우침의 차이를 보여줍니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">사무엘상 24:6</p>
+                        <p class="commentary-text">자기 사람들에게 이르되 내가 손을 들어 여호와의 기름 부음을 받은 내 주를 치는 것은 여호와께서 금하시는 것이니 그는 여호와의 기름 부음을 받은 자가 됨이니라 하고</p>
+                        <p class="commentary-text">다윗의 행동 원리가 명확히 드러나는 구절입니다. 그에게 사울은 자신을 죽이려는 원수이기 이전에, '여호와의 기름 부음을 받은 주'였습니다. 그는 사울 개인의 부도덕함과 자신의 억울함보다, 하나님께서 세우신 권위와 질서를 더 중요하게 여겼습니다. 이는 모든 권위가 궁극적으로 하나님께로부터 나온다는 개혁주의적 국가관의 기초를 보여주며, 성도가 세상의 불의한 권력에 대해 어떤 태도를 취해야 하는지에 대한 중요한 원리를 제공합니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">사무엘상 24:12</p>
+                        <p class="commentary-text">여호와께서는 나와 왕 사이를 판단하사 여호와께서 나를 위하여 왕에게 보복하시려니와 내 손으로는 왕을 해하지 않겠나이다</p>
+                        <p class="commentary-text">사적 복수를 포기하고 모든 심판을 하나님의 손에 맡기는 위대한 신앙 고백입니다. 다윗은 자신의 무죄와 사울의 유죄를 확신했지만, 심판자의 자리에 스스로 서지 않았습니다. 그는 하나님만이 유일하고 공의로운 재판장이심을 믿고, 그분의 처분에 모든 것을 의탁했습니다. '보복은 내게 있으니 내가 갚으리라'는 로마서 12장 19절의 말씀과 정확히 일치하는 태도입니다.</p>
+                    </li>
+                </ul>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>엔게디 동굴에서의 만남</strong>
+                    <div><span class="verse-number">1</span>사울이 블레셋 사람을 쫓다가 돌아오매 어떤 사람이 그에게 말하여 이르되 보소서 다윗이 엔게디 광야에 있더이다 하니</div>
+                    <div><span class="verse-number">2</span>사울이 온 이스라엘에서 택한 사람 삼천 명을 거느리고 다윗과 그의 사람들을 찾으러 들염소 바위로 갈새</div>
+                    <div><span class="verse-number">3</span>길 가 양의 우리에 이른즉 굴이 있는지라 사울이 뒤를 보러 들어가니라 다윗과 그의 사람들이 그 굴 깊은 곳에 있더니</div>
+                    <div><span class="verse-number">4</span>다윗의 사람들이 이르되 보소서 여호와께서 당신에게 이르시기를 내가 원수를 네 손에 넘기리니 네 생각에 좋은 대로 그에게 행하라 하시더니 이것이 그 날이니이다 하니 다윗이 일어나서 사울의 겉옷 자락을 가만히 베니라</div>
+                    <div><span class="verse-number">5</span>그리 한 후에 사울의 옷자락 벰으로 말미암아 다윗의 마음이 찔려</div>
+                    <div><span class="verse-number">6</span>자기 사람들에게 이르되 내가 손을 들어 여호와의 기름 부음을 받은 내 주를 치는 것은 여호와께서 금하시는 것이니 그는 여호와의 기름 부음을 받은 자가 됨이니라 하고</div>
+                    <div><span class="verse-number">7</span>다윗이 이 말로 자기 사람들을 금하여 사울을 해하지 못하게 하니라 사울이 일어나 굴에서 나가 자기 길을 가니라</div>
+                    <strong>다윗이 사울에게 호소하다</strong>
+                    <div><span class="verse-number">8</span>그 후에 다윗도 일어나 굴에서 나가 사울의 뒤에서 외쳐 이르되 내 주 왕이여 하매 사울이 돌아보는지라 다윗이 땅에 엎드려 절하고</div>
+                    <div><span class="verse-number">9</span>다윗이 사울에게 이르되 보소서 다윗이 왕을 해하려 한다고 하는 사람들의 말을 왕은 어찌하여 들으시나이까</div>
+                    <div><span class="verse-number">10</span>오늘 여호와께서 굴에서 왕을 내 손에 넘기신 것을 왕이 아셨을 것이니이다 어떤 사람이 나를 권하여 왕을 죽이라 하였으나 내가 왕을 아껴 말하기를 나는 내 손을 들어 내 주를 해하지 아니하리니 그는 여호와의 기름 부음을 받은 자가 되기 때문이라 하였나이다</div>
+                    <div><span class="verse-number">11</span>내 아버지여 보소서 내 손에 있는 왕의 옷자락을 보소서 내가 왕을 죽이지 아니하고 겉옷 자락만 베었은즉 내 손에 악이나 죄과가 없는 줄을 오늘 아실지니이다 왕은 내 생명을 찾아 해하려 하시나 나는 왕에게 범죄한 일이 없나이다</div>
+                    <div><span class="verse-number">12</span>여호와께서는 나와 왕 사이를 판단하사 여호와께서 나를 위하여 왕에게 보복하시려니와 내 손으로는 왕을 해하지 않겠나이다</div>
+                    <div><span class="verse-number">13</span>옛 속담에 말하기를 악은 악인에게서 난다 하였으니 내 손이 왕을 해하지 아니하리이다</div>
+                    <div><span class="verse-number">14</span>이스라엘 왕이 누구를 따라 나왔으며 누구를 뒤쫓나이까 죽은 개나 벼룩을 쫓음이니이다</div>
+                    <div><span class="verse-number">15</span>그런즉 여호와께서 재판장이 되어 나와 왕 사이에 심판하사 나의 사정을 살펴 억울함을 풀어 주시고 나를 왕의 손에서 건지시기를 원하나이다 하니라</div>
+                    <strong>사울의 일시적인 뉘우침</strong>
+                    <div><span class="verse-number">16</span>다윗이 사울에게 이같이 말하기를 마치매 사울이 이르되 내 아들 다윗아 이것이 네 목소리냐 하고 소리를 높여 울며</div>
+                    <div><span class="verse-number">17</span>다윗에게 이르되 나는 너를 학대하되 너는 나를 선대하니 너는 나보다 의롭도다</div>
+                    <div><span class="verse-number">18</span>네가 나 선대한 것을 오늘 나타냈나니 여호와께서 나를 네 손에 넘기셨으나 네가 나를 죽이지 아니하였도다</div>
+                    <div><span class="verse-number">19</span>사람이 그의 원수를 만나면 그를 평안히 가게 하겠느냐 네가 오늘 내게 행한 일로 말미암아 여호와께서 네게 선으로 갚으시기를 원하노라</div>
+                    <div><span class="verse-number">20</span>보라 나는 네가 반드시 왕이 될 것을 알고 이스라엘 나라가 네 손에 견고히 설 것을 아노니</div>
+                    <div><span class="verse-number">21</span>그런즉 너는 내 후손을 끊지 아니하며 내 아버지의 집에서 내 이름을 멸하지 아니할 것을 이제 여호와의 이름으로 내게 맹세하라 하니라</div>
+                    <div><span class="verse-number">22</span>다윗이 사울에게 맹세하매 사울은 집으로 돌아가고 다윗과 그의 사람들은 요새로 올라가니라</div>
+                </div>
+            </div>
+
+            <!-- Card 2: 고린도전서 5 -->
+            <div class="chapter-card card-book2">
+                <h2>고린도전서 5장 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>바울은 고린도 교회 내에 발생한 충격적인 음행 문제(아들의 계모 동거)를 정면으로 다룹니다. 교회가 이 죄를 슬퍼하기는커녕 오히려 교만하게 용납하고 있는 현실을 강하게 책망합니다. 그는 사도로서의 권위로 그 범죄자를 교회 공동체에서 축출하여("사탄에게 내주어") 그의 육신은 멸하고 영은 구원받게 하라고 명령합니다. 바울은 '적은 누룩'의 비유를 들어, 죄를 용납하는 것이 온 교회를 부패시킬 수 있음을 경고하며, 유월절 어린 양이신 그리스도의 희생에 합당하게 순전함과 진실함으로 거룩한 공동체를 이룰 것을 촉구합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <style>.svg-text { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; text-anchor: middle; }</style>
+                    <ellipse cx="150" cy="100" rx="100" ry="60" fill="#f5c6cb"/>
+                    <text x="150" y="105" class="svg-text" font-weight="bold">고린도 교회 (반죽)</text>
+                    
+                    <g transform="translate(150, 80)">
+                        <path d="M -10,-10 L 10,-10 L 10,10 L -10,10 Z" fill="#721c24"/>
+                        <text y="25" class="svg-text" fill="#721c24">죄 (누룩)</text>
+                    </g>
+                    
+                    <path d="M 260 100 H 350" stroke="#DB4437" stroke-width="2" marker-end="url(#arrow-red-end)"/>
+                    <text x="305" y="90" class="svg-text">권징 (누룩 제거)</text>
+                    <text x="305" y="120" class="svg-text">→ 교회의 거룩함 회복</text>
+                    <defs><marker id="arrow-red-end" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#DB4437"/></marker></defs>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>이 장은 신약성경에서 교회 권징(勸懲, Church Discipline)의 원리와 목적을 가장 명확하게 보여주는 본문입니다. 고린도 교인들은 자신들의 '영적 자유'를 오해하여 명백한 죄악마저 용납하는 것을 관용으로 착각했습니다. 그러나 바울은 그것이 교만이며 교회의 거룩함을 파괴하는 행위라고 지적합니다. 권징의 목적은 세 가지입니다. 첫째, 범죄자 개인의 구원입니다. '사탄에게 내어준다'는 것은 교회라는 보호의 울타리에서 내보내 세상의 고통을 통해 자신의 죄를 깨닫고 회개하게 하려는 '치료적' 목적을 갖습니다. 둘째, 교회의 순결을 보존하는 것입니다. 죄는 누룩처럼 전염성이 강하기에, 단호하게 제거하지 않으면 공동체 전체를 오염시킵니다. 셋째, 세상에 대한 교회의 거룩한 증거를 회복하는 것입니다. 교회는 세상의 비도덕적인 기준과 구별되어야 합니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">고린도전서 5:5</p>
+                        <p class="commentary-text">이런 자를 사탄에게 내주었으니 이는 육신은 멸하고 영은 주 예수의 날에 구원을 받게 하려 함이라</p>
+                        <p class="commentary-text">교회 권징의 목적을 명확히 보여주는 구절입니다. 출교는 저주나 영원한 정죄가 아닙니다. 오히려 역설적이게도 궁극적인 구원을 목표로 합니다. 교회 공동체의 영적 보호와 교제를 상실하고 세상(사탄의 영역)으로 쫓겨남으로써, 그가 고통 속에서 자신의 죄의 심각성을 깨닫고 회개하여 마지막 날에 그의 '영'이 구원받도록 하기 위한 극약 처방입니다. 이는 하나님의 징계가 언제나 회복을 목표로 하는 사랑에 기초하고 있음을 보여줍니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">고린도전서 5:7-8</p>
+                        <p class="commentary-text">너희는 누룩 없는 자인데 새 덩어리가 되기 위하여 묵은 누룩을 내버리라 우리의 유월절 양 곧 그리스도께서 희생되셨느니라 이러므로 우리가 명절을 지키되 묵은 누룩으로도 말고 악하고 악의에 찬 누룩으로도 말고 누룩이 없이 오직 순전함과 진실함의 떡으로 하자</p>
+                        <p class="commentary-text">교회의 거룩한 삶의 신학적 근거를 제시합니다. 유대인들이 유월절을 지키기 전에 집안의 모든 누룩을 제거했듯이, 성도는 그리스도의 보혈로 이미 '누룩 없는 자', 즉 의롭다 칭함 받은 새로운 피조물이 되었습니다. 따라서 이제는 그 새로운 정체성에 합당하게 살아야 할 책임이 있습니다. '묵은 누룩', 즉 옛 사람의 악한 습관과 죄를 삶에서 제거하고, '순전함과 진실함'이라는 새로운 삶의 방식으로 하나님을 예배해야 합니다. 우리의 성화는 유월절 어린 양이신 그리스도의 단번의 희생에 근거합니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>음행에 대한 책망과 권징</strong>
+                    <div><span class="verse-number">1</span>너희 중에 심지어 음행이 있다 함을 들으니 그런 음행은 이방인 중에도 없는 것이라 누가 그 아버지의 아내를 취하였다 하는도다</div>
+                    <div><span class="verse-number">2</span>그리하고도 너희가 오히려 교만하여져서 어찌하여 통안히 여기지 아니하고 그 일 행한 자를 너희 중에서 쫓아내지 아니하였느냐</div>
+                    <div><span class="verse-number">3</span>내가 실로 몸으로는 떠나 있으나 영으로는 함께 있어서 거기 있는 것 같이 이런 일 행한 자를 이미 판단하였노라</div>
+                    <div><span class="verse-number">4</span>주 예수의 이름으로 너희가 내 영과 함께 모여서 우리 주 예수의 능력으로</div>
+                    <div><span class="verse-number">5</span>이런 자를 사탄에게 내주었으니 이는 육신은 멸하고 영은 주 예수의 날에 구원을 받게 하려 함이라</div>
+                    <strong>묵은 누룩을 내버리라</strong>
+                    <div><span class="verse-number">6</span>너희가 자랑하는 것이 옳지 아니하도다 적은 누룩이 온 덩어리에 퍼지는 것을 알지 못하느냐</div>
+                    <div><span class="verse-number">7</span>너희는 누룩 없는 자인데 새 덩어리가 되기 위하여 묵은 누룩을 내버리라 우리의 유월절 양 곧 그리스도께서 희생되셨느니라</div>
+                    <div><span class="verse-number">8</span>이러므로 우리가 명절을 지키되 묵은 누룩으로도 말고 악하고 악의에 찬 누룩으로도 말고 누룩이 없이 오직 순전함과 진실함의 떡으로 하자</div>
+                    <strong>교회 내부의 판단</strong>
+                    <div><span class="verse-number">9</span>내가 너희에게 쓴 편지에 음행하는 자들을 사귀지 말라 하였거니와</div>
+                    <div><span class="verse-number">10</span>이 말은 이 세상의 음행하는 자들이나 탐하는 자들이나 속여 빼앗는 자들이나 우상 숭배하는 자들을 도무지 사귀지 말라 하는 것이 아니니 만일 그리하려면 너희가 세상 밖으로 나가야 할 것이라</div>
+                    <div><span class="verse-number">11</span>이제 내가 너희에게 쓴 것은 만일 어떤 형제라 일컫는 자가 음행하거나 탐욕을 부리거나 우상 숭배를 하거나 모욕하거나 술 취하거나 속여 빼앗거든 사귀지도 말고 그런 자와는 함께 먹지도 말라 함이라</div>
+                    <div><span class="verse-number">12</span>밖에 있는 사람들을 판단하는 것이야 내게 무슨 상관이 있으리요마는 교회 안에 있는 사람들이야 너희가 판단하지 아니하랴</div>
+                    <div><span class="verse-number">13</span>밖에 있는 사람들은 하나님이 심판하시려니와 이 악한 사람은 너희 중에서 내쫓으라</div>
+                </div>
+            </div>
+
+            <!-- Card 3: 에스겔 3 -->
+            <div class="chapter-card card-book3">
+                <h2>에스겔 3장 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>하나님은 에스겔에게 심판의 말씀이 담긴 두루마리를 먹으라고 명령하십니다. 그 말씀은 입에서는 꿀같이 달았는데, 이는 하나님의 말씀을 받는 것 자체가 종에게는 기쁨임을 상징합니다. 하나님은 그를 이스라엘 족속의 '파수꾼'으로 세우시고, 말씀을 전해야 할 무거운 책임을 부여하십니다. 만약 에스겔이 경고하지 않아 악인이 죽으면 그 피 값을 그에게서 찾을 것이지만, 경고했는데도 듣지 않으면 에스겔의 책임은 면해집니다. 이 무거운 사명 앞에서 하나님은 그의 혀를 입천장에 붙게 하여 침묵하게 하셨다가, 오직 당신이 명하실 때만 말하게 하심으로 그의 말이 전적으로 하나님께 속했음을 보여주십니다.</p>
+                
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <style>.svg-text { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; text-anchor: middle; }</style>
+                    <path d="M 150 150 L 250 150 L 250 80 L 220 50 L 180 50 L 150 80 Z" fill="#fff3cd" stroke="#F4B400"/>
+                    <text x="200" y="100" class="svg-text" font-weight="bold">파수꾼 (에스겔)</text>
+                    
+                    <path d="M 200 45 V 20" stroke="#F4B400" stroke-width="2" marker-start="url(#arrow-yellow-rev)"/>
+                    <text x="200" y="30" class="svg-text">하나님의 말씀 (나팔)</text>
+                    <defs><marker id="arrow-yellow-rev" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F4B400"/></marker></defs>
+
+                    <g transform="translate(80, 150)">
+                        <rect x="-30" y="-15" width="60" height="30" rx="5" fill="#fce4ec"/>
+                        <text y="5" class="svg-text">백성</text>
+                    </g>
+                    <path d="M 150 140 L 115 150" stroke="#F4B400" stroke-width="2" marker-end="url(#arrow-yellow-end)"/>
+                    <text x="130" y="130" class="svg-text">경고의 책임</text>
+                    <defs><marker id="arrow-yellow-end" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F4B400"/></marker></defs>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>'파수꾼'의 비유는 고대 근동에서 성벽 위에서 적의 침입을 감시하다가 위험을 알리는 중요한 직책에서 유래했습니다. 파수꾼의 책임은 적을 물리치는 것이 아니라, 위험을 제때 정확하게 알리는 것입니다. 마찬가지로, 선지자의 책임은 백성을 회개시키는 것이 아니라, 하나님의 경고를 신실하게 선포하는 것입니다. 이는 사역의 열매와 성공에 대한 개념을 재정립해 줍니다. 또한, 심판의 메시지가 담긴 두루마리가 '꿀같이 달았다'는 역설은, 하나님의 뜻에 순종하는 것 자체가 선지자에게는 가장 큰 기쁨이며 영적인 양식이 됨을 보여줍니다. 이는 쓴 잔을 앞두고도 "나의 양식은 나를 보내신 이의 뜻을 행하며 그의 일을 온전히 이루는 이것이니라"(요 4:34)라고 말씀하신 예수님의 순종을 떠올리게 합니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">에스겔 3:3</p>
+                        <p class="commentary-text">내게 이르시되 인자야 내가 네게 주는 이 두루마리를 네 배에 넣으며 네 창자에 채우라 하시기에 내가 먹으니 그것이 내 입에서 달기가 꿀 같더라</p>
+                        <p class="commentary-text">선지자는 단순히 말씀을 전달하는 스피커가 아니라, 먼저 그 말씀을 자신의 존재 깊숙한 곳까지 받아들이고 소화해야 하는 사람임을 보여줍니다. 말씀을 먹는 행위는 그것을 완전히 내면화하고 자신의 일부로 삼는 것을 의미합니다. 심판의 메시지임에도 불구하고 꿀같이 단 이유는, 그것이 인간의 말이 아닌 거룩하신 하나님의 말씀이며, 그 말씀에 순종하는 것이 종의 가장 큰 기쁨이기 때문입니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">에스겔 3:17</p>
+                        <p class="commentary-text">인자야 내가 너를 이스라엘 족속의 파수꾼으로 세웠으니 너는 내 입의 말을 듣고 나를 대신하여 그들을 깨우치라</p>
+                        <p class="commentary-text">선지자의 정체성과 사명을 한 문장으로 요약합니다. 그는 스스로 세운 자가 아니라 하나님이 '세우신' 파수꾼입니다. 그의 메시지는 자신의 의견이 아니라 하나님의 '입의 말'이어야 합니다. 그의 역할은 하나님을 '대신하여' 백성을 '깨우치는' 것입니다. 이는 오늘날 말씀을 전하는 모든 사역자에게도 동일하게 적용되는 원리입니다. 사역자는 하나님의 대리인으로서, 자신의 말이 아닌 하나님의 말씀을 전해야 할 엄중한 책임을 지고 있습니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>두루마리를 먹는 선지자</strong>
+                    <div><span class="verse-number">1</span>그가 또 내게 이르시되 인자야 너는 발견한 것을 먹으라 너는 이 두루마리를 먹고 가서 이스라엘 족속에게 말하라 하시기로</div>
+                    <div><span class="verse-number">2</span>내가 입을 벌리니 그가 그 두루마리를 내게 먹이시며</div>
+                    <div><span class="verse-number">3</span>내게 이르시되 인자야 내가 네게 주는 이 두루마리를 네 배에 넣으며 네 창자에 채우라 하시기에 내가 먹으니 그것이 내 입에서 달기가 꿀 같더라</div>
+                    <strong>파수꾼으로 부르심</strong>
+                    <div><span class="verse-number">4</span>그가 또 내게 이르시되 인자야 이스라엘 족속에게 가서 내 말로 그들에게 고하라</div>
+                    <div><span class="verse-number">5</span>너를 언어가 다르거나 말이 어려운 백성에게 보내는 것이 아니요 이스라엘 족속에게 보내는 것이라</div>
+                    <div><span class="verse-number">6</span>너를 언어가 다르거나 말이 어려워 네가 그들의 말을 알아 듣지 못할 나라들에게 보내는 것이 아니니라 내가 너를 그들에게 보냈다면 그들은 정녕 네 말을 들었으리라</div>
+                    <div><span class="verse-number">7</span>그러나 이스라엘 족속은 이마가 굳고 마음이 굳어 네 말을 듣고자 아니하리니 이는 내 말을 듣고자 아니함이니라</div>
+                    <div><span class="verse-number">8</span>보라 내가 그들의 얼굴을 마주보도록 네 얼굴을 굳게 하였고 그들의 이마를 마주보도록 네 이마를 굳게 하였으되</div>
+                    <div><span class="verse-number">9</span>네 이마를 화석보다 굳은 금강석 같이 하였으니 그들이 비록 반역하는 족속이라도 두려워하지 말며 그들의 얼굴을 무서워하지 말라 하시니라</div>
+                    <div><span class="verse-number">10</span>또 내게 이르시되 인자야 내가 네게 이를 모든 말을 너는 마음으로 받으며 귀로 듣고</div>
+                    <div><span class="verse-number">11</span>사로잡힌 네 민족에게 가서 그들이 듣든지 아니 듣든지 그들에게 고하여 이르기를 주 여호와의 말씀이 이러하시다 하라</div>
+                    <div><span class="verse-number">12</span>그 때에 주의 영이 나를 들어올리시는데 내가 내 뒤에서 크게 울리는 소리를 들으니 찬송할지어다 여호와의 영광이 그의 처소로부터 나오는도다 하니</div>
+                    <div><span class="verse-number">13</span>이는 생물들의 날개가 서로 부딪치는 소리와 생물 곁의 바퀴 소리라 크게 울리는 소리더라</div>
+                    <div><span class="verse-number">14</span>주의 영이 나를 들어올려 데리고 가시는데 내가 근심하고 분한 마음으로 가니 여호와의 권능이 힘 있게 나를 감동시키시더라</div>
+                    <div><span class="verse-number">15</span>이에 내가 델아빕에 이르러 그 사로잡힌 백성 곧 그발 강 가에 거주하는 자들에게 나아가 그들 가운데에 머물며 이레 동안을 두려워 떨며 지내니라</div>
+                    <strong>파수꾼의 책임</strong>
+                    <div><span class="verse-number">16</span>이레 후에 여호와의 말씀이 내게 임하여 이르시되</div>
+                    <div><span class="verse-number">17</span>인자야 내가 너를 이스라엘 족속의 파수꾼으로 세웠으니 너는 내 입의 말을 듣고 나를 대신하여 그들을 깨우치라</div>
+                    <div><span class="verse-number">18</span>가령 내가 악인에게 말하기를 너는 꼭 죽으리라 할 때에 네가 깨우치지 아니하거나 말로 악인에게 일러서 그의 악한 길을 떠나 생명을 구원하게 하지 아니하면 그 악인은 그의 죄악 중에서 죽으려니와 내가 그의 피 값을 네 손에서 찾을 것이고</div>
+                    <div><span class="verse-number">19</span>네가 악인을 깨우치되 그가 그의 악한 마음과 악한 행위에서 돌이키지 아니하면 그는 그의 죄악 중에서 죽으려니와 너는 네 생명을 보존하리라</div>
+                    <div><span class="verse-number">20</span>또 의인이 그의 공의에서 돌이켜 악을 행할 때에는 이미 행한 그의 공의는 기억할 바 아니라 내가 그 앞에 거치는 것을 두면 그가 죽을지니 이는 네가 그를 깨우치지 않음이니라 그는 그의 죄 중에서 죽으려니와 그의 피 값은 내가 네 손에서 찾으리라</div>
+                    <div><span class="verse-number">21</span>그러나 네가 그 의인을 깨우쳐 범죄하지 아니하게 함으로 그가 범죄하지 아니하면 정녕 살리니 이는 깨우침을 받음이며 너도 네 영혼을 보존하리라</div>
+                    <strong>말씀을 전할 때와 침묵할 때</strong>
+                    <div><span class="verse-number">22</span>여호와께서 권능으로 거기서 내게 임하시고 또 내게 이르시되 일어나 들로 나아가라 내가 거기서 너와 말하리라 하시기로</div>
+                    <div><span class="verse-number">23</span>내가 일어나 들로 나아가니 여호와의 영광이 거기에 머물렀는데 내가 전에 그발 강 가에서 보던 영광과 같은지라 내가 곧 엎드리니</div>
+                    <div><span class="verse-number">24</span>주의 영이 내게 임하사 나를 일으켜 내 발로 세우시고 내게 말씀하여 이르시되 너는 가서 네 집에 들어가 문을 닫으라</div>
+                    <div><span class="verse-number">25</span>너 인자야 보라 무리가 네 위에 줄을 놓아 너를 동여매리니 네가 그들 가운데에서 나오지 못할 것이라</div>
+                    <div><span class="verse-number">26</span>내가 네 혀를 네 입천장에 붙게 하여 네가 말 못하는 자가 되어 그들을 꾸짖는 자가 되지 못하게 하리니 그들은 패역한 족속임이니라</div>
+                    <div><span class="verse-number">27</span>그러나 내가 너와 말할 때에 네 입을 열리니 너는 그들에게 이르기를 주 여호와의 말씀이 이러하시다 하라 들을 자는 들을 것이요 듣기 싫은 자는 듣지 아니하리니 그들은 반역하는 족속임이니라</div>
+                </div>
+            </div>
+
+            <!-- Card 4: 시편 39 -->
+            <div class="chapter-card card-book4">
+                <h2>시편 39편 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>인생의 유한함과 허무함을 깊이 성찰하는 탄원시입니다. 시인은 악인 앞에서 자신의 고통에 대해 침묵하려 했으나, 마음의 고통이 불붙는 것 같아 결국 하나님께 부르짖습니다. 그는 하나님께 자신의 생명이 얼마나 짧고 덧없는지를 깨닫게 해달라고 간구합니다. 그는 인생이 한 뼘 길이에 불과하고, 모든 사람이 한낱 그림자처럼 다니며 헛된 일로 소란하고 재물을 쌓아도 누가 거둘지 알지 못한다고 고백합니다. 이러한 깨달음 속에서 그는 세상의 헛된 것들을 버리고 오직 주님께만 소망을 두기로 결단하며, 죄로부터의 용서와 징계의 중단을 간구합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <style>.svg-text { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; text-anchor: middle; }</style>
+                    <line x1="20" y1="100" x2="380" y2="100" stroke="#ccc" stroke-width="2"/>
+                    <text x="200" y="115" class="svg-text">영원</text>
+                    
+                    <rect x="150" y="95" width="100" height="10" fill="#a5d6a7"/>
+                    <text x="200" y="85" class="svg-text" font-weight="bold">인생 (한 뼘 길이)</text>
+
+                    <g transform="translate(100, 150)">
+                        <path d="M -20,0 L 0,-20 L 20,0 Z" fill="#f9fbe7"/>
+                        <text y="15" class="svg-text">헛된 일 (재물)</text>
+                    </g>
+                    
+                    <g transform="translate(300, 50)">
+                        <circle cx="0" cy="0" r="20" fill="#e8f5e9"/>
+                        <text y="5" class="svg-text">소망 (주께 있음)</text>
+                    </g>
+                    <path d="M 120 150 C 180 80, 250 80, 280 65" stroke="#388e3c" stroke-width="2" fill="none" marker-end="url(#arrow-green-end)"/>
+                    <defs><marker id="arrow-green-end" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#388e3c"/></marker></defs>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>이 시편은 '인생이 무엇인가'라는 근본적인 질문에 대한 신앙적인 답변을 제공합니다. 세상적인 관점에서 인생은 그림자 같고 헛된 일로 가득한 허무한 것입니다. 이러한 인생의 실상을 정직하게 직면하는 것은 고통스럽지만, 바로 이 깨달음이 우리를 참된 소망이신 하나님께로 인도하는 출발점이 됩니다. 시인은 인생의 허무함 때문에 절망에 빠지는 대신, "주여 이제 내가 무엇을 바라리요 나의 소망은 주께 있나이다"라고 고백합니다. 이는 유한하고 헛된 것들에서 눈을 돌려 영원하고 참되신 하나님께 소망을 두는 신앙의 위대한 전환을 보여줍니다. 이 시는 전도서의 주제와도 깊이 연결되며, 성도에게 세상에 대한 집착을 버리고 나그네와 같은 삶의 자세를 가질 것을 가르칩니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">시편 39:4</p>
+                        <p class="commentary-text">여호와여 나의 종말과 연한이 언제까지인지 알게 하사 내가 나의 연약함을 알게 하소서</p>
+                        <p class="commentary-text">자신의 유한성을 깨닫게 해달라는 겸손한 기도입니다. 대부분의 사람들은 죽음을 잊고 영원히 살 것처럼 행동하지만, 지혜로운 사람은 자신의 인생이 끝이 있음을 기억하고 그 한계 안에서 살아갑니다. 자신의 연약함을 아는 것이야말로 참된 지혜의 시작이며, 우리를 교만에서 지키고 하나님을 더욱 의지하게 만드는 원동력이 됩니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">시편 39:7</p>
+                        <p class="commentary-text">주여 이제 내가 무엇을 바라리요 나의 소망은 주께 있나이다</p>
+                        <p class="commentary-text">시편 전체의 결론이자 신앙 고백의 정점입니다. 인생의 허무함을 깨달은 시인은 세상의 그 어떤 것에서도 참된 소망을 찾을 수 없음을 고백합니다. 그의 유일하고도 완전한 소망은 오직 주님 자신입니다. 이는 기독교 신앙의 본질을 보여줍니다. 우리의 소망은 더 나은 환경이나 조건이 아니라, 영원하신 하나님 그분과의 인격적인 관계에 있습니다. 이 고백은 모든 헛된 소망을 버리고 하나님께로 돌아가는 회심의 순간을 포착합니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>인생의 허무함과 유일한 소망</strong>
+                    <div><span class="verse-number">1</span>내가 말하기를 나의 행위를 조심하여 내 혀로 범죄하지 아니하리니 악인이 내 앞에 있을 때에 내가 내 입에 재갈을 먹이리라 하였도다</div>
+                    <div><span class="verse-number">2</span>내가 잠잠하여 선한 말도 하지 아니하니 나의 근심이 더 심하도다</div>
+                    <div><span class="verse-number">3</span>내 마음이 내 속에서 뜨거워서 작은 소리로 읊조릴 때에 불이 붙으니 나의 혀로 말하기를</div>
+                    <div><span class="verse-number">4</span>여호와여 나의 종말과 연한이 언제까지인지 알게 하사 내가 나의 연약함을 알게 하소서</div>
+                    <div><span class="verse-number">5</span>주께서 나의 날을 한 뼘 길이만큼 되게 하시매 나의 일생이 주 앞에는 없는 것 같사오니 사람은 그가 굳건히 서 있는 때에도 진실로 모두가 허사뿐이니이다 (셀라)</div>
+                    <div><span class="verse-number">6</span>진실로 각 사람은 그림자 같이 다니고 헛된 일로 소란하며 재물을 쌓으나 누가 거둘지는 알지 못하나이다</div>
+                    <div><span class="verse-number">7</span>주여 이제 내가 무엇을 바라리요 나의 소망은 주께 있나이다</div>
+                    <strong>죄로부터의 구원을 위한 기도</strong>
+                    <div><span class="verse-number">8</span>나를 모든 죄에서 건지시며 우매한 자에게서 욕을 당하지 아니하게 하소서</div>
+                    <div><span class="verse-number">9</span>내가 잠잠하고 입을 열지 아니함은 주께서 이를 행하신 까닭이니이다</div>
+                    <div><span class="verse-number">10</span>주의 징벌을 나에게서 옮기소서 주의 손이 치심으로 내가 쇠망하였나이다</div>
+                    <div><span class="verse-number">11</span>주께서 죄악을 책망하사 사람을 징계하실 때에 그 영화를 좀먹음 같이 소멸하게 하시니 참으로 인생이란 모두 헛될 뿐이니이다 (셀라)</div>
+                    <div><span class="verse-number">12</span>여호와여 나의 기도를 들으시며 나의 부르짖음에 귀를 기울이소서 내가 눈물 흘릴 때에 잠잠하지 마옵소서 나는 주와 함께 있는 나그네이며 나의 모든 조상들처럼 떠도나이다</div>
+                    <div><span class="verse-number">13</span>주는 나를 용서하사 내가 떠나 없어지기 전에 나의 건강을 회복시키소서</div>
+                </div>
+            </div>
+
+            <!-- Integration Card -->
+            <div class="chapter-card integration-card">
+                <h2>통합적 이해</h2>
+                
+                <h3>관통하는 주제</h3>
+                <p>하나님의 사람은 세상의 악과 죄악된 현실, 그리고 인생의 허무함 속에서 인간적인 방법을 의지하지 않고, 오직 하나님의 주권과 말씀을 신뢰하며 맡겨진 사명(긍휼, 거룩, 경고)을 감당하고 그의 구원을 소망한다.</p>
+
+                <h3>구속사의 파노라마 (시각적 연결고리)</h3>
+                <svg class="analysis-svg" viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+                    <style>.svg-text { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; fill: #333; } .svg-title { font-weight: bold; font-size: 13px; }</style>
+                    <defs><marker id="arrow-grey" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#808080" /></marker></defs>
+                    
+                    <rect x="20" y="80" width="140" height="80" rx="5" fill="#f0f0f0" stroke="#ccc"/>
+                    <text x="90" y="100" text-anchor="middle" class="svg-title">세상의 현실</text>
+                    <text x="90" y="120" text-anchor="middle" class="svg-text">악인의 위협 (삼상 24)</text>
+                    <text x="90" y="140" text-anchor="middle" class="svg-text">인생의 허무 (시 39)</text>
+                    <text x="90" y="160" text-anchor="middle" class="svg-text">교회의 죄 (고전 5)</text>
+
+                    <rect x="340" y="80" width="140" height="80" rx="5" fill="#f0f0f0" stroke="#ccc"/>
+                    <text x="410" y="100" text-anchor="middle" class="svg-title">성도의 사명</text>
+                    <text x="410" y="120" text-anchor="middle" class="svg-text">긍휼 실천 (삼상 24)</text>
+                    <text x="410" y="140" text-anchor="middle" class="svg-text">거룩함 추구 (고전 5)</text>
+                    <text x="410" y="160" text-anchor="middle" class="svg-text">말씀 선포 (겔 3)</text>
+                    
+                    <path d="M 165 120 H 335" stroke="#808080" stroke-width="2" fill="none" marker-end="url(#arrow-grey)" />
+                    <text x="250" y="110" text-anchor="middle" class="svg-text" font-weight="bold">하나님께 소망을 둠</text>
+                    <text x="250" y="130" text-anchor="middle" class="svg-text">(시 39:7)</text>
+                </svg>
+
+                <h3>본문별 연결고리 및 구속사적 맥락 (해설)</h3>
+                <p>오늘의 본문들은 죄로 가득하고 허무한 세상 속에서 하나님의 백성이 어떻게 살아가야 하는지에 대한 구체적인 지침들을 보여줍니다.</p>
+                <ul>
+                    <li><b>사무엘상 24편과 시편 39편</b>은 우리가 살아가는 세상의 두 가지 현실, 즉 '악인의 위협'과 '인생 자체의 허무함'을 보여줍니다. 다윗은 자신을 죽이려는 사울이라는 구체적인 악인 앞에서 고통받고, 시편 기자는 모든 인간이 겪는 유한성과 헛됨 앞에서 탄식합니다. 이 두 현실은 우리로 하여금 세상에 소망을 둘 수 없게 만듭니다.</li>
+                    <li><b>시편 39편 7절</b>은 이 문제에 대한 유일한 해답을 제시합니다: "주여 이제 내가 무엇을 바라리요 나의 소망은 주께 있나이다." 세상과 나 자신에게서 눈을 들어 오직 하나님께 소망을 두는 것이 신앙의 출발점입니다.</li>
+                    <li><b>사무엘상 24편, 고린도전서 5편, 에스겔 3편</b>은 하나님께 소망을 둔 백성이 구체적으로 어떻게 살아야 하는지를 보여줍니다.
+                        <ul>
+                            <li><b>긍휼의 사명(삼상 24):</b> 다윗은 원수를 갚지 않고 긍휼을 베풂으로써 하나님의 성품을 드러냅니다.</li>
+                            <li><b>거룩의 사명(고전 5):</b> 교회는 죄를 단호히 제거하고 공동체의 거룩함을 지켜야 합니다.</li>
+                            <li><b>경고의 사명(겔 3):</b> 하나님의 종은 듣든지 아니 듣든지 심판의 말씀을 신실하게 선포해야 할 파수꾼의 책임이 있습니다.</li>
+                        </ul>
+                    </li>
+                    <li>이 세 가지 사명은 모두 인간적인 지혜나 힘이 아닌, 하나님의 주권과 말씀을 신뢰할 때만 가능합니다. 다윗은 하나님의 기름 부음 받은 자를, 바울은 유월절 어린 양이신 그리스도를, 에스겔은 입에 넣어주신 하나님의 말씀을 근거로 행동합니다. 이처럼 하나님의 백성은 헛된 세상 속에서 하나님의 말씀을 붙들고 그분의 성품을 드러내는 사명자로 살아갑니다.</li>
+                </ul>
+
+                <h3>주제별 심층 분석표</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>주제</th>
+                            <th>사무엘상 24</th>
+                            <th>고린도전서 5</th>
+                            <th>에스겔 3</th>
+                            <th>시편 39</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>세상의 현실</b></td>
+                            <td>악인의 끈질긴 위협과 박해.</td>
+                            <td>교회 안에 침투한 심각한 도덕적 타락과 교만.</td>
+                            <td>하나님의 말씀을 거부하는 패역한 백성.</td>
+                            <td>모든 인생의 유한함과 허무함.</td>
+                        </tr>
+                        <tr>
+                            <td><b>성도의 반응/사명</b></td>
+                            <td>사적 복수를 포기하고 긍휼을 베풂. 심판을 하나님께 맡김.</td>
+                            <td>죄를 제거하여 공동체의 거룩함을 지킴 (권징).</td>
+                            <td>결과에 상관없이 신실하게 말씀을 선포함 (파수꾼).</td>
+                            <td>인생의 헛됨을 깨닫고 오직 주께 소망을 둠.</td>
+                        </tr>
+                        <tr>
+                            <td><b>행동의 근거</b></td>
+                            <td>'여호와의 기름 부음 받은 자'라는 신학적 원칙.</td>
+                            <td>'유월절 양 그리스도'의 희생으로 이룬 거룩함.</td>
+                            <td>하나님이 먹여주신 말씀과 파수꾼으로서의 소명.</td>
+                            <td>인생의 유한함에 대한 깨달음과 하나님의 영원하심.</td>
+                        </tr>
+                        <tr>
+                            <td><b>하나님의 역할</b></td>
+                            <td>재판장이 되어 판단하시고 보복하심.</td>
+                            <td>교회 밖의 사람들을 최종적으로 심판하심.</td>
+                            <td>말씀을 주시고 사명을 위임하시며 책임을 물으심.</td>
+                            <td>유일한 소망이 되시며 죄에서 건지시는 구원자.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>오늘의 교훈</h3>
+                <p>우리는 악이 승리하는 듯 보이고, 인생의 의미를 찾기 어려운 허무한 세상 속에서 살아갑니다. 오늘 말씀은 이러한 현실을 부정하거나 외면하지 말고, 정직하게 마주하라고 가르칩니다. 그리고 그 속에서 우리의 유일한 소망은 오직 영원하신 하나님께 있음을 고백하라고 도전합니다. 이 소망은 우리를 현실 도피로 이끄는 것이 아니라, 오히려 세상 속에서 구체적인 사명을 감당하게 합니다. 원수를 향해 긍휼을 베풀고, 우리 공동체의 거룩함을 위해 죄와 싸우며, 듣는 이가 없더라도 담대히 진리를 선포하는 삶으로 우리를 부르십니다. 오늘 하루, 세상의 헛된 것에서 눈을 돌려 우리의 참된 소망이신 하나님을 바라보며, 그분이 맡기신 사명을 신실하게 감당하는 청지기의 삶을 살기를 소망합니다.</p>
+            </div>
+        </main>
+        
+        <footer>
+            2025 KBD 맥체인 성경읽기 프로젝트
+        </footer>
+    </div>
+
+    <script>
+        // YouTube IFrame Player API 스크립트 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var videoId = 'EZtS4Jiq_Zc'; // 사용자로부터 입력받은 링크에서 추출된 ID
+        let playerReady = false; // 플레이어 준비 상태 추적 플래그
+        let apiLoadTimeout; // 타임아웃 변수
+
+        // API 로드 실패를 처리하기 위한 타임아웃 설정
+        apiLoadTimeout = setTimeout(() => {
+            if (!playerReady) {
+                const button = document.getElementById('audio-control-button');
+                button.textContent = '오디오 로드 실패';
+                button.disabled = true;
+            }
+        }, 10000); // 10초 타임아웃
+
+        function onYouTubeIframeAPIReady() {
+            if (videoId) {
+                player = new YT.Player('player', {
+                    height: '360',
+                    width: '640',
+                    videoId: videoId,
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                clearTimeout(apiLoadTimeout); // 비디오 ID가 없으면 타임아웃 제거
+                const button = document.getElementById('audio-control-button');
+                button.textContent = '오디오 자료 없음';
+                button.disabled = true;
+            }
+        }
+
+        function onPlayerReady(event) {
+            clearTimeout(apiLoadTimeout); // 플레이어가 준비되면 타임아웃 제거
+            playerReady = true; // 플래그 설정
+            const button = document.getElementById('audio-control-button');
+            button.textContent = '오늘의 말씀듣기 ▶';
+            button.disabled = false;
+        }
+
+        function onPlayerStateChange(event) {
+            const button = document.getElementById('audio-control-button');
+            if (event.data == YT.PlayerState.PLAYING) {
+                button.textContent = '일시정지 ⏸';
+            } else {
+                button.textContent = '다시듣기 ▶';
+            }
+        }
+
+        function toggleAudio() {
+            if (player && playerReady) {
+                const playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+        
+        document.getElementById('audio-control-button').addEventListener('click', toggleAudio);
+    </script>
+</body>
+</html>

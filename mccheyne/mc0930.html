@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 30일 맥체인 성경읽기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --book1-color: #4A90E2; /* 열왕기상 - Blue */
+            --book2-color: #E91E63; /* 갈라디아서 - Pink */
+            --book3-color: #F5A623; /* 에스겔 - Orange */
+            --book4-color: #9013FE; /* 시편 - Purple */
+            --integration-color: #D0021B; /* 통합 - Red */
+            --text-primary: #333;
+            --text-secondary: #555;
+            --bg-light: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title-section {
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: var(--text-primary);
+        }
+
+        h1 .subtitle {
+            font-size: 0.6em;
+            color: var(--text-secondary);
+            font-weight: 400;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .intro-passage {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .chapter-card {
+            background-color: #fff;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-left: 5px solid;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .chapter-card:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .card-book1 { border-left-color: var(--book1-color); }
+        .card-book2 { border-left-color: var(--book2-color); }
+        .card-book3 { border-left-color: var(--book3-color); }
+        .card-book4 { border-left-color: var(--book4-color); }
+        .integration-card { border-left-color: var(--integration-color); }
+
+        h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .bible-text {
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .bible-text p {
+            margin: 0 0 10px 0;
+        }
+
+        .verse-number {
+            font-weight: bold;
+            color: var(--text-secondary);
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+
+        .card-book1 .bible-text strong { color: var(--book1-color); }
+        .card-book2 .bible-text strong { color: var(--book2-color); }
+        .card-book3 .bible-text strong { color: var(--book3-color); }
+        .card-book4 .bible-text strong { color: var(--book4-color); }
+
+        .analysis-svg {
+            width: 100%;
+            margin: 20px 0;
+            background-color: var(--bg-light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .key-verse {
+            margin-bottom: 20px;
+        }
+        .key-verse .verse-text {
+            font-style: italic;
+            background-color: var(--bg-light);
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 3px solid;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .card-book1 .key-verse .verse-text { border-left-color: var(--book1-color); color: var(--book1-color); }
+        .card-book2 .key-verse .verse-text { border-left-color: var(--book2-color); color: var(--book2-color); }
+        .card-book3 .key-verse .verse-text { border-left-color: var(--book3-color); color: var(--book3-color); }
+        .card-book4 .key-verse .verse-text { border-left-color: var(--book4-color); color: var(--book4-color); }
+        .key-verse .commentary-text {
+            padding-left: 5px;
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 700;
+        }
+        
+        td:first-child {
+            font-weight: bold;
+            font-family: 'Noto Serif KR', serif;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        #player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+        }
+
+        #floatingPlayPauseBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background-color: var(--text-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #floatingPlayPauseBtn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        #floatingPlayPauseBtn:not(:disabled):hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        #floatingPlayPauseBtn.paused {
+            opacity: 0.8;
+        }
+        
+        #floatingPlayPauseBtn .play-icon, 
+        #floatingPlayPauseBtn .pause-icon {
+            display: none;
+        }
+
+        #floatingPlayPauseBtn.paused .play-icon {
+            display: block;
+        }
+
+        #floatingPlayPauseBtn:not(.paused) .pause-icon {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="player-container"></div>
+    <button id="floatingPlayPauseBtn" disabled>
+        <span class="play-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+            </svg>
+        </span>
+        <span class="pause-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+            </svg>
+        </span>
+    </button>
+    
+    <div class="container">
+        <header class="title-section">
+            <h1>9월 30일 맥체인 성경읽기<br><span class="subtitle">심은 대로 거두리라: 언약의 책임과 결과</span></h1>
+            <p class="intro-passage">왕상2 | 갈6 | 겔33 | 시81-82</p>
+        </header>
+
+        <main>
+            <!-- Card 1: 1 Kings 2 -->
+            <section class="chapter-card card-book1">
+                <h2>열왕기상 2장: 다윗의 유언과 솔로몬 왕국의 공고화</h2>
+                <h3>개요 (Overview)</h3>
+                <p>다윗은 죽음을 앞두고 아들 솔로몬에게 마지막 유언을 남깁니다. 유언의 핵심은 첫째로 하나님의 율법을 지켜 언약을 따르는 것이고, 둘째는 과거의 죄악을 청산하여 나라의 기초를 정의 위에 세우는 것입니다. 다윗의 유언에 따라, 솔로몬은 왕권을 위협했던 아도니야와 그의 핵심 세력인 요압과 시므이를 처단하고, 제사장 아비아달을 파면합니다. 이로써 솔로몬의 왕국은 모든 정적들이 제거되고 하나님의 공의 위에 굳건하게 세워집니다.</p>
+                
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400, 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#555" /></marker></defs>
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">솔로몬 왕국의 기초</text>
+                    
+                    <rect x="20" y="30" width="160" height="40" rx="5" fill="#EBF5FF" stroke="#4A90E2"/>
+                    <text x="100" y="55" text-anchor="middle">다윗의 유언 (언약 순종)</text>
+
+                    <path d="M180 50 h 40" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    
+                    <rect x="220" y="30" width="160" height="40" rx="5" fill="#FEFEEB" stroke="#FBBF24"/>
+                    <text x="300" y="55" text-anchor="middle">솔로몬의 공의 집행</text>
+
+                    <path d="M100 70 v 25" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    <path d="M300 70 v 25" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    
+                    <rect x="110" y="95" width="180" height="50" rx="5" fill="#E8F5E9" stroke="#4CAF50"/>
+                    <text x="200" y="120" text-anchor="middle" font-weight="bold">왕국이 견고해짐</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>다윗이 요압과 시므이를 처단하라고 한 유언은 개인적인 복수가 아니라, 공적인 정의를 세우라는 왕으로서의 명령입니다. 요압은 무고한 아브넬과 아마사의 피를 흘렸고, 시므이는 하나님의 기름 부음 받은 왕을 저주했습니다. 이러한 죄들을 청산하지 않고는 솔로몬의 왕국이 하나님의 공의 위에 바로 설 수 없었습니다. 제사장 아비아달을 파면한 것은 단순히 그가 아도니야의 편에 섰기 때문만이 아니라, 엘리 가문에 대한 하나님의 예언(삼상 2:30-36)을 성취하는 일이었습니다. 신학적으로 솔로몬의 이러한 행위는 새로운 왕국이 시작되기 위해 반드시 옛 죄악의 유산이 청산되어야 함을 보여줍니다. 이는 장차 오실 메시아 왕국이 예수 그리스도의 십자가 보혈로 우리의 모든 죄를 청산하시고, 그 위에 세워질 것을 예표합니다. 솔로몬은 불완전한 그림자였지만, 그리스도는 완전한 공의와 사랑으로 자기 왕국을 세우시는 참된 왕이십니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>왕상 2:3-4</strong>: "네 하나님 여호와의 명령을 지켜 그 길로 행하여 그 법률과 계명과 율례와 증거를 모세의 율법에 기록된 대로 지키라 그리하면 네가 무엇을 하든지 어디로 가든지 형통할지라..."</p>
+                    <p class="commentary-text">다윗의 유언의 핵심입니다. 왕국의 진정한 안정과 번영은 군사력이나 정치적 수완이 아니라, 하나님의 말씀에 대한 순종에 달려있음을 분명히 합니다. 이는 다윗 언약의 조건이기도 하며, 이스라엘 모든 왕의 성공과 실패를 가르는 기준이 됩니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>왕상 2:46</strong>: "...이에 나라가 솔로몬의 손에 견고하여지니라"</p>
+                    <p class="commentary-text">정의를 실행한 직접적인 결과입니다. 죄의 문제를 해결하고 하나님의 공의를 세웠을 때, 비로소 나라는 안정되고 평화를 누리게 됩니다. 이는 개인의 삶과 교회 공동체에도 동일하게 적용되는 원리입니다. 회개와 거룩함 없이는 참된 평안과 견고함을 누릴 수 없습니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>다윗의 유언</strong>
+                    <p><span class="verse-number">1</span> 다윗이 죽을 날이 임박하매 그의 아들 솔로몬에게 명령하여 이르되</p>
+                    <p><span class="verse-number">2</span> 내가 이제 세상 모든 사람이 가는 길로 가게 되었노니 너는 힘써 대장부가 되고</p>
+                    <p><span class="verse-number">3</span> 네 하나님 여호와의 명령을 지켜 그 길로 행하여 그 법률과 계명과 율례와 증거를 모세의 율법에 기록된 대로 지키라 그리하면 네가 무엇을 하든지 어디로 가든지 형통할지라</p>
+                    <p><span class="verse-number">4</span> 여호와께서 내 일에 대하여 말씀하시기를 만일 네 자손들이 그들의 길을 삼가 마음을 다하고 성품을 다하여 진실히 내 앞에서 행하면 이스라엘 왕위에 오를 사람이 네게서 끊어지지 아니하리라 하신 말씀을 확실히 이루게 하시리라</p>
+                    <p><span class="verse-number">5</span> 스루야의 아들 요압이 내게 행한 일 곧 이스라엘 군대의 두 사령관 넬의 아들 아브넬과 예델의 아들 아마사에게 행한 일을 네가 알거니와 그가 그들을 죽여 태평 시대에 전쟁의 피를 흘리고 전쟁의 피를 자기의 허리에 띤 띠와 발에 신은 신에 묻혔으니</p>
+                    <p><span class="verse-number">6</span> 네 지혜대로 행하여 그의 백발이 평안히 스올에 내려가지 못하게 하라</p>
+                    <p><span class="verse-number">7</span> 마땅히 길르앗 바르실래의 아들들에게는 은총을 베풀어 그들이 네 상에서 먹는 자 중에 참여하게 하라 내가 네 형 압살롬의 낯을 피하여 도망할 때에 그들이 내게 나아왔느니라</p>
+                    <p><span class="verse-number">8</span> 바후림 베냐민 사람 게라의 아들 시므이가 너와 함께 있나니 그는 내가 마하나임으로 갈 때에 악독한 말로 나를 저주하였느니라 그러나 그가 요단에 내려와서 나를 영접하므로 내가 여호와를 두고 맹세하여 이르기를 내가 칼로 너를 죽이지 아니하리라 하였노라</p>
+                    <p><span class="verse-number">9</span> 그러나 그를 무죄한 자로 여기지 말지어다 너는 지혜 있는 사람이므로 그에게 행할 일을 알지니 그의 백발이 피 가운데 스올에 내려가게 하라</p>
+                    <p><span class="verse-number">10</span> 다윗이 그의 조상들과 함께 누워 다윗 성에 장사되니</p>
+                    <p><span class="verse-number">11</span> 다윗이 이스라엘 왕이 된 지 사십 년이라 헤브론에서 칠 년 동안 다스렸고 예루살렘에서 삼십삼 년 동안 다스렸더라</p>
+                    <strong>솔로몬이 왕권을 굳히다</strong>
+                    <p><span class="verse-number">12</span> 솔로몬이 그의 아버지 다윗의 왕위에 앉으니 그의 나라가 심히 견고하니라</p>
+                    <p><span class="verse-number">13</span> 학깃의 아들 아도니야가 솔로몬의 어머니 밧세바에게 나아온지라 밧세바가 이르되 네가 화평한 목적으로 왔느냐 대답하되 화평한 목적이니이다</p>
+                    <p><span class="verse-number">14</span> 또 이르되 내가 말씀드릴 일이 있나이다 밧세바가 이르되 말하라</p>
+                    <p><span class="verse-number">15</span> 그가 이르되 당신도 아시는 바이거니와 이 왕위는 내 것이었고 온 이스라엘은 다 얼굴을 내게로 향하여 왕으로 삼으려 하였는데 그 왕권이 돌아가 내 아우의 것이 되었음은 여호와께로 말미암음이니이다</p>
+                    <p><span class="verse-number">16</span> 이제 내가 한 가지 소원을 당신에게 구하오니 내 청을 거절하지 마옵소서 밧세바가 이르되 말하라</p>
+                    <p><span class="verse-number">17</span> 그가 이르되 청하건대 솔로몬 왕에게 말씀하여 그가 수넴 여자 아비삭을 내게 주어 아내로 삼게 하소서 왕이 당신의 청을 거절하지 아니하리이다</p>
+                    <p><span class="verse-number">18</span> 밧세바가 이르되 좋다 내가 너를 위하여 왕께 말하리라</p>
+                    <p><span class="verse-number">19</span> 밧세바가 이에 아도니야를 위하여 말하려고 솔로몬 왕에게 이르니 왕이 일어나 영접하여 절한 후에 다시 왕좌에 앉고 그의 어머니를 위하여 자리를 베푸니 그가 그의 오른쪽에 앉는지라</p>
+                    <p><span class="verse-number">20</span> 밧세바가 이르되 내가 한 가지 작은 일로 왕께 구하오니 내 청을 거절하지 마소서 왕이 대답하되 내 어머니여 구하소서 내가 어머니의 청을 거절하지 아니하리이다</p>
+                    <p><span class="verse-number">21</span> 이르되 청하건대 수넴 여자 아비삭을 아도니야에게 주어 아내로 삼게 하소서</p>
+                    <p><span class="verse-number">22</span> 솔로몬 왕이 그의 어머니에게 대답하여 이르되 어찌하여 아도니야를 위하여 수넴 여자 아비삭을 구하시나이까 그는 나의 형이오니 그를 위하여 왕권도 구하옵소서 그뿐 아니라 제사장 아비아달과 스루야의 아들 요압을 위해서도 구하옵소서 하고</p>
+                    <p><span class="verse-number">23</span> 여호와를 두고 맹세하여 이르되 아도니야가 이런 말을 하였은즉 그의 생명을 잃지 아니하면 하나님은 내게 벌 위에 벌을 내리심이 마땅하니이다</p>
+                    <p><span class="verse-number">24</span> 그러므로 이제 나를 세워 내 아버지 다윗의 왕위에 오르게 하시고 허락하신 말씀대로 나를 위하여 집을 세우신 여호와께서 살아 계심을 두고 맹세하노니 아도니야는 오늘 죽임을 당하리라 하고</p>
+                    <p><span class="verse-number">25</span> 여호야다의 아들 브나야를 보내매 그가 아도니야를 쳐서 죽였더라</p>
+                    <p><span class="verse-number">26</span> 왕이 제사장 아비아달에게 이르되 네 고향 아나돗으로 가라 너는 마땅히 죽을 자이로되 네가 내 아버지 다윗 앞에서 주 여호와의 궤를 메었고 또 내 아버지가 모든 환난을 받을 때에 너도 환난을 받았은즉 내가 오늘 너를 죽이지 아니하노라 하고</p>
+                    <p><span class="verse-number">27</span> 아비아달을 쫓아내어 여호와의 제사장 직분을 파면하니 이는 여호와께서 실로에서 엘리의 집에 대하여 하신 말씀을 응하게 함이더라</p>
+                    <p><span class="verse-number">28</span> 그 소문이 요압에게 들리매 그가 여호와의 장막으로 도망하여 제단 뿔을 잡으니 이는 그가 다윗을 떠나 압살롬을 따르지 아니하였으나 아도니야를 따랐음이더라</p>
+                    <p><span class="verse-number">29</span> 어떤 사람이 솔로몬 왕에게 아뢰되 요압이 여호와의 장막으로 도망하여 제단 곁에 있나이다 솔로몬이 여호야다의 아들 브나야를 보내며 이르되 너는 가서 그를 치라</p>
+                    <p><span class="verse-number">30</span> 브나야가 여호와의 장막에 이르러 그에게 이르되 왕께서 나오라 하시느니라 그가 대답하되 아니라 내가 여기서 죽겠노라 브나야가 돌아가서 왕께 아뢰어 이르되 요압이 이리이리 내게 대답하더이다</p>
+                    <p><span class="verse-number">31</span> 왕이 이르되 그의 말과 같이 하여 그를 쳐죽여 묻으라 요압이 까닭 없이 흘린 피를 나와 내 아버지의 집에서 네가 제하리라</p>
+                    <p><span class="verse-number">32</span> 여호와께서 요압의 피를 그의 머리로 돌려보내실 것은 그가 자기보다 의롭고 선한 두 사람을 쳤음이니 곧 이스라엘 군사령관 넬의 아들 아브넬과 유다 군사령관 예델의 아들 아마사를 칼로 죽였음이라 이 일을 내 아버지 다윗은 알지 못하셨나니</p>
+                    <p><span class="verse-number">33</span> 그들의 피는 영원히 요압의 머리와 그의 자손의 머리로 돌아갈지라도 다윗과 그의 자손과 그의 집과 그의 왕위에는 여호와께로 말미암는 평강이 영원히 있으리라</p>
+                    <p><span class="verse-number">34</span> 여호야다의 아들 브나야가 곧 올라가서 그를 쳐죽이매 그가 그의 집이 있는 광야에 매장되니라</p>
+                    <p><span class="verse-number">35</span> 왕이 이에 여호야다의 아들 브나야를 요압을 대신하여 군사령관으로 삼고 또 제사장 사독으로 아비아달을 대신하게 하니라</p>
+                    <p><span class="verse-number">36</span> 왕이 사람을 보내어 시므이를 불러서 이르되 너는 예루살렘에서 너를 위하여 집을 짓고 거기서 살고 어디든지 나가지 말라</p>
+                    <p><span class="verse-number">37</span> 너는 분명히 알라 네가 나가서 기드론 시내를 건너는 날에는 반드시 죽임을 당하리니 네 피가 네 머리로 돌아가리라</p>
+                    <p><span class="verse-number">38</span> 시므이가 왕께 대답하되 이 말씀이 좋사오니 내 주 왕의 말씀대로 종이 그리하겠나이다 하고 이에 날이 오래도록 예루살렘에 머무니라</p>
+                    <p><span class="verse-number">39</span> 삼 년 후에 시므이의 두 종이 가드 왕 마아가의 아들 아기스에게로 도망하여 간지라 어떤 사람이 시므이에게 말하여 이르되 당신의 종이 가드에 있나이다</p>
+                    <p><span class="verse-number">40</span> 시므이가 그 종을 찾으려고 일어나 그의 나귀에 안장을 얹고 가드로 가서 아기스에게 나아가 그의 종을 가드에서 데려왔더니</p>
+                    <p><span class="verse-number">41</span> 시므이가 예루살렘에서부터 가드에 갔다가 돌아온 일을 어떤 사람이 솔로몬에게 말한지라</p>
+                    <p><span class="verse-number">42</span> 왕이 사람을 보내어 시므이를 불러서 이르되 내가 너에게 여호와를 두고 맹세하게 하고 경고하여 이르기를 너는 분명히 알라 네가 밖으로 나가서 어디든지 가는 날에는 죽임을 당하리라 하지 아니하였느냐 너도 내게 말하기를 내가 들은 말씀이 좋으니이다 하였거늘</p>
+                    <p><span class="verse-number">43</span> 네가 어찌하여 여호와를 두고 한 맹세와 내가 네게 이른 명령을 지키지 아니하였느냐</p>
+                    <p><span class="verse-number">44</span> 왕이 또 시므이에게 이르되 네가 네 마음으로 아는 모든 악 곧 내 아버지에게 행한 바를 네가 스스로 아나니 여호와께서 네 악을 네 머리로 돌려보내시리라</p>
+                    <p><span class="verse-number">45</span> 그러나 솔로몬 왕은 복을 받고 다윗의 왕위는 영원히 여호와 앞에서 견고히 서리라 하고</p>
+                    <p><span class="verse-number">46</span> 여호야다의 아들 브나야에게 명령하매 그가 나가서 시므이를 치니 그가 죽은지라 이에 나라가 솔로몬의 손에 견고하여지니라</p>
+                </div>
+            </section>
+            
+            <!-- Card 2: Galatians 6 -->
+            <section class="chapter-card card-book2">
+                <h2>갈라디아서 6장: 심고 거두는 법칙과 십자가의 자랑</h2>
+                <h3>개요 (Overview)</h3>
+                <p>바울은 갈라디아서를 마무리하며 실질적인 권면을 전합니다. 그는 성도들이 서로의 짐을 지는 '그리스도의 법'을 성취해야 한다고 말합니다. 또한 "사람이 무엇으로 심든지 그대로 거둔다"는 영적 법칙을 상기시키며, 육체를 위하여 심는 자는 썩을 것을 거두고 성령을 위하여 심는 자는 영생을 거둘 것이라고 경고합니다. 마지막으로 바울은 율법주의자들이 자랑하는 할례와 달리, 자신은 오직 '예수 그리스도의 십자가' 외에는 결코 자랑할 것이 없다고 선언하며, 자신의 몸에 예수의 흔적을 가졌노라고 고백합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">두 종류의 씨앗과 추수</text>
+                    <g text-anchor="middle">
+                        <rect x="20" y="40" width="160" height="60" rx="5" fill="#FFEBEE" stroke="#F44336"/>
+                        <text x="100" y="60" font-weight="bold">육체를 위하여 심는 것</text>
+                        <text x="100" y="85" fill="#555">(자기 만족, 죄)</text>
+                        <path d="M100 100 v 20" stroke="#B71C1C" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                        <text x="100" y="135" font-weight="bold" fill="#B71C1C">썩어질 것을 거둠 (사망)</text>
+                    </g>
+                    
+                    <g text-anchor="middle">
+                        <rect x="220" y="40" width="160" height="60" rx="5" fill="#E8F5E9" stroke="#4CAF50"/>
+                        <text x="300" y="60" font-weight="bold">성령을 위하여 심는 것</text>
+                        <text x="300" y="85" fill="#555">(사랑, 선행)</text>
+                        <path d="M300 100 v 20" stroke="#1B5E20" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                        <text x="300" y="135" font-weight="bold" fill="#1B5E20">영생을 거둠 (생명)</text>
+                    </g>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>'서로 짐을 지라'는 권면은 단순히 동정적인 도움을 넘어, 범죄한 형제를 온유함으로 바로잡는 영적인 책임을 포함합니다. 이는 율법의 조항을 지키는 것이 아니라, 사랑의 공동체를 세우는 것이 '그리스도의 법'의 본질임을 보여줍니다. '심고 거두는 법칙'은 구원의 조건이 아니라 성화의 원리입니다. 구원은 은혜로 받지만, 구원받은 성도의 삶은 그의 선택과 순종에 따라 다른 열매를 맺게 됩니다. 이 법칙은 우리의 모든 행위가 영적인 결과를 낳는다는 사실을 일깨워줍니다. 바울이 자랑하는 '십자가'는 단순히 사형 틀이 아니라, 구원의 능력이며 세상을 이기는 힘입니다. 십자가를 통해 '세상이 나에 대하여 못 박히고 내가 또한 세상에 대하여 그러하니라'는 고백은, 그리스도인에게 세상의 가치관과 자랑이 더 이상 효력을 발휘하지 못함을 선언하는 것입니다. '예수의 흔적'은 그가 복음을 위해 받은 수많은 핍박과 고난의 상처를 의미하며, 이는 그가 그리스도의 참된 종임을 증명하는 영광의 표지였습니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>갈 6:7-8</strong>: "스스로 속이지 말라 하나님은 업신여김을 받지 아니하시나니 사람이 무엇으로 심든지 그대로 거두리라 자기의 육체를 위하여 심는 자는 육체로부터 썩어질 것을 거두고 성령을 위하여 심는 자는 성령으로부터 영생을 거두리라"</p>
+                    <p class="commentary-text">그리스도인의 삶에 적용되는 엄중한 영적 원리입니다. 하나님은 우리의 중심을 아시기에, 입술의 고백과 삶의 열매가 다른 위선을 용납하지 않으십니다. 우리의 시간과 재물, 재능을 어디에 심고 있는지가 우리의 마지막 추수를 결정할 것입니다. 이 구절은 구원의 탈락 가능성이 아니라, 상급과 성화의 차원을 말하는 것입니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>갈 6:14</strong>: "그러나 내게는 우리 주 예수 그리스도의 십자가 외에 결코 자랑할 것이 없으니 그리스도로 말미암아 세상이 나를 대하여 십자가에 못 박히고 내가 또한 세상을 대하여 그러하니라"</p>
+                    <p class="commentary-text">바울 신학의 정수이자 모든 그리스도인의 고백이 되어야 할 구절입니다. 세상은 자신의 업적, 지위, 혈통을 자랑하지만, 바울은 그 모든 것을 배설물로 여겼습니다. 그의 유일한 자랑은 나를 위해 죽으신 그리스도의 십자가뿐이었습니다. 십자가는 우리의 옛사람이 죽은 곳이며, 동시에 세상의 유혹과 가치관이 힘을 잃는 곳입니다. 십자가 안에 있을 때 우리는 비로소 세상에 대해 죽고 하나님에 대해 살 수 있습니다.</p>
+                </div>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>짐을 서로 지라</strong>
+                    <p><span class="verse-number">1</span> 형제들아 사람이 만일 무슨 범죄한 일이 드러나거든 신령한 너희는 온유한 심령으로 그러한 자를 바로잡고 너 자신을 살펴보아 너도 시험을 받을까 두려워하라</p>
+                    <p><span class="verse-number">2</span> 너희가 짐을 서로 지라 그리하여 그리스도의 법을 성취하라</p>
+                    <p><span class="verse-number">3</span> 만일 누가 아무 것도 되지 못하고 된 줄로 생각하면 스스로 속임이라</p>
+                    <p><span class="verse-number">4</span> 각각 자기의 일을 살피라 그리하면 자랑할 것이 자기에게는 있어도 남에게는 있지 아니하리니</p>
+                    <p><span class="verse-number">5</span> 각각 자기의 짐을 질 것이라</p>
+                    <p><span class="verse-number">6</span> 가르침을 받는 자는 말씀을 가르치는 자와 모든 좋은 것을 함께 하라</p>
+                    <p><span class="verse-number">7</span> 스스로 속이지 말라 하나님은 업신여김을 받지 아니하시나니 사람이 무엇으로 심든지 그대로 거두리라</p>
+                    <p><span class="verse-number">8</span> 자기의 육체를 위하여 심는 자는 육체로부터 썩어질 것을 거두고 성령을 위하여 심는 자는 성령으로부터 영생을 거두리라</p>
+                    <p><span class="verse-number">9</span> 우리가 선을 행하되 낙심하지 말지니 포기하지 아니하면 때가 이르매 거두리라</p>
+                    <p><span class="verse-number">10</span> 그러므로 우리는 기회 있는 대로 모든 이에게 착한 일을 하되 더욱 믿음의 가정들에게 할지니라</p>
+                    <strong>마지막 인사</strong>
+                    <p><span class="verse-number">11</span> 내 손으로 너희에게 이렇게 큰 글자로 쓴 것을 보라</p>
+                    <p><span class="verse-number">12</span> 무릇 육체의 모양을 내려 하는 자들이 억지로 너희에게 할례를 받게 함은 그들이 그리스도의 십자가로 말미암아 박해를 면하려 함뿐이라</p>
+                    <p><span class="verse-number">13</span> 할례를 받은 그들이라도 스스로 율법은 지키지 아니하고 너희에게 할례를 받게 하려 하는 것은 그들이 너희의 육체로 자랑하려 함이라</p>
+                    <p><span class="verse-number">14</span> 그러나 내게는 우리 주 예수 그리스도의 십자가 외에 결코 자랑할 것이 없으니 그리스도로 말미암아 세상이 나를 대하여 십자가에 못 박히고 내가 또한 세상을 대하여 그러하니라</p>
+                    <p><span class="verse-number">15</span> 할례나 무할례가 아무 것도 아니로되 오직 새로 지으심을 받는 것만이 중요하니라</p>
+                    <p><span class="verse-number">16</span> 무릇 이 규례를 행하는 자에게와 하나님의 이스라엘에게 평강과 긍휼이 있을지어다</p>
+                    <p><span class="verse-number">17</span> 이 후로는 누구든지 나를 괴롭게 하지 말라 내가 내 몸에 예수의 흔적을 지니고 있노라</p>
+                    <p><span class="verse-number">18</span> 형제들아 우리 주 예수 그리스도의 은혜가 너희 심령에 있을지어다 아멘</p>
+                </div>
+            </section>
+
+            <!-- Card 3: Ezekiel 33 -->
+            <section class="chapter-card card-book3">
+                <h2>에스겔 33장: 파수꾼의 책임과 회개의 기회</h2>
+                <h3>개요 (Overview)</h3>
+                <p>하나님은 에스겔을 다시 '파수꾼'으로 세우시며 그의 사명의 중요성을 강조하십니다. 파수꾼은 경고의 나팔을 불어 백성에게 심판을 알려야 할 책임이 있으며, 만약 그 책임을 다하지 않으면 백성의 피 값을 그에게서 찾을 것이라고 하십니다. 이어서 하나님은 이스라엘의 운명 공동체 의식을 깨고, 각 개인의 책임과 회개를 촉구하십니다. 의인이라도 죄로 돌아서면 죽고, 악인이라도 죄에서 돌이키면 살 것이라는 개인적 책임의 원리를 선포하십니다. 하나님은 악인의 죽음을 기뻐하지 않으시고 그들이 돌이켜 사는 것을 원하신다는 자비로운 마음을 드러내십니다. 마침내 예루살렘의 함락 소식이 전해지고, 에스겔의 입이 열려 새로운 예언을 시작하게 됩니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">개인의 책임과 하나님의 마음</text>
+                    <rect x="20" y="30" width="160" height="60" rx="5" fill="#FFFBEB" stroke="#FBBF24"/>
+                    <text x="100" y="50" text-anchor="middle" font-weight="bold">파수꾼의 책임</text>
+                    <text x="100" y="70" text-anchor="middle" fill="#555">경고할 의무</text>
+                    <text x="100" y="85" text-anchor="middle" fill="#555">(피 값에 대한 책임)</text>
+                    
+                    <path d="M180 60 h 40" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    
+                    <rect x="220" y="30" width="160" height="60" rx="5" fill="#FEF2F2" stroke="#EF4444"/>
+                    <text x="300" y="50" text-anchor="middle" font-weight="bold">개인의 책임</text>
+                    <text x="300" y="70" text-anchor="middle" fill="#555">각 사람의 행위대로 심판</text>
+                    
+                    <path d="M100 90 v 20" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    <path d="M300 90 v 20" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+                    <rect x="110" y="110" width="180" height="40" rx="5" fill="#E8F5E9" stroke="#4CAF50"/>
+                    <text x="200" y="135" text-anchor="middle" font-weight="bold">하나님의 마음: "돌이켜 살지니라"</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>에스겔 33장은 책의 구조상 중요한 전환점입니다. 1-32장이 예루살렘 멸망에 대한 심판 예언이었다면, 33장 이후는 멸망 이후의 회복과 소망에 대한 예언으로 넘어갑니다. 그 전환점에서 하나님은 '파수꾼'과 '개인의 책임'이라는 원리를 다시 한번 강조하십니다. 이는 과거의 실패를 집단적인 운명으로 받아들이며 절망에 빠진 백성들에게, 개인의 회개를 통해 새로운 미래가 열릴 수 있다는 희망을 주기 위함입니다. "조상들이 신 포도를 먹었으므로 아들들의 이가 시다"는 속담에 젖어 있던 그들에게, 하나님은 각 사람이 자기 행위에 따라 심판받을 것이라고 선언하심으로써 변명과 체념의 길을 막으십니다. 신학적으로 이는 구원과 심판의 개인적인 성격을 분명히 합니다. 동시에 "악인이 죽는 것을 기뻐하지 아니하고... 돌이켜 사는 것을 원하노라"는 하나님의 선포는, 공의의 하나님이 동시에 사랑과 자비의 하나님이심을 보여주는 중요한 구절입니다. 하나님의 공의는 회개를 통해 용서와 생명의 길을 여는 공의입니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>겔 33:8-9</strong>: "가령 내가 악인에게 이르기를 악인아 너는 반드시 죽으리라 하였다 하자 네가 그 악인에게 말로 경고하여 그의 길에서 떠나게 하지 아니하면 그 악인은 자기 죄악으로 말미암아 죽으려니와 내가 그의 피를 네 손에서 찾으리라 그러나 너는 악인에게 경고하여 돌이켜 그의 길에서 떠나라고 하되 그가 돌이켜 그의 길에서 떠나지 아니하면 그는 자기 죄악으로 말미암아 죽으려니와 너는 네 생명을 보전하리라"</p>
+                    <p class="commentary-text">복음 전파의 책임과 그 무게를 보여줍니다. 파수꾼(선지자, 그리고 오늘날의 교회와 성도)의 임무는 사람을 변화시키는 것이 아니라, 하나님의 경고를 충실히 전달하는 것입니다. 결과는 듣는 사람의 선택에 달려있지만, 전하지 않은 책임은 파수꾼에게 있습니다. 이는 우리에게 맡겨진 복음 증거의 사명이 얼마나 중요한지를 일깨웁니다.</p>
+                </div>
+                 <div class="key-verse">
+                    <p class="verse-text"><strong>겔 33:11</strong>: "너는 그들에게 말하라 주 여호와의 말씀이니라 나의 삶을 두고 맹세하노니 나는 악인이 죽는 것을 기뻐하지 아니하고 악인이 그의 길에서 돌이켜 떠나 사는 것을 기뻐하노라 이스라엘 족속아 돌이키고 돌이키라 너희 악한 길에서 떠나라 어찌 죽고자 하느냐 하셨다 하라"</p>
+                    <p class="commentary-text">하나님의 심판 뒤에 있는 사랑의 마음을 가장 절절하게 보여주는 구절입니다. 하나님은 냉정한 심판관이 아니라, 죄인이 돌아오기를 애타게 기다리시는 아버지와 같습니다. '돌이키고 돌이키라'는 반복과 '어찌 죽고자 하느냐'는 탄식은, 회개를 촉구하는 하나님의 간절한 호소입니다. 이 사랑이 바로 십자가에서 확증되었습니다.</p>
+                </div>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>파수꾼의 사명</strong>
+                    <p><span class="verse-number">1</span> 여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p><span class="verse-number">2</span> 인자야 너는 네 민족에게 말하여 이르라 가령 내가 칼을 한 땅에 임하게 한다 하자 그 땅 백성이 자기들 가운데의 하나를 택하여 파수꾼을 삼은</p>
+                    <p><span class="verse-number">3</span> 그 사람이 그 땅에 칼이 임함을 보고 나팔을 불어 백성에게 경고하되</p>
+                    <p><span class="verse-number">4</span> 그들이 나팔 소리를 듣고도 정신차리지 아니하므로 그 임하는 칼에 제거를 당하면 그 피가 자기의 머리로 돌아갈 것이라</p>
+                    <p><span class="verse-number">5</span> 그가 경고를 받았던들 자기 생명을 보전하였을 것이나 나팔 소리를 듣고도 경고를 받지 아니하였으니 그 피가 자기에게로 돌아가리라</p>
+                    <p><span class="verse-number">6</span> 그러나 나팔 부는 자가 칼이 임함을 보고도 나팔을 불지 아니하여 백성에게 경고하지 아니하므로 그 중의 한 사람이 그 임하는 칼에 제거 당하면 그는 자기 죄악으로 말미암아 제거되려니와 그 피 값은 내가 파수꾼의 손에서 찾으리라</p>
+                    <p><span class="verse-number">7</span> 인자야 내가 너를 이스라엘 족속의 파수꾼으로 삼음이 이와 같으니라 그런즉 너는 내 입의 말을 듣고 나를 대신하여 그들에게 경고할지어다</p>
+                    <p><span class="verse-number">8</span> 가령 내가 악인에게 이르기를 악인아 너는 반드시 죽으리라 하였다 하자 네가 그 악인에게 말로 경고하여 그의 길에서 떠나게 하지 아니하면 그 악인은 자기 죄악으로 말미암아 죽으려니와 내가 그의 피를 네 손에서 찾으리라</p>
+                    <p><span class="verse-number">9</span> 그러나 너는 악인에게 경고하여 돌이켜 그의 길에서 떠나라고 하되 그가 돌이켜 그의 길에서 떠나지 아니하면 그는 자기 죄악으로 말미암아 죽으려니와 너는 네 생명을 보전하리라</p>
+                    <strong>각 사람의 행위대로 갚으시는 하나님</strong>
+                    <p><span class="verse-number">10</span> 그런즉 인자야 너는 이스라엘 족속에게 이르기를 너희가 말하여 이르되 우리의 허물과 죄가 이미 우리에게 있어 우리로 그 가운데에서 쇠퇴하게 하니 어찌 능히 살리요 하거니와</p>
+                    <p><span class="verse-number">11</span> 너는 그들에게 말하라 주 여호와의 말씀이니라 나의 삶을 두고 맹세하노니 나는 악인이 죽는 것을 기뻐하지 아니하고 악인이 그의 길에서 돌이켜 떠나 사는 것을 기뻐하노라 이스라엘 족속아 돌이키고 돌이키라 너희 악한 길에서 떠나라 어찌 죽고자 하느냐 하셨다 하라</p>
+                    <p><span class="verse-number">12</span> 인자야 너는 네 민족에게 이르기를 의인이 범죄하는 날에는 그 공의가 구원하지 못할 것이요 악인이 악에서 돌이켜 떠나는 날에는 그 악이 그를 엎드러뜨리지 못할 것인즉 의인이 범죄하는 날에는 그 의로 말미암아 살지 못하리라</p>
+                    <p><span class="verse-number">13</span> 가령 내가 의인에게 말하기를 너는 살리라 하였다 하자 그가 그 공의를 믿고 죄악을 행하면 그 모든 의로운 행위가 하나도 기억되지 아니하리니 그가 그 행한 죄악으로 말미암아 곧 그 안에서 죽으리라</p>
+                    <p><span class="verse-number">14</span> 가령 내가 악인에게 말하기를 너는 죽으리라 하였다 하자 그가 돌이켜 자기의 죄에서 떠나서 정의와 공의로 행하여</p>
+                    <p><span class="verse-number">15</span> 저당물을 도로 주며 강탈한 물건을 돌려보내고 생명의 율례를 지켜 행하여 죄악을 범하지 아니하면 그가 반드시 살고 죽지 아니할지라</p>
+                    <p><span class="verse-number">16</span> 그가 본래 범한 모든 죄가 기억되지 아니하리니 그가 반드시 살리라 이는 정의와 공의를 행하였음이라</p>
+                    <p><span class="verse-number">17</span> 그래도 네 민족은 말하기를 주의 길이 바르지 아니하다 하는도다 그러나 실상은 그들의 길이 바르지 아니하니라</p>
+                    <p><span class="verse-number">18</span> 만일 의인이 돌이켜 그 공의에서 떠나 죄악을 범하면 그가 그 가운데에서 죽을 것이고</p>
+                    <p><span class="verse-number">19</span> 만일 악인이 돌이켜 그 악에서 떠나 정의와 공의로 행하면 그가 그로 말미암아 살리라</p>
+                    <p><span class="verse-number">20</span> 그러나 너희가 이르기를 주의 길이 바르지 아니하다 하는도다 이스라엘 족속아 나는 너희 각 사람이 행한 대로 심판하리라 하시니라</p>
+                    <strong>예루살렘의 함락</strong>
+                    <p><span class="verse-number">21</span> 우리가 사로잡힌 지 열두째 해 열째 달 다섯째 날에 예루살렘에서부터 도망하여 온 자가 내게 나아와 말하기를 그 성이 함락되었다 하였는데</p>
+                    <p><span class="verse-number">22</span> 그 도망한 자가 내게 나아오기 전날 저녁에 여호와의 손이 내게 임하여 내 입을 여시더니 다음 아침 그 사람이 내게 나아올 그 때에 내 입이 열리기로 내가 다시는 잠잠하지 아니하였노라</p>
+                    <p><span class="verse-number">23</span> 여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p><span class="verse-number">24</span> 인자야 이 이스라엘의 이 황폐한 땅에 거주하는 자들이 말하여 이르기를 아브라함은 오직 한 사람이라도 이 땅을 기업으로 얻었나니 우리가 많 은즉 더욱 이 땅을 우리에게 기업으로 주신 것이 되느니라 하는도다</p>
+                    <p><span class="verse-number">25</span> 그러므로 너는 그들에게 이르기를 주 여호와께서 이같이 말씀하시되 너희가 피 있는 고기를 먹으며 너희 우상들에게 눈을 들며 피를 흘리니 그 땅이 너희의 기업이 될까보냐</p>
+                    <p><span class="verse-number">26</span> 너희가 칼을 믿어 가증한 일을 행하며 각기 이웃의 아내를 더럽히니 그 땅이 너희의 기업이 될까보냐 하고</p>
+                    <p><span class="verse-number">27</span> 너는 또 그들에게 이르기를 주 여호와께서 이같이 말씀하시되 내가 나의 삶을 두고 맹세하노니 황무지에 있는 자는 칼에 엎드러뜨리고 들에 있는 자는 들짐승에게 넘겨 먹게 하고 산성과 굴에 있는 자는 전염병에 죽게 하리라</p>
+                    <p><span class="verse-number">28</span> 내가 이같이 그 땅이 황무지가 되게 하며 그 권능의 교만을 그치게 하리니 이스라엘의 산들이 황폐하여 지나갈 사람이 없으리라</p>
+                    <p><span class="verse-number">29</span> 내가 그들의 행한 모든 가증한 일로 말미암아 그 땅을 황무지가 되게 하면 그 때에 내가 여호와인 줄을 그들이 알리라 하라</p>
+                    <p><span class="verse-number">30</span> 인자야 네 민족이 담 곁에서와 집 문에서 너에 대하여 말하며 그 형제와 더불어 서로 말하여 이르기를 자, 가서 여호와께로부터 무슨 말씀이 나오는가 들어 보자 하고</p>
+                    <p><span class="verse-number">31</span> 백성이 모이는 것 같이 네게 나아오며 내 백성처럼 네 앞에 앉아서 네 말을 들으나 그대로 행하지 아니하니 이는 그 입으로는 사랑을 나타내어도 마음으로는 이익을 따름이라</p>
+                    <p><span class="verse-number">32</span> 그들은 네가 고운 음성으로 사랑의 노래를 하며 음악을 잘하는 자 같이 여겼나니 네 말을 듣고도 행하지 아니하거니와</p>
+                    <p><span class="verse-number">33</span> 그 말이 응하리니 응할 때에는 그들이 한 선지자가 자기들 가운데에 있었음을 알리라</p>
+                </div>
+            </section>
+            
+            <!-- Card 4: Psalm 81-82 -->
+            <section class="chapter-card card-book4">
+                <h2>시편 81-82편: 참된 예배와 공의로운 통치</h2>
+                <h3>개요 (Overview)</h3>
+                <p>두 편의 시는 하나님 백성의 책임이 무엇인지를 보여줍니다. <strong>시편 81편</strong>은 절기에 모여 하나님을 찬양하라는 예배의 부름으로 시작합니다. 하나님은 출애굽의 구원을 기억시키시며, 다른 신을 섬기지 말라고 명령하십니다. 이어서 "내 말을 들었더라면" 하고 탄식하시며, 순종했을 때 주어졌을 풍성한 복을 아쉬워하십니다. <strong>시편 82편</strong>은 하나님의 통치 대리인인 세상의 재판관("신들")을 향한 신적 고발입니다. 하나님은 그들이 가난하고 약한 자들을 위해 공의를 행하지 않고 불공평하게 재판함을 준엄하게 꾸짖으시며, 그들 또한 다른 사람들처럼 죽을 것임을 선포합니다. 시는 하나님께서 직접 일어나 세상을 심판해 주시기를 간구하며 끝납니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="20" text-anchor="middle" font-size="12" font-weight="bold">하나님 백성의 책임</text>
+                    <g>
+                        <rect x="20" y="40" width="160" height="90" rx="5" fill="#F3E8FF" stroke="#9013FE"/>
+                        <text x="100" y="60" text-anchor="middle" font-weight="bold">시편 81편: 수직적 책임</text>
+                        <text x="100" y="85" text-anchor="middle">하나님을 향한</text>
+                        <text x="100" y="105" text-anchor="middle" font-weight="bold">참된 예배와 순종</text>
+                    </g>
+                     <g>
+                        <rect x="220" y="40" width="160" height="90" rx="5" fill="#F3E8FF" stroke="#9013FE"/>
+                        <text x="300" y="60" text-anchor="middle" font-weight="bold">시편 82편: 수평적 책임</text>
+                        <text x="300" y="85" text-anchor="middle">세상을 향한</text>
+                        <text x="300" y="105" text-anchor="middle" font-weight="bold">공의와 정의 실현</text>
+                    </g>
+                    <path d="M100 130 v 15" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    <path d="M300 130 v 15" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    <text x="200" y="160" text-anchor="middle">언약 백성의 삶의 방식</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>시편 81편은 초막절과 같은 큰 절기에 불렸던 찬양시로 추정됩니다. 이 시는 기쁨의 찬양과 하나님의 준엄한 경고가 교차하며, 참된 예배가 감정적인 축제를 넘어 순종의 삶으로 이어져야 함을 강조합니다. '내 말을 들으라'는 하나님의 요청은 신명기 전체를 관통하는 핵심 메시지입니다. 시편 82편에 등장하는 '신들(엘로힘)'은 이방 신들이 아니라, 하나님의 권위를 위임받아 재판하는 이스라엘의 지도자나 재판관들을 가리킵니다. 그들이 하나님의 대리자로서 그분의 가장 중요한 성품인 '공의', 특히 사회적 약자를 보호하는 정의를 실현해야 할 막중한 책임이 있음을 보여줍니다. 신학적으로 두 시편은 언약 백성의 삶의 두 가지 차원, 즉 하나님을 향한 예배(수직적)와 이웃을 향한 정의(수평적)가 분리될 수 없음을 보여줍니다. 이 두 가지는 예수 그리스도께서 요약하신 가장 큰 계명, 즉 '하나님 사랑'과 '이웃 사랑'과 정확히 일치합니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>시 81:10</strong>: "나는 너를 애굽 땅에서 인도하여 낸 여호와 네 하나님이니 네 입을 크게 열라 내가 채우리라 하였으나"</p>
+                    <p class="commentary-text">하나님의 신실하심과 공급하심에 대한 약속입니다. 출애굽의 하나님은 우리를 구원하셨을 뿐 아니라, 우리의 모든 필요를 채우실 능력과 의지를 가지신 분입니다. '입을 크게 여는 것'은 우리의 전적인 신뢰와 기대를 상징합니다. 우리가 하나님이 아닌 다른 것으로 만족하려 할 때, 우리는 이 풍성한 공급을 놓치게 됩니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>시 82:3-4</strong>: "가난한 자와 고아를 위하여 판단하며 곤란한 자와 빈궁한 자에게 공의를 베풀지며 가난한 자와 궁핍한 자를 구원하여 악인들의 손에서 건질지니라 하시는도다"</p>
+                    <p class="commentary-text">성경 전체를 관통하는 하나님의 정의에 대한 핵심적인 요구입니다. 하나님의 공의는 추상적인 개념이 아니라, 가장 힘없고 소외된 자들의 편에 서서 그들의 권리를 지켜주는 구체적인 행동으로 나타납니다. 하나님을 대신하여 권위를 가진 자들이 이 책임을 저버릴 때, 사회의 기초가 흔들리고 하나님의 심판을 피할 수 없습니다.</p>
+                </div>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>시편 81편</strong>
+                    <p><span class="verse-number">1</span> (아삽의 시, 인도자를 따라 깃딧에 맞춘 노래) 우리의 능력이 되시는 하나님을 향하여 기쁘게 노래하며 야곱의 하나님을 향하여 즐거이 소리칠지어다</p>
+                    <p><span class="verse-number">2</span> 시를 읊으며 소고를 치고 아름다운 수금에 비파를 아우를지어다</p>
+                    <p><span class="verse-number">3</span> 초하루와 보름과 우리의 명절에 나팔을 불지어다</p>
+                    <p><span class="verse-number">4</span> 이는 이스라엘의 율례요 야곱의 하나님의 규례로다</p>
+                    <p><span class="verse-number">5</span> 하나님이 애굽 땅을 치러 나아가시던 때에 요셉의 족속 중에 이를 증거로 세우셨도다 거기서 내가 알지 못하던 말씀을 들었나니</p>
+                    <p><span class="verse-number">6</span> 이르시되 내가 그의 어깨에서 짐을 벗기고 그의 손에서 광주리를 놓게 하였도다</p>
+                    <p><span class="verse-number">7</span> 네가 고난 중에 부르짖으매 내가 너를 건졌고 우렛소리의 은밀한 곳에서 네게 응답하며 므리바 물 가에서 너를 시험하였도다 (셀라)</p>
+                    <p><span class="verse-number">8</span> 내 백성이여 들으라 내가 네게 증언하리라 이스라엘이여 내게 듣기를 원하노라</p>
+                    <p><span class="verse-number">9</span> 너희 중에 다른 신을 두지 말며 이방 신에게 절하지 말지어다</p>
+                    <p><span class="verse-number">10</span> 나는 너를 애굽 땅에서 인도하여 낸 여호와 네 하나님이니 네 입을 크게 열라 내가 채우리라 하였으나</p>
+                    <p><span class="verse-number">11</span> 내 백성이 내 소리를 듣지 아니하며 이스라엘이 나를 원하지 아니하였도다</p>
+                    <p><span class="verse-number">12</span> 그러므로 내가 그의 마음을 완악한 대로 버려 두어 그의 임의대로 행하게 하였도다</p>
+                    <p><span class="verse-number">13</span> 내 백성아 내 말을 들으라 이스라엘아 내 도를 따르라</p>
+                    <p><span class="verse-number">14</span> 그리하면 내가 속히 그들의 원수를 누르고 내 손을 돌려 그들의 대적들을 치리니</p>
+                    <p><span class="verse-number">15</span> 여호와를 미워하는 자는 그에게 복종하는 체할지라도 그들의 시대는 영원히 계속되리라</p>
+                    <p><span class="verse-number">16</span> 내가 또 그에게 밀의 아름다운 것을 먹이며 반석에서 나오는 꿀로 너를 만족하게 하리라 하셨도다</p>
+                    <strong>시편 82편</strong>
+                    <p><span class="verse-number">1</span> (아삽의 시) 하나님은 신들의 모임 가운데에 서시며 하나님은 그들 가운데에서 재판하시느니라</p>
+                    <p><span class="verse-number">2</span> 너희가 불공평한 판단을 하며 악인의 낯 보기를 언제까지 하려느냐 (셀라)</p>
+                    <p><span class="verse-number">3</span> 가난한 자와 고아를 위하여 판단하며 곤란한 자와 빈궁한 자에게 공의를 베풀지며</p>
+                    <p><span class="verse-number">4</span> 가난한 자와 궁핍한 자를 구원하여 악인들의 손에서 건질지니라 하시는도다</p>
+                    <p><span class="verse-number">5</span> 그들은 알지도 못하고 깨닫지도 못하여 흑암 중에 왕래하니 모든 땅의 터가 흔들리도다</p>
+                    <p><span class="verse-number">6</span> 내가 말하기를 너희는 신들이며 다 지존자의 아들들이라 하였으나</p>
+                    <p><span class="verse-number">7</span> 그러나 너희는 사람처럼 죽으며 고관의 하나 같이 넘어지리로다</p>
+                    <p><span class="verse-number">8</span> 하나님이여 일어나사 세상을 심판하소서 모든 나라가 주의 소유이기 때문이니이다</p>
+                </div>
+            </section>
+
+            <!-- Integration Card -->
+            <section class="chapter-card integration-card">
+                <h2>통합적 이해: 심은 대로 거두리라 - 언약의 책임과 결과</h2>
+                <h3>관통하는 주제 (Overarching Theme)</h3>
+                <p>오늘의 네 본문은 '책임과 결과'라는 하나의 주제로 깊이 연결됩니다. 인생은 우리가 무엇을 심든지 그대로 거두는 밭과 같습니다. <strong>갈라디아서 6장</strong>은 이 원리를 "사람이 무엇으로 심든지 그대로 거두리라"는 말씀으로 명확하게 제시합니다. 이 영적인 법칙은 개인과 국가, 지도자 모두에게 적용됩니다. <strong>열왕기상 2장</strong>에서 솔로몬은 다윗 왕국의 정의를 심어 견고한 나라를 거두고, 요압과 시므이는 과거에 심었던 죄악의 열매를 거둡니다. <strong>에스겔 33장</strong>은 이 책임을 각 개인에게 적용합니다. 파수꾼은 경고의 씨앗을 심을 책임이 있고, 각 백성은 회개 혹은 불순종의 씨앗을 심어 생명 혹은 죽음을 거둡니다. <strong>시편 81-82편</strong>은 이 책임을 예배와 사회 정의의 영역으로 확장합니다. 이스라엘은 불순종을 심어 하나님의 풍성한 복을 거두지 못했고(시 81편), 재판관들은 불의를 심어 하나님의 심판을 거두게 됩니다(시 82편). 결국, 왕으로서, 성도로서, 파수꾼으로서, 예배자로서 우리는 날마다 선택의 씨앗을 심고 있습니다. 오늘의 말씀은 우리에게 육체를 위하여 썩어질 것을 심지 말고, 성령을 따라 의와 공의와 사랑을 심어 영생의 열매를 거두라고 강력하게 촉구합니다.</p>
+
+                <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="9">
+                    <line x1="20" y1="100" x2="380" y2="100" stroke="#333" stroke-width="1.5"/>
+                    <g text-anchor="middle">
+                        <circle cx="60" cy="100" r="4" fill="#4A90E2"/>
+                        <text x="60" y="120">그림자 왕의 공의</text>
+                        <text x="60" y="132" fill="#555">(왕상 2)</text>
+
+                        <circle cx="140" cy="100" r="4" fill="#9013FE"/>
+                        <text x="140" y="120">공의에 대한 갈망</text>
+                        <text x="140" y="132" fill="#555">(시 82)</text>
+
+                        <circle cx="340" cy="100" r="4" fill="#E91E63"/>
+                        <text x="340" y="120">새 창조의 백성</text>
+                        <text x="340" y="132" fill="#555">(갈 6)</text>
+                        
+                        <text x="240" y="40" font-size="14" font-weight="bold" fill="#D0021B">예수 그리스도</text>
+                        <text x="240" y="55" font-size="9" font-weight="bold" fill="#D0021B">(우리의 악한 추수를 대신 거두시고, 우리에게 영생을 심으신 분)</text>
+                        <path d="M 225 60 L 255 60 L 240 80 Z" fill="#D0021B"/>
+
+                        <!-- Arrows -->
+                        <path d="M 60 95 Q 150 70 235 83" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <path d="M 140 95 Q 180 80 235 83" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <path d="M 340 95 Q 290 70 245 83" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                    </g>
+                     <text x="200" y="170" text-anchor="middle" font-size="9" fill="#555">에스겔 33장은 심판의 경고와 회개를 통한 생명의 길을 제시하며 그리스도께로 인도합니다.</text>
+                </svg>
+
+                <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
+                <p>'심은 대로 거둔다'는 구약의 공의의 법칙은 죄인에게 절망을 선고합니다. 우리는 모두 육체를 위해 심어 썩어질 것을 거둘 수밖에 없는 존재이기 때문입니다. 바로 이 지점에서 복음이 시작됩니다. <strong>갈라디아서 6장</strong>이 말하는 십자가는 이 법칙의 대반전이 일어나는 곳입니다. 예수 그리스도께서 우리가 심은 모든 죄의 열매, 즉 저주와 죽음을 남김없이 거두셨습니다. 그리고 그분은 순종의 씨앗을 심어 부활과 영생의 첫 열매를 거두셨습니다. 이제 그분을 믿는 우리는 더 이상 과거에 심은 죄의 열매를 거두지 않고, 그리스도께서 거두신 영생의 추수에 참여하게 됩니다. <strong>열왕기상 2장</strong>의 솔로몬이 세운 불완전한 공의의 나라는, 십자가의 공의 위에 세워진 예수님의 완전한 하나님 나라를 예표합니다. <strong>에스겔 33장</strong>이 외치는 "돌이켜 살라"는 초청은, 예수 그리스도라는 유일한 생명의 길을 통해 현실이 됩니다. <strong>시편 82편</strong>의 "하나님이여 일어나 세상을 심판하소서"라는 기도는, 십자가로 세상을 심판하시고 장차 다시 오셔서 모든 불의를 심판하실 만왕의 왕 예수 그리스도를 통해 성취됩니다. 그러므로 우리는 그리스도 안에서 '새로 지으심을 받은 자'(갈 6:15)로서, 성령을 따라 선한 씨앗을 심어 풍성한 열매를 거두는 새로운 삶을 살게 된 것입니다.</p>
+
+                <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>주제 (Theme)</th>
+                            <th>열왕기상 2</th>
+                            <th>갈라디아서 6</th>
+                            <th>에스겔 33</th>
+                            <th>시편 81-82</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>개인의 책임</strong></td>
+                            <td>솔로몬은 유언을 이행할 책임이 있음</td>
+                            <td>각자 자기의 짐을 지고, 심은 대로 거둠</td>
+                            <td>각 사람이 행한 대로 심판받음</td>
+                            <td>재판관들은 공의를 행할 책임이 있음</td>
+                        </tr>
+                        <tr>
+                            <td><strong>심판/결과</strong></td>
+                            <td>죄인들은 처단되고 나라는 견고해짐</td>
+                            <td>육체를 따르면 썩어질 것, 성령을 따르면 영생</td>
+                            <td>경고를 무시하면 죽고, 회개하면 삶</td>
+                            <td>불순종은 복을 잃게 하고, 불의는 심판을 받음</td>
+                        </tr>
+                        <tr>
+                            <td><strong>하나님의 뜻</strong></td>
+                            <td>공의 위에 세워지는 나라</td>
+                            <td>성령의 열매를 맺고 선을 행하는 삶</td>
+                            <td>악인의 멸망이 아닌 회개와 생명</td>
+                            <td>참된 예배와 사회적 정의의 실현</td>
+                        </tr>
+                        <tr>
+                            <td><strong>구원의 길</strong></td>
+                            <td>(그림자) 죄를 청산하고 언약을 따름</td>
+                            <td>오직 그리스도의 십자가를 자랑함</td>
+                            <td>악한 길에서 돌이켜 떠나는 것 (회개)</td>
+                            <td>(갈망) 하나님께서 직접 통치하심</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>오늘의 교훈 (Application)</h3>
+                <p>오늘 나의 삶의 밭에 나는 어떤 씨앗을 심고 있습니까? 갈라디아서의 경고는 엄중합니다. 우리는 스스로를 속일 수 없고, 하나님은 업신여김을 받지 않으십니다. 나의 시간, 재능, 말, 선택이 육체의 만족을 위한 씨앗인지, 성령의 기쁨을 위한 씨앗인지 돌아보아야 합니다. 혹시 과거에 심은 죄의 결과로 고통하고 있다면, 에스겔 33장의 하나님의 마음을 기억해야 합니다. 하나님은 우리의 죽음이 아니라, 우리가 돌이켜 사는 것을 기뻐하십니다. 예수 그리스도께서 이미 우리의 모든 저주를 거두어 가셨음을 믿고, 회개의 자리로 나아가야 합니다. 또한 우리는 시편 82편의 재판관들처럼 세상 속에서 공의를 심어야 할 책임이 있습니다. 나의 가정, 직장, 교회에서 약한 자의 짐을 져주고, 불의에 침묵하지 않으며, 선을 행하되 낙심하지 않을 때, 우리는 때가 이르매 아름다운 성령의 열매를 풍성히 거두게 될 것입니다.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 맥체인 성경읽기. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // YouTube IFrame API 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'l0FrJOXgMNU';
+        const playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // 플레이어가 준비되면 버튼 활성화
+            playPauseBtn.disabled = false;
+            playPauseBtn.classList.add('paused');
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playPauseBtn.classList.remove('paused');
+            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+                playPauseBtn.classList.add('paused');
+            }
+        }
+
+        function togglePlayPause() {
+            if (!player || typeof player.getPlayerState !== 'function') return;
+            var playerState = player.getPlayerState();
+            if (playerState == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
+
+        // 스페이스바 이벤트 추가
+        document.addEventListener('keydown', function(event) {
+            // 입력 필드나 텍스트 영역에 포커스 되어 있을 때는 작동하지 않도록 함
+            const target = event.target;
+            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+                return;
+            }
+
+            if (event.code === 'Space') {
+                event.preventDefault(); // 페이지 스크롤 방지
+                togglePlayPause();
+            }
+        });
+    </script>
+</body>
+</html>

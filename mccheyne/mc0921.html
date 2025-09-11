@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 21일 맥체인 성경읽기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --book1-color: #4A90E2; /* 사무엘하 - Blue */
+            --book2-color: #50E3C2; /* 고린도후서 - Teal */
+            --book3-color: #F5A623; /* 에스겔 - Orange */
+            --book4-color: #9013FE; /* 시편 - Purple */
+            --integration-color: #D0021B; /* 통합 - Red */
+            --text-primary: #333;
+            --text-secondary: #555;
+            --bg-light: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title-section {
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: var(--text-primary);
+        }
+
+        h1 .subtitle {
+            font-size: 0.6em;
+            color: var(--text-secondary);
+            font-weight: 400;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .intro-passage {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .chapter-card {
+            background-color: #fff;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-left: 5px solid;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .chapter-card:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .card-book1 { border-left-color: var(--book1-color); }
+        .card-book2 { border-left-color: var(--book2-color); }
+        .card-book3 { border-left-color: var(--book3-color); }
+        .card-book4 { border-left-color: var(--book4-color); }
+        .integration-card { border-left-color: var(--integration-color); }
+
+        h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .bible-text {
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .bible-text p {
+            margin: 0 0 10px 0;
+        }
+
+        .verse-number {
+            font-weight: bold;
+            color: var(--text-secondary);
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+
+        .card-book1 .bible-text strong { color: var(--book1-color); }
+        .card-book2 .bible-text strong { color: var(--book2-color); }
+        .card-book3 .bible-text strong { color: var(--book3-color); }
+        .card-book4 .bible-text strong { color: var(--book4-color); }
+
+        .analysis-svg {
+            width: 100%;
+            margin: 20px 0;
+            background-color: var(--bg-light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 700;
+        }
+        
+        td:first-child {
+            font-weight: bold;
+            font-family: 'Noto Serif KR', serif;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        /* Player Styles */
+        #player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+        }
+
+        #floatingPlayPauseBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background-color: var(--text-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #floatingPlayPauseBtn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        #floatingPlayPauseBtn:not(:disabled):hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        #floatingPlayPauseBtn.paused {
+            opacity: 0.8;
+        }
+        
+        #floatingPlayPauseBtn .play-icon, 
+        #floatingPlayPauseBtn .pause-icon {
+            display: none;
+        }
+
+        #floatingPlayPauseBtn.paused .play-icon {
+            display: block;
+        }
+
+        #floatingPlayPauseBtn:not(.paused) .pause-icon {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="player-container"></div>
+    <button id="floatingPlayPauseBtn" disabled>
+        <span class="play-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+            </svg>
+        </span>
+        <span class="pause-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+            </svg>
+        </span>
+    </button>
+    
+    <div class="container">
+        <header class="title-section">
+            <h1>9월 21일 맥체인 성경읽기<br><span class="subtitle">인간의 지혜, 하나님의 섭리</span></h1>
+            <p class="intro-passage">삼하17 | 고후10 | 겔24 | 시72</p>
+        </header>
+
+        <main>
+            <!-- Card 1: 2 Samuel 17 -->
+            <section class="chapter-card card-book1">
+                <h2>사무엘하 17장: 꺾인 지혜, 승리하는 섭리</h2>
+                <h3>개요 (Overview)</h3>
+                <p>압살롬의 진영에서 당대 최고의 지략가 아히도벨과 다윗의 첩자 후새의 계략 대결이 펼쳐됩니다. 아히도벨은 다윗을 신속히 기습하여 전쟁을 끝낼 완벽한 계책을 내놓지만, 하나님께서는 후새의 계략(지연 작전)이 더 좋게 보이도록 압살롬과 참모들의 마음을 움직이십니다. 이로써 다윗은 요단강을 건너 피할 시간을 벌게 되고, 자신의 계책이 거부당한 아히도벨은 비참한 최후를 맞습니다.</p>
+                
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#555" />
+                        </marker>
+                    </defs>
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">지략 대결: 아히도벨 vs 후새</text>
+                    
+                    <rect x="20" y="30" width="160" height="70" rx="5" fill="#FEF2F2" stroke="#EF4444"/>
+                    <text x="100" y="50" text-anchor="middle" font-weight="bold">아히도벨의 계략</text>
+                    <text x="100" y="70" text-anchor="middle" font-size="9">신속 기습 & 다윗 제거</text>
+                    <text x="100" y="85" text-anchor="middle" font-size="9" fill="#555">(인간적으로 완벽한 지혜)</text>
+
+                    <rect x="220" y="30" width="160" height="70" rx="5" fill="#EFF6FF" stroke="#3B82F6"/>
+                    <text x="300" y="50" text-anchor="middle" font-weight="bold">후새의 계략</text>
+                    <text x="300" y="70" text-anchor="middle" font-size="9">총력전 & 지연 작전</text>
+                    <text x="300" y="85" text-anchor="middle" font-size="9" fill="#555">(다윗에게 시간 벌어주기)</text>
+
+                    <path d="M 200 100 v 20" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+                    <rect x="130" y="120" width="140" height="40" rx="5" fill="#F0F9FF" stroke="#0EA5E9"/>
+                    <text x="200" y="138" text-anchor="middle">하나님의 개입</text>
+                    <text x="200" y="152" text-anchor="middle" font-size="8" fill="#555">(여호와께서 아히도벨의 좋은 계략을 물리치심)</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>아히도벨은 "그의 계략은 사람이 하나님께 물어서 받은 말씀과 같은 것"(삼하 16:23)으로 여겨질 만큼 뛰어난 지략가였습니다. 인간적인 관점에서 그의 계책은 다윗을 제거하고 압살롬의 반역을 성공시킬 가장 확실하고 효율적인 방법이었습니다. 반면 후새의 계책은 압살롬의 자존심을 부추기고 위험 부담이 더 큰 작전이었습니다. 그러나 하나님께서는 다윗을 구원하시기 위해 보이지 않는 손으로 역사하십니다. 압살롬과 그의 무리가 어리석은 판단을 내리도록 그들의 마음을 주관하셨습니다. 신학적으로 이는 하나님의 주권적인 섭리가 인간의 모든 지혜와 계획 위에 있음을 명백히 보여줍니다. 세상에서 가장 뛰어난 지혜라 할지라도 하나님께서 꺾으시면 한순간에 무너집니다. 이 사건은 다윗이 감람산에서 드렸던 "여호와여 원하옵건대 아히도벨의 모략을 어리석게 하옵소서"(삼하 15:31)라는 기도의 직접적인 응답입니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <p><strong>17장 14절</strong>: "압살롬과 온 이스라엘 사람들이 이르되 아렉 사람 후새의 계략은 아히도벨의 계략보다 낫다 하니 이는 여호와께서 압살롬에게 화를 내리려 하사 아히도벨의 좋은 계략을 물리치라고 명령하셨음이더라" - 이 구절은 이야기의 핵심이자 신학적 정점입니다. 전쟁의 승패가 인간의 지략이 아닌 하나님의 주권에 달려 있음을 선언합니다. 하나님은 단순히 다윗을 돕는 소극적 조력자가 아니라, 역사의 모든 변수를 주관하시는 절대 주권자이십니다. 그는 악인의 마음까지도 사용하여 그의 선한 뜻을 이루십니다. 우리의 삶에 닥쳐오는 위기 속에서 우리가 붙들어야 할 것은 인간적인 지혜나 계책이 아니라, 모든 것을 합력하여 선을 이루시는 하나님의 신실하신 섭리입니다.</p>
+                <p><strong>17장 23절</strong>: "아히도벨이 자기 계략이 시행되지 못함을 보고 나귀에 안장을 지우고 일어나 고향으로 돌아가 자기 집에 이르러 집을 정리하고 스스로 목매어 죽으매 그의 조상의 묘에 장사되니라" - 아히도벨의 비참한 최후는 하나님을 떠난 인간 지혜의 말로를 보여줍니다. 그의 지혜는 자신의 명예와 성공에 기반한 것이었기에, 그것이 꺾이자 삶의 의미를 잃고 스스로 목숨을 끊었습니다. 이는 세상 지혜의 한계입니다. 그러나 하나님의 지혜는 실패와 고난 속에서도 우리를 소망으로 이끄십니다. 아히도벨은 신약의 가룟 유다를 예표하는 인물이기도 합니다. 둘 다 선택받은 자를 배신했고, 자신의 죄를 뉘우쳤으나 하나님께로 돌이키지 않고 스스로 죽음을 택했습니다.</p>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>아히도벨의 계략</strong>
+                    <p><span class="verse-number">1</span> 아히도벨이 또 압살롬에게 이르되 이제 내가 사람 만 이천 명을 택하게 하소서 오늘 밤에 내가 일어나서 다윗의 뒤를 추격하여</p>
+                    <p><span class="verse-number">2</span> 그가 곤하고 힘이 빠졌을 때에 기습하여 그를 무섭게 하면 그와 함께 있는 모든 백성이 도망하리니 내가 다윗 왕만 쳐죽이고</p>
+                    <p><span class="verse-number">3</span> 모든 백성이 왕께 돌아오게 하리니 모든 사람이 돌아오기는 왕이 찾는 이 사람에게 달렸음이라 그리하면 모든 백성이 평안하리이다 하니</p>
+                    <p><span class="verse-number">4</span> 압살롬과 이스라엘 장로들이 다 그 말을 옳게 여기더라</p>
+                    <strong>후새의 반대 계략</strong>
+                    <p><span class="verse-number">5</span> 압살롬이 이르되 아렉 사람 후새도 부르라 우리가 이제 그의 말도 듣자 하니라</p>
+                    <p><span class="verse-number">6</span> 후새가 압살롬에게 이르매 압살롬이 그에게 말하여 이르되 아히도벨이 이러이러하게 말하니 우리가 그 말대로 행하랴 그렇지 아니하거든 너는 말하라 하니</p>
+                    <p><span class="verse-number">7</span> 후새가 압살롬에게 이르되 이번에는 아히도벨이 베푼 계략이 좋지 아니하니이다 하고</p>
+                    <p><span class="verse-number">8</span> 또 말하되 왕도 아시거니와 왕의 아버지와 그의 추종자들은 용사라 그들은 들에 있는 곰이 새끼를 빼앗긴 것 같이 격분하였고 왕의 아버지는 전쟁에 능한 사람인즉 백성과 함께 자지 아니하고</p>
+                    <p><span class="verse-number">9</span> 지금 그가 어느 굴에나 어느 곳에 숨어 있으리니 혹 무리 중에 몇이 먼저 엎드러지면 그 소문을 듣는 자가 말하기를 압살롬을 따르는 자 가운데에서 패함을 당하였다 할지라</p>
+                    <p><span class="verse-number">10</span> 비록 그가 사자 같은 마음을 가진 용사의 아들일지라도 낙심하리니 이는 이스라엘 무리가 왕의 아버지는 영웅이요 그의 추종자들도 용사인 줄 앎이니이다</p>
+                    <p><span class="verse-number">11</span> 나는 이렇게 계략을 세웠나이다 온 이스라엘을 단부터 브엘세바까지 바닷가의 많은 모래 같이 왕께로 모으고 친히 전장에 나가시고</p>
+                    <p><span class="verse-number">12</span> 우리가 그를 만날 만한 곳에서 그를 기습하기를 이슬이 땅에 내림 같이 우리가 그의 위에 덮여 그와 그를 따르는 모든 사람들을 하나도 남겨 두지 아니할 것이요</p>
+                    <p><span class="verse-number">13</span> 또 만일 그가 어느 성에 들었으면 온 이스라엘이 밧줄을 가져다가 그 성을 강으로 끌어들여서 그 곳에 작은 돌 하나도 보이지 아니하게 할 것이니이다 하매</p>
+                    <p><span class="verse-number">14</span> 압살롬과 온 이스라엘 사람들이 이르되 아렉 사람 후새의 계략은 아히도벨의 계략보다 낫다 하니 이는 여호와께서 압살롬에게 화를 내리려 하사 아히도벨의 좋은 계략을 물리치라고 명령하셨음이더라</p>
+                    <strong>다윗에게 소식을 전하는 첩보 작전</strong>
+                    <p><span class="verse-number">15</span> 이에 후새가 사독과 아비아달 두 제사장에게 이르되 아히도벨이 압살롬과 이스라엘 장로들에게 이러이러하게 계략을 세웠고 나도 이러이러하게 계략을 세웠으니</p>
+                    <p><span class="verse-number">16</span> 이제 너희는 빨리 사람을 보내 다윗에게 알리기를 오늘 밤에 광야 나루터에서 자지 말고 아무쪼록 건너가소서 하라 혹시 왕과 그를 따르는 모든 백성을 몰살할까 하노라 하니라</p>
+                    <p><span class="verse-number">17</span> 그 때에 요나단과 아히마아스가 한 여종의 말을 듣고 저희가 발각될까 하여 감히 성 안에 들어가지 못하고 에느로겔 가에 머물고 그 여종은 그들에게 와서 말하고 그들은 가서 다윗 왕에게 알리더니</p>
+                    <p><span class="verse-number">18</span> 한 청년이 그들을 보고 압살롬에게 알린지라 그 두 사람이 빨리 달려서 바후림 어떤 사람의 집으로 들어가서 그의 뜰에 있는 우물 속으로 내려가니</p>
+                    <p><span class="verse-number">19</span> 그 집 여인이 덮을 것을 가져다가 우물 아귀를 덮고 찧은 곡식을 그 위에 널매 하나도 알지 못하더라</p>
+                    <p><span class="verse-number">20</span> 압살롬의 종들이 그 집에 와서 여인에게 묻되 아히마아스와 요나단이 어디 있느냐 하니 여인이 그들에게 이르되 그들이 시내를 건너가더라 하니 그들이 찾아도 만나지 못하고 예루살렘으로 돌아가니라</p>
+                    <p><span class="verse-number">21</span> 그들이 간 후에 두 사람이 우물에서 올라와서 다윗 왕에게 가서 다윗 왕에게 말하여 이르되 당신들은 일어나 빨리 물을 건너가소서 아히도벨이 당신들을 해하려고 이러이러하게 계략을 세웠나이다</p>
+                    <p><span class="verse-number">22</span> 다윗이 일어나 모든 백성과 함께 요단을 건널새 새벽까지 한 사람도 요단을 건너지 못한 자가 없었더라</p>
+                    <strong>아히도벨의 최후와 다윗의 피난</strong>
+                    <p><span class="verse-number">23</span> 아히도벨이 자기 계략이 시행되지 못함을 보고 나귀에 안장을 지우고 일어나 고향으로 돌아가 자기 집에 이르러 집을 정리하고 스스로 목매어 죽으매 그의 조상의 묘에 장사되니라</p>
+                    <p><span class="verse-number">24</span> 이에 다윗은 마하나임에 이르고 압살롬은 모든 이스라엘 사람과 함께 요단을 건너니라</p>
+                    <p><span class="verse-number">25</span> 압살롬이 요압을 대신하여 아마사를 군지휘관으로 삼으니라 아마사는 이스라엘 사람 이드라라 하는 자의 아들이라 이드라가 나하스의 딸 아비갈과 동침하여 그를 낳았으며 아비갈은 요압의 어머니 스루야의 동생이더라</p>
+                    <p><span class="verse-number">26</span> 이에 이스라엘 무리와 압살롬이 길르앗 땅에 진 치니라</p>
+                    <p><span class="verse-number">27</span> 다윗이 마하나임에 이르렀을 때에 암몬 족속에게 속한 랍바 사람 나하스의 아들 소비와 로데발 사람 암미엘의 아들 마길과 로글림 길르앗 사람 바르실래가</p>
+                    <p><span class="verse-number">28</span> 침상과 대야와 질그릇과 밀과 보리와 밀가루와 볶은 곡식과 콩과 팥과 볶은 녹두와</p>
+                    <p><span class="verse-number">29</span> 꿀과 버터와 양과 치즈를 가져다가 다윗과 그와 함께 한 백성에게 먹게 하였으니 이는 그들 생각에 백성이 들에서 시장하고 곤하고 목마르겠다 함이더라</p>
+                </div>
+            </section>
+            
+            <!-- Card 2: 2 Corinthians 10 -->
+            <section class="chapter-card card-book2">
+                <h2>고린도후서 10장: 육신에 속하지 않은 영적 싸움</h2>
+                <h3>개요 (Overview)</h3>
+                <p>바울은 자신의 사도적 권위를 비난하는 고린도 교회의 거짓 교사들을 향해 변호합니다. 그는 자신이 비록 육신을 입고 살아가지만, 그들의 싸움은 혈과 육의 방법이 아닌 하나님의 능력에 의존하는 영적 싸움임을 강조합니다. 그의 무기는 하나님을 아는 것을 대적하여 높아진 모든 이론과 생각을 무너뜨리고, 모든 생각을 사로잡아 그리스도께 복종시키는 것입니다. 그는 외모로 판단하는 자들을 경계하며, 자신의 권위가 교회를 세우기 위해 주님께서 주신 것임을 분명히 합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">영적 전쟁의 무기</text>
+                    
+                    <g text-anchor="middle">
+                        <path d="M50 40 h20 l-10 20 Z" fill="#EF4444" />
+                        <text x="70" y="80">육신의 무기</text>
+                        <text x="70" y="95" fill="#555" font-size="9">(외모, 말의 지혜, 혈기)</text>
+                    </g>
+                    
+                    <g text-anchor="middle">
+                        <rect x="150" y="40" width="200" height="80" rx="5" fill="#EFF6FF" stroke="#3B82F6"/>
+                        <text x="250" y="55" font-weight="bold">하나님의 능력 (영적 무기)</text>
+                        <text x="250" y="75" font-size="9">1. 견고한 진을 무너뜨림</text>
+                        <text x="250" y="90" font-size="9">2. 모든 이론을 파함</text>
+                        <text x="250" y="105" font-size="9">3. 생각을 사로잡아 그리스도께 복종</text>
+                    </g>
+                    
+                    <line x1="100" y1="65" x2="150" y2="65" stroke="#EF4444" stroke-width="1.5"/>
+                    <text x="125" y="60" font-size="14" text-anchor="middle">VS</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>고린도 교회에는 바울의 사도직을 의심하고 공격하는 '거짓 사도들'이 있었습니다. 그들은 바울이 직접 대면할 때는 유약하지만 편지로는 강하다고 비난하며 그의 외모와 언변을 문제 삼았습니다. 이에 바울은 영적 전쟁의 본질에 대해 가르칩니다. 교회의 싸움은 인간적인 카리스마나 웅변술, 외적인 조건으로 하는 것이 아닙니다. 그것은 '육신에 따른 싸움'입니다. 참된 영적 전쟁은 '하나님의 능력'으로 싸우는 것입니다. 우리의 대적은 사람이 아니라 그 배후에 있는 '견고한 진', 즉 하나님을 대적하는 교만한 사상과 이론들입니다. 신학적으로 이는 기독교 변증의 핵심을 보여줍니다. 우리는 세상의 철학과 사상을 동일한 방식으로 반박하는 것이 아니라, 복음의 능력으로 그것들이 얼마나 거짓되고 허망한지를 드러내고 모든 지성이 참된 왕이신 그리스도께 굴복하도록 싸워야 합니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <p><strong>10장 4-5절</strong>: "우리의 싸우는 무기는 육신에 속한 것이 아니요 오직 어떤 견고한 진도 무너뜨리는 하나님의 능력이라 모든 이론을 무너뜨리며 하나님 아는 것을 대적하여 높아진 것을 다 무너뜨리고 모든 생각을 사로잡아 그리스도에게 복종하게 하니" - 영적 전쟁의 목표와 방법을 가장 명확하게 설명하는 구절입니다. 우리의 싸움의 대상은 특정 사람이 아니라, 하나님을 부정하고 대적하는 세상의 모든 가치관과 사상 체계('견고한 진', '이론')입니다. 그리고 우리의 무기는 인간의 논리나 설득이 아닌 '하나님의 능력', 즉 복음 그 자체입니다. 이 복음의 능력만이 교만한 인간의 이성을 깨뜨리고, 그 생각을 사로잡아 창조주이신 그리스도께 복종시킬 수 있습니다.</p>
+                <p><strong>10장 17-18절</strong>: "자랑하는 자는 주 안에서 자랑할지니라 옳다 인정함을 받는 자는 자기를 칭찬하는 자가 아니요 오직 주께서 칭찬하시는 자니라" - 바울은 거짓 교사들과 자신의 근본적인 차이점을 보여줍니다. 거짓 교사들은 자신들의 학벌, 언변, 출신 등 외적인 조건을 자랑합니다. 그러나 바울은 오직 '주 안에서'만 자랑한다고 말합니다. 참된 사역자의 가치는 사람의 인정('자기를 칭찬하는 자')이 아니라 주님의 인정('주께서 칭찬하시는 자')에 의해 결정됩니다. 이는 우리의 모든 사역과 신앙생활의 기준이 되어야 합니다. 우리는 사람의 칭찬을 구하는 자가 아니라, 하나님의 인정을 구하는 자로 살아야 합니다.</p>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>바울의 사도적 권위에 대한 변호</strong>
+                    <p><span class="verse-number">1</span> 너희를 대면하면 유순하고 떠나 있으면 담대한 나 바울은 이제 그리스도의 온유와 관용으로 친히 너희를 권하고</p>
+                    <p><span class="verse-number">2</span> 또한 우리를 육신에 따라 행하는 자로 여기는 자들에 대하여 내가 담대히 대하는 것 같이 너희와 함께 있을 때에 나로 하여금 이 담대한 태도로 대하지 않게 하기를 구하노라</p>
+                    <p><span class="verse-number">3</span> 우리가 육신으로 행하나 육신에 따라 싸우지 아니하노니</p>
+                    <p><span class="verse-number">4</span> 우리의 싸우는 무기는 육신에 속한 것이 아니요 오직 어떤 견고한 진도 무너뜨리는 하나님의 능력이라 모든 이론을 무너뜨리며</p>
+                    <p><span class="verse-number">5</span> 하나님 아는 것을 대적하여 높아진 것을 다 무너뜨리고 모든 생각을 사로잡아 그리스도에게 복종하게 하니</p>
+                    <p><span class="verse-number">6</span> 너희의 복종이 온전하게 될 때에 모든 복종하지 않는 것을 벌하려고 준비하는 중에 있노라</p>
+                    <strong>외모로 판단하지 말라</strong>
+                    <p><span class="verse-number">7</span> 너희는 외모만 보는도다 만일 사람이 자기가 그리스도에게 속한 줄을 믿을진대 자기가 그리스도에게 속한 것 같이 우리도 그러한 줄을 자기 속으로 다시 생각할 것이라</p>
+                    <p><span class="verse-number">8</span> 주께서 주신 권세는 너희를 무너뜨리려고 하신 것이 아니요 세우려고 하신 것이니 내가 이에 대하여 지나치게 자랑하여도 부끄럽지 아니하리라</p>
+                    <p><span class="verse-number">9</span> 이는 내가 편지들로 너희를 놀라게 하려는 것 같이 보이지 않게 함이라</p>
+                    <p><span class="verse-number">10</span> 그들의 말이 그의 편지들은 무게가 있고 힘이 있으나 그가 몸으로 대할 때는 약하고 그 말도 시원하지 않다 하니</p>
+                    <p><span class="verse-number">11</span> 이런 사람은 우리가 떠나 있을 때에 편지들로 말하는 것과 함께 있을 때에 행하는 일이 같은 것임을 알지라</p>
+                    <strong>주 안에서 자랑하라</strong>
+                    <p><span class="verse-number">12</span> 우리는 자기를 칭찬하는 어떤 자와 더불어 감히 짝하며 비교할 수 없노라 그러나 그들이 자기로써 자기를 헤아리고 자기로써 자기를 비교하니 지혜가 없도다</p>
+                    <p><span class="verse-number">13</span> 그러나 우리는 분수 이상의 자랑을 하지 않고 오직 하나님이 우리에게 나누어 주신 그 범위의 한계를 따라 하노니 곧 너희에게까지 이른 것이라</p>
+                    <p><span class="verse-number">14</span> 우리가 너희에게 미치지 못할 자로서 스스로 지나쳐 나아간 것이 아니요 그리스도의 복음으로 너희에게까지 이른 것이라</p>
+                    <p><span class="verse-number">15</span> 우리는 남의 수고를 가지고 분수 이상의 자랑을 하는 것이 아니라 오직 너희의 믿음이 자랄수록 우리의 규범을 따라 너희 가운데서 더욱 풍성하여지기를 바라노라</p>
+                    <p><span class="verse-number">16</span> 이는 너희 지역을 넘어 복음을 전하기 위함이요 남의 규범으로 이루어 놓은 것으로 자랑하지 아니하려 함이라</p>
+                    <p><span class="verse-number">17</span> 자랑하는 자는 주 안에서 자랑할지니라</p>
+                    <p><span class="verse-number">18</span> 옳다 인정함을 받는 자는 자기를 칭찬하는 자가 아니요 오직 주께서 칭찬하시는 자니라</p>
+                </div>
+            </section>
+
+            <!-- Card 3: Ezekiel 24 -->
+            <section class="chapter-card card-book3">
+                <h2>에스겔 24장: 녹슨 가마와 선지자의 침묵</h2>
+                <h3>개요 (Overview)</h3>
+                <p>하나님은 바벨론 왕이 예루살렘을 포위하기 시작한 바로 그 날에, 에스겔에게 '녹슨 가마'의 비유를 명하십니다. 가마는 예루살렘, 고기 조각들은 백성을 상징하며, 심판의 불이 가마를 뜨겁게 달구어 그 속의 녹(죄악)을 태워 없앨 것을 보여줍니다. 그리고 바로 그 날, 에스겔의 아내가 죽습니다. 하나님은 에스겔에게 슬퍼하거나 곡하지 말고 침묵하라고 명하시며, 그의 침묵이 예루살렘 성전 파괴라는 극심한 충격과 슬픔에 빠질 이스라엘 백성의 모습에 대한 예표가 될 것이라고 말씀하십니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">심판의 두 가지 표징</text>
+                    <g>
+                        <path d="M50 50 C 50 20, 150 20, 150 50 L 150 120 C 150 150, 50 150, 50 120 Z" fill="#FEF6E8" stroke="#F5A623" stroke-width="2"/>
+                        <text x="100" y="40" text-anchor="middle" font-weight="bold">1. 녹슨 가마의 비유</text>
+                        <text x="100" y="60" text-anchor="middle" fill="#555">가마 = 예루살렘</text>
+                        <text x="100" y="75" text-anchor="middle" fill="#555">고기 = 백성</text>
+                        <text x="100" y="90" text-anchor="middle" fill="#555">녹 = 죄악</text>
+                        <text x="100" y="105" text-anchor="middle" fill="#D0021B">불 = 심판</text>
+                    </g>
+                     <g>
+                        <rect x="230" y="30" width="140" height="110" rx="5" fill="#F0F9FF" stroke="#0EA5E9"/>
+                        <text x="300" y="50" text-anchor="middle" font-weight="bold">2. 에스겔 아내의 죽음</text>
+                        <text x="300" y="70" text-anchor="middle" fill="#555">선지자의 침묵</text>
+                        <path d="M 300 80 L 300 100" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+                        <text x="300" y="115" text-anchor="middle" fill="#D0021B">백성의 말 못 할 슬픔</text>
+                        <text x="300" y="130" text-anchor="middle" fill="#D0021B">(성전 파괴)</text>
+                    </g>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>에스겔의 예언은 종종 상징적인 행동을 통해 전달되었습니다. 그의 아내의 죽음과 그에 대한 침묵 명령은 그중 가장 고통스럽고 충격적인 것입니다. '눈을 기쁘게 하는 것'인 아내의 죽음은, 이스라엘의 자랑이자 기쁨이었던 성전의 파괴를 예고합니다. 성전이 무너졌을 때 백성들은 너무나 큰 충격과 슬픔에 빠져 곡할 기력조차 없을 것임을 선지자의 몸으로 미리 보여준 것입니다. '녹슨 가마' 비유는 심판의 철저함을 보여줍니다. 단순히 고기(백성)를 꺼내는 것(포로)으로 끝나지 않고, 가마 자체(도시와 성전)를 불에 달구어 그 근본적인 죄악(녹)까지 태워버리시겠다는 하나님의 단호한 의지를 보여줍니다. 신학적으로 이는 죄의 뿌리 깊음과 그것을 정화하기 위해 요구되는 하나님의 불같은 공의를 보여줍니다. 그러나 이 끔찍한 심판의 끝에서 하나님은 "내가 여호와인 줄을 너희가 알리라"고 말씀하십니다. 심판은 끝이 아니라, 이스라엘이 하나님이 누구신지 비로소 깨닫게 되는 새로운 시작이 될 것입니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <p><strong>24장 6절</strong>: "주 여호와께서 이같이 말씀하셨느니라 화 있을진저 피 흘린 성읍이여 녹슨 가마여, 그 속의 녹을 없이하지 아니하였도다" - '녹'은 예루살렘 사회에 깊이 스며들어 제거할 수 없게 된 구조적인 죄악을 상징합니다. 겉을 닦아내는 것으로는 해결되지 않는 근본적인 부패입니다. 이는 인간의 죄성이 얼마나 완고한지를 보여줍니다. 스스로 정결해질 수 없는 인간은, 오직 하나님의 불같은 심판이나, 혹은 그리스도의 보혈이라는 정결케 하는 불을 통과해야만 깨끗해질 수 있습니다.</p>
+                <p><strong>24장 24절</strong>: "이와 같이 에스겔이 너희에게 표징이 되리니 그가 행한 대로 너희가 다 행할지라 이 일이 이루어지면 내가 주 여호와인 줄을 너희가 알리라 하라" - 선지자의 삶은 메시지 그 자체였습니다. 에스겔은 가장 개인적이고 고통스러운 상실을 통해 하나님의 마음과 이스라엘의 운명을 전달하는 도구가 되었습니다. 그의 침묵은 말보다 더 강력한 메시지였습니다. 이는 우리에게 성도의 삶이 세상에 대한 '표징'이 되어야 함을 가르칩니다. 우리의 말뿐만 아니라, 고난을 감내하는 우리의 태도와 삶을 통해 세상은 살아계신 하나님을 보게 될 것입니다.</p>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>녹슨 가마 비유</strong>
+                    <p><span class="verse-number">1</span> 아홉째 해 열째 달 열째 날에 여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p><span class="verse-number">2</span> 인자야 너는 날짜 곧 오늘의 이름을 기록하라 바벨론 왕이 오늘 예루살렘에 가까이 왔느니라</p>
+                    <p><span class="verse-number">3</span> 너는 이 반역하는 족속에게 비유를 베풀어 이르기를 주 여호와께서 이같이 말씀하시기를 가마 하나를 걸라</p>
+                    <p><span class="verse-number">4</span> 건 후에 물을 붓고 양 떼에서 한 마리를 골라 각을 뜨고 그 넓적다리와 어깨 고기의 모든 좋은 덩이를 그 가운데에 모아 넣으며 고른 뼈를 가득히 담고</p>
+                    <p><span class="verse-number">5</span> 그 뼈를 위하여 가마 밑에 나무를 쌓아 넣고 잘 삶되 가마 속의 뼈가 무르도록 삶을지어다</p>
+                    <p><span class="verse-number">6</span> 그러므로 주 여호와께서 이같이 말씀하셨느니라 화 있을진저 피 흘린 성읍이여 녹슨 가마여, 그 속의 녹을 없이하지 아니하였도다 제비 뽑을 것도 없이 그 덩이를 하나하나 꺼낼지어다</p>
+                    <p><span class="verse-number">7</span> 그 피가 그 가운데에 있음이여 피를 땅에 쏟아 티끌이 덮이게 하지 않고 맨 바위 위에 두었도다</p>
+                    <p><span class="verse-number">8</span> 내가 그의 피를 맨 바위 위에 두고 덮이지 아니하게 함은 분노를 나타내어 보응하려 함이로다</p>
+                    <p><span class="verse-number">9</span> 그러므로 주 여호와께서 이같이 말씀하셨느니라 화 있을진저 피 흘린 성읍이여 내가 또 나무 무더기를 크게 하리라</p>
+                    <p><span class="verse-number">10</span> 나무를 많이 쌓고 불을 피워 그 고기를 삶아 녹이고 국물을 졸이고 그 뼈를 태우고</p>
+                    <p><span class="verse-number">11</span> 가마가 빈 후에는 숯불 위에 놓아 뜨겁게 하며 그 가마의 놋을 달궈서 그 속에 더러운 것을 녹게 하며 녹이 소멸되게 하라</p>
+                    <p><span class="verse-number">12</span> 이 성읍이 수고함으로 피곤하나 많은 녹이 그 속에서 벗겨지지 아니하며 불에서도 없어지지 아니하는도다</p>
+                    <p><span class="verse-number">13</span> 내가 너의 더러운 것들 가운데에서 음란을 깨끗하게 하려 하였으나 네가 깨끗하여지지 아니하니 내가 네게 향한 분노를 풀기 전에는 네 더러움이 다시 깨끗하여지지 아니하리라</p>
+                    <p><span class="verse-number">14</span> 나 여호와가 말하였은즉 그 일이 이루어질지라 내가 돌이키지도 아니하며 아끼지도 아니하며 뉘우치지도 아니하고 행하리니 그들이 네 모든 행위대로 너를 재판하리라 주 여호와의 말씀이니라</p>
+                    <strong>에스겔 아내의 죽음과 침묵의 표징</strong>
+                    <p><span class="verse-number">15</span> 여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p><span class="verse-number">16</span> 인자야 내가 네 눈에 기뻐하는 것을 한 번 쳐서 빼앗으리니 너는 슬퍼하거나 울거나 눈물을 흘리거나 하지 말며</p>
+                    <p><span class="verse-number">17</span> 죽은 자들을 위하여 슬퍼하지 말고 조용히 탄식하며 수건으로 머리를 동이고 발에 신을 신고 입술을 가리지 말고 사람이 초상집에서 먹는 음식물을 먹지 말라 하신지라</p>
+                    <p><span class="verse-number">18</span> 내가 아침에 백성에게 말하였더니 저녁에 내 아내가 죽었으므로 아침에 내가 받은 명령대로 행하매</p>
+                    <p><span class="verse-number">19</span> 백성이 내게 이르되 네가 행하는 이 일이 우리와 무슨 상관이 있는지 너는 우리에게 알리지 아니하려느냐 하므로</p>
+                    <p><span class="verse-number">20</span> 내가 그들에게 대답하기를 여호와의 말씀이 내게 임하여 이르시기를</p>
+                    <p><span class="verse-number">21</span> 너는 이스라엘 족속에게 이르기를 주 여호와의 말씀에 내 성소는 너희 세력의 영광이요 너희 눈의 기쁨이요 너희 마음에 아낌이 되거니와 내가 더럽힐 것이며 너희가 버려 둔 자녀를 칼에 엎드러지게 할지라</p>
+                    <p><span class="verse-number">22</span> 너희가 에스겔이 행한 바와 같이 행하여 입술을 가리지 아니하며 사람의 음식물을 먹지 아니하며</p>
+                    <p><span class="verse-number">23</span> 수건으로 머리를 동인 채, 발에 신을 신은 채로 두고 슬퍼하지도 아니하며 울지도 아니하되 죄악 속에서 쇠잔하여 가며 서로 바라보고 탄식하리라</p>
+                    <p><span class="verse-number">24</span> 이와 같이 에스겔이 너희에게 표징이 되리니 그가 행한 대로 너희가 다 행할지라 이 일이 이루어지면 내가 주 여호와인 줄을 너희가 알리라 하라</p>
+                    <p><span class="verse-number">25</span> 인자야 내가 그 힘과 그 즐거워하는 영광과 그 눈이 기뻐하는 것과 그 마음이 간절하게 생각하는 자녀를 빼앗는 날 곧 그 날에</p>
+                    <p><span class="verse-number">26</span> 도망한 자가 네게 와서 네 귀에 그 일을 들려 주지 아니하겠느냐</p>
+                    <p><span class="verse-number">27</span> 그 날에 네 입이 열려서 도망한 자에게 말하고 다시는 잠잠하지 아니하리라 이와 같이 너는 그들에게 표징이 되고 내가 여호와인 줄을 그들이 알리라</p>
+                </div>
+            </section>
+            
+            <!-- Card 4: Psalm 72 -->
+            <section class="chapter-card card-book4">
+                <h2>시편 72편: 영원한 왕의 통치를 그리다</h2>
+                <h3>개요 (Overview)</h3>
+                <p>솔로몬의 시로 알려진 이 시편은 이상적인 왕의 통치를 위한 기도이자 예언입니다. 시인은 왕이 하나님의 공의와 정의로 백성을 다스리기를, 특히 가난하고 궁핍한 자들을 억압에서 구원하기를 간구합니다. 그의 통치는 해와 달이 있는 동안 영원할 것이며, 온 땅에 평화와 풍요를 가져오고 모든 민족이 그를 송축하게 될 것입니다. 이 시는 궁극적으로 솔로몬을 넘어, 온 세상을 공의와 사랑으로 다스리실 메시아, 예수 그리스도의 통치를 그리고 있습니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="20" text-anchor="middle" font-size="12" font-weight="bold">메시아 왕국의 특징</text>
+                    <g text-anchor="middle">
+                        <rect x="20" y="40" width="80" height="80" rx="5" fill="#F4E8FF" stroke="#9013FE"/>
+                        <text x="60" y="60" font-weight="bold">공의와 정의</text>
+                        <text x="60" y="80" font-size="9">가난한 자를 변호</text>
+                        <text x="60" y="95" font-size="9">궁핍한 자를 구원</text>
+                        
+                        <rect x="115" y="40" width="80" height="80" rx="5" fill="#F4E8FF" stroke="#9013FE"/>
+                        <text x="155" y="60" font-weight="bold">영원함</text>
+                        <text x="155" y="80" font-size="9">해가 있는 동안</text>
+                        <text x="155" y="95" font-size="9">달이 있는 동안</text>
+
+                        <rect x="210" y="40" width="80" height="80" rx="5" fill="#F4E8FF" stroke="#9013FE"/>
+                        <text x="250" y="60" font-weight="bold">평화와 풍요</text>
+                        <text x="250" y="80" font-size="9">산들이 평화를</text>
+                        <text x="250" y="95" font-size="9">곡식이 풍성</text>
+
+                        <rect x="305" y="40" width="80" height="80" rx="5" fill="#F4E8FF" stroke="#9013FE"/>
+                        <text x="345" y="60" font-weight="bold">세계적 통치</text>
+                        <text x="345" y="80" font-size="9">바다에서 바다까지</text>
+                        <text x="345" y="95" font-size="9">모든 민족이 섬김</text>
+                    </g>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>이 시는 다윗 왕조의 왕, 특히 솔로몬의 즉위를 배경으로 하는 '제왕시'입니다. 그러나 시에 묘사된 왕의 통치는 그 범위와 영광이 너무나 이상적이어서, 역사 속 어떤 인간 왕도 완전히 이룰 수 없는 모습입니다. 그의 통치는 지리적으로 온 땅에 미치고, 시간적으로는 영원하며, 사회적으로는 완전한 공의와 평화를 이룹니다. 이 때문에 이 시는 솔로몬이라는 역사적 인물을 넘어, 장차 오실 완전하고 영원한 왕, 메시아에 대한 예언으로 해석됩니다. 신학적으로 시편 72편은 하나님의 나라가 어떤 모습인지를 보여주는 청사진입니다. 그 나라는 힘의 논리가 아닌 공의와 긍휼로 다스려지는 곳이며, 가장 약한 자가 가장 안전한 곳입니다. 예수 그리스도는 이 예언의 완전한 성취자이십니다. 그는 가난하고 억눌린 자의 친구가 되셨고, 십자가를 통해 죄와 사망의 압제를 깨뜨리셨으며, 지금도 온 세상을 다스리시며 그의 영원한 평화의 나라를 완성해가고 계십니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <p><strong>72편 4절</strong>: "그가 가난한 백성의 억울함을 풀어 주며 궁핍한 자의 자손을 구원하며 압박하는 자를 꺾으리로다" - 이상적인 왕의 가장 중요한 덕목은 군사력이나 부가 아니라, 사회적 약자를 돌보는 '공의'임을 보여줍니다. 하나님의 나라는 힘없는 자들의 신음 소리에 귀 기울이는 나라입니다. 이는 세상 나라의 가치관과 정면으로 배치됩니다. 예수님께서 "심령이 가난한 자는 복이 있나니 천국이 그들의 것임이요"라고 선포하신 것은 바로 이 시편의 정신과 맞닿아 있습니다.</p>
+                <p><strong>72편 17절</strong>: "그의 이름이 영구함이여 그의 이름이 해와 같이 장구하리로다 사람들이 그로 말미암아 복을 받으리니 모든 민족이 다 그를 복되다 하리로다" - 이 구절은 아브라함에게 주셨던 "땅의 모든 족속이 너로 말미암아 복을 얻을 것이라"(창 12:3)는 언약을 상기시킵니다. 이제 그 복이 다윗의 후손인 왕을 통해 온 세상에 전파될 것이라고 예언합니다. 이 약속은 오직 만왕의 왕이신 예수 그리스도를 통해서만 성취될 수 있습니다. 온 민족은 오직 예수 그리스도를 믿음으로 말미암아 참된 복을 받고, 그 이름을 영원히 송축하게 될 것입니다.</p>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>이상적인 왕을 위한 기도</strong>
+                    <p><span class="verse-number">1</span> (솔로몬의 시) 하나님이여 주의 판단력을 왕에게 주시고 주의 공의를 왕의 아들에게 주소서</p>
+                    <p><span class="verse-number">2</span> 그가 주의 백성을 공의로 재판하며 주의 가난한 자를 정의로 재판하리니</p>
+                    <p><span class="verse-number">3</span> 의로 말미암아 산들이 백성에게 평강을 주며 작은 산들도 그리하리로다</p>
+                    <p><span class="verse-number">4</span> 그가 가난한 백성의 억울함을 풀어 주며 궁핍한 자의 자손을 구원하며 압박하는 자를 꺾으리로다</p>
+                    <p><span class="verse-number">5</span> 그들이 해가 있을 동안에도 주를 두려워하며 달이 있을 동안에도 대대로 그리하리로다</p>
+                    <p><span class="verse-number">6</span> 그는 벤 풀 위에 내리는 비 같이, 땅을 적시는 소낙비 같이 내리리니</p>
+                    <p><span class="verse-number">7</span> 그의 날에 의인이 흥왕하여 평강의 풍성함이 달이 다할 때까지 이르리로다</p>
+                    <strong>온 세상을 다스릴 왕</strong>
+                    <p><span class="verse-number">8</span> 그가 바다에서부터 바다까지와 강에서부터 땅 끝까지 다스리리니</p>
+                    <p><span class="verse-number">9</span> 광야에 사는 자는 그 앞에 굽히며 그의 원수들은 티끌을 핥을 것이며</p>
+                    <p><span class="verse-number">10</span> 다시스와 섬의 왕들이 조공을 바치며 스바와 시바 왕들이 예물을 드리리로다</p>
+                    <p><span class="verse-number">11</span> 모든 왕이 그의 앞에 부복하며 모든 민족이 다 그를 섬기리로다</p>
+                    <p><span class="verse-number">12</span> 그는 궁핍한 자가 부르짖을 때에 건지며 도움이 없는 가난한 자도 건지며</p>
+                    <p><span class="verse-number">13</span> 그는 가난한 자와 궁핍한 자를 불쌍히 여기며 궁핍한 자의 생명을 구원하며</p>
+                    <p><span class="verse-number">14</span> 그들의 생명을 압박과 강포에서 구원하리니 그들의 피가 그의 눈 앞에서 존귀히 여김을 받으리로다</p>
+                    <strong>왕의 영광과 복을 기원함</strong>
+                    <p><span class="verse-number">15</span> 그들이 생존하여 스바의 금을 그에게 드리며 사람들이 그를 위하여 항상 기도하고 종일 찬송하리로다</p>
+                    <p><span class="verse-number">16</span> 산 꼭대기의 땅에도 곡식이 풍성하고 그것의 열매가 레바논 같이 흔들리며 성에 있는 자가 땅의 풀 같이 왕성하리로다</p>
+                    <p><span class="verse-number">17</span> 그의 이름이 영구함이여 그의 이름이 해와 같이 장구하리로다 사람들이 그로 말미암아 복을 받으리니 모든 민족이 다 그를 복되다 하리로다</p>
+                    <strong>송영</strong>
+                    <p><span class="verse-number">18</span> 홀로 기이한 일들을 행하시는 여호와 하나님 곧 이스라엘의 하나님을 찬송하며</p>
+                    <p><span class="verse-number">19</span> 그 영화로운 이름을 영원히 찬송할지어다 온 땅에 그의 영광이 충만할지어다 아멘 아멘</p>
+                    <p><span class="verse-number">20</span> 이새의 아들 다윗의 기도가 끝나니라</p>
+                </div>
+            </section>
+
+            <!-- Integration Card -->
+            <section class="chapter-card integration-card">
+                <h2>통합적 이해: 인간의 지혜, 하나님의 섭리</h2>
+                <h3>관통하는 주제 (Overarching Theme)</h3>
+                <p>오늘의 본문들은 '인간의 지혜'와 '하나님의 섭리'가 어떻게 교차하고 대립하는지를 극적으로 보여줍니다. <strong>사무엘하 17장</strong>에서는 세상 최고의 지혜(아히도벨의 계략)가 다윗의 기도를 들으신 하나님의 섭리 앞에서 무너지는 것을 봅니다. 이는 <strong>고린도후서 10장</strong>에서 바울이 선포하는 영적 진리와 맞닿아 있습니다. 우리의 싸움은 인간의 지혜와 논리('육신의 무기')가 아닌, 하나님을 대적하는 모든 교만한 생각을 깨뜨리는 '하나님의 능력'으로 싸우는 것입니다. 인간의 지혜를 의지하는 삶의 끝은 비참합니다. <strong>에스겔 24장</strong>의 예루살렘은 자신들의 지혜로 성을 견고히 하고 이방과 동맹했지만, 하나님의 불같은 심판을 피할 수 없었습니다. 그들의 지혜는 녹슨 가마의 녹처럼 그들을 더럽힐 뿐이었습니다. 이 모든 인간 지혜의 파산 선고 속에서, <strong>시편 72편</strong>은 유일한 소망을 제시합니다. 그것은 바로 하나님의 지혜와 공의로 통치하시는 완전한 왕, 예수 그리스도입니다. 그의 통치 아래에서만 참된 평화와 풍요, 구원이 있습니다. 결국 오늘의 말씀은 우리에게 묻습니다. 당신은 누구의 지혜를 의지하여 살아가고 있습니까?</p>
+
+                <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="9">
+                    <line x1="20" y1="100" x2="380" y2="100" stroke="#333" stroke-width="1.5"/>
+                    <g text-anchor="middle">
+                        <circle cx="60" cy="100" r="4" fill="#4A90E2"/>
+                        <text x="60" y="120">다윗 왕국</text>
+                        <text x="60" y="132" fill="#555">(삼하 17)</text>
+
+                        <circle cx="140" cy="100" r="4" fill="#F5A623"/>
+                        <text x="140" y="120">바벨론 포로</text>
+                        <text x="140" y="132" fill="#555">(겔 24)</text>
+
+                        <circle cx="340" cy="100" r="4" fill="#50E3C2"/>
+                        <text x="340" y="120">초대 교회</text>
+                        <text x="340" y="132" fill="#555">(고후 10)</text>
+                        
+                        <text x="200" y="40" font-size="14" font-weight="bold" fill="#D0021B">예수 그리스도</text>
+                        <path d="M 185 45 L 215 45 L 200 65 Z" fill="#D0021B"/>
+
+                        <!-- Arrows -->
+                        <path d="M 60 95 Q 120 70 195 68" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <text x="110" y="65" font-size="8">기도를 들으시는 왕</text>
+                        <path d="M 140 95 Q 160 80 195 68" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <text x="150" y="90" font-size="8">참된 정결의 필요성</text>
+                        <path d="M 340 95 Q 280 70 205 68" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <text x="285" y="65" font-size="8">모든 생각을 복종시키는 왕</text>
+                    </g>
+                     <text x="200" y="170" text-anchor="middle" font-size="9" fill="#555">시편 72편은 시대를 초월하여 그리스도의 완전한 통치를 예언하고 찬양합니다.</text>
+                </svg>
+
+                <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
+                <p>오늘의 본문들은 다양한 방식으로 참된 지혜이신 예수 그리스도를 가리킵니다. <strong>사무엘하 17장</strong>에서 하나님은 다윗의 기도를 들으시고 인간의 지혜를 어리석게 하심으로 당신의 종을 구원하십니다. 이는 우리의 기도를 들으시고 세상의 지혜로부터 우리를 구원하시는 대제사장이신 그리스도의 사역을 예표합니다. <strong>에스겔 24장</strong>의 녹슨 가마는 율법의 행위나 인간적인 노력으로는 결코 정결해질 수 없는 우리의 죄악된 본성을 보여줍니다. 이 녹은 오직 우리를 위해 심판의 불에 던져지신 그리스도의 보혈로만 씻겨질 수 있습니다. <strong>고린도후서 10장</strong>은 바로 그 그리스도의 복음이 어떻게 세상의 모든 견고한 진과 교만한 이론을 무너뜨리는 하나님의 능력이 되는지를 보여줍니다. 그리스도는 우리의 지혜, 의로움, 거룩함, 구원함이 되십니다. 마지막으로 <strong>시편 72편</strong>은 이 모든 것의 완성인 그리스도의 왕국을 노래합니다. 그는 솔로몬이 꿈꾸었던 이상적인 왕의 모습을 완벽하게 성취하시는 분입니다. 그의 나라는 인간의 지혜가 아닌 하나님의 공의와 사랑에 기초하며, 그분께 모든 생각을 복종시킬 때 우리는 참된 평화와 안식을 누리게 됩니다.</p>
+
+                <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>주제 (Theme)</th>
+                            <th>사무엘하 17</th>
+                            <th>고린도후서 10</th>
+                            <th>에스겔 24</th>
+                            <th>시편 72</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>지혜/계략</strong></td>
+                            <td>인간의 완벽한 지혜가 하나님의 섭리 앞에 무너짐</td>
+                            <td>육신의 지혜 vs 하나님의 능력</td>
+                            <td>하나님을 떠난 지혜의 부패함</td>
+                            <td>하나님의 지혜로 다스리는 왕</td>
+                        </tr>
+                        <tr>
+                            <td><strong>전쟁/싸움</strong></td>
+                            <td>지략을 통한 실제 전투</td>
+                            <td>사상과 이론을 대상으로 한 영적 전쟁</td>
+                            <td>하나님의 백성을 향한 심판 전쟁</td>
+                            <td>가난한 자를 구원하는 정의의 싸움</td>
+                        </tr>
+                        <tr>
+                            <td><strong>하나님의 주권</strong></td>
+                            <td>악인의 마음을 주관하여 계략을 물리치심</td>
+                            <td>우리의 무기가 되는 하나님의 능력</td>
+                            <td>심판의 날짜와 방법을 정하심</td>
+                            <td>왕에게 공의를 주시고 통치를 세우심</td>
+                        </tr>
+                        <tr>
+                            <td><strong>왕/통치자</strong></td>
+                            <td>하나님의 섭리 아래 있는 다윗</td>
+                            <td>모든 생각을 복종시켜야 할 그리스도</td>
+                            <td>심판받는 예루살렘의 지도자들</td>
+                            <td>온 세상을 다스릴 이상적인 메시아 왕</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>오늘의 교훈 (Application)</h3>
+                <p>우리는 문제 앞에서 아히도벨처럼 자신의 경험과 지혜를 의지하려는 강한 유혹을 받습니다. 세상은 우리에게 더 똑똑해지고, 더 나은 전략을 세우라고 부추깁니다. 그러나 오늘 말씀은 참된 승리가 우리의 지혜에 달려 있지 않음을 분명히 보여줍니다. 오히려 우리의 지혜가 하나님을 대적하는 '견고한 진'이 될 수 있음을 경고합니다. 우리가 해야 할 일은 다윗처럼 겸손히 하나님의 도우심을 구하고, 바울처럼 우리의 모든 생각을 사로잡아 그리스도께 복종시키는 것입니다. 나의 계획, 나의 논리, 나의 경험을 내려놓고, 하나님의 말씀과 섭리를 신뢰할 때, 하나님께서는 가장 좋은 계략을 물리치시고 우리를 위해 일하기 시작하십니다. 우리의 자랑은 나의 지혜가 아니라, 우리를 위해 모든 것이 되시는 주님 한 분이어야 합니다.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 맥체인 성경읽기. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // YouTube IFrame API 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'PmiogaEfPP8';
+        const playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // 플레이어가 준비되면 버튼 활성화
+            playPauseBtn.disabled = false;
+            playPauseBtn.classList.add('paused');
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playPauseBtn.classList.remove('paused');
+            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+                playPauseBtn.classList.add('paused');
+            }
+        }
+
+        function togglePlayPause() {
+            if (!player || typeof player.getPlayerState !== 'function') return;
+            var playerState = player.getPlayerState();
+            if (playerState == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
+
+        // 스페이스바 이벤트 추가
+        document.addEventListener('keydown', function(event) {
+            // 입력 필드나 텍스트 영역에 포커스 되어 있을 때는 작동하지 않도록 함
+            const target = event.target;
+            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+                return;
+            }
+
+            if (event.code === 'Space') {
+                event.preventDefault(); // 페이지 스크롤 방지
+                togglePlayPause();
+            }
+        });
+    </script>
+</body>
+</html>

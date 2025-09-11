@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 21일 맥체인 성경읽기 | 인간의 불순종과 하나님의 주권적 은혜</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-weight: 700;
+            color: #222;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        h1 .subtitle {
+            font-size: 1.5rem;
+            color: #555;
+            display: block;
+            margin-top: 0.5rem;
+            font-weight: 400;
+        }
+        
+        .table-of-contents {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .chapter-card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-book1 { border-left-color: #4285F4; }
+        .card-book2 { border-left-color: #DB4437; }
+        .card-book3 { border-left-color: #F4B400; }
+        .card-book4 { border-left-color: #0F9D58; }
+        .integration-card { border-left-color: #808080; }
+
+        .chapter-card h2 {
+            font-size: 1.8rem;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .chapter-card h3 {
+            font-size: 1.4rem;
+            color: #444;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 0.3rem;
+        }
+
+        .bible-text strong {
+            display: block;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-family: 'Noto Serif KR', serif;
+        }
+        .card-book1 .bible-text strong { color: #4285F4; }
+        .card-book2 .bible-text strong { color: #DB4437; }
+        .card-book3 .bible-text strong { color: #F4B400; }
+        .card-book4 .bible-text strong { color: #0F9D58; }
+        
+
+        .verse-number {
+            font-weight: 700;
+            color: #888888;
+            margin-right: 0.5em;
+            font-size: 0.9em;
+        }
+        
+        .bible-text div {
+            margin-bottom: 0.2rem;
+        }
+        
+        .key-verse-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-verse-list li {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid #eee;
+        }
+
+        .key-verse {
+            font-weight: bold;
+            font-family: 'Noto Serif KR', serif;
+            margin-bottom: 0.5rem;
+            color: #000;
+        }
+        
+        .commentary-text {
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .analysis-svg {
+            width: 100%;
+            margin: 1.5rem 0;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: #f2f2f2;
+            font-weight: 700;
+        }
+
+        .comparison-table td {
+            vertical-align: top;
+        }
+
+        #audio-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        
+        #audio-control.disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+
+        #audio-control:not(.disabled):hover {
+            background-color: #555;
+        }
+        
+        #player {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 1px;
+            height: 1px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="audio-control">오디오 로딩 중...</button>
+    <div id="player"></div>
+
+    <div class="container">
+        <h1>8월 21일 맥체인 성경읽기<span class="subtitle">인간의 불순종과 하나님의 주권적 은혜</span></h1>
+        <p class="table-of-contents">사무엘상 13장, 로마서 11장, 예레미야 50장, 시편 28, 29편</p>
+
+        <div class="chapter-card card-book1">
+            <h2>사무엘상 13장 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>사무엘상 13장은 이스라엘의 초대 왕 사울의 통치 초기에 발생한 결정적인 사건을 다룹니다. 블레셋과의 전쟁을 앞둔 위급한 상황 속에서, 사울은 선지자 사무엘을 기다리지 않고 직접 번제를 드리는 월권 행위를 저지릅니다. 이 불순종의 행위는 결국 그의 왕위가 길지 못할 것이라는 하나님의 심판 선고로 이어지며, 하나님께서 그의 마음에 맞는 새로운 지도자를 찾으실 것임을 예고합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .title-text { font: bold 14px 'Noto Sans KR', sans-serif; text-anchor: middle; }
+                    .flow-text { font: 12px 'Noto Sans KR', sans-serif; text-anchor: middle; }
+                    .arrow { marker-end: url(#arrowhead); stroke: #555; stroke-width: 1.5; fill: none; }
+                    #arrowhead path { fill: #555; }
+                </style>
+                <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" />
+                </marker>
+            
+                <text x="200" y="25" class="title-text">사울의 조급한 불순종과 그 결과</text>
+            
+                <rect x="20" y="50" width="160" height="50" rx="5" fill="#E3F2FD" stroke="#4285F4"/>
+                <text x="100" y="70" class="flow-text">1. 상황: 블레셋 위협</text>
+                <text x="100" y="88" class="flow-text">(백성이 흩어짐)</text>
+            
+                <path d="M 100 100 V 125" class="arrow"/>
+                
+                <rect x="110" y="125" width="180" height="50" rx="5" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2"/>
+                <text x="200" y="145" class="flow-text">2. 행동: 사울의 월권</text>
+                <text x="200" y="163" class="flow-text">(하나님보다 상황을 의식)</text>
+            
+                <path d="M 200 175 V 200" class="arrow"/>
+            
+                <rect x="110" y="200" width="180" height="30" rx="5" fill="#CFD8DC" stroke="#607D8B"/>
+                <text x="200" y="220" class="flow-text">3. 결과: 왕위 폐위 선고</text>
+            </svg>
+            
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>당시 제사는 오직 하나님께서 구별하여 세우신 제사장(사무엘은 선지자이자 제사장이었음)만이 집례할 수 있었습니다. 사울은 왕이었지만 제사장의 직무를 수행할 권한은 없었습니다. 그의 행위는 단순히 조급한 실수가 아니라, 하나님의 질서와 권위에 대한 명백한 도전이었습니다. 이는 왕의 권력이 하나님의 권위 아래 있음을 인정하지 않는 교만의 표현이며, 인간적인 방법으로 하나님의 도우심을 조종하려는 불신앙의 모습입니다. 개혁주의 신학은 하나님의 절대 주권과 그분이 정하신 질서에 순종하는 것의 중요성을 강조하는데, 사울의 실패는 이 원리를 정면으로 위배한 대표적인 사례입니다.</p>
+            
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <ul class="key-verse-list">
+                <li>
+                    <p class="key-verse">사무엘상 13:13-14</p>
+                    <p class="commentary-text">사무엘이 사울에게 이르되 왕이 망령되이 행하였도다 왕이 왕의 하나님 여호와께서 왕에게 내리신 명령을 지키지 아니하였도다 그리하였더라면 여호와께서 이스라엘 위에 왕의 나라를 영원히 세우셨을 것이거늘 지금은 왕의 나라가 길지 못할 것이라 여호와께서 왕에게 명령하신 바를 왕이 지키지 아니하였으므로 여호와께서 그의 마음에 맞는 사람을 구하여 여호와께서 그를 그의 백성의 지도자로 삼으셨느니라 하고</p>
+                    <p class="commentary-text">이 구절은 사울의 불순종에 대한 직접적인 심판 선고입니다. '망령되이 행하였다'는 것은 어리석고 무분별한 행동을 넘어서 신성모독적인 행위를 의미합니다. 여기서 중요한 신학적 원리는 '조건부 언약'입니다. 사울이 순종했다면 그의 왕조가 견고했을 것이나, 불순종했기에 폐위될 것입니다. 더 나아가, 하나님께서는 이미 '그의 마음에 맞는 사람', 즉 다윗을 예비하고 계셨음을 보여줍니다. 이는 인간의 실패에도 불구하고 하나님의 구속사는 그분의 주권적인 계획 안에서 흔들림 없이 진행됨을 드러냅니다.</p>
+                </li>
+            </ul>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>사울이 블레셋과 싸우다</strong>
+                <div><span class="verse-number">1</span>사울이 왕이 될 때에 사십 세라 그가 이스라엘을 다스린 지 이 년에</div>
+                <div><span class="verse-number">2</span>이스라엘 사람 삼천 명을 택하여 그 중에서 이천 명은 자기와 함께 믹마스와 벧엘 산에 있게 하고 일천 명은 요나단과 함께 베냐민 기브아에 있게 하고 남은 백성은 각기 장막으로 보내니라</div>
+                <div><span class="verse-number">3</span>요나단이 게바에 있는 블레셋 사람의 수비대를 치매 블레셋 사람이 이를 들은지라 사울이 온 땅에 나팔을 불어 이르되 히브리 사람들은 들으라 하니</div>
+                <div><span class="verse-number">4</span>온 이스라엘이 사울이 블레셋 사람들의 수비대를 친 것과 이스라엘이 블레셋 사람들의 미움을 받게 되었다 함을 듣고 그 백성이 길갈로 모여 사울을 따르니라</div>
+                <div><span class="verse-number">5</span>블레셋 사람들이 이스라엘과 싸우려고 모였는데 병거가 삼만이요 마병이 육천 명이요 백성은 해변의 모래 같이 많더라 그들이 올라와 벧아웬 동쪽 믹마스에 진 치매</div>
+                <div><span class="verse-number">6</span>이스라엘 사람들이 위급함을 보고 절박하여 굴과 수풀과 바위 틈과 은밀한 곳과 웅덩이에 숨으며</div>
+                <div><span class="verse-number">7</span>어떤 히브리 사람들은 요단을 건너 갓과 길르앗 땅으로 가되 사울은 아직 길갈에 있고 그를 따른 모든 백성은 떨더라</div>
+                <strong>사울의 불순종과 사무엘의 책망</strong>
+                <div><span class="verse-number">8</span>사울은 사무엘이 정한 기한대로 이레 동안을 기다렸으나 사무엘이 길갈로 오지 아니하매 백성이 사울에게서 흩어지는지라</div>
+                <div><span class="verse-number">9</span>사울이 이르되 번제와 화목제물을 이리로 가져오라 하여 번제를 드렸더니</div>
+                <div><span class="verse-number">10</span>번제 드리기를 마치자 사무엘이 온지라 사울이 나가 맞으며 문안하매</div>
+                <div><span class="verse-number">11</span>사무엘이 이르되 왕이 행하신 것이 무엇이냐 하니 사울이 이르되 백성은 내게서 흩어지고 당신은 정한 날 안에 오지 아니하고 블레셋 사람은 믹마스에 모였음을 내가 보았으므로</div>
+                <div><span class="verse-number">12</span>이에 내가 이르기를 블레셋 사람들이 나를 치러 길갈로 내려오겠거늘 내가 여호와께 은혜를 간구하지 못하였다 하고 부득이하여 번제를 드렸나이다 하니라</div>
+                <div><span class="verse-number">13</span>사무엘이 사울에게 이르되 왕이 망령되이 행하였도다 왕이 왕의 하나님 여호와께서 왕에게 내리신 명령을 지키지 아니하였도다 그리하였더라면 여호와께서 이스라엘 위에 왕의 나라를 영원히 세우셨을 것이거늘</div>
+                <div><span class="verse-number">14</span>지금은 왕의 나라가 길지 못할 것이라 여호와께서 왕에게 명령하신 바를 왕이 지키지 아니하였으므로 여호와께서 그의 마음에 맞는 사람을 구하여 여호와께서 그를 그의 백성의 지도자로 삼으셨느니라 하고</div>
+                <div><span class="verse-number">15</span>사무엘이 일어나 길갈에서 떠나 베냐민 기브아로 올라가니라 사울이 자기와 함께 한 백성의 수를 세어 보니 육백 명 가량이라</div>
+                <strong>전쟁 준비가 미흡한 이스라엘</strong>
+                <div><span class="verse-number">16</span>사울과 그의 아들 요나단과 그들과 함께 한 백성은 베냐민 게바에 있고 블레셋 사람들은 믹마스에 진 쳤더니</div>
+                <div><span class="verse-number">17</span>노략꾼들이 세 대로 블레셋 사람들의 진영에서 나와서 한 대는 오브라 길을 따라서 수알 땅에 이르고</div>
+                <div><span class="verse-number">18</span>한 대는 벧호론 길로 향하였고 한 대는 광야 쪽으로 스보임 골짜기가 내려다보이는 지역 길로 향하였더라</div>
+                <div><span class="verse-number">19</span>그 때에 이스라엘 온 땅에 철공이 없었으니 이는 블레셋 사람들이 말하기를 히브리 사람이 칼이나 창을 만들까 두렵다 하였음이라</div>
+                <div><span class="verse-number">20</span>온 이스라엘 사람들이 각기 보습이나 삽이나 도끼나 괭이를 버리려면 블레셋 사람들에게로 내려갔었는데</div>
+                <div><span class="verse-number">21</span>곧 그들이 괭이나 삽이나 쇠스랑이나 도끼나 쇠채찍이 무딜 때에 그리하였으므로</div>
+                <div><span class="verse-number">22</span>싸우는 날에 사울과 요나단과 함께 한 백성의 손에는 칼이나 창이 없고 오직 사울과 그의 아들 요나단에게만 있었더라</div>
+                <div><span class="verse-number">23</span>블레셋 사람들의 부대가 나와서 믹마스 어귀에 이르렀더라</div>
+            </div>
+        </div>
+
+        <div class="chapter-card card-book2">
+            <h2>로마서 11장 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>로마서 11장은 이스라엘의 불순종과 그로 인한 구속사의 신비를 다룹니다. 바울은 하나님께서 자기 백성 이스라엘을 완전히 버리신 것이 아니라고 변증합니다. 엘리야 시대처럼 '남은 자'가 있으며, 이스라엘의 일시적인 넘어짐을 통해 구원이 이방인에게로 확장되는 하나님의 경륜을 설명합니다. 결국에는 온 이스라엘이 구원을 얻게 될 것이며, 이 모든 과정 속에 나타난 하나님의 지혜와 지식의 풍성함을 찬양하며 마무리합니다.</p>
+            
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .title-text-svg { font: bold 14px 'Noto Sans KR', sans-serif; text-anchor: middle; }
+                    .main-branch { stroke: #8D6E63; stroke-width: 8; }
+                    .israel-branch { stroke: #BDBDBD; stroke-width: 5; }
+                    .gentile-branch { stroke: #A5D6A7; stroke-width: 5; }
+                    .text-israel { font: 12px 'Noto Sans KR', sans-serif; fill: #757575; }
+                    .text-gentile { font: 12px 'Noto Sans KR', sans-serif; fill: #2E7D32; }
+                    .text-root { font: bold 12px 'Noto Sans KR', sans-serif; fill: #5D4037; }
+                    .text-re-graft { font: bold 11px 'Noto Sans KR', sans-serif; fill: #DB4437; }
+                </style>
+                <text x="200" y="20" class="title-text-svg">감람나무 비유: 이스라엘과 이방인의 구원</text>
+            
+                <path d="M 200 240 Q 180 180, 200 120" class="main-branch" fill="none"/>
+                <text x="160" y="235" class="text-root">뿌리: 하나님의 언약</text>
+            
+                <path d="M 200 120 Q 240 80, 280 40" class="israel-branch" fill="none" stroke-dasharray="4"/>
+                <text x="285" y="60" class="text-israel" text-anchor="middle">원 가지 (잘려나감)</text>
+                <text x="285" y="75" class="text-israel" text-anchor="middle">불순종한 이스라엘</text>
+            
+                <path d="M 200 120 Q 160 80, 120 40" class="gentile-branch" fill="none"/>
+                <text x="115" y="60" class="text-gentile" text-anchor="middle">접붙여진 가지</text>
+                <text x="115" y="75" class="text-gentile" text-anchor="middle">이방인</text>
+            
+                <path d="M 240 70 Q 220 110, 200 120" stroke="#DB4437" stroke-width="1.5" fill="none" stroke-dasharray="3,3"/>
+                <circle cx="240" cy="70" r="3" fill="#DB4437"/>
+                <text x="270" y="105" class="text-re-graft">다시 접붙여질 소망</text>
+            
+                <path d="M 200 120 Q 210 100, 225 80" class="main-branch" fill="none" stroke-width="3"/>
+                <text x="220" y="110" class="text-israel" font-size="10">남은 자</text>
+            </svg>
+            
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>로마서 9-11장은 하나님의 선택과 이스라엘의 운명에 대한 심오한 논증입니다. 11장은 이 논증의 결론부로, '감람나무 비유'를 통해 구속사의 경륜을 설명합니다. 여기서 뿌리는 족장들(아브라함, 이삭, 야곱)에게 주신 하나님의 언약을 상징합니다. 원 가지는 언약 백성인 유대인, 접붙여진 돌감람나무 가지는 이방인을 의미합니다. 유대인들이 불순종으로 잘려나간 자리에 이방인들이 은혜로 접붙여졌습니다. 그러나 이는 이방인들이 교만할 이유가 되지 못하며, 오히려 하나님의 긍휼을 의지해야 함을 가르칩니다. 개혁주의 신학은 이를 통해 하나님의 주권적 선택과 은혜의 불가항력성을 확인합니다. 이스라엘의 실패조차도 이방인 구원이라는 더 큰 그림을 이루기 위한 하나님의 섭리 안에 있었으며, 결국 하나님의 언약은 신실하게 성취되어 '온 이스라엘'이 구원받는 날이 올 것을 소망하게 합니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <ul class="key-verse-list">
+                <li>
+                    <p class="key-verse">로마서 11:33, 36</p>
+                    <p class="commentary-text">깊도다 하나님의 지혜와 지식의 풍성함이여, 그의 판단은 헤아리지 못할 것이며 그의 길은 찾지 못할 것이로다... 이는 만물이 주에게서 나오고 주로 말미암고 주에게로 돌아감이라 그에게 영광이 세세에 있을지어다 아멘</p>
+                    <p class="commentary-text">이 구절은 이스라엘과 이방인의 구원에 대한 길고 복잡한 논증을 마친 바울의 송영(Doxology)입니다. 인간의 이성으로는 완전히 이해할 수 없는 하나님의 주권적인 계획과 섭리에 대한 경외심을 표현합니다. '만물이 주에게서 나오고, 주로 말미암고, 주에게로 돌아간다'는 고백은 창조, 섭리, 구원의 전 과정이 오직 하나님으로부터 시작되어 그분에 의해 유지되고, 궁극적으로 그분의 영광을 위해 존재함을 선포하는 개혁주의 신학의 핵심(Soli Deo Gloria)을 담고 있습니다. 인간의 불순종과 실패마저도 합력하여 선을 이루시는 하나님의 절대 주권을 찬양하는 것입니다.</p>
+                </li>
+            </ul>
+            
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>하나님은 이스라엘을 버리지 않으셨다</strong>
+                <div><span class="verse-number">1</span>그러므로 내가 말하노니 하나님이 자기 백성을 버리셨느냐 그럴 수 없느니라 나도 이스라엘인이요 아브라함의 씨에서 난 자요 베냐민 지파라</div>
+                <div><span class="verse-number">2</span>하나님이 그 미리 아신 자기 백성을 버리지 아니하셨나니 너희가 성경이 엘리야를 가리켜 말한 것을 알지 못하느냐 그가 이스라엘을 하나님께 고발하되</div>
+                <div><span class="verse-number">3</span>주여 그들이 주의 선지자들을 죽였으며 주의 제단들을 헐어 버렸고 나만 남았는데 내 목숨도 찾나이다 하니</div>
+                <div><span class="verse-number">4</span>그에게 하신 대답이 무엇이냐 내가 나를 위하여 바알에게 무릎을 꿇지 아니한 사람 칠천 명을 남겨 두었다 하셨으니</div>
+                <div><span class="verse-number">5</span>그런즉 이와 같이 지금도 은혜로 택하심을 따라 남은 자가 있느니라</div>
+                <div><span class="verse-number">6</span>만일 은혜로 된 것이면 행위로 말미암지 않음이니 그렇지 않으면 은혜가 은혜 되지 못하느니라</div>
+                <div><span class="verse-number">7</span>그런즉 어떠하냐 이스라엘이 구하는 그것을 얻지 못하고 오직 택하심을 입은 자가 얻었고 그 남은 자들은 우둔하여졌느니라</div>
+                <div><span class="verse-number">8</span>기록된 바 하나님이 오늘까지 그들에게 혼미한 심령과 보지 못할 눈과 듣지 못할 귀를 주셨다 함과 같으니라</div>
+                <div><span class="verse-number">9</span>또 다윗이 이르되 그들의 밥상이 올무와 덫과 거치는 것과 보응이 되게 하시옵고</div>
+                <div><span class="verse-number">10</span>그들의 눈은 흐려 보지 못하고 그들의 등은 항상 굽게 하옵소서 하였느니라</div>
+                <strong>이방인의 구원과 감람나무 비유</strong>
+                <div><span class="verse-number">11</span>그러므로 내가 말하노니 그들이 넘어지기까지 실족하였느냐 그럴 수 없느니라 그들이 넘어짐으로 구원이 이방인에게 이르러 이스라엘로 시기나게 함이니라</div>
+                <div><span class="verse-number">12</span>그들의 넘어짐이 세상의 풍성함이 되며 그들의 실패가 이방인의 풍성함이 되거든 하물며 그들의 충만함이리요</div>
+                <div><span class="verse-number">13</span>내가 이방인인 너희에게 말하노라 내가 이방인의 사도인 만큼 내 직분을 영광스럽게 여기노니</div>
+                <div><span class="verse-number">14</span>이는 혹 내 골육을 아무쪼록 시기하게 하여 그들 중에서 얼마를 구원하려 함이라</div>
+                <div><span class="verse-number">15</span>그들을 버리는 것이 세상의 화목이 되거든 그 받아들이는 것이 죽은 자 가운데서 살아나는 것이 아니면 무엇이리요</div>
+                <div><span class="verse-number">16</span>제사하는 처음 익은 곡식 가루가 거룩한즉 떡덩이도 그러하고 뿌리가 거룩한즉 가지도 그러하니라</div>
+                <div><span class="verse-number">17</span>또한 가지 얼마가 꺾이었는데 돌감람나무인 네가 그들 중에 접붙임이 되어 참감람나무 뿌리의 진액을 함께 받는 자가 되었은즉</div>
+                <div><span class="verse-number">18</span>그 가지들을 향하여 자랑하지 말라 자랑할지라도 네가 뿌리를 보전하는 것이 아니요 뿌리가 너를 보전하는 것이니라</div>
+                <div><span class="verse-number">19</span>그러면 네 말이 가지들이 꺾인 것은 나로 접붙임을 받게 하려 함이라 하리니</div>
+                <div><span class="verse-number">20</span>옳도다 그들은 믿지 아니하므로 꺾이고 너는 믿음으로 섰느니라 높은 마음을 품지 말고 도리어 두려워하라</div>
+                <div><span class="verse-number">21</span>하나님이 원 가지들도 아끼지 아니하셨은즉 너도 아끼지 아니하시리라</div>
+                <div><span class="verse-number">22</span>그러므로 하나님의 인자하심과 준엄하심을 보라 넘어지는 자들에게는 준엄하심이 있으니 너희가 만일 하나님의 인자하심에 머물러 있으면 그 인자가 너희에게 있으리라 그렇지 않으면 너도 찍히는 바 되리라</div>
+                <div><span class="verse-number">23</span>그들도 믿지 아니하는 데 머무르지 아니하면 접붙임을 받으리니 이는 그들을 접붙이실 능력이 하나님께 있음이라</div>
+                <div><span class="verse-number">24</span>네가 원 돌감람나무에서 찍힘을 받고 본성을 거슬러 좋은 감람나무에 접붙임을 받았으니 원 가지인 이 사람들이야 얼마나 더 자기 감람나무에 접붙이심을 받으랴</div>
+                <strong>온 이스라엘의 구원</strong>
+                <div><span class="verse-number">25</span>형제들아 너희가 스스로 지혜 있다 하면서 이 신비를 너희가 모르기를 내가 원하지 아니하노니 이 신비는 이방인의 충만한 수가 들어오기까지 이스라엘의 더러는 우둔하게 된 것이라</div>
+                <div><span class="verse-number">26</span>그리하여 온 이스라엘이 구원을 받으리라 기록된 바 구원자가 시온에서 오사 야곱에게서 경건하지 않은 것을 돌이키시겠고</div>
+                <div><span class="verse-number">27</span>내가 그들의 죄를 없이 할 때에 그들에게 이루어질 내 언약이 이것이라 함과 같으니라</div>
+                <div><span class="verse-number">28</span>복음으로 하면 그들이 너희로 말미암아 원수 된 자요 택하심으로 하면 조상들로 말미암아 사랑을 입은 자라</div>
+                <div><span class="verse-number">29</span>하나님의 은사와 부르심에는 후회하심이 없느니라</div>
+                <div><span class="verse-number">30</span>너희가 전에는 하나님께 순종하지 아니하더니 이스라엘이 순종하지 아니함으로 이제 긍휼을 입었는지라</div>
+                <div><span class="verse-number">31</span>이와 같이 이 사람들이 순종하지 아니하니 이는 너희에게 베푸시는 긍휼로 이제 그들도 긍휼을 얻게 하려 하심이라</div>
+                <div><span class="verse-number">32</span>하나님이 모든 사람을 순종하지 아니하는 가운데 가두어 두심은 모든 사람에게 긍휼을 베풀려 하심이로다</div>
+                <strong>하나님의 지혜에 대한 찬양</strong>
+                <div><span class="verse-number">33</span>깊도다 하나님의 지혜와 지식의 풍성함이여, 그의 판단은 헤아리지 못할 것이며 그의 길은 찾지 못할 것이로다</div>
+                <div><span class="verse-number">34</span>누가 주의 마음을 알았느냐 누가 그의 모사가 되었느냐</div>
+                <div><span class="verse-number">35</span>누가 주께 먼저 드려서 갚으심을 받겠느냐</div>
+                <div><span class="verse-number">36</span>이는 만물이 주에게서 나오고 주로 말미암고 주에게로 돌아감이라 그에게 영광이 세세에 있을지어다 아멘</div>
+            </div>
+        </div>
+
+        <div class="chapter-card card-book3">
+            <h2>예레미야 50장 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>예레미야 50장은 바벨론의 멸망에 대한 장엄한 예언입니다. 한때 하나님의 심판의 도구로 사용되었던 바벨론이지만, 그들의 교만과 잔인함으로 인해 이제는 자신들이 하나님의 심판을 받게 될 것을 선포합니다. 이 예언은 바벨론의 완전한 황폐화와 더불어, 포로로 잡혀갔던 이스라엘과 유다 백성의 회복과 귀환에 대한 소망의 메시지를 함께 담고 있습니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .title-svg { font: bold 14px 'Noto Sans KR', sans-serif; text-anchor: middle; }
+                    .label-svg { font: 12px 'Noto Sans KR', sans-serif; text-anchor: middle; }
+                    .babylon-svg { fill: #FFF176; stroke: #FBC02D; }
+                    .israel-svg { fill: #BBDEFB; stroke: #1976D2; }
+                    .arrow-svg { stroke: #333; stroke-width: 2; marker-end: url(#head-svg); }
+                    #head-svg path { fill: #333; }
+                </style>
+                <marker id="head-svg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" />
+                </marker>
+                
+                <text x="200" y="20" class="title-svg">바벨론의 교만과 심판, 그리고 이스라엘의 회복</text>
+            
+                <g>
+                    <ellipse cx="100" cy="80" rx="60" ry="30" class="babylon-svg"/>
+                    <text x="100" y="75" class="label-svg">교만한 바벨론</text>
+                    <text x="100" y="93" class="label-svg" font-size="10">(심판의 도구)</text>
+                </g>
+                
+                <path d="M160,80 C180,60 220,60 240,80" class="arrow-svg" fill="none"/>
+                <text x="200" y="55" class="label-svg">하나님의 심판</text>
+                
+                <g>
+                    <ellipse cx="300" cy="80" rx="60" ry="30" class="babylon-svg" fill-opacity="0.3" stroke-dasharray="4"/>
+                    <text x="300" y="85" class="label-svg" fill="#757575">바벨론의 멸망</text>
+                </g>
+                
+                <path d="M200,100 C150,120 150,150 100,170" class="arrow-svg" fill="none"/>
+                 <text x="180" y="140" class="label-svg">언약 백성의 회복</text>
+                
+                <g>
+                    <ellipse cx="100" cy="180" rx="60" ry="25" class="israel-svg"/>
+                    <text x="100" y="185" class="label-svg">돌아온 이스라엘</text>
+                </g>
+            </svg>
+            
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>바벨론은 당시 근동의 최강대국으로, 하나님의 허락 하에 유다를 멸망시키고 백성들을 포로로 끌고 간 '심판의 막대기'였습니다. 그러나 그들은 자신들의 역할을 망각하고 스스로를 높이며 극도의 교만과 잔혹함을 보였습니다. 하나님은 악을 심판하시기 위해 다른 악을 사용하시기도 하지만, 그 도구로 사용된 악 또한 반드시 심판하십니다. 이는 하나님의 공의가 온 세상 모든 나라 위에 미치며, 그분의 주권이 역사를 주관하고 계심을 보여줍니다. 바벨론의 멸망 예언은 절망 속에 있던 이스라엘 백성에게 하나님의 공의가 살아있음을 확인시켜주고, 언약에 기초한 회복의 소망을 품게 하는 위로의 메시지였습니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <ul class="key-verse-list">
+                <li>
+                    <p class="key-verse">예레미야 50:33-34</p>
+                    <p class="commentary-text">만군의 여호와께서 이와 같이 말씀하시니라 이스라엘 자손과 유다 자손이 함께 학대를 받으니 그들을 사로잡은 자는 다 그들을 붙들고 놓아 주지 아니하리라 그들의 구원자는 강하니 그의 이름은 만군의 여호와라 반드시 그들의 원한을 풀어 주어 그 땅에 평안함을 주고 바벨론 주민에게는 불안함을 주리라</p>
+                    <p class="commentary-text">이 구절은 심판의 메시지 속에서 빛나는 구원의 약속입니다. 인간의 눈으로 볼 때, 바벨론의 압제는 영원할 것처럼 보였습니다. 그러나 하나님은 자신을 '강한 구원자(Redeemer, Goel)'로 계시하십니다. '고엘'은 기업을 무를 책임, 즉 친족의 권리를 되찾아줄 의무가 있는 자를 의미합니다. 하나님께서 이스라엘의 '고엘'이 되셔서, 그들의 원한을 풀어주시고 빼앗긴 모든 것을 회복시켜 주실 것을 약속하십니다. 이는 단순히 정치적 해방을 넘어, 언약 백성을 결코 포기하지 않으시는 하나님의 신실하심과 주권적인 사랑을 보여주는 강력한 선포입니다.</p>
+                </li>
+            </ul>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+            <strong>바벨론의 멸망에 대한 예언</strong>
+            <div><span class="verse-number">1</span>여호와께서 선지자 예레미야에게 바벨론과 갈대아 사람의 땅에 대하여 하신 말씀이라</div>
+            <div><span class="verse-number">2</span>너희는 나라들 가운데에 전파하라 공포하라 깃발을 세우라 숨김이 없이 공포하여 이르라 바벨론이 함락되고 벨이 수치를 당하며 므로닥이 부스러지며 그 신상들은 수치를 당하며 우상들은 부스러진다 하라</div>
+            <div><span class="verse-number">3</span>이는 한 나라가 북쪽에서 나와서 그를 쳐서 그 땅으로 황폐하게 하여 그 가운데에 사는 자가 없게 할 것임이라 사람이나 짐승이 다 도망할 것임이니라</div>
+            <strong>이스라엘의 회복</strong>
+            <div><span class="verse-number">4</span>여호와의 말씀이니라 그 날 그 때에 이스라엘 자손이 돌아오며 유다 자손도 함께 돌아오되 그들이 울면서 그 길을 가서 그의 하나님 여호와께 구할 것이며</div>
+            <div><span class="verse-number">5</span>그들이 시온의 길을 물으며 그 쪽으로 그 얼굴을 향하고 말하기를 너희는 오라 잊을 수 없는 영원한 언약으로 여호와와 연합하라 하리라</div>
+            <div><span class="verse-number">6</span>내 백성은 잃어버린 양 떼로다 그 목자들이 그들을 곁길로 가게 하여 산으로 돌이키게 하였으므로 그들이 산에서 언덕으로 돌아다니며 쉴 곳을 잊었도다</div>
+            <div><span class="verse-number">7</span>그들을 만나는 자들은 그들을 삼키며 그의 대적들은 말하기를 그들이 여호와 곧 의로운 처소시며 그의 조상들의 소망이신 여호와께 범죄하였음인즉 우리는 무죄하다 하였느니라</div>
+            <div><span class="verse-number">8</span>너희는 바벨론 가운데에서 도망하라 갈대아 사람의 땅에서 나오라 양 떼에 앞서가는 숫염소 같이 하라</div>
+            <div><span class="verse-number">9</span>보라 내가 큰 민족의 무리를 북쪽에서 일으켜 바벨론으로 와서 그를 치게 하리니 그들이 대열을 벌이고 거기에서 그를 점령하리라 그들의 화살은 노련한 용사의 화살 같아서 허공으로 돌아오지 아니하리라</div>
+            <div><span class="verse-number">10</span>갈대아가 약탈을 당할 것이라 그를 약탈하는 자마다 만족하리라 여호와의 말씀이니라</div>
+            <div><span class="verse-number">11</span>나의 기업을 노략하는 자여 너희가 즐거워하며 기뻐하고 곡식 떠는 송아지 같이 뛰놀며 군마 같이 우는도다</div>
+            <div><span class="verse-number">12</span>그러므로 너희의 어머니가 큰 수치를 당하리라 너희를 낳은 자가 치욕을 당하리라 보라 그가 나라들 가운데 마지막과 광야와 마른 땅과 사막이 될 것이며</div>
+            <div><span class="verse-number">13</span>여호와의 진노로 말미암아 주민이 없어 완전히 황무지가 될 것이라 바벨론을 지나가는 자마다 그 모든 재앙에 놀라며 비웃으리로다</div>
+            <div><span class="verse-number">14</span>활을 당기는 자여 바벨론을 향하여 사면으로 대열을 벌이고 그를 향하여 쏘라 화살을 아끼지 말라 그가 여호와께 범죄하였음이라</div>
+            <div><span class="verse-number">15</span>그 주위에서 고함을 지르라 그가 항복하였고 그 요새는 무너졌고 그 성벽은 허물어졌으니 이는 여호와께서 그가 행한 대로 그에게 내리시는 보복이라 그가 행한 대로 그에게 갚으라</div>
+            <div><span class="verse-number">16</span>파종하는 자와 추수 때에 낫을 잡는 자를 바벨론에서 끊어 버리라 사람들이 그 압박하는 칼을 피하여 각기 자기의 민족에게로 돌아가며 각기 고향으로 도망하리라</div>
+            <div><span class="verse-number">17</span>이스라엘은 흩어진 양이라 사자들이 그를 뒤따르니 처음에는 앗수르 왕이 먹었고 다음에는 바벨론의 느부갓네살 왕이 그의 뼈를 꺾도다</div>
+            <div><span class="verse-number">18</span>그러므로 만군의 여호와 이스라엘의 하나님이 이와 같이 말하노라 보라 내가 앗수르의 왕을 벌한 것 같이 바벨론의 왕과 그 땅을 벌하고</div>
+            <div><span class="verse-number">19</span>이스라엘을 다시 그의 목장으로 돌아가게 하리니 그가 갈멜과 바산에서 양을 기를 것이며 그의 마음이 에브라임과 길르앗 산에서 만족하리라</div>
+            <div><span class="verse-number">20</span>여호와의 말씀이니라 그 날 그 때에는 이스라엘의 죄악을 찾을지라도 없겠고 유다의 죄를 찾을지라도 찾아내지 못하리니 이는 내가 남겨 둔 자를 용서할 것임이라</div>
+            <strong>바벨론에 대한 심판</strong>
+            <div><span class="verse-number">21</span>만군의 여호와의 말씀이니라 올라가서 므라다임의 땅을 치며 브곳의 주민을 쳐서 진멸하되 내가 너에게 명령한 대로 다하라</div>
+            <div><span class="verse-number">22</span>그 땅에 싸움과 큰 파멸의 소리가 있으리라</div>
+            <div><span class="verse-number">23</span>온 세계의 망치가 어찌 그리 꺾여 부서졌는고, 바벨론이 어찌 그리 나라들 가운데에 황무지가 되었는고</div>
+            <div><span class="verse-number">24</span>바벨론아 내가 너를 잡으려고 올무를 놓았더니 네가 알지 못하여 걸렸도다 네가 여호와와 싸웠으므로 발각되어 잡혔도다</div>
+            <div><span class="verse-number">25</span>여호와께서 그의 병기창을 열고 분노의 무기를 꺼냄은 주 만군의 여호와께서 갈대아 사람의 땅에 행하실 일이 있음이라</div>
+            <div><span class="verse-number">26</span>먼 곳에 있는 너희는 와서 그를 치고 그의 곳간을 열고 그것을 곡식더미처럼 쌓아 올려 진멸하고 남기지 말라</div>
+            <div><span class="verse-number">27</span>그의 황소를 다 죽이라 도살장으로 내려보내라 그들에게 화 있도다 그들의 날, 곧 그 벌 받는 때가 이르렀음이로다</div>
+            <div><span class="verse-number">28</span>바벨론 땅에서 도피한 자의 소리여, 시온에서 우리 하나님 여호와의 보복 곧 그의 성전의 보복을 선포하는 소리로다</div>
+            <div><span class="verse-number">29</span>활 쏘는 자를 바벨론에 소집하라 활을 당기는 모든 자여 그 사면으로 진을 쳐서 한 사람도 도망하지 못하게 하라 그가 일한 대로 갚고 그가 행한 대로 그에게 행하라 그가 이스라엘의 거룩한 자 여호와를 향하여 교만하였음이라</div>
+            <div><span class="verse-number">30</span>그러므로 그 날에 장정들이 그 거리에 엎드러지겠고 군사들이 다 멸망하리라 여호와의 말씀이니라</div>
+            <div><span class="verse-number">31</span>주 만군의 여호와의 말씀이니라 교만한 자여 보라 내가 너를 대적하나니 너의 날 곧 내가 너를 벌할 때가 이르렀음이라</div>
+            <div><span class="verse-number">32</span>교만한 자는 걸려 넘어지겠고 그를 일으킬 자가 없을 것이며 내가 그의 성읍들에 불을 지르리니 그의 주위에 있는 것을 다 삼키리라</div>
+            <strong>이스라엘의 구원자</strong>
+            <div><span class="verse-number">33</span>만군의 여호와께서 이와 같이 말씀하시니라 이스라엘 자손과 유다 자손이 함께 학대를 받으니 그들을 사로잡은 자는 다 그들을 붙들고 놓아 주지 아니하리라</div>
+            <div><span class="verse-number">34</span>그들의 구원자는 강하니 그의 이름은 만군의 여호와라 반드시 그들의 원한을 풀어 주어 그 땅에 평안함을 주고 바벨론 주민에게는 불안함을 주리라</div>
+            <div><span class="verse-number">35</span>여호와의 말씀이니라 칼이 갈대아 사람의 위에와 바벨론 주민의 위에와 그 고관들과 지혜로운 자의 위에 떨어지리라</div>
+            <div><span class="verse-number">36</span>칼이 자랑하는 자의 위에 떨어지리니 그들이 어리석어질 것이며 칼이 용사의 위에 떨어지리니 그들이 놀랄 것이며</div>
+            <div><span class="verse-number">37</span>칼이 그들의 말들과 병거들과 그들 가운데에 있는 여러 민족의 위에 떨어지리니 그들이 여인들 같이 될 것이며 칼이 보물 위에 떨어지리니 그것이 약탈될 것이요</div>
+            <div><span class="verse-number">38</span>가뭄이 물 위에 닥쳐 그것을 말리리니 이는 그 땅이 조각한 신상의 땅이요 그들은 무서운 것을 보고 실성하였음이니라</div>
+            <div><span class="verse-number">39</span>그러므로 사막의 들짐승이 승냥이와 함께 거기에 살겠고 타조도 그 가운데에 살 것이요 영원히 주민이 없으며 대대에 살 자가 없으리라</div>
+            <div><span class="verse-number">40</span>여호와의 말씀이니라 하나님께서 소돔과 고모라와 그 이웃 성읍들을 멸망시킨 것 같이 거기에 사는 사람이 없게 하며 그 가운데에 머물러 살 사람이 아무도 없게 하시리라</div>
+            <div><span class="verse-number">41</span>보라 한 민족이 북쪽에서 오고 큰 나라와 여러 왕이 충동을 받아 땅 끝에서 일어나리니</div>
+            <div><span class="verse-number">42</span>그들은 활과 창을 가진 자라 잔인하여 불쌍히 여기지 아니하며 그들의 목소리는 바다가 설레는 것 같고 그들은 말을 타고 전사 같이 다 대열을 벌이고 딸 바벨론을 치려 하느니라</div>
+            <div><span class="verse-number">43</span>바벨론의 왕이 그 소문을 듣고 손이 약하여지며 고통에 사로잡혀 해산하는 여인처럼 진통하는도다</div>
+            <div><span class="verse-number">44</span>보라 사자가 요단의 깊은 숲에서 나타나 견고한 목장으로 달려들 듯이 내가 순식간에 그들을 거기에서 쫓아내고 택한 자를 내가 그 위에 세우리니 나와 같은 자 누구며 나에게 명령할 자 누구며 내 앞에 설 목자가 누구냐</div>
+            <div><span class="verse-number">45</span>그런즉 바벨론에 대한 여호와의 계획과 갈대아 사람의 땅에 대하여 품은 여호와의 생각을 들으라 양 떼의 어린 것들을 그들이 반드시 끌어가고 그들의 초장을 황폐하게 하리니</div>
+            <div><span class="verse-number">46</span>바벨론이 함락되는 소리에 땅이 진동하며 그 부르짖음이 나라들 가운데에 들리리라 하시도다</div>
+            </div>
+        </div>
+
+        <div class="chapter-card card-book4">
+            <h2>시편 28, 29편 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p><b>시편 28편</b>은 다윗의 탄원과 찬양이 교차하는 시입니다. 악인들의 위협 속에서 하나님께 부르짖으며, 그들의 악행대로 갚아주시기를 간구합니다. 이어서 자신의 기도를 들으신 하나님을 확신하며 그분을 '나의 힘과 방패'로 찬양하고, 주의 백성 전체를 위한 구원과 축복을 간구하며 마칩니다.</p>
+            <p><b>시편 29편</b>은 자연 현상, 특히 폭풍우 속에 나타나는 '여호와의 소리'의 위엄과 능력을 찬양하는 장엄한 시입니다. 일곱 번 반복되는 '여호와의 소리'를 통해 온 세상을 다스리시는 하나님의 주권과 영광을 노래하며, 그 위대하신 하나님께서 자기 백성에게는 힘과 평강의 복을 주시는 분임을 선포합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .title-svg2 { font: bold 14px 'Noto Sans KR', sans-serif; text-anchor: middle; }
+                    .psalm28-bg { fill: #E8F5E9; }
+                    .psalm29-bg { fill: #E1F5FE; }
+                    .text-label-svg2 { font: bold 12px 'Noto Sans KR', sans-serif; text-anchor: middle; }
+                    .text-content-svg2 { font: 11px 'Noto Sans KR', sans-serif; text-anchor: middle; }
+                    .arrow-svg2 { stroke: #333; stroke-width: 1.5; marker-end: url(#arr-head-svg2); }
+                    #arr-head-svg2 path { fill: #333; }
+                </style>
+                <marker id="arr-head-svg2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" />
+                </marker>
+                
+                <rect x="0" y="0" width="200" height="220" class="psalm28-bg"/>
+                <rect x="200" y="0" width="200" height="220" class="psalm29-bg"/>
+                
+                <text x="100" y="30" class="title-svg2">시편 28편: 개인적 섭리</text>
+                <text x="300" y="30" class="title-svg2">시편 29편: 우주적 통치</text>
+            
+                <circle cx="100" cy="80" r="30" fill="#FFFFFF" stroke="#4CAF50"/>
+                <text x="100" y="85" class="text-label-svg2">간구</text>
+                <text x="100" y="125" class="text-content-svg2" dy=".3em">"내게 귀를 막지 마소서"</text>
+            
+                <line x1="100" y1="110" x2="100" y2="140" class="arrow-svg2" />
+                
+                <circle cx="100" cy="170" r="30" fill="#FFFFFF" stroke="#4CAF50"/>
+                <text x="100" y="175" class="text-label-svg2">찬양</text>
+                 <text x="100" y="185" class="text-content-svg2" dy=".3em">"여호와는 나의 힘"</text>
+            
+                <path d="M250,80 Q270,60 300,80 T350,80" stroke="#03A9F4" stroke-width="3" fill="none"/>
+                <text x="300" y="115" class="text-label-svg2">여호와의 소리 (위엄)</text>
+                <text x="300" y="130" class="text-content-svg2">온 우주를 다스리심</text>
+                
+                 <line x1="300" y1="140" x2="300" y2="160" class="arrow-svg2" />
+
+                <rect x="250" y="160" width="100" height="40" rx="5" fill="#FFFFFF" stroke="#03A9F4"/>
+                <text x="300" y="185" class="text-label-svg2">평강의 복</text>
+            </svg>
+            
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>두 시편은 분위기와 초점이 다르지만, 하나님의 주권이라는 공통된 신학을 공유합니다. <b>시편 28편</b>은 역사 속에서 악인들을 심판하시고 언약 백성을 보호하시는 하나님의 통치(섭리)에 초점을 맞춥니다. 개인의 고통 속에서 하나님의 공의로운 심판을 구하고, 결국 그분의 보호하심을 신뢰하는 것은 하나님의 주권에 대한 믿음이 있기에 가능합니다. <b>시편 29편</b>은 창조 세계를 통해 나타나는 하나님의 절대적인 능력과 영광을 노래합니다. 고대 근동의 이방 신들(특히 폭풍의 신 바알)이 가졌던 속성들을 오직 여호와 하나님의 것으로 돌리며, 그 어떤 세력도 비교할 수 없는 하나님의 주권을 선포합니다. 결국, 온 우주를 진동시키는 그 위엄의 하나님께서 자기 백성에게는 '힘'과 '평강'을 주시는 언약의 하나님이심을 고백하는 것은 성도에게 큰 위로와 확신을 줍니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <ul class="key-verse-list">
+                <li>
+                    <p class="key-verse">시편 29:10-11</p>
+                    <p class="commentary-text">여호와께서 홍수 때에 좌정하셨음이여 여호와께서 영원하도록 왕으로 좌정하시도다 여호와께서 자기 백성에게 힘을 주심이여 여호와께서 자기 백성에게 평강의 복을 주시리로다</p>
+                    <p class="commentary-text">이 구절은 시편 29편의 결론이자 신학적 정점입니다. '홍수'는 창조 세계를 위협하는 혼돈과 심판의 힘을 상징합니다. 그러나 여호와께서는 그 혼돈의 힘 위에 '좌정하신 왕'이십니다. 그분은 일시적인 통치자가 아니라 영원한 왕이십니다. 이처럼 온 우주를 다스리시는 절대 주권자께서, 그 무한한 능력으로 '자기 백성'에게는 '힘'을 주시고 궁극적인 '평강(샬롬)'의 복을 주신다고 선포합니다. 세상의 혼돈과 위협 속에서도 성도가 평안할 수 있는 근거는, 바로 이 위대하신 왕이 우리의 아버지가 되시기 때문입니다.</p>
+                </li>
+            </ul>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>시편 28편 (다윗의 시)</strong>
+                <strong>도우심을 구하는 기도</strong>
+                <div><span class="verse-number">1</span>여호와여 내가 주께 부르짖으오니 나의 반석이여 내게 귀를 막지 마소서 주께서 내게 잠잠하시면 내가 무덤에 내려가는 자와 같을까 하나이다</div>
+                <div><span class="verse-number">2</span>내가 주의 지성소를 향하여 나의 손을 들고 주께 부르짖을 때에 나의 간구하는 소리를 들으소서</div>
+                <div><span class="verse-number">3</span>악인과 악을 행하는 자들과 함께 나를 끌어내지 마옵소서 그들은 그 이웃에게 화평을 말하나 그들의 마음에는 악독이 있나이다</div>
+                <div><span class="verse-number">4</span>그들이 하는 일과 그들의 행위가 악한 대로 갚으시며 그들의 손이 지은 대로 그들에게 갚아 그 마땅히 받을 것으로 그들에게 갚으소서</div>
+                <div><span class="verse-number">5</span>그들은 여호와께서 행하신 일과 손으로 지으신 것을 생각하지 아니하므로 여호와께서 그들을 파괴하고 건설하지 아니하시리로다</div>
+                <strong>기도에 응답하신 하나님을 찬양함</strong>
+                <div><span class="verse-number">6</span>여호와를 찬송함이여 내 간구하는 소리를 들으심이로다</div>
+                <div><span class="verse-number">7</span>여호와는 나의 힘과 나의 방패이시니 내 마음이 그를 의지하여 도움을 얻었도다 그러므로 내 마음이 크게 기뻐하며 내 노래로 그를 찬송하리로다</div>
+                <div><span class="verse-number">8</span>여호와는 그들의 힘이시요 그의 기름 부음 받은 자의 구원의 요새이시로다</div>
+                <div><span class="verse-number">9</span>주의 백성을 구원하시며 주의 산업에 복을 주시고 또 그들의 목자가 되시어 영원토록 그들을 인도하소서</div>
+                <br>
+                <strong>시편 29편 (다윗의 시)</strong>
+                <strong>여호와의 소리의 위엄</strong>
+                <div><span class="verse-number">1</span>너희 권능 있는 자들아 영광과 능력을 여호와께 돌리고 돌릴지어다</div>
+                <div><span class="verse-number">2</span>여호와께 그의 이름에 합당한 영광을 돌리며 거룩한 옷을 입고 여호와께 예배할지어다</div>
+                <div><span class="verse-number">3</span>여호와의 소리가 물 위에 있도다 영광의 하나님이 우렛소리를 내시니 여호와는 많은 물 위에 계시도다</div>
+                <div><span class="verse-number">4</span>여호와의 소리가 힘 있음이여 여호와의 소리가 위엄차도다</div>
+                <div><span class="verse-number">5</span>여호와의 소리가 백향목을 꺾으심이여 여호와께서 레바논 백향목을 꺾어 부수시도다</div>
+                <div><span class="verse-number">6</span>그 나무를 송아지 같이 뛰게 하심이여 레바논과 시룐으로 들송아지 같이 뛰게 하시도다</div>
+                <div><span class="verse-number">7</span>여호와의 소리가 화염을 가르시도다</div>
+                <div><span class="verse-number">8</span>여호와의 소리가 광야를 진동하심이여 여호와께서 가데스 광야를 진동시키시도다</div>
+                <div><span class="verse-number">9</span>여호와의 소리가 암사슴을 낙태하게 하시고 삼림을 말갛게 벗기시니 그의 성전에서 그의 모든 것들이 말하기를 영광이라 하도다</div>
+                <strong>백성에게 복 주시는 하나님</strong>
+                <div><span class="verse-number">10</span>여호와께서 홍수 때에 좌정하셨음이여 여호와께서 영원하도록 왕으로 좌정하시도다</div>
+                <div><span class="verse-number">11</span>여호와께서 자기 백성에게 힘을 주심이여 여호와께서 자기 백성에게 평강의 복을 주시리로다</div>
+            </div>
+        </div>
+        
+        <div class="chapter-card integration-card">
+            <h2>통합적 이해</h2>
+            <h3>관통하는 주제</h3>
+            <p>오늘의 본문들은 인간의 실패와 불순종에도 불구하고, 당신의 백성을 향한 언약을 신실하게 이루어 가시는 하나님의 절대적인 주권과 그 안에 담긴 경이로운 은혜를 관통하는 주제로 보여줍니다.</p>
+        
+            <h3>구속사의 파노라마 (시각적 연결고리)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .flow-line { fill: none; stroke: #B0BEC5; stroke-width: 2; }
+                    .event-node { fill: #FFFFFF; stroke-width: 2; }
+                    .node-text { font-family: 'Noto Sans KR', sans-serif; font-size: 10px; text-anchor: middle; }
+                    .title-text-int { font: bold 12px 'Noto Sans KR', sans-serif; text-anchor: middle; }
+                    .arrow-marker path { fill: #B0BEC5; }
+                </style>
+                <marker id="arrow-int" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" />
+                </marker>
+                <path class="flow-line" d="M 50 50 C 150 50, 150 120, 250 120 S 350 190, 250 190 S 150 220, 200 240" marker-end="url(#arrow-int)"/>
+        
+                <g>
+                    <circle cx="50" cy="50" r="20" class="event-node" style="stroke: #4285F4;"/>
+                    <text x="50" y="48" class="title-text-int">사울</text>
+                    <text x="50" y="60" class="node-text">불순종</text>
+                </g>
+                <text x="80" y="30" class="node-text">인간 왕의 실패</text>
+        
+                <g>
+                    <circle cx="150" cy="85" r="20" class="event-node" style="stroke: #F4B400;"/>
+                    <text x="150" y="83" class="title-text-int">바벨론</text>
+                    <text x="150" y="95" class="node-text">심판의 도구</text>
+                </g>
+                <text x="150" y="115" class="node-text">하나님의 공의로운 심판</text>
+        
+                <g>
+                    <circle cx="280" cy="120" r="20" class="event-node" style="stroke: #DB4437;"/>
+                    <text x="280" y="118" class="title-text-int">이스라엘</text>
+                    <text x="280" y="130" class="node-text">넘어짐</text>
+                </g>
+                <text x="330" y="145" class="node-text">이방인 구원의 문이 열림</text>
+        
+                <g>
+                    <circle cx="250" cy="190" r="20" class="event-node" style="stroke: #0F9D58;"/>
+                    <text x="250" y="188" class="title-text-int">하나님</text>
+                    <text x="250" y="200" class="node-text">영원한 왕</text>
+                </g>
+                <text x="180" y="220" class="node-text">궁극적 주권과 평강</text>
+            </svg>
+        
+            <h3>본문별 연결고리 및 구속사적 맥락 (해설)</h3>
+            <p>오늘의 네 본문은 구속사의 각기 다른 시점에서 인간의 불순종과 하나님의 주권을 명확하게 보여줍니다. 
+            <b>사무엘상 13장</b>에서 인간이 세운 왕 사울은 조급함과 불신앙으로 하나님의 명령을 어기고 실패하지만, 하나님은 이미 '그의 마음에 맞는 사람'을 통해 구속사를 이어가실 것을 선포하십니다. 
+            <b>로마서 11장</b>은 이 원리를 구원의 신비로 끌어올립니다. 이스라엘의 불순종이라는 실패가 오히려 이방인을 구원하시는 하나님의 놀라운 계획의 일부였음을 설명합니다. 인간의 실패가 하나님의 더 큰 선을 가로막는 것이 아니라, 오히려 그분의 지혜로운 섭리 안에서 사용됨을 보여줍니다.
+            <b>예레미야 50장</b>은 시간과 공간을 확장하여, 한때 하나님의 심판의 도구였던 강대국 바벨론조차도 그 교만함으로 인해 하나님의 주권 아래 심판받고, 언약 백성은 회복될 것을 보여줍니다. 이는 세상 역사의 흥망성쇠가 모두 하나님의 통치 아래 있음을 드러냅니다. 
+            마지막으로 <b>시편 28, 29편</b>은 이 모든 역사를 주관하시는 분이 누구신지를 노래합니다. 그분은 개인의 탄원을 들으시는 목자이시며, 동시에 온 우주를 그 소리로 진동시키는 영원한 왕이십니다. 이 위대하신 왕이 결국 자기 백성에게 힘과 평강을 주심으로써 구속사를 완성하실 것입니다.</p>
+        
+            <h3>주제별 심층 분석표</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>주제</th>
+                        <th>사무엘상 13장</th>
+                        <th>로마서 11장</th>
+                        <th>예레미야 50장</th>
+                        <th>시편 28, 29편</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>인간의 상태</b></td>
+                        <td>위기 앞에서 조급함과 불순종 (사울의 월권)</td>
+                        <td>언약 백성의 불순종과 우둔함 (이스라엘의 넘어짐)</td>
+                        <td>심판의 도구로서의 교만과 잔혹함 (바벨론의 죄악)</td>
+                        <td>악인들의 위협 속에서 연약함과 부르짖음</td>
+                    </tr>
+                    <tr>
+                        <td><b>하나님의 주권</b></td>
+                        <td>왕을 폐하고 세우시는 주권 (새 지도자를 예비하심)</td>
+                        <td>실패조차 사용하여 구원을 확장하시는 섭리적 주권</td>
+                        <td>열방과 제국을 심판하시는 역사의 주관자</td>
+                        <td>창조와 역사를 다스리는 절대적 왕권</td>
+                    </tr>
+                    <tr>
+                        <td><b>나타난 은혜</b></td>
+                        <td>불순종한 왕을 대체할 새로운 지도자를 약속하심</td>
+                        <td>'남은 자'를 보존하시고, 이방인을 접붙이시는 긍휼</td>
+                        <td>포로된 백성을 회복시키시는 '고엘'의 사랑과 신실함</td>
+                        <td>자기 백성에게 힘과 평강의 복을 주시는 언약적 은혜</td>
+                    </tr>
+                    <tr>
+                        <td><b>구속사적 연결</b></td>
+                        <td>참된 왕이신 그리스도의 필요성을 예표함</td>
+                        <td>그리스도 안에서 유대인과 이방인이 하나 될 것을 보여줌</td>
+                        <td>죄의 바벨론을 무너뜨리고 자기 백성을 구원하실 것을 소망케 함</td>
+                        <td>만왕의 왕이신 그리스도의 통치와 그분이 주시는 참된 샬롬을 찬양함</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <h3>오늘의 교훈</h3>
+            <p>우리의 삶에도 사울과 같은 조급한 불순종, 이스라엘과 같은 완고함이 나타날 수 있습니다. 그러나 하나님은 우리의 실패와 연약함에도 불구하고 당신의 선한 계획을 멈추지 않으십니다. 오히려 그 모든 것을 합력하여 선을 이루십니다. 온 우주를 다스리시는 그 위대하신 하나님이 우리의 힘과 방패, 영원한 목자가 되심을 신뢰합시다. 눈앞의 상황에 절망하지 말고, 보이지 않는 하나님의 주권적인 손길을 믿음으로 바라보며 그분께 합당한 영광을 돌리는 하루가 되기를 소망합니다.</p>
+        </div>        
+        
+    </div>
+
+    <footer>
+        <p>2025 KBD 맥체인 성경읽기 프로젝트</p>
+    </footer>
+
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'K3ErqPld_ss';
+        const audioControlButton = document.getElementById('audio-control');
+        let isPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            if (videoId) {
+                player = new YT.Player('player', {
+                    height: '1',
+                    width: '1',
+                    videoId: videoId,
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                audioControlButton.textContent = '오디오 자료 없음';
+                audioControlButton.classList.add('disabled');
+            }
+        }
+
+        function onPlayerReady(event) {
+            audioControlButton.textContent = '오늘의 말씀듣기 ▶';
+            audioControlButton.classList.remove('disabled');
+            audioControlButton.addEventListener('click', toggleAudio);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                audioControlButton.textContent = '일시정지 ⏸';
+            } else {
+                isPlaying = false;
+                audioControlButton.textContent = '오늘의 말씀듣기 ▶';
+            }
+        }
+
+        function toggleAudio() {
+            if (player && typeof player.getPlayerState === 'function') {
+                if (isPlaying) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 10일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+        :root {
+            --color-book1: #4A89DC; /* 사무엘하 */
+            --color-book2: #DA4453; /* 고린도전서 */
+            --color-book3: #F6BB42; /* 에스겔 */
+            --color-book4: #8CC152; /* 시편 */
+            --color-integration: #967ADC; /* 통합 */
+            --color-background: #F5F7FA;
+            --color-text: #333333;
+            --color-light-grey: #E8ECF1;
+            --font-main: 'Noto Sans KR', sans-serif;
+            --font-serif: 'Noto Serif KR', serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.8;
+            color: var(--color-text);
+            background-color: var(--color-background);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            padding: 20px 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+
+        .title-section {
+            background-color: var(--color-light-grey);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.2em;
+            margin: 0;
+            color: #222;
+        }
+
+        h1 .subtitle {
+            font-family: var(--font-main);
+            font-size: 0.5em;
+            color: #555;
+            font-weight: 700;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .intro-passage {
+            font-family: var(--font-main);
+            font-size: 1.1em;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        .chapter-card {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .chapter-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-book1 { border-left-color: var(--color-book1); }
+        .card-book2 { border-left-color: var(--color-book2); }
+        .card-book3 { border-left-color: var(--color-book3); }
+        .card-book4 { border-left-color: var(--color-book4); }
+        .integration-card { border-left-color: var(--color-integration); }
+
+        h2 {
+            font-family: var(--font-serif);
+            font-size: 1.8em;
+            margin-top: 0;
+        }
+        
+        .card-book1 h2 { color: var(--color-book1); }
+        .card-book2 h2 { color: var(--color-book2); }
+        .card-book3 h2 { color: var(--color-book3); }
+        .card-book4 h2 { color: var(--color-book4); }
+        .integration-card h2 { color: var(--color-integration); }
+
+        h3 {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            border-bottom: 2px solid var(--color-light-grey);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .bible-text {
+            background-color: #F8F9FA;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border: 1px solid var(--color-light-grey);
+        }
+
+        .bible-text p {
+            margin: 0;
+            padding: 4px 0;
+        }
+        
+        .bible-text strong {
+            display: block;
+            margin-bottom: 15px;
+            margin-top: 25px;
+            font-size: 1.1em;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .card-book1 .bible-text strong { color: var(--color-book1); border-bottom-color: rgba(74, 137, 220, 0.4);}
+        .card-book2 .bible-text strong { color: var(--color-book2); border-bottom-color: rgba(218, 68, 83, 0.4);}
+        .card-book3 .bible-text strong { color: var(--color-book3); border-bottom-color: rgba(246, 187, 66, 0.4);}
+        .card-book4 .bible-text strong { color: var(--color-book4); border-bottom-color: rgba(140, 193, 82, 0.4);}
+        
+        .bible-text > strong:first-child {
+            margin-top: 0;
+        }
+
+        .verse-number {
+            font-weight: bold;
+            color: #888;
+            margin-right: 6px;
+            font-size: 0.85em;
+        }
+
+        .commentary {
+            background-color: rgba(232, 236, 241, 0.5);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 3px solid;
+        }
+        .card-book1 .commentary { border-left-color: var(--color-book1); }
+        .card-book2 .commentary { border-left-color: var(--color-book2); }
+        .card-book3 .commentary { border-left-color: var(--color-book3); }
+        .card-book4 .commentary { border-left-color: var(--color-book4); }
+
+        .commentary strong {
+            font-family: var(--font-serif);
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border: 1px solid var(--color-light-grey);
+            border-radius: 5px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: var(--color-light-grey);
+            font-weight: 700;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-light-grey);
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        #player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        #floatingPlayPauseBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        #floatingPlayPauseBtn:disabled {
+            cursor: not-allowed;
+            background-color: #e0e0e0;
+            opacity: 0.6;
+        }
+
+        #floatingPlayPauseBtn:not(:disabled):hover {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+        
+        #floatingPlayPauseBtn.paused {
+            opacity: 0.85;
+        }
+
+        #floatingPlayPauseBtn .play-icon,
+        #floatingPlayPauseBtn .pause-icon {
+            display: none;
+            fill: #333;
+            width: 30px;
+            height: 30px;
+        }
+
+        #floatingPlayPauseBtn.paused .play-icon {
+            display: block;
+        }
+
+        #floatingPlayPauseBtn:not(.paused) .pause-icon {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="player-container"></div>
+    <button id="floatingPlayPauseBtn" disabled>
+        <span class="play-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 5v14l11-7L8 5z"/></svg>
+        </span>
+        <span class="pause-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </span>
+    </button>
+    
+    <div class="container">
+        <header class="title-section">
+            <h1>9월 10일 맥체인 성경읽기<br><span class="subtitle">하나님의 의로운 통치</span></h1>
+            <p class="intro-passage">사무엘하 4-5장 | 고린도전서 15장 | 에스겔 13장 | 시편 52-54편</p>
+        </header>
+
+        <main>
+            <section class="chapter-card card-book1">
+                <h2>사무엘하 4-5장</h2>
+                <h3>개요 (Overview)</h3>
+                <p>사울의 아들 이스보셋의 허무한 죽음과 함께 사울 왕가의 시대가 완전히 막을 내립니다. 모든 이스라엘 지파들은 헤브론으로 나아와 다윗을 그들의 왕으로 추대하며 이스라엘은 비로소 하나된 왕국을 이룹니다. 다윗은 여부스 족속의 요새였던 시온 산성을 정복하고 '다윗 성'이라 명명하며, 하나님의 도우심으로 나라가 점점 강성해짐을 경험합니다.</p>
+                
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg viewBox="0 0 400 200">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#E3F2FD;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#BBDEFB;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="10" y="10" width="380" height="180" rx="10" fill="url(#grad1)" />
+                    <text x="200" y="40" font-family="var(--font-serif)" font-size="16" text-anchor="middle" fill="#1976D2">다윗 왕국의 확립 과정</text>
+
+                    <g>
+                        <rect x="25" y="70" width="110" height="40" rx="5" fill="#FFCDD2" />
+                        <text x="80" y="95" font-family="var(--font-main)" font-size="12" text-anchor="middle">사울 왕가 몰락</text>
+                        <text x="80" y="135" font-family="var(--font-main)" font-size="10" text-anchor="middle" fill="#555">(이스보셋의 죽음)</text>
+                    </g>
+                    
+                    <path d="M140 90 L 160 90" stroke="#555" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                    
+                    <g>
+                        <rect x="165" y="70" width="110" height="40" rx="5" fill="#C8E6C9" />
+                        <text x="220" y="95" font-family="var(--font-main)" font-size="12" text-anchor="middle">이스라엘 통일</text>
+                         <text x="220" y="135" font-family="var(--font-main)" font-size="10" text-anchor="middle" fill="#555">(다윗 왕 추대)</text>
+                    </g>
+                    
+                    <path d="M280 90 L 300 90" stroke="#555" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+                    <g>
+                        <rect x="305" y="70" width="80" height="40" rx="5" fill="#B3E5FC" />
+                        <text x="345" y="95" font-family="var(--font-main)" font-size="12" text-anchor="middle">왕국 강성</text>
+                        <text x="345" y="135" font-family="var(--font-main)" font-size="10" text-anchor="middle" fill="#555">(예루살렘 정복)</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#555" />
+                        </marker>
+                    </defs>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>다윗이 사울 왕가에 속한 이스보셋의 암살자들을 처형하는 모습은 그의 통치가 인간적인 계략이나 폭력이 아닌, 하나님의 공의에 기반하고 있음을 보여줍니다. 그는 사적인 복수가 아닌 공적인 정의를 실현함으로써 왕의 자격이 있음을 증명합니다. 모든 지파가 다윗에게 나아와 "우리는 왕의 한 골육이니이다"라고 고백하는 장면은, 분열되었던 하나님의 백성이 언약 안에서 하나가 되는 중요한 순간입니다. 이는 장차 만왕의 왕이신 예수 그리스도 안에서 모든 족속이 하나 되어 그의 통치를 받게 될 것을 예표하는 그림자입니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="commentary">
+                    <p><strong>사무엘하 5:10</strong> - "만군의 하나님 여호와께서 함께 계시니 다윗이 점점 강성하여 가니라"</p>
+                    <p>이 구절은 다윗 왕국의 성공 비결을 명확히 밝힙니다. 다윗의 군사적 능력이나 정치적 지략이 근본 원인이 아니라, '만군의 하나님 여호와께서 함께 계심'이 그의 강성함의 유일한 이유였습니다. '만군(체바오트)'이라는 하나님의 칭호는 하늘의 모든 군대를 통솔하시는 주권자 되심을 강조하며, 그 어떤 대적도 하나님의 함께하심 앞에서는 무력함을 보여줍니다. 이 원리는 오늘날 성도의 삶에도 동일하게 적용됩니다. 우리의 성공과 승리는 우리의 능력이 아닌, 우리와 함께하시는 임마누엘 하나님께 달려있습니다. 다윗의 겸손한 인정은, 모든 영광을 하나님께 돌리는 성숙한 신앙의 본질을 가르쳐줍니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>사무엘하 4장: 이스보셋의 암살</strong>
+                    <p><span class="verse-number">1</span>사울의 아들 이스보셋은 아브넬이 헤브론에서 죽었다 함을 듣고 손의 맥이 풀렸고 온 이스라엘이 놀라니라</p>
+                    <p><span class="verse-number">2</span>사울의 아들 이스보셋에게 군지휘관 두 사람이 있으니 한 사람의 이름은 바아나요 한 사람의 이름은 레갑이라 베냐민 족속 브에롯 사람 림몬의 아들들이더라 브에롯도 베냐민 지파에 속하였으니</p>
+                    <p><span class="verse-number">3</span>일찍이 브에롯 사람들이 깃다임으로 도망하여 오늘까지 거기에 우거함이더라</p>
+                    <p><span class="verse-number">4</span>사울의 아들 요나단에게 다리 저는 아들 하나가 있었으니 이름은 므비보셋이라 전에 사울과 요나단이 죽은 소식이 이스르엘에서 올 때에 그의 나이가 다섯 살이었는데 그 유모가 안고 도망할 때 급히 도망하다가 아이가 떨어져 절게 되었더라</p>
+                    <p><span class="verse-number">5</span>브에롯 사람 림몬의 아들 레갑과 바아나가 길을 떠나 볕이 쬘 때쯤 되어 이스보셋의 집에 이르니 마침 그가 침상에서 낮잠을 자는지라</p>
+                    <p><span class="verse-number">6</span>그들이 밀을 가지러 온 체하고 집 가운데로 들어가서 그의 배를 찌르고 도망하였더라</p>
+                    <p><span class="verse-number">7</span>그들이 집에 들어가니 이스보셋이 침실에서 침상 위에 누워 있는지라 그를 쳐죽이고 목을 베어 그의 머리를 가지고 밤새도록 아라바 길로 가</p>
+                    <p><span class="verse-number">8</span>헤브론에 이르러 다윗 왕에게 이스보셋의 머리를 드리며 아뢰되 왕의 생명을 해하려 하던 원수 사울의 아들 이스보셋의 머리가 여기 있나이다 여호와께서 오늘 우리 주 되신 왕을 위하여 사울과 그의 자손에게 원수를 갚으셨나이다 하니</p>
+                    <p><span class="verse-number">9</span>다윗이 브에롯 사람 림몬의 아들 레갑과 그의 형제 바아나에게 대답하여 그들에게 이르되 내 생명을 여러 환난 가운데서 건지신 여호와께서 살아 계심을 두고 맹세하노니</p>
+                    <p><span class="verse-number">10</span>전에 사람이 내게 알리기를 보라 사울이 죽었다 하며 그가 좋은 소식을 전하는 줄로 생각하였어도 내가 그를 잡아 시글락에서 죽여서 그것을 그 소식을 전한 갚음으로 삼았거든</p>
+                    <p><span class="verse-number">11</span>하물며 악인이 의인을 그의 집 침상 위에서 죽인 것이랴 그런즉 내가 너희의 피를 너희 손에 갚아 너희를 이 땅에서 없이하는 것이 마땅하지 아니하냐 하고</p>
+                    <p><span class="verse-number">12</span>청년들에게 명령하매 곧 그들을 죽이고 수족을 베어 헤브론 못 가에 매달고 이스보셋의 머리를 가져다가 헤브론에 있는 아브넬의 무덤에 매장하였더라</p>
+                    
+                    <strong>사무엘하 5장: 다윗이 온 이스라엘의 왕이 되다</strong>
+                    <p><span class="verse-number">1</span>이스라엘 모든 지파가 헤브론에 이르러 다윗에게 나아와 이르되 보소서 우리는 왕의 한 골육이니이다</p>
+                    <p><span class="verse-number">2</span>전에 곧 사울이 우리의 왕이 되었을 때에도 이스라엘을 거느려 출입하게 하신 분은 왕이시었고 여호와께서도 왕에게 말씀하시기를 네가 내 백성 이스라엘의 목자가 되며 네가 이스라엘의 주권자가 되리라 하셨나이다 하니라</p>
+                    <p><span class="verse-number">3</span>이에 이스라엘 모든 장로가 헤브론에 이르러 왕에게 나아오매 다윗이 헤브론에서 여호와 앞에서 그들과 언약을 맺으매 그들이 다윗에게 기름을 부어 이스라엘 왕으로 삼으니라</p>
+                    <p><span class="verse-number">4</span>다윗이 나이가 삼십 세에 왕위에 올라 사십 년 동안 다스렸으되</p>
+                    <p><span class="verse-number">5</span>헤브론에서 칠 년 육 개월 동안 유다를 다스렸고 예루살렘에서 삼십삼 년 동안 온 이스라엘과 유다를 다스렸더라</p>
+                    <p><span class="verse-number">6</span>왕과 그의 부하들이 예루살렘으로 가서 그 땅 주민 여부스 사람을 치려 하매 그 사람들이 다윗에게 이르되 네가 결코 이리로 들어오지 못하리라 맹인과 다리 저는 자라도 너를 물리치리라 하니 그들 생각에는 다윗이 이리로 들어오지 못하리라 함이나</p>
+                    <p><span class="verse-number">7</span>다윗이 시온 산성을 빼앗았으니 이는 다윗 성이더라</p>
+                    <p><span class="verse-number">8</span>그 날에 다윗이 이르기를 누구든지 여부스 사람을 치거든 물 긷는 데로 올라가서 다윗의 마음에 미워하는 다리 저는 사람과 맹인을 치라 하였으므로 속담이 되어 이르기를 맹인과 다리 저는 사람은 집에 들어오지 못하리라 하더라</p>
+                    <p><span class="verse-number">9</span>다윗이 그 산성에 살면서 다윗 성이라 이름하고 다윗이 밀로에서부터 안으로 성을 둘러 쌓으니라</p>
+                    <p><span class="verse-number">10</span>만군의 하나님 여호와께서 함께 계시니 다윗이 점점 강성하여 가니라</p>
+                    <p><span class="verse-number">11</span>두로 왕 히람이 다윗에게 사절들과 백향목과 목수와 석수를 보내매 그들이 다윗을 위하여 집을 지으니</p>
+                    <p><span class="verse-number">12</span>다윗이 여호와께서 자기를 세워 이스라엘 왕으로 삼으신 것과 그의 백성 이스라엘을 위하여 그 나라를 높이신 것을 알았더라</p>
+                    <p><span class="verse-number">13</span>다윗이 헤브론에서 올라온 후에 예루살렘에서 처첩들을 더 두었으므로 아들과 딸들이 또 다윗에게서 나니</p>
+                    <p><span class="verse-number">14</span>예루살렘에서 그에게서 난 자들의 이름은 삼무아와 소밥과 나단과 솔로몬과</p>
+                    <p><span class="verse-number">15</span>입할과 엘리수아와 네벡과 야비아와</p>
+                    <p><span class="verse-number">16</span>엘리사마와 엘랴다와 엘리벨렛이었더라</p>
+                    <p><span class="verse-number">17</span>이스라엘이 다윗에게 기름을 부어 이스라엘 왕으로 삼았다 함을 블레셋 사람들이 듣고 블레셋 사람들이 다윗을 찾으러 다 올라오매 다윗이 듣고 요새로 나가니라</p>
+                    <p><span class="verse-number">18</span>블레셋 사람들이 이미 이르러 르바임 골짜기에 가득한지라</p>
+                    <p><span class="verse-number">19</span>다윗이 여호와께 여쭈어 이르되 내가 블레셋 사람에게로 올라가리이까 여호와께서 그들을 내 손에 넘기시겠나이까 하니 여호와께서 다윗에게 말씀하시되 올라가라 내가 반드시 블레셋 사람을 네 손에 넘기리라 하신지라</p>
+                    <p><span class="verse-number">20</span>다윗이 바알브라심에 이르러 거기서 그들을 치고 다윗이 말하되 여호와께서 물을 흩음 같이 내 앞에서 내 대적을 흩으셨다 하므로 그 곳 이름을 바알브라심이라 부르니라</p>
+                    <p><span class="verse-number">21</span>거기서 블레셋 사람들이 그들의 우상을 버렸으므로 다윗과 그의 부하들이 치우니라</p>
+                    <p><span class="verse-number">22</span>블레셋 사람들이 다시 올라와서 르바임 골짜기에 가득한지라</p>
+                    <p><span class="verse-number">23</span>다윗이 여호와께 여쭈니 이르시되 올라가지 말고 그들 뒤로 돌아서 뽕나무 수풀 맞은편에서 그들을 기습하되</p>
+                    <p><span class="verse-number">24</span>뽕나무 꼭대기에서 걸음 걷는 소리가 들리거든 곧 공격하라 그 때에 여호와가 너보다 앞서 나아가서 블레셋 군대를 치리라 하신지라</p>
+                    <p><span class="verse-number">25</span>이에 다윗이 여호와의 명령대로 행하여 블레셋 사람을 쳐서 게바에서 게셀까지 이르니라</p>
+                </div>
+            </section>
+            
+            <section class="chapter-card card-book2">
+                <h2>고린도전서 15장</h2>
+                <h3>개요 (Overview)</h3>
+                <p>바울은 기독교 신앙의 핵심인 예수 그리스도의 부활을 강력하게 변증합니다. 그는 부활의 역사적 증거들을 제시하며, 그리스도의 부활이 없다면 우리의 믿음, 전도, 소망이 모두 헛되다고 역설합니다. 나아가 그리스도를 잠자는 자들의 첫 열매로 소개하며, 그의 부활이 모든 성도들의 미래 부활에 대한 확실한 보증임을 선포하고, 부활한 몸의 영광스러운 변화에 대해 설명합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg viewBox="0 0 400 220">
+                    <rect x="5" y="5" width="390" height="210" rx="10" fill="#FFEBEE" />
+                    <text x="200" y="30" font-family="var(--font-serif)" font-size="16" text-anchor="middle" fill="#C62828">부활 신앙의 논리적 구조</text>
+                    
+                    <path d="M 50 180 L 350 180 L 330 200 L 70 200 Z" fill="#B71C1C" opacity="0.8"/>
+                    <text x="200" y="193" font-family="var(--font-main)" font-size="14" text-anchor="middle" fill="white" font-weight="bold">그리스도의 부활 (첫 열매)</text>
+
+                    <rect x="80" y="80" width="60" height="100" fill="#E57373" opacity="0.8" />
+                    <text x="110" y="135" font-family="var(--font-main)" font-size="12" text-anchor="middle" fill="white" transform="rotate(-90 110 135)">믿음의 근거</text>
+
+                    <rect x="170" y="80" width="60" height="100" fill="#E57373" opacity="0.8" />
+                    <text x="200" y="135" font-family="var(--font-main)" font-size="12" text-anchor="middle" fill="white" transform="rotate(-90 200 135)">죄 사함의 확증</text>
+
+                    <rect x="260" y="80" width="60" height="100" fill="#E57373" opacity="0.8" />
+                    <text x="290" y="135" font-family="var(--font-main)" font-size="12" text-anchor="middle" fill="white" transform="rotate(-90 290 135)">소망의 보증</text>
+                    
+                    <path d="M 60 80 L 340 80 L 200 50 Z" fill="#D32F2F" opacity="0.8"/>
+                    <text x="200" y="73" font-family="var(--font-main)" font-size="14" text-anchor="middle" fill="white" font-weight="bold">성도의 부활</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>고린도 교회 일부 성도들은 헬라 철학의 영향으로 영혼의 불멸은 믿었지만 육체의 부활은 부정하는 경향이 있었습니다. 바울은 이러한 잘못된 가르침을 바로잡기 위해 부활의 교리를 체계적으로 설명합니다. '첫 열매'라는 개념은 구약의 제사 제도에서 가져온 것으로, 첫 열매를 바침으로 나머지 모든 수확이 하나님의 것임을 인정하고 보증받는 것처럼, 그리스도의 부활은 그에게 속한 모든 자들의 부활을 보증하는 사건임을 의미합니다. 아담 안에서 모든 사람이 죽은 것 같이, 그리스도 안에서 모든 사람이 생명을 얻는다는 '언약적 대표성'의 원리가 부활 교리의 핵심을 이룹니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="commentary">
+                    <p><strong>고린도전서 15:57-58</strong> - "우리 주 예수 그리스도로 말미암아 우리에게 승리를 주시는 하나님께 감사하노니 그러므로 내 사랑하는 형제들아 견실하며 흔들리지 말고 항상 주의 일에 더욱 힘쓰는 자들이 되라 이는 너희 수고가 주 안에서 헛되지 않은 줄 앎이라"</p>
+                    <p>부활 교리의 장엄한 선포는 결국 성도의 현재적 삶을 향한 구체적인 권면으로 이어집니다. 부활은 단지 미래의 소망이 아니라, 현재의 삶의 의미와 방향을 결정하는 동력입니다. 그리스도께서 사망 권세를 이기시고 승리하셨기에, 성도는 그 승리에 동참한 자로서 더 이상 죄와 죽음의 권세 아래 흔들릴 필요가 없습니다. 이 부활 신앙은 우리가 '주의 일'에 헌신하는 모든 수고가 결코 헛되지 않을 것이라는 확신을 줍니다. 세상의 관점에서는 무의미해 보일지라도, 부활의 관점에서는 모든 믿음의 수고가 영원한 상급으로 기록됩니다. 따라서 부활 신앙은 우리를 견고하고, 흔들리지 않으며, 더욱 주를 위해 헌신하는 삶으로 이끌어갑니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>부활의 복음</strong>
+                    <p><span class="verse-number">1</span>형제들아 내가 너희에게 전한 복음을 너희에게 알게 하노니 이는 너희가 받은 것이요 또 그 가운데 선 것이라</p>
+                    <p><span class="verse-number">2</span>너희가 만일 내가 전한 그 말을 굳게 지키고 헛되이 믿지 아니하였으면 그로 말미암아 구원을 받으리라</p>
+                    <p><span class="verse-number">3</span>내가 받은 것을 먼저 너희에게 전하였노니 이는 성경대로 그리스도께서 우리 죄를 위하여 죽으시고</p>
+                    <p><span class="verse-number">4</span>장사 지낸 바 되셨다가 성경대로 사흘 만에 다시 살아나사</p>
+                    <p><span class="verse-number">5</span>게바에게 보이시고 후에 열두 제자에게와</p>
+                    <p><span class="verse-number">6</span>그 후에 오백여 형제에게 일시에 보이셨나니 그 중에 지금까지 대다수는 살아 있고 어떤 사람은 잠들었으며</p>
+                    <p><span class="verse-number">7</span>그 후에 야고보에게 보이셨으며 그 후에 모든 사도에게와</p>
+                    <p><span class="verse-number">8</span>맨 나중에 만삭되지 못하여 난 자 같은 내게도 보이셨느니라</p>
+                    <p><span class="verse-number">9</span>나는 사도 중에 가장 작은 자라 나는 하나님의 교회를 박해하였으므로 사도라 칭함 받기를 감당하지 못할 자니라</p>
+                    <p><span class="verse-number">10</span>그러나 내가 나 된 것은 하나님의 은혜로 된 것이니 내게 주신 그의 은혜가 헛되지 아니하여 내가 모든 사도보다 더 많이 수고하였으나 내가 한 것이 아니요 오직 나와 함께 하신 하나님의 은혜로라</p>
+                    <p><span class="verse-number">11</span>그러므로 나나 그들이나 이같이 전파하매 너희도 이같이 믿었느니라</p>
+                    <strong>부활이 없다면</strong>
+                    <p><span class="verse-number">12</span>그리스도께서 죽은 자 가운데서 다시 살아나셨다 전파되었거늘 너희 중에서 어떤 사람들은 어찌하여 죽은 자 가운데서 부활이 없다 하느냐</p>
+                    <p><span class="verse-number">13</span>만일 죽은 자의 부활이 없으면 그리스도도 다시 살아나지 못하셨으리라</p>
+                    <p><span class="verse-number">14</span>그리스도께서 만일 다시 살아나지 못하셨으면 우리가 전파하는 것도 헛것이요 또 너희 믿음도 헛것이며</p>
+                    <p><span class="verse-number">15</span>또 우리가 하나님의 거짓 증인으로 발견되리니 우리가 하나님이 그리스도를 다시 살리셨다고 증언하였음이라 만일 죽은 자가 다시 살아나는 일이 없으면 하나님이 그리스도를 다시 살리지 아니하셨으리라</p>
+                    <p><span class="verse-number">16</span>만일 죽은 자가 다시 살아나는 일이 없으면 그리스도도 다시 살아나신 일이 없었을 터이요</p>
+                    <p><span class="verse-number">17</span>그리스도께서 다시 살아나신 일이 없으면 너희의 믿음도 헛되고 너희가 여전히 죄 가운데 있을 것이요</p>
+                    <p><span class="verse-number">18</span>또한 그리스도 안에서 잠자는 자도 망하였으리니</p>
+                    <p><span class="verse-number">19</span>만일 그리스도 안에서 우리가 바라는 것이 다만 이 세상의 삶뿐이면 모든 사람 가운데 우리가 더욱 불쌍한 자이리라</p>
+                    <strong>첫 열매이신 그리스도</strong>
+                    <p><span class="verse-number">20</span>그러나 이제 그리스도께서 죽은 자 가운데서 다시 살아나사 잠자는 자들의 첫 열매가 되셨도다</p>
+                    <p><span class="verse-number">21</span>사망이 한 사람으로 말미암았으니 죽은 자의 부활도 한 사람으로 말미암는도다</p>
+                    <p><span class="verse-number">22</span>아담 안에서 모든 사람이 죽은 것 같이 그리스도 안에서 모든 사람이 삶을 얻으리라</p>
+                    <p><span class="verse-number">23</span>그러나 각각 자기 차례대로 되리니 먼저는 첫 열매인 그리스도요 다음에는 그가 강림하실 때에 그리스도에게 속한 자요</p>
+                    <p><span class="verse-number">24</span>그 후에는 마지막이니 그가 모든 통치와 모든 권세와 능력을 멸하시고 나라를 아버지 하나님께 바칠 때라</p>
+                    <p><span class="verse-number">25</span>그가 모든 원수를 그 발 아래에 둘 때까지 반드시 왕 노릇 하시리니</p>
+                    <p><span class="verse-number">26</span>맨 나중에 멸망 받을 원수는 사망이니라</p>
+                    <p><span class="verse-number">27</span>만물을 그의 발 아래에 두셨다 하셨으니 만물을 아래에 둔다 말씀하실 때에 만물을 그의 아래에 두신 이가 그 중에 들지 아니한 것이 분명하도다</p>
+                    <p><span class="verse-number">28</span>만물을 그에게 복종하게 하실 때에는 아들 자신도 그 때에 만물을 자기에게 복종하게 하신 이에게 복종하게 되리니 이는 하나님이 만유의 주로서 만유 안에 계시려 하심이라</p>
+                    <strong>부활의 소망으로 사는 삶</strong>
+                    <p><span class="verse-number">29</span>만일 죽은 자들이 도무지 다시 살아나지 못하면 죽은 자들을 위하여 세례를 받는 자들이 무엇을 하겠느냐 어찌하여 그들을 위하여 세례를 받느냐</p>
+                    <p><span class="verse-number">30</span>또 어찌하여 우리가 언제나 위험을 무릅쓰리요</p>
+                    <p><span class="verse-number">31</span>형제들아 내가 그리스도 예수 우리 주 안에서 가진 바 너희에 대한 나의 자랑을 두고 단언하노니 나는 날마다 죽노라</p>
+                    <p><span class="verse-number">32</span>내가 사람의 방법으로 에베소에서 맹수와 더불어 싸웠다면 내게 무슨 유익이 있으리요 죽은 자가 다시 살아나지 못한다면 내일 죽을 터이니 먹고 마시자 하리라</p>
+                    <p><span class="verse-number">33</span>속지 말라 악한 동무들은 선한 행실을 더럽히나니</p>
+                    <p><span class="verse-number">34</span>깨어 의를 행하고 죄를 짓지 말라 하나님을 알지 못하는 자가 있기로 내가 너희를 부끄럽게 하기 위하여 말하노라</p>
+                    <strong>부활의 몸</strong>
+                    <p><span class="verse-number">35</span>누가 묻기를 죽은 자들이 어떻게 다시 살아나며 어떠한 몸으로 오느냐 하리니</p>
+                    <p><span class="verse-number">36</span>어리석은 자여 네가 뿌리는 씨가 죽지 않으면 살아나지 못하겠고</p>
+                    <p><span class="verse-number">37</span>또 네가 뿌리는 것은 장래의 형체를 뿌리는 것이 아니요 다만 밀이나 다른 것의 알맹이뿐이로되</p>
+                    <p><span class="verse-number">38</span>하나님이 그 뜻대로 그에게 형체를 주시되 각 종자에게 그 형체를 주시느니라</p>
+                    <p><span class="verse-number">39</span>육체는 다 같은 육체가 아니니 하나는 사람의 육체요 하나는 짐승의 육체요 하나는 새의 육체요 하나는 물고기의 육체라</p>
+                    <p><span class="verse-number">40</span>하늘에 속한 형체도 있고 땅에 속한 형체도 있으나 하늘에 속한 것의 영광이 따로 있고 땅에 속한 것의 영광이 따로 있으니</p>
+                    <p><span class="verse-number">41</span>해의 영광이 다르며 달의 영광이 다르며 별의 영광도 다른데 별과 별의 영광이 다르도다</p>
+                    <p><span class="verse-number">42</span>죽은 자의 부활도 그와 같으니 썩을 것으로 심고 썩지 아니할 것으로 다시 살아나며</p>
+                    <p><span class="verse-number">43</span>욕된 것으로 심고 영광스러운 것으로 다시 살아나며 약한 것으로 심고 강한 것으로 다시 살아나며</p>
+                    <p><span class="verse-number">44</span>육의 몸으로 심고 신령한 몸으로 다시 살아나나니 육의 몸이 있은즉 또 영의 몸도 있느니라</p>
+                    <p><span class="verse-number">45</span>기록된 바 첫 사람 아담은 생령이 되었다 함과 같이 마지막 아담은 살려 주는 영이 되었나니</p>
+                    <p><span class="verse-number">46</span>그러나 먼저는 신령한 사람이 아니요 육의 사람이요 그 다음에 신령한 사람이니라</p>
+                    <p><span class="verse-number">47</span>첫 사람은 땅에서 났으니 흙에 속한 자이거니와 둘째 사람은 하늘에서 나셨느니라</p>
+                    <p><span class="verse-number">48</span>무릇 흙에 속한 자들은 저 흙에 속한 자와 같고 무릇 하늘에 속한 자들은 저 하늘에 속한 자와 같으니</p>
+                    <p><span class="verse-number">49</span>우리가 흙에 속한 자의 형상을 입은 것 같이 또한 하늘에 속한 이의 형상을 입으리라</p>
+                    <strong>마지막 나팔 소리에</strong>
+                    <p><span class="verse-number">50</span>형제들아 내가 이것을 말하노니 혈과 육은 하나님 나라를 이어 받을 수 없고 또한 썩는 것은 썩지 아니하는 것을 유업으로 받지 못하느니라</p>
+                    <p><span class="verse-number">51</span>보라 내가 너희에게 비밀을 말하노니 우리가 다 잠 잘 것이 아니요 마지막 나팔에 순식간에 홀연히 다 변화되리니</p>
+                    <p><span class="verse-number">52</span>나팔 소리가 나매 죽은 자들이 썩지 아니할 것으로 다시 살아나고 우리도 변화되리라</p>
+                    <p><span class="verse-number">53</span>이 썩을 것이 반드시 썩지 아니할 것을 입겠고 이 죽을 것이 죽지 아니함을 입으리로다</p>
+                    <p><span class="verse-number">54</span>이 썩을 것이 썩지 아니함을 입고 이 죽을 것이 죽지 아니함을 입을 때에는 사망을 삼키고 이기리라고 기록된 말씀이 이루어지리라</p>
+                    <p><span class="verse-number">55</span>사망아 너의 승리가 어디 있느냐 사망아 네가 쏘는 것이 어디 있느냐</p>
+                    <p><span class="verse-number">56</span>사망이 쏘는 것은 죄요 죄의 권능은 율법이라</p>
+                    <p><span class="verse-number">57</span>우리 주 예수 그리스도로 말미암아 우리에게 승리를 주시는 하나님께 감사하노니</p>
+                    <p><span class="verse-number">58</span>그러므로 내 사랑하는 형제들아 견실하며 흔들리지 말고 항상 주의 일에 더욱 힘쓰는 자들이 되라 이는 너희 수고가 주 안에서 헛되지 않은 줄 앎이라</p>
+                </div>
+            </section>
+
+            <section class="chapter-card card-book3">
+                <h2>에스겔 13장</h2>
+                <h3>개요 (Overview)</h3>
+                <p>하나님께서는 자기 마음대로 예언하는 이스라엘의 거짓 선지자들을 향해 준엄한 심판을 선고하십니다. 그들은 백성들에게 거짓된 평화의 메시지를 전하며, 무너져가는 담에 회칠하듯 임시방편으로 죄를 덮으려 했습니다. 하나님은 자신의 진노의 폭풍으로 그 거짓된 벽을 허물고, 그들의 기만이 드러나게 할 것이라고 경고하십니다. 이는 남자 선지자뿐만 아니라, 부적으로 사람들의 영혼을 사냥하는 거짓 여자 예언자들에게도 동일하게 적용됩니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg viewBox="0 0 400 200">
+                    <rect x="5" y="5" width="390" height="190" rx="10" fill="#FFF8E1" />
+                    <text x="200" y="30" font-family="var(--font-serif)" font-size="16" text-anchor="middle" fill="#F57F17">거짓 평화와 하나님의 심판</text>
+                    
+                    <g>
+                        <path d="M 50 150 C 60 140, 90 140, 100 150 L 100 100 C 90 110, 60 110, 50 100 Z" fill="#CFD8DC"/>
+                        <path d="M 100 150 C 110 140, 140 140, 150 150 L 150 100 C 140 110, 110 110, 100 100 Z" fill="#CFD8DC"/>
+                        <path d="M 150 150 C 160 140, 190 140, 200 150 L 200 100 C 190 110, 160 110, 150 100 Z" fill="#CFD8DC"/>
+                        <rect x="50" y="100" width="150" height="50" stroke="#78909C" stroke-width="2" fill="none"/>
+                        <rect x="50" y="100" width="150" height="50" fill="white" opacity="0.7"/>
+                        <text x="125" y="85" font-family="var(--font-main)" font-size="12" text-anchor="middle">거짓 선지자의 '평강'</text>
+                        <text x="125" y="128" font-family="var(--font-main)" font-size="12" text-anchor="middle" fill="#546E7A">회칠한 담</text>
+                    </g>
+
+                    <g>
+                        <path d="M 230 100 L 260 70 L 250 100 L 280 70 L 270 100 L 300 70" stroke="#FFB74D" stroke-width="3" fill="none"/>
+                        <path d="M 240 140 Q 270 160 300 140 T 360 140" stroke="#4FC3F7" stroke-width="3" fill="none"/>
+                        <text x="295" y="60" font-family="var(--font-serif)" font-size="14" text-anchor="middle" fill="#FFA000">하나님의 진노 (폭풍, 우박)</text>
+                    </g>
+                    
+                    <path d="M 205 125 L 245 125" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                    <text x="225" y="120" font-family="var(--font-main)" font-size="10">심판</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>바벨론 포로기라는 절망적인 상황 속에서, 백성들은 회개를 촉구하는 참된 예언보다 당장의 위로와 '평강'을 약속하는 거짓 예언에 귀를 기울이기 쉬웠습니다. 거짓 선지자들은 하나님의 계시가 아닌 '자기 심령을 따라' 예언했습니다. '회칠한 담'의 비유는 죄라는 구조적 문제를 해결하지 않고 겉으로만 평안한 척 덮어버리는 기만적인 행위를 고발합니다. 이는 하나님의 공의를 무시하는 행위입니다. 개혁주의 신학은 하나님의 말씀만이 유일한 진리의 기준임을 강조합니다. 인간의 생각이나 경험, 혹은 듣기 좋은 말이 아니라, 오직 기록된 말씀을 통해 하나님의 뜻을 분별해야 합니다. 이 본문은 값싼 위로가 아닌, 죄에 대한 철저한 회개를 통해 주어지는 참된 평화를 추구해야 함을 가르칩니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="commentary">
+                    <p><strong>에스겔 13:10</strong> - "이렇게 칠 것은 그들이 내 백성을 유혹하여 평강이 없으나 평강이 있다 함이라 어떤 사람이 담을 쌓을 때에 그들이 회칠을 하는도다"</p>
+                    <p>이 구절은 거짓 가르침의 본질과 위험성을 정확히 꿰뚫습니다. 문제는 '평강이 없다'는 현실을 '평강이 있다'고 속이는 것입니다. 죄와 불순종으로 인해 하나님의 심판이 임박했는데도, 거짓 선지자들은 마치 아무 일 없는 것처럼 행동했습니다. '담을 쌓는 사람'은 위기를 인식하고 해결책을 찾는 백성을, '회칠하는 자들'은 근본적인 해결(회개) 대신 겉치레(거짓 위로)로 문제를 덮는 거짓 선지자를 상징합니다. 이는 죄의 문제를 심각하게 다루지 않고, 은혜와 사랑만을 강조하여 성도들을 영적 안일함에 빠뜨리는 오늘날의 기복주의적, 인본주의적 가르침에 대한 강력한 경고가 됩니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>거짓 남자 선지자들에 대한 경고</strong>
+                    <p><span class="verse-number">1</span>여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p><span class="verse-number">2</span>인자야 너는 이스라엘의 예언하는 선지자들에게 경고하여 예언하되 자기 마음대로 예언하는 자에게 말하기를 너희는 여호와의 말씀을 들으라</p>
+                    <p><span class="verse-number">3</span>주 여호와의 말씀에 본 것이 없이 자기 심령을 따라 예언하는 어리석은 선지자에게 화가 있을진저</p>
+                    <p><span class="verse-number">4</span>이스라엘아 너의 선지자들은 황무지에 있는 여우 같으니라</p>
+                    <p><span class="verse-number">5</span>너희 선지자들이 성 무너진 곳에 올라가지도 아니하였으며 이스라엘 족속을 위하여 여호와의 날에 전쟁에서 견디게 하려고 성벽을 수축하지도 아니하였느니라</p>
+                    <p><span class="verse-number">6</span>여호와께서 말씀하셨다고 하는 자들이 허탄한 것과 거짓된 점괘를 보며 사람으로 그 말이 확실히 이루어지기를 바라게 하거니와 그들은 여호와가 보낸 자가 아니라</p>
+                    <p><span class="verse-number">7</span>너희가 말하기는 여호와의 말씀이라 하여도 내가 말한 것이 아닌즉 어찌 허탄한 묵시를 보며 거짓된 점괘를 말한 것이 아니냐</p>
+                    <p><span class="verse-number">8</span>그러므로 주 여호와께서 이같이 말씀하셨느니라 너희가 허탄한 것을 말하며 거짓된 것을 보았은즉 내가 너희를 치리라 주 여호와의 말씀이니라</p>
+                    <p><span class="verse-number">9</span>그 선지자들이 허탄한 묵시를 보며 거짓 것을 점쳤으니 내 손이 그들을 쳐서 내 백성의 공회에 들어오지 못하게 하며 이스라엘 족속의 호적에도 기록되지 못하게 하며 이스라엘 땅에도 들어가지 못하게 하리니 너희가 나를 여호와인 줄 알리라</p>
+                    <strong>회칠한 담의 비유</strong>
+                    <p><span class="verse-number">10</span>이렇게 칠 것은 그들이 내 백성을 유혹하여 평강이 없으나 평강이 있다 함이라 어떤 사람이 담을 쌓을 때에 그들이 회칠을 하는도다</p>
+                    <p><span class="verse-number">11</span>그러므로 너는 회칠하는 자에게 이르기를 그것이 무너지리라 폭우가 내리며 큰 우박덩이가 떨어지며 폭풍이 몰아치리니</p>
+                    <p><span class="verse-number">12</span>그 담이 무너진즉 어떤 사람이 너희에게 말하기를 그것에 칠한 회가 어디 있느냐 하지 아니하겠느냐</p>
+                    <p><span class="verse-number">13</span>그러므로 주 여호와께서 이같이 말씀하셨느니라 내가 분노하여 폭풍을 퍼붓고 내가 진노하여 폭우를 내리고 내가 분노하여 큰 우박덩이로 무너뜨리리라</p>
+                    <p><span class="verse-number">14</span>회칠한 담을 내가 이렇게 허물어서 땅에 넘어뜨리고 그 기초를 드러낼 것이라 담이 무너진즉 너희가 그 가운데서 망하리니 나를 여호와인 줄 알리라</p>
+                    <p><span class="verse-number">15</span>이와 같이 내가 내 노를 담과 회칠한 자에게 다 이루고 또 너희에게 말하기를 담도 없어지고 칠한 자들도 없어졌다 하리니</p>
+                    <p><span class="verse-number">16</span>이들은 예루살렘에 대하여 예언하기를 평강이 없으나 평강의 묵시를 보았다고 하는 이스라엘의 선지자들이니라 주 여호와의 말씀이니라</p>
+                    <strong>거짓 여자 예언자들에 대한 경고</strong>
+                    <p><span class="verse-number">17</span>너 인자야 너의 백성 중 자기 마음대로 예언하는 여자들에게 경고하며 예언하여</p>
+                    <p><span class="verse-number">18</span>이르기를 주 여호와의 말씀에 사람의 영혼을 사냥하려고 모든 팔뚝에 부적을 꿰어 매고 키가 큰 자나 작은 자의 머리를 위하여 수건을 만드는 여자들에게 화 있을진저 너희가 어찌하여 내 백성의 영혼은 사냥하면서 자기를 위하여는 영혼을 살리려 하느냐</p>
+                    <p><span class="verse-number">19</span>너희가 두어 움큼 보리와 두어 조각 떡을 위하여 나를 내 백성 가운데에서 욕되게 하여 거짓말을 곧이 듣는 내 백성에게 너희가 거짓말을 지어내어 죽지 아니할 영혼을 죽이고 살지 못할 영혼을 살리는도다</p>
+                    <p><span class="verse-number">20</span>그러므로 주 여호와께서 이같이 말씀하셨느니라 너희가 새를 사냥하듯 영혼들을 사냥하는 그 부적을 내가 너희 팔에서 떼어 버리고 너희가 사냥한 그 영혼들을 놓아 주며</p>
+                    <p><span class="verse-number">21</span>또 너희 수건을 찢고 내 백성을 너희 손에서 건지고 다시는 너희 손에 사냥물이 되지 아니하게 하리니 내가 여호와인 줄을 너희가 알리라</p>
+                    <p><span class="verse-number">22</span>내가 슬프게 하지 아니한 의인의 마음을 너희가 거짓말로 근심하게 하며 너희가 또 악인의 손을 굳게 하여 그 악한 길에서 돌이켜 떠나 삶을 얻지 못하게 하였은즉</p>
+                    <p><span class="verse-number">23</span>너희가 다시는 허탄한 묵시를 보지 못하고 점술도 못할지라 내가 내 백성을 너희 손에서 건져내리니 내가 여호와인 줄을 너희가 알리라 하라</p>
+                </div>
+            </section>
+
+             <section class="chapter-card card-book4">
+                <h2>시편 52-54편</h2>
+                <h3>개요 (Overview)</h3>
+                <p>이 시편들은 악인의 번영 앞에서 흔들리는 의인의 고뇌와, 그럼에도 불구하고 하나님을 향한 변함없는 신뢰를 노래합니다. 52편은 도엑의 고발 사건을 배경으로, 악인의 혀가 주는 해악과 하나님의 영원한 심판을 대조합니다. 53편은 "어리석은 자는 그의 마음에 이르기를 하나님이 없다"고 선언하며, 하나님을 부인하는 자들의 부패와 그들에 대한 하나님의 심판을 다룹니다. 54편은 십 사람들의 배신으로 위기에 처한 다윗이 하나님께 구원을 간청하며, 하나님의 이름과 능력에 대한 굳건한 믿음을 고백하는 기도입니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                 <svg viewBox="0 0 400 200">
+                    <rect x="5" y="5" width="390" height="190" rx="10" fill="#F9FBE7" />
+                    <text x="200" y="30" font-family="var(--font-serif)" font-size="16" text-anchor="middle" fill="#558B2F">악인과 의인의 운명</text>
+                    
+                    <g>
+                        <rect x="30" y="50" width="160" height="120" rx="8" fill="#FFEBEE" />
+                        <text x="110" y="70" font-family="var(--font-serif)" font-size="14" text-anchor="middle" fill="#C62828">악인 (The Wicked)</text>
+                        <text x="110" y="95" font-family="var(--font-main)" font-size="11" text-anchor="middle"> • 포악, 거짓, 자기 자랑</text>
+                        <text x="110" y="115" font-family="var(--font-main)" font-size="11" text-anchor="middle"> • 재물을 의지함</text>
+                        <text x="110" y="135" font-family="var(--font-main)" font-size="11" text-anchor="middle" fill="#b71c1c" font-weight="bold"> • 결국 뿌리 뽑힘 (멸망)</text>
+                    </g>
+
+                    <g>
+                        <rect x="210" y="50" width="160" height="120" rx="8" fill="#E8F5E9" />
+                        <text x="290" y="70" font-family="var(--font-serif)" font-size="14" text-anchor="middle" fill="#2E7D32">의인 (The Righteous)</text>
+                        <text x="290" y="95" font-family="var(--font-main)" font-size="11" text-anchor="middle"> • 하나님의 인자하심을 의지</text>
+                        <text x="290" y="115" font-family="var(--font-main)" font-size="11" text-anchor="middle"> • 하나님의 이름을 신뢰</text>
+                        <text x="290" y="135" font-family="var(--font-main)" font-size="11" text-anchor="middle" fill="#1B5E20" font-weight="bold"> • 푸른 감람나무 같이 번성</text>
+                    </g>
+                    
+                    <line x1="200" y1="50" x2="200" y2="170" stroke="#BDBDBD" stroke-width="2" stroke-dasharray="4"/>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>이 시편들은 인간의 죄성(전적 부패)과 하나님의 주권적 심판이라는 개혁주의 신학의 중요한 주제를 담고 있습니다. 53편의 "하나님을 찾는 자가 하나도 없도다"라는 탄식은 로마서 3장에서 바울이 인용하며 모든 인류가 하나님의 은혜 없이는 구원받을 수 없는 전적으로 타락한 상태임을 증명하는 핵심 구절이 됩니다. 악인이 일시적으로 번성하는 것처럼 보일지라도, 하나님의 공의로운 통치 아래서 그들은 반드시 심판받고 소멸될 존재입니다. 반면, 의인은 고난 중에도 하나님의 성품과 언약에 대한 신뢰를 잃지 않음으로써 '하나님의 집에 있는 푸른 감람나무'와 같은 영원한 생명과 안전을 누리게 됩니다. 이 신뢰는 궁극적으로 우리를 모든 원수로부터 구원하실 예수 그리스도를 향한 믿음으로 완성됩니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="commentary">
+                    <p><strong>시편 52:8-9</strong> - "그러나 나는 하나님의 집에 있는 푸른 감람나무 같음이여 하나님의 인자하심을 영원히 의지하리로다 주께서 이를 행하셨으므로 내가 영원히 주께 감사하고 주의 이름이 선하시므로 주의 성도 앞에서 내가 주의 이름을 사모하리이다"</p>
+                    <p>이 구절은 악인의 운명과 의인의 운명을 극명하게 대조하며, 성도의 정체성과 소망이 어디에 있는지를 보여줍니다. '하나님의 집에 있는 푸른 감람나무'는 하나님의 보호와 임재 안에서 생명력과 풍성함을 누리는 성도의 모습을 상징합니다. 가뭄에도 마르지 않는 감람나무처럼, 성도는 세상의 고난과 위협 속에서도 하나님의 '인자하심(헤세드)' 즉, 변함없는 언약적 사랑을 의지하기에 시들지 않습니다. 이러한 신뢰는 과거에 베푸신 구원의 은혜('주께서 이를 행하셨으므로')에 대한 감사로 이어지고, 미래에도 선하신 이름의 능력을 경험할 것('주의 이름을 사모하리이다')이라는 소망으로 나아갑니다. 이것이 고난을 이기는 성도의 신앙고백입니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>시편 52편: 악인의 종말과 의인의 소망</strong>
+                    <p><span class="verse-number">1</span>(에돔인 도엑이 사울에게 이르러 다윗이 아히멜렉의 집에 왔다고 그에게 말하던 때에) 포악한 자여 네가 어찌하여 악한 계획을 스스로 자랑하는가 하나님의 인자하심은 항상 있도다</p>
+                    <p><span class="verse-number">2</span>네 혀가 심한 악을 꾀하여 날카로운 삭도 같이 간사를 행하는도다</p>
+                    <p><span class="verse-number">3</span>네가 선보다 악을 사랑하며 의를 말함보다 거짓을 사랑하는도다 (셀라)</p>
+                    <p><span class="verse-number">4</span>간사한 혀여 너는 남을 해치는 모든 말을 좋아하는도다</p>
+                    <p><span class="verse-number">5</span>그런즉 하나님이 영원히 너를 멸하심이여 너를 붙잡아 네 장막에서 뽑아내며 살아 있는 땅에서 네 뿌리를 빼시리로다 (셀라)</p>
+                    <p><span class="verse-number">6</span>의인이 보고 두려워하며 또 그를 비웃어 말하기를</p>
+                    <p><span class="verse-number">7</span>이 사람은 하나님을 자기 힘으로 삼지 아니하고 오직 자기의 풍부한 재물을 의지하며 자기의 악으로 스스로 든든하게 하던 자라 하리로다</p>
+                    <p><span class="verse-number">8</span>그러나 나는 하나님의 집에 있는 푸른 감람나무 같음이여 하나님의 인자하심을 영원히 의지하리로다</p>
+                    <p><span class="verse-number">9</span>주께서 이를 행하셨으므로 내가 영원히 주께 감사하고 주의 이름이 선하시므로 주의 성도 앞에서 내가 주의 이름을 사모하리이다</p>
+                    <strong>시편 53편: 어리석은 자의 모습</strong>
+                    <p><span class="verse-number">1</span>어리석은 자는 그의 마음에 이르기를 하나님이 없다 하도다 그들은 부패하며 가증한 악을 행함이여 선을 행하는 자가 없도다</p>
+                    <p><span class="verse-number">2</span>하나님이 하늘에서 인생을 굽어살피사 지각이 있는 자와 하나님을 찾는 자가 있는가 보려 하신즉</p>
+                    <p><span class="verse-number">3</span>각기 물러가 함께 더러운 자가 되고 선을 행하는 자 없으니 한 사람도 없도다</p>
+                    <p><span class="verse-number">4</span>죄악을 행하는 자들은 무지하냐 그들이 떡 먹듯이 내 백성을 먹으면서 하나님을 부르지 아니하는도다</p>
+                    <p><span class="verse-number">5</span>그들이 두려움이 없는 곳에서 크게 두려워하였으니 너를 대항하여 진 친 그들의 뼈를 하나님이 흩으심이라 하나님이 그들을 버리셨으므로 네가 그들에게 수치를 당하게 하였도다</p>
+                    <p><span class="verse-number">6</span>시온에서 이스라엘을 구원하여 줄 자 누구인가 하나님이 자기 백성의 포로된 것을 돌이키실 때에 야곱이 즐거워하며 이스라엘이 기뻐하리로다</p>
+                    <strong>시편 54편: 구원을 호소하는 기도</strong>
+                    <p><span class="verse-number">1</span>(십 사람들이 사울에게 이르러 말하기를 다윗이 우리가 있는 곳에 숨지 아니하였나이까 하던 때에) 하나님이여 주의 이름으로 나를 구원하시고 주의 힘으로 나를 변호하소서</p>
+                    <p><span class="verse-number">2</span>하나님이여 내 기도를 들으시며 내 입의 말에 귀를 기울이소서</p>
+                    <p><span class="verse-number">3</span>낯선 자들이 일어나 나를 치고 포악한 자들이 나의 생명을 수색하며 하나님을 자기 앞에 두지 아니하였음이니이다 (셀라)</p>
+                    <p><span class="verse-number">4</span>하나님은 나를 돕는 이시며 주께서는 내 생명을 붙들어 주시는 이시니이다</p>
+                    <p><span class="verse-number">5</span>주께서는 내 원수에게 악으로 갚으시리니 주의 성실하심으로 그들을 멸하소서</p>
+                    <p><span class="verse-number">6</span>내가 낙헌제로 주께 제사하리이다 여호와여 주의 이름에 감사하오리니 주의 이름이 선하심이니이다</p>
+                    <p><span class="verse-number">7</span>참으로 주께서는 모든 환난에서 나를 건지시고 내 원수가 보응 받는 것을 내 눈이 똑똑히 보게 하셨나이다</p>
+                </div>
+            </section>
+            
+            <section class="chapter-card integration-card">
+                <h2>통합적 이해</h2>
+
+                <h3>관통하는 주제 (Overarching Theme)</h3>
+                <p>오늘의 네 본문은 '하나님의 의로운 통치'라는 주제 아래 긴밀하게 연결됩니다. 사무엘하에서는 인간적 계략과 폭력이 아닌 하나님의 공의와 언약에 기초한 다윗의 왕국이 세워집니다. 반면, 에스겔서는 하나님의 뜻을 저버리고 자기 생각으로 거짓 평화를 외치는 지도자들의 통치가 어떻게 허무하게 무너지는지를 보여줍니다. 시편은 이 두 세계관의 충돌을 개인의 실존적 고뇌로 가져와, 악인의 일시적 성공과 의인의 궁극적 승리를 노래합니다. 이 모든 구약의 그림자들이 가리키는 실체는 고린도전서 15장에 선포된 '부활하신 왕' 예수 그리스도입니다. 그의 부활은 사망 권세를 깨뜨리고 하나님의 의로운 통치가 최종적으로 승리했음을 온 우주에 공포한 사건입니다. 따라서 오늘의 독자는 "나는 누구의 통치 아래 살고 있는가?"라는 질문 앞에 서게 됩니다. 세상의 거짓된 평화와 힘의 논리를 따를 것인가, 아니면 부활의 주님이 다스리시는 의와 생명의 나라에 속하여 그분의 통치를 받을 것인가?</p>
+
+                <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+                <svg viewBox="0 0 500 250">
+                    <rect width="500" height="250" fill="#F4F2F7"/>
+                    <text x="250" y="25" text-anchor="middle" font-size="16" font-family="var(--font-serif)" fill="var(--color-integration)">하나님의 의로운 통치의 점진적 계시</text>
+                
+                    <line x1="30" y1="150" x2="470" y2="150" stroke="#333" stroke-width="2"/>
+                    <polygon points="470,145 480,150 470,155" fill="#333"/>
+                
+                    <g>
+                        <circle cx="60" cy="150" r="10" fill="#967ADC"/>
+                        <text x="60" y="180" text-anchor="middle" font-size="12">창조 &amp; 타락</text>
+                        <text x="60" y="195" text-anchor="middle" font-size="10" fill="#555">(통치의 상실)</text>
+                    </g>
+                
+                    <g>
+                        <circle cx="150" cy="150" r="10" fill="var(--color-book1)"/>
+                        <line x1="150" y1="140" x2="150" y2="70" stroke="var(--color-book1)" stroke-dasharray="2,2"/>
+                        <text x="150" y="60" text-anchor="middle" font-size="11" font-weight="bold">삼하 4-5</text>
+                        <text x="150" y="80" text-anchor="middle" font-size="10">다윗 왕국</text>
+                        <text x="150" y="92" text-anchor="middle" font-size="10" fill="#555">(그림자로서의 통치)</text>
+                    </g>
+                
+                    <g>
+                        <circle cx="250" cy="150" r="10" fill="var(--color-book3)"/>
+                        <line x1="250" y1="140" x2="250" y2="70" stroke="var(--color-book3)" stroke-dasharray="2,2"/>
+                        <text x="250" y="60" text-anchor="middle" font-size="11" font-weight="bold">겔 13 / 시 52-54</text>
+                        <text x="250" y="80" text-anchor="middle" font-size="10">거짓 통치 고발</text>
+                        <text x="250" y="92" text-anchor="middle" font-size="10" fill="#555">(참된 통치 대망)</text>
+                    </g>
+
+                    <g>
+                        <circle cx="350" cy="150" r="15" fill="var(--color-book2)"/>
+                        <line x1="350" y1="135" x2="350" y2="50" stroke="var(--color-book2)"/>
+                        <text x="350" y="40" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--color-book2)">그리스도의 부활</text>
+                        <text x="350" y="60" text-anchor="middle" font-size="10">(참된 왕의 즉위)</text>
+                        <text x="350" y="72" text-anchor="middle" font-size="10" fill="#555">(고전 15)</text>
+                    </g>
+
+                    <g>
+                        <circle cx="440" cy="150" r="10" fill="#967ADC"/>
+                        <text x="440" y="180" text-anchor="middle" font-size="12">완성</text>
+                        <text x="440" y="195" text-anchor="middle" font-size="10" fill="#555">(통치의 완성)</text>
+                    </g>
+                </svg>
+
+                <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
+                <p>창조 시에 부여된 하나님의 통치는 인간의 타락으로 왜곡되었습니다. 이후 구약의 역사는 하나님의 의로운 통치를 회복하려는 구속의 과정입니다. <strong>사무엘하</strong>의 다윗 왕국은 장차 오실 메시아 왕국의 불완전한 예표(그림자)입니다. 그는 공의로 통치하려 했지만, 그 자신과 그의 왕국은 죄의 한계를 넘지 못했습니다. <strong>에스겔</strong>과 <strong>시편</strong>은 바로 이 실패한 인간 통치의 현실과 거짓된 통치의 위험성을 고발하며, 더 완전하고 참된 왕, 하나님의 의로운 통치자를 대망하게 합니다. 마침내 <strong>고린도전서</strong>는 그 모든 소망의 성취이신 예수 그리스도를 증언합니다. 그분의 부활은 죄와 사망의 통치를 깨뜨린 결정적 승리이며, 하나님의 의로운 통치가 온전히 실현될 새 창조의 시작입니다. 성도는 부활하신 왕의 백성으로서, 이 땅에서 그분의 통치를 살아가며 그의 나라가 완성될 날을 소망합니다.</p>
+
+                <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>주제</th>
+                            <th>사무엘하 4-5</th>
+                            <th>고린도전서 15</th>
+                            <th>에스겔 13</th>
+                            <th>시편 52-54</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>통치 기반</strong></td>
+                            <td>하나님의 언약과 공의</td>
+                            <td>부활로 말미암은 생명의 능력</td>
+                            <td>자기 심령, 거짓된 평강</td>
+                            <td>하나님의 인자하심(의인) vs 자기 재물(악인)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>통치의 결과</strong></td>
+                            <td>연합, 강성함, 승리</td>
+                            <td>사망을 이기는 최종적 승리</td>
+                            <td>무너짐, 심판, 멸망</td>
+                            <td>영원한 번성(의인) vs 뿌리 뽑힘(악인)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>백성의 반응</strong></td>
+                            <td>다윗을 왕으로 인정하고 연합함</td>
+                            <td>부활 신앙으로 견고히 서서 헌신함</td>
+                            <td>거짓 평강에 유혹됨</td>
+                            <td>고난 중에도 하나님을 의지하고 구원을 간구함</td>
+                        </tr>
+                        <tr>
+                            <td><strong>그리스도와의 연결</strong></td>
+                            <td>메시아 왕국의 예표</td>
+                            <td>부활하신 만왕의 왕, 통치의 실체</td>
+                            <td>참 선지자이신 그리스도를 대망케 함</td>
+                            <td>의로운 왕, 참된 피난처이신 그리스도</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>오늘의 교훈 (Application)</h3>
+                <p>우리는 매일의 삶 속에서 누구의 통치를 받으며 살아갈지 선택해야 합니다. 세상은 에스겔의 거짓 선지자들처럼 '괜찮다, 문제없다'는 달콤한 평강을 속삭이지만, 그 끝은 회칠한 담처럼 허무하게 무너질 것입니다. 부활의 주님은 우리에게 사망을 이기신 참된 승리와 평안을 주십니다. 그분의 통치 아래 거할 때, 우리는 시편 기자처럼 악인의 형통을 부러워하지 않고 하나님의 집에 있는 푸른 감람나무같이 흔들림 없는 생명력을 누릴 수 있습니다. 오늘, 나의 삶의 모든 영역에서 부활하신 주님의 의로운 통치를 인정하고, 그분의 말씀에 순종하며, 주의 일에 더욱 힘쓰는 견고한 믿음의 사람이 되기를 결단합시다.</p>
+                <p><strong>기도 제목:</strong></p>
+                <ul>
+                    <li>세상의 거짓된 평화가 아닌 부활의 주님이 주시는 참된 평안을 구하게 하소서.</li>
+                    <li>악인의 형통함에 마음이 흔들리지 않고, 오직 하나님의 의로운 통치와 인자하심을 신뢰하게 하소서.</li>
+                    <li>우리의 모든 수고가 주 안에서 헛되지 않음을 믿고, 오늘 하루도 주님의 나라를 위해 더욱 힘쓰는 삶을 살게 하소서.</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 맥체인 성경읽기. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // 1. YouTube IFrame API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var videoId = 'AyOJrASt9y4'; // 유튜브 비디오 ID 추출
+        var playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+
+        // 2. API 코드가 다운로드된 후 실행될 함수
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player-container', {
+                height: '0',
+                width: '0',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 3. 플레이어가 준비되었을 때 실행될 함수
+        function onPlayerReady(event) {
+            playPauseBtn.disabled = false;
+            playPauseBtn.classList.add('paused'); // 초기 상태: 일시정지 (재생 아이콘 보임)
+        }
+
+        // 4. 플레이어 상태가 변경될 때 실행될 함수
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playPauseBtn.classList.remove('paused'); // 재생 중: 일시정지 아이콘 보임
+            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+                playPauseBtn.classList.add('paused'); // 일시정지 또는 종료: 재생 아이콘 보임
+            }
+        }
+
+        // 5. 버튼 클릭 시 재생/일시정지 토글 함수
+        function togglePlayPause() {
+            if (player && typeof player.getPlayerState === 'function') {
+                var playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        
+        // 6. 스페이스바 키보드 이벤트 추가
+        document.addEventListener('keydown', function(event) {
+            // 입력 필드나 텍스트 영역에 포커스된 경우는 제외
+            if (event.target.tagName.toLowerCase() === 'input' || event.target.tagName.toLowerCase() === 'textarea') {
+                return;
+            }
+            if (event.code === 'Space') {
+                event.preventDefault(); // 페이지 스크롤 방지
+                togglePlayPause();
+            }
+        });
+    </script>
+</body>
+</html>

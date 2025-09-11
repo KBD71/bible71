@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 3일 맥체인 성경읽기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-book1: #4285F4; /* 파랑 */
+            --color-book2: #DB4437; /* 빨강 */
+            --color-book3: #F4B400; /* 노랑 */
+            --color-book4: #0F9D58; /* 초록 */
+            --color-integration: #808080; /* 회색 */
+            --background-light: #f2f5f8;
+            --text-dark: #333;
+            --text-light: #666;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title-section {
+            background-color: var(--background-light);
+            padding: 25px 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.2em;
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+        }
+
+        h1 .subtitle {
+            font-size: 0.7em;
+            color: var(--text-light);
+            font-weight: 400;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .intro-passage {
+            font-size: 1.1em;
+            color: var(--color-integration);
+            font-weight: 700;
+        }
+
+        .chapter-card {
+            border: 1px solid #e0e0e0;
+            border-left-width: 5px;
+            border-left-style: solid;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .card-book1 { border-left-color: var(--color-book1); }
+        .card-book2 { border-left-color: var(--color-book2); }
+        .card-book3 { border-left-color: var(--color-book3); }
+        .card-book4 { border-left-color: var(--color-book4); }
+        .integration-card { border-left-color: var(--color-integration); }
+
+        h2, h3 {
+            font-family: 'Noto Serif KR', serif;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--background-light);
+            padding-bottom: 10px;
+        }
+        
+        .bible-text strong {
+            display: block;
+            margin: 20px 0 10px 0;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+        .card-book1 .bible-text strong { color: var(--color-book1); }
+        .card-book2 .bible-text strong { color: var(--color-book2); }
+        .card-book3 .bible-text strong { color: var(--color-book3); }
+        .card-book4 .bible-text strong { color: var(--color-book4); }
+
+        .verse-number {
+            font-weight: bold;
+            color: var(--text-light);
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+
+        .bible-text p {
+            margin: 0 0 5px 0;
+        }
+        
+        .integration-card .analysis-section p {
+            margin-bottom: 1em;
+        }
+        .integration-card .analysis-section p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .key-verse {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--color-integration);
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        .svg-diagram {
+            width: 100%;
+            margin: 20px 0;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--background-light);
+            font-weight: 700;
+        }
+        
+        td b, th b {
+           font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .floating-controls {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+        }
+
+        #playPauseBtn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--color-book1);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #playPauseBtn:hover {
+            background-color: #357ae8;
+        }
+        #playPauseBtn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-section">
+            <h1>9월 3일 맥체인 성경읽기<br><span class="subtitle">세상 속의 성도, 어떻게 살 것인가?</span></h1>
+            <p class="intro-passage">삼상27 | 고전8 | 겔6 | 시44</p>
+        </div>
+
+        <!-- 1. 사무엘상 27장 -->
+        <div class="chapter-card card-book1">
+            <h2>사무엘상 27장: 블레셋으로 망명한 다윗</h2>
+            <h3>개요 (Overview)</h3>
+            <p>사울의 추격을 피해 더 이상 유다 땅에 머물 수 없다고 판단한 다윗은, 대담하게도 적국인 블레셋의 가드 왕 아기스에게로 망명을 결심합니다. 아기스는 그를 받아주고 시글락 성읍을 내어줍니다. 다윗은 그곳에서 1년 4개월간 머물며, 아기스를 속여 이스라엘의 적대 민족들을 치면서도 유다 남방을 공격한 것처럼 보고합니다. 아기스는 다윗을 완전히 신뢰하게 되지만, 다윗은 위험하고 불안정한 이중생활을 이어갑니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="12">
+                <g text-anchor="middle">
+                    <rect x="20" y="20" width="120" height="40" rx="5" fill="#e3f2fd" stroke="#4285F4"/>
+                    <text x="80" y="45">유다에서의 위협</text>
+
+                    <path d="M 145 40 H 255" stroke="#333" stroke-width="2" marker-end="url(#arrow-side)" />
+                    <text x="200" y="30">망명 결심 (1절)</text>
+
+                    <rect x="260" y="20" width="120" height="40" rx="5" fill="#fce4ec" stroke="#DB4437"/>
+                    <text x="320" y="45">블레셋에서의 생존</text>
+
+                    <rect x="50" y="100" width="300" height="60" rx="5" fill="#fef9e7" stroke="#f1c40f"/>
+                    <text x="200" y="120">아슬아슬한 이중생활 (8-12절)</text>
+                    <text x="200" y="145">(아기스를 속이고 이스라엘의 적을 공격)</text>
+                </g>
+                <defs>
+                    <marker id="arrow-side" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                    </marker>
+                </defs>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>다윗의 블레셋 망명은 신앙적 관점에서 매우 해석하기 어려운 부분입니다. 그가 하나님께 묻지 않고 스스로 판단하여 행동했기 때문입니다. 이는 명백한 불신앙의 모습으로 비칠 수 있습니다. 그러나 동시에 이는 극한의 상황 속에서 생존을 위해 최선의 전략을 택하는 인간적인 모습이기도 합니다. 개혁신학은 성도의 '성도의 견인' 교리를 가르치지만, 그것이 성도가 결코 넘어지거나 의심하지 않음을 의미하지는 않는다고 봅니다. 다윗의 이 시기는 하나님의 약속을 붙들면서도 현실의 위협 앞에서 연약함을 보이는, 성도의 복잡한 내면을 잘 보여줍니다. 그는 비록 불안정한 방법을 택했지만, 그 와중에도 이스라엘의 적들을 제거하는 하나님의 도구로 사용됩니다. 이는 인간의 연약함과 실수에도 불구하고 당신의 주권적인 계획을 이루어 가시는 하나님의 신실하심을 보여줍니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p><b>사무엘상 27:1</b> "다윗이 그 마음에 생각하기를 내가 후일에는 사울의 손에 붙잡히리니 블레셋 사람들의 땅으로 피하여 들어가는 것이 좋으리로다 사울이 이스라엘 온 영토 내에서 다시 나를 찾다가 단념하리니 내가 그의 손에서 벗어나리라 하고"</p>
+            <p>이 구절은 다윗의 행동이 기도가 아닌 '자기 마음의 생각'에서 비롯되었음을 명확히 보여줍니다. 그는 이전의 위기들 속에서 하나님께 묻고 응답을 받아 행동했지만, 계속되는 고난에 지쳐 이제는 인간적인 계산과 전략에 의존하고 있습니다. '후일에는 붙잡히리니'라는 그의 생각은 믿음의 관점이 아닌, 두려움에 기반한 비관적인 예측입니다. 칼빈은 이 부분을 인간의 연약함에 대한 예시로 설명하며, 아무리 위대한 성도라도 하나님의 특별한 도우심이 없으면 쉽게 두려움에 빠지고 잘못된 판단을 내릴 수 있음을 지적합니다. 매튜 헨리는 그럼에도 불구하고 이 결정이 결과적으로는 다윗의 생명을 보존하고 사울의 추격을 멈추게 한 하나님의 섭리 안에서 일어난 일임을 강조하며, 우리의 잘못된 선택조차 합력하여 선을 이루시는 하나님의 주권을 신뢰해야 한다고 말합니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>다윗이 블레셋으로 피하다</strong>
+                <p><span class="verse-number">1</span> 다윗이 그 마음에 생각하기를 내가 후일에는 사울의 손에 붙잡히리니 블레셋 사람들의 땅으로 피하여 들어가는 것이 좋으리로다 사울이 이스라엘 온 영토 내에서 다시 나를 찾다가 단념하리니 내가 그의 손에서 벗어나리라 하고</p>
+                <p><span class="verse-number">2</span> 다윗이 일어나 함께 있는 사람 육백 명과 더불어 가드 왕 마옥의 아들 아기스에게로 건너가니라</p>
+                <p><span class="verse-number">3</span> 다윗과 그의 사람들이 저마다 가족을 거느리고 가드에서 아기스와 동거하였는데 다윗이 그의 두 아내 이스르엘 여자 아히노암과 갈멜 여자 나발의 아내였던 아비가일과 함께 있었더니</p>
+                <p><span class="verse-number">4</span> 다윗이 가드에 도망한 것을 어떤 사람이 사울에게 전하매 사울이 다시는 그를 수색하지 아니하니라</p>
+                <p><span class="verse-number">5</span> 다윗이 아기스에게 이르되 바라건대 내가 당신께 은혜를 입었다면 지방 성읍 가운데 한 곳을 내게 주어 내가 살게 하소서 당신의 종이 어찌 당신과 함께 왕도에 살리이까 하니</p>
+                <p><span class="verse-number">6</span> 아기스가 그 날에 시글락을 그에게 주었으므로 시글락이 오늘까지 유다 왕에게 속하니라</p>
+                <p><span class="verse-number">7</span> 다윗이 블레셋 사람들의 지방에 산 날 수는 일 년 사 개월이었더라</p>
+                <strong>아기스를 속이는 다윗</strong>
+                <p><span class="verse-number">8</span> 다윗과 그의 사람들이 올라가서 그술 사람과 기르스 사람과 아말렉 사람을 침노하였으니 그들은 옛적부터 술과 애굽 땅으로 지나가는 지방의 주민이라</p>
+                <p><span class="verse-number">9</span> 다윗이 그 땅을 쳐서 남녀를 살려두지 아니하고 양과 소와 나귀와 낙타와 의복을 빼앗아 가지고 돌아와 아기스에게 이르매</p>
+                <p><span class="verse-number">10</span> 아기스가 이르되 너희가 오늘은 누구를 침노하였느냐 하니 다윗이 이르되 유다 네겝과 여라무엘 사람의 네겝과 겐 사람의 네겝이니이다 하였더라</p>
+                <p><span class="verse-number">11</span> 다윗이 그 남녀를 살려서 가드로 데려가지 아니한 것은 그의 생각에 그들이 우리에게 대하여 이르기를 다윗이 행한 일이 이러하니라 하여 블레셋 사람들의 지방에 거주하는 동안에 이같이 행하는 습관이 있었다 할까 두려워함이었더라</p>
+                <p><span class="verse-number">12</span> 아기스가 다윗을 믿고 말하기를 다윗이 자기 백성 이스라엘에게 심히 미움을 받게 되었으니 그는 영원히 내 부하가 되리라고 생각하니라</p>
+            </div>
+        </div>
+
+        <!-- 2. 고린도전서 8장 -->
+        <div class="chapter-card card-book2">
+            <h2>고린도전서 8장: 지식과 사랑</h2>
+            <h3>개요 (Overview)</h3>
+            <p>바울은 우상에게 바쳐졌던 음식을 먹는 문제에 대해 다룹니다. 그는 '우상은 세상에 아무것도 아니며 하나님은 한 분뿐'이라는 지식을 성도들이 가지고 있음을 인정합니다. 그러나 그는 그 지식이 전부가 아니라고 말합니다. 그 지식만으로는 교만해질 수 있으며, 더 중요한 원리는 '사랑'이라고 강조합니다. 만약 나의 지식과 자유가 믿음이 약한 형제를 실족하게 만든다면, 그것은 그리스도께 죄를 짓는 것이므로, 차라리 그 음식을 영원히 먹지 않겠다고 선언합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="14">
+                <g text-anchor="middle">
+                    <path d="M 50 100 L 150 50 L 250 150 L 350 100" fill="none" stroke="#ccc" stroke-width="2" />
+                    
+                    <circle cx="75" cy="150" r="40" fill="#fce4ec"/>
+                    <text x="75" y="155">지식</text>
+                    <text x="75" y="175" font-size="10">(교만하게 함)</text>
+
+                    <circle cx="325" cy="50" r="40" fill="#e3f2fd"/>
+                    <text x="325" y="55">사랑</text>
+                    <text x="325" y="75" font-size="10">(덕을 세움)</text>
+                    
+                    <text x="200" y="30" font-size="18" font-weight="bold">지식 vs 사랑</text>
+                    
+                    <rect x="125" y="95" width="150" height="40" rx="5" fill="#fffbe9" stroke="#F4B400"/>
+                    <text x="200" y="120">판단 기준: 약한 형제 (9, 13절)</text>
+                </g>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>고린도는 수많은 신전이 있는 우상숭배의 중심지였습니다. 시장에 유통되는 고기 대부분은 신전에 바쳐졌다가 나온 것이었고, 사회적 교제나 행사도 신전에서 열리는 경우가 많았습니다. 따라서 '우상의 제물을 먹는 문제'는 고린도 성도들에게 매우 실제적인 고민이었습니다. 신학적으로 성숙한 성도들은 우상이 헛것임을 알았기에 거리낌 없이 먹을 수 있었지만, 우상숭배에 대한 트라우마가 있거나 믿음이 연약한 성도들에게는 그것이 과거의 죄를 떠올리게 하는 고통스러운 일이었습니다. 바울은 여기서 '아디아포라'(Adiaphora, 신앙의 본질이 아닌 문제)에 대한 개혁신학의 중요한 원리를 제시합니다. 즉, 성경이 명확히 금하지 않은 문제에 대해서는 성도에게 자유가 주어지지만, 그 자유의 사용은 반드시 '사랑'과 '덕을 세우는 것'이라는 더 상위의 원리에 의해 통제되어야 한다는 것입니다. 그리스도인의 자유는 방종이 아니라, 이웃을 섬기기 위한 책임 있는 자유입니다.</p>
+            
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p><b>고린도전서 8:1, 9</b> "우상의 제물에 대하여는 우리가 다 지식이 있는 줄을 아나 지식은 교만하게 하며 사랑은 덕을 세우나니... 그런즉 너희의 자유가 믿음이 약한 자들에게 걸려 넘어지게 하는 것이 되지 않도록 조심하라"</p>
+            <p>바울은 문제의 핵심이 신학적 지식의 '유무'가 아니라 그 지식을 '어떻게 사용하느냐'에 있음을 분명히 합니다. '지식은 교만하게 하며 사랑은 덕을 세운다'는 이 선언은 기독교 윤리의 대원칙입니다. 올바른 신학적 지식은 필수적이지만, 그것이 사랑 안에서 사용되지 않을 때 공동체를 파괴하는 무기가 될 수 있습니다. '너희의 자유'는 신학적으로는 정당하지만, 그 자유가 연약한 형제에게 '걸림돌'이 된다면 그것은 더 이상 거룩한 자유가 아니라는 것입니다. 칼빈은 이 구절을 통해 성도의 모든 행동이 자기 자신의 양심뿐만 아니라, 다른 지체의 유익을 고려해야 할 의무 아래 있음을 역설합니다. 우리의 자유는 그리스도께서 피로 사신 연약한 형제를 실족시킬 권리가 아니라, 그를 세워줄 책임으로 주어졌습니다. 매튜 헨리는 이웃의 영적 안녕을 해치면서까지 자신의 자유를 주장하는 것은 결국 그리스도께 죄를 짓는 행위임을 바울이 경고한다고 설명합니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>우상의 제물에 대하여</strong>
+                <p><span class="verse-number">1</span> 우상의 제물에 대하여는 우리가 다 지식이 있는 줄을 아나 지식은 교만하게 하며 사랑은 덕을 세우나니</p>
+                <p><span class="verse-number">2</span> 만일 누구든지 무엇을 아는 줄로 생각하면 아직도 마땅히 알 것을 알지 못하는 것이요</p>
+                <p><span class="verse-number">3</span> 또 누구든지 하나님을 사랑하면 그 사람은 하나님도 알아 주시느니라</p>
+                <p><span class="verse-number">4</span> 그러므로 우상의 제물을 먹는 일에 대하여는 우리가 우상은 세상에 아무 것도 아니며 또한 하나님은 한 분밖에 없는 줄 아노라</p>
+                <p><span class="verse-number">5</span> 비록 하늘에나 땅에나 신이라 불리는 자가 있어 많은 신과 많은 주가 있으나</p>
+                <p><span class="verse-number">6</span> 그러나 우리에게는 한 하나님 곧 아버지가 계시니 만물이 그에게서 났고 우리도 그를 위하여 있고 또한 한 주 예수 그리스도께서 계시니 만물이 그로 말미암고 우리도 그로 말미암아 있느니라</p>
+                <strong>믿음이 약한 형제를 위한 배려</strong>
+                <p><span class="verse-number">7</span> 그러나 이 지식은 모든 사람에게 있는 것은 아니므로 어떤 이들은 지금까지 우상에 대한 습관이 있어 우상의 제물로 알고 먹는 고로 그들의 양심이 약하여지고 더러워지느니라</p>
+                <p><span class="verse-number">8</span> 음식은 우리를 하나님 앞에 내세우지 못하나니 우리가 먹지 않는다고 해서 더 못사는 것도 아니고 먹는다고 해서 더 잘사는 것도 아니니라</p>
+                <p><span class="verse-number">9</span> 그런즉 너희의 자유가 믿음이 약한 자들에게 걸려 넘어지게 하는 것이 되지 않도록 조심하라</p>
+                <p><span class="verse-number">10</span> 지식 있는 네가 우상의 집에 앉아 먹는 것을 누구든지 보면 그 믿음이 약한 자들의 양심이 담력을 얻어 우상의 제물을 먹게 되지 않겠느냐</p>
+                <p><span class="verse-number">11</span> 그러면 네 지식으로 그 믿음이 약한 자가 멸망하나니 그는 그리스도께서 위하여 죽으신 형제라</p>
+                <p><span class="verse-number">12</span> 이같이 너희가 형제에게 죄를 지어 그 약한 양심을 상하게 하는 것이 곧 그리스도에게 죄를 짓는 것이니라</p>
+                <p><span class="verse-number">13</span> 그러므로 만일 음식이 내 형제를 실족하게 한다면 나는 영원히 고기를 먹지 아니하여 내 형제를 실족하지 않게 하리라</p>
+            </div>
+        </div>
+
+        <!-- 3. 에스겔 6장 -->
+        <div class="chapter-card card-book3">
+            <h2>에스겔 6장: 우상숭배에 대한 심판</h2>
+            <h3>개요 (Overview)</h3>
+            <p>하나님은 에스겔에게 이스라엘의 산들을 향하여 우상숭배에 대한 심판을 예언하라고 명령하십니다. 하나님은 이스라엘 백성들이 온갖 우상을 섬기던 '산당'과 '제단'들을 철저히 파괴하실 것입니다. 수많은 사람들이 칼과 기근과 전염병으로 죽임을 당할 것이며, 살아남은 자들은 포로로 잡혀가서야 비로소 자신들의 음란한 우상숭배가 얼마나 하나님을 근심하게 한 죄였는지를 깨닫고 스스로를 미워하게 될 것입니다. 이 모든 심판을 통해 하나님은 자신이 헛된 우상이 아닌, 말씀하신 바를 반드시 이루는 여호와이심을 알게 하실 것이라고 선포합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="12">
+                <g text-anchor="middle">
+                    <rect x="125" y="10" width="150" height="30" rx="5" fill="#fffbe9" stroke="#F4B400"/>
+                    <text x="200" y="30">이스라엘의 죄: 우상숭배 (3-6절)</text>
+                    
+                    <path d="M 200 45 V 65" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow-down)" />
+                    
+                    <rect x="125" y="70" width="150" height="30" rx="5" fill="#fadbd8" stroke="#DB4437"/>
+                    <text x="200" y="90">하나님의 심판: 파괴 (4-7절)</text>
+                    
+                    <path d="M 200 105 V 125" stroke="#0F9D58" stroke-width="2" marker-end="url(#arrow-down-green)" />
+                    
+                    <rect x="50" y="130" width="300" height="40" rx="5" fill="#e8f5e9" stroke="#0F9D58"/>
+                    <text x="200" y="155">심판의 목적: 회개와 하나님을 아는 지식 (8-10절)</text>
+                </g>
+                <defs>
+                    <marker id="arrow-down-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#0F9D58" />
+                    </marker>
+                </defs>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>'산당'(high places)은 본래 가나안 족속의 우상숭배 장소였으나, 이스라엘 백성들이 이를 그대로 받아들여 하나님과 우상을 섞어 섬기는 혼합주의의 온상이 되었습니다. 하나님께서 지정하신 예루살렘 성전 외의 장소에서 드리는 예배는 그 자체로 불순종이었습니다. 에스겔의 예언은 이러한 종교적 타협과 혼합주의가 하나님 보시기에 얼마나 가증한 죄인지를 보여줍니다. 개혁신학의 관점에서 우상숭배는 단순히 나무나 돌 앞에 절하는 행위를 넘어, 하나님의 자리에 다른 어떤 것을 올려놓는 모든 행위를 포함합니다. 하나님은 심판을 통해 이스라엘이 의지하던 거짓 신들을 철저히 무력화시키십니다. '남은 자' 사상은 여기서도 중요하게 나타납니다. 심판 중에도 하나님은 소수의 남은 자를 통해 회개의 역사를 이루시고, 그들로 하여금 참 하나님이 누구신지 알게 하심으로써 새로운 시작을 준비하십니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p><b>에스겔 6:9</b> "너희 중에서 살아남은 자가 사로잡혀 이방인들 가운데에 가서 나를 기억하되 그들이 음란한 마음으로 나를 떠나고 음란한 눈으로 우상을 섬겨 나를 근심하게 한 것을 기억하고 스스로 한탄하리니 이는 그 모든 가증한 일로 말미암음이라"</p>
+            <p>이 구절은 하나님의 심판이 단순한 징벌을 넘어, 영적 각성과 참된 회개로 이끄는 목적을 가지고 있음을 보여줍니다. 포로가 되는 고통 속에서 비로소 이스라엘은 과거의 죄를 '기억'하게 됩니다. 여기서 우상숭배는 '음란함'으로 묘사되는데, 이는 하나님과의 언약 관계를 저버린 영적 간음임을 강조하는 표현입니다. 특히 '나를 근심하게 한 것'이라는 부분은 죄가 하나님의 마음을 아프게 하는 인격적인 배신임을 드러냅니다. 참된 회개는 죄로 인한 형벌이 두려워서가 아니라, 죄 자체가 얼마나 하나님을 근심하게 하고 스스로를 더럽혔는지를 깨닫고 '스스로 한탄'하는 데서 시작됩니다. 칼빈은 이 구절이 징계의 유익을 보여준다고 설명하며, 하나님은 고난이라는 쓴 약을 통해 자기 백성의 영혼을 치유하시고 당신과의 관계를 회복시키신다고 말합니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>이스라엘의 산들을 향한 예언</strong>
+                <p><span class="verse-number">1</span> 여호와의 말씀이 내게 임하여 이르시되</p>
+                <p><span class="verse-number">2</span> 인자야 너는 이스라엘 산들을 향하여 그들에게 예언하여</p>
+                <p><span class="verse-number">3</span> 이르기를 이스라엘 산들아 주 여호와의 말씀을 들으라 주 여호와께서 산과 언덕과 시내와 골짜기를 향하여 이같이 말씀하시기를 나 곧 내가 칼이 너희에게 임하게 하여 너희 산당을 멸하리니</p>
+                <p><span class="verse-number">4</span> 너희 제단들이 황폐하고 분향제단들이 깨뜨려질 것이며 내가 또 너희 중에서 죽임을 당하여 너희 우상들 앞에 엎드러지게 할 것이라</p>
+                <p><span class="verse-number">5</span> 이스라엘 자손의 시체를 그 우상들 앞에 두며 너희 해골을 너희 제단 사방에 흩으리라</p>
+                <p><span class="verse-number">6</span> 내가 너희가 거주하는 모든 성읍이 사막이 되게 하며 산당을 황폐하게 하리니 이는 너희 제단이 깨어지고 황폐하며 너희 우상들이 깨어져 없어지며 너희 분향제단들이 찍히며 너희가 만든 것이 폐하여지며</p>
+                <p><span class="verse-number">7</span> 또 너희가 죽임을 당하여 엎드러지게 하여 내가 여호와인 줄을 너희가 알게 하려 함이라</p>
+                <strong>남은 자들</strong>
+                <p><span class="verse-number">8</span> 그러나 내가 너희를 여러 나라 가운데에 흩을 때에 이방인들 중에서 칼을 피하여 살아남은 자가 있게 할지라</p>
+                <p><span class="verse-number">9</span> 너희 중에서 살아남은 자가 사로잡혀 이방인들 가운데에 가서 나를 기억하되 그들이 음란한 마음으로 나를 떠나고 음란한 눈으로 우상을 섬겨 나를 근심하게 한 것을 기억하고 스스로 한탄하리니 이는 그 모든 가증한 일로 말미암음이라</p>
+                <p><span class="verse-number">10</span> 그 때에야 그들이 내가 여호와인 줄을 알리라 내가 이런 재앙을 그들에게 내리겠다 한 말이 헛되지 아니하리라</p>
+                <p><span class="verse-number">11</span> 주 여호와께서 이같이 이르시되 너는 손뼉을 치고 발을 구르며 말할지어다 오호라 이스라엘 족속이 모든 가증한 악을 행하므로 마침내 칼과 기근과 전염병에 망하되</p>
+                <p><span class="verse-number">12</span> 먼 데 있는 자는 전염병에 죽고 가까운 데 있는 자는 칼에 엎드러지고 남아 있어 에워싸인 자는 기근에 죽으리라 이같이 내 진노를 그들에게 이룬즉</p>
+                <p><span class="verse-number">13</span> 그 죽임 당한 시체들이 그 우상들 사이에, 제단 사방에, 모든 푸른 나무 아래에, 잎이 무성한 모든 상수리나무 아래 곧 그 우상에게 분향하던 곳에 있으리니 내가 여호와인 줄을 너희가 알리라</p>
+                <p><span class="verse-number">14</span> 내가 내 손을 그들의 위에 펴서 그가 거주하는 온 땅 곧 광야에서부터 디블라까지 황량하고 황폐하게 하리니 내가 여호와인 줄을 그들이 알리라</p>
+            </div>
+        </div>
+
+        <!-- 4. 시편 44편 -->
+        <div class="chapter-card card-book4">
+            <h2>시편 44편: 버림받음의 탄식</h2>
+            <h3>개요 (Overview)</h3>
+            <p>시편 44편은 공동체의 탄식 시입니다. 시인은 먼저 과거에 조상들에게 베푸셨던 하나님의 위대한 구원 역사를 회상하며 찬양합니다. 그러나 현재 그들은 대적에게 패배하고 온갖 수치와 조롱을 당하는 고통스러운 현실에 처해 있습니다. 시인은 자신들이 하나님을 잊거나 언약을 어기지 않았음에도 불구하고 이런 고난을 겪는 것에 대해 깊은 의문과 고통을 토로하며, 잠들어 계신 것 같은 하나님께 깨어나셔서 그들을 구원해달라고 간절히 부르짖습니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="12">
+                <g>
+                    <rect x="20" y="20" width="160" height="50" rx="5" fill="#e8f5e9" stroke="#0F9D58"/>
+                    <text x="100" y="50" text-anchor="middle">과거: 승리의 역사 (1-8절)</text>
+
+                    <rect x="220" y="20" width="160" height="50" rx="5" fill="#ffebee" stroke="#DB4437"/>
+                    <text x="300" y="50" text-anchor="middle">현재: 패배와 수치 (9-16절)</text>
+                    
+                    <path d="M 100 75 V 105" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-down)" />
+                    <path d="M 300 75 V 105" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-down)" />
+                    
+                    <rect x="20" y="110" width="360" height="40" rx="5" fill="#e3f2fd" stroke="#4285F4"/>
+                    <text x="200" y="135" text-anchor="middle">우리의 의로움 주장 (17-22절) vs 하나님의 침묵</text>
+
+                    <rect x="125" y="160" width="150" height="30" rx="15" fill="#f3e5f5" stroke="#8e44ad"/>
+                    <text x="200" y="180" text-anchor="middle">구원을 향한 부르짖음 (23-26절)</text>
+                </g>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>이 시편은 '왜 의인이 고난을 받는가?'라는 욥의 질문을 공동체적 차원으로 확장합니다. 시인은 고난의 원인을 자신들의 죄에서 찾지 않고, 오히려 언약에 대한 신실함을 주장합니다. 이는 신명기적 역사관(순종=축복, 불순종=저주)으로는 설명되지 않는 고통의 현실을 반영합니다. 개혁신학에서 이 시는 '하나님의 숨어계심'(Deus absconditus)이라는 주제를 다룹니다. 때로 하나님은 그의 백성들이 이해할 수 없는 이유로 고통을 허락하시고 침묵하시는 것처럼 보입니다. 그러나 이러한 탄식 시가 성경에 포함된 것 자체가, 하나님께서 그의 백성들이 겪는 고통과 의심, 심지어 원망까지도 기도의 한 형태로 받아주신다는 것을 의미합니다. 신앙은 언제나 명확한 해답을 갖는 것이 아니라, 이해할 수 없는 상황 속에서도 포기하지 않고 하나님께 부르짖는 끈질긴 관계입니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p><b>시편 44:23-24</b> "주여 깨소서 어찌하여 주무시나이까 일어나시고 우리를 영원히 버리지 마소서 어찌하여 주의 얼굴을 가리시고 우리의 고난과 압제를 잊으시나이까"</p>
+            <p>이 구절은 시인의 고통과 절박함이 최고조에 달한 부르짖음입니다. 하나님이 '주무신다'거나 '잊으신다'는 표현은 신학적으로는 사실이 아니지만, 고통받는 인간의 입장에서 느끼는 극심한 단절감과 절망을 표현하는 강력한 시적 언어입니다. 이는 하나님을 향한 불경이 아니라, 오히려 하나님만이 이 상황을 해결하실 수 있다는 깊은 신뢰를 전제로 한 처절한 호소입니다. 칼빈은 이 기도가 불신앙의 표현이 아니라, 오히려 하나님의 약속을 붙들고 그 약속을 이루어달라고 끈질기게 매달리는 믿음의 행동이라고 해석합니다. 성도는 하나님의 침묵 앞에서 체념하는 것이 아니라, 오히려 더 큰 소리로 그분의 이름을 부르며 그의 얼굴을 구해야 합니다. 이 기도는 고통 속에서 하나님과의 관계를 포기하지 않으려는 거룩한 몸부림입니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>과거의 구원을 회상하며 드리는 기도</strong>
+                <p><span class="verse-number">1</span> 하나님이여 주께서 우리 조상들의 날 곧 옛날에 행하신 일을 그들이 우리에게 일러 주매 우리가 우리 귀로 들었나이다</p>
+                <p><span class="verse-number">2</span> 주께서 주의 손으로 뭇 백성을 내쫓으시고 우리 조상들을 이 땅에 뿌리 박게 하시며 주께서 다른 민족들은 고달프게 하시고 우리 조상들은 번성하게 하셨나이다</p>
+                <p><span class="verse-number">3</span> 그들이 자기 칼로 땅을 얻음이 아니요 그들의 팔이 그들을 구원함도 아니라 오직 주께서 그들을 기뻐하시는 고로 주의 오른손과 주의 팔과 주의 얼굴의 빛으로 하셨나이다</p>
+                <p><span class="verse-number">4</span> 하나님이여 주는 나의 왕이시니 야곱에게 구원을 베푸소서</p>
+                <p><span class="verse-number">5</span> 우리가 주를 의지하여 우리 대적을 누르고 우리를 치러 일어나는 자를 주의 이름으로 밟으리이다</p>
+                <p><span class="verse-number">6</span> 나는 내 활을 의지하지 아니할 것이라 내 칼도 나를 구원하지 못하리이다</p>
+                <p><span class="verse-number">7</span> 오직 주께서 우리를 우리 원수들에게서 구원하시고 우리를 미워하는 자로 수치를 당하게 하셨나이다</p>
+                <p><span class="verse-number">8</span> 우리가 종일 하나님을 자랑하였나이다 우리는 주의 이름에 영원히 감사하리이다 (셀라)</p>
+                <strong>현재의 고난을 탄식함</strong>
+                <p><span class="verse-number">9</span> 그러나 이제는 주께서 우리를 버려 욕을 당하게 하시고 우리 군대와 함께 나아가지 아니하시나이다</p>
+                <p><span class="verse-number">10</span> 주께서 우리를 대적에게서 돌아서게 하시니 우리를 미워하는 자가 자기를 위하여 탈취하였나이다</p>
+                <p><span class="verse-number">11</span> 주께서 우리를 잡아먹힐 양처럼 그들에게 넘겨 주시고 여러 민족 중에 우리를 흩으셨나이다</p>
+                <p><span class="verse-number">12</span> 주께서 주의 백성을 헐값으로 파심이여 그들을 판 값으로 이익을 얻지 못하셨나이다</p>
+                <p><span class="verse-number">13</span> 주께서 우리로 하여금 이웃에게 욕을 당하게 하시니 그들이 우리를 둘러싸고 조소하고 조롱하나이다</p>
+                <p><span class="verse-number">14</span> 주께서 우리를 뭇 백성 중에 이야기거리가 되게 하시며 민족 중에서 머리 흔듦을 당하게 하셨나이다</p>
+                <p><span class="verse-number">15</span> 나의 능욕이 종일 내 앞에 있으며 수치가 내 얼굴을 덮었으니</p>
+                <p><span class="verse-number">16</span> 나를 비방하고 욕하는 소리 때문이요 나의 원수와 나의 복수자 때문이니이다</p>
+                <strong>언약에 신실했음을 아룀</strong>
+                <p><span class="verse-number">17</span> 이 모든 일이 우리에게 임하였으나 우리가 주를 잊지 아니하며 주의 언약을 어기지 아니하였나이다</p>
+                <p><span class="verse-number">18</span> 우리의 마음은 위축되지 아니하고 우리 걸음도 주의 길을 떠나지 아니하였으나</p>
+                <p><span class="verse-number">19</span> 주께서 우리를 승냥이의 처소에 밀어 넣으시고 우리를 사망의 그늘로 덮으셨나이다</p>
+                <p><span class="verse-number">20</span> 우리가 우리 하나님의 이름을 잊어버렸거나 우리 손을 이방 신에게 향하여 폈더면</p>
+                <p><span class="verse-number">21</span> 하나님이 이를 알아내지 아니하셨으리이까 무릇 주는 마음의 비밀을 아시나이다</p>
+                <p><span class="verse-number">22</span> 우리가 종일 주를 위하여 죽임을 당하게 되며 도살할 양 같이 여김을 받았나이다</p>
+                <strong>구원을 간구함</strong>
+                <p><span class="verse-number">23</span> 주여 깨소서 어찌하여 주무시나이까 일어나시고 우리를 영원히 버리지 마소서</p>
+                <p><span class="verse-number">24</span> 어찌하여 주의 얼굴을 가리시고 우리의 고난과 압제를 잊으시나이까</p>
+                <p><span class="verse-number">25</span> 무릇 우리의 영혼은 진토 속에 파묻히고 우리 몸은 땅에 붙었나이다</p>
+                <p><span class="verse-number">26</span> 일어나 우리를 도우소서 주의 인자하심으로 말미암아 우리를 구원하소서</p>
+            </div>
+        </div>
+        
+        <!-- 5. 통합적 이해 -->
+        <div class="chapter-card integration-card">
+            <h2>통합적 이해</h2>
+            
+            <h3>관통하는 주제: 세상 속의 성도, 어떻게 살 것인가?</h3>
+            <div class="analysis-section">
+                <p>오늘의 네 본문은 모두 '세상 속에서 살아가는 하나님의 백성'이라는 공통된 상황을 다루지만, 그에 대한 반응은 극명하게 갈립니다. 다윗은 적국 블레셋 땅에서 생존을 위해 아슬아슬한 줄타기를 하고, 에스겔이 경고하는 이스라엘은 세상의 방식(산당)을 따라가다 결국 파멸에 이릅니다. 이 두 모습은 세상과의 타협이 가져오는 위험성을 보여줍니다. 반면 바울은 우상숭배가 만연한 도시 고린도에서 '지식'이 아닌 '사랑'을 기준으로 행동할 것을 가르치며, 성숙한 신앙의 길을 제시합니다. 시편 기자는 세상의 조롱과 압제 속에서 이해할 수 없는 고난을 겪지만, 절망 속에서도 하나님을 향한 기도를 포기하지 않습니다. 이 본문들은 우리에게 세상 속에서 어떻게 믿음의 정체성을 지키며 살아갈 것인지 묻습니다. 우리는 생존을 위해 다윗처럼 위험한 타협을 하고 있는가? 이스라엘처럼 세상의 가치관과 신앙을 섞어버렸는가? 아니면 바울처럼 사랑을 위해 나의 자유를 내려놓고, 시편 기자처럼 이해할 수 없는 상황에서도 끝까지 하나님께 부르짖고 있는가?</p>
+            </div>
+
+            <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="10">
+                 <style>
+                    .box { stroke-width: 1; rx: 5; }
+                    .situation { fill: #fef9e7; stroke: #F4B400; }
+                    .response-bad { fill: #ffebee; stroke: #DB4437; }
+                    .response-good { fill: #e8f5e9; stroke: #0F9D58; }
+                    .arrow { marker-end: url(#arrow); stroke: #555; stroke-width: 1.5; fill: none;}
+                </style>
+                <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#555" />
+                    </marker>
+                </defs>
+                <g text-anchor="middle">
+                    <rect class="box situation" x="100" y="20" width="200" height="40"/>
+                    <text x="200" y="45">상황: 세상 속의 성도</text>
+                    
+                    <path class="arrow" d="M 200 65 V 95" />
+                    
+                    <rect class="box response-bad" x="20" y="100" width="160" height="60"/>
+                    <text x="100" y="125">잘못된 대응: 타협과 우상숭배</text>
+                    <text x="100" y="145">(삼상27, 겔6)</text>
+
+                    <rect class="box response-good" x="220" y="100" width="160" height="60"/>
+                    <text x="300" y="125">올바른 대응: 사랑과 기도</text>
+                    <text x="300" y="145">(고전8, 시44)</text>
+
+                    <path class="arrow" d="M 100 165 V 205" />
+                    <path class="arrow" d="M 300 165 V 205" />
+                    
+                    <rect class="box" x="120" y="210" width="160" height="60" fill="#e3f2fd" stroke="#4285F4" />
+                    <text x="200" y="235">궁극적 모범과 해답</text>
+                    <text x="200" y="255">예수 그리스도</text>
+                </g>
+            </svg>
+
+            <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
+            <div class="analysis-section">
+                <p>오늘의 본문들은 세상 속에서 분투하는 하나님 백성의 모습을 통해, 궁극적인 해결자이신 예수 그리스도를 드러냅니다.</p>
+                <p>사무엘상 27편에서 기름 부음받은 왕 다윗이 적국에 망명하여 불안정한 삶을 사는 모습은, 장차 오실 참된 왕이신 그리스도께서 자기 땅에 오셨으나 백성들에게 배척당하고 세상에서 나그네처럼 사셨던 모습을 예표합니다. 다윗의 인간적인 연약함과 불완전함은 우리에게 완전한 왕이신 예수 그리스도의 필요성을 더욱 절실하게 합니다.</p>
+                <p>에스겔 6장의 우상숭배에 대한 심판은 율법 아래 있는 인간이 얼마나 쉽게 하나님과의 언약을 깨뜨리는지를 보여줍니다. 이스라엘이 산당에서 드렸던 헛된 제사들은, 단번에 영원한 속죄를 이루실 그리스도의 십자가 희생 제사의 유일함과 완전함을 대조적으로 비춥니다. 그리스도는 모든 거짓된 산당을 폐하시고 자신이 하나님께 나아가는 유일한 길이 되셨습니다.</p>
+                <p>고린도전서 8장에서 바울이 제시하는 사랑의 원리는, 자신의 모든 권리와 신적 영광을 버리고 연약한 우리를 위해 스스로 종이 되신 그리스도의 성육신과 십자가에서 그 절정을 이룹니다. 그리스도는 자신의 자유로 우리를 섬기신 사랑의 최고 모범이십니다.</p>
+                <p>시편 44편에서 언약 백성이 겪는 이유 없는 고난과 하나님께 버림받은 듯한 절규는, 십자가 위에서 "나의 하나님, 나의 하나님, 어찌하여 나를 버리셨나이까"라고 외치셨던 그리스도의 고통을 통해 궁극적으로 성취되고 응답됩니다. 그리스도는 우리의 모든 탄식을 자신의 몸에 지시고, 우리에게 영원한 구원과 위로를 주셨습니다.</p>
+            </div>
+
+            <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>본문</th>
+                        <th>세상과의 관계</th>
+                        <th>행동의 기준</th>
+                        <th>하나님을 향한 태도</th>
+                        <th>결과/소망</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>삼상 27</b></td>
+                        <td>적극적 망명 (타협)</td>
+                        <td>인간적 판단, 생존 전략</td>
+                        <td>하나님께 묻지 않음</td>
+                        <td>불안정한 평안, 위험</td>
+                    </tr>
+                    <tr>
+                        <td><b>고전 8</b></td>
+                        <td>세상 문화 속 분별</td>
+                        <td>지식보다 사랑, 형제의 유익</td>
+                        <td>하나님과 형제를 사랑함</td>
+                        <td>덕을 세움, 공동체 보호</td>
+                    </tr>
+                    <tr>
+                        <td><b>겔 6</b></td>
+                        <td>세상 방식 모방 (혼합주의)</td>
+                        <td>자기 만족, 음란한 마음</td>
+                        <td>하나님을 떠나 우상을 섬김</td>
+                        <td>심판, (남은 자의) 회개</td>
+                    </tr>
+                    <tr>
+                        <td><b>시 44</b></td>
+                        <td>세상으로부터의 핍박</td>
+                        <td>과거의 언약, 신실함</td>
+                        <td>이해할 수 없으나 부르짖음</td>
+                        <td>하나님의 구원을 간구</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>오늘의 교훈 (Application)</h3>
+            <div class="analysis-section">
+                <p>우리는 수많은 가치관이 혼재하는 세상 속에서 살아갑니다. 오늘 말씀은 우리에게 어떤 타협은 생존을 위한 지혜처럼 보이지만 결국 영혼을 위험에 빠뜨리고(다윗), 어떤 타협은 명백히 하나님을 배신하는 우상숭배(이스라엘)가 됨을 경고합니다. 우리의 신앙생활은 단순히 '무엇이 옳고 그른가'를 아는 지식의 문제가 아니라, 그 지식을 '어떻게 사랑으로 실천하는가'의 문제입니다. 혹시 나의 신앙적 지식이나 자유가 믿음이 연약한 누군가에게 상처를 주고 있지는 않습니까? 또한, 신실하게 살아가려 노력함에도 불구하고 시편 기자처럼 이해할 수 없는 고난과 하나님의 침묵을 경험할 때가 있습니다. 오늘 말씀은 그런 우리에게 포기하지 말고, 끝까지 하나님께 우리의 아픔과 질문을 정직하게 쏟아놓으라고 격려합니다. 우리의 불완전한 지혜와 연약한 믿음을 모두 아시는 주님은, 오늘도 사랑으로 우리를 세우시고 기도를 통해 당신을 만나게 하실 것입니다.</p>
+            </div>
+        </div>
+
+        <footer>
+            © 2025 KBD 맥체인 성경읽기 프로젝트
+        </footer>
+    </div>
+
+    <div class="floating-controls">
+        <audio id="audioPlayer" src="https://sen0991-my.sharepoint.com/:u:/g/personal/mathtox_munhyeon_hs_kr/EcUY44IKcqxLld3PxTMQJAABbtcFfufcEYe3CWMZofGEFQ?download=1"></audio>
+        <button id="playPauseBtn">▶</button>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playPauseBtn.innerHTML = '❚❚';
+            } else {
+                audioPlayer.pause();
+                playPauseBtn.innerHTML = '▶';
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
+
+        document.body.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' && event.target === document.body) {
+                event.preventDefault();
+                togglePlayPause();
+            }
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            playPauseBtn.innerHTML = '▶';
+        });
+    </script>
+</body>
+</html>

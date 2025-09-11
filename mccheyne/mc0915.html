@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 15일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+        :root {
+            --color-book1: #4A90E2; /* Blue */
+            --color-book2: #50E3C2; /* Teal */
+            --color-book3: #B86BFF; /* Purple */
+            --color-book4: #F5A623; /* Orange */
+            --color-integration: #4A4A4A; /* Charcoal */
+            --background-light: #F8F9FA;
+            --text-color: #333;
+            --text-light: #555;
+            --border-color: #E9ECEF;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title-section {
+            background-color: var(--background-light);
+            padding: 25px 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: var(--text-color);
+        }
+
+        h1 .subtitle {
+            font-size: 0.5em;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .intro-passage {
+            font-size: 1.1em;
+            color: var(--text-light);
+            font-weight: 700;
+        }
+
+        .chapter-card {
+            margin-bottom: 35px;
+            border-left: 5px solid;
+            padding: 20px 30px;
+            background-color: #fff;
+            border-radius: 0 8px 8px 0;
+            border: 1px solid var(--border-color);
+            border-left-width: 5px;
+        }
+
+        .card-book1 { border-left-color: var(--color-book1); }
+        .card-book2 { border-left-color: var(--color-book2); }
+        .card-book3 { border-left-color: var(--color-book3); }
+        .card-book4 { border-left-color: var(--color-book4); }
+        .integration-card { border-left-color: var(--color-integration); }
+
+        .chapter-card h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2em;
+            margin-top: 0;
+        }
+
+        .chapter-card h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .card-book1 h3 { border-bottom-color: var(--color-book1); }
+        .card-book2 h3 { border-bottom-color: var(--color-book2); }
+        .card-book3 h3 { border-bottom-color: var(--color-book3); }
+        .card-book4 h3 { border-bottom-color: var(--color-book4); }
+        .integration-card h3 { border-bottom-color: var(--color-integration); }
+
+        .key-verse {
+            border-left: 3px solid var(--border-color);
+            padding-left: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        .bible-text {
+            background-color: var(--background-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .bible-text strong {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .card-book1 .bible-text strong { color: var(--color-book1); }
+        .card-book2 .bible-text strong { color: var(--color-book2); }
+        .card-book3 .bible-text strong { color: var(--color-book3); }
+        .card-book4 .bible-text strong { color: var(--color-book4); }
+
+        .bible-text p {
+            margin: 0 0 5px 0;
+            text-indent: -20px;
+            padding-left: 20px;
+        }
+
+        .verse-number {
+            font-weight: bold;
+            color: var(--text-light);
+            margin-right: 5px;
+        }
+        
+        .analysis-svg {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--background-light);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        #player-container {
+            display: none;
+        }
+
+        #floatingPlayPauseBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--color-integration);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.2s ease-in-out;
+        }
+        #floatingPlayPauseBtn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        #floatingPlayPauseBtn:not(:disabled):hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        #floatingPlayPauseBtn .icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        #floatingPlayPauseBtn .play-icon { display: none; }
+        #floatingPlayPauseBtn .pause-icon { display: block; }
+
+        #floatingPlayPauseBtn.paused {
+            opacity: 0.7;
+        }
+        #floatingPlayPauseBtn.paused .play-icon { display: block; }
+        #floatingPlayPauseBtn.paused .pause-icon { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="player-container"></div>
+    <button id="floatingPlayPauseBtn" disabled>
+        <span class="play-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+        </span>
+        <span class="pause-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+        </span>
+    </button>
+
+    <div class="container">
+        <div class="title-section">
+            <h1>9월 15일 맥체인 성경읽기<br><span class="subtitle">질그릇에 담긴 보배</span></h1>
+            <p class="intro-passage">삼하 11 | 고후 4 | 겔 18 | 시 62-63</p>
+        </div>
+
+        <div class="chapter-card card-book1">
+            <h2>사무엘하 11장</h2>
+            <h3>개요 (Overview)</h3>
+            <p>사무엘하 11장은 다윗의 통치에서 가장 어두운 지점을 기록합니다. 왕들이 출전해야 할 시기에 예루살렘에 안일하게 머물던 다윗은, 우연히 밧세바를 보고 정욕에 사로잡혀 간음죄를 범합니다. 죄를 덮기 위한 인간적인 꾀가 실패로 돌아가자, 그는 충성스러운 부하이자 밧세바의 남편인 우리아를 고의적으로 전장의 사지로 몰아넣어 살해하는 극악한 죄까지 저지릅니다. 이 장은 한 번의 타협이 어떻게 파멸적인 죄의 연쇄 반응으로 이어지는지, 그리고 하나님의 마음에 합한 자라도 얼마나 끔찍하게 타락할 수 있는지를 적나라하게 보여줍니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+                <style>.svg-text{font-family:'Noto Sans KR',sans-serif;font-size:9px;fill:#333}</style>
+                <path d="M 50 20 C 80 20, 100 50, 100 70 S 80 120, 130 120 S 200 100, 250 140" fill="none" stroke="#E53935" stroke-width="2.5" marker-end="url(#arrow1)"/>
+                <text x="50" y="15" class="svg-text">태만 (왕궁에 머묾)</text>
+                <text x="110" y="55" class="svg-text">정욕 (목욕하는 여인)</text>
+                <text x="70" y="100" class="svg-text">간음 (밧세바)</text>
+                <text x="140" y="140" class="svg-text">기만 (우리아를 속임)</text>
+                <text x="250" y="155" class="svg-text">살인 (우리아를 죽임)</text>
+                <text x="280" y="80" class="svg-text" font-weight="bold" fill="#4A90E2">"여호와 보시기에 악하였더라"</text>
+                <defs><marker id="arrow1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#E53935"/></marker></defs>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>이 사건은 다윗이 영적, 군사적으로 최고의 성공을 구가하던 시점에 발생했다는 점에서 더욱 충격적입니다. 이는 영적 안일함과 자기만족이 얼마나 큰 위험인지 경고합니다. 개혁주의 신학의 관점에서, 이 본문은 '성도의 견인' 교리가 '죄 없는 완전함'을 의미하지 않음을 명확히 보여줍니다. 구원받은 성도라 할지라도, 육신의 정욕과 죄의 유혹에 넘어질 수 있는 연약한 존재입니다. 다윗의 범죄는 그의 '전적 부패'한 본성이 여전히 남아있음을 보여주는 강력한 증거입니다. 그는 자신의 왕권을 하나님의 영광이 아닌 사적인 욕망을 채우는 데 남용했습니다. 이 사건은 율법 아래 있는 가장 위대한 왕조차도 죄의 문제를 해결할 수 없으며, 우리에게는 죄가 없으시고 우리를 죄에서 구원하실 완전한 왕, 예수 그리스도가 절대적으로 필요함을 역설적으로 증명합니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="key-verse">
+                <p><strong>(삼하 11:1)</strong> 그 해가 돌아와 왕들이 출전할 때가 되매 다윗은 요압과 그에게 있는 그의 부하들과 온 이스라엘 군대를 보내니 그들은 암몬 자손을 멸하고 랍바를 에워쌌고 다윗은 예루살렘에 그대로 있더라</p>
+                <p>모든 비극은 이 구절에서 시작됩니다. 다윗은 왕으로서 마땅히 있어야 할 자리, 즉 백성과 함께하는 전쟁터에 있지 않았습니다. 그의 '그대로 있더라'는 행동은 직무유기이며 영적 나태입니다. 이처럼 사소해 보이는 불순종과 안일함이 죄가 틈탈 수 있는 결정적인 문을 열어주었습니다. 영적 전쟁에서 가장 위험한 순간은 스스로 안전하다고 느끼는 바로 그 순간입니다.</p>
+            </div>
+             <div class="key-verse">
+                <p><strong>(삼하 11:27)</strong> ...다윗이 행한 그 일이 여호와 보시기에 악하였더라</p>
+                <p>이 구절은 인간의 모든 계획과 은폐를 무의미하게 만드는 하나님의 최종 판결입니다. 다윗은 우리아를 성공적으로 제거하고 밧세바를 아내로 맞아 자신의 죄를 완전히 덮었다고 생각했을지 모릅니다. 그러나 인간의 눈을 속일 수는 있어도, 모든 것을 감찰하시는 하나님의 눈은 속일 수 없습니다. 모든 죄는 궁극적으로 하나님 앞에서 평가받으며, 이 하나님의 시선이 없이는 참된 회개도, 용서도 시작될 수 없습니다.</p>
+            </div>
+
+            <div class="bible-text">
+                <h3>성경 본문 (Full Text)</h3>
+                <strong>다윗이 밧세바와 동침하다</strong>
+                <p><span class="verse-number">1</span> 그 해가 돌아와 왕들이 출전할 때가 되매 다윗은 요압과 그에게 있는 그의 부하들과 온 이스라엘 군대를 보내니 그들은 암몬 자손을 멸하고 랍바를 에워쌌고 다윗은 예루살렘에 그대로 있더라</p>
+                <p><span class="verse-number">2</span> 저녁 때에 다윗이 그의 침상에서 일어나 왕궁 옥상에서 거닐다가 그 곳에서 보니 한 여인이 목욕을 하는데 심히 아름다워 보이는지라</p>
+                <p><span class="verse-number">3</span> 다윗이 사람을 보내 그 여인을 알아보게 하였더니 그가 아뢰되 그는 엘리암의 딸이요 헷 사람 우리아의 아내 밧세바가 아니니이까 하니</p>
+                <p><span class="verse-number">4</span> 다윗이 전령을 보내어 그 여자를 자기에게로 데려오게 하고 그 여자가 그 부정함을 깨끗하게 하였으므로 더불어 동침하매 그 여자가 자기 집으로 돌아가니라</p>
+                <p><span class="verse-number">5</span> 그 여인이 임신하매 사람을 보내 다윗에게 말하여 이르되 내가 임신하였나이다 하니라</p>
+                <strong>다윗이 우리아를 죽게 하다</strong>
+                <p><span class="verse-number">6</span> 다윗이 요압에게 기별하여 헷 사람 우리아를 내게 보내라 하매 요압이 우리아를 다윗에게로 보내니</p>
+                <p><span class="verse-number">7</span> 우리아가 다윗에게 이르매 다윗이 요압의 안부와 군사의 안부와 싸움이 어떠했는지를 묻고</p>
+                <p><span class="verse-number">8</span> 그가 또 우리아에게 이르되 네 집으로 내려가서 발을 씻으라 하니 우리아가 왕궁에서 나가매 왕의 음식물이 뒤따라 가니라</p>
+                <p><span class="verse-number">9</span> 그러나 우리아는 집으로 내려가지 아니하고 왕궁 문에서 그의 주의 모든 부하들과 더불어 잔지라</p>
+                <p><span class="verse-number">10</span> 어떤 사람이 다윗에게 아뢰되 우리아가 그의 집으로 내려가지 아니하였나이다 다윗이 우리아에게 이르되 네가 길 갔다가 돌아온 것이 아니냐 어찌하여 네 집으로 내려가지 아니하였느냐 하니</p>
+                <p><span class="verse-number">11</span> 우리아가 다윗에게 아뢰되 언약궤와 이스라엘과 유다가 야영 중에 있고 내 주 요압과 내 왕의 부하들이 바깥 들에 진 치고 있거늘 내가 어찌 내 집으로 가서 먹고 마시고 내 처와 같이 자리이까 내가 이 일을 행하지 아니하기로 왕의 살아 계심과 왕의 혼의 살아 계심을 두고 맹세하나이다 하니라</p>
+                <p><span class="verse-number">12</span> 다윗이 우리아에게 이르되 오늘도 여기 있으라 내일은 내가 너를 보내리라 우리아가 그 날에 예루살렘에 머무니라 이튿날</p>
+                <p><span class="verse-number">13</span> 다윗이 그를 불러서 그로 그 앞에서 먹고 마시고 취하게 하니 저녁 때에 그가 나가서 그의 주의 부하들과 더불어 침상에 눕고 그의 집으로 내려가지 아니하니라</p>
+                <p><span class="verse-number">14</span> 아침이 되매 다윗이 편지를 써서 우리아의 손에 들려 요압에게 보내니</p>
+                <p><span class="verse-number">15</span> 그 편지에 써서 이르기를 너희가 우리아를 맹렬한 싸움에 앞세워 두고 너희는 뒤로 물러가서 그로 맞아 죽게 하라 하였더라</p>
+                <p><span class="verse-number">16</span> 요압이 그 성을 살펴 용사들이 있는 줄을 아는 그 곳에 우리아를 두니</p>
+                <p><span class="verse-number">17</span> 그 성 사람들이 나와서 요압과 더불어 싸울 때에 다윗의 부하 중 몇 사람이 엎드러지고 헷 사람 우리아도 죽으니라</p>
+                <p><span class="verse-number">18</span> 요압이 전령을 보내 전쟁의 모든 일을 다윗에게 보고할새</p>
+                <p><span class="verse-number">19</span> 그 전령에게 명령하여 이르되 전쟁의 모든 일을 네가 왕께 보고하기를 마친 후에</p>
+                <p><span class="verse-number">20</span> 혹시 왕이 노하여 네게 말씀하기를 너희가 어찌하여 성에 그처럼 가까이 가서 싸웠느냐 거기서쏠 줄을 알지 못하였느냐</p>
+                <p><span class="verse-number">21</span> 여룹베셋의 아들 아비멜렉을 쳐죽인 자가 누구냐 여인 하나가 성벽 위에서 맷돌 위짝을 그 위에 던지매 그가 데벳스에서 죽지 아니하였느냐 어찌하여 성벽에 가까이 갔더냐 하시거든 네가 말하기를 왕의 종 헷 사람 우리아도 죽었나이다 하라</p>
+                <p><span class="verse-number">22</span> 전령이 가서 다윗에게 이르러 요압이 보낸 모든 일을 보고하여</p>
+                <p><span class="verse-number">23</span> 이르되 그 사람들이 우리보다 우세하여 우리를 향하여 들로 나오므로 우리가 그들을 쳐서 성문 어귀까지 미쳤더니</p>
+                <p><span class="verse-number">24</span> 활 쏘는 자들이 성벽 위에서 왕의 부하들을 향하여 쏘매 왕의 부하 중 몇 사람이 죽고 왕의 종 헷 사람 우리아도 죽었나이다 하니</p>
+                <p><span class="verse-number">25</span> 다윗이 전령에게 이르되 너는 요압에게 이같이 말하기를 이 일로 걱정하지 말라 칼은 이 사람이나 저 사람이나 삼키느니라 그 성을 향하여 더욱 힘써 싸워 함락시키라 하여 너는 그를 담대하게 하라 하니라</p>
+                <p><span class="verse-number">26</span> 우리아의 아내는 그 남편 우리아가 죽었음을 듣고 그의 남편을 위하여 소리내어 우니라</p>
+                <p><span class="verse-number">27</span> 그 장례를 마치매 다윗이 사람을 보내 그를 왕궁으로 데려오니 그가 그의 아내가 되어 그에게 아들을 낳으니라 다윗이 행한 그 일이 여호와 보시기에 악하였더라</p>
+            </div>
+        </div>
+
+        <div class="chapter-card card-book2">
+            <h2>고린도후서 4장</h2>
+            <h3>개요 (Overview)</h3>
+            <p>바울은 자신의 사역이 인간의 지혜나 능력이 아닌, 오직 예수 그리스도를 주로 선포하는 것임을 밝힙니다. 그는 이 영광스러운 복음의 빛이라는 '보배'가 깨어지기 쉬운 '질그릇' 같은 연약한 인간 안에 담겨 있다고 비유합니다. 사역자들이 겪는 수많은 고난과 역경은 그들의 연약함을 드러내어, 나타나는 모든 능력이 인간에게서 난 것이 아니라 하나님께로부터 온 것임을 증명하기 위함입니다. 그러므로 바울과 동역자들은 낙심하지 않으며, 보이는 잠깐의 고난이 아닌 보이지 않는 영원한 영광을 바라보며 소망 가운데 사역을 감당한다고 고백합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+                <style>.svg-text{font-family:'Noto Sans KR',sans-serif;font-size:10px;fill:#333}.svg-title{font-weight:bold;font-size:12px}</style>
+                <path d="M 150 140 C 150 110, 140 80, 160 60 C 180 40, 220 40, 240 60 C 260 80, 250 110, 250 140 Z" fill="#F5EFE6" stroke="#A67B5B" stroke-width="2"/>
+                <path d="M 160 60 L 170 80 L 160 100" fill="none" stroke="#A67B5B" stroke-width="1.5" />
+                <text x="200" y="110" class="svg-title" text-anchor="middle">질그릇</text>
+                <text x="200" y="130" class="svg-text" text-anchor="middle">(우리의 연약함)</text>
+                <circle cx="200" cy="80" r="30" fill="gold" id="treasure"/>
+                <text x="200" y="85" class="svg-title" text-anchor="middle">보배</text>
+                <text x="200" y="100" class="svg-text" text-anchor="middle" font-size="8px">(복음의 영광)</text>
+                <text x="70" y="50" class="svg-text" text-anchor="middle">우겨쌈, 답답함</text>
+                <text x="70" y="70" class="svg-text" text-anchor="middle">박해, 거꾸러뜨림</text>
+                <path d="M 100 60 L 170 70" stroke="#333" stroke-width="1" marker-end="url(#arrow2)"/>
+                <text x="330" y="50" class="svg-text" text-anchor="middle">능력은 하나님께</text>
+                <text x="330" y="70" class="svg-text" text-anchor="middle">예수의 생명이 나타남</text>
+                <path d="M 230 80 L 300 60" stroke="#333" stroke-width="1" marker-end="url(#arrow2)"/>
+                <defs><marker id="arrow2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/></marker></defs>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>바울은 고린도 교회에 침투한 거짓 교사들과 자신을 대조하고 있습니다. 거짓 교사들은 화려한 언변과 외적인 성공, 강인함을 자랑했지만, 바울은 역설적으로 자신의 '약함'과 '고난'을 자랑합니다. '질그릇에 담긴 보배'라는 비유는 개혁주의 신학의 핵심 원리인 'Soli Deo Gloria'(오직 하나님께 영광)를 완벽하게 설명합니다. 하나님께서 의도적으로 연약하고 부족한 사람들을 택하여 그의 위대한 일을 맡기시는 이유는, 그 일을 통해 드러나는 모든 능력이 인간의 것이 아니라 명백히 하나님의 것임을 모두가 알게 하기 위함입니다. 우리의 고난은 무의미한 것이 아니라, 예수의 죽으심에 동참하여 그의 생명을 드러내는 통로가 됩니다. 따라서 성도는 현재의 고난(보이는 것, 잠깐 있는 것)에 매몰되지 않고, 장차 올 영원한 영광(보이지 않는 것, 영원한 것)을 믿음으로 바라보며 인내할 수 있습니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="key-verse">
+                <p><strong>(고후 4:7)</strong> 우리가 이 보배를 질그릇에 가졌으니 이는 심히 큰 능력은 하나님께 있고 우리에게 있지 아니함을 알게 하려 함이라</p>
+                <p>이 구절은 기독교 사역의 본질을 정의합니다. '보배'는 그리스도를 아는 복음의 빛이며, '질그릇'은 연약하고 죽을 수밖에 없는 우리 자신입니다. 하나님은 일부러 가장 값비싼 보물을 가장 흔하고 값싼 그릇에 담으셨습니다. 이는 그릇의 연약함이 깨어질수록 그 안의 보배가 더욱 찬란하게 빛나기 때문입니다. 우리의 약함, 실패, 고난은 하나님의 능력이 임하는 통로이며, 우리의 자랑이 아닌 하나님의 주권을 드러내는 증거가 됩니다.</p>
+            </div>
+            <div class="key-verse">
+                <p><strong>(고후 4:17-18)</strong> 우리가 잠시 받는 환난의 경한 것이 지극히 크고 영원한 영광의 중한 것을 우리에게 이루게 함이니 우리가 주목하는 것은 보이는 것이 아니요 보이지 않는 것이니 보이는 것은 잠깐이요 보이지 않는 것은 영원함이라</p>
+                <p>성도가 환난을 견뎌내는 힘은 긍정적인 마음가짐이 아니라, 영원을 바라보는 신학적 관점에서 나옵니다. 바울은 현재의 모든 고난을 '잠시 받는 경한 것'으로, 장차 올 영광을 '지극히 크고 영원한 중한 것'으로 대조합니다. 이 믿음의 저울 위에서, 현재의 고난은 우리를 짓누르는 짐이 아니라, 장차 올 영광을 '이루어 가는' 과정이 됩니다. 우리의 시선을 어디에 고정하는가(보이는 것 vs 보이지 않는 것)가 우리의 인내를 결정합니다.</p>
+            </div>
+
+            <div class="bible-text">
+                <h3>성경 본문 (Full Text)</h3>
+                <strong>질그릇에 담긴 보배</strong>
+                <p><span class="verse-number">1</span> 그러므로 우리가 이 직분을 받아 긍휼하심을 입은 대로 낙심하지 아니하고</p>
+                <p><span class="verse-number">2</span> 이에 숨은 부끄러움의 일을 버리고 속임으로 행하지 아니하며 하나님의 말씀을 혼잡하게 하지 아니하고 오직 진리를 나타냄으로 하나님 앞에서 각 사람의 양심에 대하여 스스로 추천하노라</p>
+                <p><span class="verse-number">3</span> 만일 우리의 복음이 가리었으면 망하는 자들에게 가리어진 것이라</p>
+                <p><span class="verse-number">4</span> 그 중에 이 세상의 신이 믿지 아니하는 자들의 마음을 혼미하게 하여 그리스도의 영광의 복음의 광채가 비치지 못하게 함이니 그리스도는 하나님의 형상이니라</p>
+                <p><span class="verse-number">5</span> 우리는 우리를 전파하는 것이 아니라 오직 그리스도 예수의 주 되신 것과 또 예수를 위하여 우리가 너희의 종 된 것을 전파함이라</p>
+                <p><span class="verse-number">6</span> 어두운 데에 빛이 비치라 말씀하셨던 그 하나님께서 예수 그리스도의 얼굴에 있는 하나님의 영광을 아는 빛을 우리 마음에 비추셨느니라</p>
+                <p><span class="verse-number">7</span> 우리가 이 보배를 질그릇에 가졌으니 이는 심히 큰 능력은 하나님께 있고 우리에게 있지 아니함을 알게 하려 함이라</p>
+                <p><span class="verse-number">8</span> 우리가 사방으로 우겨쌈을 당하여도 싸이지 아니하며 답답한 일을 당하여도 낙심하지 아니하며</p>
+                <p><span class="verse-number">9</span> 박해를 받아도 버린 바 되지 아니하며 거꾸러뜨림을 당하여도 망하지 아니하고</p>
+                <p><span class="verse-number">10</span> 우리가 항상 예수의 죽음을 몸에 짊어짐은 예수의 생명이 또한 우리 몸에 나타나게 하려 함이라</p>
+                <p><span class="verse-number">11</span> 우리 살아 있는 자가 항상 예수를 위하여 죽음에 넘겨짐은 예수의 생명이 또한 우리 죽을 육체에 나타나게 하려 함이라</p>
+                <p><span class="verse-number">12</span> 그런즉 사망은 우리 안에서 역사하고 생명은 너희 안에서 역사하느니라</p>
+                <p><span class="verse-number">13</span> 기록된 바 내가 믿었으므로 말하였다 한 것 같이 우리가 같은 믿음의 마음을 가졌으니 우리도 믿었으므로 또한 말하노라</p>
+                <p><span class="verse-number">14</span> 주 예수를 다시 살리신 이가 예수와 함께 우리도 다시 살리사 너희와 함께 그 앞에 서게 하실 줄을 아노라</p>
+                <p><span class="verse-number">15</span> 이는 모든 것이 너희를 위함이니 많은 사람의 감사로 말미암아 은혜가 더하여 넘쳐서 하나님께 영광을 돌리게 하려 함이라</p>
+                <strong>보이는 것과 보이지 않는 것</strong>
+                <p><span class="verse-number">16</span> 그러므로 우리가 낙심하지 아니하노니 우리의 겉사람은 낡아지나 우리의 속사람은 날로 새로워지도다</p>
+                <p><span class="verse-number">17</span> 우리가 잠시 받는 환난의 경한 것이 지극히 크고 영원한 영광의 중한 것을 우리에게 이루게 함이니</p>
+                <p><span class="verse-number">18</span> 우리가 주목하는 것은 보이는 것이 아니요 보이지 않는 것이니 보이는 것은 잠깐이요 보이지 않는 것은 영원함이라</p>
+            </div>
+        </div>
+
+        <div class="chapter-card card-book3">
+            <h2>에스겔 18장</h2>
+            <h3>개요 (Overview)</h3>
+            <p>에스겔 18장은 바벨론 포로 생활의 고통을 조상 탓으로 돌리던 이스라엘 백성의 운명론적인 속담("아버지가 신 포도를 먹었으므로 그의 아들의 이가 시다")을 정면으로 반박합니다. 하나님은 모든 영혼이 자신에게 속했음을 선포하시며, 심판의 원리가 연대 책임이 아닌 '개인의 책임'임을 명확히 하십니다. 의인은 자기의 의로 살고, 악인은 자기의 죄로 죽을 것입니다. 아들의 의가 아버지를 구원할 수 없으며, 아버지의 죄가 아들에게 전가되지 않습니다. 이 엄중한 책임의 원칙 위에서, 하나님은 죄인이 죽는 것을 기뻐하지 않으시며, 모두가 스스로 돌이켜 회개하고 '새 영과 새 마음'을 받아 생명을 얻으라고 간절히 촉구하십니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+             <svg class="analysis-svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+                <style>.svg-text{font-family:'Noto Sans KR',sans-serif;font-size:9px;fill:#333}.svg-title{font-weight:bold;font-size:10px}</style>
+                <text x="200" y="20" class="svg-title" text-anchor="middle">"범죄하는 그 영혼은 죽으리라"</text>
+                <path d="M 50 100 L 150 100 M 100 50 L 100 100" stroke="#B86BFF" stroke-width="1.5"/>
+                <circle cx="100" cy="40" r="10" fill="#F3E5F5"/>
+                <text x="100" y="30" class="svg-text" text-anchor="middle">의인의 길</text>
+                <path d="M 100 100 L 70 130" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrow3g)"/>
+                <text x="60" y="145" class="svg-text" text-anchor="middle">생명</text>
+                
+                <path d="M 250 100 L 350 100 M 300 50 L 300 100" stroke="#B86BFF" stroke-width="1.5"/>
+                <circle cx="300" cy="40" r="10" fill="#F3E5F5"/>
+                <text x="300" y="30" class="svg-text" text-anchor="middle">악인의 길</text>
+                <path d="M 300 100 L 330 130" stroke="#E53935" stroke-width="2" marker-end="url(#arrow3r)"/>
+                <text x="340" y="145" class="svg-text" text-anchor="middle">사망</text>
+                
+                <text x="200" y="80" class="svg-text" text-anchor="middle">각 사람은</text>
+                <text x="200" y="95" class="svg-text" text-anchor="middle">자기의 행위대로</text>
+                <text x="200" y="110" class="svg-text" text-anchor="middle">심판받는다</text>
+
+                <defs>
+                    <marker id="arrow3g" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4CAF50"/></marker>
+                    <marker id="arrow3r" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#E53935"/></marker>
+                </defs>
+             </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>이 본문은 죄의 '유전'과 '개인의 책임' 사이의 신학적 균형을 잡는 데 매우 중요합니다. 성경은 분명 아담의 원죄가 모든 인류에게 영향을 미쳤고(롬 5장), 조상의 죄가 후손에게 악영향을 줌을 가르칩니다(출 20:5). 그러나 에스겔 18장은 최종적인 심판과 구원의 문제에 있어서는 각 개인의 회개와 믿음이 결정적임을 강조합니다. 이는 운명론에 빠져 회개를 거부하는 백성을 향한 하나님의 강력한 촉구입니다. 이 장은 '행위 구원'을 말하는 것이 아닙니다. 오히려, 진정한 회개 없이는 누구도 구원받을 수 없음을 역설합니다. 하나님께서 "너희는 스스로 새 영과 새 마음을 만들지어다"(31절)라고 명령하시는 것은, 인간에게 그럴 능력이 있어서가 아니라, 자신의 무능력을 깨닫고 전적으로 하나님을 의지하게 만들기 위함입니다. 이 명령은 에스겔 36장에서 하나님께서 친히 "새 영을 너희 속에 두고 새 마음을 너희에게 주되"라고 약속하시는 새 언약의 은혜를 갈망하게 만듭니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="key-verse">
+                <p><strong>(겔 18:4)</strong> 모든 영혼이 다 내게 속한지라 아버지의 영혼이 내게 속함 같이 그의 아들의 영혼도 내게 속하였나니 범죄하는 그 영혼은 죽으리라</p>
+                <p>이 말씀은 본문의 대원칙을 선포합니다. 첫째, 모든 인간에 대한 하나님의 절대 주권입니다("모든 영혼이 다 내게 속한지라"). 누구도 하나님의 소유권을 벗어날 수 없습니다. 둘째, 심판의 공평성입니다. 아버지든 아들이든 동일한 기준이 적용됩니다. 셋째, 죄와 사망의 필연적 관계입니다("범죄하는 그 영혼은 죽으리라"). 이는 개인의 책임과 죄의 심각성을 동시에 강조하는 엄중한 선언입니다.</p>
+            </div>
+            <div class="key-verse">
+                <p><strong>(겔 18:32)</strong> 주 여호와의 말씀이니라 죽을 자가 죽는 것도 내가 기뻐하지 아니하노니 너희는 스스로 돌이키고 살지니라</p>
+                <p>엄중한 심판의 메시지 속에서 빛나는 하나님의 본심입니다. 하나님은 공의의 하나님이시기에 죄를 반드시 심판하시지만, 그의 근본적인 성품은 결코 심판 자체를 즐기지 않으십니다. 오히려 그분의 기쁨은 죄인이 회개하고 생명을 얻는 데 있습니다. 이 구절은 회개를 촉구하시는 하나님의 애끓는 사랑을 보여주며, 모든 죄인에게 열려 있는 생명의 길로 우리를 초대합니다. 구원의 문은 '스스로 돌이키는' 자에게 열립니다.</p>
+            </div>
+
+            <div class="bible-text">
+                <h3>성경 본문 (Full Text)</h3>
+                <strong>개인의 책임</strong>
+                <p><span class="verse-number">1</span> 또 여호와의 말씀이 내게 임하여 이르시되</p>
+                <p><span class="verse-number">2</span> 너희가 이스라엘 땅에 관한 속담에 이르기를 아버지가 신 포도를 먹었으므로 그의 아들의 이가 시다고 함은 어찌 됨이냐</p>
+                <p><span class="verse-number">3</span> 주 여호와의 말씀이니라 내가 나의 삶을 두고 맹세하노니 너희가 이스라엘 가운데에서 다시는 이 속담을 쓰지 못하게 되리라</p>
+                <p><span class="verse-number">4</span> 모든 영혼이 다 내게 속한지라 아버지의 영혼이 내게 속함 같이 그의 아들의 영혼도 내게 속하였나니 범죄하는 그 영혼은 죽으리라</p>
+                <p><span class="verse-number">5</span> 사람이 만일 의로워서 정의와 공의를 따라 행하며</p>
+                <p><span class="verse-number">6</span> 산 위에서 제물을 먹지 아니하며 이스라엘 족속의 우상에게 눈을 들지 아니하며 이웃의 아내를 더럽히지 아니하며 월경 중에 있는 여인을 가까이 하지 아니하며</p>
+                <p><span class="verse-number">7</span> 사람을 학대하지 아니하며 빚진 자의 저당물을 도로 주며 강탈하지 아니하며 주린 자에게 음식물을 주며 벗은 자에게 옷을 입히며</p>
+                <p><span class="verse-number">8</span> 변리를 위하여 꾸어 주지 아니하며 이자를 받지 아니하며 스스로 손을 금하여 죄를 짓지 아니하며 사람과 사람 사이에 진실하게 판단하며</p>
+                <p><span class="verse-number">9</span> 내 율례를 따르며 내 규례를 지켜 진실하게 행할진대 그는 의인이니 반드시 살리라 주 여호와의 말씀이니라</p>
+                <p><span class="verse-number">10</span> 가령 그가 아들을 낳았다 하자 그 아들이 모든 선은 하나도 행하지 아니하고 이 모든 악 중의 하나를 행하여 강포하거나 살인하거나</p>
+                <p><span class="verse-number">11</span> 산 위에서 제물을 먹거나 이웃의 아내를 더럽히거나</p>
+                <p><span class="verse-number">12</span> 가난하고 궁핍한 자를 학대하거나 강탈하거나 빚진 자의 저당물을 도로 주지 아니하거나 우상에게 눈을 들거나 가증한 일을 행하거나</p>
+                <p><span class="verse-number">13</span> 변리를 위하여 꾸어 주거나 이자를 받거나 할진대 그가 살겠느냐 결코 살지 못하리니 이 모든 가증한 일을 행하였은즉 반드시 죽을지라 자기의 피가 자기에게로 돌아가리라</p>
+                <p><span class="verse-number">14</span> 또 가령 그가 아들을 낳았다 하자 그 아들이 그의 아버지가 행한 모든 죄를 보고 두려워하여 그대로 행하지 아니하고</p>
+                <p><span class="verse-number">15</span> 산 위에서 제물을 먹지도 아니하며 이스라엘 족속의 우상에게 눈을 들지도 아니하며 이웃의 아내를 더럽히지도 아니하며</p>
+                <p><span class="verse-number">16</span> 사람을 학대하지도 아니하며 저당을 잡지도 아니하며 강탈하지도 아니하고 주린 자에게 음식물을 주며 벗은 자에게 옷을 입히며</p>
+                <p><span class="verse-number">17</span> 손을 금하여 가난한 자를 압제하지 아니하며 변리나 이자를 받지 아니하여 내 규례를 지키고 내 율례를 행할진대 이 사람은 그의 아버지의 죄악으로 죽지 아니하고 반드시 살겠고</p>
+                <p><span class="verse-number">18</span> 그의 아버지는 심히 포악하여 그 동족을 강탈하고 백성들 중에서 선을 행하지 아니하였으므로 그는 그의 죄악으로 죽으리라</p>
+                <p><span class="verse-number">19</span> 그런데 너희는 이르기를 아들이 어찌 아버지의 죄를 담당하지 아니하겠느냐 하는도다 아들이 정의와 공의를 행하며 내 모든 율례를 지켜 행하였으면 그는 반드시 살려니와</p>
+                <p><span class="verse-number">20</span> 범죄하는 그 영혼은 죽을지라 아들은 아버지의 죄악을 담당하지 아니할 것이요 아버지는 아들의 죄악을 담당하지 아니하리니 의인의 공의도 자기에게로 돌아가고 악인의 악도 자기에게로 돌아가리라</p>
+                <strong>회개하고 살라</strong>
+                <p><span class="verse-number">21</span> 그러나 악인이 만일 그가 행한 모든 죄에서 돌이켜 떠나 내 모든 율례를 지키고 정의와 공의를 행하면 반드시 살고 죽지 아니할 것이라</p>
+                <p><span class="verse-number">22</span> 그 범죄한 것이 하나도 기억함이 되지 아니하리니 그가 행한 공의로 살리라</p>
+                <p><span class="verse-number">23</span> 주 여호와의 말씀이니라 내가 어찌 악인이 죽는 것을 조금인들 기뻐하랴 그가 돌이켜 그 길에서 떠나 사는 것을 어찌 기뻐하지 아니하겠느냐</p>
+                <p><span class="verse-number">24</span> 만일 의인이 돌이켜 그 공의에서 떠나 범죄하고 악인이 행하는 모든 가증한 일대로 행하면 살겠느냐 그가 행한 공의로운 일은 하나도 기억함이 되지 아니하리니 그가 그 범한 허물과 그 지은 죄로 죽으리라</p>
+                <p><span class="verse-number">25</span> 그런데 너희는 이르기를 주의 길이 공평하지 아니하다 하는도다 이스라엘 족속아 들을지어다 내 길이 어찌 공평하지 아니하냐 너희 길이 공평하지 아니한 것이 아니냐</p>
+                <p><span class="verse-number">26</span> 만일 의인이 그 공의를 떠나 죄악을 행하고 그로 말미암아 죽으면 그 행한 죄악으로 말미암아 죽는 것이요</p>
+                <p><span class="verse-number">27</span> 만일 악인이 그 행한 악을 떠나 정의와 공의를 행하면 그 영혼을 보전하리라</p>
+                <p><span class="verse-number">28</span> 그가 스스로 헤아리고 그 행한 모든 죄악에서 돌이켜 떠났으니 반드시 살고 죽지 아니하리라</p>
+                <p><span class="verse-number">29</span> 그런데 이스라엘 족속은 이르기를 주의 길이 공평하지 아니하다 하는도다 이스라엘 족속아 나의 길이 어찌 공평하지 아니하냐 너희 길이 공평하지 아니한 것이 아니냐</p>
+                <p><span class="verse-number">30</span> 주 여호와의 말씀이니라 이스라엘 족속아 내가 너희 각 사람이 행한 대로 심판할지라 너희는 돌이켜 회개하고 모든 죄에서 떠날지어다 그리한즉 그것이 너희에게 죄악의 걸림돌이 되지 아니하리라</p>
+                <p><span class="verse-number">31</span> 너희는 너희가 범한 모든 죄악을 버리고 마음과 영을 새롭게 할지어다 이스라엘 족속아 너희가 어찌하여 죽고자 하느냐</p>
+                <p><span class="verse-number">32</span> 주 여호와의 말씀이니라 죽을 자가 죽는 것도 내가 기뻐하지 아니하노니 너희는 스스로 돌이키고 살지니라</p>
+            </div>
+        </div>
+
+        <div class="chapter-card card-book4">
+            <h2>시편 62-63편</h2>
+            <h3>개요 (Overview)</h3>
+            <p>이 두 시편은 위기와 고난 속에서 드리는 다윗의 깊은 신뢰와 갈망의 기도입니다. <strong>시편 62편</strong>은 거짓과 압박으로 그를 흔들려는 대적들 앞에서 "오직 하나님만이" 자신의 반석, 구원, 요새이심을 반복하여 선포합니다. 그는 자신의 영혼에게 잠잠히 하나님만 바라라고 명령하며, 권력이나 재물과 같은 헛된 것을 의지하지 말라고 권면합니다. <strong>시편 63편</strong>은 광야의 메마름 속에서 지은 시로, 육체의 갈증보다 더 절실하게 하나님 자신을 갈망하는 영혼의 목마름을 노래합니다. 그는 주의 인자하심이 생명보다 낫다고 고백하며, 침상에서조차 주를 묵상하는 것으로 최고의 만족과 기쁨을 누립니다.</p>
+            
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+                <style>.svg-text{font-family:'Noto Sans KR',sans-serif;font-size:9px;fill:#333}.svg-title{font-weight:bold;font-size:10px}</style>
+                <line x1="200" y1="10" x2="200" y2="150" stroke="#ccc"/>
+                <g>
+                    <text x="100" y="25" class="svg-title" text-anchor="middle">시편 62편: 오직 주만</text>
+                    <path d="M 50 120 L 70 90 L 100 100 L 130 90 L 150 120 Z" fill="#FFE0B2" stroke="#F5A623"/>
+                    <rect x="50" y="120" width="100" height="20" fill="#FFE0B2" stroke="#F5A623"/>
+                    <text x="100" y="108" class="svg-text" text-anchor="middle">나의 반석, 나의 구원</text>
+                    <text x="100" y="134" class="svg-text" text-anchor="middle">오직 하나님만</text>
+                    <path d="M 30 50 L 75 85 M 170 50 L 125 85" stroke="#E53935" stroke-width="1.5"/>
+                    <text x="20" y="45" class="svg-text">거짓</text>
+                    <text x="160" y="45" class="svg-text">압제</text>
+                </g>
+                <g>
+                    <text x="300" y="25" class="svg-title" text-anchor="middle">시편 63편: 주를 갈망</text>
+                    <path d="M 250 140 C 270 120, 280 110, 300 100 C 320 110, 330 120, 350 140" fill="none" stroke="#F5A623" stroke-width="1"/>
+                    <text x="300" y="150" class="svg-text" text-anchor="middle">메마른 광야</text>
+                    <circle cx="300" cy="70" r="20" fill="#FFF9C4"/>
+                    <text x="300" y="74" class="svg-text" text-anchor="middle">하나님</text>
+                    <path d="M 300 100 V 90" stroke="#4A90E2" stroke-width="1.5" marker-end="url(#arrow4)"/>
+                    <text x="300" y="50" class="svg-text" text-anchor="middle">"내 영혼이 주를 갈망하나이다"</text>
+                </g>
+                <defs><marker id="arrow4" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4A90E2"/></marker></defs>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>두 시편 모두 다윗의 인생에서 가장 큰 위기였던 압살롬의 반역 시기를 배경으로 하는 것으로 보입니다. 시편 62편은 수많은 배신과 거짓 속에서, 시편 63편은 쫓겨난 유대 광야의 척박함 속에서 기록되었습니다. 이 시편들은 성도의 신앙이 환경에 의해 좌우되지 않음을 보여주는 위대한 증거입니다. 개혁주의 신학은 하나님을 향한 이러한 전적인 의존과 갈망을 '오직 믿음(Sola Fide)'의 실천적 모습으로 이해합니다. 시편 62편의 "오직(only, surely)"이라는 단어의 반복은 우리의 신뢰가 분산되어서는 안 되며, 오직 한 분 하나님께만 집중되어야 함을 강조합니다. 시편 63편의 "주의 인자하심이 생명보다 나으므로"라는 고백은 '웨스트민스터 소요리문답' 1문의 답, "사람의 제일 되는 목적은 하나님을 영화롭게 하고 영원토록 그를 즐거워하는 것"이라는 진리와 깊이 연결됩니다. 세상의 그 어떤 것도 아닌, 하나님과의 관계 자체가 성도의 궁극적인 기쁨이자 만족임을 보여줍니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="key-verse">
+                <p><strong>(시 62:1-2)</strong> 나의 영혼이 잠잠히 하나님만 바람이여 나의 구원이 그에게서 나오는도다 오직 그만이 나의 반석이시요 나의 구원이시요 나의 요새이시니 내가 크게 흔들리지 아니하리로다</p>
+                <p>세상이 소란하고 대적들의 비난이 거셀수록, 성도의 영혼은 '잠잠히' 하나님만 바라보아야 합니다. 이 '잠잠함'은 체념이 아닌, 하나님의 구원을 확신하는 능동적인 신뢰의 표현입니다. 구원은 인간의 노력이나 지혜가 아닌, '오직 그에게서만' 나옵니다. 하나님이 반석, 구원, 요새가 되신다는 고백이 반복될수록, "크게 흔들리지 아니하리라"는 확신 또한 깊어집니다. 우리의 안정감은 환경의 고요함이 아닌, 변치 않는 하나님 위에 세워집니다.</p>
+            </div>
+            <div class="key-verse">
+                <p><strong>(시 63:3)</strong> 주의 인자하심(헤세드)이 생명보다 나으므로 내 입술이 주를 찬양할 것이라</p>
+                <p>이것은 가치관의 혁명적인 선언입니다. 모든 인간이 본능적으로 추구하는 '생명' 그 자체보다, 하나님과의 언약적 사랑('헤세드')의 관계가 더 낫고 귀하다고 고백하기 때문입니다. 광야에서 생명의 위협을 느끼는 다윗에게 이 고백은 단순한 시적 표현이 아닙니다. 그는 하나님을 잃는 것이 목숨을 잃는 것보다 더 큰 비극임을 알았습니다. 이 가치관을 소유한 사람만이 어떤 상황에서도 진정으로 하나님을 찬양할 수 있습니다.</p>
+            </div>
+
+            <div class="bible-text">
+                <h3>성경 본문 (Full Text)</h3>
+                <strong>시편 62편: 오직 하나님만</strong>
+                <p><span class="verse-number">1</span> 나의 영혼이 잠잠히 하나님만 바람이여 나의 구원이 그에게서 나오는도다</p>
+                <p><span class="verse-number">2</span> 오직 그만이 나의 반석이시요 나의 구원이시요 나의 요새이시니 내가 크게 흔들리지 아니하리로다</p>
+                <p><span class="verse-number">3</span> 넘어지는 담과 흔들리는 울타리 같은 사람을 죽이려고 너희가 일제히 공격하기를 언제까지 하려느냐</p>
+                <p><span class="verse-number">4</span> 그들이 그를 그의 높은 자리에서 떨어뜨리기만 꾀하고 거짓을 즐겨 하니 입으로는 축복이요 속으로는 저주로다 (셀라)</p>
+                <p><span class="verse-number">5</span> 나의 영혼아 잠잠히 하나님만 바라라 무릇 나의 소망이 그로부터 나오는도다</p>
+                <p><span class="verse-number">6</span> 오직 그만이 나의 반석이시요 나의 구원이시요 나의 요새이시니 내가 흔들리지 아니하리로다</p>
+                <p><span class="verse-number">7</span> 나의 구원과 영광이 하나님께 있음이여 내 힘의 반석과 피난처도 하나님께 있도다</p>
+                <p><span class="verse-number">8</span> 백성들아 시시로 그를 의지하고 그의 앞에 마음을 토하라 하나님은 우리의 피난처시로다 (셀라)</p>
+                <p><span class="verse-number">9</span> 아, 슬프도다 사람은 입김이며 인생도 속임수이니 저울에 달면 그들은 입김보다 가벼우리로다</p>
+                <p><span class="verse-number">10</span> 포악을 의지하지 말며 탈취한 것으로 허망하여지지 말며 재물이 늘어도 거기에 마음을 두지 말지어다</p>
+                <p><span class="verse-number">11</span> 하나님이 한두 번 하신 말씀을 내가 들었나니 권능은 하나님께 속하였다 하셨도다</p>
+                <p><span class="verse-number">12</span> 주여 인자함도 주께 속하였사오니 주께서 각 사람이 행한 대로 갚으심이니이다</p>
+                <strong>시편 63편: 하나님을 갈망하다</strong>
+                <p><span class="verse-number">1</span> 하나님이여 주는 나의 하나님이시라 내가 간절히 주를 찾되 물이 없어 마르고 황폐한 땅에서 내 영혼이 주를 갈망하며 내 육체가 주를 앙모하나이다</p>
+                <p><span class="verse-number">2</span> 내가 주의 권능과 영광을 보기 위하여 이와 같이 성소에서 주를 바라보았나이다</p>
+                <p><span class="verse-number">3</span> 주의 인자하심이 생명보다 나으므로 내 입술이 주를 찬양할 것이라</p>
+                <p><span class="verse-number">4</span> 이러므로 나의 평생에 주를 송축하며 주의 이름으로 말미암아 나의 손을 들리이다</p>
+                <p><span class="verse-number">5</span> 골수와 기름진 것을 먹음과 같이 나의 영혼이 만족할 것이라 나의 입이 기쁜 입술로 주를 찬송하되</p>
+                <p><span class="verse-number">6</span> 내가 나의 침상에서 주를 기억하며 새벽에 주의 말씀을 작은 소리로 읊조릴 때에 하오리니</p>
+                <p><span class="verse-number">7</span> 주는 나의 도움이 되셨음이라 내가 주의 날개 그늘에서 즐겁게 부르리이다</p>
+                <p><span class="verse-number">8</span> 나의 영혼이 주를 가까이 따르니 주의 오른손이 나를 붙드시거니와</p>
+                <p><span class="verse-number">9</span> 나의 영혼을 찾아 멸하려 하는 그들은 땅 깊은 곳에 들어가며</p>
+                <p><span class="verse-number">10</span> 칼의 세력에 넘겨져 승냥이의 먹이가 되리이다</p>
+                <p><span class="verse-number">11</span> 왕은 하나님을 즐거워하리니 주께 맹세한 자마다 자랑할 것이나 거짓말하는 자의 입은 막히리로다</p>
+            </div>
+        </div>
+
+        <div class="chapter-card integration-card">
+            <h2>통합적 이해</h2>
+            
+            <h3>관통하는 주제 (Overarching Theme)</h3>
+            <p><strong>질그릇에 담긴 보배 (Treasure in Jars of Clay)</strong></p>
+            <p>오늘의 네 본문은 '질그릇'으로 비유되는 인간의 실존과 그 안에 담긴 '보배'이신 하나님의 영광을 극명하게 대조합니다. <strong>사무엘하 11장</strong>은 하나님의 마음에 합한 자 다윗조차 한순간에 끔찍한 죄로 깨어져 버리는 연약한 질그릇임을 보여줍니다. <strong>에스겔 18장</strong>은 이 질그릇이 자신의 깨어짐에 대해 스스로 책임져야 함을 엄중히 선포합니다. <strong>시편 62-63편</strong>은 바로 이 깨어지고 연약한 질그릇이 고난 속에서 오직 하나님만이 자신의 반석이요 만족이심을 깨닫고 그분께만 의탁하는 모습을 보여줍니다. 마지막으로 <strong>고린도후서 4장</strong>은 이 모든 것을 신학적으로 종합합니다. 하나님은 의도적으로 연약한 질그릇 같은 우리 안에 복음이라는 보배를 담으셨습니다. 이는 우리의 연약함을 통해 하나님의 위대하신 능력이 드러나게 하기 위함입니다. 따라서 우리의 죄와 연약함은 절망의 이유가 아니라, 오히려 하나님의 은혜와 능력이 담기고 나타나는 통로가 됩니다.</p>
+
+            <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+                <style>.svg-text{font-family:'Noto Sans KR',sans-serif;font-size:9px;fill:#444;}.svg-title{font-weight:bold;font-size:10px}</style>
+                <text x="200" y="20" class="svg-title" text-anchor="middle">질그릇 인생, 그리스도 안에서 보배를 담다</text>
+                <g id="clay-jar">
+                    <path d="M 120 140 C 120 110, 110 80, 130 60 C 150 40, 190 40, 210 60 C 230 80, 220 110, 220 140 Z" fill="#F5EFE6" stroke="#A67B5B" stroke-width="2"/>
+                    <path d="M 130 60 L 140 80 L 130 100" fill="none" stroke="#A67B5B" stroke-width="1.5" />
+                    <text x="170" y="100" class="svg-text" text-anchor="middle">연약한 인생</text>
+                    <text x="170" y="115" class="svg-text" text-anchor="middle">(삼하, 겔, 시편)</text>
+                </g>
+                <path d="M 230 90 C 260 90, 280 70, 300 90" fill="none" stroke="#4A4A4A" stroke-width="2" marker-end="url(#arrow_int)"/>
+                <text x="265" y="110" class="svg-text">그리스도의 복음</text>
+                <g id="treasure-jar">
+                    <path d="M 300 140 C 300 110, 290 80, 310 60 C 330 40, 370 40, 390 60 C 410 80, 400 110, 400 140 Z" fill="none" stroke="#50E3C2" stroke-width="2" transform="translate(-80, 0)"/>
+                    <circle cx="310" cy="90" r="25" fill="gold"/>
+                    <text x="310" y="110" class="svg-text" text-anchor="middle">보배를 담은 인생</text>
+                    <text x="310" y="125" class="svg-text" text-anchor="middle">(고후)</text>
+                </g>
+                <defs><marker id="arrow_int" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4A4A4A"/></marker></defs>
+            </svg>
+
+            <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
+            <p>오늘의 본문들은 타락한 인간의 실상과 그 유일한 해결책이신 그리스도를 선명하게 보여줍니다.</p>
+            <ul>
+                <li><strong>타락:</strong> 사무엘하 11장은 아담 이후 모든 인간이 죄의 노예임을 보여주는 대표적인 사례입니다. 다윗의 타락은 죄가 지위나 경건의 연륜과 상관없이 모든 인간의 마음 깊이 자리하고 있음을 증명합니다. 에스겔 18장은 이 타락의 책임이 각 개인에게 있음을 분명히 합니다.</li>
+                <li><strong>구속 (그림자와 약속):</strong> 시편의 다윗은 자신의 죄와 연약함 속에서 스스로를 구원할 수 없음을 깨닫고 오직 하나님만이 구원이심을 고백합니다. 이는 장차 오실 완전한 구원자를 향한 구약 성도의 갈망을 담고 있습니다. 에스겔이 외치는 '새 영과 새 마음'은 옛 언약의 한계를 넘어, 하나님께서 친히 베푸실 새 언약의 은혜에 대한 약속입니다.</li>
+                <li><strong>구속 (성취):</strong> 고린도후서 4장은 이 모든 갈망과 약속의 성취를 보여줍니다. '보배'이신 예수 그리스도께서 이 땅에 오셔서 우리의 깨어짐을 대신하여 십자가에서 깨어지셨습니다. 이제 그를 믿는 자는 '질그릇'과 같은 자신의 모습에 절망하지 않습니다. 오히려 그리스도의 생명과 능력이 우리 안에서 역사하기 때문입니다. 우리는 그리스도로 말미암아 하나님을 아는 영광의 빛을 마음에 품게 되었습니다.</li>
+                <li><strong>완성:</strong> 우리는 "겉사람은 낡아지나 속사람은 날로 새로워지는" 과정을 걷고 있습니다. 장차 주님께서 다시 오실 때, 이 질그릇 같은 몸은 마침내 영광스러운 몸으로 변화하여 보배의 영광을 온전히 드러내게 될 것입니다.</li>
+            </ul>
+
+            <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>본문</th>
+                        <th>인간의 실상 (질그릇)</th>
+                        <th>하나님의 은혜 (보배)</th>
+                        <th>성도의 자세</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>삼하 11</strong></td>
+                        <td>안일할 때 끔찍한 죄에 빠지는 극도의 연약함</td>
+                        <td>죄를 감찰하시고 심판을 예비하시는 거룩하심 (암시)</td>
+                        <td>영적 경계와 자기 신뢰의 위험성을 깨달음</td>
+                    </tr>
+                    <tr>
+                        <td><strong>고후 4</strong></td>
+                        <td>고난받고 깨어지기 쉬운 육체적, 정신적 한계</td>
+                        <td>그리스도의 영광을 아는 복음의 빛, 하나님의 능력</td>
+                        <td>낙심하지 않고, 약함을 통해 일하시는 하나님을 신뢰함</td>
+                    </tr>
+                    <tr>
+                        <td><strong>겔 18</strong></td>
+                        <td>자신의 죄에 대해 개인적으로 책임져야 할 존재</td>
+                        <td>죄인이 회개하고 사는 것을 기뻐하시는 사랑과 긍휼</td>
+                        <td>남 탓을 버리고, 하나님 앞에서 개인적으로 회개함</td>
+                    </tr>
+                    <tr>
+                        <td><strong>시 62-63</strong></td>
+                        <td>대적들로 인해 흔들리고, 광야에서 목마른 영혼</td>
+                        <td>유일한 반석과 구원, 생명보다 나은 인자하심(헤세드)</td>
+                        <td>잠잠히 하나님만 바라고, 하나님 자신을 간절히 갈망함</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>오늘의 교훈 (Application)</h3>
+            <p>우리는 모두 깨어지기 쉬운 질그릇입니다. 이 사실을 인정하는 것이 신앙의 출발점입니다. 오늘의 말씀을 통해 우리는 다음과 같이 삶으로 응답해야 합니다.</p>
+            <ol>
+                <li><strong>죄의 심각성을 인정하고 즉시 회개하십시오:</strong> 다윗처럼 자신의 죄를 합리화하거나 덮으려 하지 마십시오. 에스겔의 경고처럼, 죄의 책임은 나 자신에게 있습니다. 죄가 드러났을 때 즉시 하나님 앞에 나아가 정직하게 자백하고 돌이키는 용기가 필요합니다.</li>
+                <li><strong>약함 속에서 하나님의 능력을 경험하십시오:</strong> 질병, 실패, 인간관계의 어려움 등 당신의 약함을 부끄러워하거나 숨기지 마십시오. 그것은 하나님의 능력이 머무는 장소입니다. 고난 속에서 낙심하지 말고, 이 질그릇을 통해 일하실 보배이신 하나님을 기대하십시오.</li>
+                <li><strong>세상이 아닌 하나님에게서만 만족을 찾으십시오:</strong> 시편 기자처럼 "하나님만이 나의 반석"이시며 "주의 인자하심이 생명보다 낫다"고 고백하십시오. 세상이 주는 헛된 위로나 만족을 구하지 말고, 말씀과 기도를 통해 하나님 자신을 갈망하며 그분과의 교제에서 참된 기쁨과 만족을 누리십시오.</li>
+            </ol>
+            <p><strong>기도 제목:</strong> "하나님 아버지, 제가 다윗과 같이 죄에 넘어지기 쉬운 연약한 질그릇임을 고백합니다. 저의 죄를 정직하게 회개하오니 용서하여 주옵소서. 저의 연약함과 고난이 절망의 이유가 되지 않게 하시고, 오히려 보배이신 주님의 능력이 드러나는 통로가 되게 하여 주옵소서. 세상의 헛된 것에서 만족을 찾던 어리석음을 버리고, 오직 주님만이 나의 반석이시요 나의 참된 기쁨임을 고백하며 살게 하옵소서. 예수 그리스도의 이름으로 기도합니다. 아멘."</p>
+
+        </div>
+
+        <footer>
+            <p>Generated by M'Cheyne AI Assistant. All Scripture quotations are from the Korean Revised Version (개역개정).</p>
+        </footer>
+    </div>
+
+    <script>
+        const videoId = 'o6vFxMGAePk';
+        const playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+        let player;
+
+        // Load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // This function creates an <iframe> (and YouTube player) after the API code downloads.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player-container', {
+                height: '390',
+                width: '640',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            playPauseBtn.disabled = false;
+            playPauseBtn.classList.add('paused'); // Start in paused state
+        }
+
+        // The API calls this function when the player's state changes.
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playPauseBtn.classList.remove('paused');
+            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+                playPauseBtn.classList.add('paused');
+            }
+        }
+        
+        function togglePlayPause() {
+            if (player && typeof player.getPlayerState === 'function') {
+                const playerState = player.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' && document.activeElement.tagName.toLowerCase() !== 'input' && document.activeElement.tagName.toLowerCase() !== 'textarea') {
+                event.preventDefault();
+                togglePlayPause();
+            }
+        });
+
+    </script>
+</body>
+</html>
