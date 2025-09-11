@@ -180,7 +180,6 @@
             color: #6b7280;
         }
         
-        /* --- ✨ 수정된 부분 1: 달력 요일 색상 --- */
         .saturday-header-color {
             color: #2563eb;
         }
@@ -353,7 +352,7 @@
                         <p class="text-sm text-gray-700 leading-relaxed">
                             <span class="font-medium">날짜 선택:</span> 가운데 날짜를 클릭하면 달력에서 원하는 날짜를 선택할 수 있습니다.
                         </p>
-                        </div>
+                    </div>
                 </div>
             </div>
         </footer>
@@ -374,8 +373,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="calendar-grid" id="calendar-grid">
-                </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
             <div class="p-4 border-t border-gray-200">
                 <button id="close-calendar" class="w-full bg-gray-500 text-white py-2 px-4 rounded-xl hover:bg-gray-600 transition-colors">
                     닫기
@@ -425,7 +423,7 @@
                 dateDisplay.classList.add('weekday-color');
             }
 
-          // 링크 업데이트
+            // 링크 업데이트
             if (linkContainers) {
                 linkContainers.forEach(container => {
                     const prefix = container.dataset.prefix;
@@ -435,28 +433,29 @@
                     if (prefix === 'mc') {
                         // 맥체인 성경읽기: mccheyne 폴더의 mcMMDD.html
                         const dateSuffix = `${pad(month)}${pad(day)}`;
-                        primaryUrl = `https://kbd71.github.io/mccheyne/mc${dateSuffix}.html`;
+                        primaryUrl = `./mccheyne/mc${dateSuffix}.html`;
                     } else if (prefix === 'db') {
                         // 매일성경: dailybible 폴더의 dbYYMMDD.html
-                        const yearSuffix = String(year).slice(-2); // 뒤 2자리
+                        const yearSuffix = String(year).slice(-2);
                         const dateSuffix = `${yearSuffix}${pad(month)}${pad(day)}`;
-                        primaryUrl = `https://kbd71.github.io/dailybible/db${dateSuffix}.html`;
+                        primaryUrl = `./dailybible/db${dateSuffix}.html`;
                     } else if (prefix === 'day') {
                         // 날마다 교리: catechism 폴더의 dcMMDD.html
                         const dateSuffix = `${pad(month)}${pad(day)}`;
-                        primaryUrl = `https://kbd71.github.io/catechism/dc${dateSuffix}.html`;
+                        primaryUrl = `./catechism/dc${dateSuffix}.html`;
                     } else if (prefix === 'ms') {
                         // 주일설교말씀: sermon 폴더의 msYYMMDD.html (가장 최근 일요일 기준)
                         const lastSunday = new Date(date);
                         lastSunday.setDate(date.getDate() - date.getDay());
                         const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
                         const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
-                        primaryUrl = `https://kbd71.github.io/sermon/ms${dateSuffix}.html`;
+                        primaryUrl = `./sermon/ms${dateSuffix}.html`;
                     }
                     
                     if (mainButton) mainButton.dataset.url = primaryUrl;
                 });
             }
+        }
 
         function generateCalendar(year, month) {
             const firstDay = new Date(year, month, 1);
@@ -468,7 +467,7 @@
             calendarTitle.textContent = `${year}년 ${month + 1}월`;
             calendarGrid.innerHTML = '';
 
-            // --- ✨ 수정된 부분 3: 요일 헤더 색상 적용 ---
+            // 요일 헤더 색상 적용
             const dayHeaders = ['일', '월', '화', '수', '목', '금', '토'];
             dayHeaders.forEach((day, index) => {
                 const dayHeader = document.createElement('div');
@@ -508,8 +507,6 @@
                 if (dayDate.toDateString() === currentDate.toDateString()) {
                     dayElement.classList.add('selected');
                 }
-
-                // --- ✨ 수정된 부분 4: 날짜에 링크 표시하는 기능 삭제 ---
 
                 dayElement.addEventListener('click', () => {
                     currentDate = new Date(year, month, day);
