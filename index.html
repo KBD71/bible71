@@ -425,27 +425,38 @@
                 dateDisplay.classList.add('weekday-color');
             }
 
-            // 링크 업데이트
+          // 링크 업데이트
             if (linkContainers) {
                 linkContainers.forEach(container => {
                     const prefix = container.dataset.prefix;
                     const mainButton = container.querySelector('.gradient-button');
-                    let dateSuffix;
+                    let primaryUrl;
 
-                    if (prefix === 'ms') {
+                    if (prefix === 'mc') {
+                        // 맥체인 성경읽기: mccheyne 폴더의 mcMMDD.html
+                        const dateSuffix = `${pad(month)}${pad(day)}`;
+                        primaryUrl = `https://kbd71.github.io/mccheyne/mc${dateSuffix}.html`;
+                    } else if (prefix === 'db') {
+                        // 매일성경: dailybible 폴더의 dbYYMMDD.html
+                        const yearSuffix = String(year).slice(-2); // 뒤 2자리
+                        const dateSuffix = `${yearSuffix}${pad(month)}${pad(day)}`;
+                        primaryUrl = `https://kbd71.github.io/dailybible/db${dateSuffix}.html`;
+                    } else if (prefix === 'day') {
+                        // 날마다 교리: catechism 폴더의 dcMMDD.html
+                        const dateSuffix = `${pad(month)}${pad(day)}`;
+                        primaryUrl = `https://kbd71.github.io/catechism/dc${dateSuffix}.html`;
+                    } else if (prefix === 'ms') {
+                        // 주일설교말씀: sermon 폴더의 msYYMMDD.html (가장 최근 일요일 기준)
                         const lastSunday = new Date(date);
                         lastSunday.setDate(date.getDate() - date.getDay());
-                        dateSuffix = `${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
-                    } else {
-                        dateSuffix = `${pad(month)}${pad(day)}`;
+                        const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
+                        const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
+                        primaryUrl = `https://kbd71.github.io/sermon/ms${dateSuffix}.html`;
                     }
-                    
-                    const primaryUrl = `https://kbd71.github.io/${prefix}${dateSuffix}`;
                     
                     if (mainButton) mainButton.dataset.url = primaryUrl;
                 });
             }
-        }
 
         function generateCalendar(year, month) {
             const firstDay = new Date(year, month, 1);
