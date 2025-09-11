@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>정결의 샘과 연단의 불: 하나님의 백성이 되는 길</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">정결의 샘과 연단의 불: 하나님의 백성이 되는 길</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 20일 새벽기도회</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">우리의 죄를 씻는 샘을 여시고 연단의 불을 통과하게 하사, 마침내 '너는 내 백성'이라 부르시는 하나님의 놀라운 은혜를 발견합니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">오늘의 말씀: 스가랴 13장 1-9절</h2>
+                </div>
+                <div class="card-content bible-passage">
+                    <p><b>1</b> 그 날에 죄와 더러움을 씻는 샘이 다윗의 족속과 예루살렘 주민을 위하여 열리리라</p>
+                    <p><b>2</b> 만군의 여호와가 말하노라 그 날에 내가 우상의 이름을 이 땅에서 끊어서 기억도 되지 못하게 할 것이며 거짓 선지자와 더러운 귀신을 이 땅에서 떠나게 할 것이라</p>
+                    <p><b>3</b> 사람이 아직도 예언할 것 같으면 그 낳은 부모가 그에게 이르기를 네가 여호와의 이름을 빙자하여 거짓말을 하니 살지 못하리라 하고 낳은 부모가 그가 예언할 때에 칼로 그를 찌르리라</p>
+                    <p><b>4</b> 그 날에 선지자들이 예언할 때에 그 환상을 각기 부끄러워할 것이며 사람을 속이려고 털옷도 입지 아니할 것이며</p>
+                    <p><b>5</b> 말하기를 나는 선지자가 아니요 나는 농부라 내가 어려서부터 사람의 종이 되었노라 할 것이요</p>
+                    <p><b>6</b> 어떤 사람이 그에게 묻기를 네 두 팔 사이에 있는 상처는 어찌 됨이냐 하면 대답하기를 이는 나의 친구의 집에서 받은 상처라 하리라</p>
+                    <p><b>7</b> 만군의 여호와가 말하노라 칼아 깨어서 내 목자, 내 짝 된 자를 치라 목자를 치면 양이 흩어지려니와 작은 자들 위에는 내가 내 손을 드리우리라</p>
+                    <p><b>8</b> 여호와가 말하노라 이 온 땅에서 삼분의 이는 멸망하고 삼분의 일은 거기 남으리니</p>
+                    <p><b>9</b> 내가 그 삼분의 일을 불 가운데에 던져 은 같이 연단하며 금 같이 시험할 것이라 그들이 내 이름을 부르리니 내가 들을 것이며 나는 말하기를 이는 내 백성이라 할 것이요 그들은 말하기를 여호와는 내 하나님이시라 하리라</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">본문 이해를 위한 배경지식</h2>
+                </div>
+                <div class="card-content">
+                    <p class="mb-4">스가랴 13장은 12장에서 이스라엘이 자신들의 죄를 깊이 애통하며 회개하는 모습에 이어지는 내용입니다. 하나님께서는 회개하는 백성을 위해 완전한 정결과 회복의 길을 예비하십니다. 본문은 '그 날', 즉 여호와의 날에 일어날 세 가지 핵심적인 사건을 통해 하나님의 구원 계획을 보여줍니다.</p>
+                    <dl class="def-list">
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>죄와 더러움을 씻는 샘</dt>
+                        <dd>이것은 단순한 물이 아닙니다. 하나님께 나아가는 것을 가로막는 근본적인 부정함, 즉 죄를 완전히 씻어내는 하나님의 전적인 은혜를 상징합니다. 이는 사람의 노력으로 얻는 것이 아니라 하나님에 의해 '열리는' 것입니다.</dd>
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>우상과 거짓 선지자의 근절</dt>
+                        <dd>과거 이스라엘 멸망의 핵심 원인이었던 우상 숭배와 거짓 예언이 완전히 뿌리 뽑힐 것을 의미합니다. 심지어 부모가 거짓 예언을 하는 자식을 찔러 죽일 정도로 하나님의 진리에 대한 충성심이 회복될 것을 보여줍니다.</dd>
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>목자의 수난과 백성의 연단</dt>
+                        <dd>하나님의 '짝'이라 불리는 선한 목자가 고난을 받고 양들이 흩어지지만, 이는 결국 남은 자들을 정결하게 연단하시려는 하나님의 계획입니다. 이 고난을 통해 백성은 불순물이 제거된 순수한 금과 은처럼 거듭나 하나님과의 언약 관계를 회복하게 됩니다.</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">설교의 핵심: 죄의 근원을 제거하시는 하나님</h2>
+                </div>
+                <div class="card-content">
+                    <p class="mb-4">하나님께서는 단순히 죄의 결과만을 처리하시는 것이 아니라, 죄의 근원 자체를 뿌리 뽑으십니다. 이를 위해 두 가지 강력한 조치를 취하십니다.</p>
+                    <blockquote class="my-6">"그 날에 죄와 더러움을 씻는 샘이 열릴 것이다. 또한 그 날에 우상의 이름이 이 땅에서 끊어져 기억도 되지 못하게 될 것이다."</blockquote>
+                    <p class="mb-4">첫째는 <span class="keyword">죄를 씻는 샘</span>입니다. 이 샘은 우리를 더럽히는 모든 죄악을 깨끗하게 하는 예수 그리스도의 보혈을 상징합니다. 이 샘은 우리의 공로가 아닌, 전적인 하나님의 은혜로 주어집니다.</p>
+                    <p>둘째는 <span class="keyword">우상과 거짓의 제거</span>입니다. 하나님은 우리 마음과 사회에 깊이 뿌리내린 거짓된 신들과 거짓 가르침을 완전히 제거하십니다. 하나님을 향한 순전한 사랑과 충성이 회복될 때, 거짓 선지자들은 설 자리를 잃고 스스로 부끄러워하며 자신의 정체를 숨기게 될 것입니다. 이는 하나님의 백성이 오직 진리 위에 굳게 서게 될 것을 보여줍니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">설교의 핵심: 목자의 고난과 남은 자의 연단</h2>
+                </div>
+                <div class="card-content">
+                    <p class="mb-4">하나님의 정결케 하시는 과정에는 고난이 따릅니다. 하나님은 "칼아 깨어서 내 목자, 내 짝 된 자를 치라"고 명령하십니다. 이 말씀은 궁극적으로 <span class="keyword">메시아</span>이신 예수 그리스도의 고난을 예언합니다.</p>
+                    <p class="mb-4">선한 목자이신 예수님께서 십자가에서 고난 당하실 때, 제자들은 흩어졌습니다. 그러나 이 사건은 실패가 아니라 구원 계획의 일부였습니다. 목자를 치심으로 흩어진 양들, 그 중에서도 '작은 자들'에게 하나님의 긍휼이 임합니다.</p>
+                    <blockquote class="my-6">"내가 그 삼분의 일을 불 가운데에 던져 은 같이 연단하며 금 같이 시험할 것이라..."</blockquote>
+                    <p>하나님께서는 고난이라는 풀무불을 통해 남은 백성을 연단하십니다. 마치 대장장이가 불로 금과 은에서 불순물을 제거하듯, 하나님은 시련을 통해 우리의 믿음을 순수하게 하시고, 우리가 오직 하나님만을 의지하도록 만드십니다. 이 고통스러운 연단의 끝에서 우리는 비로소 "여호와는 내 하나님이시라"고 진정으로 고백하게 되며, 하나님께서는 "이는 내 백성이라"고 응답하십니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">결론: 우리 삶에 주시는 교훈</h2>
+                </div>
+                <div class="card-content">
+                    <p class="mb-4">오늘 말씀은 우리를 구원하고 온전하게 만들어 가시는 하나님의 열심을 보여줍니다. 이 은혜에 합당하게 반응하기 위해 우리는 다음과 같은 삶을 살아야 합니다.</p>
+                    <ul class="list-disc list-inside space-y-3 text-lg">
+                        <li class="flex items-start"><span class="mr-3 text-emerald-600">✔</span> <strong>우상을 분별하고 제거하십시오:</strong> 우리 삶 속에서 하나님의 자리를 차지하고 있는 거짓된 것들을 민감하게 분별하고 과감하게 뿌리 뽑아야 합니다.</li>
+                        <li class="flex items-start"><span class="mr-3 text-emerald-600">✔</span> <strong>복음의 진리 위에 굳게 서십시오:</strong> 세상의 거짓 가르침에 흔들리지 않도록, 오직 예수 그리스도의 복음 진리 위에 삶의 기초를 굳건히 세워야 합니다.</li>
+                        <li class="flex items-start"><span class="mr-3 text-emerald-600">✔</span> <strong>연단을 기꺼이 받으십시오:</strong> 삶의 고난을 하나님의 연단 과정으로 믿고, 이 과정을 통해 더욱 정결한 믿음으로 나아가기를 소망해야 합니다.</li>
+                        <li class="flex items-start"><span class="mr-3 text-emerald-600">✔</span> <strong>하나님의 은혜를 사모하십시오:</strong> 우리를 구원하고, 연단하여, 마침내 당신의 백성으로 삼으시는 하나님의 놀라운 은혜를 날마다 사모하며 살아가야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">심화 이해: 매튜 헨리 주석</h2>
+                </div>
+                <div class="card-content">
+                     <p class="mb-4">매튜 헨리는 스가랴 13장을 복음 시대에 대한 명백한 예언으로 해석합니다. 그는 본문의 핵심 개념들을 다음과 같이 설명합니다.</p>
+                     <dl class="def-list">
+                         <dt><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>죄를 씻는 샘 (1절)</dt>
+                         <dd>이 샘은 바로 예수 그리스도의 피와 성령의 능력을 가리킵니다. 율법의 정결 의식으로는 씻을 수 없는 죄의 오염과 죄책감을 씻어내는 유일한 길입니다. 이 샘은 '열려 있다'는 점에서 모든 사람에게, 모든 시대에 개방되어 있으며, 누구든지 믿음으로 나아와 씻음을 받을 수 있는 복음의 개방성을 강조합니다.</dd>
+                         <dt><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>목자를 치는 칼 (7절)</dt>
+                         <dd>매튜 헨리는 이 구절이 예수님 자신께서 마태복음 26장 31절에서 직접 인용하셨다는 점에 주목합니다. '내 짝 된 자'라는 표현은 그리스도의 신성, 즉 그분이 성부 하나님과 동등된 본질을 가지셨음을 보여주는 강력한 증거라고 해석합니다. 하나님의 공의의 '칼'이 죄 없는 목자이신 그리스도를 침으로써, 죄 있는 우리 양들을 위한 속죄가 이루어졌다는 신비로운 진리를 담고 있습니다.</dd>
+                          <dt><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>남은 자들의 정화 (9절)</dt>
+                         <dd>교회는 시련을 통해 정화됩니다. 하나님께서는 자신의 백성을 불 속에 두시지만, 이는 그들을 멸망시키기 위함이 아니라 금속을 제련하여 더 가치있게 만들려는 목적입니다. 시련은 성도에게서 세상적인 찌꺼기를 제거하고, 기도를 통해 하나님을 더욱 찾게 하며, 결국 하나님과의 관계를 더욱 깊고 진실하게 만드는 축복의 과정이라고 강조합니다.</dd>
+                     </dl>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var player;
+        var videoId = 'Ur4kx9wiZHM';
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        // Load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

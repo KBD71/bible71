@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>나그네교회 | 저주를 축복으로 바꾸시는 하나님의 열심</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">저주를 축복으로 바꾸시는 하나님의 열심</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 13일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">하나님의 뜨거운 사랑과 약속을 믿고, 절망의 자리를 떠나 성전 재건의 사명을 감당하며 축복의 통로가 되십시오.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">오늘의 말씀: 스가랴 8:1-13</h2>
+                        <div class="card-content bible-passage">
+                            <p><b>1</b> 만군의 여호와의 말씀이 임하여 이르시되</p>
+                            <p><b>2</b> 만군의 여호와가 이같이 말하노라 내가 시온을 위하여 크게 질투하며 그를 위하여 크게 분노함으로 질투하노라</p>
+                            <p><b>3</b> 여호와가 이같이 말하노라 내가 시온에 돌아와 예루살렘 가운데에 거하리니 예루살렘은 진리의 성읍이라 일컫겠고 만군의 여호와의 산은 성산이라 일컫게 되리라</p>
+                            <p><b>4</b> 만군의 여호와가 이같이 말하노라 예루살렘 길거리에 늙은 남자들과 늙은 여자들이 다시 앉을 것이라 다 나이가 많으므로 저마다 손에 지팡이를 잡을 것이요</p>
+                            <p><b>5</b> 그 성읍 거리에 소년과 소녀들이 가득하여 거기에서 뛰놀리라</p>
+                            <p><b>6</b> 만군의 여호와가 이같이 말하노라 이 일이 그 날에 남은 백성의 눈에는 기이하려니와 내 눈에야 어찌 기이하겠느냐 만군의 여호와의 말이니라</p>
+                            <p><b>7</b> 만군의 여호와가 이같이 말하노라 보라, 내가 내 백성을 동쪽 나라와 서쪽 나라에서부터 구원하여 내고</p>
+                            <p><b>8</b> 인도하여다가 예루살렘 가운데에 거주하게 하리니 그들은 내 백성이 되고 나는 진리와 공의로 그들의 하나님이 되리라</p>
+                            <p><b>9</b> 만군의 여호와가 이같이 말하노라 만군의 여호와의 집 곧 성전을 건축하려고 그 지대를 쌓던 날에 있었던 선지자들의 입의 말을 이 날에 듣는 너희는 손을 견고히 할지어다</p>
+                            <p><b>10</b> 이 날 전에는 사람도 삯을 얻지 못하였고 짐승도 삯을 받지 못하였으며 사람이 원수로 말미암아 평안히 출입하지 못하였으나 내가 모든 사람을 서로 풀어 놓았느니라</p>
+                            <p><b>11</b> 만군의 여호와의 말씀이니라 이제는 내가 이 남은 백성을 대하기를 옛날과 같이 아니할 것인즉</p>
+                            <p><b>12</b> 곧 평안한 포도나무 열매를 맺고 땅이 산물을 내며 하늘은 이슬을 내리리니 내가 이 남은 백성으로 이 모든 것을 누리게 하리라</p>
+                            <p><b>13</b> 유다 족속아, 이스라엘 족속아, 너희가 이방인 가운데에서 저주가 되었었으나 이제는 내가 너희를 구원하여 너희가 복이 되게 하리니 두려워하지 말지니라 손을 견고히 할지니라</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">본문 이해를 위한 배경지식</h2>
+                        <div class="card-content">
+                            <p class="mb-4">스가랴서는 바벨론 포로에서 돌아온 이스라엘 백성에게 주신 하나님의 말씀입니다. 당시 백성들은 황폐해진 땅과 16년이나 중단된 성전 건축으로 인해 깊은 절망과 무기력에 빠져 있었습니다. 주변 민족들의 방해와 경제적 어려움 속에서 그들은 하나님의 약속을 의심하기 시작했습니다.</p>
+                            <blockquote>이런 상황 속에서 하나님은 선지자 스가랴를 통해 당신의 <span class="keyword">뜨거운 사랑(질투)</span>과 변함없는 계획을 선포하십니다. 여기서 '질투'는 단순한 시기심이 아니라, 언약 관계에 기초한 하나님의 포기하지 않는 열정과 사랑을 의미합니다. 하나님은 당신의 백성과 예루살렘을 결코 버리지 않으시고, 반드시 회복시키실 것을 강력하게 약속하십니다.</blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">설교의 핵심: 회복의 약속, 그 이상</h2>
+                        <div class="card-content">
+                            <dl class="def-list">
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path></svg>
+                                    돌아오시는 하나님, 거하시는 하나님
+                                </dt>
+                                <dd>회복의 시작은 하나님께서 시온으로 돌아와 그들 가운데 거하시는 것입니다. 임재의 약속은 예루살렘을 '진리의 성읍'과 '성산'으로 변화시킬 것입니다. 이것은 단순한 물리적 귀환이 아니라, 하나님과의 관계가 온전히 회복됨을 의미합니다.</dd>
+
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.952a4.5 4.5 0 011.88-2.186c.38.364.766.716 1.154 1.057a4.5 4.5 0 01-1.88 2.186m-1.154-1.057a4.5 4.5 0 00-1.88-2.186c-.38.364-.766.716-1.154 1.057a4.5 4.5 0 001.88 2.186m1.154-1.057A4.5 4.5 0 0112 11.25a4.5 4.5 0 012.364 4.225m-4.728-4.225a4.5 4.5 0 00-1.88-2.186c-.38.364-.766.716-1.154 1.057a4.5 4.5 0 001.88 2.186m1.154-1.057A4.5 4.5 0 0112 11.25a4.5 4.5 0 012.364 4.225m-4.728-4.225a4.5 4.5 0 00-1.88-2.186c-.38.364-.766.716-1.154 1.057a4.5 4.5 0 001.88 2.186m1.154-1.057A4.5 4.5 0 0112 11.25a4.5 4.5 0 012.364 4.225M12 21a9 9 0 100-18 9 9 0 000 18z"></path></svg>
+                                    평화와 생명이 넘치는 공동체
+                                </dt>
+                                <dd>하나님이 주실 평화는 노인들이 안심하고 길거리에 앉아있고, 아이들이 마음껏 뛰노는 모습으로 구체화됩니다. 전쟁과 불안이 사라지고, 모든 세대가 함께 어우러지는 생명력 넘치는 공동체의 비전을 보여줍니다. 이는 인간의 눈에는 '기이한 일'이지만, 전능하신 하나님께는 능치 못할 일이 없습니다.</dd>
+
+                                <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.362-3.362A8.287 8.287 0 0012 5.85a8.252 8.252 0 013.362-2.636zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    저주에서 축복으로의 완전한 반전
+                                </dt>
+                                <dd>과거 이스라엘은 이방 가운데 <span class="keyword">저주의 대명사</span>였지만, 이제는 그들을 구원하여 <span class="keyword">복의 근원</span>이 되게 하시겠다고 약속하십니다. 이 놀라운 반전은 오직 하나님의 구원 능력으로만 가능합니다. 이 약속을 붙들고 두려워하지 말고 "손을 견고히" 하여 맡겨진 사명을 감당해야 합니다.</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">결론: "손을 견고히 할지어다"</h2>
+                        <div class="card-content">
+                            <p class="mb-4">하나님의 회복 약속은 단지 미래에 대한 막연한 기대가 아닙니다. 그것은 오늘을 살아가는 우리에게 주시는 강력한 동기이자 명령입니다. 절망적인 현실에도 불구하고 "손을 견고히 하라"는 말씀은, 우리가 하나님의 약속을 믿고 각자의 자리에서 성실하게 사명을 감당해야 함을 촉구합니다.</p>
+                            <ul class="list-disc list-inside space-y-3">
+                                <li><strong>약속을 신뢰하기:</strong> 눈에 보이는 상황이 아니라, 신실하신 하나님의 말씀을 붙들고 두려움을 떨쳐버리십시오.</li>
+                                <li><strong>사명에 충실하기:</strong> 하나님 나라와 교회를 세우는 일(성전 건축)에 우리의 손과 발을 드려 적극적으로 참여하십시오.</li>
+                                <li><strong>축복의 통로 되기:</strong> 이제 우리는 저주의 존재가 아닌 축복의 존재로 부름받았음을 기억하고, 세상을 향해 하나님의 복을 흘려보내는 삶을 사십시오.</li>
+                            </ul>
+                            <blockquote>낙심하지 말고 주의 일에 더욱 힘쓰십시오. 순종하는 사람을 통해 일하시고, 그를 복이 되게 하시는 하나님을 온전히 신뢰합시다.</blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">심화 이해: 매튜 헨리 주석</h2>
+                        <div class="card-content">
+                            <p class="mb-4">매튜 헨리는 스가랴 8장의 회복 약속을 신약 교회의 영광과 연결하여 설명합니다.</p>
+                            <p class="mb-6"><strong>하나님의 임재가 곧 교회의 영광:</strong> "하나님께서 '내가 시온에 돌아와 예루살렘 가운데 거하리니'라고 말씀하실 때, 이것이 바로 교회의 행복과 번영의 근원이다. 하나님의 임재는 그 어떤 외적인 영광보다 더 큰 축복이며, 교회를 '진리의 성읍'과 '거룩한 산'으로 만든다."</p>
+                            <p class="mb-6"><strong>기이한 일, 그러나 하나님께는 당연한 일:</strong> "황폐했던 예루살렘이 다시 번성하는 것은 남은 자들의 눈에는 기이하게 보일 수 있다. 그러나 창조주이시며 구속주이신 하나님께는 전혀 기이할 것이 없다. 신약 교회의 설립, 특히 이방인들의 구원은 우리 눈에 놀라운 기적이지만, 그것은 하나님의 영원한 계획과 약속의 성취일 뿐이다."</p>
+                            <blockquote>매튜 헨리는 스가랴의 예언이 단순히 과거 이스라엘의 회복을 넘어, 그리스도를 통해 세워질 신약 교회의 영광스러운 미래와 모든 민족을 향한 하나님의 구원 계획을 예표하고 있음을 강조합니다.</blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        // YouTube IFrame Player API 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'hhxrOJH6noU'; // 유튜브 영상 ID
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player && typeof player.getPlayerState == 'function') {
+                var playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+    </script>
+</body>
+</html>

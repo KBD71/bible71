@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>주의 집에 거하는 기쁨, 멸시 중에 구하는 은혜</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">주의 집에 거하는 기쁨, 멸시 중에 구하는 은혜</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 23일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">성도의 공동체와 함께 예배하는 기쁨을 누리고, 세상의 멸시 속에서도 오직 하나님의 긍휼을 구하는 믿음의 자세를 배우는 설교</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">오늘의 말씀: 시편 122-123편</h2>
+                        <div class="bible-passage">
+                            <p><b>122:1</b> 사람이 내게 말하기를 여호와의 집에 올라가자 할 때에 내가 기뻐하였도다</p>
+                            <p><b>122:2</b> 예루살렘아 우리 발이 네 성문 안에 섰도다</p>
+                            <p><b>122:3</b> 예루살렘아 너는 잘 짜여진 성읍과 같이 건설되었도다</p>
+                            <p><b>122:4</b> 지파들 곧 여호와의 지파들이 여호와의 이름에 감사하려고 이스라엘의 전례대로 그리로 올라가는도다</p>
+                            <p><b>122:5</b> 거기에 심판의 보좌를 두셨으니 곧 다윗의 집의 보좌로다</p>
+                            <p><b>122:6</b> 예루살렘을 위하여 평안을 구하라 예루살렘을 사랑하는 자는 형통하리로다</p>
+                            <p><b>122:7</b> 네 성 안에는 평안이 있고 네 궁중에는 형통함이 있을지어다</p>
+                            <p><b>122:8</b> 내가 내 형제와 친구를 위하여 이제 말하리니 네 가운데에 평안이 있을지어다</p>
+                            <p><b>122:9</b> 여호와 우리 하나님의 집을 위하여 내가 너를 위하여 복을 구하리로다</p>
+                            <p><b>123:1</b> 하늘에 계시는 주여 내가 눈을 들어 주께 향하나이다</p>
+                            <p><b>123:2</b> 상전의 손을 바라보는 종들의 눈 같이, 여주인의 손을 바라보는 여종의 눈 같이 우리의 눈이 여호와 우리 하나님을 바라보며 우리에게 은혜 베풀어 주시기를 기다리나이다</p>
+                            <p><b>123:3</b> 여호와여 우리에게 은혜를 베푸시고 또 은혜를 베푸소서 심한 멸시가 우리에게 넘치나이다</p>
+                            <p><b>123:4</b> 안일한 자의 조소와 교만한 자의 멸시가 우리 영혼에 넘치나이다</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">본문 이해를 위한 배경지식</h2>
+                        <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M11.25 3.25a.75.75 0 01.75.75v.01l.001.001.002.001.002.001.003.002.004.002.004.002.005.002.006.002a7.483 7.483 0 013.98 1.401.75.75 0 01-.84 1.242A6 6 0 0012 5.51V14.5a.75.75 0 01-1.5 0V5.51a6 6 0 00-3.645 1.189.75.75 0 11-.84-1.242 7.483 7.483 0 013.98-1.401l.006-.002.005-.002.004-.002.004-.002.003-.002.002-.001.002-.001.001-.001V4a.75.75 0 01.75-.75z" clip-rule="evenodd" /></svg>
+                                성전에 올라가는 노래 (A Song of Ascents)
+                            </dt>
+                            <dd>시편 120편부터 134편까지는 '성전에 올라가는 노래'라는 표제가 붙어 있습니다. 이 시들은 이스라엘 백성들이 유월절, 오순절, 초막절과 같은 주요 절기에 예루살렘 성전을 향해 순례의 길을 오르며 부르던 찬송입니다. 따라서 이 시편들에는 고된 순례길의 어려움, 예루살렘에 도착했을 때의 기쁨, 하나님의 임재에 대한 소망, 그리고 공동체를 향한 사랑이 깊이 담겨 있습니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z" clip-rule="evenodd" /></svg>
+                                예루살렘의 의미
+                            </dt>
+                            <dd>예루살렘은 단순한 도시가 아니라 하나님의 백성에게 신앙의 중심지였습니다. 그곳에는 하나님께서 임재하시는 <span class="keyword">성전</span>이 있었고, 하나님의 공의로운 통치를 상징하는 <span class="keyword">다윗의 보좌</span>가 있었습니다. 따라서 예루살렘을 향해 나아가는 것은 하나님의 통치와 임재 속으로 들어가는 것을 의미했으며, 그곳의 평안을 위해 기도하는 것은 곧 하나님 나라의 번영을 위해 기도하는 것이었습니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">설교의 핵심 1: 예배 공동체를 향한 기쁨과 기도 (시편 122편)</h2>
+                        <p class="mb-4 text-lg">신앙생활의 본질은 <span class="keyword">공동체</span>에 있습니다. 시인은 "여호와의 집에 올라가자"는 형제의 권유에 기뻐하며 함께 예루살렘으로 향합니다. 이는 하나님의 임재가 있는 성전에서 함께 예배하는 것이 성도의 가장 큰 기쁨임을 보여줍니다.</p>
+                        <blockquote>예루살렘에 이르러 시인은 세 가지를 보며 찬양합니다. 첫째, 잘 짜여진 성읍을 통해 하나님의 지혜로운 통치를 봅니다. 둘째, 예배하러 모인 수많은 지파들을 보며 믿음의 공동체를 봅니다. 셋째, 심판의 보좌를 보며 다윗 언약에 기초한 그리스도의 통치를 바라봅니다.</blockquote>
+                        <p class="mt-4 text-lg">이러한 감격 속에서 시인은 예루살렘의 평안을 위해 기도합니다. 이는 단순히 도시의 안녕을 넘어, 하나님의 교회가 외부의 위협으로부터 안전하고, 성도들이 하나님 안에서 형통하기를 바라는 기도입니다. 우리 또한 교회의 평안과 성도들의 형통을 위해 기도해야 합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">설교의 핵심 2: 멸시 속에서 은혜를 구하는 눈 (시편 123편)</h2>
+                        <p class="mb-4 text-lg">성도는 <span class="keyword">안일한 자의 조소</span>와 <span class="keyword">교만한 자의 멸시</span>가 가득한 세상 속에서 살아갑니다. 이러한 고통과 절박함 속에서 성도는 어디를 바라보아야 할까요? 시인은 "내가 눈을 들어 주께 향하나이다"라고 고백합니다.</p>
+                        <p class="mb-4 text-lg">이 시선은 '상전의 손을 바라보는 종의 눈'과 같습니다. 이는 자신의 무력함을 인정하고, 오직 주인의 처분과 은혜만을 간절히 기다리는 절대적인 신뢰와 의존의 자세입니다. 주인의 손에서 나오는 모든 공급과 보호, 구원을 기다리는 것입니다.</p>
+                        <blockquote>"여호와여 우리에게 은혜를 베푸시고 또 은혜를 베푸소서." 시인의 반복되는 간구는 심한 멸시가 영혼에 넘치는 절박한 상황을 보여줍니다. 그러나 그는 세상과 똑같은 방식으로 맞서 싸우지 않고, 오직 하나님의 은혜가 임할 때까지 잠잠히 기다립니다. 영적 승리는 나의 능력이 아닌, 하나님을 향한 절대적 신뢰에서 비롯되기 때문입니다.</blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">결론: 우리 삶에 주시는 교훈</h2>
+                        <ol class="list-decimal list-inside space-y-4 text-lg">
+                            <li><strong class="text-indigo-800">교회 공동체를 기뻐하라:</strong> 우리는 그리스도의 몸 된 교회로 부지런히 나아와야 합니다. 성도들과 함께 예배하고 교제하는 기쁨을 회복하고, 교회의 평안과 지체들의 형통을 위해 기도해야 합니다.</li>
+                            <li><strong class="text-indigo-800">하나님께 시선을 고정하라:</strong> 세상의 조롱과 멸시가 가득할수록, 우리의 눈을 들어 하늘에 계신 주님께 고정해야 합니다. 세상이 주는 만족이 아닌, 하나님이 주시는 은혜만이 우리의 유일한 소망입니다.</li>
+                            <li><strong class="text-indigo-800">은혜를 간절히 기다리라:</strong> 하나님의 은혜가 없이는 단 하루도 살 수 없음을 고백하며, 종이 주인의 손을 바라보듯 간절함으로 하나님의 긍휼과 도우심을 기다리는 믿음의 자세를 가져야 합니다.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">심화 이해: 매튜 헨리 주석</h2>
+                        <p class="mb-4 text-lg">매튜 헨리 주석은 시편 122편과 123편을 성도의 신앙 여정에 빗대어 설명하며, 설교의 내용을 더욱 풍성하게 합니다.</p>
+                        <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" /></svg>
+                                예루살렘의 평안을 위한 기도 (시 122:6-9)
+                            </dt>
+                            <dd>헨리는 이 기도가 모든 그리스도인이 마땅히 드려야 할 기도라고 강조합니다. 교회의 평안은 곧 '일치와 사랑'을 의미하며, 이는 외부의 적으로부터의 안전만큼이나 내부적인 화합이 중요함을 뜻합니다. 우리가 교회의 평안을 위해 기도할 때, 하나님께서는 그 기도를 들으시고 우리 자신의 삶 또한 형통하게 하실 것이라고 설명합니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" /></svg>
+                                종의 눈과 같은 우리의 눈 (시 123:2)
+                            </dt>
+                            <dd>헨리는 '종의 눈'이 네 가지를 의미한다고 해석합니다. 첫째, 주인을 향한 경외심. 둘째, 주인의 명령을 살피는 순종의 자세. 셋째, 잘못을 저질렀을 때 주인의 교정을 기다리는 겸손함. 넷째, 필요를 채워주고 위험에서 건져줄 주인을 향한 전적인 의존입니다. 이처럼 우리의 눈이 항상 하나님을 향할 때, 우리는 비로소 참된 은혜를 경험할 수 있습니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var player;
+        const videoId = 's7hjmsS9VzE';
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+        
+        listenBtn.addEventListener('click', togglePlay);
+
+        // Load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

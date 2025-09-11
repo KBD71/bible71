@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설교 요약 인포그래픽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.3;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+        .preacher, .scripture, .date {
+            font-size: 1.1rem;
+            color: #a0aec0;
+            margin-bottom: 0.25rem;
+        }
+        .preacher { font-weight: 700; }
+        .scripture { font-style: italic; }
+        .date { font-size: 1rem; }
+        
+        #listen-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 9999px;
+            background-color: #2c5282;
+            color: white;
+            font-weight: 700;
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+        #listen-btn:disabled {
+            background-color: #4a5568;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        #listen-btn:not(:disabled):hover {
+            background-color: #2b6cb0;
+        }
+        #listen-btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .scripture-text-section {
+            background-color: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+        }
+        .scripture-text-section h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .scripture-text-section p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #cbd5e0;
+            margin-bottom: 0.5rem;
+        }
+        .scripture-text-section span {
+            font-weight: 700;
+            color: #a0aec0;
+            margin-right: 0.5em;
+        }
+
+        .card {
+            background-color: #2d3748;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            border: 1px solid #4a5568;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .icon-wrapper {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon-wrapper svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+        .card-content h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            color: #ffffff;
+        }
+        .card-content p, .card-content ol {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #cbd5e0;
+        }
+        .card-content ol {
+            padding-left: 1.5rem;
+            margin-top: 1rem;
+        }
+        .card-content li {
+            margin-bottom: 0.5rem;
+        }
+        .keyword {
+            font-weight: 700;
+            color: #63b3ed;
+        }
+        blockquote {
+            border-left: 4px solid #4a5568;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #a0aec0;
+        }
+        cite {
+            display: block;
+            text-align: right;
+            margin-top: 0.5rem;
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        @media (max-width: 400px) {
+            .card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .card-content {
+                width: 100%;
+            }
+            .icon-wrapper {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="hidden-player-container" style="display: none;"></div>
+
+    <div class="container">
+        <header>
+            <h1>종말론적 혼란 속에서 굳게 서는 길</h1>
+            <p class="preacher">김대복 목사</p>
+            <p class="scripture">데살로니가후서 2장 1-17절</p>
+            <p class="date">2025년 9월 8일</p>
+            <p class="text-2xl mt-6 font-semibold text-blue-300">
+                거짓된 종말론에 미혹되지 않고, 오직 복음의 진리 위에 서서 하나님이 주시는 영원한 위로와 소망을 붙드는 것이 성도의 마땅한 자세입니다.
+            </p>
+            <button id="listen-btn" disabled>
+                <svg id="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 18.75h16.5" />
+                </svg>
+                <span id="btn-text">로딩 중...</span>
+            </button>
+        </header>
+
+        <div class="scripture-text-section">
+            <h2>설교 본문</h2>
+            <p><span>1</span>형제들아 우리가 너희에게 구하는 것은 우리 주 예수 그리스도의 강림하심과 우리가 그 앞에 모임에 관하여</p>
+            <p><span>2</span>영으로나 또는 말로나 또는 우리에게서 받았다 하는 편지로나 주의 날이 이르렀다고 해서 쉽게 마음이 흔들리거나 두려워하거나 하지 말아야 한다는 것이라</p>
+            <p><span>3</span>누가 어떻게 하여도 너희가 미혹되지 말라 먼저 배교하는 일이 있고 저 불법의 사람 곧 멸망의 아들이 나타나기 전에는 그 날이 이르지 아니하리니</p>
+            <p><span>4</span>그는 대적하는 자라 신이라고 불리는 모든 것과 숭배함을 받는 것에 대항하여 그 위에 자기를 높이고 하나님의 성전에 앉아 자기를 하나님이라고 내세우느니라</p>
+            <p><span>5</span>내가 너희와 함께 있을 때에 이 일을 너희에게 말한 것을 기억하지 못하느냐</p>
+            <p><span>6</span>너희는 지금 그로 하여금 그의 때에 나타나게 하려 하여 막는 것이 있는 것을 아나니</p>
+            <p><span>7</span>불법의 비밀이 이미 활동하였으나 지금은 그것을 막는 자가 있어 그 중에서 옮겨질 때까지 하리라</p>
+            <p><span>8</span>그 때에 불법한 자가 나타나리니 주 예수께서 그 입의 기운으로 그를 죽이시고 강림하여 나타나심으로 폐하시리라</p>
+            <p><span>9</span>악한 자의 나타남은 사탄의 활동을 따라 모든 능력과 표적과 거짓 기적과</p>
+            <p><span>10</span>불의의 모든 속임으로 멸망하는 자들에게 있으리니 이는 그들이 진리의 사랑을 받지 아니하여 구원함을 받지 못함이라</p>
+            <p><span>11</span>이러므로 하나님이 미혹의 역사를 그들에게 보내사 거짓 것을 믿게 하심은</p>
+            <p><span>12</span>진리를 믿지 않고 불의를 좋아하는 모든 자들로 하여금 심판을 받게 하려 하심이라</p>
+            <p><span>13</span>주께서 사랑하시는 형제들아 우리가 항상 너희에 관하여 마땅히 하나님께 감사할 것은 하나님이 처음부터 너희를 택하사 성령의 거룩하게 하심과 진리를 믿음으로 구원을 받게 하심이니</p>
+            <p><span>14</span>이를 위하여 우리의 복음으로 너희를 부르사 우리 주 예수 그리스도의 영광을 얻게 하려 하심이니라</p>
+            <p><span>15</span>그러므로 형제들아 굳건하게 서서 말로나 우리의 편지로 가르침을 받은 전통을 지키라</p>
+            <p><span>16</span>우리 주 예수 그리스도와 우리를 사랑하시고 영원한 위로와 좋은 소망을 은혜로 주신 하나님 우리 아버지께서</p>
+            <p><span>17</span>너희 마음을 위로하시고 모든 선한 일과 말에 굳건하게 하시기를 원하노라</p>
+        </div>
+
+        <main>
+            <div class="card">
+                <div class="icon-wrapper bg-rose-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.134-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.067-2.09 1.02-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                </div>
+                <div class="card-content">
+                    <h2>거짓된 가르침에 대한 경고</h2>
+                    <p>데살로니가 교회는 극심한 환난 속에서 <span class="keyword">"주의 날"</span>이 이미 이르렀다는 거짓 가르침 때문에 큰 혼란을 겪고 있었습니다. 일부 거짓 교사들은 영적 계시, 직접 들은 말, 심지어 사도 바울의 이름을 도용한 편지를 근거로 성도들을 미혹하여 마음을 흔들고 두렵게 했습니다. 이는 성도들로 하여금 자신이 구원에서 탈락했거나 하나님의 형벌 아래 있다고 오해하게 만드는 사탄의 교묘한 전략이었습니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-wrapper bg-blue-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042" /></svg>
+                </div>
+                <div class="card-content">
+                    <h2>재림의 명확한 두 가지 징조</h2>
+                    <p>바울은 주의 날이 임하기 전에 반드시 두 가지 명확한 사건이 먼저 일어날 것이라고 단언합니다. 성도들은 이 징조를 통해 거짓된 주장에 분별력을 가질 수 있습니다.</p>
+                    <ol>
+                        <li><strong>먼저 <span class="keyword">배교하는 일</span>이 있고:</strong> 이는 단순히 개인적인 신앙의 실패를 넘어, 하나님을 향한 대규모의 조직적인 반역과 배도가 일어나는 것을 의미합니다.</li>
+                        <li><strong><span class="keyword">불법의 사람</span>, 곧 <span class="keyword">멸망의 아들</span>이 나타나리니:</strong> 이 인물은 하나님을 대적하고 모든 숭배의 대상 위에 자신을 높이며, 급기야 하나님의 성전에 앉아 스스로를 하나님이라고 선포하는 교만의 절정을 보여줄 것입니다.</li>
+                    </ol>
+                    <blockquote>
+                        <p>그는 대적하는 자라 신이라고 불리는 모든 것과 숭배함을 받는 것에 대항하여 그 위에 자기를 높이고 하나님의 성전에 앉아 자기를 하나님이라고 내세우느니라</p>
+                        <cite>데살로니가후서 2:4</cite>
+                    </blockquote>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="icon-wrapper bg-purple-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+                </div>
+                <div class="card-content">
+                    <h2>하나님의 주권 아래 있는 불법의 활동</h2>
+                    <p>현재 '불법의 비밀'이 이미 활동하고 있지만, 그 세력이 전면적으로 드러나지 않는 이유는 '막는 것' 또는 '막는 자'가 존재하기 때문입니다. 이는 복음의 능력, 세상의 권세, 혹은 궁극적으로는 하나님 자신의 주권적인 통치를 의미할 수 있습니다. 중요한 것은 불법의 활동조차도 하나님의 정하신 때와 계획 안에서만 허용된다는 사실입니다. 하나님께서 그 '막는 것'을 옮기실 때가 되어서야 비로소 불법한 자가 그 정체를 드러낼 것입니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-wrapper bg-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166l-1.591 1.591M21.75 12h-2.25m-1.666 5.834L16.409 16.5M4.5 12H2.25m1.666-5.834L5.591 7.5M12 21.75v-2.25" /></svg>
+                </div>
+                <div class="card-content">
+                    <h2>불법한 자의 최후와 미혹의 본질</h2>
+                    <p>불법한 자는 사탄의 능력을 힘입어 놀라운 기적과 표적을 행하며 멸망의 길을 가는 자들을 속일 것입니다. 그러나 그의 권세는 영원하지 않습니다. 주 예수께서 재림하실 때, 그 입의 기운으로 그를 소멸시키시고 그의 모든 활동을 폐하실 것입니다. 사람들이 이 거짓에 넘어가는 근본적인 이유는 <span class="keyword">진리의 사랑</span>을 거부하고 불의를 기뻐했기 때문입니다. 진리를 외면한 대가는 하나님의 심판입니다.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="icon-wrapper bg-orange-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" /></svg>
+                </div>
+                <div class="card-content">
+                    <h2>하나님의 택하심: 구원의 확실한 근거</h2>
+                    <p>세상이 혼란하고 악이 득세하는 것처럼 보일지라도, 성도의 구원은 흔들리지 않습니다. 왜냐하면 그 근거가 우리 자신에게 있지 않고, 창세 전부터 시작된 <span class="keyword">하나님의 택하심</span>에 있기 때문입니다. 하나님께서는 성령을 통해 우리를 거룩하게 하시고, 복음의 진리를 믿게 하심으로 우리를 부르셨습니다. 이 모든 구원의 과정은 전적으로 하나님의 주권적인 역사이므로, 그 누구도 우리를 그리스도의 영광에서 끊을 수 없습니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-wrapper bg-emerald-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582" /></svg>
+                </div>
+                <div class="card-content">
+                    <h2>굳게 서서 위로와 소망을 누리라</h2>
+                    <p>그러므로 성도는 이 진리 위에 굳건히 서서, 사도들을 통해 전해진 복음의 전통을 굳게 지켜야 합니다. 우리를 사랑하시고 은혜로 <span class="keyword">영원한 위로</span>와 <span class="keyword">좋은 소망</span>을 주시는 하나님 아버지와 주 예수 그리스도께서 친히 우리의 마음을 위로하시고, 모든 선한 말과 행실에 우리를 강하게 하실 것입니다. 이 약속을 붙들 때, 우리는 어떠한 종말론적 혼란 속에서도 평안을 누리며 담대히 살아갈 수 있습니다.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'eAD-yWb8oaU';
+        const listenBtn = document.getElementById('listen-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnIcon = document.getElementById('btn-icon');
+        let isPlaying = false;
+
+        const playIconSVG = `<path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.985V5.653Z" />`;
+        const pauseIconSVG = `<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />`;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '0',
+                width: '0',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            btnText.textContent = '설교 듣기 (재생)';
+            btnIcon.innerHTML = playIconSVG;
+        }
+        
+        function togglePlay() {
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                btnText.textContent = '일시정지';
+                btnIcon.innerHTML = pauseIconSVG;
+            } else {
+                isPlaying = false;
+                btnText.textContent = '설교 듣기 (재생)';
+                btnIcon.innerHTML = playIconSVG;
+            }
+        }
+    </script>
+</body>
+</html>

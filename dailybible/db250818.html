@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>선한 목자의 은총, 악한 목자의 심판</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">선한 목자의 은총, 악한 목자의 심판</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 18일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">하나님은 자기 이익을 위해 양 떼를 버려두는 악한 목자들을 심판하시고, 오직 선한 목자이신 예수 그리스도를 통해 참된 회복과 생명을 주십니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">오늘의 말씀: 스가랴 11장 1-17절</h2>
+                        <div class="bible-passage">
+                            <p><b>1</b> 레바논아 네 문을 열고 불이 네 백향목을 사르게 하라</p>
+                            <p><b>2</b> 너 잣나무여 곡할지어다 백향목이 넘어졌고 아름다운 나무들이 쓰러졌음이로다 바산의 상수리나무들아 곡할지어다 무성한 숲이 엎드러졌도다</p>
+                            <p><b>3</b> 목자들의 곡하는 소리가 남이여 그들의 영화로운 것이 쓰러졌음이로다 어린 사자의 부르짖는 소리가 남이여 이는 요단의 자랑이 쓰러졌음이로다</p>
+                            <p><b>4</b> 여호와 나의 하나님이 이르시되 너는 잡혀 죽을 양 떼를 먹이라</p>
+                            <p><b>5</b> 사들인 자들은 그들을 잡아도 죄가 없다 하고 판 자들은 말하기를 내가 부요하게 되었은즉 여호와께 찬송하리라 하고 그들의 목자들은 그들을 불쌍히 여기지 아니하는도다</p>
+                            <p><b>6</b> 여호와가 말하노라 내가 다시는 이 땅 주민을 불쌍히 여기지 아니하고 그 사람들을 각각 그 이웃의 손과 임금의 손에 넘기리니 그들이 이 땅을 칠지라도 내가 그들의 손에서 건져내지 아니하리라 하시기로</p>
+                            <p><b>7</b> 내가 잡혀 죽을 양 떼를 먹이니 참으로 가련한 양들이라 내가 이에 막대기 둘을 취하여 하나는 은총이라 하며 하나는 연합이라 하고 양 떼를 먹일새</p>
+                            <p><b>8</b> 한 달 동안에 내가 그 세 목자를 제거하였으니 이는 내 마음에 그들을 싫어하였고 그들의 마음에도 나를 미워하였음이라</p>
+                            <p><b>9</b> 내가 이르되 내가 너희를 먹이지 아니하리라 죽는 자는 죽는 대로, 망할 자는 망할 대로, 나머지는 서로 살을 먹는 대로 두리라 하고</p>
+                            <p><b>10</b> 이에 은총이라 하는 막대기를 취하여 꺾었으니 이는 모든 백성들과 세운 언약을 폐하려 하였음이라</p>
+                            <p><b>11</b> 당일에 곧 폐하매 내 말을 지키던 가련한 양들은 이것이 여호와의 말씀이었던 줄 안지라</p>
+                            <p><b>12</b> 내가 그들에게 이르되 너희가 좋게 여기거든 내 품삯을 내게 주고 그렇지 아니하거든 그만두라 그들이 곧 은 삼십 개를 달아서 내 품삯을 삼은지라</p>
+                            <p><b>13</b> 여호와께서 내게 이르시되 그들이 나를 헤아린 바 그 삯을 토기장이에게 던지라 하시기로 내가 곧 그 은 삼십 개를 여호와의 전에서 토기장이에게 던지고</p>
+                            <p><b>14</b> 내가 또 연합이라 하는 둘째 막대기를 꺾었으니 이는 유다와 이스라엘 형제의 의를 끊으려 함이었느니라</p>
+                            <p><b>15</b> 여호와께서 내게 이르시되 너는 또 어리석은 목자의 기구들을 빼앗을지니라</p>
+                            <p><b>16</b> 보라 내가 한 목자를 이 땅에 일으키리니 그가 없어진 자를 마음에 두지 아니하며 흩어진 자를 찾지 아니하며 상한 자를 고치지 아니하며 강건한 자를 먹이지 아니하고 오히려 살진 자의 고기를 먹으며 또 그 굽을 찢으리라</p>
+                            <p><b>17</b> 화 있을진저 양 떼를 버린 못된 목자여 칼이 그의 팔과 오른쪽 눈에 내리리니 그의 팔이 아주 마르고 그의 오른쪽 눈이 아주 멀어 버릴 것이라 하시니라</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">본문 이해를 위한 배경지식</h2>
+                        <p class="text-lg leading-relaxed">스가랴 11장은 상징적인 행위를 통해 이스라엘의 영적 지도자들의 타락과 그로 인한 하나님의 심판을 예언합니다. 여기서 '목자'는 이스라엘의 왕, 제사장, 선지자 등 지도자들을 의미합니다. 하나님은 스가랴 선지자에게 직접 목자가 되어 양 떼를 먹이는 역할을 하게 하심으로써, 참된 목자의 모습과 대조되는 <span class="keyword">악한 목자</span>들의 죄악을 드러내십니다. 레바논, 바산, 요단 등은 당시 이스라엘의 자랑과 영화를 상징하는 지명으로, 이들의 파괴는 이스라엘 지도층의 몰락과 국가적 심판이 임박했음을 보여주는 강력한 경고입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">설교의 핵심: 두 개의 막대기, 깨어진 언약</h2>
+                        <p class="text-lg leading-relaxed mb-4">하나님은 스가랴를 통해 '잡혀 죽을 양 떼'를 먹이는 목자의 역할을 수행하게 하십니다. 이는 백성을 돌보지 않고 자신의 이익만 챙기는 악한 지도자들과 대조를 이룹니다. 이 과정에서 두 개의 막대기가 등장하며, 이는 하나님의 언약 관계를 상징합니다.</p>
+                        <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                '은총' (노암, נֹעַם) 막대기
+                            </dt>
+                            <dd>하나님께서 이스라엘을 모든 민족 가운데서 특별하게 보호하시고 지키시겠다는 언약을 상징합니다. 그러나 이스라엘이 목자이신 하나님을 거부하자, 하나님은 이 막대기를 꺾으십니다. 이는 하나님의 특별한 보호의 언약이 파기되었음을 의미합니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                '연합' (호블림, חֹבְלִים) 막대기
+                            </dt>
+                            <dd>이스라엘과 유다, 즉 하나님의 백성 내부의 형제적 관계와 연대를 상징합니다. <span class="keyword">은총</span>의 언약이 파기된 후, 이 <span class="keyword">연합</span>의 막대기마저 꺾입니다. 이는 하나님과의 관계가 깨어지면, 공동체 내부의 관계 역시 파괴되고 분열될 수밖에 없음을 보여주는 심판입니다.</dd>
+                        </dl>
+                        <blockquote>선한 목자를 은 삼십에 팔아넘긴 백성의 배은망덕함은 결국 하나님의 보호(은총)와 공동체의 하나됨(연합)을 모두 잃게 만드는 결과를 낳았습니다.</blockquote>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">어리석은 목자와 선한 목자</h2>
+                        <p class="text-lg leading-relaxed mb-4">하나님은 언약을 파기하신 후, 심판의 도구로 '어리석은 목자'를 세우십니다. 이 목자는 양 떼를 돌보지 않고, 상처 입은 양을 고치기는커녕 오히려 살진 양을 잡아먹고 해를 끼칩니다. 이는 이스라엘이 하나님을 버린 결과로 얼마나 비참한 지도자 아래 놓이게 될지를 보여줍니다.</p>
+                        <p class="text-lg leading-relaxed">그러나 이 절망적인 예언 속에서 성경은 참된 소망을 제시합니다. 바로 <span class="keyword">선한 목자</span>이신 예수 그리스도입니다. 스가랴가 받은 품삯 '은 삼십 개'는 훗날 가룟 유다가 예수님을 배신하고 받은 돈과 정확히 일치하며, 이는 선한 목자이신 예수님께서 자기 백성에게 어떻게 버림받으실지를 예표합니다. 예수님은 양들을 위해 자기 목숨을 버리시는 유일하고 참된 선한 목자이십니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">결론: 우리 삶에 주시는 교훈</h2>
+                        <p class="text-lg leading-relaxed">악하고 불의한 목자를 따르는 삶에는 소망이 없습니다. 우리의 유일한 소망은 선한 목자 되신 예수 그리스도께 있습니다. 그분은 우리의 상하고 약한 부분을 친히 고치시고, 우리를 푸른 초장과 쉴 만한 물가로 인도하십니다. 우리의 삶의 주인이 누구인지 분명히 하고, 날마다 선한 목자이신 예수님의 음성을 듣고 그 인도하심을 따라 살아갈 때, 하나님께서 기뻐하시는 찬송의 삶을 살게 될 것입니다.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">심화 이해: 매튜 헨리 주석</h2>
+                        <p class="text-lg leading-relaxed mb-4">매튜 헨리는 스가랴 11장의 사건들을 단순한 역사적 사실의 나열이 아닌, 하나님과 자기 백성 사이의 깊은 관계적 드라마로 해석하며 설교가 다루지 않은 몇 가지 통찰을 제공합니다.</p>
+                        <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                '세 목자'의 정체
+                            </dt>
+                            <dd>설교에서 언급된 '세 목자'에 대해, 매튜 헨리는 이들이 단순히 세 명의 왕이 아니라, 당시 이스라엘의 통치 구조를 이루던 <span class="keyword">왕, 제사장, 선지자</span>라는 세 직분을 상징한다고 보았습니다. 하나님께서 이 세 직분을 모두 제거하신다는 것은, 이스라엘의 사회와 신앙의 모든 공적 기능이 마비되고 파괴될 것임을 의미하는 총체적 심판의 경고입니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                '우상 목자'(Idol Shepherd)의 의미
+                            </dt>
+                            <dd>본문이 '어리석은 목자'라고 칭한 존재를 매튜 헨리는 <span class="keyword">'우상 목자'</span>라는 더 강한 표현으로 해석합니다. 이는 그가 단지 무능하고 악할 뿐만 아니라, 백성들이 하나님 대신 의지하고 따르는 '거짓된 신'과 같은 존재임을 강조합니다. 백성이 참된 목자를 버릴 때, 그들은 결국 자신들을 파멸로 이끄는 우상을 지도자로 섬기게 된다는 신학적 원리를 보여줍니다.</dd>
+                        </dl>
+                        <blockquote>하나님께서 자신의 가치를 '품삯을 달라'고 요구하신 것은, 백성 스스로 그들의 마음속에서 하나님을 얼마나 하찮게 여기는지를 드러내게 하시려는 의도였습니다. 그들이 책정한 '은 30개'는 그들의 불신앙에 대한 스스로의 고백이었습니다.</blockquote>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        const videoId = 'X_ZFoEOWyhw';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+        
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: { 'playsinline': 1 },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+    </script>
+</body>
+</html>

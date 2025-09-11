@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>하나님을 기쁘시게 하는 삶: 거룩과 사랑</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">하나님을 기쁘시게 하는 삶: 거룩과 사랑</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 9월 4일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">성도의 삶은 하나님의 뜻인 거룩함을 지키고 형제를 향한 사랑을 실천하며, 자기 일에 충실함을 통해 하나님께 기쁨이 되어야 합니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-amber-700">오늘의 말씀: 데살로니가전서 4장 1-12절</h2>
+                        <div class="bible-passage">
+                            <p><b>1</b> 그러므로 형제들아 우리가 끝으로 주 예수 안에서 너희에게 구하고 권면하노니 너희가 마땅히 어떻게 행하며 하나님을 기쁘시게 할 수 있는지를 우리에게 배웠으니 곧 너희가 행하는 바라 더욱 많이 힘쓰라</p>
+                            <p><b>2</b> 우리가 주 예수로 말미암아 너희에게 무슨 명령으로 준 것을 너희가 아느니라</p>
+                            <p><b>3</b> 하나님의 뜻은 이것이니 너희의 거룩함이라 곧 음란을 버리고</p>
+                            <p><b>4</b> 각각 거룩함과 존귀함으로 자기의 아내 대할 줄을 알고</p>
+                            <p><b>5</b> 하나님을 모르는 이방인과 같이 색욕을 따르지 말고</p>
+                            <p><b>6</b> 이 일에 분수를 넘어서 형제를 해하지 말라 이는 우리가 너희에게 미리 말하고 증언한 것과 같이 이 모든 일에 주께서 신원하여 주심이라</p>
+                            <p><b>7</b> 하나님이 우리를 부르심은 부정하게 하심이 아니요 거룩하게 하심이니</p>
+                            <p><b>8</b> 그러므로 저버리는 자는 사람을 저버림이 아니요 너희에게 그의 성령을 주신 하나님을 저버림이니라</p>
+                            <p><b>9</b> 형제 사랑에 관하여는 너희에게 쓸 것이 없음은 너희들 자신이 하나님의 가르치심을 받아 서로 사랑함이라</p>
+                            <p><b>10</b> 너희가 온 마게도냐 모든 형제에 대하여 과연 이것을 행하도다 형제들아 권하노니 더욱 그렇게 행하고</p>
+                            <p><b>11</b> 또 너희에게 명한 것 같이 조용히 자기 일을 하고 너희 손으로 일하기를 힘쓰라</p>
+                            <p><b>12</b> 이는 외인에 대하여 단정히 행하고 또한 아무 궁핍함이 없게 하려 함이라</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-sky-800">본문 이해를 위한 배경지식</h2>
+                        <p class="mb-4">데살로니가 교회는 바울이 2차 전도 여행 때 세운 교회로, 많은 핍박 속에서도 믿음의 소문이 날 정도로 굳건히 서 있었습니다. 하지만 당시 데살로니가는 항구 도시로서 성적으로 매우 문란한 문화에 깊이 노출되어 있었습니다. 또한, 일부 성도들은 임박한 재림 사상에 지나치게 몰두하여 일상적인 노동을 그만두고 다른 성도들에게 짐이 되는 문제를 낳기도 했습니다. 바울은 이러한 배경 속에서, 성도의 삶이 세상과 어떻게 구별되어야 하는지를 <span class="keyword">거룩함</span>(성적인 순결)과 <span class="keyword">성실함</span>(자기 일에 충실함)이라는 두 가지 구체적인 주제를 통해 권면하고 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-indigo-800">설교의 핵심 1: 거룩함으로의 부르심</h2>
+                        <p class="mb-4">설교의 첫 번째 핵심은 하나님을 기쁘시게 하는 삶의 기초가 <span class="keyword">거룩함</span>에 있다는 것입니다. 이는 단순한 도덕적 권면이 아니라 하나님의 명확한 뜻입니다.</p>
+                        <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+                                음란을 버리라
+                            </dt>
+                            <dd>당시 사회에 만연했던 성적인 죄악으로부터 완전히 돌아서는 것이 거룩의 시작입니다. 이는 자기 아내를 <span class="keyword">거룩함과 존귀함</span>으로 대하고, 정욕을 따르는 이방인과 같이 행하지 않으며, 성적인 문제로 형제를 속이거나 해하지 않는 구체적인 행동으로 나타납니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" /></svg>
+                                거룩해야 하는 이유
+                            </dt>
+                            <dd>거룩함은 선택이 아닌 필연입니다. 첫째, 하나님께서 모든 불의에 대해 심판하시기 때문입니다. 둘째, 우리를 부르신 목적 자체가 거룩하게 하시기 위함입니다. 셋째, 이 명령을 저버리는 것은 사람을 저버리는 것이 아니라, 우리에게 성령을 주신 하나님을 저버리는 중대한 죄이기 때문입니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-purple-800">설교의 핵심 2: 사랑과 성실함으로의 부르심</h2>
+                        <p class="mb-4">하나님을 향한 거룩함은 반드시 이웃을 향한 <span class="keyword">형제 사랑</span>으로 이어집니다. 데살로니가 교회는 이미 이 사랑을 실천하고 있었지만, 바울은 "더욱 그렇게 행하라"고 격려합니다.</p>
+                        <blockquote>"사랑은 멈춰있는 상태가 아니라, 계속해서 더욱 풍성해져야 하는 동사입니다. 형제를 사랑하는 사람만이 그 사랑의 기쁨을 경험할 수 있습니다."</blockquote>
+                        <p class="mt-4">이 사랑은 구체적으로 성실한 삶의 태도로 나타납니다.</p>
+                         <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5-1.5-.5M5.25 7.5l3 1.5" /></svg>
+                                조용히 자기 일을 하라
+                            </dt>
+                            <dd>남의 일에 간섭하거나 공동체에 혼란을 주기보다, 각자 자신의 자리에서 맡겨진 일을 성실하게 감당해야 합니다. 손으로 일하기를 힘쓰는 것은 당시 헬라 철학에서는 천하게 여겨졌지만, 기독교 신앙 안에서는 거룩한 노동의 가치를 가집니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" /></svg>
+                                성실한 노동의 목적
+                            </dt>
+                            <dd>이는 두 가지 중요한 목적을 가집니다. 첫째, 믿지 않는 외인들에게 존경받는 단정한 삶의 모습을 보여주어 복음의 문을 여는 것입니다. 둘째, 경제적으로 자립하여 누구에게도 폐를 끼치지 않고 오히려 궁핍한 자를 도울 수 있게 하기 위함입니다. 이는 이웃 사랑의 실천적 모습입니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-emerald-800">결론: 우리 삶에 주시는 교훈</h2>
+                        <p>결론적으로, 성도의 삶은 하나님을 기쁘시게 하는 것을 최종 목표로 삼아야 합니다. 이는 추상적인 개념이 아니라, 부정한 세상 속에서 <span class="keyword">거룩함</span>을 지키고, 공동체 안에서 <span class="keyword">형제 사랑</span>을 실천하며, 세상 속에서 <span class="keyword">성실한 노동</span>으로 자립하고 본을 보이는 삶을 통해 이루어집니다. 우리의 거룩함과 사랑, 그리고 성실함이 하나님께는 기쁨과 영광이 되고, 세상에는 빛과 소금이 되어야 할 것입니다. 오늘 하루, 우리의 삶의 모든 영역에서 하나님을 기쁘시게 하는 선택을 하기를 소망합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-sky-800">심화 이해: 매튜 헨리 주석</h2>
+                        <p class="mb-4">매튜 헨리는 본문을 통해 성도의 삶이 어떻게 실제적으로 하나님을 기쁘시게 할 수 있는지에 대한 깊이 있는 통찰을 제공합니다.</p>
+                        <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v10a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2h1V3a1 1 0 011-1zm10 8H5v6h10v-6z" clip-rule="evenodd" /></svg>
+                                성화(Sanctification)의 필연성
+                            </dt>
+                            <dd>헨리는 <span class="keyword">성화</span>가 단순히 하나님의 바람이 아니라, 우리를 향한 그분의 '뜻'이자 '명령'임을 강조합니다. 성도는 자신의 몸을 단순한 욕망의 도구가 아닌, 하나님의 성령이 거하시는 '그릇'으로 인식하고 '거룩함과 존귀함'으로 다뤄야 합니다. 이는 죄를 피하는 소극적 차원을 넘어, 몸을 하나님께 영광 돌리는 적극적인 도구로 사용하는 것을 의미합니다. 거룩의 명령을 저버리는 것은 곧 우리 안에 성화를 이루시는 <span class="keyword">성령 하나님</span>을 거부하는 행위입니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h2.114a4 4 0 002.789-.952l.05-.025a2 2 0 001.106-1.79v-5.43a2 2 0 00-1.106-1.79l-.05-.025a4 4 0 00-2.789-.952H8.943a4 4 0 00-2.789.952l-.05.025a2 2 0 00-1.106 1.79zM18 10.5a1.5 1.5 0 11-3 0v6a1.5 1.5 0 013 0v-6z" /></svg>
+                                사랑과 노동의 사회적 책임
+                            </dt>
+                            <dd>헨리는 '조용히 자기 일을 하고 손으로 일하는 것'을 <span class="keyword">형제 사랑</span>과 <span class="keyword">사회적 증거</span>의 관점에서 해석합니다. 성실한 노동은 게으름으로 형제에게 짐이 되는 것을 막는 사랑의 실천입니다. 동시에, 이는 믿지 않는 '외인들'에게 기독교인의 정직함과 성실함을 보여주는 가장 강력한 전도 방법 중 하나입니다. 성도의 단정한 삶은 그 자체로 복음의 신뢰성을 높이고, 그들이 아무것도 '궁핍하지 않게' 되는 것은 하나님의 신실하심을 증명하는 결과가 됩니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var player;
+        const videoId = 'rlv5vhEbxys';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+        
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '계속 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

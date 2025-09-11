@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>세상의 견고한 성이 무너질 때 | 스가랴 9장 강해</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">세상의 견고한 성이 무너질 때</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 15일 새벽기도회</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">하나님은 세상의 교만을 심판하시고, 오직 당신의 백성을 눈동자같이 지키시며 구원의 소망이 되십니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">오늘의 말씀: 스가랴 9장 1-8절</h2>
+                </div>
+                <div class="card-content bible-passage">
+                    <p><b>1</b> 여호와의 말씀의 경고가 하드락 땅에 내리며 다메섹에 머무나니 사람들과 이스라엘 모든 지파의 눈이 여호와를 우러러봄이니라</p>
+                    <p><b>2</b> 그 접경인 하맛에도 임하겠고 두로와 시돈에도 임하리니 그들이 매우 지혜로움이니라</p>
+                    <p><b>3</b> 두로는 자기를 위하여 요새를 건축하며 은을 티끌 같이, 금을 거리의 진흙 같이 쌓았도다</p>
+                    <p><b>4</b> 주께서 그를 정복하시며 그의 권세를 바다에 쳐넣으시리니 그가 불에 삼켜질지라</p>
+                    <p><b>5</b> 아스글론이 보고 무서워하며 가사도 심히 아파할 것이며 에그론은 그 소망이 수치가 되므로 역시 그러하리라 가사에는 임금이 끊어질 것이며 아스글론에는 주민이 없을 것이며</p>
+                    <p><b>6</b> 아스돗에는 잡족이 거주하리라 내가 블레셋 사람의 교만을 끊고</p>
+                    <p><b>7</b> 그의 입에서 그의 피를, 그의 잇사이에서 그 가증한 것을 제거하리니 그들도 남아서 우리 하나님께로 돌아와서 유다의 한 지도자 같이 되겠고 에그론은 여부스 사람 같이 되리라</p>
+                    <p><b>8</b> 내가 내 집을 둘러 진을 쳐서 적군을 막아 거기 왕래하지 못하게 할 것이라 포악한 자가 다시는 그 지경으로 지나가지 못하리니 이는 내가 눈으로 친히 봄이니라</p>
+                </div>
+            </div>
+
+            <div class="card">
+                 <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">본문 이해를 위한 배경지식</h2>
+                </div>
+                <div class="card-content">
+                    <p class="mb-4">스가랴 9장은 이스라엘 주변의 강력한 이방 국가들에 대한 하나님의 심판을 선포하며 시작됩니다. 당시 이 국가들은 막강한 군사력, 부, 그리고 스스로의 지혜를 의지하며 교만함의 상징이었습니다.</p>
+                    <dl class="def-list">
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h6M9 11.25h6m-6 4.5h6M6.75 21v-2.25a2.25 2.25 0 012.25-2.25h6a2.25 2.25 0 012.25 2.25V21" /></svg>주변 열강들</dt>
+                        <dd>본문에 언급된 '하드락', '다메섹', '하맛'은 시리아 지역의 주요 도시들이며, '두로'와 '시돈'은 페니키아의 부유한 해상 도시 국가였습니다. '블레셋'의 도시들(아스글론, 가사, 에그론, 아스돗)은 이스라엘의 오랜 대적이었습니다. 이들은 모두 자신들의 힘을 믿고 하나님을 의지하지 않았습니다.</dd>
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 7.756a4.5 4.5 0 100 8.488M7.5 10.5h5.25m-5.25 3h5.25M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>두로의 교만</dt>
+                        <dd>특히 <span class="keyword">두로</span>는 천혜의 요새와 막대한 부를 통해 스스로 안전하다고 여겼습니다. 은을 '티끌'처럼, 금을 '진흙'처럼 쌓았다는 표현은 그들의 극심한 부와 물질주의를 보여줍니다. 그러나 하나님은 그 모든 것을 바다에 쳐 넣으실 것이라 선포하십니다.</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">설교의 핵심: 세상의 교만을 꺾으시는 하나님</h2>
+                </div>
+                <div class="card-content">
+                    <p class="text-lg leading-relaxed mb-4">하나님은 인간의 지혜, 부, 힘을 의지하는 모든 교만한 세력을 심판하십니다. 세상이 자랑하는 견고한 요새와 풍요로움은 하나님의 권능 앞에서 한순간에 무너져 내립니다. 이는 하나님의 통치가 온 세상에 미치며, 그 어떤 세상의 권세도 그분의 주권 아래 있음을 보여줍니다.</p>
+                    <blockquote>하나님의 심판은 단순히 징벌로 끝나지 않습니다. 그 목적은 하나님의 왕권이 만민 가운데 드러나고, 모든 이들이 여호와를 우러러보게 하는 데 있습니다.</blockquote>
+                    <p class="mt-4">이 심판 가운데 놀라운 반전이 일어납니다. 교만의 상징이었던 블레셋의 남은 자들이 정결하게 되어 하나님께 돌아옵니다. 이는 심판의 대상이었던 이방인조차 하나님의 은혜로운 구원의 대상이 될 수 있음을 보여주는 강력한 메시지입니다. 하나님은 그들을 변화시켜 <span class="keyword">유다의 한 지도자</span> 같이, <span class="keyword">여부스 사람</span> 같이 당신의 백성으로 삼으십니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">결론: 우리 삶에 주시는 교훈</h2>
+                </div>
+                <div class="card-content">
+                    <p class="text-lg leading-relaxed mb-6">주변 강대국들이 심판받는 혼란 속에서도 하나님은 당신의 백성을 위해 "내 집을 둘러 진을 쳐서" 보호하십니다. 포악한 자가 다시는 지나가지 못하도록 <span class="keyword">친히 눈으로</span> 지켜보십니다. 이것이 하나님의 백성이 누리는 궁극적인 안전과 평안입니다.</p>
+                    <ul class="list-disc list-inside space-y-3 text-lg">
+                        <li><strong>소망의 근거를 재점검하십시오:</strong> 우리의 소망은 더 나은 환경이나 상황에 있지 않습니다. 우리의 유일한 소망은 어제나 오늘이나 영원토록 동일하신 하나님, 그리고 그분이 행하신 구원의 역사에 있습니다.</li>
+                        <li><strong>관계의 중요성을 기억하십시오:</strong> "그분이 나의 하나님이고, 나는 그분의 자녀"라는 변함없는 사실이 그 어떤 것보다 중요합니다. 이 관계를 굳건히 하는 데 전심을 다해야 합니다.</li>
+                        <li><strong>미래를 소망하며 현재를 이기십시오:</strong> 지금 우리의 삶이 비록 초라하고 연약해 보일지라도, 장차 주님의 나라에서 영원히 그분을 찬송할 것을 기대하며 오늘의 어려움을 이겨내는 힘을 얻어야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+            
+             <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">심화 이해: 매튜 헨리 주석</h2>
+                </div>
+                <div class="card-content">
+                    <p class="mb-4">매튜 헨리는 스가랴 9장을 통해 하나님의 섭리가 어떻게 개인과 국가의 운명을 주관하는지를 강조합니다. 특히 그는 이방 국가들의 멸망과 이스라엘의 보호를 통해 드러나는 하나님의 공의와 자비를 조명합니다.</p>
+                    <dl class="def-list">
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.432 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>하나님의 특별한 보호 (8절)</dt>
+                        <dd>매튜 헨리는 "내가 내 집을 둘러 진을 쳐서"라는 구절을 교회를 향한 하나님의 특별한 보호의 약속으로 해석합니다. 세상의 제국들이 흥망성쇠를 거듭하는 동안에도, 하나님은 당신의 교회를 눈동자처럼 지키시고 어떤 대적도 넘어오지 못하도록 막으십니다. 이 보호는 물리적인 안전뿐 아니라 영적인 순결함을 지키시는 하나님의 신실하심을 의미합니다.</dd>
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.667 0l3.181-3.183m-4.991-2.695v4.992h-4.992" /></svg>이방인의 구원 (7절)</dt>
+                        <dd>그는 블레셋의 남은 자가 구원받는 장면을 복음의 확장에 대한 예언으로 보았습니다. 한때 우상숭배로 가득했던 이방인들이 그들의 죄악된 관습(피와 가증한 것)을 버리고, 하나님의 백성으로 편입되는 것은 신약 시대에 이방인들이 교회로 들어올 것에 대한 예표입니다. 이는 하나님의 구원 계획이 특정 민족에게만 국한되지 않는다는 것을 보여주는 증거입니다.</dd>
+                    </dl>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        const videoId = 'P4rqjHZ2LVg';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+        let player;
+        let isPlayerReady = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (!isPlayerReady) return;
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '이어서 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (!isPlayerReady) return;
+            const playerState = player.getPlayerState();
+            if (playerState == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        // Load the IFrame Player API code asynchronously.
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

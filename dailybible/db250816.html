@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>겸손한 왕, 영원한 승리 | 스가랴 9-10장 강해</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">겸손한 왕, 영원한 승리</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 16일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">겸손히 나귀 타고 오신 왕, 예수 그리스도를 통해 우리는 이미 이긴 싸움을 싸우며 왕관의 보석처럼 빛나는 존재로 살아갑니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966M0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">오늘의 말씀: 스가랴 9:9-17, 10:1-12</h2>
+                </div>
+                <div class="card-content bible-passage">
+                    <p class="font-bold text-lg mb-3 text-indigo-700">스가랴 9장</p>
+                    <p><b>9</b> 시온의 딸아 크게 기뻐할지어다 예루살렘의 딸아 즐거이 부를지어다 보라 네 왕이 네게 임하시나니 그는 공의로우시며 구원을 베푸시며 겸손하여서 나귀를 타시나니 나귀의 작은 것 곧 나귀 새끼니라 ...</p>
+                    <p><b>11</b> 또 너로 말할진대 네 언약의 피로 말미암아 내가 네 갇힌 자들을 물 없는 구덩이에서 놓았나니</p>
+                    <p><b>12</b> 갇혀 있으나 소망을 품은 자들아 너희는 요새로 돌아올지니라 내가 오늘도 이르노라 내가 네게 갑절이나 갚을 것이라 ...</p>
+                    <p><b>16</b> 이 날에 그들의 하나님 여호와께서 그들을 자기 백성의 양 떼 같이 구원하시리니 그들이 왕관의 보석 같이 여호와의 땅에 빛나리로다</p>
+                    <p><b>17</b> 그의 형통함과 그의 아름다움이 어찌 그리 큰지 곡식은 청년을, 새 포도주는 처녀를 강건하게 하리라</p>
+                    <p class="font-bold text-lg mt-6 mb-3 text-indigo-700">스가랴 10장</p>
+                    <p><b>1</b> 봄비가 올 때에 여호와 곧 구름을 일게 하시는 여호와께 비를 구하라 무리에게 소낙비를 내려서 밭의 채소를 각 사람에게 주시리라</p>
+                    <p><b>2</b> 드라빔들은 허탄한 것을 말하며 복술자는 진실하지 않은 것을 보고 거짓 꿈을 말한즉 그 위로가 헛되므로 백성들이 양 같이 유리하며 목자가 없으므로 곤고를 당하나니 ...</p>
+                    <p><b>12</b> 내가 그들로 나 여호와를 의지하여 견고하게 하리니 그들이 내 이름으로 행하리라 나 여호와의 말이니라</p>
+                </div>
+            </div>
+
+            <div class="card">
+                 <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">본문 이해를 위한 배경지식</h2>
+                </div>
+                <div class="card-content">
+                    <p class="mb-4">스가랴서는 바벨론 포로에서 돌아온 이스라엘 백성에게 주신 하나님의 말씀입니다. 성전 재건은 시작되었지만, 여전히 그들은 페르시아 제국의 지배 아래 있었고 미래는 불확실했습니다. 이런 상황 속에서 스가랴는 장차 오실 <span class="keyword">메시아</span>와 그를 통해 성취될 완전한 구원과 회복의 비전을 선포하며 백성들을 위로하고 격려합니다.</p>
+                    <dl class="def-list">
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>겸손한 왕</dt>
+                        <dd>고대 세계에서 왕은 보통 강력한 군마를 타고 위용을 과시했습니다. 그러나 스가랴는 왕이 '나귀 새끼'를 타고 오실 것이라 예언합니다. 이는 그가 세상의 왕들과 같이 힘과 정복으로 다스리는 분이 아니라, 겸손과 평화, 구원으로 다스리실 분임을 상징합니다. 이 예언은 신약에서 예수님이 예루살렘에 입성하실 때 성취됩니다.</dd>
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>거짓 목자와 참된 목자</dt>
+                        <dd>당시 이스라엘 백성들은 '드라빔'(가정의 수호신)이나 점술 같은 헛된 우상을 의지하며 영적으로 방황하고 있었습니다. 스가랴는 이러한 <span class="keyword">거짓 목자</span>들을 버리고, 오직 때에 맞춰 비를 내리시고 모든 것을 주관하시는 참된 목자이신 하나님만을 의지하라고 강력히 촉구합니다.</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">설교의 핵심 ①: 왕의 백성은 어떻게 살아가는가?</h2>
+                </div>
+                <div class="card-content">
+                    <p class="text-lg leading-relaxed mb-4">스가랴 9장은 겸손한 왕으로 오실 예수 그리스도를 통해 구원받은 백성이 누릴 영광과 승리를 보여줍니다. 우리는 이미 승리가 보장된 싸움을 싸우는 자들입니다.</p>
+                    <blockquote>예수 그리스도의 <span class="keyword">언약의 피</span>를 의지하여 영적 싸움에서 승리할 때, 우리는 '왕관의 보석'처럼 빛나는 영광스러운 존재가 됩니다. 이는 단순히 미래에 얻을 영광이 아니라, 오늘 우리가 그리스도의 왕권 통치에 참여하며 살아가는 삶의 방식입니다.</blockquote>
+                    <p class="mt-4">하나님은 당신의 백성에게 형통함을 약속하십니다. 여기서 형통함이란 세상적인 성공을 넘어, 하나님의 풍성한 은혜 안에서 청년과 처녀처럼 영적으로 강건하고, 주님을 향한 사랑의 열정이 가득한 상태를 의미합니다. 이것이 바로 이 땅에서 하나님 나라의 통치를 경험하는 삶입니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-indigo-600">
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">설교의 핵심 ②: 누구를 의지하고 있는가?</h2>
+                </div>
+                <div class="card-content">
+                    <p class="text-lg leading-relaxed mb-4">스가랴 10장은 우리가 의지해야 할 대상이 누구인지를 명확히 가르쳐줍니다. 세상의 헛된 우상과 거짓 목자들은 우리를 곤고하게 만들 뿐입니다.</p>
+                     <p class="mt-4">우리는 모든 것의 창조주이자 통치자이신 하나님께만 비를 구해야 합니다. 즉, 삶의 모든 필요와 인도를 오직 하나님께만 구하고 그분을 의지해야 합니다. 하나님은 흩어진 당신의 백성을 긍휼히 여기사 다시 모으시고, 죄를 용서하시며, 이전과는 비교할 수 없는 완전한 회복과 풍요를 주시는 분입니다. 이 모든 회복의 중심에는 참된 목자이신 예수 그리스도가 계십니다.</p>
+                    <blockquote>하나님은 우리를 긍휼히 여기시기에 결코 버리지 않으십니다. 어떤 죄를 지었더라도 용서받았음을 믿고, 하나님과의 회복된 관계 안에서 오는 영적인 기쁨과 자유를 누리는 것이 중요합니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">결론: 우리 삶에 주시는 교훈</h2>
+                </div>
+                <div class="card-content">
+                    <p class="text-lg leading-relaxed mb-6">스가랴의 예언은 예수 그리스도 안에서 성취되었습니다. 우리는 이 구원의 은혜에 감사하며 오늘을 살아가야 합니다.</p>
+                    <ul class="list-disc list-inside space-y-3 text-lg">
+                        <li><strong>승리를 확신하며 싸우십시오:</strong> 우리는 패배할 수 없는 영적 싸움에 부름받았습니다. 그리스도의 보혈을 의지하여 담대히 나아가십시오.</li>
+                        <li><strong>용서의 기쁨을 누리십시오:</strong> 과거의 죄에 얽매이지 마십시오. 하나님은 우리의 죄를 기억조차 않으십니다. 용서받은 자의 자유와 기쁨을 온전히 누리십시오.</li>
+                        <li><strong>오직 하나님만 의지하십시오:</strong> 삶의 모든 영역에서 세상의 방법이나 헛된 우상이 아닌, 오직 살아계신 하나님께 구하고 그분의 인도하심을 따르십시오. 그럴 때 하나님께서 우리를 견고하게 하시고, 그분의 이름으로 행하게 하실 것입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center p-6 border-b border-gray-200">
+                    <div class="icon-wrapper bg-rose-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6-2.292m0 0V21" /></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">심화 이해: 매튜 헨리 주석</h2>
+                </div>
+                <div class="card-content">
+                    <p class="mb-4">매튜 헨리는 스가랴 9-10장을 그리스도의 왕국과 그 백성에 대한 영광스러운 예언으로 해석합니다. 그는 예언의 이중적 성취, 즉 스룹바벨 시대의 역사적 성취와 그리스도를 통한 궁극적 성취를 동시에 강조합니다.</p>
+                    <dl class="def-list">
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V21M4.5 10.5v10.5m1.5-10.5v10.5m9-10.5V21M6.75 21h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v12a2.25 2.25 0 002.25 2.25z" /></svg>평화의 왕국 (9:10)</dt>
+                        <dd>헨리는 "내가 에브라임의 병거와 예루살렘의 말을 끊겠다"는 구절을 매우 중요하게 다룹니다. 이는 메시아의 왕국이 세상적인 군사력으로 세워지거나 유지되지 않음을 보여줍니다. 오히려, 그리스도는 "이방 사람에게 화평을 전하심"으로써 그의 통치를 땅 끝까지 확장시키십니다. 교회의 무기는 칼과 창이 아니라 성령의 검, 즉 하나님의 말씀입니다.</dd>
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962A3 3 0 0110.5 9.75v-.75a3 3 0 013-3h.008a3 3 0 013 3v.75a3 3 0 01-2.962 2.962" /></svg>기도의 의무 (10:1)</dt>
+                        <dd>헨리는 "봄비가 올 때에... 비를 구하라"는 명령을 통해 영적인 축복에 대한 성도의 자세를 설명합니다. 하나님은 비를 주관하시는 유일한 분이지만, 그럼에도 불구하고 우리는 그분께 기도해야 합니다. 약속이 주어졌다는 사실이 기도의 필요성을 없애는 것이 아니라, 오히려 기도를 더욱 장려하고 믿음의 근거를 제공합니다. 우리는 하나님의 약속을 붙들고 담대히 구해야 할 의무가 있습니다.</dd>
+                    </dl>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        const videoId = '7aTven9PdYg';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+        let player;
+        let isPlayerReady = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (!isPlayerReady) return;
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '이어서 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (!isPlayerReady) return;
+            const playerState = player.getPlayerState();
+            if (playerState == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

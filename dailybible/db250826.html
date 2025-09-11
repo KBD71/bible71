@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>눈물의 씨앗, 기쁨의 열매를 맺다</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">눈물의 씨앗, 기쁨의 열매를 맺다</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 26일 새벽 기도회</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">우리의 모든 수고는 하나님의 은혜 안에서만 복된 결실을 맺을 수 있습니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-amber-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">오늘의 말씀: 시편 126편-127편</h2>
+                            <div class="bible-passage">
+                                <p><b>1</b> 여호와께서 시온의 포로를 돌려 보내실 때에 우리는 꿈꾸는 것 같았도다</p>
+                                <p><b>2</b> 그 때에 우리 입에는 웃음이 가득하고 우리 혀에는 찬양이 찼었도다 그 때에 뭇 나라 가운데에서 말하기를 여호와께서 그들을 위하여 큰 일을 행하셨다 하였도다</p>
+                                <p><b>3</b> 여호와께서 우리를 위하여 큰 일을 행하셨으니 우리는 기쁘도다</p>
+                                <p><b>4</b> 여호와여 우리의 포로를 남방 시내들 같이 돌려 보내소서</p>
+                                <p><b>5</b> 눈물을 흘리며 씨를 뿌리는 자는 기쁨으로 거두리로다</p>
+                                <p><b>6</b> 울며 씨를 뿌리러 나가는 자는 반드시 기쁨으로 그 곡식 단을 가지고 돌아오리로다</p>
+                                <br>
+                                <p><b>1</b> 여호와께서 집을 세우지 아니하시면 세우는 자의 수고가 헛되며 여호와께서 성을 지키지 아니하시면 파수꾼의 깨어 있음이 헛되도다</p>
+                                <p><b>2</b> 너희가 일찍이 일어나고 늦게 누우며 수고의 떡을 먹음이 헛되도다 그러므로 여호와께서 그의 사랑하시는 자에게는 잠을 주시는도다</p>
+                                <p><b>3</b> 보라 자식들은 여호와의 기업이요 태의 열매는 그의 상급이로다</p>
+                                <p><b>4</b> 젊은 자의 자식은 장사의 수중의 화살 같으니</p>
+                                <p><b>5</b> 이것이 그의 화살통에 가득한 자는 복되도다 그들이 성문에서 그들의 원수와 담판할 때에 수치를 당하지 아니하리로다</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-sky-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">본문 이해를 위한 배경지식</h2>
+                            <p class="mb-4 text-lg">시편 126편과 127편은 '성전에 올라가는 노래'라는 표제가 붙은 15개의 시(시 120-134편) 중 일부입니다. 이 노래들은 이스라엘 백성들이 절기를 지키기 위해 예루살렘 성전을 향해 순례의 길을 오르며 불렀던 찬송입니다.</p>
+                            <dl class="def-list">
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.092 1.21-.138 2.43-.138 3.662v.112A48.455 48.455 0 0012 15c2.645 0 5.198-.684 7.5-1.888v-.112zM12 15c2.645 0 5.198-.684 7.5-1.888v.112a48.455 48.455 0 01-7.5 1.888c-2.645 0-5.198-.684-7.5-1.888v-.112A48.455 48.455 0 0112 15z" /></svg>
+                                    시편 126편의 배경
+                                </dt>
+                                <dd>
+                                    BC 586년 남유다 멸망 후 바벨론에 포로로 끌려갔던 백성들이 BC 538년 고레스 칙령으로 예루살렘으로 귀환하게 된 역사적 사건을 배경으로 합니다. 포로 귀환은 마치 꿈꾸는 듯한 기적이었지만, 막상 돌아온 고국에서의 삶은 황폐한 땅을 일구어야 하는 고된 현실이었습니다. 이 시는 과거의 큰 구원을 기억하며 현재의 어려움을 이겨내고 미래의 회복을 소망하는 공동체의 노래입니다.
+                                </dd>
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+                                    시편 127편의 저자
+                                </dt>
+                                <dd>
+                                    솔로몬의 시로 알려져 있습니다. 지혜의 왕 솔로몬은 하나님의 도우심 없이는 인간의 모든 지혜와 노력이 헛되다는 사실을 깊이 깨달았습니다. 그는 성전 건축과 같은 거대한 국가 사업부터 한 가정을 이루고 자녀를 기르는 일상까지, 모든 영역에서 하나님의 주권적인 개입이 필수적임을 노래합니다.
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">설교의 핵심 1: 과거의 은혜, 현재의 기도, 미래의 확신</h2>
+                            <p class="mb-4 text-lg">시편 126편은 하나님의 구원을 경험한 백성이 어떻게 현실의 어려움을 극복하고 미래를 소망하는지 보여줍니다. 이는 세 단계로 나타납니다.</p>
+                            <blockquote>"눈물을 흘리며 씨를 뿌리는 자는 기쁨으로 거두리로다"</blockquote>
+                            <ul class="list-disc list-inside space-y-3 text-lg">
+                                <li><b>과거 회상과 감사:</b> 바벨론 포로 귀환은 꿈만 같은 사건이었습니다. 백성들은 "여호와께서 우리를 위하여 큰 일을 행하셨다"고 고백하며, 과거에 베푸신 하나님의 압도적인 은혜를 기억하고 찬양합니다. 이 기억이 현재를 살아갈 힘의 원천이 됩니다.</li>
+                                <li><b>현재의 기도:</b> 그러나 현실은 녹록지 않았습니다. 그들은 "우리의 포로를 남방 시내들 같이 돌려보내소서"라고 기도합니다. 메마른 남방(네게브)에 비가 내리면 시내가 생겨나듯, 황폐한 현실에 하나님의 은혜의 비를 내려주시기를 간구하는 것입니다.</li>
+                                <li><b>미래에 대한 확신:</b> 시인은 "울며 씨를 뿌리러 나가는 자는 반드시 기쁨으로 그 곡식 단을 가지고 돌아오리로다"라고 선포합니다. 눈물로 씨를 뿌리는 행위는 고통스러운 현실 속에서의 수고를 의미합니다. 하지만 이 수고가 헛되지 않고 반드시 기쁨의 결실로 이어질 것이라는 믿음은, 자연을 다스리시고 통치하시는 하나님에 대한 신뢰에서 나옵니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-purple-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">설교의 핵심 2: 헛된 수고와 하나님의 선물</h2>
+                            <p class="mb-4 text-lg">시편 127편은 인간의 모든 노력이 하나님의 도우심 없이는 헛되다는 진리를 선포하며, 진정한 복이 어디로부터 오는지 가르쳐줍니다.</p>
+                             <ul class="list-disc list-inside space-y-3 text-lg">
+                                <li><b>하나님 없는 수고의 허무함:</b> 집을 세우고, 성을 지키고, 새벽부터 밤늦게까지 일하는 모든 인간의 열심이 하나님께서 함께하시지 않으면 헛될 뿐입니다. 이는 인간의 노력을 부정하는 것이 아니라, 모든 노력의 주관자가 하나님이심을 인정하라는 가르침입니다.</li>
+                                <li><b>참된 안식:</b> 세상은 "수고의 떡"을 먹으며 근심과 걱정 속에 살아가지만, 하나님께서는 "그의 사랑하시는 자에게는 잠을 주시는도다"라고 말씀합니다. 이는 단순히 잠을 자는 것을 넘어, 모든 것을 하나님께 맡기고 그분 안에서 누리는 평안과 안식을 의미합니다. 다윗이 수많은 대적들 속에서도 평안히 잠들 수 있었던 이유입니다.</li>
+                                <li><b>가장 큰 선물, 자녀:</b> 시인은 자녀를 <span class="keyword">여호와의 기업</span>이요, 그의 상급이라고 말합니다. 자녀는 부모의 소유가 아니라 하나님께서 언약 백성을 이어가기 위해 주신 소중한 선물입니다. 젊은 시절에 얻은 자녀는 장사의 손에 들린 '화살'과 같아서, 가정을 지키고 하나님 나라를 세워가는 강력한 힘이 됩니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-emerald-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">결론: 우리 삶에 주시는 교훈</h2>
+                            <p class="mb-4 text-lg">오늘의 말씀은 우리의 삶 전체가 하나님의 주권 아래 있음을 강력하게 선포합니다. 우리의 수고가 복되고 의미 있을 수 있는 유일한 이유는 하나님께서 그 위에 은혜를 더하여 주시기 때문입니다.</p>
+                            <p class="text-lg">
+                                그러므로 우리는 과거에 베푸신 하나님의 크신 은혜(포로 귀환과 같은)를 잊지 말아야 합니다. 그 기억은 현재의 고난 속에서 '눈물의 씨앗'을 뿌릴 수 있는 용기를 줍니다. 동시에, 우리의 모든 계획과 노력이 하나님의 도우심 없이는 헛되다는 사실을 겸손히 인정해야 합니다. 우리의 힘으로 가정을 세우고 자녀를 키우는 것이 아니라, 하나님이 주신 기업과 상급으로 여기며 감사함으로 감당해야 합니다.
+                            </p>
+                            <blockquote class="mt-6">
+                                우리의 눈물 섞인 기도가 헛되지 않을 것이며, 하나님을 의지하는 모든 수고 위에 반드시 기쁨의 열매를 거두게 하실 것을 믿고, 오늘도 믿음의 씨앗을 뿌리는 삶을 살아갑시다.
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        const videoId = 'DgjJVzMMcMs';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        let player;
+        let isPlaying = false;
+
+        // Load the IFrame Player API code asynchronously.
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // This function creates an <iframe> (and YouTube player) after the API code downloads.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonState();
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonState();
+            }
+        }
+
+        function togglePlay() {
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+        
+        function updateButtonState() {
+            if (isPlaying) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                playIcon.style.display = 'inline-block';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+    </script>
+</body>
+</html>

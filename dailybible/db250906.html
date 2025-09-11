@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>환난 속에서 빛나는 영광의 소망</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">환난 속에서 빛나는 영광의 소망</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 9월 6일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">하나님은 환난을 통해 우리를 연단하시고, 결국 그리스도 안에서 영광스러운 존재로 빚으십니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-amber-800">오늘의 말씀: 데살로니가후서 1장 1-12절</h2>
+                        <div class="bible-passage">
+                            <p><b>1</b> 바울과 실루아노와 디모데는 하나님 우리 아버지와 주 예수 그리스도 안에 있는 데살로니가인의 교회에 편지하노니</p>
+                            <p><b>2</b> 하나님 아버지와 주 예수 그리스도로부터 은혜와 평강이 너희에게 있을지어다</p>
+                            <p><b>3</b> 형제들아 우리가 너희를 위하여 항상 하나님께 감사할지니 이것이 당연함은 너희의 믿음이 더욱 자라고 너희가 다 각기 서로 사랑함이 풍성함이니</p>
+                            <p><b>4</b> 그러므로 너희가 견디고 있는 모든 박해와 환난 중에서 너희 인내와 믿음으로 말미암아 하나님의 여러 교회에서 우리가 친히 자랑하노라</p>
+                            <p><b>5</b> 이는 하나님의 공의로운 심판의 표요 너희로 하여금 하나님의 나라에 합당한 자로 여김을 받게 하려 함이니 그 나라를 위하여 너희가 또한 고난을 받느니라</p>
+                            <p><b>6</b> 너희로 환난을 받게 하는 자들에게는 환난으로 갚으시고</p>
+                            <p><b>7</b> 환난을 받는 너희에게는 우리와 함께 안식으로 갚으시는 것이 하나님의 공의시니 주 예수께서 자기의 능력의 천사들과 함께 하늘로부터 불꽃 가운데에 나타나실 때에</p>
+                            <p><b>8</b> 하나님을 모르는 자들과 우리 주 예수의 복음에 복종하지 않는 자들에게 형벌을 내리시리니</p>
+                            <p><b>9</b> 이런 자들은 주의 얼굴과 그의 힘의 영광을 떠나 영원한 멸망의 형벌을 받으리로다</p>
+                            <p><b>10</b> 그 날에 그가 강림하사 그의 성도들에게서 영광을 받으시고 모든 믿는 자들에게서 놀랍게 여김을 얻으시리니 이는 우리의 증거가 너희에게 믿어졌음이라</p>
+                            <p><b>11</b> 이러므로 우리도 항상 너희를 위하여 기도함은 우리 하나님이 너희를 그 부르심에 합당한 자로 여기시고 모든 선을 기뻐함과 믿음의 역사를 능력으로 이루게 하시고</p>
+                            <p><b>12</b> 우리 하나님과 주 예수 그리스도의 은혜대로 우리 주 예수의 이름이 너희 가운데서 영광을 받으시고 너희도 그 안에서 영광을 받게 하려 함이라</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-sky-800">본문 이해를 위한 배경지식</h2>
+                        <p class="text-lg leading-relaxed">데살로니가 교회는 사도 바울이 2차 전도 여행 때 세운 교회로, 복음을 받아들인 직후부터 극심한 박해와 환난에 직면했습니다. 이러한 고난 속에서도 그들의 믿음과 사랑은 오히려 더욱 성장했습니다. 바울은 이 편지를 통해 환난 중에도 굳건히 서 있는 데살로니가 성도들을 칭찬하고 위로하며, 장차 임할 <span class="keyword">하나님의 공의로운 심판</span>과 <span class="keyword">그리스도의 재림</span>에 대한 소망을 다시 한번 일깨워주고 있습니다. 이 편지는 고난의 의미를 신학적으로 조명하고, 성도들이 현재의 고통을 인내하며 어떻게 영광스러운 미래를 바라보아야 하는지에 대한 깊은 통찰을 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-indigo-800">설교의 핵심 1: 환난 속에서 성장하는 믿음과 사랑</h2>
+                        <p class="text-lg leading-relaxed mb-4">바울 사도는 데살로니가 교회가 겪는 극심한 박해와 환난 속에서도 그들의 믿음이 더욱 자라고 사랑이 풍성해지는 것을 보며 하나님께 감사하고 다른 교회에 자랑합니다. 이것은 성도의 신앙이 편안한 환경이 아니라 오히려 고난을 통해 더욱 순수하고 강하게 성장한다는 사실을 보여줍니다. 고난은 우리의 믿음을 연단하고, 서로를 향한 사랑을 더욱 깊게 만드는 하나님의 섭리입니다.</p>
+                        <blockquote>"너희가 견디고 있는 모든 박해와 환난 중에서 너희 인내와 믿음으로 말미암아 하나님의 여러 교회에서 우리가 친히 자랑하노라"</blockquote>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-purple-800">설교의 핵심 2: 하나님의 공의와 그리스도의 재림</h2>
+                        <p class="text-lg leading-relaxed mb-4">현재의 고난은 결코 끝이 아닙니다. 하나님은 <span class="keyword">공의로운 심판</span>을 통해 모든 것을 바로잡으실 것입니다. 성도를 핍박하던 자들에게는 환난으로 갚으시고, 환난 받던 성도들에게는 영원한 안식으로 갚으시는 것이 하나님의 공의입니다. 이 모든 것은 주 예수께서 능력의 천사들과 함께 불꽃 가운데 재림하실 때 성취될 것입니다. 그날, 복음에 불순종한 자들은 영원한 멸망의 형벌을 받게 되지만, 성도들은 주님 안에서 영광을 얻고 주님을 찬미하게 될 것입니다.</p>
+                        <dl class="def-list mt-6">
+                            <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>안식으로 갚으심</dt>
+                            <dd>환난 받는 성도들에게 주시는 하나님의 위로와 영원한 평안</dd>
+                            <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>형벌을 내리심</dt>
+                            <dd>복음에 복종하지 않는 자들에게 임하는 영원한 멸망</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-emerald-800">결론: 우리 삶에 주시는 교훈</h2>
+                        <p class="text-lg leading-relaxed">우리는 하나님의 부르심에 합당한 자로 살아가야 합니다. 이는 모든 선한 일을 기뻐하고 믿음의 역사를 능력으로 이루어가는 삶을 의미합니다. 우리의 삶을 통해 주 예수의 이름이 영광을 받으실 때, 우리 또한 그 안에서 영광을 얻게 됩니다. 현재 겪는 고난에 낙심하지 말고, 오히려 이 시간을 통해 우리의 믿음과 사랑을 성장시키십시오. <span class="keyword">하나님의 공의</span>와 <span class="keyword">그리스도의 재림</span>을 소망하며, 예배와 말씀 순종, 그리고 서로를 향한 사랑을 통해 우리에게 주어진 영광스러운 정체성을 삶으로 드러내는 성도가 되어야 합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                 <div class="flex items-start p-10">
+                     <div class="icon-wrapper bg-rose-600">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6-2.292m0 0A9.043 9.043 0 0112 6.042M12 12.75h.008v.008H12v-.008z"></path></svg>
+                     </div>
+                     <div>
+                         <h2 class="text-2xl font-bold mb-4 text-rose-800">심화 이해: 매튜 헨리 주석</h2>
+                         <p class="text-lg leading-relaxed">매튜 헨리는 데살로니가후서 1장 5-7절에 대해 다음과 같이 해설합니다. "성도들이 겪는 고난은 그들이 하나님 나라에 합당한 자임을 증명하는 '표'이다. 하나님은 이 고난을 통해 그들을 정결하게 하시고, 장차 올 영광을 위해 준비시키신다. 동시에, 성도들을 괴롭히는 자들에게 공의로 갚으시는 것은 하나님의 본성이다. 성도들의 안식과 악인들의 환난은 동전의 양면과 같아서, 그리스도께서 재림하시는 그 날에 동시에 이루어질 것이다." 이 해설은 현재의 고난이 무의미한 것이 아니라, 하나님의 구원 계획 안에서 중요한 목적을 가지며, 결국에는 완전한 공의와 안식으로 귀결될 것임을 깊이 있게 보여줍니다.</p>
+                     </div>
+                 </div>
+            </div>
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var player;
+        const videoId = 'Vq0fs-Y8d28';
+        
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        const listenButton = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        function onPlayerReady(event) {
+            listenButton.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '다시 듣기';
+            }
+        }
+
+        function togglePlay() {
+            const playerState = player.getPlayerState();
+            if (playerState == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenButton.addEventListener('click', togglePlay);
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

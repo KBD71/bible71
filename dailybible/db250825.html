@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;5-00;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>내 편이 되신 하나님, 흔들리지 않는 나의 소망</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">내 편이 되신 하나님, 흔들리지 않는 나의 소망</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2024년 8월 25일 새벽기도회</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">과거의 구원을 기억하고 현재의 보호를 신뢰하며, 영원한 샬롬을 누리는 성도의 삶</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-amber-800">오늘의 말씀: 시편 124편 & 125편</h2>
+                        <div class="bible-passage">
+                            <p><b>1</b>이스라엘은 이제 말하기를 여호와께서 우리 편에 계시지 아니하셨더라면 우리가 어떻게 하였으랴</p>
+                            <p><b>2</b>사람들이 우리를 치러 일어날 때에 여호와께서 우리 편에 계시지 아니하셨더라면</p>
+                            <p><b>3</b>그들의 노여움이 우리에게 맹렬하여 우리를 산 채로 삼켰을 것이며</p>
+                            <p><b>4</b>그 때에 물이 우리를 휩쓸며 시내가 우리 영혼을 삼켰을 것이며</p>
+                            <p><b>5</b>그 때에 넘치는 물이 우리 영혼을 삼켰을 것이라 할 것이로다</p>
+                            <p><b>6</b>우리를 내주어 그들의 이에 씹히지 아니하게 하신 여호와를 찬송할지로다</p>
+                            <p><b>7</b>우리의 영혼이 사냥꾼의 올무에서 벗어난 새 같이 되었나니 올무가 끊어지므로 우리가 벗어났도다</p>
+                            <p><b>8</b>우리의 도움은 천지를 지으신 여호와의 이름에 있도다</p>
+                            <p class="mt-6"><b>1</b>여호와를 의지하는 자는 시온 산이 흔들리지 아니하고 영원히 있음 같도다</p>
+                            <p><b>2</b>산들이 예루살렘을 두름과 같이 여호와께서 그의 백성을 지금부터 영원까지 두르시리로다</p>
+                            <p><b>3</b>악인의 규가 의인들의 땅에서는 그 권세를 누리지 못하리니 이는 의인들로 하여금 죄악에 손을 대지 아니하게 함이로다</p>
+                            <p><b>4</b>여호와여 선한 자들과 마음이 정직한 자들에게 선대하소서</p>
+                            <p><b>5</b>자기의 굽은 길로 치우치는 자들은 여호와께서 죄를 범하는 자들과 함께 다니게 하시리로다 이스라엘에게는 평강이 있을지어다</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-sky-800">본문 이해를 위한 배경지식</h2>
+                        <dl class="def-list">
+                            <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6-2.292m0 0A9.043 9.043 0 0112 6.042" /></svg>성전에 올라가는 노래 (Song of Ascents)</dt>
+                            <dd>시편 120편부터 134편까지의 시편들을 가리킵니다. 이 노래들은 이스라엘 백성들이 절기 때마다 예루살렘 성전을 향해 순례의 길을 오르면서 불렀던 찬송입니다. 따라서 이 시편들에는 하나님의 도우심에 대한 감사, 보호하심에 대한 신뢰, 그리고 하나님의 백성으로서의 정체성과 소망이 깊이 담겨 있습니다.</dd>
+                            <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M2.25 12a8.967 8.967 0 011.591-5.091M21.75 12a8.967 8.967 0 00-1.591-5.091M9 21V9.75l3-2.906 3 2.906V21m-6 0h6" /></svg>샬롬 (Shalom)</dt>
+                            <dd>단순히 '평안'이나 '안전'을 의미하는 단어를 넘어섭니다. 성경에서 <span class="keyword">샬롬</span>은 모든 것이 완전하고 조화로운 상태, 즉 하나님과의 올바른 관계 속에서 누리는 총체적인 평강과 번영을 의미합니다. 설교는 이 샬롬이 하나님을 의지하는 자에게 주어지는 궁극적인 복임을 강조합니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-indigo-800">설교의 핵심 1: "만약 하나님이 우리 편이 아니셨더라면" (시 124편)</h2>
+                        <p class="mb-4">시편 124편은 "여호와께서 우리 편에 계시지 아니하셨더라면"이라는 가정을 통해, 이스라엘의 구원이 전적으로 하나님의 기적적인 개입 덕분이었음을 생생하게 고백합니다. 이 고백은 이스라엘 공동체 전체의 찬양이 되었습니다.</p>
+                        <p class="mb-4">시인은 대적들의 위협을 두 가지 강력한 이미지로 묘사합니다. 첫째는 '사람들의 맹렬한 노여움'으로, 마치 거대한 짐승이 우리를 '산 채로 삼키려는' 듯한 위협입니다. 둘째는 '넘치는 물'로, 걷잡을 수 없는 홍수가 우리의 '영혼을 삼키려는' 듯한 압도적인 위기입니다. 이러한 절체절명의 위기 속에서 이스라엘은 스스로를 구원할 힘이 전혀 없었습니다.</p>
+                        <blockquote>"우리의 영혼이 사냥꾼의 올무에서 벗어난 새 같이 되었나니 올무가 끊어지므로 우리가 벗어났도다."</blockquote>
+                        <p class="mt-4">이 극적인 구원은 우리의 힘이 아닌 오직 하나님의 도우심으로만 가능했습니다. 따라서 우리의 유일한 도움의 근원은 <span class="keyword">하나님의 주권</span>, 즉 "천지를 지으신 여호와의 이름"에 있습니다. 이것이 바로 우리가 절망 속에서도 소망을 가질 수 있는 이유이며, 모든 상황 속에서 하나님의 은혜를 신뢰해야 하는 근거입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-purple-800">설교의 핵심 2: 흔들리지 않는 신뢰와 영원한 샬롬 (시 125편)</h2>
+                        <p class="mb-4">시편 125편은 여호와를 의지하는 자가 누리는 견고한 복을 노래합니다. 그들은 결코 흔들리지 않는 '시온 산'과 같으며, '산들이 예루살렘을 두름과 같이' 하나님의 영원하고 빈틈없는 <span class="keyword">보호하심</span> 가운데 거하게 됩니다.</p>
+                        <p class="mb-4">여기서 하나님이 지키시는 '의인의 땅' 또는 '<span class="keyword">기업</span>'은 세상의 부나 건강이 아닌, 하늘에 간직된 영원한 생명과 하나님과의 친밀한 교제 및 연합을 의미합니다. 악인의 권세(규)가 이 영원한 기업을 결코 침범할 수 없습니다. 하나님을 의지하는 자의 특징은 '선하고 마음이 정직한' 삶의 방향성을 추구하는 것입니다. 이는 완벽함을 의미하는 것이 아니라, 죄를 지었을 때 돌이켜 주님께로 나아가는 삶의 태도를 말합니다.</p>
+                        <blockquote>이러한 신뢰의 삶을 사는 자들에게 하나님은 궁극적인 평강, 즉 단순한 안전을 넘어 하나님과의 화목한 관계에서 비롯되는 <span class="keyword">샬롬</span>을 약속하십니다.</blockquote>
+                        <p class="mt-4">결국, 우리의 구원은 과거에 우리 편이 되어주신 하나님을 기억하는 것에서 시작하여, 현재와 미래의 모든 시련 속에서도 변함없이 그분을 의지할 때, 하나님과의 화목 속에서 오는 영원한 샬롬으로 완성됩니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-sky-800">심화 이해: 매튜 헨리 주석</h2>
+                        <p class="mb-4">매튜 헨리 주석은 시편 124편과 125편을 통해 성도의 신앙 여정에 대한 깊은 통찰을 제공합니다.</p>
+                        <dl class="def-list">
+                            <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-1.5l-1.5.9-1.5-.9" /></svg>과거의 구원을 현재의 찬양으로 (시 124편)</dt>
+                            <dd>주석은 이 시편이 단순히 과거의 사건을 회상하는 것을 넘어, '지금' 이스라엘이 말해야 할 찬양임을 강조합니다. 과거의 위험이 얼마나 컸는지를 생생하게 묘사함으로써, 하나님의 구원이 얼마나 기적적이었는지를 깨닫게 합니다. 이는 성도들에게 과거의 은혜를 잊지 않고 현재의 감사와 찬양의 제목으로 삼아야 함을 가르칩니다.</dd>
+                            <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm-1.125 9.16A2.625 2.625 0 115.625 15a2.625 2.625 0 012.25-2.583z" /></svg>신뢰하는 자의 성품과 안전 (시 125편)</dt>
+                            <dd>주석은 하나님을 의지하는 것과 '선하고 정직한' 삶을 사는 것을 긴밀하게 연결합니다. 진정한 신뢰는 삶의 태도로 나타나며, 이러한 성도에게 주어지는 안전은 단순한 외적 보호가 아닙니다. 이는 하나님께서 악의 영향력으로부터 성도의 마음과 영혼을 지키셔서, 그들이 죄악에 손을 대지 않도록 보호하시는 내적인 안전까지 포함합니다. 즉, 하나님은 성도의 '상태'와 '장소' 모두를 안전하게 지키십니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-emerald-800">결론: 우리 삶에 주시는 교훈</h2>
+                        <p class="mb-4">이 말씀은 과거, 현재, 미래를 아우르는 우리 신앙의 여정에 구체적인 지침을 줍니다.</p>
+                        <ul class="list-disc list-inside space-y-3 text-gray-700">
+                            <li><strong>과거의 은혜를 기억하십시오:</strong> 하나님께서 그리스도를 통해 나를 어떻게 죄와 사망의 물결에서 건져내셨는지, 그 놀라운 구원의 은혜를 매일 기억하고 감사해야 합니다.</li>
+                            <li><strong>현재의 시련을 신뢰로 이겨내십시오:</strong> 오늘 마주하는 위기와 어려움 속에서도 하나님이 변함없이 나를 산처럼 둘러 보호하고 인도하실 것을 굳게 믿어야 합니다.</li>
+                            <li><strong>미래의 샬롬을 소망하십시오:</strong> 하나님과의 화목한 관계에서 오는 참된 평강, 샬롬이 우리 삶을 붙들어 결국 영원한 영광으로 인도할 것을 확신하며 담대히 나아가야 합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var player;
+        const videoId = 'IOFtK0BNxVg';
+        const listenBtn = document.getElementById('listen-btn');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+        const buttonText = document.getElementById('button-text');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player && typeof player.getPlayerState === 'function') {
+                const playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        // Load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>빛의 자녀로 맞이할 영광의 그날</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">빛의 자녀로 맞이할 영광의 그날</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 9월 5일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">성도의 죽음과 그리스도의 재림을 소망으로 인내하며, 깨어있는 빛의 자녀로 오늘을 살아갑시다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">오늘의 말씀: 데살로니가전서 4:13–5:11</h2>
+                        <div class="bible-passage">
+                            <p><b>13</b> 형제들아 자는 자들에 관하여는 너희가 알지 못함을 우리가 원하지 아니하노니 이는 소망 없는 다른 이와 같이 슬퍼하지 않게 하려 함이라</p>
+                            <p><b>14</b> 우리가 예수께서 죽으셨다가 다시 살아나심을 믿을진대 이와 같이 예수 안에서 자는 자들도 하나님이 그와 함께 데리고 오시리라</p>
+                            <p><b>15</b> 우리가 주의 말씀으로 너희에게 이것을 말하노니 주께서 강림하실 때까지 우리 살아 남아 있는 자도 자는 자보다 결코 앞서지 못하리라</p>
+                            <p><b>16</b> 주께서 호령과 천사장의 소리와 하나님의 나팔 소리로 친히 하늘로부터 강림하시리니 그리스도 안에서 죽은 자들이 먼저 일어나고</p>
+                            <p><b>17</b> 그 후에 우리 살아 남은 자들도 그들과 함께 구름 속으로 끌어 올려 공중에서 주를 영접하게 하시리니 그리하여 우리가 항상 주와 함께 있으리라</p>
+                            <p><b>18</b> 그러므로 이러한 말로 서로 위로하라</p>
+                            <p><b>1</b> 형제들아 때와 시기에 관하여는 너희에게 쓸 것이 없음은</p>
+                            <p><b>2</b> 주의 날이 밤에 도둑 같이 이를 줄을 너희 자신이 자세히 알기 때문이라</p>
+                            <p><b>3</b> 그들이 평안하다, 안전하다 할 그 때에 임신한 여자에게 해산의 고통이 이름과 같이 멸망이 갑자기 그들에게 이르리니 결코 피하지 못하리라</p>
+                            <p><b>4</b> 형제들아 너희는 어둠에 있지 아니하매 그 날이 도둑 같이 너희에게 임하지 못하리니</p>
+                            <p><b>5</b> 너희는 다 빛의 아들이요 낮의 아들이라 우리가 밤이나 어둠에 속하지 아니하나니</p>
+                            <p><b>6</b> 그러므로 우리는 다른 이들과 같이 자지 말고 오직 깨어 정신을 차릴지라</p>
+                            <p><b>7</b> 자는 자들은 밤에 자고 취하는 자들은 밤에 취하되</p>
+                            <p><b>8</b> 우리는 낮에 속하였으니 정신을 차리고 믿음과 사랑의 호심경을 붙이고 구원의 소망의 투구를 쓰자</p>
+                            <p><b>9</b> 하나님이 우리를 세우심은 노하심에 이르게 하심이 아니요 오직 우리 주 예수 그리스도로 말미암아 구원을 받게 하심이라</p>
+                            <p><b>10</b> 예수께서 우리를 위하여 죽으사 우리로 하여금 깨어 있든지 자든지 자기와 함께 살게 하려 하셨느니라</p>
+                            <p><b>11</b> 그러므로 피차 권면하고 서로 덕을 세우기를 너희가 하는 것 같이 하라</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">본문 이해를 위한 배경지식</h2>
+                        <p class="mb-4">데살로니가 교회는 바울이 2차 전도 여행 때 세운 교회로, 많은 핍박 속에서도 믿음의 소문이 날 정도로 굳건히 서 있었습니다. 하지만 성도들 사이에는 그리스도의 재림이 지연되면서, 재림 전에 죽은 성도들은 어떻게 되는지에 대한 불안감과 슬픔이 있었습니다. 소망 없는 이방인들처럼 슬퍼하는 그들을 위로하고, 재림에 대한 올바른 신앙을 심어주기 위해 바울 사도는 이 편지를 기록했습니다.</p>
+                        <blockquote>"이는 소망 없는 다른 이와 같이 슬퍼하지 않게 하려 함이라" (살전 4:13)</blockquote>
+                        <p>이 구절은 당시 성도들의 실제적인 고민을 보여주며, 이 서신이 단순한 교리 설명이 아니라 사랑과 위로의 목회적 심정으로 쓰였음을 알려줍니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">설교의 핵심 1: 죽음, 슬픔이 아닌 영광스러운 소망</h2>
+                        <p class="mb-4">성도에게 죽음은 끝이 아닙니다. 설교는 성경이 신자의 죽음을 '잠'이라고 표현하는 이유를 강조합니다. 이는 반드시 깨어날 것, 즉 <span class="keyword">부활</span>이 있음을 전제하기 때문입니다. 예수 그리스도의 부활이 그 첫 열매가 되셨기에, 예수 안에서 잠든 모든 성도 역시 부활의 영광에 참여하게 될 것입니다.</p>
+                        <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                영광스러운 재림의 모습
+                            </dt>
+                            <dd>주님의 재림은 온 세상이 알 수 있도록 호령과 천사장의 소리, 하나님의 나팔 소리와 함께 임할 것입니다. 이때 그리스도 안에서 죽은 자들이 먼저 부활하고, 살아남은 자들도 변화되어 구름 속으로 끌어 올려져 공중에서 주님을 영접하게 됩니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                영원한 동행의 약속
+                            </dt>
+                            <dd>이 모든 사건의 핵심은 환난을 피하는 '휴거'가 아니라, '주를 영접하여 항상 주와 함께 있는 것'입니다. 우리의 최종 목적지는 이 땅이 아닌, 주님과 영원히 함께하는 하나님 나라입니다. 이 약속이 우리의 가장 큰 위로와 소망이 됩니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">설교의 핵심 2: 빛의 자녀, 깨어 정신을 차리라</h2>
+                        <p class="mb-4">주의 날이 언제 임할지는 아무도 알 수 없습니다. 성경은 그날이 '밤의 도둑같이' 갑자기 임할 것이라 경고합니다. 세상이 '평안하다, 안전하다' 외칠 때 멸망이 임할 것입니다. 하지만 성도는 어둠이 아닌 <span class="keyword">빛의 아들</span>이요, 낮의 아들입니다. 그러므로 우리는 그날을 두려워할 필요가 없습니다. 대신, 우리는 영적으로 깨어 정신을 차려야 합니다.</p>
+                        <blockquote>"우리는 낮에 속하였으니 정신을 차리고 믿음과 사랑의 호심경을 붙이고 구원의 소망의 투구를 쓰자" (살전 5:8)</blockquote>
+                        <p class="mt-4">이것은 성도의 영적 무장을 의미합니다. 세상의 유혹과 위협 앞에서 우리는 하나님의 전신갑주를 입어야 합니다.</p>
+                        <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+                            <li><b>믿음과 사랑의 호심경:</b> 하나님을 향한 절대적 신뢰와 이웃을 향한 사랑으로 우리의 마음과 중심을 지키는 것입니다.</li>
+                            <li><b>구원의 소망의 투구:</b> <span class="keyword">그리스도의 재림</span>과 영원한 하나님 나라에 대한 확실한 소망으로 우리의 생각과 가치관을 지키는 것입니다.</li>
+                        </ul>
+                        <p class="mt-4">우리가 이렇게 무장하고 구원에 이를 수 있는 근본적인 이유는 우리의 노력이 아니라, 우리를 세우시고 선택하신 하나님의 주권적인 은혜 때문입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">결론: 우리 삶에 주시는 교훈</h2>
+                        <p class="mb-4">그리스도의 재림에 대한 약속은 우리에게 막연한 두려움이 아닌, 오늘을 살아갈 힘과 위로를 줍니다. 이 땅에서의 죽음이 끝이 아니며, 주님과 영원히 함께할 영광스러운 날이 우리를 기다리고 있음을 기억해야 합니다.</p>
+                        <ol class="list-decimal list-inside space-y-3">
+                            <li><b>소망으로 위로하십시오:</b> 먼저 떠나보낸 성도들로 인해 소망 없이 슬퍼하지 말고, 부활과 재회의 소망으로 서로를 위로해야 합니다.</li>
+                            <li><b>깨어 준비하십시오:</b> 세상의 가치관에 취해 잠들지 말고, 빛의 자녀답게 믿음, 사랑, 소망으로 무장하여 언제 오실지 모르는 주님을 맞이할 준비를 해야 합니다.</li>
+                            <li><b>서로를 세워주십시오:</b> 공동체 안에서 재림의 소망을 나누며 피차 권면하고 덕을 세움으로써, 함께 믿음의 경주를 완주해야 합니다.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">심화 이해: 매튜 헨리 주석</h2>
+                        <p class="mb-4">매튜 헨리는 본문을 통해 성도의 죽음과 재림에 대한 더 깊은 신학적 통찰을 제공합니다. 그는 '잠자는 것'이라는 표현이 죽음의 고통을 덜어주는 위로의 말이며, 잠이 일시적이듯 죽음도 그러하며, 잠이 노동으로부터의 쉼이듯 죽음도 죄와 슬픔으로부터의 쉼이라고 설명합니다. 또한, '주 안에서 자는 자들'이라는 표현은 그들의 영혼이 그리스도와 함께 안식하고 있음을 강조합니다.</p>
+                        <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                주의 날의 이중성
+                            </dt>
+                            <dd>주님의 날은 세상 사람들에게는 '밤의 도둑'처럼 갑작스럽고 무서운 멸망의 날이지만, 빛의 자녀들에게는 오랫동안 기다려온 영광과 기쁨의 날입니다. 따라서 성도는 그날을 두려워할 필요가 없으며, 오히려 소망 가운데 그날을 맞이할 준비를 해야 합니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                깨어 있음의 의미
+                            </dt>
+                            <dd>'깨어 정신을 차린다'는 것은 단순히 잠을 자지 않는 육체적 상태가 아니라, 영적인 방심과 무관심에서 벗어나는 것을 의미합니다. 또한 믿음, 사랑, 소망으로 영적 갑옷을 입는 것은 재림의 날까지 우리를 굳건히 지켜줄 방어구이자, 성도의 정체성을 드러내는 표지입니다. 하나님께서 우리를 구원하시기로 작정하셨기 때문에, 우리는 이 영적 싸움에서 반드시 승리할 수 있습니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var player;
+        const videoId = 'fG4G5tVm6QU';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

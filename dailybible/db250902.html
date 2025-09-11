@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>복음의 능력, 사도의 마음</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">복음의 능력, 사도의 마음</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2024년 9월 2일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">하나님을 기쁘시게 하는 사역자의 삶의 본질과 고난 속에서 말씀을 능력으로 받는 성도의 믿음을 탐구합니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-8">
+                        <div class="icon-wrapper bg-amber-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif">오늘의 말씀: 데살로니가전서 2장 1-16절</h2>
+                    </div>
+                    <div class="bible-passage">
+                        <p><b>1</b> 형제들아 우리가 너희에게 들어간 것이 헛되지 않은 줄을 너희가 친히 아나니</p>
+                        <p><b>2</b> 너희가 아는 바와 같이 우리가 먼저 빌립보에서 고난과 능욕을 당하였으나 우리 하나님을 힘입어 많은 싸움 중에 하나님의 복음을 너희에게 전하였노라</p>
+                        <p><b>3</b> 우리의 권면은 간사함이나 부정에서 난 것이 아니요 속임수로 하는 것도 아니라</p>
+                        <p><b>4</b> 오직 하나님께 옳게 여기심을 입어 복음을 위탁 받았으니 우리가 이와 같이 말함은 사람을 기쁘게 하려 함이 아니요 오직 우리 마음을 감찰하시는 하나님을 기쁘시게 하려 함이라</p>
+                        <p><b>5</b> 너희도 알거니와 우리가 아무 때에도 아첨하는 말이나 탐심의 탈을 쓰지 아니한 것을 하나님이 증언하시느니라</p>
+                        <p><b>6</b> 또한 우리는 너희에게서든지 다른 이에게서든지 사람에게서는 영광을 구하지 아니하였노라</p>
+                        <p><b>7</b> 우리는 그리스도의 사도로서 마땅히 권위를 주장할 수 있으나 도리어 너희 가운데서 유순한 자가 되어 유모가 자기 자녀를 기름과 같이 하였으니</p>
+                        <p><b>8</b> 우리가 이같이 너희를 사모하여 하나님의 복음뿐 아니라 우리의 목숨까지도 너희에게 주기를 기뻐함은 너희가 우리의 사랑하는 자 됨이라</p>
+                        <p><b>9</b> 형제들아 우리의 수고와 애쓴 것을 너희가 기억하리니 너희 아무에게도 폐를 끼치지 아니하려고 밤낮으로 일하면서 너희에게 하나님의 복음을 전하였노라</p>
+                        <p><b>10</b> 우리가 너희 믿는 자들을 향하여 어떻게 거룩하고 옳고 흠 없이 행하였는지에 대하여 너희가 증인이요 하나님도 그러하시도다</p>
+                        <p><b>11</b> 너희도 아는 바와 같이 우리가 너희 각 사람에게 아버지가 자기 자녀에게 하듯 권면하고 위로하고 경계하노니</p>
+                        <p><b>12</b> 이는 너희를 부르사 자기 나라와 영광에 이르게 하시는 하나님께 합당히 행하게 하려 함이라</p>
+                        <p><b>13</b> 이러므로 우리가 하나님께 끊임없이 감사함은 너희가 우리에게 들은 바 하나님의 말씀을 받을 때에 사람의 말로 받지 아니하고 하나님의 말씀으로 받음이니 진실로 그러하도다 이 말씀이 또한 너희 믿는 자 가운데에서 역사하느니라</p>
+                        <p><b>14</b> 형제들아 너희가 그리스도 예수 안에서 유대에 있는 하나님의 교회들을 본받은 자 되었으니 그들이 유대인들에게 고난을 받음과 같이 너희도 너희 동족에게서 동일한 고난을 받았느니라</p>
+                        <p><b>15</b> 유대인은 주 예수와 선지자들을 죽이고 우리를 쫓아내고 하나님을 기쁘시게 하지 아니하고 모든 사람에게 대적이 되어</p>
+                        <p><b>16</b> 우리가 이방인에게 말하여 구원 받게 함을 그들이 금하여 자기 죄를 항상 채우매 노하심이 끝까지 그들에게 임하였느니라</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-8">
+                        <div class="icon-wrapper bg-purple-600">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif">사도의 본: 하나님을 기쁘시게 하는 삶</h2>
+                    </div>
+                    <p class="mb-6 text-lg">바울은 자신의 사역이 헛되지 않았음을 데살로니가 성도들의 삶을 통해 증명합니다. 그의 사역 방식은 당시 이익을 좇던 다른 웅변가나 철학자들과 근본적으로 달랐으며, 그 동기는 오직 하나님을 기쁘시게 하는 것이었습니다. 이는 오늘날 복음을 전하는 모든 성도가 따라야 할 궁극적인 모본인 그리스도의 모습을 반영합니다.</p>
+                    <blockquote>바울의 사역은 고난 속에서 시작되었습니다. 그러나 그는 "우리 하나님을 힘입어" 많은 싸움 중에 담대히 복음을 전했습니다. 복음 전파는 영적 전투이며, 인간의 힘이 아닌 하나님의 능력으로 감당하는 것임을 보여줍니다.</blockquote>
+                    <dl class="def-list mt-8">
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>참된 사도의 모습 (What he did)</dt>
+                        <dd><span class="keyword">유순한 유모</span>처럼 성도들을 부드럽게 품고, <span class="keyword">사랑하는 아버지</span>처럼 권면하고 위로하며, 목숨까지 내어줄 만큼 사랑했습니다. 밤낮으로 일하며 아무에게도 폐를 끼치지 않으려 했고, 거룩하고 흠 없는 삶으로 본을 보였습니다.</dd>
+                        <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>거짓 교사의 모습 (What he didn't do)</dt>
+                        <dd>간사함, 부정, 속임수를 사용하지 않았습니다. 사람을 기분 좋게 만드는 <span class="keyword">아첨하는 말</span>이나, 사욕을 채우기 위한 <span class="keyword">탐심의 탈</span>을 쓰지 않았습니다. 사람에게서 영광을 구하거나 사도의 권위를 내세워 대우받으려 하지 않았습니다.</dd>
+                    </dl>
+                    <p class="mt-6 text-lg">이 모든 모습은 궁극적으로 <span class="keyword">그리스도</span>를 본받는 것입니다. 예수님 역시 오직 하나님 아버지를 기쁘시게 하려 하셨고, 자신의 영광을 구하지 않으셨으며, 온유함과 자기희생적인 사랑으로 우리를 구원하셨습니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-8">
+                        <div class="icon-wrapper bg-indigo-600">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif">성도의 응답: 능력의 말씀을 붙드는 믿음</h2>
+                    </div>
+                    <p class="mb-6 text-lg">바울이 하나님께 끊임없이 감사했던 이유는 데살로니가 교인들의 특별한 반응 때문이었습니다. 그들은 복음을 단순한 사람의 지식이나 철학이 아닌, 살아 역사하시는 <span class="keyword">하나님의 말씀</span>으로 받았습니다. 이 믿음이 그들로 하여금 극심한 박해 속에서도 견디게 하는 능력의 원천이 되었습니다.</p>
+                    <ul class="list-disc list-inside space-y-4 text-gray-700">
+                        <li class="leading-relaxed"><b class="text-indigo-800">말씀의 역사:</b> 하나님의 말씀은 믿는 자 안에서 살아 움직이며 역사합니다. 데살로니가 교인들의 삶의 변화와 인내는 그들 자신의 결단이 아니라, 그들 안에 있는 말씀의 능력이었습니다. 우리 또한 말씀을 들을 때, 교만한 마음을 내려놓고 하나님의 음성으로 듣게 해달라고 기도해야 합니다.</li>
+                        <li class="leading-relaxed"><b class="text-indigo-800">고난에의 동참:</b> 그들은 유대에 있는 교회들이 동족 유대인들에게 박해받았던 것처럼, 자신들의 동족에게 동일한 고난을 받았습니다. 이는 믿음의 길이 세상으로부터의 박해를 포함하며, 고난 속에서 믿음을 지키는 것이야말로 하나님이 함께하신다는 강력한 증거임을 보여줍니다.</li>
+                        <li class="leading-relaxed"><b class="text-indigo-800">하나님의 공의로운 심판:</b> 바울은 복음을 대적하고 박해하는 유대인들의 죄를 지적하며 하나님의 진노가 그들에게 임할 것을 선포합니다. 이는 성도들에게 악인의 형통에 마음을 빼앗기지 말고, 모든 것을 최종적으로 심판하실 하나님께 맡기며 끝까지 인내하도록 위로와 용기를 줍니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-8">
+                        <div class="icon-wrapper bg-emerald-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif">결론: 우리 삶에 주시는 교훈</h2>
+                    </div>
+                    <p class="mb-6 text-lg">오늘 말씀을 통해 우리는 복음 사역의 본질과 성도의 합당한 반응을 배웁니다. 설교자는 이 말씀이 우리 마음에 세 가지 교훈으로 남기를 권면합니다.</p>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-emerald-50 border-l-4 border-emerald-500">
+                            <h3 class="font-bold text-emerald-800">1. 그리스도의 사랑을 기억하십시오.</h3>
+                            <p class="text-emerald-700">사도가 보여준 자기희생적인 사랑의 근원은 바로 우리를 위해 목숨까지 내어주신 그리스도의 사랑입니다. 이 사랑이 우리 삶의 동력이 되기를 바랍니다.</p>
+                        </div>
+                        <div class="p-4 bg-indigo-50 border-l-4 border-indigo-500">
+                            <h3 class="font-bold text-indigo-800">2. 사도의 본을 따르십시오.</h3>
+                            <p class="text-indigo-700">하나님만을 기쁘시게 하려 했던 바울의 삶이 우리의 신앙생활에 진정한 도전이 되어야 합니다. 사람의 인정이 아닌 하나님의 인정을 구하는 삶을 사십시오.</p>
+                        </div>
+                        <div class="p-4 bg-amber-50 border-l-4 border-amber-500">
+                            <h3 class="font-bold text-amber-800">3. 데살로니가 교회의 믿음을 배우십시오.</h3>
+                            <p class="text-amber-700">어려움 속에서도 말씀을 하나님의 능력으로 받고 인내했던 데살로니가 교회의 믿음이 오늘날 우리에게 큰 위로와 교훈이 되기를 바랍니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-8">
+                        <div class="icon-wrapper bg-sky-600">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif">심화 이해: 매튜 헨리 주석</h2>
+                    </div>
+                    <p class="mb-6 text-lg">매튜 헨리 주석은 데살로니가전서 2장을 통해 복음 사역자의 자세와 성도의 응답에 대한 깊은 통찰을 제공합니다.</p>
+                    <ul class="list-disc list-inside space-y-4 text-gray-700">
+                        <li class="leading-relaxed"><b class="text-sky-800">복음 사역의 진실성:</b> 헨리는 바울이 자신의 사역이 '간사함'이나 '속임수'에서 비롯되지 않았다고 강조한 부분을 주목합니다. 참된 복음은 교묘한 말이나 인간적인 지혜가 아닌, 오직 하나님의 능력과 진리에 의존해야 함을 의미합니다. 사역자의 삶 자체가 메시지의 신뢰성을 증명하는 것입니다.</li>
+                        <li class="leading-relaxed"><b class="text-sky-800">부모의 마음:</b> 헨리는 바울이 자신을 '유모'와 '아버지'에 비유한 것을 사역자의 두 가지 핵심적인 역할로 설명합니다. 유모처럼 부드럽고 애정 어린 돌봄으로 성도들을 양육해야 하며, 동시에 아버지처럼 권위 있고 진지하게 권면하고 경계하며 그들을 하나님께 합당한 삶으로 인도해야 한다는 것입니다. 이 두 가지 모습은 균형을 이루어야 합니다.</li>
+                        <li class="leading-relaxed"><b class="text-sky-800">말씀의 내적 역사:</b> 데살로니가 교인들이 말씀을 '하나님의 말씀'으로 받았을 때, 그 말씀이 그들 안에서 '효과적으로 역사했다'(effectually worketh)는 점을 강조합니다. 이는 단순한 지적 동의를 넘어, 말씀이 믿는 자의 삶을 변화시키고, 거룩하게 하며, 시련을 견딜 힘을 주는 내적인 동력이 됨을 의미합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var player;
+        var videoId = '1jN54MlMfQE';
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '계속 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player && typeof player.getPlayerState === 'function') {
+                var playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

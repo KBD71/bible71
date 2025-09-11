@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>살아있는 믿음의 본을 보이는 교회</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">살아있는 믿음의 본을 보이는 교회</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 9월 1일 새벽기도회</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">데살로니가 교회를 통해 배우는 믿음, 사랑, 소망의 살아있는 증거와 능력 있는 복음의 삶</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">오늘의 말씀: 데살로니가전서 1장 1-10절</h2>
+                        <div class="bible-passage">
+                            <p><b>1</b> 바울과 실루아노와 디모데는 하나님 아버지와 주 예수 그리스도 안에 있는 데살로니가인의 교회에 편지하노니 은혜와 평강이 너희에게 있을지어다</p>
+                            <p><b>2</b> 우리가 너희 모두로 말미암아 항상 하나님께 감사하며 기도할 때에 너희를 기억함은</p>
+                            <p><b>3</b> 너희의 믿음의 역사와 사랑의 수고와 우리 주 예수 그리스도에 대한 소망의 인내를 우리 하나님 아버지 앞에서 끊임없이 기억함이니</p>
+                            <p><b>4</b> 하나님의 사랑하심을 받은 형제들아 너희를 택하심을 아노라</p>
+                            <p><b>5</b> 이는 우리 복음이 너희에게 말로만 이른 것이 아니라 또한 능력과 성령과 큰 확신으로 된 것임이라 우리가 너희 가운데서 너희를 위하여 어떤 사람이 된 것은 너희가 아는 바와 같으니라</p>
+                            <p><b>6</b> 또 너희는 많은 환난 가운데서 성령의 기쁨으로 말씀을 받아 우리와 주를 본받은 자가 되었으니</p>
+                            <p><b>7</b> 그러므로 너희가 마게도냐와 아가야에 있는 모든 믿는 자의 본이 되었느니라</p>
+                            <p><b>8</b> 주의 말씀이 너희에게로부터 마게도냐와 아가야에만 들릴 뿐 아니라 하나님을 향하는 너희 믿음의 소문이 각처에 퍼졌으므로 우리는 아무 말도 할 것이 없노라</p>
+                            <p><b>9</b> 그들이 우리에 대하여 스스로 말하기기를 우리가 어떻게 너희 가운데에 들어갔는지와 너희가 어떻게 우상을 버리고 하나님께로 돌아와서 살아 계시고 참되신 하나님을 섬기는지와</p>
+                            <p><b>10</b> 또 죽은 자들 가운데서 다시 살리신 그의 아들이 하늘로부터 강림하실 것을 너희가 어떻게 기다리는지를 말하니 이는 장래의 노하심에서 우리를 건지시는 예수시니라</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">데살로니가전서 개요</h2>
+                        <p class="mb-4 text-lg">데살로니가전서는 사도 바울이 2차 전도 여행 중(A.D. 51년경) 고린도에서 기록한 서신으로, 신약성경 중 가장 먼저 쓰인 책으로 알려져 있습니다. 바울은 빌립보에서 복음을 전한 후 데살로니가에 교회를 세웠으나, 유대인들의 극심한 반대로 짧은 기간만 머물러야 했습니다. 이후 아덴을 거쳐 고린도에 머물던 바울은 자신이 떠난 뒤 데살로니가 교인들이 겪을 환난과 믿음에 대해 염려하며 디모데를 보냈습니다.</p>
+                        <p class="text-lg">디모데로부터 그들이 환난 속에서도 믿음을 굳건히 지키고 있다는 기쁜 소식을 전해 들은 바울은, 감사와 기쁨의 마음으로 이 편지를 썼습니다. 편지의 주된 목적은 박해 속에서도 굳건한 믿음을 보여준 성도들을 칭찬하고 격려하며, 그들의 신앙에 대한 몇 가지 오해(특히 <span class="keyword">주님의 재림</span>)를 바로잡아 주기 위함입니다. 이 서신에는 갓 태어난 교회에 대한 바울의 따뜻한 목회적 사랑과 함께, 종말을 살아가는 성도들의 올바른 자세가 잘 나타나 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">설교의 핵심: 참된 교회의 세 가지 증거</h2>
+                        <p class="mb-4 text-lg">사도 바울은 데살로니가 교회를 생각할 때마다 항상 하나님께 감사했습니다. 그 이유는 그들의 신앙이 살아있는 증거를 통해 역동적으로 나타났기 때문입니다. 이것은 오늘날 교회가 추구해야 할 본질적인 모습입니다.</p>
+                        <dl class="def-list">
+                            <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>믿음의 역사</dt>
+                            <dd>단순히 머리로만 아는 지식이 아니라, 모든 행위와 삶의 순간에 하나님을 향한 신실함이 담겨있는 것을 의미합니다. 삶의 모든 영역에서 믿음이 구체적인 행동으로 드러나는 것입니다.</dd>
+                            <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>사랑의 수고</dt>
+                            <dd>그들이 하는 모든 수고와 헌신에는 그리스도를 향한 사랑이 동기가 되었습니다. 이 사랑은 자연스럽게 이웃을 향한 섬김으로 흘러넘쳤습니다. 마지못해 하는 짐이 아니라, 사랑하기 때문에 기쁨으로 감당하는 헌신입니다.</dd>
+                            <dt><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>소망의 인내</dt>
+                            <dd>수많은 환난과 핍박 속에서도 흔들리지 않고 견딜 수 있었던 힘의 원천은 바로 <span class="keyword">예수 그리스도의 재림</span>에 대한 살아있는 소망이었습니다. 이 소망은 현재의 고난을 이겨내게 하는 강력한 동력이 되었습니다.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">복음이 능력으로 나타나는 삶</h2>
+                        <p class="mb-4 text-lg">바울은 데살로니가 성도들이 하나님의 택하심을 받은 것을 확신했습니다. 그 근거는 복음이 그들의 삶을 근본적으로 변화시키는 '능력'으로 나타났기 때문입니다. 참된 복음은 단순한 말이 아니라, 성령의 능력과 큰 확신으로 개인과 공동체를 변화시킵니다.</p>
+                        <blockquote>"이는 우리 복음이 너희에게 말로만 이른 것이 아니라 또한 능력과 성령과 큰 확신으로 된 것임이라"</blockquote>
+                        <p class="text-lg">데살로니가 교회는 많은 환난 속에서도 성령이 주시는 기쁨으로 말씀을 받았고, 그 결과 바울과 주님을 본받는 자가 되었습니다. 그들의 삶은 단순한 신앙생활을 넘어, 마게도냐와 아가야 지역의 모든 믿는 자들에게 '본'이 되었습니다. 그들의 믿음의 소문은 굳이 바울 팀이 설명할 필요가 없을 정도로 널리 퍼져나갔습니다. 세상 사람들은 그들이 어떻게 우상을 버리고 살아계신 하나님께 돌아왔는지, 그리고 어떻게 예수님의 다시 오심을 기다리는지를 스스로 이야기했습니다. 이것이 바로 살아있는 복음의 능력입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">결론: 우리 삶에 주시는 교훈</h2>
+                        <p class="mb-4 text-lg">데살로니가 교회의 모습은 오늘 우리에게 중요한 질문을 던집니다. 우리의 믿음에도 '역사'가 나타나고 있습니까? 우리의 수고는 '사랑'에서 비롯되고 있습니까? 우리의 인내는 재림에 대한 '소망'에 뿌리내리고 있습니까?</p>
+                        <p class="text-lg">우리의 신앙이 교회 안에만 머무는 것이 아니라, 세상 사람들이 보고 감동을 받을 만큼 강력한 영향력을 발휘하고 있는지 돌아보아야 합니다. 삶으로 복음을 살아내어, 우리의 믿음의 소문이 각처에 퍼져나가 하나님께 영광과 기쁨이 되는 신실한 성도의 삶을 살아가야 할 것입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-start p-10">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold mb-4 font-serif">심화 이해: 매튜 헨리 주석</h2>
+                        <p class="mb-4 text-lg">매튜 헨리는 데살로니가전서 1장 3절의 '믿음의 역사, 사랑의 수고, 소망의 인내'에 대해 다음과 같이 설명합니다.</p>
+                        <blockquote class="text-lg">"참된 믿음은 결코 게으르지 않다. 사랑은 수고를 가볍게 여기게 만들며, 심지어 가장 어려운 의무조차도 즐겁게 만든다. 그리스도인의 소망은 단순히 현재의 고난을 견디게 할 뿐만 아니라, 영광스러운 보상을 바라보며 기쁨으로 인내하게 하는 힘을 가지고 있다. 이 세 가지 은혜는 서로를 돕고 강화시킨다. 믿음은 사랑을 낳고, 사랑과 믿음은 소망을 굳건하게 한다."</blockquote>
+                        <p class="text-lg">이 주해는 데살로니가 교인들의 신앙이 단순히 세 가지 덕목의 나열이 아니라, 서로 유기적으로 연결된 살아있는 신앙의 증거였음을 보여줍니다. 믿음이 행동으로, 그 행동의 동기가 사랑으로, 그리고 그 모든 것을 지탱하는 힘이 소망에서 나왔다는 것입니다. 이것이 바로 바울이 그들을 끊임없이 기억하며 감사했던 이유입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var player;
+        var videoId = '18IRZWCa704';
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player && typeof player.getPlayerState === 'function') {
+                var playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

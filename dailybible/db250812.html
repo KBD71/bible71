@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>형식적인 금식을 넘어, 삶으로 드리는 예배</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">형식적인 금식을 넘어, 삶으로 드리는 예배</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 12일 새벽기도회</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">하나님은 의식적인 금식이 아닌, 삶 속에서 공의와 사랑을 실천하는 진정한 예배를 원하십니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-6">
+                        <div class="icon-wrapper bg-amber-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif text-gray-900">오늘의 말씀: 스가랴 7장 1-14절</h2>
+                    </div>
+                    <div class="bible-passage">
+                        <p><b>1</b> 다리오 왕 제사년 아홉째 달 곧 기슬래월 사일에 여호와의 말씀이 스가랴에게 임하니라</p>
+                        <p><b>2</b> 그 때에 벧엘 사람이 사레셀과 레겜멜렉과 그의 부하들을 보내어 여호와께 은혜를 구하고</p>
+                        <p><b>3</b> 만군의 여호와의 전에 있는 제사장들과 선지자들에게 물어 이르되 내가 여러 해 동안 행한 대로 오월 중에 울며 근신하리이까 하매</p>
+                        <p><b>4</b> 만군의 여호와의 말씀이 내게 임하여 이르시되</p>
+                        <p><b>5</b> 온 땅의 백성과 제사장들에게 이르라 너희가 칠십 년 동안 다섯째 달과 일곱째 달에 금식하고 애통하였거니와 그 금식이 나를 위하여, 나를 위하여 한 것이냐</p>
+                        <p><b>6</b> 너희가 먹고 마실 때에 그것은 너희를 위하여 먹고 너희를 위하여 마시는 것이 아니냐</p>
+                        <p><b>7</b> 예루살렘과 사면 성읍에 백성이 평온히 거주하며 남방과 평원에 사람이 거주할 때에 여호와가 옛 선지자들을 통하여 외친 말씀이 있지 아니하냐 하시니라</p>
+                        <p><b>8</b> 여호와의 말씀이 스가랴에게 임하여 이르시되</p>
+                        <p><b>9</b> 만군의 여호와가 이같이 말하여 이르시기를 너희는 진실한 재판을 행하며 서로 인애와 긍휼을 베풀며</p>
+                        <p><b>10</b> 과부와 고아와 나그네와 궁핍한 자를 압제하지 말며 서로 해하려고 마음에 도모하지 말라 하였으나</p>
+                        <p><b>11</b> 그들이 듣기를 싫어하여 등을 돌리며 듣지 아니하려고 귀를 막으며</p>
+                        <p><b>12</b> 그 마음을 금강석 같게 하여 율법과 만군의 여호와가 그의 영으로 옛 선지자들을 통하여 전한 말을 듣지 아니하므로 큰 진노가 만군의 여호와께로부터 나왔도다</p>
+                        <p><b>13</b> 내가 불러도 그들이 듣지 아니한 것처럼 그들이 불러도 내가 듣지 아니하리라 만군의 여호와가 말하였느니라</p>
+                        <p><b>14</b> 내가 그들을 바람으로 불어 알지 못하던 여러 나라에 흩었느니라 그 후에 이 땅이 황폐하여 오고 가는 사람이 없었나니 이는 그들이 아름다운 땅을 황폐하게 하였음이니라 하시니라</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-6">
+                        <div class="icon-wrapper bg-sky-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif text-gray-900">본문 이해를 위한 배경지식</h2>
+                    </div>
+                    <p class="text-lg leading-relaxed">본문은 바벨론 포로 생활을 마치고 돌아온 이스라엘 백성들이 예루살렘 성전을 재건하던 시기를 배경으로 합니다. 성전 건축이 약 16년간 중단되었다가 다리오 왕의 도움으로 재개된 지 4년째 되는 해입니다. 이때 벧엘에서 온 대표단이 스가랴 선지자를 찾아와 중요한 질문을 던집니다. 그들은 지난 70년간 나라 잃은 슬픔 속에서 지켜왔던 <span class="keyword">금식</span>을 계속해야 하는지 묻습니다. 이 질문은 단순한 종교 의식에 대한 문의를 넘어, 그들의 신앙이 과연 올바른 방향으로 가고 있는지에 대한 근본적인 성찰을 요구하는 하나님의 답변을 이끌어냅니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-6">
+                        <div class="icon-wrapper bg-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif text-gray-900">설교의 핵심: 질문 속에 담긴 동기</h2>
+                    </div>
+                    <p class="text-lg leading-relaxed mb-4">벧엘 사람들의 질문은 "우리가 여러 해 동안 행한 대로 오월 중에 울며 근신하리이까?"였습니다. 표면적으로는 신앙적 열심으로 보이지만, 하나님은 그들의 마음 중심을 꿰뚫어 보셨습니다. 하나님은 "너희의 칠십 년 금식이 과연 나를 위한 것이었느냐?"고 되물으십니다. [00:12:20]</p>
+                    <blockquote>그 금식이 나를 위하여, 나를 위하여 한 것이냐</blockquote>
+                    <p class="text-lg leading-relaxed">하나님께서는 그들의 금식이 하나님을 향한 사랑과 순종이 아닌, 자기 슬픔과 고통의 표현, 즉 <span class="keyword">자기 연민</span>에 머물렀다고 지적하십니다. 먹고 마시는 것이 자신을 위한 행위였듯, 그들의 금식 또한 결국 자기 자신을 위한 행위는 아니었는지 성찰하게 하십니다. 이는 모든 종교적 행위의 동기가 얼마나 중요한지를 보여줍니다. 하나님은 우리의 행위 그 자체가 아니라, 그 행위를 하는 우리의 마음 중심을 보십니다. [00:14:28]</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-6">
+                        <div class="icon-wrapper bg-purple-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif text-gray-900">설교의 핵심: 하나님이 원하시는 참된 금식</h2>
+                    </div>
+                    <p class="text-lg leading-relaxed mb-4">하나님은 형식적인 종교 의례를 넘어, 삶의 변화를 요구하십니다. 하나님이 원하시는 참된 '금식'은 단순히 음식을 끊는 행위가 아니라, 이전 선지자들을 통해 이미 선포된 말씀을 삶으로 살아내는 것입니다. [00:17:10]</p>
+                    <dl class="def-list">
+                        <dt>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" /></svg>
+                            진실한 재판 (공의)
+                        </dt>
+                        <dd>사회적 관계에서 정의를 실현하고 올바른 판단을 내리는 것입니다.</dd>
+                        <dt>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9-22.247 22.247 0 01-3.664-3.56C.493 8.213 2.13 4.25 5.5 4.25c1.44 0 2.733.55 3.767 1.44a12.28 12.28 0 011.466 1.225 12.279 12.279 0 011.466-1.225C13.267 4.8 14.56 4.25 16 4.25c3.37 0 5.007 3.963 3.25 7.48-1.552 3.01-3.414 5.223-5.262 6.532a20.76 20.76 0 01-1.18 0.698zM16 6.25c-1.099 0-2.088.424-2.828 1.172L12 8.586l-1.172-1.164A4.12 4.12 0 008 6.25c-2.197 0-3.23 2.45-1.928 4.67C7.09 12.48 8.68 14.18 10 15.31c1.32-1.13 2.91-2.83 3.928-4.39 1.302-2.22 1.269-4.67-.928-4.67z" /></svg>
+                            인애와 긍휼 (사랑)
+                        </dt>
+                        <dd>서로에게 자비와 동정심을 베푸는 것입니다.</dd>
+                        <dt>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" /></svg>
+                            약자 보호
+                        </dt>
+                        <dd>과부, 고아, 나그네, 궁핍한 자 등 사회적 약자를 억압하지 않고 보호하는 것입니다.</dd>
+                        <dt>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg>
+                            악한 생각 금지
+                        </dt>
+                        <dd>마음속으로 서로를 해치려는 계획조차 품지 않는 것입니다.</dd>
+                    </dl>
+                    <p class="text-lg leading-relaxed mt-4">진정한 신앙은 거룩한 의식이 아니라, 이웃을 향한 구체적인 사랑의 실천으로 증명됩니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-6">
+                        <div class="icon-wrapper bg-emerald-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif text-gray-900">결론: 우리 삶에 주시는 교훈</h2>
+                    </div>
+                    <p class="text-lg leading-relaxed mb-4">과거 이스라엘 조상들은 선지자를 통해 선포된 하나님의 말씀을 듣기 싫어하여 등을 돌리고 귀를 막았습니다. 그 결과 그들의 마음은 <span class="keyword">금강석</span>같이 굳어져 율법과 말씀을 듣지 않았고, 결국 하나님의 진노로 여러 나라에 흩어지는 심판을 받았습니다. [00:19:35]</p>
+                    <p class="text-lg leading-relaxed mb-4">이러한 과거의 역사는 오늘 우리에게 강력한 경고가 됩니다. 하나님이 우리에게 원하시는 것은 종교적 열심의 '모양'이 아니라, 하나님의 말씀을 듣고 순종하는 '삶' 그 자체입니다. 우리의 금식, 예배, 기도, 봉사가 하나님을 향한 진실한 마음에서 비롯되고, 이웃을 향한 구체적인 <span class="keyword">공의</span>와 <span class="keyword">사랑</span>의 실천으로 이어질 때, 하나님은 그 기도를 들으시고 우리를 만나주실 것입니다.</p>
+                    <blockquote>내가 불러도 그들이 듣지 아니한 것처럼 그들이 불러도 내가 듣지 아니하리라.</blockquote>
+                    <p class="text-lg leading-relaxed">우리의 신앙이 형식적인 습관에 머물러 있지는 않은지, 하나님의 음성에 귀를 막고 있지는 않은지 돌아보아야 합니다. 삶의 모든 영역에서 하나님의 말씀을 실천하는 것이야말로 하나님이 기뻐하시는 진정한 예배입니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center mb-6">
+                        <div class="icon-wrapper bg-sky-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-bold font-serif text-gray-900">심화 이해: 매튜 헨리 주석</h2>
+                    </div>
+                    <p class="text-lg leading-relaxed">매튜 헨리 주석은 스가랴 7장의 금식에 대한 질문을 위선적인 신앙의 한 형태로 해석합니다. 그는 백성들이 금식의 '의무'는 기억했지만, 그 '목적'은 잊어버렸다고 지적합니다.</p>
+                    <blockquote class="my-6">"많은 사람들이 종교적인 의무의 실행에 대해서는 양심적으로 행하지만, 그 원칙과 목적에 대해서는 그렇지 못하다... 그들은 슬픔의 날에 금식했지만, 그것이 죄 때문이라는 사실은 충분히 겸손하게 여기지 않았다."</blockquote>
+                    <p class="text-lg leading-relaxed">또한 주석은 하나님께서 요구하시는 '참된 금식'(9-10절)이 단순히 부정적인 계명(악을 행하지 말라)을 넘어, 긍정적인 의무(선을 행하라)를 포함한다고 강조합니다. 즉, 진실한 재판을 행하고, 서로에게 인애와 긍휼을 베푸는 것은 하나님 앞에서 우리의 마음이 진실하다는 증거입니다. 그들의 조상들이 이러한 하나님의 부르심을 거절했기 때문에(11-12절), 그들의 기도 또한 거절당했습니다. 이는 종교적 행위가 삶의 순종과 분리될 때 얼마나 무의미해지는지를 명확하게 보여줍니다.</p>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'JLQP8Y0J1r0';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player && typeof player.getPlayerState === 'function') {
+                var playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+    </script>
+</body>
+</html>

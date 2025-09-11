@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>일상의 모든 곳에, 여호와께 성결</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">일상의 모든 곳에, 여호와께 성결</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 22일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">성전의 거룩함이 우리 삶의 모든 영역으로 확장되어, 천하의 왕이신 하나님을 예배하는 거룩한 백성이 되는 소망을 선포합니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-amber-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-serif mb-4">오늘의 말씀: 스가랴 14장 12-21절</h2>
+                            <div class="bible-passage">
+                                <p><b>12</b> 예루살렘을 친 모든 백성에게 여호와께서 내리실 재앙은 이러하니 곧 서 있을 때에 그들의 살이 썩으며 그들의 눈동자가 눈구멍 속에서 썩으며 그들의 혀가 입 속에서 썩을 것이요</p>
+                                <p><b>13</b> 그 날에 여호와께서 그들을 크게 요란하게 하시리니 피차 손으로 붙잡으며 피차 손을 들어 칠 것이며</p>
+                                <p><b>14</b> 유다도 예루살렘에서 싸우리니 이 때에 사방에 있는 이방 나라들의 보화 곧 금 은과 의복이 심히 많이 모여질 것이요</p>
+                                <p><b>15</b> 또 말과 노새와 낙타와 나귀와 그 진에 있는 모든 가축에게 미칠 재앙도 그 재앙과 같으리라</p>
+                                <p><b>16</b> 예루살렘을 치러 왔던 이방 나라들 중에 남은 자가 해마다 올라와서 그 왕 만군의 여호와께 경배하며 초막절을 지킬 것이라</p>
+                                <p><b>17</b> 땅에 있는 족속들 중에 그 왕 만군의 여호와께 경배하러 예루살렘에 올라오지 아니하는 자들에게는 비를 내리지 아니하실 것인즉</p>
+                                <p><b>18</b> 만일 애굽 족속이 올라오지 아니할 때에는 비 내림이 있지 아니하리니 여호와께서 초막절을 지키러 올라오지 아니하는 이방 나라들의 사람을 치시는 재앙을 그에게 내리실 것이라</p>
+                                <p><b>19</b> 애굽 사람이나 이방 나라 사람이나 초막절을 지키러 올라오지 아니하는 자가 받을 벌이 그러하니라</p>
+                                <p><b>20</b> 그 날에는 말 방울에까지 이르기를 여호와께 성결이라 기록될 것이라 여호와의 전에 있는 모든 솥이 제단 앞 주발과 다름이 없을 것이니</p>
+                                <p><b>21</b> 예루살렘과 유다의 모든 솥이 만군의 여호와의 성물이 될 것인즉 제사 드리는 자가 와서 이 솥을 가져다가 그것으로 고기를 삶으리라 그 날에는 만군의 여호와의 전에 가나안 사람이 다시 있지 아니하리라</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-sky-600">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-serif mb-6">본문 이해를 위한 배경지식</h2>
+                            <dl class="def-list">
+                                <dt><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>초막절 (The Feast of Tabernacles)</dt>
+                                <dd>이스라엘의 3대 절기 중 하나로, 추수가 끝난 후 7일 동안 지켰습니다. 광야 40년 동안 장막(초막)에 거하며 그들을 지키고 인도하신 하나님의 은혜를 기억하고, 풍성한 수확을 주신 하나님께 감사하는 의미를 담고 있습니다. 하나님과의 동행, 보호, 그리고 풍성한 공급을 상징하는 중요한 절기입니다.</dd>
+                                <dt><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" /><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" /></svg>여호와께 성결 (Holy to the LORD)</dt>
+                                <dd>본래 대제사장의 관(冠)에만 새겨졌던 문구로, 하나님께 구별되어 속한 가장 거룩한 상태를 의미합니다. 이 문구가 말 방울과 같은 일상적인 물건에까지 기록된다는 것은, 특별한 장소나 사람에게만 한정되었던 '거룩'의 개념이 모든 삶의 영역으로 확장될 것을 예언하는 강력한 상징입니다.</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-indigo-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-serif mb-4">설교의 핵심 1: 심판과 놀라운 반전</h2>
+                            <p class="text-lg leading-relaxed mb-4">하나님을 대적했던 이방 나라들은 끔찍한 재앙으로 심판받습니다. 살과 눈과 혀가 썩는 재앙은 단순한 육체적 고통을 넘어, 하나님을 대적한 교만의 완전한 파멸을 상징합니다. 심지어 사람뿐 아니라 전쟁에 동원된 모든 가축에게까지 심판이 임합니다.</p>
+                            <blockquote>그러나 심판이 끝이 아닙니다. 예루살렘을 치러 왔던 바로 그 이방 나라들 중 '남은 자들'이 하나님께 돌아와 예배하며 <span class="keyword">초막절</span>을 지키게 되는 놀라운 반전이 일어납니다. 이는 하나님의 심판이 단순한 멸망이 아닌, 누가 참된 왕이신지를 온 세상에 알리시는 과정임을 보여줍니다.</blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                     <div class="flex items-start">
+                        <div class="icon-wrapper bg-purple-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-serif mb-4">설교의 핵심 2: 모든 경계를 허무는 거룩</h2>
+                            <p class="text-lg leading-relaxed mb-4">스가랴는 마지막 날에 일어날 가장 혁명적인 변화로 '거룩의 확장'을 선포합니다. 이전에는 성전과 대제사장 등 극히 제한된 대상에게만 허용되었던 거룩함이 이제 모든 영역으로 흘러넘칩니다.</p>
+                             <ul class="list-disc list-inside space-y-3 text-lg">
+                                <li><b>말 방울의 성결:</b> 가장 평범하고 세속적으로 여겨졌던 말 방울에 대제사장의 관에 쓰였던 <span class="keyword">여호와께 성결</span>이라는 글이 새겨집니다.</li>
+                                <li><b>모든 솥의 성화:</b> 성전의 거룩한 솥과 집에서 쓰는 일반 솥의 구분이 사라집니다. 이제 모든 솥이 하나님의 성물이 되어 거룩한 제물을 담을 수 있게 됩니다.</li>
+                            </ul>
+                            <blockquote class="mt-6">이는 "하나님이 거룩하시니 너희도 거룩하라"는 명령이 인간의 노력으로 이루는 것이 아니라, 하나님께서 친히 우리의 모든 삶의 현장을 거룩하게 만드시겠다는 은혜의 선언임을 보여줍니다. 더 이상 거룩한 공간과 속된 공간의 구분은 무의미해집니다.</blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-emerald-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-serif mb-4">결론: 우리 삶에 주시는 교훈</h2>
+                            <p class="text-lg leading-relaxed mb-4">스가랴서의 최종적인 소망은 눈에 보이는 성전 건물의 완공에 있지 않습니다. 그것을 넘어, 만군의 여호와께서 온 천하의 왕이 되시는 것, 그리고 그분의 백성들이 이방인까지 포함하여 모두 거룩한 제사장 나라를 이루는 것이 궁극적인 목표입니다.</p>
+                            <p class="text-lg leading-relaxed">마지막 날, 여호와의 전에는 더 이상 <span class="keyword">가나안 사람</span>(죄와 탐욕을 상징)이 없을 것입니다. 이는 온전히 정결하게 된 하나님 나라의 완성을 의미합니다. 우리의 소망은 이 땅의 것에 있지 않고, 새 하늘과 새 땅, 새 예루살렘을 이루실 하나님께 있습니다. 우리의 모든 삶의 자리가 하나님을 예배하는 거룩한 성전이 되기를 소망해야 합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-sky-600">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-serif mb-4">심화 이해: 매튜 헨리 주석</h2>
+                            <p class="text-lg leading-relaxed mb-4">매튜 헨리는 스가랴 14장의 이 예언을 '복음 시대의 영광스러운 상태'에 대한 묘사로 해석합니다. 그는 여기서 언급된 '초막절'을 단순한 유대 절기의 반복이 아니라, 이방인들이 그리스도 안에서 하나님께 기쁨으로 나아와 감사와 순종의 삶을 사는 것에 대한 예표로 보았습니다.</p>
+                            <blockquote class="mt-6">"거룩이 말 방울에까지 이른다는 것은, 복음의 은혜가 가장 비천하고 일상적인 것들까지도 성화시킨다는 것을 의미한다. 신자는 그의 모든 소유와 모든 행동 속에서 하나님의 영광을 위해 살아갈 때, 그의 삶 자체가 '여호와께 성결'이라는 산 제사가 된다."</blockquote>
+                            <p class="text-lg leading-relaxed mt-4">또한 '가나안 사람이 다시 있지 아니하리라'는 구절을, 위선자나 불경건한 자들이 더 이상 외적으로만 교회에 속하지 못하고, 오직 참된 성도들로만 이루어진 순결한 교회의 최종적인 모습을 가리키는 것으로 해석합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'kEQkE3WP05I';
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+    </script>
+</body>
+</html>

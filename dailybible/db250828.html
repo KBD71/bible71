@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>깊은 곳에서 드리는 소망의 노래</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">깊은 곳에서 드리는 소망의 노래</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 28일 새벽 기도회</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">절망의 깊은 곳에서도 오직 하나님께 소망을 두는 자는, 겸손함으로 참된 평안을 얻습니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-amber-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">오늘의 말씀: 시편 130편-131편</h2>
+                            <div class="bible-passage">
+                                <p><b>1</b> 여호와여 내가 깊은 곳에서 주께 부르짖었나이다</p>
+                                <p><b>2</b> 주여 내 소리를 들으시며 나의 부르짖는 소리에 귀를 기울이소서</p>
+                                <p><b>3</b> 여호와여 주께서 죄악을 지켜보실진대 주여 누가 서리이까</p>
+                                <p><b>4</b> 그러나 사유하심이 주께 있음은 주를 경외하게 하심이니이다</p>
+                                <p><b>5</b> 나 곧 내 영혼은 여호와를 기다리며 나는 주의 말씀을 바라는도다</p>
+                                <p><b>6</b> 파수꾼이 아침을 기다림보다 내 영혼이 주를 더 기다리나니 참으로 파수꾼이 아침을 기다림보다 더하도다</p>
+                                <p><b>7</b> 이스라엘아 여호와를 바랄지어다 여호와께서는 인자하심과 풍성한 속량이 있음이라</p>
+                                <p><b>8</b> 그가 이스라엘을 그의 모든 죄악에서 속량하시리로다</p>
+                                <br>
+                                <p><b>1</b> 여호와여 내 마음이 교만하지 아니하고 내 눈이 오만하지 아니하오며 내가 큰 일과 감당하지 못할 놀라운 일을 하려고 힘쓰지 아니하나이다</p>
+                                <p><b>2</b> 실로 내가 내 영혼으로 고요하고 평온하게 하기를 젖 뗀 아이가 그의 어머니 품에 있음 같게 하였나니 내 영혼이 젖 뗀 아이와 같도다</p>
+                                <p><b>3</b> 이스라엘아 지금부터 영원까지 여호와를 바랄지어다</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-sky-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">본문 이해를 위한 배경지식</h2>
+                            <p class="mb-4 text-lg">시편 130편과 131편은 모두 '성전에 올라가는 노래'에 속합니다. 이 노래들은 이스라엘 백성들이 예루살렘 성전을 향해 순례의 길을 걸으며 불렀던 찬송시입니다. 이 두 시는 각각 다른 영적 상태를 노래하지만, 결국 하나님을 향한 소망과 신뢰라는 공통된 주제로 연결됩니다.</p>
+                            <dl class="def-list">
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 00-1.425-1.221zM12 6c-3.113 0-5.87 1.343-7.722 3.512A8.243 8.243 0 0012 21a8.243 8.243 0 007.722-11.488A8.287 8.287 0 0115 9.6a8.983 8.983 0 00-3-3.6z" /></svg>
+                                    시편 130편: 참회시 (Penitential Psalm)
+                                </dt>
+                                <dd>
+                                    시편 130편은 전통적으로 7개의 참회시(시 6, 32, 38, 51, 102, 130, 143편) 중 하나로 분류됩니다. 이 시는 죄와 절망의 '깊은 곳'에서 하나님께 부르짖는 개인의 기도입니다. 단순한 고통의 호소가 아니라, 자신의 죄를 깊이 인식하고 하나님의 용서와 속량에 대한 간절한 소망을 표현하는 것이 특징입니다. 마르틴 루터는 이 시를 매우 사랑하여 "바울의 시편"이라 부르기도 했습니다.
+                                </dd>
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 8.682A4.5 4.5 0 0012 7.5a4.5 4.5 0 00-3.182 1.182m3.182 4.318A4.5 4.5 0 0112 16.5a4.5 4.5 0 01-3.182-1.182" /></svg>
+                                    시편 131편: 신뢰시 (Psalm of Trust)
+                                </dt>
+                                <dd>
+                                    다윗의 시로 알려진 시편 131편은 앞선 130편의 고뇌와는 대조적으로, 어린 아이와 같은 순수한 신뢰와 겸손을 노래합니다. 신학적으로 '큰 일'과 '감당하지 못할 놀라운 일'은 인간의 이해를 넘어서는 하나님의 주권적인 영역을 의미합니다. 시인은 교만하게 하나님의 영역을 침범하려 하지 않고, 모든 것을 하나님께 맡김으로써 얻는 영혼의 고요함과 평온함을 '젖 뗀 아이'에 비유합니다.
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-indigo-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">설교의 핵심 1: 죄의 깊은 곳에서 발견하는 소망</h2>
+                            <p class="mb-4 text-lg">시편 130편은 절망적인 상황 속에서 하나님께 부르짖는 한 영혼의 모습을 통해, 소망이 어디에서 시작되는지를 보여줍니다. 시인은 죄의 무게로 인해 아무도 하나님 앞에 설 수 없음을 고백하지만, 바로 그 절망의 자리에서 하나님의 성품에 주목합니다.</p>
+                            <ul class="list-disc list-inside space-y-3 text-lg">
+                                <li><b>하나님의 용서가 소망의 근거:</b> "주께서 죄악을 지켜보실진대 주여 누가 서리이까?" 라는 탄식은 인간의 완전한 무능함을 드러냅니다. 그러나 시인은 절망에 머무르지 않고 "그러나 <span class="keyword">사유하심</span>(용서)이 주께 있음은" 이라고 선포합니다. 우리의 소망은 우리의 행위가 아닌, 용서하시는 하나님의 성품에 있습니다.</li>
+                                <li><b>경외함의 참된 의미:</b> 하나님의 용서는 우리가 죄를 가볍게 여기도록 만들지 않습니다. 오히려 "주를 경외하게 하심이니이다" 라는 고백처럼, 그 크신 용서 때문에 우리는 하나님을 더욱 두려워하고 존경하게 됩니다. 심판에 대한 두려움이 아닌, 은혜에 대한 경외감이 참된 신앙의 기초입니다.</li>
+                                <li><b>파수꾼보다 간절한 기다림:</b> 시인의 기다림은 막연한 기대가 아닙니다. 그는 "<span class="keyword">주의 말씀을 바라는도다</span>"라고 고백하며, 하나님의 약속을 굳게 붙잡습니다. 칠흑 같은 밤, 새벽이 오리라는 것을 의심하지 않고 기다리는 파수꾼처럼, 우리 영혼은 고난 속에서도 반드시 응답하실 하나님을 신뢰하며 기다려야 합니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-purple-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">설교의 핵심 2: 겸손을 통해 얻는 영혼의 평안</h2>
+                            <p class="mb-4 text-lg">시편 131편은 하나님 앞에서 자신의 한계를 인정하고 모든 것을 맡길 때 주어지는 참된 평안을 노래합니다. 이는 교만과 야망을 내려놓는 것에서 시작됩니다.</p>
+                             <blockquote>"내 영혼이 젖 뗀 아이와 같도다"</blockquote>
+                             <ul class="list-disc list-inside space-y-3 text-lg">
+                                <li><b>자신의 한계를 인정하는 겸손:</b> 다윗은 "내 마음이 교만하지 아니하고 내 눈이 오만하지 않다"고 고백합니다. 또한 그는 '큰 일'과 '감당하지 못할 놀라운 일', 즉 하나님의 주권에 속한 영역을 억지로 이해하거나 이루려고 힘쓰지 않습니다. 이는 자신의 무지와 무능력을 인정하고 하나님을 하나님으로 인정하는 겸손의 자세입니다.</li>
+                                <li><b>어머니 품의 젖 뗀 아이:</b> 시인이 묘사하는 평안의 절정은 '젖 뗀 아이가 그의 어머니 품에 있음'과 같은 상태입니다. 젖을 먹을 때 아이는 자신의 필요를 채우기 위해 칭얼대지만, 젖을 뗀 아이는 더 이상 무언가를 요구하지 않고 오직 어머니의 존재 자체로 만족하고 평안을 누립니다. 이처럼 우리의 영혼은 하나님께 무언가를 얻어내려 애쓰는 상태를 넘어, 그분의 임재 자체를 만족하고 신뢰할 때 진정한 안식을 얻습니다.</li>
+                                <li><b>이스라엘을 향한 권면:</b> 이러한 개인적인 평안의 경험은 "이스라엘아 지금부터 영원까지 여호와를 바랄지어다" 라는 공동체를 향한 권면으로 이어집니다. 참된 평안은 개인의 영적 체험에 머무는 것이 아니라, 모든 언약 백성이 함께 누려야 할 복임을 보여줍니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-emerald-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">결론: 우리 삶에 주시는 교훈</h2>
+                            <p class="mb-4 text-lg">시편 130편과 131편은 우리의 신앙 여정이 죄에 대한 깊은 탄식에서 시작하여, 하나님을 향한 어린 아이와 같은 순전한 신뢰로 나아가는 과정임을 보여줍니다. 우리의 소망과 평안은 우리 자신에게서 비롯되는 것이 아니라, 오직 하나님으로부터만 주어집니다.</p>
+                            <p class="text-lg">
+                                우리는 삶의 깊은 절망 속에서 나의 죄를 직면하고 하나님의 용서하시는 은혜를 붙들어야 합니다. 그 은혜를 경험할 때 우리는 비로소 하나님을 진정으로 경외하게 됩니다. 그리고 더 나아가, 이해할 수 없는 문제들 앞에서 교만하게 내 지혜를 의지하는 대신, 모든 것을 주관하시는 하나님 품 안에서 젖 뗀 아이와 같이 고요하고 평온한 영혼으로 서야 합니다. 이것이 바로 지금부터 영원까지 여호와를 바라는 성도의 삶입니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-sky-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">심화 이해: 매튜 헨리 주석</h2>
+                            <p class="mb-4 text-lg">매튜 헨리는 시편 130편과 131편을 통해 성도의 영적 여정의 중요한 두 단계를 조명합니다.</p>
+                            <dl class="def-list">
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    시편 130편: 절망의 깊은 곳에서의 소망
+                                </dt>
+                                <dd>
+                                    이 시는 회개하는 영혼의 슬픔을 표현하며, 그들을 하나님께로 인도합니다. 핵심은 우리의 죄를 인정하면서도 절망하지 않는 것입니다. 왜냐하면 '주께는 사유하심'이 있기 때문입니다. 이 용서는 우리로 하여금 하나님을 경외하게 만드는 진정한 동기가 됩니다. 하나님을 기다리는 것은 헛된 기다림이 아니라, 그분의 말씀을 굳게 붙드는 믿음의 행위입니다.
+                                </dd>
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 8.682A4.5 4.5 0 0012 7.5a4.5 4.5 0 00-3.182 1.182m3.182 4.318A4.5 4.5 0 0112 16.5a4.5 4.5 0 01-3.182-1.182" /></svg>
+                                    시편 131편: 거룩하고 조용한 영
+                                </dt>
+                                <dd>
+                                    이 시는 거룩하게 된 영혼이 어떻게 겸손을 배우는지를 보여줍니다. 이는 야망적인 교만('교만한 마음')과 지적인 교만('오만한 눈')을 모두 거부하는 것입니다. 젖을 뗀 아이의 비유는 자신의 뜻대로 되지 않는다고 더 이상 안달하지 않고, 하나님의 뜻에 만족하며 평안을 누리는 영혼의 상태를 의미합니다. 이는 하나님을 향한 소망에서 비롯된 고요함입니다.
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        const videoId = 'N3f7r9TeypU';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        let player;
+        let isPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: { 'playsinline': 1 },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonState();
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonState();
+            }
+        }
+
+        function togglePlay() {
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+        
+        function updateButtonState() {
+            if (isPlaying) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                playIcon.style.display = 'inline-block';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

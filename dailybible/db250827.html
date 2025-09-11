@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>고난을 넘어선 승리의 찬가</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">고난을 넘어선 승리의 찬가</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 27일 새벽 기도회</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">하나님을 경외하는 자는 복을 받고, 어떠한 고난 속에서도 마침내 승리할 것입니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-amber-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">오늘의 말씀: 시편 128편-129편</h2>
+                            <div class="bible-passage">
+                                <p><b>1</b> 여호와를 경외하며 그의 길을 걷는 자마다 복이 있도다</p>
+                                <p><b>2</b> 네가 네 손이 수고한 대로 먹을 것이라 네가 복되고 형통하리로다</p>
+                                <p><b>3</b> 네 집 안방에 있는 네 아내는 결실한 포도나무 같으며 네 식탁에 둘러 앉은 자식들은 어린 감람나무 같으리로다</p>
+                                <p><b>4</b> 여호와를 경외하는 자는 이같이 복을 얻으리로다</p>
+                                <p><b>5</b> 여호와께서 시온에서 네게 복을 주실지어다 너는 평생에 예루살렘의 번영을 보며</p>
+                                <p><b>6</b> 네 자식의 자식을 볼지어다 이스라엘에게 평강이 있을지로다</p>
+                                <br>
+                                <p><b>1</b> 이스라엘은 이제 말하기를 그들이 내가 젊었을 때부터 여러 번 나를 괴롭혔도다</p>
+                                <p><b>2</b> 그들이 내가 젊었을 때부터 여러 번 나를 괴롭혔으나 나를 이기지 못하였도다</p>
+                                <p><b>3</b> 밭 가는 자들이 내 등을 갈아 그 고랑을 길게 지었도다</p>
+                                <p><b>4</b> 여호와께서는 의로우사 악인들의 줄을 끊으셨도다</p>
+                                <p><b>5</b> 무릇 시온을 미워하는 자들은 수치를 당하여 물러갈지어다</p>
+                                <p><b>6</b> 그들은 지붕의 풀과 같을지어다 그것은 자라기 전에 마르는 것이라</p>
+                                <p><b>7</b> 이런 것은 베는 자의 손과 묶는 자의 품에 차지 아니하나니</p>
+                                <p><b>8</b> 지나가는 자들도 여호와의 복이 너희에게 있을지어다 하거나 우리가 여호와의 이름으로 너희에게 축복한다 하지 아니하느니라</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-sky-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">본문 이해를 위한 배경지식</h2>
+                            <p class="mb-4 text-lg">시편 128편과 129편은 앞선 시편들과 마찬가지로 '성전에 올라가는 노래'의 일부입니다. 이 시들은 순례자들이 예루살렘으로 향하며 불렀던 찬송가로, 각각 '하나님을 경외하는 삶의 복'과 '고난 속에서 지키시는 하나님'이라는 대조적인 주제를 통해 하나님의 백성이 누리는 은혜의 다채로운 면모를 보여줍니다.</p>
+                            <dl class="def-list">
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10 2a6 6 0 00-6 6c0 1.887.643 3.613 1.707 4.922l-1.757 1.757A1 1 0 005.364 16L10 11.364l4.636 4.636a1 1 0 001.414-1.414l-1.757-1.757A6 6 0 0010 2zm0 4a2 2 0 100 4 2 2 0 000-4z" />
+                                    </svg>
+                                    지혜문학적 성격 (시편 128편)
+                                </dt>
+                                <dd>
+                                    시편 128편은 "복이 있도다"라는 선언으로 시작하여, 하나님을 경외하는 삶의 구체적인 복을 나열합니다. 이는 잠언과 같은 지혜문학에서 자주 나타나는 특징입니다. 경건한 개인의 삶에서 시작된 복이 가정(아내와 자식)을 거쳐 공동체(예루살렘의 번영) 전체로 확장되는 구조는, 신앙이 결코 개인적인 차원에 머무르지 않음을 보여줍니다.
+                                </dd>
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3.293 3.293a1 1 0 011.414 0L10 8.586l5.293-5.293a1 1 0 111.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                    이스라엘의 고난의 역사 (시편 129편)
+                                </dt>
+                                <dd>
+                                    시편 129편은 "내가 젊었을 때부터"라는 표현을 통해 이스라엘 민족의 기나긴 고난의 역사를 회상합니다. 애굽의 종살이부터 시작하여 광야 생활, 가나안 족속과의 전쟁, 주변 강대국들의 침략, 그리고 바벨론 포로기까지, 이스라엘의 역사는 고통의 연속이었습니다. '밭 가는 자들이 내 등을 갈아 그 고랑을 길게 지었도다'라는 표현은 이러한 고통의 깊이를 시각적으로 생생하게 묘사합니다.
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-indigo-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">설교의 핵심 1: 경외함으로 얻는 복의 실체</h2>
+                            <p class="mb-4 text-lg">시편 128편은 하나님을 경외하는 자가 받는 복이 무엇인지 구체적으로 보여줍니다. 이 복은 막연한 개념이 아니라 삶의 모든 영역에 스며드는 실재적인 것입니다.</p>
+                            <ul class="list-disc list-inside space-y-3 text-lg">
+                                <li><b>정직한 수고의 열매:</b> "네가 네 손이 수고한 대로 먹을 것"이라는 약속은, 하나님의 복이 불로소득이 아니라 정직한 땀과 노력의 결실 위에 임함을 의미합니다. 하나님은 우리의 수고를 복되고 형통하게 하십니다.</li>
+                                <li><b>가정의 회복과 번성:</b> 아내는 '결실한 포도나무', 자식들은 '어린 감람나무'로 비유됩니다. 포도나무는 풍요와 기쁨을, 감람나무는 건강함과 번성, 미래의 소망을 상징합니다. 이는 하나님 안에서 가정이 생명력 넘치는 공동체로 회복됨을 보여줍니다.</li>
+                                <li><b>복의 근원과 확장:</b> 모든 복은 <span class="keyword">시온</span>, 즉 하나님의 임재가 있는 교회로부터 시작됩니다. 경건한 한 사람에게 임한 복은 가정을 넘어 예루살렘, 즉 하나님의 공동체 전체의 평강과 번영으로 확장됩니다. 이는 아브라함에게 주신 '복의 근원이 될지라'는 약속의 성취입니다.</li>
+                                <blockquote>이 땅에서의 복은 장차 그리스도 안에서 우리가 누릴 영원하고 완전한 천국 잔치의 모형입니다.</blockquote>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-purple-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">설교의 핵심 2: 고난 속에서 승리하는 이유</h2>
+                            <p class="mb-4 text-lg">시편 129편은 그 어떤 극심한 고난도 하나님의 백성을 무너뜨릴 수 없다고 선포합니다. 그 승리의 비결은 우리 자신에게 있지 않습니다.</p>
+                             <ul class="list-disc list-inside space-y-3 text-lg">
+                                <li><b>넘어뜨리지 못하는 고난:</b> 이스라엘은 역사 내내 수많은 핍박을 받았지만, "나를 이기지 못하였도다"라고 고백합니다. 세상의 공격은 하나님의 백성의 등을 갈아 고랑을 만들 정도로 혹독할 수 있지만, 결코 그 생명을 끊을 수는 없습니다.</li>
+                                <li><b>의로우신 하나님의 개입:</b> 승리의 원동력은 "여호와께서는 의로우사 악인들의 줄을 끊으셨도다"라는 고백에 있습니다. 하나님께서 친히 개입하셔서 우리를 옭아매는 악의 사슬을 끊어주시기 때문에 우리는 승리할 수 있습니다. 우리의 강함이 아닌, 하나님의 의로우심이 승리의 근거입니다.</li>
+                                <li><b>악인의 허무한 종말:</b> 시온을 미워하는 악인들의 운명은 '지붕의 풀'과 같습니다. 뿌리가 얕아 뜨거운 햇볕에 금방 말라버려, 아무도 거두지 않는 지붕의 잡초처럼 그들의 번영은 일시적이며 결국 허무하게 끝날 것입니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-emerald-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">결론: 우리 삶에 주시는 교훈</h2>
+                            <p class="mb-4 text-lg">성도의 삶은 '복'과 '고난'이라는 두 가지 주제가 씨실과 날실처럼 엮여 있습니다. 시편 128편의 복된 삶을 소망하지만, 동시에 시편 129편의 혹독한 고난을 마주하기도 합니다. 중요한 것은 이 두 가지 모두 하나님의 주권 아래 있다는 사실입니다.</p>
+                            <p class="text-lg">
+                                우리의 참된 복은 세상적인 성공이 아니라 하나님을 경외하며 그분의 길을 걷는 것 자체에 있습니다. 이 경외함이 우리를 수고의 열매, 가정의 기쁨, 공동체의 평강으로 인도합니다. 또한, 우리가 겪는 고난은 우리를 파괴하기 위한 것이 아닙니다. 오히려 그 고난을 통해 악의 결박을 끊으시고 우리를 연단하시는 하나님의 의로우심을 경험하게 됩니다.
+                            </p>
+                            <blockquote class="mt-6">
+                                그리스도께서 십자가의 고난을 통해 부활의 승리를 이루셨듯이, 오늘 우리와 교회는 세상의 핍박 속에서도 굴복하지 않을 것입니다. <span class="keyword">음부의 권세가 이기지 못하는</span> 교회의 일원으로서, 하나님을 경외함으로 주어지는 참된 복을 누리고, 고난 속에서도 마침내 승리할 것을 확신하며 담대하게 나아갑시다.
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-start">
+                        <div class="icon-wrapper bg-sky-600">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">심화 이해: 매튜 헨리 주석</h2>
+                            <p class="mb-4 text-lg">매튜 헨리는 시편 128편과 129편을 통해 성도의 삶에 나타나는 하나님의 복과 교회의 영원한 승리를 심도 있게 해석합니다.</p>
+                            <dl class="def-list">
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6-2.292m0 0A9.043 9.043 0 0112 6.042z" /></svg>
+                                    시편 128편: 경건한 가정은 교회의 모형
+                                </dt>
+                                <dd>
+                                    매튜 헨리는 '여호와를 경외하는 것'이 단순한 감정이 아니라 거룩한 삶의 원리임을 강조합니다. 가정에서 주어지는 복(결실한 포도나무 같은 아내, 어린 감람나무 같은 자녀들)은 그리스도께 붙어 풍성한 열매를 맺는 교회의 모습을 예표합니다. 아내는 그리스도께 의존하는 교회를, 자녀들은 믿음 안에서 이어지는 다음 세대의 약속을 상징하며, 이는 교회의 영적인 풍성함과 다산(多産)을 보여주는 그림입니다.
+                                </dd>
+                                <dt>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+                                    시편 129편: 교회의 고난은 그리스도의 고난의 예표
+                                </dt>
+                                <dd>
+                                    이스라엘이 겪은 고난, 특히 '밭 가는 자들이 내 등을 갈았다'는 표현은 그리스도께서 받으신 채찍질의 고통을 직접적으로 예표하는 것으로 해석됩니다. "나를 이기지 못하였도다"라는 고백은 모든 시대의 교회를 향한 하나님의 약속입니다. 어떤 박해도 교회를 궁극적으로 파괴할 수 없으며, 이는 성도들의 인내와 교회의 영원한 승리를 보증합니다. 악인들을 향한 저주는 개인적인 복수심이 아니라, 하나님을 떠난 삶의 무익함과 하나님의 공의를 구하는 기도로 이해해야 합니다.
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        const videoId = 'MJW1ONOFlIw';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+
+        let player;
+        let isPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: { 'playsinline': 1 },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonState();
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonState();
+            }
+        }
+
+        function togglePlay() {
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+        
+        function updateButtonState() {
+            if (isPlaying) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                playIcon.style.display = 'inline-block';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>

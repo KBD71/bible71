@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f2f5; }
+        .keyword { background-color: #eef2ff; color: #4338ca; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+        .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .card-content { padding: 2.5rem; }
+        .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; margin-right: 1.5rem; flex-shrink: 0; }
+        .icon-wrapper svg { width: 2rem; height: 2rem; color: white; }
+        .bible-passage p { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 0.5rem; }
+        .bible-passage p b { color: #b45309; margin-right: 0.5rem; }
+        h1.main-title { font-family: 'Noto Serif KR', serif; font-weight: 700; letter-spacing: -0.025em; color: #111827; }
+        blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #4b5563; font-size: 1.1rem; font-weight: 500; }
+        .def-list dt { font-weight: 700; color: #1e3a8a; display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .def-list dt svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: #4f46e5; }
+        .def-list dd { margin-left: 2rem; margin-bottom: 1.25rem; color: #374151; padding-left: 0.25rem; border-left: 2px solid #e0e7ff; }
+        #hidden-player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+    <title>하나님의 보호와 회개의 은총</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 md:p-8">
+        <header class="text-center mb-16">
+            <h1 class="main-title text-4xl">하나님의 보호와 회개의 은총</h1>
+            <p class="sermon-date text-lg text-gray-500 mt-4 mb-6">2025년 8월 19일</p>
+            <p class="text-2xl text-indigo-700 font-semibold leading-relaxed">하나님은 자기 백성을 철저히 보호하시며, 죄를 깨닫고 애통하는 회개의 은혜를 부어주심으로 그들을 회복시키십니다.</p>
+            <div class="mt-8">
+                <button id="listen-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-full hover:bg-indigo-700 transition-colors duration-300 flex items-center justify-center mx-auto" disabled>
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                      <path d="M18 3a1 1 0 00-1.447-.894L4 8.434V6a1 1 0 00-2 0v8a1 1 0 002 0v-2.434l12.553 6.328A1 1 0 0018 17V3z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" style="display:none;">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="loading-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span id="button-text">로딩 중...</span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">오늘의 말씀: 스가랴 12장 1-14절</h2>
+                        <div class="bible-passage">
+                            <p><b>1</b> 이스라엘에 관한 여호와의 경고의 말씀이라 여호와 곧 하늘을 펴시며 땅의 터를 세우시며 사람 안에 심령을 지으신 이가 이르시되</p>
+                            <p><b>2</b> 보라 내가 예루살렘으로 그 사면 모든 민족에게 취하게 하는 잔이 되게 할 것이라 예루살렘이 에워싸일 때에 유다에까지 이르리라</p>
+                            <p><b>3</b> 그 날에는 내가 예루살렘을 모든 민족에게 무거운 돌이 되게 하리니 그것을 드는 모든 자는 크게 상할 것이라 천하 만국이 그것을 치려고 모이리라</p>
+                            <p><b>4</b> 여호와가 말하노라 그 날에 내가 모든 말을 쳐서 놀라게 하며 그 탄 자를 쳐서 미치게 하되 유다 족속은 내가 돌보고 모든 민족의 말을 쳐서 눈이 멀게 하리니</p>
+                            <p><b>5</b> 유다의 우두머리들이 마음속에 이르기를 예루살렘 주민이 그들의 하나님 만군의 여호와로 말미암아 힘을 얻었다 할지라</p>
+                            <p><b>6</b> 그 날에 내가 유다 지도자들을 나무 가운데에 화로 같게 하며 곡식단 사이에 횃불 같게 하리니 그들이 그 좌우에 에워싼 모든 민족들을 불사를 것이요 예루살렘 사람들은 다시 그 본 곳 예루살렘에 살게 되리라</p>
+                            <p><b>7</b> 여호와가 먼저 유다 장막을 구원하리니 이는 다윗의 집의 영광과 예루살렘 주민의 영광이 유다보다 더하지 못하게 하려 함이니라</p>
+                            <p><b>8</b> 그 날에 여호와가 예루살렘 주민을 보호하리니 그 중에 약한 자가 그 날에는 다윗 같겠고 다윗의 족속은 하나님 같고 무리 앞에 있는 여호와의 사자 같을 것이라</p>
+                            <p><b>9</b> 예루살렘을 치러 오는 이방 나라들을 그 날에 내가 멸하기를 힘쓰리라</p>
+                            <p><b>10</b> 내가 다윗의 집과 예루살렘 주민에게 은총과 간구하는 심령을 부어 주리니 그들이 그 찌른 바 그를 바라보고 그를 위하여 애통하기를 독자를 위하여 애통하듯 하며 그를 위하여 통곡하기를 장자를 위하여 통곡하듯 하리로다</p>
+                            <p><b>11</b> 그 날에 예루살렘에 큰 애통이 있으리니 므깃도 골짜기 하다드림몬에 있던 애통과 같을 것이라</p>
+                            <p><b>12</b> 온 땅 각 족속이 따로 애통하되 다윗의 족속이 따로 하고 그들의 아내들이 따로 하며 나단의 족속이 따로 하고 그들의 아내들이 따로 하며</p>
+                            <p><b>13</b> 레위의 족속이 따로 하고 그들의 아내들이 따로 하며 시므이의 족속이 따로 하고 그들의 아내들이 따로 하며</p>
+                            <p><b>14</b> 모든 남은 족속도 각기 따로 하고 그들의 아내들이 따로 하리라</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">본문 이해를 위한 배경지식</h2>
+                        <p class="text-lg leading-relaxed">스가랴 12장은 이스라엘의 마지막 때에 관한 '경고의 말씀' 즉 신탁입니다. 하나님은 예루살렘을 공격하는 모든 민족에게 심판의 도구가 될 두 가지 상징을 사용하십니다. 첫째는 <span class="keyword">취하게 하는 잔</span>으로, 예루살렘을 마시려는 자들이 비틀거리며 스스로 무너지게 될 것을 의미합니다. 둘째는 <span class="keyword">무거운 돌</span>로, 이 돌을 들려고 시도하는 모든 자가 오히려 크게 상하게 될 것을 상징합니다. 이 두 가지 비유는 인간의 힘으로 하나님의 백성을 무너뜨리려는 시도가 얼마나 헛되고 자기 파괴적인지를 보여줍니다. 이 예언의 중심에는 "그들이 그 찌른 바 그를 바라보고 애통하리라"는 메시아 예언이 있으며, 이는 신약에서 예수 그리스도의 십자가 사건과 연결되어(요 19:37) 죄에 대한 깊은 회개와 구원의 길을 예표합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m0 0l.5 1.5m.5-1.5l.5 1.5m0 0l.5 1.5m1-1.5l.5 1.5m0 0l.5 1.5m-1.5-.5l.5 1.5m0 0l.5 1.5m0 0l.5 1.5m0 0l.5 1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">설교의 핵심: 하나님의 절대적 보호</h2>
+                        <p class="text-lg leading-relaxed mb-4">하나님은 창조주로서의 절대 주권을 선포하시며, 그의 백성 예루살렘을 향한 철저한 보호를 약속하십니다. 예루살렘을 공격하는 모든 세력은 오히려 하나님의 심판 아래 놓이게 됩니다. 하나님은 예루살렘을 '취하게 하는 잔'과 '무거운 돌'이 되게 하여, 대적들이 스스로를 해치고 파멸에 이르게 하실 것입니다. 이 과정에서 유다의 지도자들과 백성들은 자신들의 힘이 아닌 오직 만군의 여호와 하나님으로 말미암아 힘을 얻는다는 사실을 깨닫게 됩니다. 하나님은 가장 약한 자라도 다윗처럼 강하게 만드시고, 다윗의 족속은 하나님의 사자처럼 강력하게 하셔서, 모든 대적을 멸하실 것입니다. 이는 하나님의 언약적 사랑과 보호하심이 결코 실패하지 않음을 보여주는 강력한 증거입니다.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">성령으로 말미암는 회개의 역사</h2>
+                        <p class="text-lg leading-relaxed mb-4">하나님의 궁극적인 능력은 대적을 물리치는 것을 넘어, 죄인 된 백성을 회개시켜 회복시키는 데서 나타납니다. 하나님은 다윗의 집과 예루살렘 주민에게 <span class="keyword">은총과 간구하는 심령</span>을 부어주십니다. 이 회개의 영이 임할 때, 백성들은 자신들이 "찌른 바 그를 바라보고" 독자를 잃은 것 같이 깊이 애통하게 됩니다. 이 '찌른 자'는 구약의 선지자들을 핍박한 죄악을 넘어, 궁극적으로 십자가에 못 박힌 예수 그리스도를 예표합니다. 이 애통은 인간의 노력으로 이루어지는 것이 아니라, 전적인 하나님의 은혜, 즉 성령의 역사입니다. 이 깊은 회개를 통해 백성은 절망이 아닌 참된 회복과 구원에 이르게 되며, 이 회개의 역사는 온 땅 모든 족속에게 확장될 것입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.3-2.3L12.75 18l1.178-.398a3.375 3.375 0 002.3-2.3L16.5 14.25l.398 1.178a3.375 3.375 0 002.3 2.3l1.178.398-1.178.398a3.375 3.375 0 00-2.3 2.3z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">결론: 우리 삶에 주시는 교훈</h2>
+                        <p class="text-lg leading-relaxed">하나님의 가장 위대한 능력은 세상을 심판하시는 권능이 아니라, 죽을 수밖에 없는 죄인을 변화시키고 회개케 하여 당신의 자녀로 삼으시는 구원의 역사에 있습니다. 하나님은 계획하신 대로 당신의 백성을 빚어가시며 결코 실패하지 않으십니다. 이것이 성도의 가장 큰 복이며 소망입니다. 그러므로 우리는 날마다 우리의 굳은 심령을 부드럽게 하시고 하나님의 형상으로 빚어가시는 주님께 순종하며, 우리 자신을 온전히 내어드리고 간구하는 삶을 살아야 합니다.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content flex items-start">
+                    <div class="icon-wrapper bg-sky-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">심화 이해: 매튜 헨리 주석</h2>
+                        <p class="text-lg leading-relaxed mb-4">매튜 헨리는 스가랴 12장 12-14절에 나타난 각 족속의 애통을 통해 회개가 사회의 모든 계층에 임해야 함을 강조합니다. 그는 여기서 언급된 네 족속을 이스라엘 사회의 대표로 해석합니다.</p>
+                        <dl class="def-list">
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                다윗과 나단의 족속
+                            </dt>
+                            <dd>이들은 왕가, 즉 국가의 최고 통치 계층을 상징합니다. 다윗은 솔로몬을 통해 왕위를 계승했고, 나단은 다른 아들로서 왕가의 주요 인물이었습니다. 이는 국가의 지도자들과 권세가들이 먼저 회개해야 함을 보여줍니다.</dd>
+                            <dt>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                레위와 시므이의 족속
+                            </dt>
+                            <dd>이들은 제사장 가문, 즉 종교 지도자 계층을 상징합니다. 레위는 제사장 지파 전체를, 시므이는 레위의 손자로서 제사장 가문의 한 분파를 대표합니다. 이는 교회의 지도자들과 성직자들이 먼저 회개해야 함을 의미합니다.</dd>
+                        </dl>
+                        <blockquote>"모든 남은 족속도 각기 따로 애통한다"는 구절은, 회개가 지도자들뿐만 아니라 평범한 백성에 이르기까지 사회 전체에 퍼져야 하며, 각 가정이 개인적으로 죄를 슬퍼해야 함을 보여줍니다. 아내들이 따로 애통하는 것은 회개가 지극히 개인적인 경험임을 강조합니다.</blockquote>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div id="hidden-player-container"></div>
+    <script>
+        const videoId = 'JxCq-dkV7BM';
+        const listenBtn = document.getElementById('listen-btn');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+        
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: { 'playsinline': 1 },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            listenBtn.disabled = false;
+            loadingIcon.style.display = 'none';
+            playIcon.style.display = 'inline-block';
+            buttonText.textContent = '설교 듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                buttonText.textContent = '일시 정지';
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'inline-block';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        function togglePlay() {
+            if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        listenBtn.addEventListener('click', togglePlay);
+    </script>
+</body>
+</html>
