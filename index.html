@@ -602,4 +602,273 @@
             if (linkContainers) {
                 linkContainers.forEach(container => {
                     const prefix = container.dataset.prefix;
-                    const mainButton = container.querySelector('.gradient
+                    const mainButton = container.querySelector('.gradient-button');
+                    let primaryUrl;
+
+                    if (prefix === 'mc') {
+                        // 맥체인 성경읽기: mccheyne 폴더의 mcMMDD.html
+                        const dateSuffix = `${pad(month)}${pad(day)}`;
+                        primaryUrl = `./mccheyne/mc${dateSuffix}.html`;
+                    } else if (prefix === 'db') {
+                        // 매일성경: dailybible 폴더의 dbYYMMDD.html
+                        const yearSuffix = String(year).slice(-2);
+                        const dateSuffix = `${yearSuffix}${pad(month)}${pad(day)}`;
+                        primaryUrl = `./dailybible/db${dateSuffix}.html`;
+                    } else if (prefix === 'day') {
+                        // 날마다 교리: catechism 폴더의 dcMMDD.html
+                        const dateSuffix = `${pad(month)}${pad(day)}`;
+                        primaryUrl = `./catechism/dc${dateSuffix}.html`;
+                    } else if (prefix === 'ms') {
+                        // 주일설교말씀: sermon 폴더의 msYYMMDD.html (가장 최근 일요일 기준)
+                        const lastSunday = new Date(date);
+                        lastSunday.setDate(date.getDate() - date.getDay());
+                        const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
+                        const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
+                        primaryUrl = `./sermon/ms${dateSuffix}.html`;
+                    }
+                    
+                    if (mainButton) mainButton.dataset.url = primaryUrl;
+                });
+            }
+        }
+
+        function generateCalendar(year, month) {
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const firstDayOfWeek = firstDay.getDay();
+            const daysInMonth = lastDay.getDate();
+            const today = new Date();
+
+            calendarTitle.textContent = `${year}년 ${month + 1}월`;
+            calendarGrid.innerHTML = '';
+
+            // 요일 헤더 색상 적용
+            const dayHeaders = ['일', '월', '화', '수', '목', '금', '토'];
+            dayHeaders.forEach((day, index) => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day-header';
+                dayHeader.textContent = day;
+                if (index === 0) {
+                    dayHeader.classList.add('sunday-header-color');
+                } else if (index === 6) {
+                    dayHeader.classList.add('saturday-header-color');
+                }
+                calendarGrid.appendChild(dayHeader);
+            });
+
+            // 이전 달의 빈 날짜들
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+            for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day other-month';
+                dayElement.textContent = prevMonthLastDay - i;
+                calendarGrid.appendChild(dayElement);
+            }
+
+            // 현재 달의 날짜들
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                const dayDate = new Date(year, month, day);
+                
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+
+                // 오늘 날짜 표시
+                if (dayDate.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+
+                // 선택된 날짜 표시
+                if (dayDate.toDateString() === currentDate.toDateString()) {
+                    dayElement.classList.add('selected');
+                }
+
+                dayElement.addEventListener('click', () => {
+                    currentDate = new Date(year, month, day);
+                    updatePageForDate(currentDate);
+                    closeCalendar();
+                });
+
+                calendarGrid.appendChild(dayElement);
+            }
+
+            // 다음 달의 빈 날짜들
+            const totalCells = firstDayOfWeek + daysInMonth;
+            const remainingCells = (totalCells > 35) ? (42 - totalCells) : (35 - totalCells);
+            
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day other-month';
+                dayElement.textContent = day;
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        function showCalendar() {
+            calendarDate = new Date(currentDate);
+            generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            calendarModal.style.display = 'flex';
+        }
+
+        function closeCalendar() {
+            calendarModal.style.display = 'none';
+        }
+
+        function showContent(url, title) {
+            currentUrl = url;
+            contentTitle.textContent = title;
+            contentView.style.display = 'flex';
+            
+            // 로딩 상태 표시
+            loadingSpinner.style.display = 'block';
+            contentIframe.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // iframe에 URL 로드
+            contentIframe.src = url;
+            
+            // 로드 이벤트 리스너
+            contentIframe.onload = function() {
+                loadingSpinner.style.display = 'none';
+                contentIframe.style.display = 'block';
+            };
+            
+            // 에러 이벤트 리스너
+            contentIframe.onerror = function() {
+                loadingSpinner.style.display = 'none';
+                errorMessage.style.display = 'block';
+            };
+            
+            // 타임아웃으로 에러 처리 (5초 후)
+            setTimeout(() => {
+                if (loadingSpinner.style.display === 'block') {
+                    loadingSpinner.style.display = 'none';
+                    errorMessage.style.display = 'block';
+                }
+            }, 5000);
+        }
+
+        function hideContent() {
+            contentView.style.display = 'none';
+            contentIframe.src = '';
+        }
+
+        function retryLoadContent() {
+            if (currentUrl) {
+                const title = contentTitle.textContent;
+                showContent(currentUrl, title);
+            }
+        }
+        
+        function handleResize() {
+            updatePageForDate(currentDate);
+        }
+        
+        function initializeApp() {
+            dateDisplay = document.getElementById('current-date');
+            prevDayBtn = document.getElementById('prev-day');
+            nextDayBtn = document.getElementById('next-day');
+            linkContainers = document.querySelectorAll('.link-container');
+            datePickerBtn = document.getElementById('date-picker');
+            
+            calendarModal = document.getElementById('calendar-modal');
+            calendarGrid = document.getElementById('calendar-grid');
+            calendarTitle = document.getElementById('calendar-title');
+            prevMonthBtn = document.getElementById('prev-month');
+            nextMonthBtn = document.getElementById('next-month');
+            closeCalendarBtn = document.getElementById('close-calendar');
+
+            contentView = document.getElementById('content-view');
+            contentIframe = document.getElementById('content-iframe');
+            contentTitle = document.getElementById('content-title');
+            homeButton = document.getElementById('home-button');
+            loadingSpinner = document.getElementById('loading-spinner');
+            errorMessage = document.getElementById('error-message');
+            retryButton = document.getElementById('retry-button');
+
+            if (!dateDisplay || !prevDayBtn || !nextDayBtn) {
+                console.error('Required DOM elements not found');
+                return;
+            }
+
+            updatePageForDate(currentDate);
+
+            // 날짜 네비게이션 이벤트
+            prevDayBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 1);
+                updatePageForDate(currentDate);
+            });
+
+            nextDayBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 1);
+                updatePageForDate(currentDate);
+            });
+
+            datePickerBtn.addEventListener('click', showCalendar);
+
+            // 달력 이벤트
+            prevMonthBtn.addEventListener('click', () => {
+                calendarDate.setMonth(calendarDate.getMonth() - 1);
+                generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            });
+
+            nextMonthBtn.addEventListener('click', () => {
+                calendarDate.setMonth(calendarDate.getMonth() + 1);
+                generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            });
+
+            closeCalendarBtn.addEventListener('click', closeCalendar);
+
+            calendarModal.addEventListener('click', (e) => {
+                if (e.target === calendarModal) {
+                    closeCalendar();
+                }
+            });
+            
+            // 콘텐츠 버튼 이벤트
+            document.querySelectorAll('.gradient-button').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const url = event.currentTarget.dataset.url;
+                    const container = event.currentTarget.closest('.link-container');
+                    const prefix = container.dataset.prefix;
+                    let title = '';
+                    
+                    switch(prefix) {
+                        case 'mc':
+                            title = '맥체인 성경읽기';
+                            break;
+                        case 'db':
+                            title = '매일성경 (새벽기도)';
+                            break;
+                        case 'day':
+                            title = '날마다 교리';
+                            break;
+                        case 'ms':
+                            title = '주일설교말씀';
+                            break;
+                    }
+                    
+                    if (url) {
+                        showContent(url, title);
+                    }
+                });
+            });
+
+            // 홈 버튼 이벤트
+            homeButton.addEventListener('click', hideContent);
+
+            // 재시도 버튼 이벤트
+            retryButton.addEventListener('click', retryLoadContent);
+
+            // 리사이즈 이벤트
+            window.addEventListener('resize', handleResize);
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+    </script>
+</body>
+</html>
