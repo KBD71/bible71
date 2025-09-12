@@ -813,6 +813,9 @@
                 this.loadingSpinner.style.display = 'block';
                 this.contentIframe.style.display = 'none';
                 this.errorMessage.style.display = 'none';
+                
+                // 오디오 컨트롤 초기화
+                this.resetAudioControl();
 
                 // iframe 로드
                 this.contentIframe.src = url;
@@ -820,6 +823,7 @@
                 this.contentIframe.onload = () => {
                     this.loadingSpinner.style.display = 'none';
                     this.contentIframe.style.display = 'block';
+                    this.setupAudioControl();
                 };
                 
                 this.contentIframe.onerror = () => {
@@ -839,6 +843,80 @@
             hideContent() {
                 this.contentView.style.display = 'none';
                 this.contentIframe.src = '';
+                this.resetAudioControl();
+            }
+
+            resetAudioControl() {
+                this.isAudioPlaying = false;
+                if (this.audioControlButton) {
+                    this.audioControlButton.classList.remove('playing');
+                }
+                if (this.playIcon) this.playIcon.style.display = 'block';
+                if (this.pauseIcon) this.pauseIcon.style.display = 'none';
+            }
+
+            setupAudioControl() {
+                try {
+                    const iframeDoc = this.contentIframe.contentDocument || this.contentIframe.contentWindow.document;
+                    if (!iframeDoc.getElementById('audio-control-script')) {
+                        const script = iframeDoc.createElement('script');
+                        script.id = 'audio-control-script';
+                        script.textContent = `
+                            const audio = document.querySelector('audio');
+                            if (audio) {
+                                audio.addEventListener('play', () => {
+                                    window.parent.postMessage({type: 'audioStateChanged', playing: true}, '*');
+                                });
+                                audio.addEventListener('pause', () => {
+                                    window.parent.postMessage({type: 'audioStateChanged', playing: false}, '*');
+                                });
+                                audio.addEventListener('ended', () => {
+                                    window.parent.postMessage({type: 'audioStateChanged', playing: false}, '*');
+                                });
+                            }
+                            
+                            window.addEventListener('message', (event) => {
+                                if (audio) {
+                                    if (event.data === 'playAudio') {
+                                        audio.play().catch(e => console.error("Audio play failed:", e));
+                                    } else if (event.data === 'pauseAudio') {
+                                        audio.pause();
+                                    }
+                                }
+                            });
+                        `;
+                        iframeDoc.body.appendChild(script);
+                    }
+                    
+                    // 메시지 리스너 설정
+                    window.addEventListener('message', (event) => {
+                        if (event.data.type === 'audioStateChanged') {
+                            this.updateAudioControlState(event.data.playing);
+                        }
+                    });
+                } catch (e) {
+                    console.error("Audio control setup failed:", e);
+                }
+            }
+
+            toggleAudioPlayback() {
+                const message = this.isAudioPlaying ? 'pauseAudio' : 'playAudio';
+                this.contentIframe.contentWindow.postMessage(message, '*');
+            }
+
+            updateAudioControlState(playing) {
+                this.isAudioPlaying = playing;
+                if (this.audioControlButton) {
+                    if (playing) {
+                        this.audioControlButton.classList.add('playing');
+                        if (this.playIcon) this.playIcon.style.display = 'none';
+                        if (this.pauseIcon) this.pauseIcon.style.display = 'block';
+                    } else {
+                        this.audioControlButton.classList.remove('playing');
+                        if (this.playIcon) this.playIcon.style.display = 'block';
+                        if (this.pauseIcon) this.pauseIcon.style.display = 'none';
+                    }
+                }
             }
 
             retryLoadContent() {
