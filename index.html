@@ -9,10 +9,33 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        html {
+            height: 100%;
+        }
+
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            
+            background-image: url('./back1.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: #667eea;
+        }
+
+        /* 세로 모드에서 배경 이미지 비율 보정 */
+        @media (orientation: portrait) {
+            body::before {
+                background-size: auto 100vh;
+            }
         }
         
         .glass-effect {
@@ -71,10 +94,10 @@
         }
         
         .modern-card {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
         }
         
         .date-display {
@@ -220,7 +243,98 @@
             font-weight: 600;
         }
         
-        /* 모바일 최적화 */
+        /* 임베드 콘텐츠 스타일 */
+        .content-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+        }
+
+        .content-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-body {
+            flex: 1;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch; 
+            position: relative;
+        }
+
+        .content-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        .home-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .error-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+        }
+        
+        /* 반응형 디자인 개선 */
         @media (max-width: 640px) {
             .gradient-button {
                 font-size: 0.9rem;
@@ -247,10 +361,56 @@
             .calendar-day {
                 font-size: 0.75rem;
             }
+
+            .content-header {
+                padding: 0.75rem;
+            }
+
+            .home-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .modern-card {
+                margin: 1rem;
+                max-width: calc(100% - 2rem);
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .modern-card {
+                max-width: 600px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .modern-card {
+                max-width: 800px;
+            }
+        }
+
+        /* 메인 컨테이너 반응형 */
+        .main-container {
+            width: 100%;
+            max-width: 100vw;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 640px) {
+            .main-container {
+                padding: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .main-container {
+                padding: 3rem;
+            }
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
+<body class="flex items-center justify-center min-h-screen">
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
         <div class="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-5 rounded-full"></div>
         <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-white opacity-5 rounded-full"></div>
@@ -258,104 +418,106 @@
         <div class="absolute bottom-20 right-20 w-24 h-24 bg-white opacity-10 rounded-full floating-animation" style="animation-delay: -3s;"></div>
     </div>
 
-    <div class="modern-card rounded-3xl w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto relative z-10 overflow-hidden">
-        <header class="text-center p-6 sm:p-8 relative shine-effect">
-            <div class="mb-6">
-                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
-                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
+    <div class="main-container">
+        <div class="modern-card rounded-3xl w-full mx-auto relative z-10 overflow-hidden">
+            <header class="text-center p-6 sm:p-8 relative shine-effect">
+                <div class="mb-6">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">오늘의 성경공부</h1>
+                    <p class="text-sm text-gray-500 font-light">Daily Bible Study</p>
                 </div>
                 
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">오늘의 성경공부</h1>
-                <p class="text-sm text-gray-500 font-light">Daily Bible Study</p>
-            </div>
+                <div class="flex items-center justify-center space-x-4">
+                    <button id="prev-day" class="icon-button p-3 rounded-2xl">
+                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="bg-white/50 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/30 date-display" id="date-picker">
+                        <p id="current-date" class="text-lg sm:text-xl font-semibold text-center min-w-[160px] sm:min-w-[200px]"></p>
+                    </div>
+                    
+                    <button id="next-day" class="icon-button p-3 rounded-2xl">
+                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
             
-            <div class="flex items-center justify-center space-x-4">
-                <button id="prev-day" class="icon-button p-3 rounded-2xl">
-                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-                
-                <div class="bg-white/50 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/30 date-display" id="date-picker">
-                    <p id="current-date" class="text-lg sm:text-xl font-semibold text-center min-w-[160px] sm:min-w-[200px]"></p>
+            <main class="p-6 sm:p-8 space-y-4">
+                <div class="link-container" data-prefix="mc">
+                    <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
+                            style="--gradient-from: #3b82f6; --gradient-to: #1d4ed8;">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <span>맥체인 성경읽기</span>
+                        </div>
+                    </button>
                 </div>
                 
-                <button id="next-day" class="icon-button p-3 rounded-2xl">
-                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
-            </div>
-        </header>
-        
-        <main class="p-6 sm:p-8 space-y-4">
-            <div class="link-container" data-prefix="mc">
-                <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
-                        style="--gradient-from: #3b82f6; --gradient-to: #1d4ed8;">
-                    <div class="flex items-center justify-center space-x-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        <span>맥체인 성경읽기</span>
-                    </div>
-                </button>
-            </div>
+                <div class="link-container" data-prefix="db">
+                    <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
+                            style="--gradient-from: #059669; --gradient-to: #047857;">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                            <span>매일성경 (새벽기도)</span>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="link-container" data-prefix="day">
+                    <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
+                            style="--gradient-from: #7c3aed; --gradient-to: #5b21b6;">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                            </svg>
+                            <span>날마다 교리</span>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="link-container" data-prefix="ms">
+                    <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
+                            style="--gradient-from: #dc2626; --gradient-to: #991b1b;">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                            </svg>
+                            <span>주일설교말씀</span>
+                        </div>
+                    </button>
+                </div>
+            </main>
             
-            <div class="link-container" data-prefix="db">
-                <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
-                        style="--gradient-from: #059669; --gradient-to: #047857;">
-                    <div class="flex items-center justify-center space-x-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                        <span>매일성경 (새벽기도)</span>
-                    </div>
-                </button>
-            </div>
-            
-            <div class="link-container" data-prefix="day">
-                <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
-                        style="--gradient-from: #7c3aed; --gradient-to: #5b21b6;">
-                    <div class="flex items-center justify-center space-x-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                        </svg>
-                        <span>날마다 교리</span>
-                    </div>
-                </button>
-            </div>
-            
-            <div class="link-container" data-prefix="ms">
-                <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
-                        style="--gradient-from: #dc2626; --gradient-to: #991b1b;">
-                    <div class="flex items-center justify-center space-x-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
-                        </svg>
-                        <span>주일설교말씀</span>
-                    </div>
-                </button>
-            </div>
-        </main>
-        
-        <footer class="p-6 sm:p-8 pt-0">
-            <div class="notification-card p-4 rounded-2xl">
-                <div class="flex items-start space-x-3">
-                    <div class="flex-shrink-0 mt-0.5">
-                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            <span class="font-medium">날짜 선택:</span> 가운데 날짜를 클릭하면 달력에서 원하는 날짜를 선택할 수 있습니다.
-                        </p>
+            <footer class="p-6 sm:p-8 pt-0">
+                <div class="notification-card p-4 rounded-2xl">
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0 mt-0.5">
+                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                <span class="font-medium">날짜 선택:</span> 가운데 날짜를 클릭하면 달력에서 원하는 날짜를 선택할 수 있습니다.
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
     </div>
 
     <div id="calendar-modal" class="calendar-modal" style="display: none;">
@@ -382,11 +544,49 @@
         </div>
     </div>
 
+    <div id="content-view" class="content-view">
+        <div class="content-header">
+            <button id="home-button" class="home-button">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span class="hidden sm:inline">홈으로</span>
+                <span class="sm:hidden">홈</span>
+            </button>
+            <h2 id="content-title" class="text-lg sm:text-xl font-semibold text-gray-800 mx-4 text-center flex-1"></h2>
+            <div class="w-24"></div>
+        </div>
+        <div class="content-body">
+            <div id="loading-spinner" class="loading-spinner"></div>
+            <iframe id="content-iframe" class="content-iframe" style="display: none;" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; microphone; camera; geolocation" 
+                    allowfullscreen
+                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-presentation allow-modals allow-pointer-lock allow-popups-to-escape-sandbox"></iframe>
+            <div id="error-message" class="error-message" style="display: none;">
+                <div class="mb-4">
+                    <svg class="w-12 h-12 text-red-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">콘텐츠를 불러올 수 없습니다</h3>
+                    <p class="text-gray-600 text-sm">해당 날짜의 콘텐츠가 아직 준비되지 않았거나 파일을 찾을 수 없습니다.</p>
+                </div>
+                <button id="retry-button" class="home-button text-sm">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    다시 시도
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         let currentDate = new Date();
         let calendarDate = new Date();
         let dateDisplay, prevDayBtn, nextDayBtn, linkContainers;
         let calendarModal, calendarGrid, calendarTitle, prevMonthBtn, nextMonthBtn, closeCalendarBtn, datePickerBtn;
+        let contentView, contentIframe, contentTitle, homeButton, loadingSpinner, errorMessage, retryButton;
+        let currentUrl = '';
 
         function pad(num) {
             return num < 10 ? '0' + num : String(num);
@@ -538,6 +738,52 @@
         function closeCalendar() {
             calendarModal.style.display = 'none';
         }
+
+        function showContent(url, title) {
+            currentUrl = url;
+            contentTitle.textContent = title;
+            contentView.style.display = 'flex';
+            
+            // 로딩 상태 표시
+            loadingSpinner.style.display = 'block';
+            contentIframe.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // iframe에 URL 로드
+            contentIframe.src = url;
+            
+            // 로드 이벤트 리스너
+            contentIframe.onload = function() {
+                loadingSpinner.style.display = 'none';
+                contentIframe.style.display = 'block';
+            };
+            
+            // 에러 이벤트 리스너
+            contentIframe.onerror = function() {
+                loadingSpinner.style.display = 'none';
+                errorMessage.style.display = 'block';
+            };
+            
+            // 타임아웃으로 에러 처리 (5초 후)
+            setTimeout(() => {
+                if (loadingSpinner.style.display === 'block') {
+                    loadingSpinner.style.display = 'none';
+                    errorMessage.style.display = 'block';
+                }
+            }, 5000);
+        }
+
+        function hideContent() {
+            contentView.style.display = 'none';
+            contentIframe.src = '';
+        }
+
+        function retryLoadContent() {
+            if (currentUrl) {
+                const title = contentTitle.textContent;
+                showContent(currentUrl, title);
+            }
+        }
         
         function handleResize() {
             updatePageForDate(currentDate);
@@ -557,6 +803,14 @@
             nextMonthBtn = document.getElementById('next-month');
             closeCalendarBtn = document.getElementById('close-calendar');
 
+            contentView = document.getElementById('content-view');
+            contentIframe = document.getElementById('content-iframe');
+            contentTitle = document.getElementById('content-title');
+            homeButton = document.getElementById('home-button');
+            loadingSpinner = document.getElementById('loading-spinner');
+            errorMessage = document.getElementById('error-message');
+            retryButton = document.getElementById('retry-button');
+
             if (!dateDisplay || !prevDayBtn || !nextDayBtn) {
                 console.error('Required DOM elements not found');
                 return;
@@ -564,6 +818,7 @@
 
             updatePageForDate(currentDate);
 
+            // 날짜 네비게이션 이벤트
             prevDayBtn.addEventListener('click', () => {
                 currentDate.setDate(currentDate.getDate() - 1);
                 updatePageForDate(currentDate);
@@ -576,6 +831,7 @@
 
             datePickerBtn.addEventListener('click', showCalendar);
 
+            // 달력 이벤트
             prevMonthBtn.addEventListener('click', () => {
                 calendarDate.setMonth(calendarDate.getMonth() - 1);
                 generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
@@ -594,15 +850,42 @@
                 }
             });
             
+            // 콘텐츠 버튼 이벤트
             document.querySelectorAll('.gradient-button').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const url = event.currentTarget.dataset.url;
+                    const container = event.currentTarget.closest('.link-container');
+                    const prefix = container.dataset.prefix;
+                    let title = '';
+                    
+                    switch(prefix) {
+                        case 'mc':
+                            title = '맥체인 성경읽기';
+                            break;
+                        case 'db':
+                            title = '매일성경 (새벽기도)';
+                            break;
+                        case 'day':
+                            title = '날마다 교리';
+                            break;
+                        case 'ms':
+                            title = '주일설교말씀';
+                            break;
+                    }
+                    
                     if (url) {
-                        window.open(url, '_blank');
+                        showContent(url, title);
                     }
                 });
             });
 
+            // 홈 버튼 이벤트
+            homeButton.addEventListener('click', hideContent);
+
+            // 재시도 버튼 이벤트
+            retryButton.addEventListener('click', retryLoadContent);
+
+            // 리사이즈 이벤트
             window.addEventListener('resize', handleResize);
         }
         
