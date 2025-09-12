@@ -4,16 +4,20 @@
 
 class PageBuilder {
     constructor() {
-        this.contentData = window.contentData || null;
         this.cache = new Map();
     }
 
     async initializePage() {
         try {
+            // contentData를 실행 시점에 가져오기
+            this.contentData = window.contentData || null;
+            
             if (!this.contentData) {
+                console.error('contentData is not defined. Checking window.contentData:', window.contentData);
                 throw new Error('contentData가 정의되지 않았습니다.');
             }
 
+            console.log('contentData found:', this.contentData);
             const videoId = await this.getVideoId();
             await this.buildPage(videoId);
         } catch (error) {
@@ -205,15 +209,26 @@ class PageBuilder {
 }
 
 // 페이지 로드 시 초기화
-document.addEventListener('DOMContentLoaded', () => {
+function initializePageBuilder() {
+    console.log('Initializing PageBuilder...');
+    console.log('contentData available:', typeof window.contentData, window.contentData);
+    
     const pageBuilder = new PageBuilder();
     pageBuilder.initializePage();
-});
+}
+
+// DOM 완전 로드 후 실행
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePageBuilder);
+} else {
+    // DOM이 이미 로드된 경우
+    setTimeout(initializePageBuilder, 0);
+}
 
 // 이전 버전과의 호환성을 위한 전역 함수들
 window.initializePage = () => {
-    const pageBuilder = new PageBuilder();
-    return pageBuilder.initializePage();
+    console.log('Legacy initializePage called');
+    return initializePageBuilder();
 };
 
 window.extractVideoID = (url) => {
