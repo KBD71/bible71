@@ -9,48 +9,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        html {
+            height: 100%;
+        }
         body {
             font-family: 'Noto Sans KR', sans-serif;
             background-image: url('./back1.png');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-attachment: fixed; /* 데스크톱에서는 고정 */
             background-color: #667eea;
             min-height: 100vh;
         }
 
-        /* 모바일 세로 모드에서 배경 이미지 최적화 */
-        @media (max-width: 768px) and (orientation: portrait) {
+        /* 모바일 기기에서 배경 이미지 최적화 */
+        @media (max-width: 768px) {
             body {
-                background-size: auto 100vh;
-                background-position: center center;
-                background-attachment: scroll;
-            }
-        }
-
-        /* 모바일 가로 모드에서 배경 이미지 최적화 */
-        @media (max-width: 768px) and (orientation: landscape) {
-            body {
-                background-size: 100vw auto;
-                background-position: center center;
-                background-attachment: scroll;
-            }
-        }
-
-        /* 매우 작은 화면에서의 추가 최적화 */
-        @media (max-width: 480px) {
-            body {
-                background-size: auto 100vh;
-                background-position: center center;
-            }
-        }
-
-        /* 세로가 매우 긴 화면 (아이폰 등)에서의 최적화 */
-        @media (max-aspect-ratio: 9/16) {
-            body {
-                background-size: 100vw auto;
-                background-position: center center;
+                background-attachment: scroll; /* 모바일에서는 스크롤로 변경 */
             }
         }
         
@@ -287,7 +263,7 @@
 
         .content-body {
             flex: 1;
-            overflow: hidden;
+            overflow: auto; /* ★★★★★ 수정된 부분 ★★★★★ */
             position: relative;
         }
 
@@ -535,7 +511,6 @@
         </div>
     </div>
 
-    <!-- 달력 모달 -->
     <div id="calendar-modal" class="calendar-modal" style="display: none;">
         <div class="calendar-container">
             <div class="calendar-header">
@@ -560,7 +535,6 @@
         </div>
     </div>
 
-    <!-- 콘텐츠 뷰 -->
     <div id="content-view" class="content-view">
         <div class="content-header">
             <button id="home-button" class="home-button">
