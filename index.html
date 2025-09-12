@@ -722,30 +722,81 @@
             calendarModal.style.display = 'none';
         }
 
-        function showContent(url, title) {
-            currentUrl = url;
-            contentTitle.textContent = title;
-            contentView.style.display = 'flex';
-            
-            // 로딩 상태 표시
-            loadingSpinner.style.display = 'block';
-            contentIframe.style.display = 'none';
-            errorMessage.style.display = 'none';
-            
-            // iframe에 URL 로드
-            contentIframe.src = url;
-            
-            // 로드 이벤트 리스너
-            contentIframe.onload = function() {
-                loadingSpinner.style.display = 'none';
-                contentIframe.style.display = 'block';
-            };
-            
-            // 에러 이벤트 리스너
-            contentIframe.onerror = function() {
-                loadingSpinner.style.display = 'none';
-                errorMessage.style.display = 'block';
-            };
+        // 기존 코드의 showContent 함수를 아래 코드로 교체하세요.
+
+function showContent(url, title) {
+    currentUrl = url;
+    contentTitle.textContent = title;
+    contentView.style.display = 'flex';
+    
+    // 로딩 상태 표시
+    loadingSpinner.style.display = 'block';
+    contentIframe.style.display = 'none';
+    errorMessage.style.display = 'none';
+    
+    if (audioControlButton) {
+        audioControlButton.style.display = 'block';
+        resetAudioControlState();
+    }
+
+    // iframe에 URL 로드
+    contentIframe.src = url;
+    
+    // 로드 이벤트 리스너 수정
+    contentIframe.onload = function() {
+        loadingSpinner.style.display = 'none';
+        contentIframe.style.display = 'block';
+
+        // ▼▼▼ 스크립트 주입 로직 시작 ▼▼▼
+        try {
+            // iframe 내부의 document 객체에 접근합니다.
+            const iframeDoc = contentIframe.contentDocument || contentIframe.contentWindow.document;
+
+            // 이미 스크립트가 주입되었는지 확인하여 중복 주입을 방지합니다.
+            if (!iframeDoc.getElementById('audio-control-script')) {
+                // 주입할 script 요소를 생성합니다.
+                const script = iframeDoc.createElement('script');
+                script.id = 'audio-control-script'; // 중복 주입 방지를 위한 id
+                
+                // script 태그 안에 들어갈 코드를 문자열로 작성합니다.
+                script.textContent = `
+                    const audio = document.querySelector('audio');
+                    window.addEventListener('message', (event) => {
+                        // 출처를 확인하는 것이 더 안전하지만, 동일 출처 환경이므로 생략 가능
+                        if (audio) {
+                            if (event.data === 'playAudio') {
+                                audio.play().catch(e => console.error("Audio play failed:", e));
+                            } else if (event.data === 'pauseAudio') {
+                                audio.pause();
+                            }
+                        }
+                    });
+                `;
+                
+                // 생성한 script를 iframe의 body에 추가합니다.
+                iframeDoc.body.appendChild(script);
+            }
+        } catch (e) {
+            console.error("스크립트 주입 실패:", e);
+            // 다른 도메인의 콘텐츠가 로드되는 등 Same-Origin Policy 위반 시 에러가 발생할 수 있습니다.
+        }
+        // ▲▲▲ 스크립트 주입 로직 끝 ▲▲▲
+    };
+    
+    // 에러 이벤트 리스너
+    contentIframe.onerror = function() {
+        loadingSpinner.style.display = 'none';
+        errorMessage.style.display = 'block';
+    };
+    
+    // 타임아웃으로 에러 처리 (5초 후)
+    setTimeout(() => {
+        if (loadingSpinner.style.display === 'block') {
+            loadingSpinner.style.display = 'none';
+            errorMessage.style.display = 'block';
+        }
+    }, 5000);
+}
             
             // 타임아웃으로 에러 처리 (5초 후)
             setTimeout(() => {
