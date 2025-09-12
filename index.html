@@ -11,19 +11,23 @@
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('./back1.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #667eea;
             min-height: 100vh;
         }
         
-        .glass-effect {
+        .glass-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
         
         .gradient-button {
-            background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
-            border: none;
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
@@ -46,35 +50,19 @@
         
         .gradient-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
-        .floating-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         
         .icon-button {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
         }
         
         .icon-button:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             transform: scale(1.05);
-        }
-        
-        .modern-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
         
         .date-display {
@@ -84,50 +72,12 @@
         
         .date-display:hover {
             transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.7);
         }
         
-        .weekday-color {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .saturday-color {
-            color: #2563eb;
-        }
-        .sunday-color {
-            color: #dc2626;
-        }
+        .weekday-color { color: #4338ca; }
+        .saturday-color { color: #2563eb; }
+        .sunday-color { color: #dc2626; }
         
-        .notification-card {
-            background: linear-gradient(135deg, rgba(103, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border: 1px solid rgba(103, 126, 234, 0.2);
-            backdrop-filter: blur(10px);
-        }
-        
-        .shine-effect {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .shine-effect::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
         /* 달력 스타일 */
         .calendar-modal {
             position: fixed;
@@ -136,54 +86,21 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
             backdrop-filter: blur(5px);
         }
-
-        .calendar-container {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            width: 90%;
-            max-height: 90vh;
-            overflow: hidden;
-        }
-
-        .calendar-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        
+        .calendar-modal.show {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 1px;
-            background: rgba(0, 0, 0, 0.05);
-            padding: 1rem;
-        }
-
-        .calendar-day-header {
-            text-align: center;
-            padding: 0.5rem;
-            font-weight: 600;
-            font-size: 0.875rem;
-            color: #6b7280;
-        }
-        
-        .saturday-header-color {
-            color: #2563eb;
-        }
-        .sunday-header-color {
-            color: #dc2626;
+            gap: 2px;
         }
 
         .calendar-day {
@@ -194,8 +111,8 @@
             background: white;
             cursor: pointer;
             transition: all 0.2s ease;
-            position: relative;
             font-size: 0.875rem;
+            border-radius: 4px;
         }
 
         .calendar-day:hover {
@@ -205,6 +122,7 @@
 
         .calendar-day.other-month {
             color: #d1d5db;
+            background: #f9fafb;
         }
 
         .calendar-day.today {
@@ -226,36 +144,40 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: white;
             z-index: 2000;
             display: none;
             flex-direction: column;
         }
+        
+        .content-view.show {
+            display: flex;
+        }
 
         .content-header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             padding: 1rem;
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
             align-items: center;
-            justify-content: space-between;
-            position: relative;
-            z-index: 10;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .content-body {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
+        .content-header-left {
+            display: flex;
+            justify-content: flex-start;
         }
 
-        .content-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: white;
+        .content-header-center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .content-header-right {
+            display: flex;
+            justify-content: flex-end;
         }
 
         .home-button {
@@ -268,7 +190,7 @@
             display: flex;
             align-items: center;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            cursor: pointer;
         }
 
         .home-button:hover {
@@ -276,145 +198,117 @@
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
         }
 
-        .loading-spinner {
+        .audio-button {
+            background: rgba(103, 126, 234, 0.1);
+            border: 1px solid rgba(103, 126, 234, 0.3);
+            color: #667eea;
+            padding: 0.75rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .audio-button:hover {
+            background: rgba(103, 126, 234, 0.2);
+            transform: scale(1.05);
+        }
+
+        .audio-button.playing {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .content-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        .loading-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .spinner {
             width: 50px;
             height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(102, 126, 234, 0.3);
             border-top: 3px solid #667eea;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .error-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 1rem;
-            padding: 2rem;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            max-width: 90%;
+            padding: 2rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 1rem;
+            margin: 2rem;
         }
         
         /* 반응형 디자인 */
         @media (max-width: 640px) {
-            .gradient-button {
-                font-size: 0.9rem;
-                padding: 0.875rem 1rem;
-            }
-            
-            .floating-animation {
-                animation: none;
-            }
-
-            .calendar-container {
-                width: 95%;
-                margin: 1rem;
-            }
-
-            .calendar-header {
-                padding: 1rem;
-            }
-
-            .calendar-grid {
-                padding: 0.5rem;
-            }
-
-            .calendar-day {
-                font-size: 0.75rem;
-            }
-
             .content-header {
                 padding: 0.75rem;
+                grid-template-columns: auto 1fr auto;
+                gap: 0.5rem;
             }
-
+            
             .home-button {
                 padding: 0.5rem 1rem;
                 font-size: 0.875rem;
             }
-
-            .modern-card {
-                margin: 1rem;
-                max-width: calc(100% - 2rem);
-            }
-        }
-
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .modern-card {
-                max-width: 600px;
-            }
-        }
-
-        @media (min-width: 1025px) {
-            .modern-card {
-                max-width: 800px;
-            }
-        }
-
-        .main-container {
-            width: 100%;
-            max-width: 100vw;
-            padding: 1rem;
-            box-sizing: border-box;
-        }
-
-        @media (min-width: 640px) {
-            .main-container {
-                padding: 2rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .main-container {
-                padding: 3rem;
+            
+            .audio-button {
+                padding: 0.5rem;
             }
         }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen">
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-5 rounded-full"></div>
-        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-white opacity-5 rounded-full"></div>
-        <div class="absolute top-20 left-20 w-32 h-32 bg-white opacity-10 rounded-full floating-animation"></div>
-        <div class="absolute bottom-20 right-20 w-24 h-24 bg-white opacity-10 rounded-full floating-animation" style="animation-delay: -3s;"></div>
-    </div>
-
-    <div class="main-container">
-        <div class="modern-card rounded-3xl w-full mx-auto relative z-10 overflow-hidden">
-            <header class="text-center p-6 sm:p-8 relative shine-effect">
-                <div class="mb-6">
-                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
-                    </div>
-                    
-                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">오늘의 성경공부</h1>
-                    <p class="text-sm text-gray-500 font-light">Daily Bible Study</p>
+    <!-- 메인 화면 -->
+    <div id="main-screen" class="w-full max-w-md mx-auto p-4">
+        <div class="glass-card rounded-3xl overflow-hidden">
+            <!-- 헤더 -->
+            <header class="text-center p-8">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
                 </div>
                 
-                <div class="flex items-center justify-center space-x-4">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">오늘의 성경공부</h1>
+                <p class="text-sm text-gray-500 font-light">Daily Bible Study</p>
+                
+                <!-- 날짜 네비게이션 -->
+                <div class="flex items-center justify-center space-x-4 mt-6">
                     <button id="prev-day" class="icon-button p-3 rounded-2xl">
                         <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
                     </button>
                     
-                    <div class="bg-white/50 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/30 date-display" id="date-picker">
-                        <p id="current-date" class="text-lg sm:text-xl font-semibold text-center min-w-[160px] sm:min-w-[200px]"></p>
+                    <div id="date-picker" class="date-display bg-white/60 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/50">
+                        <p id="current-date" class="text-xl font-semibold text-center min-w-[200px]"></p>
                     </div>
                     
                     <button id="next-day" class="icon-button p-3 rounded-2xl">
@@ -425,69 +319,55 @@
                 </div>
             </header>
             
-            <main class="p-6 sm:p-8 space-y-4">
-                <div class="link-container" data-prefix="mc">
-                    <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
-                            style="--gradient-from: #3b82f6; --gradient-to: #1d4ed8;">
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <span>맥체인 성경읽기</span>
-                        </div>
-                    </button>
-                </div>
+            <!-- 메인 콘텐츠 -->
+            <main class="p-8 pt-0 space-y-4">
+                <button id="btn-mc" class="gradient-button w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-4 px-6 rounded-2xl">
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span>맥체인 성경읽기</span>
+                    </div>
+                </button>
                 
-                <div class="link-container" data-prefix="db">
-                    <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
-                            style="--gradient-from: #059669; --gradient-to: #047857;">
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                            </svg>
-                            <span>매일성경 (새벽기도)</span>
-                        </div>
-                    </button>
-                </div>
+                <button id="btn-db" class="gradient-button w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-4 px-6 rounded-2xl">
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <span>매일성경 (새벽기도)</span>
+                    </div>
+                </button>
                 
-                <div class="link-container" data-prefix="day">
-                    <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
-                            style="--gradient-from: #7c3aed; --gradient-to: #5b21b6;">
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                            </svg>
-                            <span>날마다 교리</span>
-                        </div>
-                    </button>
-                </div>
+                <button id="btn-day" class="gradient-button w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold py-4 px-6 rounded-2xl">
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                        <span>날마다 교리</span>
+                    </div>
+                </button>
                 
-                <div class="link-container" data-prefix="ms">
-                    <button class="gradient-button w-full text-white font-semibold py-4 px-6 rounded-2xl text-sm sm:text-base transition-all duration-300 relative overflow-hidden"
-                            style="--gradient-from: #dc2626; --gradient-to: #991b1b;">
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
-                            </svg>
-                            <span>주일설교말씀</span>
-                        </div>
-                    </button>
-                </div>
+                <button id="btn-ms" class="gradient-button w-full bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold py-4 px-6 rounded-2xl">
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                        </svg>
+                        <span>주일설교말씀</span>
+                    </div>
+                </button>
             </main>
             
-            <footer class="p-6 sm:p-8 pt-0">
-                <div class="notification-card p-4 rounded-2xl">
+            <!-- 안내 문구 -->
+            <footer class="p-8 pt-0">
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-2xl border border-blue-200">
                     <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 mt-0.5">
-                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-sm text-gray-700 leading-relaxed">
-                                <span class="font-medium">날짜 선택:</span> 가운데 날짜를 클릭하면 달력에서 원하는 날짜를 선택할 수 있습니다.
-                            </p>
-                        </div>
+                        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="text-sm text-gray-700">
+                            <span class="font-medium">날짜 선택:</span> 가운데 날짜를 클릭하면 달력에서 원하는 날짜를 선택할 수 있습니다.
+                        </p>
                     </div>
                 </div>
             </footer>
@@ -495,9 +375,10 @@
     </div>
 
     <!-- 달력 모달 -->
-    <div id="calendar-modal" class="calendar-modal" style="display: none;">
-        <div class="calendar-container">
-            <div class="calendar-header">
+    <div id="calendar-modal" class="calendar-modal">
+        <div class="glass-card rounded-3xl w-full max-w-md mx-4 overflow-hidden">
+            <!-- 달력 헤더 -->
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
                 <button id="prev-month" class="icon-button p-2 rounded-xl">
                     <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -510,9 +391,27 @@
                     </svg>
                 </button>
             </div>
-            <div class="calendar-grid" id="calendar-grid"></div>
+            
+            <!-- 달력 본체 -->
+            <div class="p-4">
+                <!-- 요일 헤더 -->
+                <div class="calendar-grid mb-2">
+                    <div class="text-center py-2 text-sm font-semibold text-red-600">일</div>
+                    <div class="text-center py-2 text-sm font-semibold text-gray-600">월</div>
+                    <div class="text-center py-2 text-sm font-semibold text-gray-600">화</div>
+                    <div class="text-center py-2 text-sm font-semibold text-gray-600">수</div>
+                    <div class="text-center py-2 text-sm font-semibold text-gray-600">목</div>
+                    <div class="text-center py-2 text-sm font-semibold text-gray-600">금</div>
+                    <div class="text-center py-2 text-sm font-semibold text-blue-600">토</div>
+                </div>
+                
+                <!-- 달력 날짜 -->
+                <div id="calendar-grid" class="calendar-grid"></div>
+            </div>
+            
+            <!-- 달력 푸터 -->
             <div class="p-4 border-t border-gray-200">
-                <button id="close-calendar" class="w-full bg-gray-500 text-white py-2 px-4 rounded-xl hover:bg-gray-600 transition-colors">
+                <button id="close-calendar" class="w-full bg-gray-500 text-white py-3 px-4 rounded-xl hover:bg-gray-600 transition-colors font-medium">
                     닫기
                 </button>
             </div>
@@ -521,424 +420,443 @@
 
     <!-- 콘텐츠 뷰 -->
     <div id="content-view" class="content-view">
+        <!-- 헤더 -->
         <div class="content-header">
-            <h2 id="content-title" class="text-lg font-semibold text-gray-800">콘텐츠</h2>
-            <button id="home-button" class="home-button">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                </svg>
-                홈으로
-            </button>
-        </div>
-        <div class="content-body">
-            <div id="loading-spinner" class="loading-spinner"></div>
-            <iframe id="content-iframe" class="content-iframe" style="display: none;" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen
-                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-presentation"></iframe>
-            <div id="error-message" class="error-message" style="display: none;">
-                <div class="mb-4">
-                    <svg class="w-12 h-12 text-red-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            <div class="content-header-left">
+                <button id="home-button" class="home-button">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                     </svg>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">콘텐츠를 불러올 수 없습니다</h3>
-                    <p class="text-gray-600 text-sm">해당 날짜의 콘텐츠가 아직 준비되지 않았거나 파일을 찾을 수 없습니다.</p>
+                    홈으로
+                </button>
+            </div>
+            <div class="content-header-center">
+                <h2 id="content-title" class="text-lg font-semibold text-gray-800">콘텐츠</h2>
+            </div>
+            <div class="content-header-right">
+                <button id="audio-button" class="audio-button" title="음성 재생/정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142m-5.036-2.828L17 12l-3.672 3.672M7 9l5-5v16l-5-5H4a1 1 0 01-1-1v-4a1 1 0 011-1h3z"></path>
+                    </svg>
+                    <svg id="pause-icon" class="w-5 h-5" style="display: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 콘텐츠 바디 -->
+        <div class="flex-1 relative">
+            <!-- 로딩 오버레이 -->
+            <div id="loading-overlay" class="loading-overlay" style="display: none;">
+                <div class="text-center">
+                    <div class="spinner mb-4"></div>
+                    <p class="text-gray-600">콘텐츠를 불러오는 중...</p>
                 </div>
-                <button id="retry-button" class="home-button text-sm">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            </div>
+            
+            <!-- 에러 메시지 -->
+            <div id="error-message" class="error-message" style="display: none;">
+                <svg class="w-12 h-12 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">콘텐츠를 불러올 수 없습니다</h3>
+                <p class="text-gray-600 mb-4">해당 날짜의 콘텐츠가 아직 준비되지 않았거나 파일을 찾을 수 없습니다.</p>
+                <button id="retry-button" class="home-button">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                     </svg>
                     다시 시도
                 </button>
             </div>
+            
+            <!-- 콘텐츠 iframe -->
+            <iframe id="content-iframe" class="content-iframe" style="display: none;" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-presentation">
+            </iframe>
         </div>
     </div>
 
     <script>
-        class BibleStudyApp {
-            constructor() {
-                this.currentDate = new Date();
-                this.calendarDate = new Date();
-                this.currentUrl = '';
-                this.initializeElements();
-                this.setupEventListeners();
-                this.updatePageForDate(this.currentDate);
-            }
+        // 전역 변수
+        let currentDate = new Date();
+        let calendarDate = new Date();
+        let isAudioPlaying = false;
+        let currentContentUrl = '';
 
-            initializeElements() {
-                // DOM 요소들 초기화
-                this.dateDisplay = document.getElementById('current-date');
-                this.prevDayBtn = document.getElementById('prev-day');
-                this.nextDayBtn = document.getElementById('next-day');
-                this.linkContainers = document.querySelectorAll('.link-container');
-                this.datePickerBtn = document.getElementById('date-picker');
-                
-                // 달력 요소들
-                this.calendarModal = document.getElementById('calendar-modal');
-                this.calendarGrid = document.getElementById('calendar-grid');
-                this.calendarTitle = document.getElementById('calendar-title');
-                this.prevMonthBtn = document.getElementById('prev-month');
-                this.nextMonthBtn = document.getElementById('next-month');
-                this.closeCalendarBtn = document.getElementById('close-calendar');
+        // DOM 요소
+        const elements = {
+            // 메인 화면
+            currentDateEl: document.getElementById('current-date'),
+            prevDayBtn: document.getElementById('prev-day'),
+            nextDayBtn: document.getElementById('next-day'),
+            datePickerBtn: document.getElementById('date-picker'),
+            
+            // 콘텐츠 버튼들
+            btnMc: document.getElementById('btn-mc'),
+            btnDb: document.getElementById('btn-db'),
+            btnDay: document.getElementById('btn-day'),
+            btnMs: document.getElementById('btn-ms'),
+            
+            // 달력
+            calendarModal: document.getElementById('calendar-modal'),
+            calendarTitle: document.getElementById('calendar-title'),
+            calendarGrid: document.getElementById('calendar-grid'),
+            prevMonthBtn: document.getElementById('prev-month'),
+            nextMonthBtn: document.getElementById('next-month'),
+            closeCalendarBtn: document.getElementById('close-calendar'),
+            
+            // 콘텐츠 뷰
+            contentView: document.getElementById('content-view'),
+            contentTitle: document.getElementById('content-title'),
+            contentIframe: document.getElementById('content-iframe'),
+            homeButton: document.getElementById('home-button'),
+            audioButton: document.getElementById('audio-button'),
+            playIcon: document.getElementById('play-icon'),
+            pauseIcon: document.getElementById('pause-icon'),
+            loadingOverlay: document.getElementById('loading-overlay'),
+            errorMessage: document.getElementById('error-message'),
+            retryButton: document.getElementById('retry-button')
+        };
 
-                // 콘텐츠 뷰 요소들
-                this.contentView = document.getElementById('content-view');
-                this.contentIframe = document.getElementById('content-iframe');
-                this.contentTitle = document.getElementById('content-title');
-                this.homeButton = document.getElementById('home-button');
-                this.loadingSpinner = document.getElementById('loading-spinner');
-                this.errorMessage = document.getElementById('error-message');
-                this.retryButton = document.getElementById('retry-button');
+        // 유틸리티 함수
+        function pad(num) {
+            return num < 10 ? '0' + num : String(num);
+        }
 
-                // 필수 요소들이 있는지 확인
-                if (!this.dateDisplay || !this.prevDayBtn || !this.nextDayBtn) {
-                    console.error('Required DOM elements not found');
-                    return;
-                }
-            }
-
-            setupEventListeners() {
-                // 날짜 네비게이션
-                this.prevDayBtn.addEventListener('click', () => {
-                    this.currentDate.setDate(this.currentDate.getDate() - 1);
-                    this.updatePageForDate(this.currentDate);
-                });
-
-                this.nextDayBtn.addEventListener('click', () => {
-                    this.currentDate.setDate(this.currentDate.getDate() + 1);
-                    this.updatePageForDate(this.currentDate);
-                });
-
-                // 날짜 선택기
-                this.datePickerBtn.addEventListener('click', () => {
-                    this.showCalendar();
-                });
-
-                // 달력 네비게이션
-                this.prevMonthBtn.addEventListener('click', () => {
-                    this.calendarDate.setMonth(this.calendarDate.getMonth() - 1);
-                    this.generateCalendar(this.calendarDate.getFullYear(), this.calendarDate.getMonth());
-                });
-
-                this.nextMonthBtn.addEventListener('click', () => {
-                    this.calendarDate.setMonth(this.calendarDate.getMonth() + 1);
-                    this.generateCalendar(this.calendarDate.getFullYear(), this.calendarDate.getMonth());
-                });
-
-                this.closeCalendarBtn.addEventListener('click', () => {
-                    this.closeCalendar();
-                });
-
-                // 달력 모달 외부 클릭시 닫기
-                this.calendarModal.addEventListener('click', (e) => {
-                    if (e.target === this.calendarModal) {
-                        this.closeCalendar();
-                    }
-                });
-                
-                // 콘텐츠 버튼들
-                document.querySelectorAll('.gradient-button').forEach(button => {
-                    button.addEventListener('click', (event) => {
-                        const url = event.currentTarget.dataset.url;
-                        const container = event.currentTarget.closest('.link-container');
-                        const prefix = container.dataset.prefix;
-                        let title = '';
-                        
-                        switch(prefix) {
-                            case 'mc': title = '맥체인 성경읽기'; break;
-                            case 'db': title = '매일성경 (새벽기도)'; break;
-                            case 'day': title = '날마다 교리'; break;
-                            case 'ms': title = '주일설교말씀'; break;
-                        }
-                        
-                        if (url) {
-                            this.showContent(url, title);
-                        }
-                    });
-                });
-
-                // 홈 버튼
-                this.homeButton.addEventListener('click', () => {
-                    this.hideContent();
-                });
-
-                // 재시도 버튼
-                this.retryButton.addEventListener('click', () => {
-                    this.retryLoadContent();
-                });
-
-                // 리사이즈 이벤트
-                window.addEventListener('resize', () => {
-                    this.updatePageForDate(this.currentDate);
-                });
-            }
-
-            pad(num) {
-                return num < 10 ? '0' + num : String(num);
-            }
-
-            updatePageForDate(date) {
-                const year = date.getFullYear();
-                const month = date.getMonth() + 1;
-                const day = date.getDate();
-                const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-                const dayOfWeek = daysOfWeek[date.getDay()];
-                const dayIndex = date.getDay();
-
-                // 날짜 표시 업데이트
-                if (window.innerWidth < 640) {
-                    this.dateDisplay.textContent = `${month}/${day} (${dayOfWeek})`;
-                } else {
-                    this.dateDisplay.textContent = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
-                }
-                
-                // 요일별 색상 적용
-                this.dateDisplay.classList.remove('weekday-color', 'saturday-color', 'sunday-color');
-                if (dayIndex === 0) {
-                    this.dateDisplay.classList.add('sunday-color');
-                } else if (dayIndex === 6) {
-                    this.dateDisplay.classList.add('saturday-color');
-                } else {
-                    this.dateDisplay.classList.add('weekday-color');
-                }
-
-                // 각 버튼의 URL 업데이트
-                this.linkContainers.forEach(container => {
-                    const prefix = container.dataset.prefix;
-                    const mainButton = container.querySelector('.gradient-button');
-                    let primaryUrl;
-
-                    if (prefix === 'mc') {
-                        const dateSuffix = `${this.pad(month)}${this.pad(day)}`;
-                        primaryUrl = `./mccheyne/mc${dateSuffix}.html`;
-                    } else if (prefix === 'db') {
-                        const yearSuffix = String(year).slice(-2);
-                        const dateSuffix = `${yearSuffix}${this.pad(month)}${this.pad(day)}`;
-                        primaryUrl = `./dailybible/db${dateSuffix}.html`;
-                    } else if (prefix === 'day') {
-                        const dateSuffix = `${this.pad(month)}${this.pad(day)}`;
-                        primaryUrl = `./catechism/dc${dateSuffix}.html`;
-                    } else if (prefix === 'ms') {
-                        const lastSunday = new Date(date);
-                        lastSunday.setDate(date.getDate() - date.getDay());
-                        const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
-                        const dateSuffix = `${yearSuffix}${this.pad(lastSunday.getMonth() + 1)}${this.pad(lastSunday.getDate())}`;
-                        primaryUrl = `./sermon/ms${dateSuffix}.html`;
-                    }
-                    
-                    if (mainButton) mainButton.dataset.url = primaryUrl;
-                });
-            }
-
-            generateCalendar(year, month) {
-                const firstDay = new Date(year, month, 1);
-                const lastDay = new Date(year, month + 1, 0);
-                const firstDayOfWeek = firstDay.getDay();
-                const daysInMonth = lastDay.getDate();
-                const today = new Date();
-
-                this.calendarTitle.textContent = `${year}년 ${month + 1}월`;
-                this.calendarGrid.innerHTML = '';
-
-                // 요일 헤더 생성
-                const dayHeaders = ['일', '월', '화', '수', '목', '금', '토'];
-                dayHeaders.forEach((day, index) => {
-                    const dayHeader = document.createElement('div');
-                    dayHeader.className = 'calendar-day-header';
-                    dayHeader.textContent = day;
-                    if (index === 0) dayHeader.classList.add('sunday-header-color');
-                    else if (index === 6) dayHeader.classList.add('saturday-header-color');
-                    this.calendarGrid.appendChild(dayHeader);
-                });
-
-                // 이전 달 날짜들
-                const prevMonthLastDay = new Date(year, month, 0).getDate();
-                for (let i = firstDayOfWeek - 1; i >= 0; i--) {
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day other-month';
-                    dayElement.textContent = prevMonthLastDay - i;
-                    this.calendarGrid.appendChild(dayElement);
-                }
-
-                // 현재 달 날짜들
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const dayElement = document.createElement('div');
-                    const dayDate = new Date(year, month, day);
-                    dayElement.className = 'calendar-day';
-                    dayElement.textContent = day;
-                    
-                    if (dayDate.toDateString() === today.toDateString()) {
-                        dayElement.classList.add('today');
-                    }
-                    if (dayDate.toDateString() === this.currentDate.toDateString()) {
-                        dayElement.classList.add('selected');
-                    }
-                    
-                    dayElement.addEventListener('click', () => {
-                        this.currentDate = new Date(year, month, day);
-                        this.updatePageForDate(this.currentDate);
-                        this.closeCalendar();
-                    });
-                    
-                    this.calendarGrid.appendChild(dayElement);
-                }
-
-                // 다음 달 날짜들
-                const totalCells = firstDayOfWeek + daysInMonth;
-                const remainingCells = (totalCells > 35) ? (42 - totalCells) : (35 - totalCells);
-                for (let day = 1; day <= remainingCells; day++) {
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day other-month';
-                    dayElement.textContent = day;
-                    this.calendarGrid.appendChild(dayElement);
-                }
-            }
-
-            showCalendar() {
-                this.calendarDate = new Date(this.currentDate);
-                this.generateCalendar(this.calendarDate.getFullYear(), this.calendarDate.getMonth());
-                this.calendarModal.style.display = 'flex';
-            }
-
-            closeCalendar() {
-                this.calendarModal.style.display = 'none';
-            }
-
-            showContent(url, title) {
-                this.currentUrl = url;
-                this.contentTitle.textContent = title;
-                this.contentView.style.display = 'flex';
-                
-                // 초기 상태 설정
-                this.loadingSpinner.style.display = 'block';
-                this.contentIframe.style.display = 'none';
-                this.errorMessage.style.display = 'none';
-                
-                // 오디오 컨트롤 초기화
-                this.resetAudioControl();
-
-                // iframe 로드
-                this.contentIframe.src = url;
-                
-                this.contentIframe.onload = () => {
-                    this.loadingSpinner.style.display = 'none';
-                    this.contentIframe.style.display = 'block';
-                    this.setupAudioControl();
-                };
-                
-                this.contentIframe.onerror = () => {
-                    this.loadingSpinner.style.display = 'none';
-                    this.errorMessage.style.display = 'block';
-                };
-                
-                // 타임아웃 설정 (5초 후 에러 표시)
-                setTimeout(() => {
-                    if (this.loadingSpinner.style.display === 'block') {
-                        this.loadingSpinner.style.display = 'none';
-                        this.errorMessage.style.display = 'block';
-                    }
-                }, 5000);
-            }
-
-            hideContent() {
-                this.contentView.style.display = 'none';
-                this.contentIframe.src = '';
-                this.resetAudioControl();
-            }
-
-            resetAudioControl() {
-                this.isAudioPlaying = false;
-                if (this.audioControlButton) {
-                    this.audioControlButton.classList.remove('playing');
-                }
-                if (this.playIcon) this.playIcon.style.display = 'block';
-                if (this.pauseIcon) this.pauseIcon.style.display = 'none';
-            }
-
-            setupAudioControl() {
-                try {
-                    const iframeDoc = this.contentIframe.contentDocument || this.contentIframe.contentWindow.document;
-                    if (!iframeDoc.getElementById('audio-control-script')) {
-                        const script = iframeDoc.createElement('script');
-                        script.id = 'audio-control-script';
-                        script.textContent = `
-                            const audio = document.querySelector('audio');
-                            if (audio) {
-                                audio.addEventListener('play', () => {
-                                    window.parent.postMessage({type: 'audioStateChanged', playing: true}, '*');
-                                });
-                                audio.addEventListener('pause', () => {
-                                    window.parent.postMessage({type: 'audioStateChanged', playing: false}, '*');
-                                });
-                                audio.addEventListener('ended', () => {
-                                    window.parent.postMessage({type: 'audioStateChanged', playing: false}, '*');
-                                });
-                            }
-                            
-                            window.addEventListener('message', (event) => {
-                                if (audio) {
-                                    if (event.data === 'playAudio') {
-                                        audio.play().catch(e => console.error("Audio play failed:", e));
-                                    } else if (event.data === 'pauseAudio') {
-                                        audio.pause();
-                                    }
-                                }
-                            });
-                        `;
-                        iframeDoc.body.appendChild(script);
-                    }
-                    
-                    // 메시지 리스너 설정
-                    window.addEventListener('message', (event) => {
-                        if (event.data.type === 'audioStateChanged') {
-                            this.updateAudioControlState(event.data.playing);
-                        }
-                    });
-                } catch (e) {
-                    console.error("Audio control setup failed:", e);
-                }
-            }
-
-            toggleAudioPlayback() {
-                const message = this.isAudioPlaying ? 'pauseAudio' : 'playAudio';
-                this.contentIframe.contentWindow.postMessage(message, '*');
-            }
-
-            updateAudioControlState(playing) {
-                this.isAudioPlaying = playing;
-                if (this.audioControlButton) {
-                    if (playing) {
-                        this.audioControlButton.classList.add('playing');
-                        if (this.playIcon) this.playIcon.style.display = 'none';
-                        if (this.pauseIcon) this.pauseIcon.style.display = 'block';
-                    } else {
-                        this.audioControlButton.classList.remove('playing');
-                        if (this.playIcon) this.playIcon.style.display = 'block';
-                        if (this.pauseIcon) this.pauseIcon.style.display = 'none';
-                    }
-                }
-            }
-
-            retryLoadContent() {
-                if (this.currentUrl) {
-                    const title = this.contentTitle.textContent;
-                    this.showContent(this.currentUrl, title);
-                }
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+            const dayOfWeek = daysOfWeek[date.getDay()];
+            
+            if (window.innerWidth < 640) {
+                return `${month}/${day} (${dayOfWeek})`;
+            } else {
+                return `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
             }
         }
 
-        // 앱 초기화
-        document.addEventListener('DOMContentLoaded', () => {
-            new BibleStudyApp();
-        });
+        function getWeekdayClass(date) {
+            const dayIndex = date.getDay();
+            if (dayIndex === 0) return 'sunday-color';
+            if (dayIndex === 6) return 'saturday-color';
+            return 'weekday-color';
+        }
 
-        // DOM이 이미 로드된 경우를 위한 처리
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                new BibleStudyApp();
+        // URL 생성 함수들
+        function getMcCheyneUrl(date) {
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            return `./mccheyne/mc${pad(month)}${pad(day)}.html`;
+        }
+
+        function getDailyBibleUrl(date) {
+            const year = String(date.getFullYear()).slice(-2);
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            return `./dailybible/db${year}${pad(month)}${pad(day)}.html`;
+        }
+
+        function getCatechismUrl(date) {
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            return `./catechism/dc${pad(month)}${pad(day)}.html`;
+        }
+
+        function getSermonUrl(date) {
+            // 해당 주의 일요일 날짜 계산
+            const sunday = new Date(date);
+            sunday.setDate(date.getDate() - date.getDay());
+            
+            const year = String(sunday.getFullYear()).slice(-2);
+            const month = sunday.getMonth() + 1;
+            const day = sunday.getDate();
+            return `./sermon/ms${year}${pad(month)}${pad(day)}.html`;
+        }
+
+        // 날짜 업데이트 함수
+        function updateDateDisplay() {
+            elements.currentDateEl.textContent = formatDate(currentDate);
+            elements.currentDateEl.className = `text-xl font-semibold text-center min-w-[200px] ${getWeekdayClass(currentDate)}`;
+        }
+
+        // 달력 생성 함수
+        function generateCalendar(year, month) {
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const firstDayOfWeek = firstDay.getDay();
+            const daysInMonth = lastDay.getDate();
+            const today = new Date();
+
+            elements.calendarTitle.textContent = `${year}년 ${month + 1}월`;
+            elements.calendarGrid.innerHTML = '';
+
+            // 이전 달의 날짜들
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+            for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+                const dayElement = createCalendarDay(prevMonthLastDay - i, true);
+                elements.calendarGrid.appendChild(dayElement);
+            }
+
+            // 현재 달의 날짜들
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDate = new Date(year, month, day);
+                const dayElement = createCalendarDay(day, false);
+                
+                // 오늘 날짜 표시
+                if (dayDate.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+                
+                // 선택된 날짜 표시
+                if (dayDate.toDateString() === currentDate.toDateString()) {
+                    dayElement.classList.add('selected');
+                }
+                
+                // 클릭 이벤트
+                dayElement.addEventListener('click', () => {
+                    currentDate = new Date(year, month, day);
+                    updateDateDisplay();
+                    closeCalendar();
+                });
+                
+                elements.calendarGrid.appendChild(dayElement);
+            }
+
+            // 다음 달의 날짜들
+            const totalCells = firstDayOfWeek + daysInMonth;
+            const remainingCells = (totalCells > 35) ? (42 - totalCells) : (35 - totalCells);
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayElement = createCalendarDay(day, true);
+                elements.calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        function createCalendarDay(day, isOtherMonth) {
+            const dayElement = document.createElement('div');
+            dayElement.className = `calendar-day ${isOtherMonth ? 'other-month' : ''}`;
+            dayElement.textContent = day;
+            return dayElement;
+        }
+
+        // 달력 관련 함수들
+        function showCalendar() {
+            calendarDate = new Date(currentDate);
+            generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            elements.calendarModal.classList.add('show');
+        }
+
+        function closeCalendar() {
+            elements.calendarModal.classList.remove('show');
+        }
+
+        // 콘텐츠 관련 함수들
+        function showContent(url, title) {
+            currentContentUrl = url;
+            elements.contentTitle.textContent = title;
+            elements.contentView.classList.add('show');
+            
+            // 초기 상태 설정
+            elements.loadingOverlay.style.display = 'flex';
+            elements.contentIframe.style.display = 'none';
+            elements.errorMessage.style.display = 'none';
+            
+            // 오디오 컨트롤 초기화
+            resetAudioControl();
+
+            // iframe 로드
+            elements.contentIframe.src = url;
+            
+            // iframe 로드 완료 이벤트
+            elements.contentIframe.onload = () => {
+                elements.loadingOverlay.style.display = 'none';
+                elements.contentIframe.style.display = 'block';
+                setupAudioControl();
+            };
+            
+            // iframe 에러 이벤트
+            elements.contentIframe.onerror = () => {
+                showError();
+            };
+            
+            // 타임아웃 (5초 후 에러 표시)
+            setTimeout(() => {
+                if (elements.loadingOverlay.style.display === 'flex') {
+                    showError();
+                }
+            }, 5000);
+        }
+
+        function hideContent() {
+            elements.contentView.classList.remove('show');
+            elements.contentIframe.src = '';
+            resetAudioControl();
+        }
+
+        function showError() {
+            elements.loadingOverlay.style.display = 'none';
+            elements.contentIframe.style.display = 'none';
+            elements.errorMessage.style.display = 'block';
+        }
+
+        function retryContent() {
+            if (currentContentUrl) {
+                const title = elements.contentTitle.textContent;
+                showContent(currentContentUrl, title);
+            }
+        }
+
+        // 오디오 컨트롤 함수들
+        function resetAudioControl() {
+            isAudioPlaying = false;
+            elements.audioButton.classList.remove('playing');
+            elements.playIcon.style.display = 'block';
+            elements.pauseIcon.style.display = 'none';
+        }
+
+        function setupAudioControl() {
+            try {
+                const iframeWindow = elements.contentIframe.contentWindow;
+                const iframeDoc = elements.contentIframe.contentDocument || iframeWindow.document;
+                
+                // 스크립트 삽입
+                if (!iframeDoc.getElementById('audio-control-script')) {
+                    const script = iframeDoc.createElement('script');
+                    script.id = 'audio-control-script';
+                    script.textContent = `
+                        const audio = document.querySelector('audio');
+                        if (audio) {
+                            // 오디오 이벤트 리스너
+                            audio.addEventListener('play', () => {
+                                window.parent.postMessage({type: 'audioStateChanged', playing: true}, '*');
+                            });
+                            audio.addEventListener('pause', () => {
+                                window.parent.postMessage({type: 'audioStateChanged', playing: false}, '*');
+                            });
+                            audio.addEventListener('ended', () => {
+                                window.parent.postMessage({type: 'audioStateChanged', playing: false}, '*');
+                            });
+                        }
+                        
+                        // 메시지 리스너
+                        window.addEventListener('message', (event) => {
+                            if (audio) {
+                                if (event.data === 'playAudio') {
+                                    audio.play().catch(e => console.error('Audio play failed:', e));
+                                } else if (event.data === 'pauseAudio') {
+                                    audio.pause();
+                                }
+                            }
+                        });
+                    `;
+                    iframeDoc.body.appendChild(script);
+                }
+            } catch (e) {
+                console.error('Audio control setup failed:', e);
+            }
+        }
+
+        function toggleAudio() {
+            const message = isAudioPlaying ? 'pauseAudio' : 'playAudio';
+            elements.contentIframe.contentWindow.postMessage(message, '*');
+        }
+
+        function updateAudioControl(playing) {
+            isAudioPlaying = playing;
+            if (playing) {
+                elements.audioButton.classList.add('playing');
+                elements.playIcon.style.display = 'none';
+                elements.pauseIcon.style.display = 'block';
+            } else {
+                elements.audioButton.classList.remove('playing');
+                elements.playIcon.style.display = 'block';
+                elements.pauseIcon.style.display = 'none';
+            }
+        }
+
+        // 이벤트 리스너 설정
+        function setupEventListeners() {
+            // 날짜 네비게이션
+            elements.prevDayBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 1);
+                updateDateDisplay();
             });
+
+            elements.nextDayBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 1);
+                updateDateDisplay();
+            });
+
+            elements.datePickerBtn.addEventListener('click', showCalendar);
+
+            // 달력 네비게이션
+            elements.prevMonthBtn.addEventListener('click', () => {
+                calendarDate.setMonth(calendarDate.getMonth() - 1);
+                generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            });
+
+            elements.nextMonthBtn.addEventListener('click', () => {
+                calendarDate.setMonth(calendarDate.getMonth() + 1);
+                generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            });
+
+            elements.closeCalendarBtn.addEventListener('click', closeCalendar);
+
+            // 달력 모달 외부 클릭 시 닫기
+            elements.calendarModal.addEventListener('click', (e) => {
+                if (e.target === elements.calendarModal) {
+                    closeCalendar();
+                }
+            });
+
+            // 콘텐츠 버튼들
+            elements.btnMc.addEventListener('click', () => {
+                showContent(getMcCheyneUrl(currentDate), '맥체인 성경읽기');
+            });
+
+            elements.btnDb.addEventListener('click', () => {
+                showContent(getDailyBibleUrl(currentDate), '매일성경 (새벽기도)');
+            });
+
+            elements.btnDay.addEventListener('click', () => {
+                showContent(getCatechismUrl(currentDate), '날마다 교리');
+            });
+
+            elements.btnMs.addEventListener('click', () => {
+                showContent(getSermonUrl(currentDate), '주일설교말씀');
+            });
+
+            // 콘텐츠 뷰 컨트롤
+            elements.homeButton.addEventListener('click', hideContent);
+            elements.audioButton.addEventListener('click', toggleAudio);
+            elements.retryButton.addEventListener('click', retryContent);
+
+            // iframe 메시지 리스너
+            window.addEventListener('message', (event) => {
+                if (event.data && event.data.type === 'audioStateChanged') {
+                    updateAudioControl(event.data.playing);
+                }
+            });
+
+            // 리사이즈 이벤트
+            window.addEventListener('resize', updateDateDisplay);
+        }
+
+        // 초기화 함수
+        function init() {
+            updateDateDisplay();
+            setupEventListeners();
+        }
+
+        // DOM 로드 완료 후 초기화
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
         } else {
-            new BibleStudyApp();
+            init();
         }
     </script>
 </body>
