@@ -501,7 +501,6 @@
         </div>
     </div>
 
-    <!-- 달력 모달 -->
     <div id="calendar-modal" class="calendar-modal" style="display: none;">
         <div class="calendar-container">
             <div class="calendar-header">
@@ -526,7 +525,6 @@
         </div>
     </div>
 
-    <!-- 콘텐츠 뷰 -->
     <div id="content-view" class="content-view">
         <div class="content-header">
             <button id="home-button" class="home-button">
@@ -537,8 +535,17 @@
                 <span class="sm:hidden">홈</span>
             </button>
             <h2 id="content-title" class="text-lg sm:text-xl font-semibold text-gray-800 mx-4 text-center flex-1"></h2>
-            <div class="w-24"></div>
-        </div>
+            <div class="flex items-center justify-end w-24">
+                <button id="audio-control-button" class="icon-button p-3 rounded-2xl" style="display: none;">
+                    <svg id="volume-on-icon" class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                    </svg>
+                    <svg id="volume-off-icon" class="w-6 h-6 text-gray-700" style="display: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
+                    </svg>
+                </button>
+            </div>
+            </div>
         <div class="content-body">
             <div id="loading-spinner" class="loading-spinner"></div>
             <iframe id="content-iframe" class="content-iframe" style="display: none;" 
@@ -569,6 +576,8 @@
         let dateDisplay, prevDayBtn, nextDayBtn, linkContainers;
         let calendarModal, calendarGrid, calendarTitle, prevMonthBtn, nextMonthBtn, closeCalendarBtn, datePickerBtn;
         let contentView, contentIframe, contentTitle, homeButton, loadingSpinner, errorMessage, retryButton;
+        let audioControlButton, volumeOnIcon, volumeOffIcon;
+        let isAudioPlaying = false;
         let currentUrl = '';
 
         function pad(num) {
@@ -588,14 +597,12 @@
                 return;
             }
 
-            // 날짜 텍스트 업데이트
             if (window.innerWidth < 640) {
                 dateDisplay.textContent = `${month}/${day} (${dayOfWeek})`;
             } else {
                 dateDisplay.textContent = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
             }
             
-            // CSS 클래스를 이용해 색상 변경
             dateDisplay.classList.remove('weekday-color', 'saturday-color', 'sunday-color');
 
             if (dayIndex === 0) {
@@ -606,7 +613,6 @@
                 dateDisplay.classList.add('weekday-color');
             }
 
-            // 링크 업데이트
             if (linkContainers) {
                 linkContainers.forEach(container => {
                     const prefix = container.dataset.prefix;
@@ -614,20 +620,16 @@
                     let primaryUrl;
 
                     if (prefix === 'mc') {
-                        // 맥체인 성경읽기: mccheyne 폴더의 mcMMDD.html
                         const dateSuffix = `${pad(month)}${pad(day)}`;
                         primaryUrl = `./mccheyne/mc${dateSuffix}.html`;
                     } else if (prefix === 'db') {
-                        // 매일성경: dailybible 폴더의 dbYYMMDD.html
                         const yearSuffix = String(year).slice(-2);
                         const dateSuffix = `${yearSuffix}${pad(month)}${pad(day)}`;
                         primaryUrl = `./dailybible/db${dateSuffix}.html`;
                     } else if (prefix === 'day') {
-                        // 날마다 교리: catechism 폴더의 dcMMDD.html
                         const dateSuffix = `${pad(month)}${pad(day)}`;
                         primaryUrl = `./catechism/dc${dateSuffix}.html`;
                     } else if (prefix === 'ms') {
-                        // 주일설교말씀: sermon 폴더의 msYYMMDD.html (가장 최근 일요일 기준)
                         const lastSunday = new Date(date);
                         lastSunday.setDate(date.getDate() - date.getDay());
                         const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
@@ -650,21 +652,16 @@
             calendarTitle.textContent = `${year}년 ${month + 1}월`;
             calendarGrid.innerHTML = '';
 
-            // 요일 헤더 색상 적용
             const dayHeaders = ['일', '월', '화', '수', '목', '금', '토'];
             dayHeaders.forEach((day, index) => {
                 const dayHeader = document.createElement('div');
                 dayHeader.className = 'calendar-day-header';
                 dayHeader.textContent = day;
-                if (index === 0) {
-                    dayHeader.classList.add('sunday-header-color');
-                } else if (index === 6) {
-                    dayHeader.classList.add('saturday-header-color');
-                }
+                if (index === 0) dayHeader.classList.add('sunday-header-color');
+                else if (index === 6) dayHeader.classList.add('saturday-header-color');
                 calendarGrid.appendChild(dayHeader);
             });
 
-            // 이전 달의 빈 날짜들
             const prevMonthLastDay = new Date(year, month, 0).getDate();
             for (let i = firstDayOfWeek - 1; i >= 0; i--) {
                 const dayElement = document.createElement('div');
@@ -673,37 +670,23 @@
                 calendarGrid.appendChild(dayElement);
             }
 
-            // 현재 달의 날짜들
             for (let day = 1; day <= daysInMonth; day++) {
                 const dayElement = document.createElement('div');
                 const dayDate = new Date(year, month, day);
-                
                 dayElement.className = 'calendar-day';
                 dayElement.textContent = day;
-
-                // 오늘 날짜 표시
-                if (dayDate.toDateString() === today.toDateString()) {
-                    dayElement.classList.add('today');
-                }
-
-                // 선택된 날짜 표시
-                if (dayDate.toDateString() === currentDate.toDateString()) {
-                    dayElement.classList.add('selected');
-                }
-
+                if (dayDate.toDateString() === today.toDateString()) dayElement.classList.add('today');
+                if (dayDate.toDateString() === currentDate.toDateString()) dayElement.classList.add('selected');
                 dayElement.addEventListener('click', () => {
                     currentDate = new Date(year, month, day);
                     updatePageForDate(currentDate);
                     closeCalendar();
                 });
-
                 calendarGrid.appendChild(dayElement);
             }
 
-            // 다음 달의 빈 날짜들
             const totalCells = firstDayOfWeek + daysInMonth;
             const remainingCells = (totalCells > 35) ? (42 - totalCells) : (35 - totalCells);
-            
             for (let day = 1; day <= remainingCells; day++) {
                 const dayElement = document.createElement('div');
                 dayElement.className = 'calendar-day other-month';
@@ -722,83 +705,70 @@
             calendarModal.style.display = 'none';
         }
 
-        // 기존 코드의 showContent 함수를 아래 코드로 교체하세요.
-
-function showContent(url, title) {
-    currentUrl = url;
-    contentTitle.textContent = title;
-    contentView.style.display = 'flex';
-    
-    // 로딩 상태 표시
-    loadingSpinner.style.display = 'block';
-    contentIframe.style.display = 'none';
-    errorMessage.style.display = 'none';
-    
-    if (audioControlButton) {
-        audioControlButton.style.display = 'block';
-        resetAudioControlState();
-    }
-
-    // iframe에 URL 로드
-    contentIframe.src = url;
-    
-    // 로드 이벤트 리스너 수정
-    contentIframe.onload = function() {
-        loadingSpinner.style.display = 'none';
-        contentIframe.style.display = 'block';
-
-        // ▼▼▼ 스크립트 주입 로직 시작 ▼▼▼
-        try {
-            // iframe 내부의 document 객체에 접근합니다.
-            const iframeDoc = contentIframe.contentDocument || contentIframe.contentWindow.document;
-
-            // 이미 스크립트가 주입되었는지 확인하여 중복 주입을 방지합니다.
-            if (!iframeDoc.getElementById('audio-control-script')) {
-                // 주입할 script 요소를 생성합니다.
-                const script = iframeDoc.createElement('script');
-                script.id = 'audio-control-script'; // 중복 주입 방지를 위한 id
-                
-                // script 태그 안에 들어갈 코드를 문자열로 작성합니다.
-                script.textContent = `
-                    const audio = document.querySelector('audio');
-                    window.addEventListener('message', (event) => {
-                        // 출처를 확인하는 것이 더 안전하지만, 동일 출처 환경이므로 생략 가능
-                        if (audio) {
-                            if (event.data === 'playAudio') {
-                                audio.play().catch(e => console.error("Audio play failed:", e));
-                            } else if (event.data === 'pauseAudio') {
-                                audio.pause();
-                            }
-                        }
-                    });
-                `;
-                
-                // 생성한 script를 iframe의 body에 추가합니다.
-                iframeDoc.body.appendChild(script);
+        function toggleAudioControlIcon() {
+            if (isAudioPlaying) {
+                volumeOnIcon.style.display = 'none';
+                volumeOffIcon.style.display = 'block';
+            } else {
+                volumeOnIcon.style.display = 'block';
+                volumeOffIcon.style.display = 'none';
             }
-        } catch (e) {
-            console.error("스크립트 주입 실패:", e);
-            // 다른 도메인의 콘텐츠가 로드되는 등 Same-Origin Policy 위반 시 에러가 발생할 수 있습니다.
         }
-        // ▲▲▲ 스크립트 주입 로직 끝 ▲▲▲
-    };
-    
-    // 에러 이벤트 리스너
-    contentIframe.onerror = function() {
-        loadingSpinner.style.display = 'none';
-        errorMessage.style.display = 'block';
-    };
-    
-    // 타임아웃으로 에러 처리 (5초 후)
-    setTimeout(() => {
-        if (loadingSpinner.style.display === 'block') {
-            loadingSpinner.style.display = 'none';
-            errorMessage.style.display = 'block';
+        
+        function resetAudioControlState() {
+            isAudioPlaying = false;
+            toggleAudioControlIcon();
         }
-    }, 5000);
-}
+
+        function showContent(url, title) {
+            currentUrl = url;
+            contentTitle.textContent = title;
+            contentView.style.display = 'flex';
             
-            // 타임아웃으로 에러 처리 (5초 후)
+            loadingSpinner.style.display = 'block';
+            contentIframe.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            if (audioControlButton) {
+                audioControlButton.style.display = 'block';
+                resetAudioControlState();
+            }
+
+            contentIframe.src = url;
+            
+            contentIframe.onload = function() {
+                loadingSpinner.style.display = 'none';
+                contentIframe.style.display = 'block';
+
+                try {
+                    const iframeDoc = contentIframe.contentDocument || contentIframe.contentWindow.document;
+                    if (!iframeDoc.getElementById('audio-control-script')) {
+                        const script = iframeDoc.createElement('script');
+                        script.id = 'audio-control-script';
+                        script.textContent = `
+                            const audio = document.querySelector('audio');
+                            window.addEventListener('message', (event) => {
+                                if (audio) {
+                                    if (event.data === 'playAudio') {
+                                        audio.play().catch(e => console.error("Audio play failed:", e));
+                                    } else if (event.data === 'pauseAudio') {
+                                        audio.pause();
+                                    }
+                                }
+                            });
+                        `;
+                        iframeDoc.body.appendChild(script);
+                    }
+                } catch (e) {
+                    console.error("Script injection failed:", e);
+                }
+            };
+            
+            contentIframe.onerror = function() {
+                loadingSpinner.style.display = 'none';
+                errorMessage.style.display = 'block';
+            };
+            
             setTimeout(() => {
                 if (loadingSpinner.style.display === 'block') {
                     loadingSpinner.style.display = 'none';
@@ -810,6 +780,9 @@ function showContent(url, title) {
         function hideContent() {
             contentView.style.display = 'none';
             contentIframe.src = '';
+            if (audioControlButton) {
+                audioControlButton.style.display = 'none';
+            }
         }
 
         function retryLoadContent() {
@@ -845,8 +818,9 @@ function showContent(url, title) {
             errorMessage = document.getElementById('error-message');
             retryButton = document.getElementById('retry-button');
 
-            // 배경 동영상 관련 요소는 제거하고 음성 제어 관련만 유지
-            const audioControlButton = document.getElementById('audio-control-button');
+            audioControlButton = document.getElementById('audio-control-button');
+            volumeOnIcon = document.getElementById('volume-on-icon');
+            volumeOffIcon = document.getElementById('volume-off-icon');
 
             if (!dateDisplay || !prevDayBtn || !nextDayBtn) {
                 console.error('Required DOM elements not found');
@@ -855,12 +829,6 @@ function showContent(url, title) {
 
             updatePageForDate(currentDate);
 
-            // 초기 상태에서 음성 제어 버튼 비활성화
-            if (audioControlButton) {
-                resetAudioControlIcon();
-            }
-
-            // 날짜 네비게이션 이벤트
             prevDayBtn.addEventListener('click', () => {
                 currentDate.setDate(currentDate.getDate() - 1);
                 updatePageForDate(currentDate);
@@ -873,7 +841,6 @@ function showContent(url, title) {
 
             datePickerBtn.addEventListener('click', showCalendar);
 
-            // 달력 이벤트
             prevMonthBtn.addEventListener('click', () => {
                 calendarDate.setMonth(calendarDate.getMonth() - 1);
                 generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
@@ -887,12 +854,9 @@ function showContent(url, title) {
             closeCalendarBtn.addEventListener('click', closeCalendar);
 
             calendarModal.addEventListener('click', (e) => {
-                if (e.target === calendarModal) {
-                    closeCalendar();
-                }
+                if (e.target === calendarModal) closeCalendar();
             });
             
-            // 콘텐츠 버튼 이벤트
             document.querySelectorAll('.gradient-button').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const url = event.currentTarget.dataset.url;
@@ -901,33 +865,28 @@ function showContent(url, title) {
                     let title = '';
                     
                     switch(prefix) {
-                        case 'mc':
-                            title = '맥체인 성경읽기';
-                            break;
-                        case 'db':
-                            title = '매일성경 (새벽기도)';
-                            break;
-                        case 'day':
-                            title = '날마다 교리';
-                            break;
-                        case 'ms':
-                            title = '주일설교말씀';
-                            break;
+                        case 'mc': title = '맥체인 성경읽기'; break;
+                        case 'db': title = '매일성경 (새벽기도)'; break;
+                        case 'day': title = '날마다 교리'; break;
+                        case 'ms': title = '주일설교말씀'; break;
                     }
                     
-                    if (url) {
-                        showContent(url, title);
-                    }
+                    if (url) showContent(url, title);
                 });
             });
 
-            // 홈 버튼 이벤트
             homeButton.addEventListener('click', hideContent);
-
-            // 재시도 버튼 이벤트
             retryButton.addEventListener('click', retryLoadContent);
 
-            // 리사이즈 이벤트
+            if (audioControlButton) {
+                audioControlButton.addEventListener('click', () => {
+                    isAudioPlaying = !isAudioPlaying;
+                    toggleAudioControlIcon();
+                    const message = isAudioPlaying ? 'playAudio' : 'pauseAudio';
+                    contentIframe.contentWindow.postMessage(message, '*');
+                });
+            }
+
             window.addEventListener('resize', handleResize);
         }
         
