@@ -291,49 +291,94 @@
     </div>
 
     <script>
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
         var player;
-        const videoId = '<!-- %%VIDEO_ID%% -->';
-        const playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+        var playPauseBtn;
+        var isYouTubeAPIReady = false;
+        var isPlayerInitialized = false;
 
-        function onYouTubeIframeAPIReady() {
-            if (!videoId || videoId.startsWith('<!--')) {
-                console.error("YouTube Video ID not provided. Hiding player button.");
-                if(playPauseBtn) playPauseBtn.style.display = 'none';
+        // YouTube API 로드
+        function loadYouTubeAPI() {
+            if (window.YT && window.YT.Player) {
+                isYouTubeAPIReady = true;
+                initializePlayerIfReady();
                 return;
             }
-            player = new YT.Player('player-container', {
-                height: '0',
-                width: '0',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                    'showinfo': 0,
-                    'rel': 0,
-                    'modestbranding': 1
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+
+            if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+                var tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            }
+        }
+
+        function onYouTubeIframeAPIReady() {
+            isYouTubeAPIReady = true;
+            initializePlayerIfReady();
+        }
+
+        function initializePlayerIfReady() {
+            if (!isYouTubeAPIReady || isPlayerInitialized) return;
+
+            playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+            const videoId = '<!-- %%VIDEO_ID%% -->';
+
+            // 비디오 ID 유효성 검사 - 템플릿 처리 완료 확인
+            if (!videoId || videoId.includes('%%') || videoId.includes('<!--') || videoId.length < 10) {
+                console.warn("YouTube Video ID not ready yet. Retrying...");
+                setTimeout(initializePlayerIfReady, 500);
+                return;
+            }
+
+            console.log("Initializing YouTube player with video ID:", videoId);
+            
+            try {
+                player = new YT.Player('player-container', {
+                    height: '0',
+                    width: '0',
+                    videoId: videoId,
+                    playerVars: {
+                        'playsinline': 1,
+                        'controls': 0,
+                        'showinfo': 0,
+                        'rel': 0,
+                        'modestbranding': 1
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange,
+                        'onError': onPlayerError
+                    }
+                });
+                isPlayerInitialized = true;
+            } catch (error) {
+                console.error("Failed to initialize YouTube player:", error);
+                setTimeout(initializePlayerIfReady, 1000);
+            }
         }
 
         function onPlayerReady(event) {
-            playPauseBtn.disabled = false;
-            playPauseBtn.classList.add('paused');
+            console.log("YouTube player ready");
+            if (playPauseBtn) {
+                playPauseBtn.disabled = false;
+                playPauseBtn.classList.add('paused');
+            }
         }
 
         function onPlayerStateChange(event) {
+            if (!playPauseBtn) return;
+            
             if (event.data == YT.PlayerState.PLAYING) {
                 playPauseBtn.classList.remove('paused');
             } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
                 playPauseBtn.classList.add('paused');
+            }
+        }
+
+        function onPlayerError(event) {
+            console.error("YouTube player error:", event.data);
+            if (playPauseBtn) {
+                playPauseBtn.style.display = 'none';
             }
         }
 
@@ -349,7 +394,23 @@
             }
         }
 
-        playPauseBtn.addEventListener('click', togglePlayPause);
+        // DOM이 로드된 후 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+            if (playPauseBtn) {
+                playPauseBtn.addEventListener('click', togglePlayPause);
+            }
+            
+            loadYouTubeAPI();
+            
+            // 페이지가 동적으로 빌드된 후 재시도
+            setTimeout(function() {
+                if (!isPlayerInitialized) {
+                    console.log("Retrying player initialization after page build...");
+                    loadYouTubeAPI();
+                }
+            }, 2000);
+        });
         
         document.addEventListener('keydown', function(event) {
             const target = event.target;
@@ -361,6 +422,24 @@
                 togglePlayPause();
             }
         });
+
+        // MutationObserver로 페이지 변경 감지
+        if (typeof MutationObserver !== 'undefined') {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList' && !isPlayerInitialized) {
+                        setTimeout(function() {
+                            loadYouTubeAPI();
+                        }, 1000);
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
     </script>
 </body>
 </html>

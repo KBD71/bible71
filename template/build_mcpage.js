@@ -167,6 +167,13 @@ class PageBuilder {
 
     renderPage(html) {
         document.documentElement.innerHTML = html;
+        
+        // 페이지 렌더링 완료 후 YouTube API 초기화 트리거
+        setTimeout(() => {
+            if (window.loadYouTubeAPI && typeof window.loadYouTubeAPI === 'function') {
+                window.loadYouTubeAPI();
+            }
+        }, 100);
     }
 
     handleError(error) {
