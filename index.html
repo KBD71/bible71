@@ -794,12 +794,20 @@
             errorMessage = document.getElementById('error-message');
             retryButton = document.getElementById('retry-button');
 
+            // 배경 동영상 관련 요소는 제거하고 음성 제어 관련만 유지
+            const audioControlButton = document.getElementById('audio-control-button');
+
             if (!dateDisplay || !prevDayBtn || !nextDayBtn) {
                 console.error('Required DOM elements not found');
                 return;
             }
 
             updatePageForDate(currentDate);
+
+            // 초기 상태에서 음성 제어 버튼 비활성화
+            if (audioControlButton) {
+                resetAudioControlIcon();
+            }
 
             // 날짜 네비게이션 이벤트
             prevDayBtn.addEventListener('click', () => {
