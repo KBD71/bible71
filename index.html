@@ -268,7 +268,6 @@
             font-weight: 600;
             display: flex;
             align-items: center;
-            space-x: 0.5rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
@@ -458,7 +457,7 @@
                             style="--gradient-from: #7c3aed; --gradient-to: #5b21b6;">
                         <div class="flex items-center justify-center space-x-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                             </svg>
                             <span>날마다 교리</span>
                         </div>
@@ -592,4 +591,15 @@
             dateDisplay.classList.remove('weekday-color', 'saturday-color', 'sunday-color');
 
             if (dayIndex === 0) {
-                dateDisplay.classList.ad
+                dateDisplay.classList.add('sunday-color');
+            } else if (dayIndex === 6) {
+                dateDisplay.classList.add('saturday-color');
+            } else {
+                dateDisplay.classList.add('weekday-color');
+            }
+
+            // 링크 업데이트
+            if (linkContainers) {
+                linkContainers.forEach(container => {
+                    const prefix = container.dataset.prefix;
+                    const mainButton = container.querySelector('.gradient
