@@ -23,30 +23,42 @@ class PageBuilder {
 
     async getVideoId() {
         const dateStr = this.contentData.date;
+        console.log("Date string from contentData:", dateStr);
         const [month, day] = dateStr.match(/\d+/g).map(s => s.padStart(2, '0'));
+        console.log("Parsed month/day:", month, day);
         const addressFilePath = `../address/${month}${day}.txt`;
+        console.log("Address file path:", addressFilePath);
         
         // 캐시 확인
         if (this.cache.has(addressFilePath)) {
+            console.log("Using cached video ID");
             return this.cache.get(addressFilePath);
         }
 
+        console.log("Fetching address file:", addressFilePath);
         const addressResponse = await fetch(addressFilePath);
         if (!addressResponse.ok) {
+            console.error("Failed to fetch address file:", addressResponse.status, addressResponse.statusText);
             throw new Error(`주소 파일을 찾을 수 없습니다: ${addressFilePath}`);
         }
         
         const addressText = await addressResponse.text();
+        console.log("Address file content:", JSON.stringify(addressText));
         const mcLine = addressText.split('\n').find(line => line.startsWith('mc:'));
+        console.log("Found mc line:", mcLine);
         
         if (!mcLine) {
+            console.error("No mc: line found in file content:", addressText.split('\n'));
             throw new Error(`'mc:' 접두사를 가진 주소를 '${addressFilePath}' 파일에서 찾을 수 없습니다.`);
         }
         
         const youtubeUrl = mcLine.substring(3).trim();
+        console.log("Extracted YouTube URL:", youtubeUrl);
         const videoId = this.extractVideoID(youtubeUrl);
+        console.log("Extracted video ID:", videoId);
         
         if (!videoId) {
+            console.error("Failed to extract video ID from URL:", youtubeUrl);
             throw new Error(`유튜브 주소에서 비디오 ID를 추출할 수 없습니다: ${youtubeUrl}`);
         }
 
@@ -56,18 +68,22 @@ class PageBuilder {
     }
 
     extractVideoID(url) {
+        console.log("Extracting video ID from URL:", url);
         const patterns = [
-            /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
-            /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
-            /(?:https?:\/\/)?youtu\.be\/([a-zA-Z0-9_-]{11})/,
-            /(?:https?:\/\/)?(?:www\.)?youtube\.com\/v\/([a-zA-Z0-9_-]{11})/
+            /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/,
+            /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/,
+            /(?:https?:\/\/)?youtu\.be\/([a-zA-Z0-9_-]+)(?:\?.*)?/,
+            /(?:https?:\/\/)?(?:www\.)?youtube\.com\/v\/([a-zA-Z0-9_-]+)/
         ];
 
-        for (const pattern of patterns) {
+        for (let i = 0; i < patterns.length; i++) {
+            const pattern = patterns[i];
             const match = url.match(pattern);
+            console.log(`Pattern ${i+1} test:`, pattern, match ? `Match: ${match[1]}` : 'No match');
             if (match) return match[1];
         }
         
+        console.error("No video ID pattern matched for URL:", url);
         return null;
     }
 
