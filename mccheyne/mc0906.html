@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 6일 맥체인 성경읽기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-book1: #4a69bd; /* 사무엘상 */
+            --color-book2: #f6b93b; /* 고린도전서 */
+            --color-book3: #e55039; /* 에스겔 */
+            --color-book4: #60a3bc; /* 시편 */
+            --color-integration: #78e08f; /* 통합 */
+            --color-background: #f8f9fa;
+            --color-text: #343a40;
+            --color-header-bg: #e9ecef;
+            --font-main: 'Noto Sans KR', sans-serif;
+            --font-title: 'Noto Serif KR', serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.8;
+            color: var(--color-text);
+            background-color: var(--color-background);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .title-section {
+            background-color: var(--color-header-bg);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: var(--font-title);
+            font-size: 2.2em;
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        
+        h1 .subtitle {
+            font-size: 0.6em;
+            color: #7f8c8d;
+            font-weight: 400;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .intro-passage {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .audio-player-controls {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        #playPauseBtn {
+            font-family: var(--font-main);
+            font-size: 1em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        #playPauseBtn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        #playPauseBtn:not(:disabled):hover {
+            background-color: #2980b9;
+        }
+
+        #player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+        }
+
+        .chapter-card {
+            border: 1px solid #dee2e6;
+            border-left-width: 5px;
+            border-radius: 5px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card-book1 { border-left-color: var(--color-book1); }
+        .card-book2 { border-left-color: var(--color-book2); }
+        .card-book3 { border-left-color: var(--color-book3); }
+        .card-book4 { border-left-color: var(--color-book4); }
+        .integration-card { border-left-color: var(--color-integration); }
+
+        .chapter-card h2 {
+            font-family: var(--font-title);
+            font-size: 1.8em;
+            margin-top: 0;
+            border-bottom: 2px solid var(--color-background);
+            padding-bottom: 10px;
+        }
+
+        .chapter-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.4em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+
+        .bible-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 0.95em;
+        }
+
+        .bible-text p {
+            margin: 0 0 10px 0;
+        }
+
+        .verse-number {
+            font-weight: bold;
+            color: #888;
+            margin-right: 5px;
+        }
+        
+        .bible-text strong {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 1.05em;
+        }
+        .card-book1 .bible-text strong { color: var(--color-book1); }
+        .card-book2 .bible-text strong { color: var(--color-book2); }
+        .card-book3 .bible-text strong { color: var(--color-book3); }
+        .card-book4 .bible-text strong { color: var(--color-book4); }
+
+
+        .key-verse {
+            border-left: 3px solid #ced4da;
+            padding-left: 15px;
+            margin: 10px 0;
+            font-style: italic;
+        }
+
+        .key-verse strong {
+            font-style: normal;
+        }
+        
+        .svg-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        .styled-table th, .styled-table td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .styled-table th {
+            background-color: var(--color-header-bg);
+            font-weight: bold;
+        }
+        
+        .styled-table tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="title-section">
+            <h1>9월 6일 맥체인 성경읽기<br><span class="subtitle">하나님의 영광이 머무는 곳</span></h1>
+            <p class="intro-passage">삼상31 | 고전11 | 겔9 | 시48</p>
+        </header>
+
+        <section class="audio-player-controls">
+            <div id="player-container"></div>
+            <button id="playPauseBtn" disabled>로딩 중...</button>
+        </section>
+
+        <article class="chapter-card card-book1">
+            <h2>사무엘상 31장: 기름 부음 받은 왕의 비극적 최후</h2>
+            <h3>개요 (Overview)</h3>
+            <p>사무엘상 31장은 이스라엘의 초대 왕 사울과 그의 아들들의 비극적인 죽음을 기록하며, 한 시대의 종말을 고합니다. 길보아 산 전투에서 블레셋에게 대패한 이스라엘 군대의 처참한 상황과, 스스로 목숨을 끊는 사울의 마지막 모습은 하나님께 불순종한 리더십의 필연적 결과를 보여줍니다. 이는 개인의 실패를 넘어 언약 백성 전체에 미치는 고통을 드러내며, 참된 왕의 필요성을 암시합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-container">
+                <svg width="90%" viewBox="0 0 400 200" style="font-family: var(--font-main); font-size: 10px;">
+                    <title>사울 왕조의 몰락 과정</title>
+                    <path d="M 30 50 C 80 20, 150 20, 200 50 S 300 120, 350 150" stroke="#cccccc" stroke-dasharray="4" fill="none" stroke-width="1"/>
+                    <path d="M 30 50 C 80 80, 150 130, 200 150 S 280 180, 350 180" stroke="#e55039" fill="none" stroke-width="2"/>
+                    
+                    <circle cx="30" cy="50" r="4" fill="#4a69bd"/><text x="30" y="40" text-anchor="middle">왕으로 기름부음 받음</text>
+                    <circle cx="200" cy="50" r="4" fill="#cccccc"/><text x="200" y="40" text-anchor="middle">하나님께 순종했을 때의 길 (이상)</text>
+                    
+                    <circle cx="120" cy="88" r="4" fill="#e55039"/><text x="120" y="80" text-anchor="middle">불순종 (제사, 아말렉)</text>
+                    <circle cx="200" cy="150" r="4" fill="#e55039"/><text x="200" y="140" text-anchor="middle">하나님의 영이 떠남</text>
+                    <circle cx="280" cy="172" r="4" fill="#e55039"/><text x="280" y="162" text-anchor="middle">엔돌의 신접한 여인</text>
+                    <circle cx="350" cy="180" r="4" fill="#e55039"/><text x="350" y="195" text-anchor="middle" font-weight="bold">길보아 전투에서의 죽음</text>
+                    
+                    <text x="200" y="15" fill="#555" text-anchor="middle" font-weight="bold" font-size="12">사울 왕조의 비극적 궤적</text>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>사울의 통치는 하나님의 대리 통치라는 신정정치의 이상이 인간 왕의 실패로 어떻게 무너질 수 있는지를 보여주는 사례입니다. 그의 죽음은 단순한 군사적 패배가 아니라, 언약에 대한 불순종이 가져오는 심판의 성격을 가집니다. 개혁신학적 관점에서, 사울의 실패는 인간의 전적인 타락과 무능을 드러내며, 오직 하나님의 은혜로 세워지는 다윗의 왕조, 그리고 궁극적으로는 죄와 죽음을 이기신 영원한 왕 예수 그리스도를 대망하게 합니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p class="key-verse"><strong>4절:</strong> "그가 무기 든 자에게 이르되 네 칼을 빼어 그것으로 나를 찌르라 할례 받지 않은 자들이 와서 나를 찌르고 모욕할까 두려워하노라..."<br>사울은 적군의 손에 죽는 모욕을 피하고자 자결을 선택합니다. 이는 마지막 순간까지도 자신의 명예와 체면을 하나님의 주권보다 앞세웠던 그의 삶을 요약적으로 보여줍니다. 그는 하나님의 심판 앞에서 회개하기보다 인간적인 방법으로 운명을 피하려 했습니다.</p>
+            <p class="key-verse"><strong>10절:</strong> "사울의 머리를 베어 그의 갑옷을 벋기고 자기들의 신당과 백성에게 널리 알리기 위하여..."<br>블레셋은 사울의 죽음을 자신들의 우상 다곤의 승리로 선전합니다. 이는 영적 전쟁의 실체를 보여줍니다. 이스라엘 왕의 패배는 곧 하나님의 이름이 모독당하는 결과로 이어졌습니다. 그러나 이는 하나님의 실패가 아니라, 불순종한 대리자를 향한 하나님의 공의로운 심판의 과정이었습니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>길보아 산의 전투와 사울의 죽음</strong>
+                <p><span class="verse-number">1</span> 블레셋 사람들이 이스라엘을 치매 이스라엘 사람들이 블레셋 사람들 앞에서 도망하여 길보아 산에서 엎드러져 죽으니라</p>
+                <p><span class="verse-number">2</span> 블레셋 사람들이 사울과 그의 아들들을 추격하여 사울의 아들 요나단과 아비나답과 말기수아를 죽이니라</p>
+                <p><span class="verse-number">3</span> 사울이 패전하매 활 쏘는 자가 따라잡으니 사울이 그 활 쏘는 자에게 중상을 입은지라</p>
+                <p><span class="verse-number">4</span> 그가 무기 든 자에게 이르되 네 칼을 빼어 그것으로 나를 찌르라 할례 받지 않은 자들이 와서 나를 찌르고 모욕할까 두려워하노라 하나 무기 든 자가 심히 두려워하여 감히 행하지 아니하는지라 이에 사울이 자기의 칼을 뽑아서 그 위에 엎드러지매</p>
+                <p><span class="verse-number">5</span> 무기 든 자가 사울이 죽음을 보고 자기도 자기 칼 위에 엎드러져 그와 함께 죽으니라</p>
+                <p><span class="verse-number">6</span> 사울과 그의 세 아들과 무기 든 자와 그의 모든 사람이 다 그 날에 함께 죽었더라</p>
+                <strong>블레셋의 승리와 사울 시신에 대한 모욕</strong>
+                <p><span class="verse-number">7</span> 골짜기 저쪽에 있는 이스라엘 사람과 요단 건너쪽에 있는 자들이 이스라엘 사람들이 도망한 것과 사울과 그의 아들들이 죽었음을 보고 성읍들을 버리고 도망하매 블레셋 사람들이 이르러 거기서 사니라</p>
+                <p><span class="verse-number">8</span> 그 이튿날 블레셋 사람들이 죽은 자를 벗기러 왔다가 사울과 그의 세 아들이 길보아 산에서 죽은 것을 보고</p>
+                <p><span class="verse-number">9</span> 사울의 머리를 베고 그의 갑옷을 벗기고 자기들의 신당과 백성에게 널리 알리기 위하여 그것을 블레셋 사람들의 땅 사방에 보내고</p>
+                <p><span class="verse-number">10</span> 그의 갑옷은 아스다롯의 집에 두고 그의 시체는 벧산 성벽에 못 박으매</p>
+                <strong>길르앗 야베스 주민들의 의로운 행동</strong>
+                <p><span class="verse-number">11</span> 길르앗 야베스 주민들이 블레셋 사람들이 사울에게 행한 일을 듣고</p>
+                <p><span class="verse-number">12</span> 모든 장사들이 일어나 밤새도록 달려가서 사울의 시체와 그의 아들들의 시체를 벧산 성벽에서 내려 가지고 야베스에 돌아가서 거기서 불사르고</p>
+                <p><span class="verse-number">13</span> 그의 뼈를 가져다가 야베스 에셀 나무 아래에 장사하고 칠 일 동안 금식하였더라</p>
+            </div>
+        </article>
+
+        <article class="chapter-card card-book2">
+            <h2>고린도전서 11장: 예배의 질서와 성찬의 의미</h2>
+            <h3>개요 (Overview)</h3>
+            <p>고린도전서 11장에서 바울은 고린도 교회의 두 가지 무질서한 예배 관행을 바로잡습니다. 첫째는 여자의 머리 수건 문제로, 창조 질서와 권위를 존중하는 태도를 강조합니다. 둘째는 성찬 문제로, 분열과 자기중심적인 태도로 성찬의 의미를 훼손하는 것을 엄중히 경고합니다. 바울은 예배가 하나님의 질서를 반영해야 하며, 성찬은 주님의 죽으심을 기념하고 공동체의 하나 됨을 확인하는 거룩한 예식임을 가르칩니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-container">
+                <svg width="90%" viewBox="0 0 400 220" style="font-family: var(--font-main); font-size: 10px;">
+                    <title>예배의 질서와 성찬의 바른 이해</title>
+                    <g id="order">
+                        <text x="100" y="20" text-anchor="middle" font-weight="bold" font-size="12">창조의 질서 (1-16절)</text>
+                        <rect x="50" y="40" width="100" height="25" rx="5" fill="#f6b93b" stroke="#333" />
+                        <text x="100" y="55" text-anchor="middle">하나님</text>
+                        <path d="M 100 65 V 75" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+                        <rect x="50" y="80" width="100" height="25" rx="5" fill="#f6b93b" stroke="#333" />
+                        <text x="100" y="95" text-anchor="middle">그리스도</text>
+                        <path d="M 100 105 V 115" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+                        <rect x="50" y="120" width="100" height="25" rx="5" fill="#f6b93b" stroke="#333" />
+                        <text x="100" y="135" text-anchor="middle">남자 (남편)</text>
+                        <path d="M 100 145 V 155" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+                        <rect x="50" y="160" width="100" height="25" rx="5" fill="#f6b93b" stroke="#333" />
+                        <text x="100" y="175" text-anchor="middle">여자 (아내)</text>
+                    </g>
+                    <g id="supper">
+                        <text x="300" y="20" text-anchor="middle" font-weight="bold" font-size="12">성찬의 의미 (17-34절)</text>
+                        <rect x="230" y="40" width="140" height="40" rx="5" fill="#e9ecef" stroke="#333"/>
+                        <text x="300" y="60" text-anchor="middle">자기 성찰 (자신을 살핌)</text>
+                        <path d="M 300 80 V 100" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+                        <rect x="230" y="100" width="140" height="40" rx="5" fill="#e9ecef" stroke="#333"/>
+                        <text x="300" y="115" text-anchor="middle">그리스도의 죽으심 기념</text>
+                        <text x="300" y="130" text-anchor="middle">(기억)</text>
+                        <path d="M 300 140 V 160" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+                        <rect x="230" y="160" width="140" height="40" rx="5" fill="#e9ecef" stroke="#333"/>
+                        <text x="300" y="175" text-anchor="middle">그리스도 안에서 하나 됨</text>
+                        <text x="300" y="190" text-anchor="middle">(교회 공동체)</text>
+                    </g>
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>고린도는 자유분방한 항구도시로, 교회 안에도 세속적 가치관이 스며들었습니다. 특히 '영적 자유'를 오해하여 모든 사회적 질서를 무시하려는 경향이 있었습니다. 바울은 신학적 원리(창조 질서)를 통해 이들의 문제를 교정합니다. 개혁신학에서 예배는 '규정적 원리'에 따라 하나님이 명령하신 대로 드려져야 합니다. 성찬은 단순한 식사가 아니라, 그리스도와의 영적 연합과 교제, 그리고 성도 간의 하나 됨을 이루는 은혜의 방편(Means of Grace)으로 이해됩니다. 따라서 합당하지 않게 참여하는 것은 심각한 죄가 됩니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p class="key-verse"><strong>24-25절:</strong> "축사하시고 떼어 이르시되 이것은 너희를 위하는 내 몸이니 이것을 행하여 나를 기념하라 하시고... 이 잔은 내 피로 세운 새 언약이니..."<br>이 구절은 성찬의 핵심 의미를 담고 있습니다. '기념하라'는 것은 단순히 과거를 회상하는 것을 넘어, 현재적으로 그리스도의 희생의 효력을 경험하고 선포하는 행위입니다. '새 언약'이라는 표현은 예수님의 피가 옛 언약의 짐승의 피를 대체하며, 죄 사함과 하나님과의 새로운 관계를 여는 유일한 길임을 선언합니다. 성찬은 이 새 언약 백성의 정체성을 확인하는 예식입니다.</p>
+            <p class="key-verse"><strong>29절:</strong> "주의 몸을 분별하지 못하고 먹고 마시는 자는 자기의 죄를 먹고 마시는 것이니라"<br>'주의 몸'은 일차적으로 그리스도의 희생된 몸을 의미하지만, 이차적으로는 그리스도의 몸 된 교회 공동체를 의미합니다. 성찬에 참여하면서 가난한 성도를 무시하고 분열을 조장하는 것은, 빵과 포도주에 담긴 그리스도의 희생과 그로 인해 하나 된 교회의 의미를 모두 모독하는 행위입니다. 이는 하나님의 징계(병, 죽음)를 초래할 만큼 심각한 죄입니다.</p>
+            
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>교회의 전통과 질서</strong>
+                <p><span class="verse-number">1</span> 내가 그리스도를 본받는 자가 된 것 같이 너희는 나를 본받는 자가 되라</p>
+                <p><span class="verse-number">2</span> 너희가 모든 일에 나를 기억하고 또 내가 너희에게 전하여 준 대로 그 전통을 너희가 지키므로 너희를 칭찬하노라</p>
+                <strong>예배 시 여자의 머리 수건 문제</strong>
+                <p><span class="verse-number">3</span> 그러나 나는 너희가 알기를 원하노니 각 남자의 머리는 그리스도요 여자의 머리는 남자요 그리스도의 머리는 하나님이시라</p>
+                <p><span class="verse-number">4</span> 무릇 남자로서 머리에 무엇을 쓰고 기도나 예언을 하는 자는 그 머리를 욕되게 하는 것이요</p>
+                <p><span class="verse-number">5</span> 무릇 여자로서 머리에 쓴 것을 벗고 기도나 예언을 하는 자는 그 머리를 욕되게 하는 것이니 이는 머리를 민 것과 다름이 없음이라</p>
+                <p><span class="verse-number">6</span> 만일 여자가 머리를 가리지 않거든 깎을 것이요 만일 깎거나 미는 것이 여자에게 부끄러움이 되거든 가릴지니라</p>
+                <p><span class="verse-number">7</span> 남자는 하나님의 형상과 영광이니 그 머리를 마땅히 가리지 않거니와 여자는 남자의 영광이니라</p>
+                <p><span class="verse-number">8</span> 남자가 여자에게서 난 것이 아니요 여자가 남자에게서 났으며</p>
+                <p><span class="verse-number">9</span> 또 남자가 여자를 위하여 지음을 받지 아니하고 여자가 남자를 위하여 지음을 받은 것이니</p>
+                <p><span class="verse-number">10</span> 그러므로 여자는 천사들로 말미암아 권세 아래에 있는 표를 그 머리 위에 둘지니라</p>
+                <p><span class="verse-number">11</span> 그러나 주 안에는 남자 없이 여자만 있지 않고 여자 없이 남자만 있지 아니하니라</p>
+                <p><span class="verse-number">12</span> 이는 여자가 남자에게서 난 것 같이 남자도 여자로 말미암아 났음이라 그리고 모든 것은 하나님에게서 났느니라</p>
+                <p><span class="verse-number">13</span> 너희는 스스로 판단하라 여자가 머리를 가리지 않고 하나님께 기도하는 것이 마땅하냐</p>
+                <p><span class="verse-number">14</span> 만일 남자에게 긴 머리가 있으면 자기에게 부끄러움이 되는 것을 본성이 너희에게 가르치지 아니하느냐</p>
+                <p><span class="verse-number">15</span> 만일 여자가 긴 머리가 있으면 자기에게 영광이 되나니 긴 머리는 가리는 것을 대신하여 주셨기 때문이니라</p>
+                <p><span class="verse-number">16</span> 논쟁하려는 생각을 가진 자가 있을지라도 우리에게나 하나님의 모든 교회에는 이런 관례가 없느니라</p>
+                <strong>성찬의 무질서에 대한 책망</strong>
+                <p><span class="verse-number">17</span> 내가 명하는 이 일에 너희를 칭찬하지 아니하나니 이는 너희의 모임이 유익이 못되고 도리어 해로움이라</p>
+                <p><span class="verse-number">18</span> 먼저 너희가 교회에 모일 때에 너희 중에 분쟁이 있다 함을 듣고 어느 정도 믿거니와</p>
+                <p><span class="verse-number">19</span> 너희 중에 파당이 있어야 너희 중에 옳다 인정함을 받은 자들이 나타나게 되리라</p>
+                <p><span class="verse-number">20</span> 그런즉 너희가 함께 모여서 주의 만찬을 먹을 수 없으니</p>
+                <p><span class="verse-number">21</span> 이는 먹을 때에 각각 자기의 만찬을 먼저 갖다 먹으므로 어떤 사람은 시장하고 어떤 사람은 취함이라</p>
+                <p><span class="verse-number">22</span> 너희가 먹고 마실 집이 없느냐 너희가 하나님의 교회를 업신여기고 빈궁한 자들을 부끄럽게 하느냐 내가 너희에게 무슨 말을 하랴 너희를 칭찬하랴 이것으로 칭찬하지 않노라</p>
+                <strong>성찬의 제정과 그 의미</strong>
+                <p><span class="verse-number">23</span> 내가 너희에게 전한 것은 주께 받은 것이니 곧 주 예수께서 잡히시던 밤에 떡을 가지사</p>
+                <p><span class="verse-number">24</span> 축사하시고 떼어 이르시되 이것은 너희를 위하는 내 몸이니 이것을 행하여 나를 기념하라 하시고</p>
+                <p><span class="verse-number">25</span> 식후에 또한 그와 같이 잔을 가지시고 이르시되 이 잔은 내 피로 세운 새 언약이니 이것을 행하여 마실 때마다 나를 기념하라 하셨으니</p>
+                <p><span class="verse-number">26</span> 너희가 이 떡을 먹으며 이 잔을 마실 때마다 주의 죽으심을 그가 오실 때까지 전하는 것이니라</p>
+                <strong>올바른 성찬 참여의 자세</strong>
+                <p><span class="verse-number">27</span> 그러므로 누구든지 주의 떡이나 잔을 합당하지 않게 먹고 마시는 자는 주의 몸과 피에 대하여 죄를 짓는 것이니라</p>
+                <p><span class="verse-number">28</span> 사람이 자기를 살피고 그 후에야 이 떡을 먹고 이 잔을 마실지니</p>
+                <p><span class="verse-number">29</span> 주의 몸을 분별하지 못하고 먹고 마시는 자는 자기의 죄를 먹고 마시는 것이니라</p>
+                <p><span class="verse-number">30</span> 그러므로 너희 중에 약한 자와 병든 자가 많고 잠자는 자도 적지 아니하니</p>
+                <p><span class="verse-number">31</span> 우리가 우리를 살폈으면 판단을 받지 아니하려니와</p>
+                <p><span class="verse-number">32</span> 우리가 판단을 받는 것은 주께 징계를 받는 것이니 이는 우리로 세상과 함께 정죄함을 받지 않게 하려 하심이라</p>
+                <p><span class="verse-number">33</span> 그런즉 내 형제들아 먹으러 모일 때에 서로 기다리라</p>
+                <p><span class="verse-number">34</span> 만일 누구든지 시장하거든 집에서 먹을지니 이는 너희의 모임이 판단 받는 모임이 되지 않게 하려 함이라 그 밖의 일들은 내가 언제든지 갈 때에 바로잡으리라</p>
+            </div>
+        </article>
+
+        <article class="chapter-card card-book3">
+            <h2>에스겔 9장: 거룩한 심판과 남은 자의 표</h2>
+            <h3>개요 (Overview)</h3>
+            <p>에스겔 9장은 8장에서 폭로된 예루살렘의 끔찍한 우상숭배에 대한 하나님의 무서운 심판을 환상으로 보여줍니다. 하나님은 살육하는 무기를 든 여섯 천사와 먹 그릇을 찬 한 사람을 불러, 가증한 일로 인해 탄식하는 자들의 이마에 '표'를 하라고 명령하십니다. 그리고 그 표가 없는 모든 사람을 노인부터 아이까지 남김없이 멸하십니다. 이 환상은 하나님의 공의가 얼마나 철저한지, 그리고 그 무서운 심판 속에서도 당신의 백성을 구별하여 보호하시는 하나님의 주권적 은혜를 동시에 보여줍니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-container">
+                <svg width="90%" viewBox="0 0 400 200" style="font-family: var(--font-main); font-size: 10px;">
+                    <title>예루살렘 심판의 과정</title>
+                    <rect x="10" y="10" width="380" height="180" rx="10" fill="#f8f9fa" stroke="#ccc"/>
+                    <text x="200" y="30" text-anchor="middle" font-weight="bold" font-size="12">심판의 환상 (에스겔 9장)</text>
+                    
+                    <g id="step1">
+                        <circle cx="80" cy="70" r="20" fill="#e55039" stroke="#333"/>
+                        <text x="80" y="73" text-anchor="middle" fill="white">1</text>
+                        <text x="80" y="105" text-anchor="middle">가증한 일로</text>
+                        <text x="80" y="118" text-anchor="middle">우는 자의 이마에</text>
+                        <text x="80" y="131" text-anchor="middle" font-weight="bold">'표'(타우)를 하라</text>
+                    </g>
+                    
+                    <path d="M 120 70 L 160 70" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+                    
+                    <g id="step2">
+                        <circle cx="200" cy="70" r="20" fill="#e55039" stroke="#333"/>
+                        <text x="200" y="73" text-anchor="middle" fill="white">2</text>
+                        <text x="200" y="105" text-anchor="middle">하나님의 영광이</text>
+                        <text x="200" y="118" text-anchor="middle">성전 문지방을 떠남</text>
+                        <text x="200" y="131" text-anchor="middle">(보호의 상실)</text>
+                    </g>
+                    
+                    <path d="M 240 70 L 280 70" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+                    
+                    <g id="step3">
+                        <circle cx="320" cy="70" r="20" fill="#e55039" stroke="#333"/>
+                        <text x="320" y="73" text-anchor="middle" fill="white">3</text>
+                        <text x="320" y="105" text-anchor="middle">표 없는 모든 자를</text>
+                        <text x="320" y="118" text-anchor="middle">긍휼 없이 심판하라</text>
+                        <text x="320" y="131" text-anchor="middle">(성소에서 시작)</text>
+                    </g>
+                    
+                    <text x="200" y="170" text-anchor="middle" font-style="italic">"내 성소에서 시작할지니라"</text>
+
+                    <defs>
+                        <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#e55039"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>이 환상은 바벨론에 의해 예루살렘이 멸망하기 직전의 영적 상황을 배경으로 합니다. 이마의 '표'(히브리어 '타우')는 출애굽 당시 문설주의 어린 양의 피를 연상시킵니다. 이는 하나님의 심판이 무차별적으로 임하는 것이 아니라, 언약에 신실한 '남은 자(Remnant)'를 구별하시는 하나님의 주권적 선택과 보존을 보여주는 중요한 신학적 개념입니다. 심판이 '내 성소에서' 시작된다는 점은, 언약 백성의 타락과 리더들의 책임이 얼마나 큰지를 강조합니다. 하나님의 거룩함은 자신의 집에서부터 먼저 순결함을 요구하십니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p class="key-verse"><strong>4절:</strong> "너는 예루살렘 성읍 중에 순행하여 그 가운데에서 행하는 모든 가증한 일로 말미암아 탄식하며 우는 자의 이마에 표를 하라"</br>하나님께서 구원하시는 대상은 종교적 열심이나 사회적 지위가 있는 자들이 아니라, 죄를 애통하며 탄식하는 자들입니다. 이것이 참된 경건의 표지입니다. 그들의 눈물은 하나님 앞에서 거룩한 기도가 되어, 심판 날에 그들을 구원하는 하나님의 인(seal)을 받게 합니다.</p>
+            <p class="key-verse"><strong>6절:</strong> "...내 성소에서 시작할지니라 하시매 그들이 성전 앞에 있는 늙은 자들로부터 시작하더라"<br>심판은 가장 거룩해야 할 장소, 그리고 가장 영적인 책임을 져야 할 리더들로부터 시작됩니다. 이는 특권이 곧 책임임을 보여줍니다. 하나님의 백성이라는 지위가 심판을 면제해주는 것이 아니라, 오히려 더 높은 수준의 거룩과 순종을 요구한다는 사실을 엄중하게 경고합니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>심판을 집행하는 자들의 등장</strong>
+                <p><span class="verse-number">1</span> 또 그가 큰 소리로 내 귀에 외쳐 이르시되 이 성읍을 관할하는 자들이 각기 죽이는 무기를 손에 들고 나아오게 하라 하시더라</p>
+                <p><span class="verse-number">2</span> 내가 보니 북쪽을 향한 윗문 길로부터 여섯 사람이 오는데 각 사람의 손에 죽이는 무기를 잡았고 그 중의 한 사람은 가는 베 옷을 입고 허리에 서기관의 먹 그릇을 찼더라 그들이 들어와서 놋 제단 곁에 서더라</p>
+                <strong>남은 자에게 표를 하라는 명령</strong>
+                <p><span class="verse-number">3</span> 그룹에 머물러 있던 이스라엘 하나님의 영광이 성전 문지방에 이르더니 여호와께서 그 가는 베 옷을 입고 서기관의 먹 그릇을 찬 사람을 불러</p>
+                <p><span class="verse-number">4</span> 여호와께서 이르시되 너는 예루살렘 성읍 중에 순행하여 그 가운데에서 행하는 모든 가증한 일로 말미암아 탄식하며 우는 자의 이마에 표를 하라 하시고</p>
+                <p><span class="verse-number">5</span> 그들에 대하여 내 귀에 이르시되 너희는 그를 따라 성읍 중에 다니며 불쌍히 여기지 말며 긍휼을 베풀지 말고 쳐서</p>
+                <p><span class="verse-number">6</span> 늙은 자와 젊은 자와 처녀와 어린이와 여자를 다 죽이되 이마에 표 있는 자에게는 가까이 하지 말라 내 성소에서 시작할지니라 하시매 그들이 성전 앞에 있는 늙은 자들로부터 시작하더라</p>
+                <strong>심판의 집행</strong>
+                <p><span class="verse-number">7</span> 그가 또 그들에게 이르시되 너희는 성전을 더럽혀 시체로 모든 뜰에 채우라 너희는 나가라 하시매 그들이 나가서 성읍 중에서 치더라</p>
+                <p><span class="verse-number">8</span> 그들이 칠 때에 내가 홀로 있었는지라 엎드려 부르짖어 이르되 아하 주 여호와여 예루살렘을 향하여 분노를 쏟으시오니 이스라엘의 남은 자를 모두 멸하려 하시나이까</p>
+                <p><span class="verse-number">9</span> 그가 내게 이르시되 이스라엘과 유다 족속의 죄악이 심히 중하여 그 땅에 피가 가득하며 그 성읍에 불법이 찼나니 이는 그들이 이르기를 여호와께서 이 땅을 버리셨으며 보지 아니하신다 함이라</p>
+                <p><span class="verse-number">10</span> 그러므로 내가 그들을 불쌍히 여기지 아니하며 긍휼을 베풀지 아니하고 그들의 행위대로 그들의 머리에 갚으리라 하시더라</p>
+                <p><span class="verse-number">11</span> 보라 가는 베 옷을 입고 허리에 먹 그릇을 찬 사람이 복명하여 이르되 주께서 내게 명령하신 대로 내가 준행하였나이다 하더라</p>
+            </div>
+        </article>
+
+        <article class="chapter-card card-book4">
+            <h2>시편 48편: 하나님의 도성, 시온의 영광</h2>
+            <h3>개요 (Overview)</h3>
+            <p>시편 48편은 '시온의 노래'로서, 하나님의 임재로 인해 견고하고 영광스러운 도성 예루살렘(시온)을 찬양합니다. 시인은 시온의 견고한 망대와 성벽을 순례하며, 그 물리적 아름다움을 넘어 그곳을 보호하시는 하나님의 위대하심을 노래합니다. 적들은 하나님의 위엄 앞에서 두려워 떨며 물러가고, 백성들은 하나님의 인자하심을 묵상하며 그 영광을 후대에 전할 것을 다짐합니다. 이 시는 궁극적으로 하나님의 백성이 거하는 교회의 안전과 영원한 영광을 예표합니다.</p>
+            
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-container">
+                <svg width="90%" viewBox="0 0 400 200" style="font-family: var(--font-main); font-size: 10px;">
+                    <title>시온의 영광과 보호</title>
+                    <circle cx="200" cy="100" r="90" fill="#e9ecef" stroke="#60a3bc" stroke-width="2"/>
+                    <circle cx="200" cy="100" r="60" fill="#d1e6ef" stroke="#60a3bc" stroke-width="1.5"/>
+                    <circle cx="200" cy="100" r="30" fill="#a2d5e8" stroke="#60a3bc" stroke-width="1.5"/>
+                    <text x="200" y="105" text-anchor="middle" font-weight="bold" font-size="12px">하나님의 임재</text>
+                    <text x="200" y="65" text-anchor="middle">성전 (하나님의 인자하심)</text>
+                    <text x="200" y="30" text-anchor="middle">견고한 성벽과 망대 (보호)</text>
+                    <text x="320" y="105" text-anchor="middle">대적들의 패주</text>
+                    <path d="M 290 100 L 295 95 M 290 100 L 295 105" stroke="red" stroke-width="1"/>
+                    <path d="M 300 110 L 305 105 M 300 110 L 305 115" stroke="red" stroke-width="1"/>
+                    
+                    <text x="200" y="180" text-anchor="middle" font-weight="bold">"이 하나님은 영원히 우리 하나님이시니 우리를 죽을 때까지 인도하시리로다"</text>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>이 시는 역사적으로 앗수르의 산헤립 침공으로부터 기적적으로 구원받은 사건(왕하 19장)을 배경으로 할 가능성이 높습니다. 시온은 단순히 지리적 장소가 아니라, 하나님이 자기 백성과 함께 거하시기로 택하신 언약적 공간입니다. 개혁신학에서 시온은 구약의 교회를 상징하며, 신약에서는 그리스도의 몸 된 교회, 그리고 최종적으로는 새 하늘과 새 땅의 '새 예루살렘'으로 그 의미가 확장됩니다. 교회의 참된 안전과 영광은 건물의 웅장함이나 조직의 힘이 아니라, 그 안에 내주하시는 삼위 하나님의 임재에 달려 있음을 이 시는 분명히 보여줍니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p class="key-verse"><strong>3절:</strong> "하나님이 그 여러 궁중에서 자기를 요새로 알리셨도다"<br>시온의 진정한 요새는 물리적인 성벽이 아니라, 그 안에 거하시는 하나님 자신이십니다. 세상의 왕들은 자신들의 군사력과 재물을 의지하지만, 하나님의 백성은 하나님을 피난처와 요새로 삼습니다. 하나님의 임재 자체가 가장 강력한 방어 체계입니다.</p>
+            <p class="key-verse"><strong>9절:</strong> "하나님이여 우리가 주의 전 가운데에서 주의 인자하심을 생각하였나이다"<br>하나님의 백성은 성전에 모여 그분의 구원 행위와 변함없는 언약적 사랑(인자, 헤세드)을 묵상합니다. 예배는 하나님의 성품과 행하심을 기억하고 찬양하는 시간입니다. 과거의 구원을 기억하는 것은 현재의 위기 속에서 믿음을 굳건히 하고 미래를 소망하게 하는 힘이 됩니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>하나님의 도성 시온에 대한 찬양</strong>
+                <p><span class="verse-number">1</span> 여호와는 위대하시니 우리 하나님의 성, 거룩한 산에서 극진히 찬양 받으시리로다</p>
+                <p><span class="verse-number">2</span> 터가 높고 아름다워 온 세계가 즐거워함이여 큰 왕의 성 곧 북방에 있는 시온 산이 그러하도다</p>
+                <p><span class="verse-number">3</span> 하나님이 그 여러 궁중에서 자기를 요새로 알리셨도다</p>
+                <strong>대적들을 물리치신 하나님</strong>
+                <p><span class="verse-number">4</span> 왕들이 모여서 함께 지나갔음이여</p>
+                <p><span class="verse-number">5</span> 그들이 보고 놀라고 두려워 빨리 지나갔도다</p>
+                <p><span class="verse-number">6</span> 거기서 그들이 두려움에 사로잡히니 그 고통이 해산하는 여인의 고통 같도다</p>
+                <p><span class="verse-number">7</span> 주께서 동풍으로 다시스의 배를 깨뜨리시도다</p>
+                <p><span class="verse-number">8</span> 우리가 들은 대로 만군의 여호와의 성, 우리 하나님의 성에서 보았나니 하나님이 이를 영원히 견고하게 하시리로다 (셀라)</p>
+                <strong>성전에서 묵상하는 하나님의 인자하심</strong>
+                <p><span class="verse-number">9</span> 하나님이여 우리가 주의 전 가운데에서 주의 인자하심을 생각하였나이다</p>
+                <p><span class="verse-number">10</span> 하나님이여 주의 이름과 같이 찬송도 땅 끝까지 미쳤으며 주의 오른손에는 정의가 충만하였나이다</p>
+                <p><span class="verse-number">11</span> 주의 심판으로 말미암아 시온 산은 기뻐하고 유다의 딸들은 즐거워할지어다</p>
+                <strong>시온의 견고함을 후대에 전함</strong>
+                <p><span class="verse-number">12</span> 너희는 시온을 돌면서 그 곳을 둘러보고 그 망대들을 세어 보라</p>
+                <p><span class="verse-number">13</span> 그의 성벽을 자세히 보고 그의 궁궐을 살펴서 후대에 전하라</p>
+                <p><span class="verse-number">14</span> 이 하나님은 영원히 우리 하나님이시니 그가 우리를 죽을 때까지 인도하시리로다</p>
+            </div>
+        </article>
+
+        <section class="chapter-card integration-card">
+            <h2>통합적 이해: 하나님의 영광이 머무는 곳</h2>
+            <h3>관통하는 주제 (Overarching Theme)</h3>
+            <p>오늘의 네 본문은 '하나님의 영광스러운 임재'라는 주제를 중심으로 강력한 긴장과 조화를 이룹니다. 시편 48편은 하나님의 임재가 그의 백성에게 얼마나 큰 안전과 영광이 되는지를 노래합니다. 시온은 하나님이 거하시기에 아름답고 견고합니다. 그러나 나머지 세 본문은 그 거룩한 임재를 모독했을 때 어떤 무서운 결과가 따르는지를 보여주는 경고장입니다. 사울 왕은 하나님의 임재를 상징하는 기름 부음을 받았으나 불순종으로 버림받아 비참한 최후를 맞습니다. 에스겔의 예루살렘은 하나님의 성전이 있음에도 우상숭배로 더럽혀져, 하나님의 영광이 떠나고 끔찍한 심판의 장소가 됩니다. 고린도 교회는 그리스도의 몸과 피를 기념하는 성찬을 통해 주님의 임재 앞에 서지만, 분열과 무질서로 그 의미를 훼손하여 하나님의 징계를 받습니다.</p>
+            <p>이 본문들은 우리에게 다음과 같은 통합적 메시지를 던집니다. <strong>"하나님의 영광이 머무는 곳은 복되지만, 그곳은 반드시 거룩해야 한다."</strong> 하나님의 임재는 자동적인 축복의 보증수표가 아닙니다. 그것은 우리에게 합당한 반응, 즉 회개와 순종, 그리고 거룩한 삶을 요구합니다. 우리는 하나님의 임재를 가볍게 여기는 사울이나, 임재의 공간을 더럽힌 예루살렘, 혹은 임재의 예식을 모독한 고린도 교회의 전철을 밟지 않도록 자신을 살펴야 합니다.</p>
+
+            <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+            <div class="svg-container">
+                 <svg width="95%" viewBox="0 0 500 150" style="font-family: var(--font-main); font-size: 10px;">
+                    <title>구속사 속 하나님의 임재 장소</title>
+                    <line x1="10" y1="75" x2="490" y2="75" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-black)"/>
+                    <g>
+                        <circle cx="60" cy="75" r="5" fill="var(--color-book1)"/>
+                        <text x="60" y="60" text-anchor="middle" font-weight="bold">사울의 왕국</text>
+                        <text x="60" y="95" text-anchor="middle">(실패한 대리통치)</text>
+                    </g>
+                    <g>
+                        <circle cx="150" cy="75" r="5" fill="var(--color-book3)"/>
+                        <text x="150" y="60" text-anchor="middle" font-weight="bold">예루살렘 성전</text>
+                        <text x="150" y="95" text-anchor="middle">(떠나버린 영광)</text>
+                    </g>
+                    <g>
+                        <circle cx="250" cy="75" r="10" fill="#e74c3c"/>
+                        <text x="250" y="45" text-anchor="middle" font-weight="bold" font-size="12">예수 그리스도</text>
+                        <text x="250" y="105" text-anchor="middle" font-size="11">(참된 성전, 완전한 왕)</text>
+                        <text x="250" y="118" text-anchor="middle">"임마누엘"</text>
+                    </g>
+                     <g>
+                        <circle cx="350" cy="75" r="5" fill="var(--color-book2)"/>
+                        <text x="350" y="60" text-anchor="middle" font-weight="bold">교회 (성찬 공동체)</text>
+                        <text x="350" y="95" text-anchor="middle">(그리스도의 몸)</text>
+                    </g>
+                    <g>
+                        <circle cx="440" cy="75" r="5" fill="var(--color-integration)"/>
+                        <text x="440" y="60" text-anchor="middle" font-weight="bold">새 예루살렘</text>
+                        <text x="440" y="95" text-anchor="middle">(완성된 하나님 나라)</text>
+                    </g>
+                    <defs>
+                        <marker id="arrow-black" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+                 </svg>
+            </div>
+
+            <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
+            <p>네 본문은 구속사의 거대한 흐름 속에서 점진적으로 발전하는 '하나님의 임재' 개념을 보여줍니다.
+            <ul>
+                <li><strong>사무엘상 31장</strong>은 인간 왕을 통한 하나님의 대리 통치가 인간의 죄로 인해 실패할 수밖에 없음을 보여주며, 다윗을 넘어선 영원하고 완전한 왕, 즉 예수 그리스도의 필요성을 강력하게 제기합니다.</li>
+                <li><strong>에스겔 9장</strong>과 <strong>시편 48편</strong>은 '장소' 중심의 임재(성전, 시온) 개념을 보여줍니다. 그러나 하나님의 영광이 성전을 떠날 수 있다는 에스겔의 환상은, 더 이상 돌로 만든 건물이 아니라 새로운 성전이 필요함을 암시합니다. 이는 "자기 육체를 가리켜 성전이라"(요 2:21) 말씀하신 예수 그리스도 안에서 성취됩니다. 그분 자신이 하나님의 영광이 온전히 거하시는 참 성전이십니다.</li>
+                <li><strong>고린도전서 11장</strong>은 그리스도의 승천 이후, '교회'가 성령을 통해 하나님의 새로운 성전이 되었음을 보여줍니다. 성찬은 눈에 보이는 건물이 아니라, 그리스도의 몸 된 백성 공동체 가운데 주님이 임재하심을 확인하는 거룩한 예식입니다.</li>
+            </ul>
+            결국, 실패한 왕 사울, 더럽혀진 성전 예루살렘, 무질서한 교회 고린도는 모두 우리의 죄악된 실상을 드러내며, 우리의 유일한 소망이 참된 왕이시며 영원한 성전이신 예수 그리스도께 있음을 가리킵니다. 그분을 통해 우리는 장차 어린 양이 친히 성전이 되시는 새 예루살렘에 이르게 될 것입니다.</p>
+
+            <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>본문 (Passage)</th>
+                        <th>하나님의 임재 (God's Presence)</th>
+                        <th>심판 (Judgment)</th>
+                        <th>남은 자 / 거룩한 백성 (Remnant / Holy People)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>사무엘상 31</strong></td>
+                        <td>기름 부음 받은 왕을 통해 임재하심</td>
+                        <td>불순종한 왕과 그 가문의 비극적 죽음</td>
+                        <td>(암시적) 다윗 왕조를 통해 이어질 신실한 언약</td>
+                    </tr>
+                    <tr>
+                        <td><strong>고린도전서 11</strong></td>
+                        <td>성찬 예식을 통해 그리스도께서 임재하심</td>
+                        <td>주의 몸을 분별치 못함으로 인한 질병과 죽음</td>
+                        <td>자신을 살피고 합당하게 참여하는 성도들</td>
+                    </tr>
+                    <tr>
+                        <td><strong>에스겔 9</strong></td>
+                        <td>성전에 거하시는 하나님의 영광</td>
+                        <td>영광이 떠난 후 임하는 무서운 살육</td>
+                        <td>죄악으로 인해 탄식하는 자 (이마에 표 받은 자)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>시편 48</strong></td>
+                        <td>시온에 거하심으로 요새가 되어주심</td>
+                        <td>하나님의 위엄 앞에 대적들이 패주함</td>
+                        <td>주의 인자하심을 묵상하고 후대에 전하는 백성</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>오늘의 교훈 (Application)</h3>
+            <p>하나님의 자녀된 우리는 성령이 거하시는 '걸어 다니는 성전'입니다. 하나님의 임재는 우리에게 가장 큰 위로와 능력이지만, 동시에 거룩한 삶에 대한 엄중한 책임과 부르심이기도 합니다.
+            <ol>
+                <li><strong>삶의 예배를 점검합시다:</strong> 나의 삶의 중심에 하나님이 계십니까, 아니면 사울처럼 여전히 나의 명예와 계획이 왕 노릇 하고 있습니까? 하나님 앞에서 나의 불순종과 교만을 회개하며, 오직 주님만이 나의 왕이심을 고백합시다.</li>
+                <li><strong>마음의 성전을 정결케 합시다:</strong> 내 안에 예루살렘 성전처럼 숨겨진 우상은 없습니까? 세상의 가치관과 음란, 탐심을 성령의 능력으로 제거하고, 에스겔의 '남은 자'처럼 죄에 대해 탄식하며 애통하는 마음을 구합시다.</li>
+                <li><strong>거룩한 교제를 회복합시다:</strong> 성찬에 참여할 때, 단지 개인적인 은혜를 넘어 공동체 안의 형제자매를 돌아봅시다. 혹시 내가 무시하거나 상처 준 사람은 없습니까? 그리스도의 피로 하나 된 지체들을 사랑하며, 교회의 하나 됨을 힘써 지킵시다.</li>
+            </ol>
+            <strong>기도 제목:</strong> "거룩하신 하나님, 제 안에 성령으로 거하여 주시니 감사합니다. 그러나 연약하여 날마다 주님의 성전을 더럽혔음을 고백합니다. 사울과 예루살렘의 심판을 기억하며, 제 안의 모든 우상을 제거하고 죄를 애통하는 마음을 주옵소서. 그리스도의 보혈로 저를 정결케 하사, 하나님의 영광이 머무는 거룩한 성전으로 살아가게 하옵소서. 예수 그리스도의 이름으로 기도합니다. 아멘."</p>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 맥체인 성경읽기. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = '67eMm_Nvg9E';
+        const playPauseBtn = document.getElementById('playPauseBtn');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: { 'playsinline': 1 },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            playPauseBtn.disabled = false;
+            playPauseBtn.textContent = '성경듣기';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playPauseBtn.textContent = '일시정지';
+            } else {
+                playPauseBtn.textContent = '성경듣기';
+            }
+        }
+
+        function togglePlayPause() {
+            if (player && typeof player.getPlayerState === 'function') {
+                var playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+        
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+                event.preventDefault();
+                togglePlayPause();
+            }
+        });
+    </script>
+</body>
+</html>

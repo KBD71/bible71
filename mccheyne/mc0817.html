@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 17일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 0;
+        }
+
+        h1 .subtitle {
+            font-size: 0.6em;
+            color: #e74c3c;
+            display: block;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        .reading-scope {
+            font-size: 1.1em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .chapter-card {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid;
+            background-color: #fdfdfd;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .chapter-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-book1 { border-left-color: #4285F4; } /* Google Blue */
+        .card-book2 { border-left-color: #DB4437; } /* Google Red */
+        .card-book3 { border-left-color: #F4B400; } /* Google Yellow */
+        .card-book4 { border-left-color: #0F9D58; } /* Google Green */
+        .integration-card { border-left-color: #808080; } /* Grey */
+
+        h2, h3 {
+            font-family: 'Noto Serif KR', serif;
+            color: #34495e;
+            border-bottom: 1px solid #ecf0f1;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+
+        h2 { font-size: 1.8em; }
+        h3 { font-size: 1.4em; }
+
+        .bible-text strong {
+            display: block;
+            margin: 20px 0 10px 0;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+        .card-book1 .bible-text strong { color: #4285F4; }
+        .card-book2 .bible-text strong { color: #DB4437; }
+        .card-book3 .bible-text strong { color: #F4B400; }
+        .card-book4 .bible-text strong { color: #0F9D58; }
+
+        .verse-number {
+            font-weight: 700;
+            color: #888888;
+            margin-right: 8px;
+            font-size: 0.8em;
+            vertical-align: super;
+        }
+
+        .bible-text div {
+            margin-bottom: 5px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .key-verse {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .commentary-text {
+            color: #34495e;
+            padding-left: 10px;
+            border-left: 3px solid #bdc3c7;
+        }
+        
+        .svg-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .svg-container svg {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: 700;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+            border-top: 1px solid #e9ecef;
+        }
+
+        #audio-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #audio-control:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+        
+        #audio-control:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #player {
+            position: absolute;
+            left: -9999px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="player"></div>
+    <button id="audio-control" disabled>오디오 로딩 중...</button>
+
+    <div class="container">
+        <header>
+            <h1>8월 17일 맥체인 성경읽기<span class="subtitle">버림받음의 고통 속에 감추어진 하나님의 주권적 구원</span></h1>
+            <p class="reading-scope">사무엘상 9장, 로마서 7장, 예레미야 46장, 시편 22편</p>
+        </header>
+
+        <main>
+            <!-- Card 1: 사무엘상 9장 -->
+            <div class="chapter-card card-book1">
+                <h2>사무엘상 9장 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>베냐민 지파의 유력한 가문 출신인 사울이 잃어버린 암나귀를 찾는 사소한 여정으로 시작합니다. 그러나 이 우연처럼 보이는 모든 과정 속에는 이스라엘의 초대 왕을 세우시려는 하나님의 치밀하고 주권적인 섭리가 숨어 있었습니다. 사울은 나귀를 찾다가 결국 선견자 사무엘을 만나게 되고, 자신이 왕으로 선택받았다는 놀라운 소식을 듣게 됩니다. 이는 인간의 평범한 일상과 계획 속에 하나님의 위대한 구원 계획이 어떻게 개입하고 성취되는지를 보여주는 극적인 장면입니다.</p>
+                
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <div class="svg-container">
+                    <svg viewBox="0 0 400 200">
+                      <title>인간의 여정과 하나님의 섭리</title>
+                      <defs>
+                        <marker id="arrow-blue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                          <path d="M 0 0 L 10 5 L 0 10 z" fill="#4285F4" />
+                        </marker>
+                      </defs>
+                      <!-- Human Path -->
+                      <path d="M 20 150 C 100 180, 150 120, 200 150 C 250 180, 300 120, 380 150" stroke="#9E9E9E" stroke-width="2" fill="none" stroke-dasharray="4 4" />
+                      <text x="200" y="175" font-family="Noto Sans KR" font-size="12" text-anchor="middle" fill="#555">사울의 여정 (암나귀 찾기)</text>
+                      
+                      <!-- Divine Path -->
+                      <path d="M 20 50 L 380 50" stroke="#4285F4" stroke-width="3" fill="none" marker-end="url(#arrow-blue)" />
+                      <text x="200" y="30" font-family="Noto Sans KR" font-size="14" text-anchor="middle" fill="#0d47a1">하나님의 주권적 인도 (왕을 세우심)</text>
+                      
+                      <!-- Intersection Points -->
+                      <line x1="100" y1="50" x2="100" y2="155" stroke="#4285F4" stroke-width="1.5" stroke-dasharray="2,2"/>
+                      <circle cx="100" cy="50" r="8" fill="#fff" stroke="#4285F4" stroke-width="2"/>
+                      <text x="100" y="80" font-family="Noto Sans KR" font-size="10" text-anchor="middle">사환의 제안</text>
+
+                      <line x1="250" y1="50" x2="250" y2="150" stroke="#4285F4" stroke-width="1.5" stroke-dasharray="2,2"/>
+                      <circle cx="250" cy="50" r="8" fill="#fff" stroke="#4285F4" stroke-width="2"/>
+                      <text x="250" y="80" font-family="Noto Sans KR" font-size="10" text-anchor="middle">사무엘과의 만남</text>
+                    </svg>
+                </div>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>사무엘상 9장은 하나님의 절대 주권과 인간의 책임(또는 일상)이 어떻게 조화롭게 함께 작동하는지를 보여주는 탁월한 예입니다. 사울은 자신의 의지로 아버지를 위해 성실하게 암나귀를 찾아다녔지만, 그 모든 발걸음은 하나님의 보이지 않는 손에 의해 인도되고 있었습니다. 하나님은 사무엘에게 사울이 도착할 것을 하루 전에 미리 알려주셨습니다(9:15-16). 이는 역사의 주관자이신 하나님께서 당신의 뜻을 이루시기 위해 평범한 사람들의 일상적인 사건들까지도 사용하신다는 '일반 섭리'와 '특별 섭리'의 교리를 잘 보여줍니다. 사울의 겸손한 모습("나는 이스라엘 지파의 가장 작은 지파 베냐민 사람이 아니니이까...", 9:21)은 하나님께서 당신의 일꾼을 부르실 때 세상적인 조건이 아닌 중심을 보심을 암시합니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">사무엘상 9:16 - 내일 이맘때에 내가 베냐민 땅에서 한 사람을 네게로 보내리니 너는 그에게 기름을 부어 내 백성 이스라엘의 지도자로 삼으라 그가 내 백성을 블레셋 사람들의 손에서 구원하리라...</p>
+                        <p class="commentary-text">하나님께서 역사의 시간표를 정확하게 주관하고 계심을 보여줍니다. 사울과 사무엘의 만남은 결코 우연이 아니라, 이스라엘을 구원하시려는 하나님의 계획에 따른 필연적인 사건이었습니다. 우리의 삶의 만남도 이러한 하나님의 섭리 안에 있음을 신뢰할 수 있습니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">사무엘상 9:20 - ...암나귀들은 염려하지 말라 찾았느니라 온 이스라엘이 사모하는 자가 누구냐 너와 네 아버지의 온 집이 아니냐 하는지라</p>
+                        <p class="commentary-text">사울은 작은 문제(암나귀)에 매여 있었지만, 하나님은 그를 통해 훨씬 더 큰 그림(이스라엘의 구원)을 그리고 계셨습니다. 이는 우리가 당면한 문제에 함몰될 때, 하나님은 우리를 통해 더 위대한 일을 계획하고 계심을 상기시켜 줍니다. 우리의 시야를 나의 문제에서 하나님의 계획으로 옮겨야 합니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>사울이 왕으로 선택되다 (사무엘상 9장)</strong>
+                    <div><span class="verse-number">1</span>베냐민 지파에 기스라 이름하는 유력한 자가 있으니 그는 아비엘의 아들이요 스롤의 손자요 베고랏의 증손이요 아비아의 현손이며 베냐민 사람이더라</div>
+                    <div><span class="verse-number">2</span>기스에게 아들이 있으니 그의 이름은 사울이요 준수한 소년이라 이스라엘 자손 중에 그보다 더 준수한 자가 없고 키는 모든 백성보다 어깨 위만큼 더 컸더라</div>
+                    <div><span class="verse-number">3</span>사울의 아버지 기스가 암나귀들을 잃고 그의 아들 사울에게 이르되 너는 일어나 한 사환을 데리고 가서 암나귀들을 찾으라 하매</div>
+                    <div><span class="verse-number">4</span>그가 에브라임 산지와 살리사 땅으로 두루 다녀 보았으나 찾지 못하고 사알림 땅으로 두루 다녀 보았으나 그 곳에는 없었고 베냐민 사람의 땅으로 두루 다녀 보았으나 찾지 못하니라</div>
+                    <div><span class="verse-number">5</span>그들이 숩 땅에 이른 때에 사울이 함께 가던 사환에게 이르되 돌아가자 내 아버지께서 암나귀 생각은 고사하고 우리를 위하여 걱정하실까 두려워하노라 하니</div>
+                    <div><span class="verse-number">6</span>그가 대답하되 보소서 이 성읍에 하나님의 사람이 있는데 존경을 받는 사람이라 그가 말한 것은 반드시 다 응하나니 그리로 가사이다 그가 혹 우리가 갈 길을 가르쳐 줄까 하나이다 하는지라</div>
+                    <div><span class="verse-number">7</span>사울이 그의 사환에게 이르되 우리가 가면 그 사람에게 무엇을 드리겠느냐 우리 주머니에 먹을 것이 다하였으니 하나님의 사람에게 드릴 예물이 없도다 무엇이 있느냐 하니</div>
+                    <div><span class="verse-number">8</span>사환이 사울에게 다시 대답하여 이르되 보소서 내 손에 은 한 세겔의 사분의 일이 있으니 하나님의 사람에게 드려 우리 길을 가르쳐 달라 하겠나이다 하더라</div>
+                    <div><span class="verse-number">9</span>(옛적 이스라엘에 사람이 하나님께 가서 물으려 하면 말하기를 선견자에게로 가자 하였으니 지금 선지자라 하는 자를 옛적에는 선견자라 일컬었더라)</div>
+                    <div><span class="verse-number">10</span>사울이 그의 사환에게 이르되 네 말이 옳다 가자 하고 그들이 하나님의 사람이 있는 성읍으로 가니라</div>
+                    <div><span class="verse-number">11</span>그들이 성읍을 향한 비탈길로 올라가다가 물 길으러 나오는 소녀들을 만나 그들에게 묻되 선견자가 여기 있느냐 하니</div>
+                    <div><span class="verse-number">12</span>그들이 대답하여 이르되 있나이다 보소서 그가 당신보다 앞서 갔으니 빨리 가소서 백성이 오늘 산당에서 제사를 드리므로 그가 오늘 성읍에 들어오셨나이다</div>
+                    <div><span class="verse-number">13</span>당신들이 성읍으로 들어가면 그가 먹으러 산당에 올라가기 전에 곧 만나리이다 그가 오기 전에는 백성이 먹지 아니하다가 그가 와서야 제물을 축사한 후에야 청함을 받은 자가 먹나이다 그러므로 지금 올라가소서 곧 그를 만나리이다 하는지라</div>
+                    <div><span class="verse-number">14</span>그들이 성읍으로 올라가서 그리로 들어갈 때에 사무엘이 마침 산당으로 올라가려고 마주 나오더라</div>
+                    <div><span class="verse-number">15</span>사울이 오기 전날에 여호와께서 사무엘에게 알게 하여 이르시되</div>
+                    <div><span class="verse-number">16</span>내일 이맘때에 내가 베냐민 땅에서 한 사람을 네게로 보내리니 너는 그에게 기름을 부어 내 백성 이스라엘의 지도자로 삼으라 그가 내 백성을 블레셋 사람들의 손에서 구원하리라 내 백성의 부르짖음이 내게 상달되었으므로 내가 그들을 돌보았노라 하셨더니</div>
+                    <div><span class="verse-number">17</span>사무엘이 사울을 볼 때에 여호와께서 그에게 이르시되 보라 이는 내가 네게 말한 사람이니 이가 내 백성을 다스리리라 하시니라</div>
+                    <div><span class="verse-number">18</span>사울이 성문 안 사무엘에게 나아가 이르되 선견자의 집이 어디인지 청하건대 내게 가르치소서 하니</div>
+                    <div><span class="verse-number">19</span>사무엘이 사울에게 대답하여 이르되 내가 선견자이니라 너는 내 앞서 산당으로 올라가라 너희가 오늘 나와 함께 먹을 것이요 아침에는 내가 너를 보내되 네 마음에 있는 것을 다 네게 말하리라</div>
+                    <div><span class="verse-number">20</span>사흘 전에 잃은 네 암나귀들은 염려하지 말라 찾았느니라 온 이스라엘이 사모하는 자가 누구냐 너와 네 아버지의 온 집이 아니냐 하는지라</div>
+                    <div><span class="verse-number">21</span>사울이 대답하여 이르되 나는 이스라엘 지파의 가장 작은 지파 베냐민 사람이 아니니이까 또 나의 가족은 베냐민 지파 모든 가족 중에 가장 미약하지 아니하니이까 당신이 어찌하여 내게 이같이 말씀하시나이까 하니</div>
+                    <div><span class="verse-number">22</span>사무엘이 사울과 그의 사환을 인도하여 객실로 들어가서 청한 자 중 상석에 앉게 하였는데 객은 삼십 명 가량이었더라</div>
+                    <div><span class="verse-number">23</span>사무엘이 요리인에게 이르되 내가 네게 주며 네게 두라고 말한 그 부분을 가져오라</div>
+                    <div><span class="verse-number">24</span>요리인이 넓적다리와 그것에 붙은 것을 가져다가 사울 앞에 놓는지라 사무엘이 이르되 보라 이는 두었던 것이니 네 앞에 놓고 먹으라 내가 백성을 청할 때부터 너를 위하여 이것을 두고 이 때를 기다리게 하였느니라 그 날에 사울이 사무엘과 함께 먹으니라</div>
+                    <div><span class="verse-number">25</span>그들이 산당에서 내려 성읍에 들어가서는 사무엘이 사울과 함께 지붕에서 담화하고</div>
+                    <div><span class="verse-number">26</span>그들이 일찍이 일어날새 동틀 때쯤이라 사무엘이 지붕에서 사울을 불러 이르되 일어나라 내가 너를 보내리라 하매 사울이 일어나고 그 두 사람 사울과 사무엘이 함께 밖으로 나가서</div>
+                    <div><span class="verse-number">27</span>성읍 끝에 이르매 사무엘이 사울에게 이르되 사환에게 우리를 앞서게 하라 하니라 사환이 앞서가므로 또 이르되 너는 이제 잠깐 서 있으라 내가 하나님의 말씀을 네게 들려 주리라 하더라</div>
+                </div>
+            </div>
+
+            <!-- Card 2: 로마서 7장 -->
+            <div class="chapter-card card-book2">
+                <h2>로마서 7장 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>바울은 율법과 신자의 관계를 혼인 관계로 비유하며, 그리스도의 죽음으로 우리가 율법에 대해 죽고 이제는 성령 안에서 하나님을 섬기게 되었음을 설명합니다. 이어서 그는 율법 자체는 선하지만, 우리 안의 죄가 율법을 이용하여 오히려 죄를 더 드러나게 함을 고백합니다. 이로 인해 발생하는 내적 갈등, 즉 선을 행하려는 마음과 악을 행하는 육신의 치열한 싸움을 "오호라 나는 곤고한 사람이로다"라는 처절한 탄식으로 묘사합니다. 이 탄식은 인간의 전적인 무능력과 구원자에 대한 절대적인 필요를 절감하게 하며, 결국 예수 그리스도를 통한 감사로 이어집니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <div class="svg-container">
+                     <svg viewBox="0 0 400 200">
+                        <title>성도의 내적 갈등 (로마서 7장)</title>
+                        <g id="inner-self">
+                            <path d="M 200 20 C 100 20, 100 180, 200 180 C 300 180, 300 20, 200 20 Z" fill="#f5f5f5" stroke="#616161" stroke-width="2"/>
+                            <text x="200" y="15" font-family="Noto Sans KR" font-size="14" text-anchor="middle">나 (Ego)</text>
+                        </g>
+                        <!-- Mind desiring good -->
+                        <g id="new-man">
+                            <circle cx="140" cy="80" r="40" fill="#e3f2fd"/>
+                            <text x="140" y="75" font-family="Noto Sans KR" font-size="12" text-anchor="middle">속사람</text>
+                            <text x="140" y="95" font-family="Noto Sans KR" font-size="10" text-anchor="middle">(선을 원함)</text>
+                        </g>
+                        <!-- Flesh serving sin -->
+                        <g id="old-man">
+                            <circle cx="260" cy="80" r="40" fill="#ffebee"/>
+                            <text x="260" y="75" font-family="Noto Sans KR" font-size="12" text-anchor="middle">육신</text>
+                            <text x="260" y="95" font-family="Noto Sans KR" font-size="10" text-anchor="middle">(악을 행함)</text>
+                        </g>
+                        <!-- Conflict -->
+                        <path d="M 170 110 C 190 130, 210 130, 230 110" stroke="#DB4437" stroke-width="2" fill="none"/>
+                        <path d="M 180 120 L 170 110 L 180 100" stroke="#DB4437" stroke-width="2" fill="none"/>
+                        <path d="M 220 120 L 230 110 L 220 100" stroke="#DB4437" stroke-width="2" fill="none"/>
+                        <text x="200" y="145" font-family="Noto Sans KR" font-size="14" text-anchor="middle" fill="#c62828">갈등</text>
+                        <text x="200" y="170" font-family="Noto Sans KR" font-size="12" text-anchor="middle" font-weight="bold">"오호라 나는 곤고한 사람이로다"</text>
+                    </svg>
+                </div>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>로마서 7장의 이 치열한 내적 갈등의 주체가 누구인가에 대해서는 신학적으로 다양한 견해가 있습니다(불신자, 갓 회심한 신자, 성숙한 신자 등). 개혁주의 전통에서는 대체로 이 고백을 구원받은 신자, 특히 바울 자신의 영적 상태를 묘사한 것으로 봅니다. 이는 '의인이면서 동시에 죄인'(simul justus et peccator)이라는 루터의 유명한 명제로 설명됩니다. 신자는 법적으로 의롭다 칭함 받았지만, 여전히 육신에 남아있는 죄의 세력과 싸워야 하는 실존적 상황에 놓여있습니다. 율법은 거룩하고 선하지만, 죄를 치료하는 약이 아니라 죄를 진단하는 '엑스레이'와 같습니다. 이 장의 절망적인 탄식은 바로 다음 장, 로마서 8장에서 선포될 '성령을 통한 완전한 해방과 승리'를 위한 극적인 장치이자 필수적인 전주곡입니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">로마서 7:6 - 이제는 우리가 얽매였던 것에 대하여 죽었으므로 율법에서 벗어났으니 이러므로 우리가 영의 새로운 것으로 섬길 것이요 율법 조문의 묵은 것으로 아니할지니라</p>
+                        <p class="commentary-text">그리스도인의 신앙생활은 율법 조항을 억지로 지키는 '의무'가 아니라, 성령 안에서 자발적인 사랑으로 섬기는 '관계'의 차원으로 전환되었음을 선포합니다. 우리는 더 이상 율법의 종이 아니라, 성령의 인도함을 받는 하나님의 자녀입니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">로마서 7:24 - 오호라 나는 곤고한 사람이로다 이 사망의 몸에서 누가 나를 건져내랴</p>
+                        <p class="commentary-text">자신의 힘으로는 죄의 권세에서 벗어날 수 없다는 인간의 전적인 무능력과 절망을 가장 극적으로 표현한 구절입니다. 이 깊은 자기 절망은 외부의 구원자를 향한 간절한 부르짖음으로 이어집니다. 철저한 자기 부인이 참된 은혜를 경험하는 출발점입니다.</p>
+                    </li>
+                     <li>
+                        <p class="key-verse">로마서 7:25 - 우리 주 예수 그리스도로 말미암아 하나님께 감사하리로다 그런즉 내 자신이 마음으로는 하나님의 법을, 육신으로는 죄의 법을 섬기노라</p>
+                        <p class="commentary-text">절망적인 질문(24절)에 대한 유일한 해답은 '예수 그리스도'이심을 선포합니다. 비록 내면의 갈등은 지속되지만, 승리는 이미 그리스도 안에서 보장되었기에 감사할 수 있습니다. 이는 성도의 현실적인 갈등과 신학적인 승리를 동시에 인정하는 균형 잡힌 고백입니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>율법으로부터의 자유 (로마서 7장)</strong>
+                    <div><span class="verse-number">1</span>형제들아 내가 법 아는 자들에게 말하노니 너희는 그 법이 사람이 살 동안만 그를 주관하는 줄 알지 못하느냐</div>
+                    <div><span class="verse-number">2</span>남편 있는 여인이 그 남편 생전에는 법으로 그에게 매인 바 되나 만일 그 남편이 죽으면 남편의 법에서 벗어나느니라</div>
+                    <div><span class="verse-number">3</span>그러므로 만일 그 남편 생전에 다른 남자에게 가면 음녀라 불리되 만일 남편이 죽으면 그 법에서 자유롭게 되나니 다른 남자에게 갈지라도 음녀가 되지 아니하느니라</div>
+                    <div><span class="verse-number">4</span>그러므로 내 형제들아 너희도 그리스도의 몸으로 말미암아 율법에 대하여 죽임을 당하였으니 이는 다른 이 곧 죽은 자 가운데서 살아나신 이에게 가서 우리가 하나님을 위하여 열매를 맺게 하려 함이라</div>
+                    <div><span class="verse-number">5</span>우리가 육신에 있을 때에는 율법으로 말미암는 죄의 정욕이 우리 지체 중에 역사하여 우리로 사망을 위하여 열매를 맺게 하였더니</div>
+                    <div><span class="verse-number">6</span>이제는 우리가 얽매였던 것에 대하여 죽었으므로 율법에서 벗어났으니 이러므로 우리가 영의 새로운 것으로 섬길 것이요 율법 조문의 묵은 것으로 아니할지니라</div>
+                    
+                    <strong>율법과 죄의 관계, 그리고 내적 갈등</strong>
+                    <div><span class="verse-number">7</span>그런즉 우리가 무슨 말을 하리요 율법이 죄냐 그럴 수 없느니라 율법으로 말미암지 않고는 내가 죄를 알지 못하였으니 곧 율법이 탐내지 말라 하지 아니하였더라면 내가 탐심을 알지 못하였으리라</div>
+                    <div><span class="verse-number">8</span>그러나 죄가 기회를 타서 계명으로 말미암아 내 속에서 온갖 탐심을 이루었나니 이는 율법이 없으면 죄가 죽은 것임이라</div>
+                    <div><span class="verse-number">9</span>전에 율법을 깨닫지 못했을 때에는 내가 살았더니 계명이 이르매 죄는 살아나고 나는 죽었도다</div>
+                    <div><span class="verse-number">10</span>생명에 이르게 할 그 계명이 내게 대하여 도리어 사망에 이르게 하는 것이 되었도다</div>
+                    <div><span class="verse-number">11</span>죄가 기회를 타서 계명으로 말미암아 나를 속이고 그것으로 나를 죽였는지라</div>
+                    <div><span class="verse-number">12</span>이로 보건대 율법은 거룩하고 계명도 거룩하고 의로우며 선하도다</div>
+                    <div><span class="verse-number">13</span>그런즉 선한 것이 내게 사망이 되었느냐 그럴 수 없느니라 오직 죄가 죄로 드러나기 위하여 선한 그것으로 말미암아 나를 죽게 만들었으니 이는 계명으로 말미암아 죄로 심히 죄 되게 하려 함이라</div>
+                    <div><span class="verse-number">14</span>우리가 율법은 신령한 줄 알거니와 나는 육신에 속하여 죄 아래에 팔렸도다</div>
+                    <div><span class="verse-number">15</span>내가 행하는 것을 내가 알지 못하노니 곧 내가 원하는 것은 행하지 아니하고 도리어 미워하는 것을 행함이라</div>
+                    <div><span class="verse-number">16</span>만일 내가 원하지 아니하는 그것을 행하면 내가 이로써 율법이 선한 것을 시인하노니</div>
+                    <div><span class="verse-number">17</span>이제는 그것을 행하는 자가 내가 아니요 내 속에 거하는 죄니라</div>
+                    <div><span class="verse-number">18</span>내 속 곧 내 육신에 선한 것이 거하지 아니하는 줄을 아노니 원함은 내게 있으나 선을 행하는 것은 없노라</div>
+                    <div><span class="verse-number">19</span>내가 원하는 바 선은 행하지 아니하고 도리어 원하지 아니하는 바 악을 행하는도다</div>
+                    <div><span class="verse-number">20</span>만일 내가 원하지 아니하는 그것을 하면 이를 행하는 자는 내가 아니요 내 속에 거하는 죄니라</div>
+                    <div><span class="verse-number">21</span>그러므로 내가 한 법을 깨달았노니 곧 선을 행하기 원하는 나에게 악이 함께 있는 것이로다</div>
+                    <div><span class="verse-number">22</span>내 속사람으로는 하나님의 법을 즐거워하되</div>
+                    <div><span class="verse-number">23</span>내 지체 속에서 한 다른 법이 내 마음의 법과 싸워 내 지체 속에 있는 죄의 법으로 나를 사로잡는 것을 보는도다</div>
+                    <div><span class="verse-number">24</span>오호라 나는 곤고한 사람이로다 이 사망의 몸에서 누가 나를 건져내랴</div>
+                    <div><span class="verse-number">25</span>우리 주 예수 그리스도로 말미암아 하나님께 감사하리로다 그런즉 내 자신이 마음으로는 하나님의 법을, 육신으로는 죄의 법을 섬기노라</div>
+                </div>
+            </div>
+
+            <!-- Card 3: 예레미야 46장 -->
+            <div class="chapter-card card-book3">
+                <h2>예레미야 46장 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>예레미야는 열방을 향한 심판의 메시지를 선포하며, 그 첫 대상으로 당시의 초강대국이었던 애굽을 지목합니다. B.C. 605년, 유브라데 강 가의 갈그미스에서 벌어진 전투에서 애굽이 바벨론에게 참패할 것을 생생하게 예언합니다. 나일 강의 풍요로움을 믿고 교만했던 애굽의 군대가 수치와 멸망을 당하는 모습을 통해, 세상의 어떤 강대한 권세도 역사의 주관자이신 하나님의 심판 앞에서는 무력함을 선포합니다. 그러나 이방 나라를 향한 심판의 메시지 끝에, 하나님은 당신의 백성 야곱(이스라엘)에게는 두려워 말라 하시며 징계는 하시되 완전히 멸하지는 않으실 것이라는 구원의 약속을 덧붙이십니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <div class="svg-container">
+                    <svg viewBox="0 0 400 200">
+                        <title>세상 권력의 몰락과 하나님의 주권</title>
+                        <!-- Proud Egypt -->
+                        <path d="M 10 180 Q 100 100, 200 180 T 390 180" stroke="#0077c2" stroke-width="4" fill="none"/>
+                        <text x="100" y="150" font-family="Noto Sans KR" font-size="14" fill="#0077c2">교만한 애굽 (나일 강)</text>
+                        <text x="100" y="120" font-family="Noto Sans KR" font-size="20">🛡️🐴</text>
+
+                        <!-- Judgment -->
+                        <g transform="translate(250, 60) rotate(15)">
+                            <rect x="-40" y="-15" width="80" height="30" fill="#F4B400" />
+                            <text x="0" y="5" font-family="Noto Sans KR" font-size="16" text-anchor="middle" fill="#fff">하나님의 심판</text>
+                        </g>
+                        <line x1="250" y1="80" x2="200" y2="160" stroke="#F4B400" stroke-width="5" marker-end="url(#arrow-blue)"/>
+
+                        <!-- Israel's Hope -->
+                        <circle cx="350" cy="50" r="30" fill="#e8f5e9"/>
+                        <text x="350" y="55" font-family="Noto Sans KR" font-size="12" text-anchor="middle" fill="#2e7d32">남은 자</text>
+                        <text x="350" y="70" font-family="Noto Sans KR" font-size="10" text-anchor="middle" fill="#2e7d32">(야곱)</text>
+                    </svg>
+                </div>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>갈그미스 전투는 고대 근동의 패권이 앗수르와 애굽에서 신흥 강대국 바벨론으로 넘어가는 결정적인 분기점이 된 실제 역사적 사건입니다. 예레미야는 이 국제 정세의 격변을 단순한 인간들의 전쟁으로 보지 않고, 교만한 열방을 심판하시고 당신의 뜻을 이루시는 하나님의 주권적인 통치의 관점에서 해석합니다. 애굽의 힘의 상징인 '나일 강'과 그들의 '병거와 말'은 하나님의 심판 앞에서 아무런 힘을 발휘하지 못합니다. 이는 세상이 의지하는 모든 권력과 부와 힘의 유한성을 보여줍니다. 이러한 열방 심판의 맥락 속에서 "내 종 야곱아 두려워하지 말라"는 말씀은 더욱 큰 위로로 다가옵니다. 세상 나라들은 흥망성쇠를 거듭하지만, 하나님과 언약을 맺은 백성은 비록 징계는 받을지언정 결코 완전히 버림받지 않는다는 '남은 자 사상'을 명확히 보여줍니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">예레미야 46:17 - 그들이 그 곳에서 부르짖기를 애굽의 왕 바로는 소리만 클 뿐 시기가 지난 허수아비라 하더라</p>
+                        <p class="commentary-text">세상 권력의 허무함을 통렬하게 지적합니다. 화려하고 위협적으로 보이지만, 하나님의 때가 되면 아무런 힘도 쓰지 못하는 '허수아비'와 같다는 것입니다. 이는 우리에게 영원한 권세자이신 하나님만을 경외하도록 촉구합니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">예레미야 46:28 - 나 여호와가 말하노라 나의 종 야곱아 내가 너와 함께 있나니 두려워하지 말라 내가 너를 흩었던 그 모든 이방을 멸할지라도 너는 아주 멸하지 아니하리라...</p>
+                        <p class="commentary-text">심판의 하나님은 동시에 구원의 하나님이십니다. 열방을 향한 공의로운 심판과 자기 백성을 향한 언약적 사랑이 나란히 선포됩니다. 하나님의 징계는 파멸이 목적이 아니라, 정결하게 하여 회복시키기 위함임을 보여주는 소망의 메시지입니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>애굽에 대한 심판 (예레미야 46장)</strong>
+                    <div><span class="verse-number">1</span>이방 나라들에 대하여 선지자 예레미야에게 임한 여호와의 말씀이라</div>
+                    <div><span class="verse-number">2</span>애굽에 관한 것이니 곧 유다의 요시야 왕의 아들 여호야김 넷째 해에 유브라데 강 가 갈그미스에서 바벨론의 느부갓네살 왕에게 패한 애굽의 왕 바로느고의 군대에 대한 말씀이라</div>
+                    <div><span class="verse-number">3</span>너희는 방패와 손 방패를 준비하고 나아가서 싸우라</div>
+                    <div><span class="verse-number">4</span>너희 기병이여 말에 안장을 얹어 타며 투구를 쓰고 나서며 창을 갈며 갑옷을 입으라</div>
+                    <div><span class="verse-number">5</span>여호와의 말씀이니라 내가 본즉 그들이 놀라 물러가며 그들의 용사는 패하여 급히 도망하며 뒤를 돌아보지 아니함은 어찜이냐 사방에 두려움이 있음이로다</div>
+                    <div><span class="verse-number">6</span>발이 빠른 자도 도망하지 못하며 용사도 피하지 못하고 그들이 다 북쪽에서 유브라데 강 가에 넘어지며 엎드러지는도다</div>
+                    <div><span class="verse-number">7</span>저 나일 강이 불어남 같고 강물이 출렁임 같은 자 누구냐</div>
+                    <div><span class="verse-number">8</span>애굽이 나일 강이 불어남 같고 그 강물이 출렁임 같도다 그가 이르되 내가 일어나 땅을 덮어 성읍들과 그 주민을 멸할 것이라</div>
+                    <div><span class="verse-number">9</span>말들아 달려라 병거들아 정신 없이 달려라 용사여 나오라 구스와 붓과 방패 잡은 자와 활을 당기는 루딤 사람이여 나올지니라 하거니와</div>
+                    <div><span class="verse-number">10</span>그 날은 주 만군의 여호와께서 그의 대적에게 원수 갚는 보복일이라 칼이 배부르게 삼키며 그들의 피를 넘치도록 마시리니 주 만군의 여호와께서 북쪽 유브라데 강 가에서 희생제물을 받으실 것임이로다</div>
+                    <div><span class="verse-number">11</span>처녀 딸 애굽이여 길르앗으로 올라가서 유향을 가져오라 네가 많은 약을 쓸지라도 소용이 없어 낫지 못하리라</div>
+                    <div><span class="verse-number">12</span>네 수치가 나라들에 들렸고 네 부르짖음은 땅에 가득하였나니 용사가 용사에게 걸려 넘어져 둘이 함께 엎드러졌음이라</div>
+                    <div><span class="verse-number">13</span>바벨론의 느부갓네살 왕이 와서 애굽 땅을 칠 일에 대하여 선지자 예레미야에게 이르신 여호와의 말씀이라</div>
+                    <div><span class="verse-number">14</span>너희는 애굽에 선포하며 믹돌과 놉과 다바네스에 선포하여 말하기를 너희는 굳건히 서서 준비하라 네 사방이 칼에 삼키웠느니라</div>
+                    <div><span class="verse-number">15</span>너희의 장사들이 쓰러짐은 어찌함이냐 그들이 서지 못함은 여호와께서 그들을 몰아내셨기 때문이니라</div>
+                    <div><span class="verse-number">16</span>그가 많은 사람을 넘어지게 하시니 사람이 사람 위에 엎드러지며 이르되 일어나라 우리가 포악한 칼을 피하여 우리 민족에게로, 우리 고향으로 돌아가자 하며</div>
+                    <div><span class="verse-number">17</span>그들이 그 곳에서 부르짖기를 애굽의 왕 바로는 소리만 클 뿐 시기가 지난 허수아비라 하더라</div>
+                    <div><span class="verse-number">18</span>만군의 여호와라 일컫는 왕이 이르시되 나의 삶으로 맹세하노니 그는 진실로 산들 중의 다볼 같이, 해변의 갈멜 같이 오리라</div>
+                    <div><span class="verse-number">19</span>애굽에 사는 딸이여 너는 너를 위하여 포로의 짐을 꾸리라 놉이 황무하며 불타서 주민이 없을 것임이라</div>
+                    <div><span class="verse-number">20</span>애굽은 심히 아름다운 암송아지일지라도 북으로부터 멸망이 이르렀고 이르렀느니라</div>
+                    <div><span class="verse-number">21</span>또 그 중에 고용된 군인은 살진 송아지 같아서 돌이켜 함께 도망하고 서지 못하였나니 재난의 날이 이르렀고 벌 받는 때가 왔음이라</div>
+                    <div><span class="verse-number">22</span>애굽의 소리가 뱀의 소리 같으리니 이는 그들의 군대가 벌목하는 자 같이 도끼를 가지고 올 것임이라</div>
+                    <div><span class="verse-number">23</span>여호와의 말씀이니라 그들이 황충보다 많고 셀 수 없으므로 조사할 수 없는 그의 수풀을 찍을 것이라</div>
+                    <div><span class="verse-number">24</span>딸 애굽이 수치를 당하여 북쪽 백성의 손에 붙임을 당하리로다</div>
+                    <div><span class="verse-number">25</span>만군의 여호와 이스라엘의 하나님께서 말씀하시니라 보라 내가 놉의 아몬과 바로와 애굽과 애굽 신들과 왕들 곧 바로와 및 그를 의지하는 자들을 벌할 것이라</div>
+                    <div><span class="verse-number">26</span>내가 그들의 생명을 노리는 자의 손 곧 바벨론의 느부갓네살 왕의 손과 그 종들의 손에 넘기리라 그럴지라도 그 후에는 그 땅이 이전 같이 사람 살 곳이 되리라 여호와의 말씀이니라</div>
+                    <div><span class="verse-number">27</span>내 종 야곱아 두려워하지 말라 이스라엘아 놀라지 말라 보라 내가 너를 먼 곳에서 구원하며 네 자손을 포로된 땅에서 구원하리니 야곱이 돌아와서 태평과 안락을 누릴 것이며 그를 두렵게 할 자가 없으리라</div>
+                    <div><span class="verse-number">28</span>여호와의 말씀이니라 내 종 야곱아 내가 너와 함께 있나니 두려워하지 말라 내가 너를 흩었던 그 모든 이방을 멸할지라도 너는 아주 멸하지 아니하리라 내가 너를 법도에 따라 징계할 것이요 결코 무죄한 자로 여기지는 아니하리라</div>
+                </div>
+            </div>
+
+            <!-- Card 4: 시편 22편 -->
+            <div class="chapter-card card-book4">
+                <h2>시편 22편 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>시편 22편은 "엘리 엘리 라마 사박다니"라는 예수님의 십자가상 절규로 시작하는 가장 대표적인 '메시아 고난 시편'입니다. 시인은 하나님으로부터 버림받은 듯한 극심한 고통과 주변 사람들의 조롱, 육체적 쇠약함을 처절하게 토로합니다. 그러나 이 절망의 한가운데서 시인의 시선은 자신을 구원하실 하나님에 대한 신뢰로 전환됩니다. 시의 후반부는 고난에서 건짐 받은 후 하나님을 찬양하며, 온 땅의 모든 족속이 주께 돌아와 경배하게 될 것이라는 위대한 비전으로 마무리됩니다. 이는 고난을 통과하여 영광에 이르는 구원의 원리를 극적으로 보여줍니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <div class="svg-container">
+                    <svg viewBox="0 0 400 200">
+                        <title>고난에서 찬양으로의 전환</title>
+                        <!-- Suffering Part (vv. 1-21) -->
+                        <path d="M 20 180 C 80 20, 120 20, 200 100" stroke="#757575" stroke-width="3" fill="none"/>
+                        <circle cx="20" cy="180" r="10" fill="#757575"/>
+                        <text x="60" y="180" font-family="Noto Sans KR" font-size="12">"어찌 나를 버리셨나이까"</text>
+                        <text x="120" y="60" font-family="Noto Sans KR" font-size="12">십자가의 고난</text>
+                        
+                        <!-- Praise Part (vv. 22-31) -->
+                        <path d="M 200 100 C 280 180, 320 180, 380 20" stroke="#0F9D58" stroke-width="3" fill="none"/>
+                        <circle cx="380" cy="20" r="10" fill="#0F9D58"/>
+                        <text x="340" y="20" font-family="Noto Sans KR" font-size="12" text-anchor="end">"온 땅이 주를 경배하리라"</text>
+                        <text x="280" y="150" font-family="Noto Sans KR" font-size="12">부활의 영광</text>
+
+                        <!-- Turning Point -->
+                        <circle cx="200" cy="100" r="12" fill="#fff" stroke="#333" stroke-width="2"/>
+                        <text x="200" y="105" font-family="Noto Sans KR" font-size="10" text-anchor="middle">전환</text>
+                    </svg>
+                </div>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>신약성경은 시편 22편을 예수 그리스도의 십자가 고난을 가장 정확하게 예언한 본문으로 인용합니다. 예수님 자신이 십자가 위에서 이 시편의 첫 구절을 외치셨고(마 27:46), 옷을 제비 뽑는 장면(시 22:18, 요 19:24), 손과 발이 찔리는 묘사(시 22:16) 등은 십자가 사건을 놀라울 정도로 상세하게 예언하고 있습니다. 개혁주의 신학에서 이 시편은 그리스도의 '대속적 고난'의 핵심을 보여줍니다. 그리스도께서 하나님으로부터 버림받는 고통을 겪으신 이유는, 바로 죄인 된 우리가 받아야 할 형벌을 대신 받으시기 위함이었습니다. 그의 버림받음으로 우리가 하나님께 받아들여졌고, 그의 고통으로 우리가 치유를 얻었습니다. 따라서 이 시편의 탄식은 단순한 고통의 표현이 아니라, 인류를 구원하기 위한 하나님의 위대한 드라마의 절정입니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">시편 22:1 - 내 하나님이여 내 하나님이여 어찌 나를 버리셨나이까 어찌 나를 멀리 하여 돕지 아니하시오며 내 신음 소리를 듣지 아니하시나이까</p>
+                        <p class="commentary-text">성부 하나님과의 단절이라는, 상상할 수 없는 가장 깊은 영적 고통을 표현하는 절규입니다. 예수님께서 십자가에서 이 구절을 인용하심으로, 인류의 모든 죄를 짊어지신 대속의 고난이 얼마나 처절한 것이었는지를 보여주셨습니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">시편 22:18 - 내 겉옷을 나누며 속옷을 제비 뽑나이다</p>
+                        <p class="commentary-text">수백 년 후 십자가 아래에서 로마 병사들에 의해 문자 그대로 성취된 예언입니다(요 19:24). 이는 성경의 영감과 통일성, 그리고 예수님의 고난이 우연이 아닌 하나님의 계획 안에 있었음을 증명하는 강력한 증거입니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">시편 22:27 - 땅의 모든 끝이 여호와를 기억하고 돌아오며 모든 나라의 모든 족속이 주의 앞에 예배하리니</p>
+                        <p class="commentary-text">한 개인의 처절한 고난이 어떻게 온 세상을 향한 구원과 예배의 회복으로 이어지는지를 보여주는 위대한 반전입니다. 그리스도의 십자가 고난은 실패가 아니라, 모든 족속을 하나님께로 이끄는 가장 위대한 승리의 시작이었습니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>고난받는 의인의 기도와 찬양 (시편 22편)</strong>
+                    <div><span class="verse-number">1</span>내 하나님이여 내 하나님이여 어찌 나를 버리셨나이까 어찌 나를 멀리 하여 돕지 아니하시오며 내 신음 소리를 듣지 아니하시나이까</div>
+                    <div><span class="verse-number">2</span>내 하나님이여 내가 낮에도 부르짖고 밤에도 잠잠하지 아니하오나 응답하지 아니하시나이다</div>
+                    <div><span class="verse-number">3</span>이스라엘의 찬송 중에 계시는 주여 주는 거룩하시니이다</div>
+                    <div><span class="verse-number">4</span>우리 조상들이 주께 의뢰하고 의뢰하였으므로 그들을 건지셨나이다</div>
+                    <div><span class="verse-number">5</span>그들이 주께 부르짖어 구원을 얻고 주께 의뢰하여 수치를 당하지 아니하였나이다</div>
+                    <div><span class="verse-number">6</span>나는 벌레요 사람이 아니라 사람의 비방거리요 백성의 조롱거리니이다</div>
+                    <div><span class="verse-number">7</span>나를 보는 자는 다 나를 비웃으며 입술을 비쭉거리고 머리를 흔들며 말하되</div>
+                    <div><span class="verse-number">8</span>그가 여호와께 의탁하니 구원하실 걸, 그를 기뻐하시니 건지실 걸 하나이다</div>
+                    <div><span class="verse-number">9</span>오직 주께서 나를 모태에서 나오게 하시고 내 어머니의 젖을 먹을 때에 의지하게 하셨나이다</div>
+                    <div><span class="verse-number">10</span>내가 날 때부터 주께 맡긴 바 되었고 모태에서부터 주는 나의 하나님이 되셨나이다</div>
+                    <div><span class="verse-number">11</span>나를 멀리 하지 마옵소서 환난이 가까우나 도울 자 없나이다</div>
+                    <div><span class="verse-number">12</span>많은 황소가 나를 에워싸며 바산의 힘센 소들이 나를 둘러쌌으며</div>
+                    <div><span class="verse-number">13</span>내게 그 입을 벌림이 찢으며 부르짖는 사자 같으니이다</div>
+                    <div><span class="verse-number">14</span>나는 물 같이 쏟아졌으며 내 모든 뼈는 어그러졌으며 내 마음은 밀랍 같아서 내 속에서 녹았으며</div>
+                    <div><span class="verse-number">15</span>내 힘이 말라 질그릇 조각 같고 내 혀가 입천장에 붙었나이다 주께서 또 나를 죽음의 진토 속에 두셨나이다</div>
+                    <div><span class="verse-number">16</span>개들이 나를 에워쌌으며 악한 무리가 나를 둘러 내 수족을 찔렀나이다</div>
+                    <div><span class="verse-number">17</span>내가 내 모든 뼈를 셀 수 있나이다 그들이 나를 주목하여 보고</div>
+                    <div><span class="verse-number">18</span>내 겉옷을 나누며 속옷을 제비 뽑나이다</div>
+                    <div><span class="verse-number">19</span>여호와여 멀리 하지 마옵소서 나의 힘이시여 속히 나를 도우소서</div>
+                    <div><span class="verse-number">20</span>내 생명을 칼에서 건지시며 내 유일한 것을 개의 세력에서 구하소서</div>
+                    <div><span class="verse-number">21</span>나를 사자의 입에서 구하소서 주께서 내게 응답하시고 들소의 뿔에서 구원하셨나이다</div>
+                    <div><span class="verse-number">22</span>내가 주의 이름을 형제에게 선포하고 회중 가운데에서 주를 찬송하리이다</div>
+                    <div><span class="verse-number">23</span>여호와를 두려워하는 너희여 그를 찬송할지어다 야곱의 모든 자손이여 그에게 영광을 돌릴지어다 너희 이스라엘 모든 자손이여 그를 경외할지어다</div>
+                    <div><span class="verse-number">24</span>그는 곤고한 자의 곤고를 멸시하거나 싫어하지 아니하시며 그의 얼굴을 그에게서 숨기지 아니하시고 그가 부르짖을 때에 들으셨도다</div>
+                    <div><span class="verse-number">25</span>큰 회중 가운데에서 나의 찬송은 주께로부터 온 것이니 주를 경외하는 자 앞에서 나의 서원을 갚으리이다</div>
+                    <div><span class="verse-number">26</span>겸손한 자는 먹고 배부를 것이며 여호와를 찾는 자는 그를 찬송할 것이라 너희 마음은 영원히 살지어다</div>
+                    <div><span class="verse-number">27</span>땅의 모든 끝이 여호와를 기억하고 돌아오며 모든 나라의 모든 족속이 주의 앞에 예배하리니</div>
+                    <div><span class="verse-number">28</span>나라는 여호와의 것이요 여호와는 모든 나라의 주재심이로다</div>
+                    <div><span class="verse-number">29</span>세상의 모든 풍성한 자가 먹고 경배할 것이요 진토 속으로 내려가는 자 곧 자기 영혼을 살리지 못할 자도 다 그 앞에 절하리로다</div>
+                    <div><span class="verse-number">30</span>후손이 그를 섬길 것이요 대대에 주를 전할 것이며</div>
+                    <div><span class="verse-number">31</span>와서 그의 공의를 태어날 백성에게 전함이여 주께서 이를 행하셨다 할 것이로다</div>
+                </div>
+            </div>
+
+            <!-- Card 5: 통합적 이해 -->
+            <div class="chapter-card integration-card">
+                <h2>통합적 이해 및 구속사적 연결</h2>
+                <h3>관통하는 주제: 버림받음의 고통 속에 감추어진 하나님의 주권적 구원</h3>
+                <p>오늘의 본문들은 표면적으로는 각기 다른 시대의 다른 고통을 이야기하지만, 그 중심에는 '하나님의 주권'과 '의인의 고난'이라는 두 개의 큰 기둥이 서 있습니다. 사울은 하나님의 주권적인 선택으로 왕이 되지만, 그의 후손은 결국 버림받습니다. 로마서의 성도는 구원받았음에도 불구하고 내면의 죄로 인해 고통받으며 '버림받은 자'처럼 탄식합니다. 예레미야는 강대국 애굽이 하나님의 주권 아래 철저히 심판받고 버림받는 것을 선포합니다. 그리고 이 모든 고난과 버림받음의 정점에서, 시편 22편은 메시아께서 하나님께 철저히 버림받는 고통을 통해 온 세상을 구원하시는 하나님의 역설적인 구원 계획을 노래합니다.</p>
+
+                <h3>구속사의 파노라마 (시각적 연결고리)</h3>
+                <div class="svg-container">
+                    <svg viewBox="0 0 800 150">
+                        <title>고난과 주권의 교차점: 십자가</title>
+                        <defs>
+                            <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#808080" />
+                            </marker>
+                        </defs>
+                        <!-- Line -->
+                        <path d="M 50 75 L 750 75" stroke="#808080" stroke-width="2" fill="none" marker-end="url(#arrow-gray)"/>
+                        <!-- Nodes -->
+                        <g>
+                            <circle cx="100" cy="75" r="15" fill="#4285F4"/>
+                            <text x="100" y="110" text-anchor="middle" font-size="12">사무엘상</text>
+                            <text x="100" y="125" text-anchor="middle" font-size="10">(주권적 선택)</text>
+                        </g>
+                        <g>
+                            <circle cx="300" cy="75" r="15" fill="#DB4437"/>
+                            <text x="300" y="110" text-anchor="middle" font-size="12">로마서</text>
+                            <text x="300" y="125" text-anchor="middle" font-size="10">(내적 고난)</text>
+                        </g>
+                        <g>
+                            <circle cx="500" cy="75" r="15" fill="#F4B400"/>
+                            <text x="500" y="110" text-anchor="middle" font-size="12">예레미야</text>
+                            <text x="500" y="125" text-anchor="middle" font-size="10">(세상의 심판)</text>
+                        </g>
+                        <g>
+                            <circle cx="700" cy="75" r="15" fill="#0F9D58"/>
+                            <text x="700" y="110" text-anchor="middle" font-size="12">시편</text>
+                            <text x="700" y="125" text-anchor="middle" font-size="10">(대속적 고난)</text>
+                        </g>
+                        <!-- Labels -->
+                        <text x="200" y="65" text-anchor="middle" font-size="12" fill="#555">하나님의 계획</text>
+                        <text x="400" y="65" text-anchor="middle" font-size="12" fill="#555">인간의 고통</text>
+                        <text x="600" y="65" text-anchor="middle" font-size="12" fill="#555">구원의 정점</text>
+                    </svg>
+                </div>
+
+                <h3>본문별 연결고리 및 구속사적 맥락</h3>
+                <p>
+                    <b>사무엘상 9장</b>은 하나님의 주권적인 계획이 어떻게 한 개인의 평범한 일상에 임하는지를 보여줍니다. 사울의 이야기는 구원 역사의 주도권이 전적으로 하나님께 있음을 보여주는 서막과 같습니다.
+                    <br><br>
+                    <b>로마서 7장</b>은 구원받은 신자의 실존적 고뇌를 드러냅니다. "오호라 나는 곤고한 사람이로다"라는 탄식은, 시편 22편의 "내 하나님이여 어찌 나를 버리셨나이까"라는 메시아의 절규와 맞닿아 있습니다. 우리의 이 내적 갈등은 십자가에서 우리의 모든 죄와 고통을 대신 짊어지신 그리스도를 바라볼 때 비로소 해답을 찾습니다.
+                    <br><br>
+                    <b>예레미야 46장</b>은 하나님의 주권이 개인을 넘어 열방의 역사까지 통치하심을 보여줍니다. 세상의 강대국 애굽이 심판받는 모습은, 이 세상의 어떤 권세도 영원하지 않으며 오직 하나님의 통치만이 영원함을 보여줍니다. 이는 시편 22편 후반부에서 온 세상이 주께 돌아와 예배할 것이라는 예언과 연결됩니다.
+                    <br><br>
+                    <b>시편 22편</b>은 이 모든 주제의 결정체입니다. 하나님의 아들이신 메시아께서 친히 하나님께 버림받는 고통을 당하십니다. 이는 사울의 선택, 로마서의 내적 갈등, 예레미야의 열방 심판 속에 나타난 모든 고난과 버림받음의 실체입니다. 그러나 바로 그 버림받음의 자리가 온 인류를 구원하는 '주권적인 구원'의 장소가 됩니다. 그리스도의 십자가는 하나님의 공의와 사랑, 주권과 고난이 만나는 구속사의 중심점입니다.
+                </p>
+
+                <h3>주제별 심층 분석표</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>본문</th>
+                            <th>드러나는 고난/갈등</th>
+                            <th>하나님의 주권적 역사</th>
+                            <th>고난의 결과/전환</th>
+                            <th>그리스도와의 연결점</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>사무엘상 9</b></td>
+                            <td>사소한 일상의 문제 (암나귀 분실)</td>
+                            <td>우연을 가장한 필연적 만남을 계획하심</td>
+                            <td>개인의 염려가 공동체의 지도자로 세워짐</td>
+                            <td>하나님의 부르심의 시작</td>
+                        </tr>
+                        <tr>
+                            <td><b>로마서 7</b></td>
+                            <td>선을 원하는 마음과 악을 행하는 육신의 내적 전쟁</td>
+                            <td>율법을 통해 죄를 깨닫게 하시고, 은혜를 갈망하게 하심</td>
+                            <td>자신의 무능력 고백, 구원자를 향한 부르짖음</td>
+                            <td>성도의 실존적 고난 (Simul Justus et Peccator)</td>
+                        </tr>
+                        <tr>
+                            <td><b>예레미야 46</b></td>
+                            <td>세상 권력(애굽)의 교만과 심판</td>
+                            <td>열방의 흥망성쇠를 주관하심</td>
+                            <td>세상 권력의 멸망, 남은 자의 구원 약속</td>
+                            <td>만왕의 왕의 통치</td>
+                        </tr>
+                        <tr>
+                            <td><b>시편 22</b></td>
+                            <td>하나님으로부터의 버림받음 (궁극적 고통)</td>
+                            <td>고난을 통해 온 세상을 구원하는 계획을 성취하심</td>
+                            <td>개인의 탄식이 온 세상의 찬양으로 전환됨</td>
+                            <td>대속적 고난과 부활의 영광 (십자가)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>오늘의 교훈 (Application)</h3>
+                <p>우리의 삶에도 이해할 수 없는 고난과 "하나님, 어찌하여 저를 버리셨나이까?"라고 부르짖고 싶은 순간이 있습니다. 로마서 7장의 내적 갈등은 매일 우리가 겪는 현실일 수 있습니다. 그러나 오늘의 본문들은 그 고통의 자리가 결코 하나님께서 부재하신 자리가 아님을 보여줍니다. 오히려 하나님의 가장 깊은 섭리와 주권적인 구원이 이루어지는 현장일 수 있습니다. 십자가에서 가장 처절하게 버림받으신 예수 그리스도를 통해 우리에게 구원이 임했음을 기억합시다. 그분의 버림받음으로 우리가 하나님께 나아갈 수 있게 되었습니다. 그러므로 우리의 탄식이 변하여, "우리 주 예수 그리스도로 말미암아 하나님께 감사하리로다"라는 찬양으로 이어지는 은혜를 경험하는 하루가 되기를 소망합니다.</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>2025 KBD 맥체인 성경읽기 프로젝트</p>
+        </footer>
+    </div>
+
+    <script>
+        // 1. YouTube IFrame API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 2. 플레이어 변수 생성
+        var player;
+        var videoId = 'TqOhccbsIU0'; // 8월 17일 영상 ID로 변경
+
+        function onYouTubeIframeAPIReady() {
+            if (videoId) {
+                player = new YT.Player('player', {
+                    height: '360',
+                    width: '640',
+                    videoId: videoId,
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                const audioControl = document.getElementById('audio-control');
+                audioControl.textContent = '오디오 자료 없음';
+                audioControl.disabled = true;
+            }
+        }
+
+        // 3. 플레이어 준비 완료 시
+        function onPlayerReady(event) {
+            const audioControl = document.getElementById('audio-control');
+            audioControl.textContent = '오늘의 말씀듣기 ▶';
+            audioControl.disabled = false;
+        }
+
+        // 4. 플레이어 상태 변경 시 (재생/일시정지 텍스트 변경)
+        function onPlayerStateChange(event) {
+            const audioControl = document.getElementById('audio-control');
+            if (event.data == YT.PlayerState.PLAYING) {
+                audioControl.textContent = '일시정지 ⏸';
+            } else {
+                audioControl.textContent = '오늘의 말씀듣기 ▶';
+            }
+        }
+
+        // 5. 컨트롤 버튼 클릭 이벤트
+        document.getElementById('audio-control').addEventListener('click', function() {
+            if (player) {
+                var playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

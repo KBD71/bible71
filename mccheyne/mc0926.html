@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 26일 맥체인 성경읽기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --book1-color: #4A90E2; /* 사무엘하 - Blue */
+            --book2-color: #E91E63; /* 갈라디아서 - Pink */
+            --book3-color: #F5A623; /* 에스겔 - Orange */
+            --book4-color: #9013FE; /* 시편 - Purple */
+            --integration-color: #D0021B; /* 통합 - Red */
+            --text-primary: #333;
+            --text-secondary: #555;
+            --bg-light: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title-section {
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: var(--text-primary);
+        }
+
+        h1 .subtitle {
+            font-size: 0.6em;
+            color: var(--text-secondary);
+            font-weight: 400;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .intro-passage {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .chapter-card {
+            background-color: #fff;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-left: 5px solid;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .chapter-card:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .card-book1 { border-left-color: var(--book1-color); }
+        .card-book2 { border-left-color: var(--book2-color); }
+        .card-book3 { border-left-color: var(--book3-color); }
+        .card-book4 { border-left-color: var(--book4-color); }
+        .integration-card { border-left-color: var(--integration-color); }
+
+        h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .bible-text {
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .bible-text p {
+            margin: 0 0 10px 0;
+        }
+
+        .verse-number {
+            font-weight: bold;
+            color: var(--text-secondary);
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+
+        .card-book1 .bible-text strong { color: var(--book1-color); }
+        .card-book2 .bible-text strong { color: var(--book2-color); }
+        .card-book3 .bible-text strong { color: var(--book3-color); }
+        .card-book4 .bible-text strong { color: var(--book4-color); }
+
+        .analysis-svg {
+            width: 100%;
+            margin: 20px 0;
+            background-color: var(--bg-light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .key-verse {
+            margin-bottom: 20px;
+        }
+        .key-verse .verse-text {
+            font-style: italic;
+            background-color: var(--bg-light);
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 3px solid;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .card-book1 .key-verse .verse-text { border-left-color: var(--book1-color); color: var(--book1-color); }
+        .card-book2 .key-verse .verse-text { border-left-color: var(--book2-color); color: var(--book2-color); }
+        .card-book3 .key-verse .verse-text { border-left-color: var(--book3-color); color: var(--book3-color); }
+        .card-book4 .key-verse .verse-text { border-left-color: var(--book4-color); color: var(--book4-color); }
+        .key-verse .commentary-text {
+            padding-left: 5px;
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 700;
+        }
+        
+        td:first-child {
+            font-weight: bold;
+            font-family: 'Noto Serif KR', serif;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        #player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+        }
+
+        #floatingPlayPauseBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background-color: var(--text-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #floatingPlayPauseBtn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        #floatingPlayPauseBtn:not(:disabled):hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        #floatingPlayPauseBtn.paused {
+            opacity: 0.8;
+        }
+        
+        #floatingPlayPauseBtn .play-icon, 
+        #floatingPlayPauseBtn .pause-icon {
+            display: none;
+        }
+
+        #floatingPlayPauseBtn.paused .play-icon {
+            display: block;
+        }
+
+        #floatingPlayPauseBtn:not(.paused) .pause-icon {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="player-container"></div>
+    <button id="floatingPlayPauseBtn" disabled>
+        <span class="play-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+            </svg>
+        </span>
+        <span class="pause-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+            </svg>
+        </span>
+    </button>
+    
+    <div class="container">
+        <header class="title-section">
+            <h1>9월 26일 맥체인 성경읽기<br><span class="subtitle">나의 반석, 나의 구원자</span></h1>
+            <p class="intro-passage">삼하22 | 갈2 | 겔29 | 시78:1-37</p>
+        </header>
+
+        <main>
+            <!-- Card 1: 2 Samuel 22 -->
+            <section class="chapter-card card-book1">
+                <h2>사무엘하 22장: 다윗의 구원의 노래</h2>
+                <h3>개요 (Overview)</h3>
+                <p>다윗이 그의 모든 원수와 사울의 손에서 구원받은 후에 하나님께 드리는 장엄한 찬송시입니다. 시편 18편과 거의 동일한 이 노래에서 다윗은 하나님을 자신의 '반석, 요새, 건지시는 자, 방패, 구원의 뿔, 피난처' 등 다양한 이미지로 묘사하며 하나님의 구원 능력을 찬양합니다. 그는 자신이 겪었던 죽음의 위협과 하나님의 극적인 개입을 생생하게 노래하며, 자신의 의로움 때문이 아니라 하나님의 신실하심으로 구원받았음을 고백하고, 모든 영광을 하나님께 돌립니다.</p>
+                
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#555" /></marker></defs>
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">나의 반석이신 하나님</text>
+                    
+                    <rect x="125" y="40" width="150" height="100" rx="10" fill="#EBF5FF" stroke="#4A90E2" stroke-width="2"/>
+                    <text x="200" y="60" text-anchor="middle" font-weight="bold">하나님은 나의...</text>
+                    <text x="200" y="80" text-anchor="middle">반석, 요새, 구원자</text>
+                    <text x="200" y="100" text-anchor="middle">방패, 구원의 뿔</text>
+                    <text x="200" y="120" text-anchor="middle">피난처, 구원자</text>
+                    
+                    <text x="50" y="50" text-anchor="middle" fill="#D0021B">환난</text>
+                    <path d="M80 60 C 100 70, 110 80, 125 90" stroke="#D0021B" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    
+                    <text x="350" y="50" text-anchor="middle" fill="#3B82F6">구원</text>
+                    <path d="M275 90 C 295 80, 305 70, 325 60" stroke="#3B82F6" stroke-width="1.5" marker-end="url(#arrow)" fill="none" transform="rotate(180 300 75)"/>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>이 노래는 다윗의 파란만장한 일생을 마감하며 드리는 신앙 고백의 총결산과도 같습니다. 그는 수많은 전쟁과 정적들의 위협 속에서 자신의 힘이 아닌 오직 하나님의 능력으로 승리했음을 고백합니다. 노래 속에 나타난 지진, 불, 흑암과 같은 자연 현상에 대한 묘사는 하나님께서 당신의 백성을 구원하시기 위해 온 우주를 동원하시는 '신현현(Theophany)'의 이미지를 사용하여 그 구원의 위대함을 강조합니다. 다윗은 자신의 완전한 의로움을 주장하는 것이 아니라, 언약에 신실하신 하나님 앞에서 정직하게 행하려 했던 자신의 중심을 하나님께서 보상하셨다고 노래합니다. 신학적으로 이 노래는 하나님만이 참된 구원자이시며, 성도의 유일한 피난처임을 보여줍니다. 다윗의 이 고백은 그가 예표하는 더 위대한 다윗의 자손, 예수 그리스도를 통해 온전히 성취됩니다. 예수님은 모든 죄와 사망의 권세로부터 우리를 구원하시는 완전한 구원자이시며 우리의 영원한 반석이 되십니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>삼하 22:2-3</strong>: "여호와는 나의 반석이시요 나의 요새시요 나를 위하여 나를 건지시는 자시요 내가 피할 나의 반석의 하나님이시요 나의 방패시요 나의 구원의 뿔이시요 나의 높은 망대시요 그에게 피할 나의 피난처시요 나의 구원자시라 나를 폭력에서 구원하셨도다"</p>
+                    <p class="commentary-text">다윗은 하나님 한 분을 묘사하기 위해 구원에 관련된 모든 이미지를 총동원합니다. 이는 그가 경험한 하나님의 구원이 얼마나 다채롭고 완전했는지를 보여줍니다. 하나님은 견고한 '반석'처럼 흔들리지 않으시고, 안전한 '요새'처럼 우리를 품으시며, 강력한 '방패'처럼 우리를 막아주십니다. 이 고백은 모든 시대의 성도들이 고난 중에 붙들어야 할 기도의 모범입니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>삼하 22:21</strong>: "여호와께서 내 공의를 따라 상 주시며 내 손의 깨끗함을 따라 갚으셨으니"</p>
+                    <p class="commentary-text">이는 자신의 무죄함을 주장하는 교만한 고백이 아니라, 언약 백성으로서 하나님의 길을 따르려 했던 자신의 삶의 방향성을 하나님께서 인정해주셨다는 신앙 고백입니다. 다윗은 자신이 흠 없는 자라서 구원받은 것이 아니라, 하나님을 의지하고 그의 길을 따랐을 때 하나님께서 신실하게 응답하셨음을 노래합니다. 이는 율법의 행위가 아닌, 믿음의 순종을 기쁘게 받으시는 하나님의 성품을 보여줍니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>하나님을 찬양하는 다윗의 노래</strong>
+                    <p><span class="verse-number">1</span> 여호와께서 다윗을 모든 원수의 손과 사울의 손에서 구원하신 그 날에 다윗이 이 노래의 말씀으로 여호와께 아뢰어</p>
+                    <p><span class="verse-number">2</span> 이르되 여호와는 나의 반석이시요 나의 요새시요 나를 위하여 나를 건지시는 자시요</p>
+                    <p><span class="verse-number">3</span> 내가 피할 나의 반석의 하나님이시요 나의 방패시요 나의 구원의 뿔이시요 나의 높은 망대시요 그에게 피할 나의 피난처시요 나의 구원자시라 나를 폭력에서 구원하셨도다</p>
+                    <p><span class="verse-number">4</span> 내가 찬송 받으실 여호와께 아뢰리니 내 원수들에게서 구원을 받으리로다</p>
+                    <p><span class="verse-number">5</span> 사망의 물결이 나를 에우고 불의의 창수가 나를 두렵게 하였으며</p>
+                    <p><span class="verse-number">6</span> 스올의 줄이 나를 두르고 사망의 올무가 내게 이르렀도다</p>
+                    <p><span class="verse-number">7</span> 내가 환난 중에서 여호와께 아뢰며 나의 하나님께 아뢰었더니 그가 그의 성전에서 내 소리를 들으심이여 나의 부르짖음이 그의 귀에 들렸도다</p>
+                    <p><span class="verse-number">8</span> 이에 땅이 진동하고 떨며 하늘의 기초가 요동하고 흔들렸으니 그의 진노로 말미암음이로다</p>
+                    <p><span class="verse-number">9</span> 그의 코에서 연기가 오르고 입에서 불이 나와 사름이여 그 불에 숯이 피었도다</p>
+                    <p><span class="verse-number">10</span> 그가 또 하늘을 드리우고 강림하시니 그의 발 아래는 어두캄캄하였도다</p>
+                    <p><span class="verse-number">11</span> 그룹을 타고 날으심이여 바람 날개 위에 나타나셨도다</p>
+                    <p><span class="verse-number">12</span> 그가 흑암 곧 모인 물과 공중의 빽빽한 구름으로 자기를 둘러 장막을 삼으심이여</p>
+                    <p><span class="verse-number">13</span> 그 앞에 있는 광채로 말미암아 숯불이 피었도다</p>
+                    <p><span class="verse-number">14</span> 여호와께서 하늘에서 우렛소리를 내시며 지존하신 자가 음성을 내심이여</p>
+                    <p><span class="verse-number">15</span> 화살을 날려 그들을 흩으시며 번개로 무찌르셨도다</p>
+                    <p><span class="verse-number">16</span> 여호와의 꾸지람과 콧김으로 말미암아 물 밑이 드러나고 세상의 기초가 나타났도다</p>
+                    <p><span class="verse-number">17</span> 그가 위에서 손을 내미사 나를 붙드심이여 많은 물에서 나를 건져내셨도다</p>
+                    <p><span class="verse-number">18</span> 나를 강한 원수와 미워하는 자에게서 건지셨음이여 그들은 나보다 힘세었기 때문이로다</p>
+                    <p><span class="verse-number">19</span> 그들이 나의 재앙의 날에 내게 이르렀으나 여호와께서 나의 의지가 되셨도다</p>
+                    <p><span class="verse-number">20</span> 나를 또 넓은 곳으로 인도하시고 나를 기뻐하시므로 구원하셨도다</p>
+                    <strong>하나님의 공의로운 보상</strong>
+                    <p><span class="verse-number">21</span> 여호와께서 내 공의를 따라 상 주시며 내 손의 깨끗함을 따라 갚으셨으니</p>
+                    <p><span class="verse-number">22</span> 이는 내가 여호와의 도를 지키고 악을 행하여 내 하나님을 떠나지 아니하였으며</p>
+                    <p><span class="verse-number">23</span> 그의 모든 법도를 내 앞에 두고 그의 규례를 버리지 아니하였음이로다</p>
+                    <p><span class="verse-number">24</span> 내가 또 그의 앞에 완전하여 스스로 지켜 죄악을 피하였나니</p>
+                    <p><span class="verse-number">25</span> 그러므로 여호와께서 내 의대로, 그의 눈앞에서 내 깨끗한 대로 내게 갚으셨도다</p>
+                    <p><span class="verse-number">26</span> 자비한 자에게는 주의 자비하심을 나타내시며 완전한 자에게는 주의 완전하심을 보이시며</p>
+                    <p><span class="verse-number">27</span> 깨끗한 자에게는 주의 깨끗하심을 보이시며 사악한 자에게는 주의 거스르심을 보이시리이다</p>
+                    <p><span class="verse-number">28</span> 주께서 곤고한 백성은 구원하시고 교만한 자를 살피사 낮추시리이다</p>
+                    <p><span class="verse-number">29</span> 여호와여 주는 나의 등불이시니 여호와께서 나의 어둠을 밝히시리이다</p>
+                    <p><span class="verse-number">30</span> 내가 주를 의뢰하고 적진으로 달리며 내 하나님을 의지하고 성벽을 뛰어넘나이다</p>
+                    <p><span class="verse-number">31</span> 하나님의 도는 완전하고 여호와의 말씀은 진실하니 그는 자기에게 피하는 모든 자에게 방패시로다</p>
+                    <p><span class="verse-number">32</span> 여호와 외에 누가 하나님이며 우리 하나님 외에 누가 반석이냐</p>
+                    <p><span class="verse-number">33</span> 하나님은 나의 견고한 요새시며 나를 안전한 곳으로 인도하시며</p>
+                    <p><span class="verse-number">34</span> 나의 발로 암사슴 발 같게 하시며 나를 나의 높은 곳에 세우시며</p>
+                    <p><span class="verse-number">35</span> 내 손을 가르쳐 싸우게 하시니 내 팔이 놋 활을 당기도다</p>
+                    <p><span class="verse-number">36</span> 주께서 또 주의 구원의 방패를 내게 주시며 주의 온유함이 나를 크게 하셨나이다</p>
+                    <p><span class="verse-number">37</span> 내 걸음을 넓게 하셨고 내 발이 미끄러지지 아니하게 하셨나이다</p>
+                    <p><span class="verse-number">38</span> 내가 내 원수를 뒤쫓아 멸하였사오며 그들을 무찌르기 전에는 돌아서지 아니하였나이다</p>
+                    <p><span class="verse-number">39</span> 내가 그들을 멸하여 무찔러서 능히 일어나지 못하게 하였으니 그들이 내 발 아래에 엎드러졌나이다</p>
+                    <p><span class="verse-number">40</span> 이는 주께서 내게 전쟁하게 하려고 능력으로 내게 띠 띠우사 일어나 나를 치는 자를 내게 굴복하게 하셨사오며</p>
+                    <p><span class="verse-number">41</span> 주께서 또 내 원수들이 등을 내게로 향하게 하시고 내게 나를 미워하는 자를 끊어 버리게 하셨음이니이다</p>
+                    <p><span class="verse-number">42</span> 그들이 도움을 구해도 구원할 자가 없었고 여호와께 부르짖어도 대답하지 아니하셨나이다</p>
+                    <p><span class="verse-number">43</span> 내가 그들을 땅의 티끌 같이 부서뜨리고 거리의 진흙 같이 밟아 헤쳤나이다</p>
+                    <p><span class="verse-number">44</span> 주께서 또 나를 내 백성의 다툼에서 건지시고 나를 보전하사 모든 민족의 으뜸으로 삼으셨으니 내가 알지 못하는 백성이 나를 섬기리이다</p>
+                    <p><span class="verse-number">45</span> 이방인들이 내게 굴복함이여 그들이 내 소문을 귀로 듣고 곧 내게 순복하리로다</p>
+                    <p><span class="verse-number">46</span> 이방인들이 쇠약하여 그들의 견고한 곳에서 떨며 나오리로다</p>
+                    <strong>감사와 찬양</strong>
+                    <p><span class="verse-number">47</span> 여호와의 사심을 두고 나의 반석을 찬송하며 내 구원의 반석이신 하나님을 높일지로다</p>
+                    <p><span class="verse-number">48</span> 이 하나님이 나를 위하여 보복하시고 민족들이 내게 복종하게 하시며</p>
+                    <p><span class="verse-number">49</span> 나를 내 원수들에게서 이끌어 내시며 나를 대적하는 자 위에 나를 높이시고 나를 강포한 자에게서 건지시는도다</p>
+                    <p><span class="verse-number">50</span> 이러므로 여호와여 내가 모든 민족 중에서 주께 감사하며 주의 이름을 찬양하리이다</p>
+                    <p><span class="verse-number">51</span> 여호와께서 그의 왕에게 큰 구원을 주시며 기름 부음 받은 자에게 인자를 베푸심이여 영원하도록 다윗과 그의 후손에게로다 하였더라</p>
+                </div>
+            </section>
+            
+            <!-- Card 2: Galatians 2 -->
+            <section class="chapter-card card-book2">
+                <h2>갈라디아서 2장: 믿음으로 의롭게 되리라</h2>
+                <h3>개요 (Overview)</h3>
+                <p>바울은 예루살렘의 사도들(야고보, 게바, 요한)과 만나 자신이 이방인에게 전하는 복음이 그들의 지지를 받았음을 밝히며 자신의 사도권을 변호합니다. 이어서 그는 안디옥에서 이방인 성도와 식사하다가 유대인들이 두려워 자리를 피한 게바(베드로)의 외식을 공개적으로 책망했던 사건을 이야기합니다. 이 사건을 통해 바울은 사람이 율법의 행위로써가 아니라 오직 예수 그리스도를 믿는 믿음으로 의롭게 된다는 복음의 핵심 진리를 다시 한번 강력하게 선포합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">의롭게 되는 유일한 길</text>
+                    <path d="M 50 100 L 150 50 L 250 100 L 350 50" stroke="#F44336" stroke-width="2" fill="none" stroke-dasharray="4"/>
+                    <text x="200" y="120" text-anchor="middle" fill="#B71C1C">율법의 행위</text>
+                    <path d="M 50 50 L 350 50" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                    <text x="200" y="40" text-anchor="middle" fill="#1B5E20">그리스도를 믿는 믿음</text>
+                    
+                    <path d="M 200 50 v 20" stroke="#1B5E20" stroke-width="2" marker-end="url(#arrow)" fill="none"/>
+                    <text x="200" y="85" font-size="14" font-weight="bold">의롭다 함 (Justification)</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>안디옥 사건은 초대 교회의 정체성을 결정짓는 매우 중요한 사건이었습니다. 유대인 그리스도인과 이방인 그리스도인이 한 식탁에서 교제하는 것은, 율법의 장벽이 그리스도의 복음 안에서 무너졌다는 것을 보여주는 상징적인 행위였습니다. 그러나 베드로는 예루살렘에서 온 유대인들의 시선을 의식하여 이 교제의 자리에서 물러났고, 이는 복음의 진리를 행동으로 부인하는 것과 같은 위선이었습니다. 바울이 베드로를 공개적으로 책망한 것은 개인적인 감정 때문이 아니라, 이 문제가 복음의 본질을 훼손하는 심각한 사안이었기 때문입니다. 신학적으로 '의롭게 된다(称義, Justification)'는 것은 법정적 용어로, 죄인이었던 우리가 예수 그리스도를 믿음으로 말미암아 하나님 앞에서 "무죄하다, 의롭다"고 선언받는 것을 의미합니다. 이 의는 우리의 행위에서 비롯된 것이 아니라, 그리스도의 완전한 의를 우리에게 전가(轉嫁, Imputation)시켜 주신 결과입니다. 이 진리를 타협하는 것은 곧 복음 전체를 부인하는 것입니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>갈 2:16</strong>: "사람이 의롭게 되는 것은 율법의 행위로 말미암음이 아니요 오직 예수 그리스도를 믿음으로 말미암는 줄 알므로 우리도 그리스도 예수를 믿나니 이는 우리가 율법의 행위로써가 아니고 그리스도를 믿음으로써 의롭다 함을 얻으려 함이라 율법의 행위로써는 의롭다 함을 얻을 육체가 없느니라"</p>
+                    <p class="commentary-text">종교개혁의 기치이자 복음의 심장과도 같은 구절입니다. 바울은 '율법의 행위로는 아니다'와 '오직 믿음으로만'이라는 대조를 통해 구원의 유일한 길을 명확하게 선포합니다. 어떤 인간도 율법을 완벽하게 지켜 하나님 앞에 설 수 없기에, 율법의 역할은 우리를 그리스도께로 인도하는 몽학선생이 될 뿐입니다. 구원은 전적으로 우리의 노력 바깥에서, 그리스도께서 이루신 일을 믿음으로 받아들일 때 주어지는 선물입니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>갈 2:20</strong>: "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"</p>
+                    <p class="commentary-text">믿음으로 의롭게 된 성도의 새로운 정체성을 보여주는 위대한 고백입니다. 그리스도를 믿는다는 것은 단순히 그분을 구원자로 인정하는 것을 넘어, 그분과 연합하여 나의 옛사람은 죽고 이제 내 안에서 그리스도께서 주인으로 사시는 것을 의미합니다. 구원 이후의 삶은 '내가' 사는 삶이 아니라, '그리스도를 믿는 믿음 안에서' 사는 삶입니다. 나의 삶의 주체가 나 자신에게서 그리스도께로 이전되는 것, 이것이 바로 성화의 시작입니다.</p>
+                </div>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>예루살렘 총회</strong>
+                    <p><span class="verse-number">1</span> 십사 년 후에 내가 바나바와 함께 디도를 데리고 다시 예루살렘에 올라갔나니</p>
+                    <p><span class="verse-number">2</span> 계시를 따라 올라가 내가 이방 가운데서 전파하는 복음을 그들에게 제시하되 유력한 자들에게 사사로이 한 것은 내가 달음질하는 것이나 달음질한 것이 헛되지 않게 하려 함이라</p>
+                    <p><span class="verse-number">3</span> 그러나 나와 함께 있는 헬라인 디도까지도 억지로 할례를 받게 하지 아니하였으니</p>
+                    <p><span class="verse-number">4</span> 이는 가만히 들어온 거짓 형제들 때문이라 그들이 가만히 들어온 것은 그리스도 예수 안에서 우리가 가진 자유를 엿보고 우리를 종으로 삼고자 함이로되</p>
+                    <p><span class="verse-number">5</span> 그들에게 우리가 한시도 복종하지 아니하였으니 이는 복음의 진리가 항상 너희 가운데 있게 하려 함이라</p>
+                    <p><span class="verse-number">6</span> 유력하다는 이들 중에 (본래 어떤 이들이든지 내게 상관이 없으며 하나님은 사람을 외모로 취하지 아니하시나니) 저 유력한 이들은 내게 의무를 더하여 준 것이 없고</p>
+                    <p><span class="verse-number">7</span> 도리어 그들은 내가 무할례자에게 복음 전함을 맡은 것이 베드로가 할례자에게 맡음과 같은 것을 보았고</p>
+                    <p><span class="verse-number">8</span> 베드로에게 역사하사 그를 할례자의 사도로 삼으신 이가 또한 내게 역사하사 나를 이방인의 사도로 삼으셨느니라</p>
+                    <p><span class="verse-number">9</span> 또 기둥 같이 여기는 야고보와 게바와 요한도 내게 주신 은혜를 알므로 나와 바나바에게 친교의 악수를 하였으니 우리는 이방인에게로, 그들은 할례자에게로 가게 하려 함이라</p>
+                    <p><span class="verse-number">10</span> 다만 우리에게 가난한 자들을 기억하도록 부탁하였으니 이것은 나도 본래부터 힘써 행하여 왔노라</p>
+                    <strong>바울이 게바를 꾸짖다</strong>
+                    <p><span class="verse-number">11</span> 게바가 안디옥에 이르렀을 때에 책망 받을 일이 있기로 내가 그를 대면하여 책망하였노라</p>
+                    <p><span class="verse-number">12</span> 야고보에게서 온 어떤 이들이 이르기 전에 게바가 이방인과 함께 먹다가 그들이 오매 그가 할례자들을 두려워하여 떠나 물러가매</p>
+                    <p><span class="verse-number">13</span> 남은 유대인들도 그와 같이 외식하므로 바나바도 그들의 외식에 유혹되었느니라</p>
+                    <p><span class="verse-number">14</span> 그러므로 나는 그들이 복음의 진리를 따라 바르게 행하지 아니함을 보고 모든 자 앞에서 게바에게 이르되 네가 유대인으로서 이방인을 따르고 유대인답게 살지 아니하면서 어찌하여 억지로 이방인을 유대인답게 살게 하려느냐 하였노라</p>
+                    <strong>율법이냐 믿음이냐</strong>
+                    <p><span class="verse-number">15</span> 우리는 본래 유대인이요 이방 죄인이 아니로되</p>
+                    <p><span class="verse-number">16</span> 사람이 의롭게 되는 것은 율법의 행위로 말미암음이 아니요 오직 예수 그리스도를 믿음으로 말미암는 줄 알므로 우리도 그리스도 예수를 믿나니 이는 우리가 율법의 행위로써가 아니고 그리스도를 믿음으로써 의롭다 함을 얻으려 함이라 율법의 행위로써는 의롭다 함을 얻을 육체가 없느니라</p>
+                    <p><span class="verse-number">17</span> 만일 우리가 그리스도 안에서 의롭게 되려 하다가 죄인으로 드러나면 그리스도께서 죄를 짓게 하는 자냐 결코 그럴 수 없느니라</p>
+                    <p><span class="verse-number">18</span> 만일 내가 헐었던 것을 다시 세우면 내가 나를 범법한 자로 만드는 것이라</p>
+                    <p><span class="verse-number">19</span> 내가 율법으로 말미암아 율법에 대하여 죽었나니 이는 하나님에 대하여 살려 함이라</p>
+                    <p><span class="verse-number">20</span> 내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라</p>
+                    <p><span class="verse-number">21</span> 내가 하나님의 은혜를 폐하지 아니하노니 만일 의롭게 되는 것이 율법으로 말미암으면 그리스도께서 헛되이 죽으셨느니라</p>
+                </div>
+            </section>
+
+            <!-- Card 3: Ezekiel 29 -->
+            <section class="chapter-card card-book3">
+                <h2>에스겔 29장: 교만한 악어, 애굽의 심판</h2>
+                <h3>개요 (Overview)</h3>
+                <p>하나님은 애굽의 왕 바로를 나일 강에 누운 거대한 '악어'에 비유하시며 그의 교만을 책망하십니다. 바로는 "이 강은 내 것이라 내가 나를 위하여 만들었다"고 말하며 스스로를 창조주처럼 여겼습니다. 이에 하나님은 갈고리로 그의 아가미를 꿰어 강에서 끌어내 들에 던져 짐승들의 먹이가 되게 하실 것이라고 선포하십니다. 또한, 이스라엘이 의지했던 애굽이 실상은 '갈대 지팡이'처럼 부서지기 쉬운 존재였음을 지적하시며, 애굽 땅이 40년간 황폐하게 되었다가 후에 미약한 나라로 회복될 것을 예언하십니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">애굽 왕 바로의 교만과 심판</text>
+                    
+                    <g>
+                        <text x="100" y="50" text-anchor="middle" font-weight="bold">바로의 교만</text>
+                        <path d="M50 80 Q 100 60, 150 80 T 250 80" stroke="#F5A623" stroke-width="3" fill="none" />
+                        <text x="100" y="100" text-anchor="middle">"이 나일 강은 내 것,"</text>
+                        <text x="100" y="115" text-anchor="middle">"내가 만들었다"</text>
+                        <text x="100" y="130" text-anchor="middle" font-style="italic" fill="#555">(스스로를 창조주로 여김)</text>
+                    </g>
+                    
+                    <path d="M200 85 h 40" stroke="#D0021B" stroke-width="2" marker-end="url(#arrow)" fill="none"/>
+
+                    <g>
+                        <text x="300" y="50" text-anchor="middle" font-weight="bold" fill="#D0021B">하나님의 심판</text>
+                        <text x="300" y="70" text-anchor="middle" fill="#555">갈고리에 꿰어</text>
+                        <text x="300" y="85" text-anchor="middle" fill="#555">들판에 던져짐</text>
+                        <text x="300" y="105" text-anchor="middle" font-weight="bold">40년 황폐</text>
+                    </g>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>애굽은 고대 근동의 초강대국으로, 나일 강의 풍요를 기반으로 강력한 문명을 이루었습니다. 바로(파라오)는 스스로를 신의 아들이자 절대 권력자로 여겼습니다. "이 나일은 내 것이요 내가 만들었다"는 그의 선언은 이러한 자기 신격화 사상을 극명하게 보여줍니다. 그러나 하나님 보시기에 그는 강을 지배하는 신이 아니라, 그 강에 의존해 사는 한 마리의 거대한 짐승(악어)에 불과했습니다. 이스라엘은 역사적으로 어려울 때마다 하나님 대신 애굽의 군사력을 의지하려는 유혹에 빠졌습니다. 하나님은 애굽을 '갈대 지팡이'로 비유하심으로써, 세상 권력을 의지하는 것이 얼마나 어리석고 위험한 일인지를 가르쳐주십니다. 신학적으로 애굽은 언제나 하나님을 대적하는 세상 나라의 상징으로 등장합니다. 출애굽 때와 마찬가지로, 하나님은 교만한 세상 권력을 심판하심으로써 당신만이 역사의 유일한 주권자이심을 드러내십니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>겔 29:3</strong>: "...주 여호와의 말씀이라 내가 너를 대적하노라 너 큰 악어여, 자기의 강들 가운데에 누워 스스로 이르기를 나의 이 강은 내 것이라 내가 나를 위하여 만들었다 하는도다"</p>
+                    <p class="commentary-text">어제 본문(겔 28장)의 두로 왕과 마찬가지로 바로 역시 스스로를 창조주의 자리에 올려놓는 교만의 죄를 범합니다. 그는 하나님이 주신 풍요(나일 강)를 자신의 소유이자 자신의 능력으로 만든 것이라고 착각했습니다. 이는 모든 인간이 가진 죄의 본질입니다. 하나님이 주신 은혜의 선물(재능, 건강, 재물)을 마치 자신의 것인 양 여기고, 그것을 주신 분을 잊어버리는 것입니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>겔 29:6-7</strong>: "애굽의 모든 주민이 내가 여호와인 줄을 알리라 애굽은 본래 이스라엘 족속에게 갈대 지팡이라 그들이 너를 손으로 잡은즉 네가 부러져서 그들의 모든 어깨를 찢었고 그들이 너를 의지한즉 네가 부러져서 그들의 모든 허리가 흔들리게 하였느니라"</p>
+                    <p class="commentary-text">세상 권력을 의지하는 것의 허무한 결과를 생생하게 보여줍니다. 갈대 지팡이는 겉보기에는 의지할 만해 보이지만, 힘을 주어 짚는 순간 부러지면서 오히려 사람을 찌르고 상하게 합니다. 마찬가지로, 우리가 하나님 대신 세상을 의지할 때, 그것은 우리에게 참된 안정을 주지 못하고 결국 우리를 더 큰 고통과 상처로 이끌 뿐입니다. 우리의 유일하고 참된 지팡이는 오직 목자 되신 하나님 한 분뿐입니다.</p>
+                </div>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>애굽 왕 바로에 대한 심판</strong>
+                    <p><span class="verse-number">1</span> 열째 해 열째 달 열두째 날에 여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p><span class="verse-number">2</span> 인자야 너는 애굽의 바로 왕과 온 애굽으로 얼굴을 향하고 예언하라</p>
+                    <p><span class="verse-number">3</span> 너는 말하여 이르기를 주 여호와께서 이같이 말씀하시되 애굽의 바로 왕이여 내가 너를 대적하노라 너는 자기의 강들 가운데에 누운 큰 악어라 스스로 이르기를 나의 이 강은 내 것이라 내가 나를 위하여 만들었다 하는도다</p>
+                    <p><span class="verse-number">4</span> 내가 갈고리로 네 아가미를 꿰고 네 강의 고기가 네 비늘에 붙게 하여 네 비늘에 붙은 강의 모든 고기와 함께 너를 네 강들 가운데에서 끌어내고</p>
+                    <p><span class="verse-number">5</span> 너와 네 강의 모든 고기를 들에 던지리니 네가 지면에 떨어지고 다시는 거두거나 모으는 자가 없을 것임이라 내가 너를 들짐승과 공중의 새의 먹이로 주었음이라</p>
+                    <p><span class="verse-number">6</span> 애굽의 모든 주민이 내가 여호와인 줄을 알리라 애굽은 본래 이스라엘 족속에게 갈대 지팡이라</p>
+                    <p><span class="verse-number">7</span> 그들이 너를 손으로 잡은즉 네가 부러져서 그들의 모든 어깨를 찢었고 그들이 너를 의지한즉 네가 부러져서 그들의 모든 허리가 흔들리게 하였느니라</p>
+                    <p><span class="verse-number">8</span> 그러므로 주 여호와께서 이같이 말씀하셨느니라 내가 칼이 네게 임하게 하여 네게서 사람과 짐승을 끊은즉</p>
+                    <p><span class="verse-number">9</span> 애굽 땅이 사막과 황무지가 되리니 내가 여호와인 줄을 그들이 알리라 네가 스스로 이르기를 이 강은 내 것이라 내가 만들었다 하는도다</p>
+                    <p><span class="verse-number">10</span> 그러므로 내가 너와 네 강들을 쳐서 애굽 땅 믹돌에서부터 수에네 곧 구스 지경까지 황폐한 황무지 곧 사막이 되게 하리니</p>
+                    <p><span class="verse-number">11</span> 그 가운데로 사람의 발도 지나가지 아니하며 짐승의 발도 지나가지 아니하고 사십 년 동안 사람이 살지 아니하는 땅이 되리라</p>
+                    <p><span class="verse-number">12</span> 내가 애굽 땅을 황폐한 나라들 같이 황폐하게 하며 애굽 성읍도 사막이 된 나라들의 성읍 같이 사십 년 동안 황폐하게 하고 애굽 사람들은 각국 가운데로 흩으며 여러 민족 가운데로 헤치리라</p>
+                    <strong>애굽의 회복</strong>
+                    <p><span class="verse-number">13</span> 주 여호와께서 이같이 말씀하셨느니라 사십 년 끝에 내가 만민 중에 흩은 애굽 사람을 다시 모아 내되</p>
+                    <p><span class="verse-number">14</span> 애굽의 사로잡힌 자들을 돌이켜 바드로스 땅 곧 그들의 고국 땅으로 돌아가게 할 것이라 그들이 거기에서 미약한 나라가 되되</p>
+                    <p><span class="verse-number">15</span> 나라 가운데에 지극히 미약한 나라가 되어 다시는 여러 나라 위에 스스로 높이지 못하리니 내가 그들을 감하여 다시는 여러 나라를 다스리지 못하게 할 것임이라</p>
+                    <p><span class="verse-number">16</span> 그들이 다시는 이스라엘 족속의 의지가 되지 못하고 이스라엘 족속은 그들을 의지하던 죄악을 기억하게 되리니 내가 주 여호와인 줄을 그들이 알리라 하셨다 하라</p>
+                    <strong>느부갓네살에 대한 보상</strong>
+                    <p><span class="verse-number">17</span> 스물일곱째 해 첫째 달 초하루에 여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p><span class="verse-number">18</span> 인자야 바벨론의 느부갓네살 왕이 두로를 치느라고 자기 군대를 크게 수고롭게 하되 모든 머리털이 무지러졌고 모든 어깨가 벗어졌으나 그와 그의 군대가 그 수고한 대가를 두로에서 얻지 못하였느니라</p>
+                    <p><span class="verse-number">19</span> 그러므로 주 여호와께서 이같이 말씀하셨느니라 내가 애굽 땅을 바벨론의 느부갓네살 왕에게 넘기리니 그가 그의 무리를 사로잡으며 물건을 노력하며 빼앗아 갈 것이라 이것이 그 군대의 보상이 되리라</p>
+                    <p><span class="verse-number">20</span> 그들의 수고는 나를 위하여 한 것인즉 그 대가로 내가 애굽 땅을 그에게 주었느니라 주 여호와의 말씀이니라</p>
+                    <p><span class="verse-number">21</span> 그 날에 내가 이스라엘 족속에게 한 뿔이 돋아나게 하고 내가 또 그들 가운데에서 네가 입을 열게 하리니 내가 여호와인 줄을 그들이 알리라</p>
+                </div>
+            </section>
+            
+            <!-- Card 4: Psalm 78:1-37 -->
+            <section class="chapter-card card-book4">
+                <h2>시편 78:1-37: 잊어버린 백성, 신실하신 하나님</h2>
+                <h3>개요 (Overview)</h3>
+                <p>시편 기자는 이스라엘의 다음 세대에게 과거의 역사를 교훈으로 가르치기 위해 이 시를 씁니다. 그는 하나님께서 출애굽과 광야에서 베푸신 수많은 기적(홍해, 만나, 메추라기, 반석의 물)에도 불구하고, 이스라엘 백성이 어떻게 계속해서 하나님을 시험하고, 그의 능력을 의심하며, 그의 언약을 배반했는지를 상세하게 기록합니다. 그들은 고통스러울 때 잠시 하나님을 찾다가도, 평안해지면 다시 하나님을 속이고 불순종하는 일을 반복했습니다. 그럼에도 불구하고 하나님은 긍휼을 베푸사 그들을 진멸하지 않으시고 계속해서 용서하셨습니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="20" text-anchor="middle" font-size="12" font-weight="bold">하나님의 은혜와 이스라엘의 반역</text>
+                    <path d="M 50 80 Q 125 40, 200 80 T 350 80" stroke="#4A90E2" fill="none" stroke-width="2"/>
+                    <text x="200" y="50" font-weight="bold" fill="#3B82F6">하나님의 신실하심 (구원, 공급, 긍휼)</text>
+
+                    <path d="M 50 90 Q 125 130, 200 90 T 350 90" stroke="#F44336" fill="none" stroke-width="2"/>
+                    <text x="200" y="130" font-weight="bold" fill="#B71C1C">이스라엘의 불신실 (불순종, 망각, 시험)</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>시편 78편은 이스라엘의 과거사를 통해 신앙 교육을 목적으로 하는 '역사시' 또는 '지혜시'입니다. 이 시의 핵심은 하나님의 은혜와 인간의 죄성 사이의 극명한 대조입니다. 하나님은 끊임없이 기적을 베푸시고 언약에 신실하시지만, 인간은 끊임없이 그 은혜를 잊어버리고 불순종합니다. 이스라엘의 역사는 단지 과거의 이야기가 아니라, 바로 우리 자신의 이야기입니다. 우리 역시 수많은 은혜를 경험하고도 어려움이 닥치면 쉽게 하나님을 의심하고, 문제가 해결되면 다시 세상을 향하는 죄성을 가지고 있기 때문입니다. 신학적으로 이 시는 하나님의 '오래 참으심'과 '긍휼하심'이 얼마나 위대한지를 보여줍니다. 그들의 반역에도 불구하고 그들을 완전히 버리지 않으신 하나님의 신실함은, 결국 죄인 된 우리를 위해 아들을 내어주신 십자가 사랑에서 그 절정을 이룹니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>시 78:9-11</strong>: "에브라임 자손은 무기를 갖추며 활을 가졌으나 전쟁의 날에 물러갔도다 그들이 하나님의 언약을 지키지 아니하고 그의 율법 준행을 거절하며 여호와께서 행하신 것과 그들에게 보이신 그의 기이한 일을 잊었도다"</p>
+                    <p class="commentary-text">이스라엘의 실패의 근본 원인을 세 가지로 요약합니다: 언약을 지키지 않고(불순종), 율법 준행을 거절하며(거역), 행하신 일을 잊는 것(망각)입니다. 이 중에서도 가장 근본적인 것은 '망각'입니다. 하나님의 은혜를 잊어버릴 때, 불순종과 거역은 필연적으로 따라옵니다. 신앙은 곧 기억의 싸움입니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>시 78:36-37</strong>: "그들이 입으로 그에게 아첨하며 자기 혀로 그에게 거짓을 말하였으니 이는 하나님께 향하는 그들의 마음이 정직하지 아니하며 그의 언약에 성실하지 아니하였음이로다"</p>
+                    <p class="commentary-text">위기 때만 하나님을 찾는 기회주의적인 신앙의 실체를 꿰뚫어 봅니다. 그들의 회개는 입술뿐이었고, 마음의 중심은 여전히 하나님을 떠나 있었습니다. 하나님은 우리의 말이나 종교적 행위가 아닌, '마음의 정직함'과 '언약에 대한 성실함'을 보십니다. 이는 오늘 우리에게도 진정한 회개가 무엇인지 묻는 날카로운 질문입니다.</p>
+                </div>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>이스라엘의 역사를 교훈 삼으라</strong>
+                    <p><span class="verse-number">1</span> (아삽의 마스길) 내 백성이여, 내 율법을 들으며 내 입의 말에 귀를 기울일지어다</p>
+                    <p><span class="verse-number">2</span> 내가 입을 열어 비유로 말하며 예로부터 감추어졌던 것을 드러내려 하니</p>
+                    <p><span class="verse-number">3</span> 이는 우리가 들어서 아는 바요 우리의 조상들이 우리에게 전한 바라</p>
+                    <p><span class="verse-number">4</span> 우리가 이를 그들의 자손에게 숨기지 아니하고 여호와의 영예와 그의 능력과 그가 행하신 기이한 사적을 후대에 전하리로다</p>
+                    <p><span class="verse-number">5</span> 여호와께서 증거를 야곱에게 세우시며 법도를 이스라엘에게 정하시고 우리 조상들에게 명령하사 그들의 자손에게 알리라 하셨으니</p>
+                    <p><span class="verse-number">6</span> 이는 그들로 후대 곧 태어날 자손에게 이를 알게 하고 그들은 일어나 그들의 자손에게 일러</p>
+                    <p><span class="verse-number">7</span> 그들로 그들의 소망을 하나님께 두며 하나님께서 행하신 일을 잊지 아니하고 오직 그의 계명을 지켜서</p>
+                    <p><span class="verse-number">8</span> 그들의 조상들 곧 완고하고 패역하여 그들의 마음이 정직하지 못하며 그 심령이 하나님께 충성하지 아니하는 세대와 같이 되지 아니하게 하려 하심이로다</p>
+                    <strong>하나님을 잊은 백성</strong>
+                    <p><span class="verse-number">9</span> 에브라임 자손은 무기를 갖추며 활을 가졌으나 전쟁의 날에 물러갔도다</p>
+                    <p><span class="verse-number">10</span> 그들이 하나님의 언약을 지키지 아니하고 그의 율법 준행을 거절하며</p>
+                    <p><span class="verse-number">11</span> 여호와께서 행하신 것과 그들에게 보이신 그의 기이한 일을 잊었도다</p>
+                    <p><span class="verse-number">12</span> 옛적에 하나님이 애굽 땅 소안 들에서 기이한 일을 그들의 조상들의 목전에서 행하셨으되</p>
+                    <p><span class="verse-number">13</span> 그가 바다를 갈라 물을 무더기 같이 서게 하시고 그들을 지나가게 하셨으며</p>
+                    <p><span class="verse-number">14</span> 낮에는 구름으로, 밤에는 불빛으로 인도하셨으며</p>
+                    <p><span class="verse-number">15</span> 광야에서 반석을 쪼개시고 매우 깊은 곳에서 나오는 물처럼 흡족하게 마시게 하셨으며</p>
+                    <p><span class="verse-number">16</span> 또 바위에서 시내를 내사 물이 강 같이 흐르게 하셨으나</p>
+                    <p><span class="verse-number">17</span> 그들은 계속해서 하나님께 범죄하여 메마른 땅에서 지존자를 배반하였도다</p>
+                    <p><span class="verse-number">18</span> 그들이 그들의 탐욕대로 음식을 구하여 그들의 심중에 하나님을 시험하였으며</p>
+                    <p><span class="verse-number">19</span> 그뿐 아니라 하나님을 대적하여 말하기를 하나님이 광야에서 식탁을 베푸실 수 있으랴</p>
+                    <p><span class="verse-number">20</span> 보라 그가 반석을 쳐서 물을 내시니 시내가 넘쳤으나 그가 능히 떡도 주시며 자기 백성을 위하여 고기도 예비하시랴 하였도다</p>
+                    <strong>하나님의 진노와 긍휼</strong>
+                    <p><span class="verse-number">21</span> 그러므로 여호와께서 듣고 노하셨으며 야곱에게 불 같이 노하셨고 또한 이스라엘에게 진노가 불타 올랐으니</p>
+                    <p><span class="verse-number">22</span> 이는 하나님을 믿지 아니하며 그의 구원을 의지하지 아니한 때문이로다</p>
+                    <p><span class="verse-number">23</span> 그러나 그가 위의 궁창을 명령하시며 하늘 문을 여시고</p>
+                    <p><span class="verse-number">24</span> 그들에게 만나를 비 같이 내려 먹이시며 하늘 양식을 그들에게 주셨나니</p>
+                    <p><span class="verse-number">25</span> 사람이 힘센 자의 떡을 먹었으며 그가 음식을 그들에게 충족히 주셨도다</p>
+                    <p><span class="verse-number">26</span> 그가 동풍을 하늘에서 불게 하시며 그의 권능으로 남풍을 인도하시고</p>
+                    <p><span class="verse-number">27</span> 먼지처럼 많은 고기를 비 같이 내리시고 나는 새를 바다의 모래 같이 내리시니</p>
+                    <p><span class="verse-number">28</span> 그가 그들의 진중에 떨어지게 하사 그들의 거처에 두르셨도다</p>
+                    <p><span class="verse-number">29</span> 그들이 먹고 심히 배불렀나니 하나님이 그들의 원대로 그들에게 주셨도다</p>
+                    <p><span class="verse-number">30</span> 그러나 그들이 그들의 욕심을 버리지 아니하여 그들의 먹을 것이 아직 그들의 입에 있을 때에</p>
+                    <p><span class="verse-number">31</span> 하나님이 그들에게 노여움을 나타내사 그들 중 강한 자를 죽이시며 이스라엘의 청년을 쳐 엎드러뜨리셨도다</p>
+                    <p><span class="verse-number">32</span> 이러함에도 불구하고 그들은 여전히 범죄하여 그의 기이한 일들을 믿지 아니하였으므로</p>
+                    <p><span class="verse-number">33</span> 하나님이 그들의 날들을 헛되이 보내게 하시며 그들의 햇수를 두려움으로 보내게 하셨도다</p>
+                    <p><span class="verse-number">34</span> 하나님이 그들을 죽이실 때에 그들이 그에게 구하며 돌이켜 하나님을 간절히 찾았고</p>
+                    <p><span class="verse-number">35</span> 하나님이 그들의 반석이시며 지존하신 하나님이 그들의 구속자이심을 기억하였도다</p>
+                    <p><span class="verse-number">36</span> 그러나 그들이 입으로 그에게 아첨하며 자기 혀로 그에게 거짓을 말하였으니</p>
+                    <p><span class="verse-number">37</span> 이는 하나님께 향하는 그들의 마음이 정직하지 아니하며 그의 언약에 성실하지 아니하였음이로다</p>
+                </div>
+            </section>
+
+            <!-- Integration Card -->
+            <section class="chapter-card integration-card">
+                <h2>통합적 이해: 나의 반석, 나의 구원자</h2>
+                <h3>관통하는 주제 (Overarching Theme)</h3>
+                <p>오늘의 본문들은 하나님만이 우리의 유일한 구원자요 반석이시라는 진리를 다양한 각도에서 조명합니다. <strong>사무엘하 22장</strong>에서 다윗은 평생의 경험을 통해 하나님만이 자신을 모든 위협에서 건져내신 유일한 반석이요 피난처임을 뜨겁게 찬양합니다. 이 '하나님만 의지함'의 원리가 교리적으로 선포되는 곳이 <strong>갈라디아서 2장</strong>입니다. 바울은 우리의 의로움이 율법 준수라는 인간적 노력에 있지 않고, 오직 반석이신 그리스도를 믿는 믿음에만 있음을 논증합니다. 반면, 하나님을 반석으로 삼지 않고 스스로 높아진 자들의 결국이 어떠한지를 <strong>에스겔 29장</strong>이 보여줍니다. 자신의 힘(나일 강)을 의지했던 애굽 왕은 하나님에 의해 심판받는 한 마리 악어에 불과했고, 그를 의지했던 이스라엘에게는 부러지는 '갈대 지팡이'일 뿐이었습니다. 이처럼 하나님을 반석으로 삼지 못하고 계속해서 세상의 갈대 지팡이를 의지하며 실패를 반복했던 이스라엘의 역사가 <strong>시편 78편</strong>에 적나라하게 기록되어 있습니다. 결국 오늘의 말씀은 우리에게 묻습니다. 당신은 누구를, 무엇을 의지하며 서 있는가? 세상의 갈대 지팡이인가, 아니면 영원히 흔들리지 않는 반석, 우리의 구원자이신 하나님이신가?</p>
+
+                <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="9">
+                    <line x1="20" y1="100" x2="380" y2="100" stroke="#333" stroke-width="1.5"/>
+                    <g text-anchor="middle">
+                        <circle cx="60" cy="100" r="4" fill="#4A90E2"/>
+                        <text x="60" y="120">다윗 왕국</text>
+                        <text x="60" y="132" fill="#555">(삼하 22)</text>
+
+                        <circle cx="140" cy="100" r="4" fill="#F5A623"/>
+                        <text x="140" y="120">바벨론 포로</text>
+                        <text x="140" y="132" fill="#555">(겔 29)</text>
+
+                        <circle cx="340" cy="100" r="4" fill="#E91E63"/>
+                        <text x="340" y="120">초대 교회</text>
+                        <text x="340" y="132" fill="#555">(갈 2)</text>
+                        
+                        <text x="200" y="40" font-size="14" font-weight="bold" fill="#D0021B">예수 그리스도</text>
+                        <text x="200" y="55" font-size="9" font-weight="bold" fill="#D0021B">(영원한 반석, 믿음의 창시자)</text>
+                        <path d="M 185 60 L 215 60 L 200 80 Z" fill="#D0021B"/>
+
+                        <!-- Arrows -->
+                        <path d="M 60 95 Q 120 75 195 83" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <text x="110" y="70" font-size="8">참된 구원자 예표</text>
+                        <path d="M 140 95 Q 160 85 195 83" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <text x="160" y="120" font-size="8">세상 권세의 심판주</text>
+                        <path d="M 340 95 Q 280 75 205 83" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <text x="285" y="70" font-size="8">믿음의 대상, 의의 근거</text>
+                    </g>
+                     <text x="200" y="170" text-anchor="middle" font-size="9" fill="#555">시편 78편의 불순종한 백성과 달리, 그리스도는 순종으로 우리 구원의 반석이 되셨습니다.</text>
+                </svg>
+
+                <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
+                <p>오늘의 본문들이 가리키는 유일한 반석과 구원자는 궁극적으로 예수 그리스도이십니다. <strong>사무엘하 22편</strong>에서 다윗이 노래한 구원의 찬양은, 죄와 사망의 모든 원수에게서 우리를 건져내신 예수 그리스도의 위대한 승리의 노래로 완성됩니다. 고린도전서 10장 4절은 광야에서 이스라엘 백성이 마셨던 반석이 바로 그리스도라고 증언합니다. <strong>시편 78편</strong>의 백성들은 그 반석을 시험하고 배반했지만, 참된 반석이신 예수 그리스도는 십자가에서 쪼개지심으로 우리에게 영원한 생수를 공급하셨습니다. <strong>에스겔 29장</strong>의 교만한 바로 왕이 상징하는 세상의 권세는, 부활하사 만왕의 왕이 되신 예수 그리스도의 발아래 심판을 받게 될 것입니다. 그러므로 <strong>갈라디아서 2장</strong>이 선포하듯, 우리의 구원은 반석 위에 집을 짓는 것처럼, 오직 예수 그리스도를 믿는 믿음 위에 세워질 때만 안전하고 영원할 수 있습니다. 그분만이 우리의 유일한 의요, 영원한 피난처이십니다.</p>
+
+                <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>주제 (Theme)</th>
+                            <th>사무엘하 22</th>
+                            <th>갈라디아서 2</th>
+                            <th>에스겔 29</th>
+                            <th>시편 78:1-37</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>구원의 근거</strong></td>
+                            <td>하나님의 신실하심과 능력</td>
+                            <td>오직 그리스도를 믿는 믿음</td>
+                            <td>(심판의 대상)</td>
+                            <td>하나님의 긍휼과 오래 참으심</td>
+                        </tr>
+                        <tr>
+                            <td><strong>인간의 모습</strong></td>
+                            <td>하나님만 의지하는 신실한 왕</td>
+                            <td>복음을 왜곡하고 외식함</td>
+                            <td>스스로 신이라 여기는 교만</td>
+                            <td>은혜를 망각하고 반복적으로 반역함</td>
+                        </tr>
+                        <tr>
+                            <td><strong>세상 의지</strong></td>
+                            <td>(없음 - 오직 하나님 의지)</td>
+                            <td>율법의 행위를 의지함</td>
+                            <td>자신의 힘(나일 강)을 의지함</td>
+                            <td>하나님의 능력을 계속 시험함</td>
+                        </tr>
+                        <tr>
+                            <td><strong>하나님의 칭호</strong></td>
+                            <td>반석, 요새, 방패, 구원자</td>
+                            <td>우리를 위해 자신을 버리신 분</td>
+                            <td>만물의 주권자, 심판주</td>
+                            <td>구속자, 반석, 목자</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>오늘의 교훈 (Application)</h3>
+                <p>우리는 매일의 삶에서 수많은 선택의 기로에 섭니다. 문제를 만났을 때, 우리는 무엇을 먼저 의지합니까? 나의 경험과 능력, 사람들의 도움, 세상적인 방법들을 먼저 떠올립니까? 오늘 말씀은 우리에게 도전합니다. 애굽의 '갈대 지팡이'를 의지하지 말고, 다윗처럼 '나의 반석'이신 하나님께 피하라고 말입니다. 우리의 구원과 의로움은 내가 얼마나 선하게 살고 노력하는가에 달려 있지 않고, 오직 나를 위해 자신을 버리신 예수 그리스도를 믿는 믿음에 달려 있음을 기억해야 합니다. 시편 78편의 이스라엘처럼 과거의 은혜를 망각하고 현재의 문제 앞에서 하나님을 시험하는 어리석음을 반복하지 맙시다. 대신, 다윗처럼 우리 삶의 모든 순간에 나를 건지시고 붙드시는 하나님을 구체적으로 찬양하며, 그 영원한 반석 위에 우리의 삶을 굳건히 세워나가야 할 것입니다.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 맥체인 성경읽기. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // YouTube IFrame API 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'ILyb1saEAUY';
+        const playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // 플레이어가 준비되면 버튼 활성화
+            playPauseBtn.disabled = false;
+            playPauseBtn.classList.add('paused');
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playPauseBtn.classList.remove('paused');
+            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+                playPauseBtn.classList.add('paused');
+            }
+        }
+
+        function togglePlayPause() {
+            if (!player || typeof player.getPlayerState !== 'function') return;
+            var playerState = player.getPlayerState();
+            if (playerState == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
+
+        // 스페이스바 이벤트 추가
+        document.addEventListener('keydown', function(event) {
+            // 입력 필드나 텍스트 영역에 포커스 되어 있을 때는 작동하지 않도록 함
+            const target = event.target;
+            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+                return;
+            }
+
+            if (event.code === 'Space') {
+                event.preventDefault(); // 페이지 스크롤 방지
+                togglePlayPause();
+            }
+        });
+    </script>
+</body>
+</html>

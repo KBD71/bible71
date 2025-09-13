@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 26일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        h1 .subtitle {
+            display: block;
+            font-size: 0.5em;
+            color: #7f8c8d;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+        
+        .bible-passages {
+            font-size: 1.2em;
+            color: #888;
+        }
+
+        .chapter-card {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid #ccc;
+            overflow: hidden;
+        }
+
+        .card-book1 { border-left-color: #4285F4; }
+        .card-book2 { border-left-color: #DB4437; }
+        .card-book3 { border-left-color: #F4B400; }
+        .card-book4 { border-left-color: #0F9D58; }
+        .integration-card { border-left-color: #808080; }
+        
+        .card-book1 h3 strong { color: #4285F4; }
+        .card-book2 h3 strong { color: #DB4437; }
+        .card-book3 h3 strong { color: #F4B400; }
+        .card-book4 h3 strong { color: #0F9D58; }
+        .integration-card h3 strong { color: #808080; }
+
+        h2 {
+            font-size: 2em;
+            font-weight: 700;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #eee;
+            color: #34495e;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #34495e;
+            padding-left: 10px;
+            border-left: 4px solid #eee;
+        }
+        
+        .integration-card h2 {
+            color: #808080;
+        }
+
+        .analysis-svg {
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        li {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .key-verse {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin: 0 0 10px 0;
+        }
+        
+        .commentary-text {
+            font-size: 1em;
+            color: #555;
+            margin: 0;
+            padding-left: 15px;
+            border-left: 3px solid #ddd;
+        }
+
+        .bible-text {
+            background-color: #fdfdfd;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+        .verse-number {
+            font-weight: 700;
+            color: #888888;
+            margin-right: 8px;
+            font-size: 0.9em;
+        }
+        
+        .bible-text div {
+            margin-bottom: 5px;
+        }
+
+        .bible-text strong {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .card-book1 .bible-text strong { color: #4285F4; }
+        .card-book2 .bible-text strong { color: #DB4437; }
+        .card-book3 .bible-text strong { color: #F4B400; }
+        .card-book4 .bible-text strong { color: #0F9D58; }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: 700;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #999;
+            font-size: 0.9em;
+            border-top: 1px solid #eee;
+        }
+
+        #audio-control-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        #audio-control-button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        #audio-control-button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #player {
+            position: absolute;
+            left: -9999px; /* Hide the player */
+            width: 1px;
+            height: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+    <button id="audio-control-button" disabled>오디오 로딩 중...</button>
+    
+    <div class="container">
+        <header>
+            <h1>8월 26일 맥체인 성경읽기<br><span class="subtitle">하나님의 신실하심은 인간의 적대감과 극심한 고난 속에서도 변치 않는 소망의 근거이며, 이 진리를 붙드는 성도 공동체를 통해 그의 선하심이 증거된다.</span></h1>
+            <p class="bible-passages">사무엘상 18, 로마서 16, 예레미야애가 3, 시편 34</p>
+        </header>
+
+        <main>
+            <!-- Card 1: 사무엘상 18 -->
+            <div class="chapter-card card-book1">
+                <h2>사무엘상 18장 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>다윗이 골리앗을 이긴 후, 그의 명성은 급격히 높아집니다. 요나단은 다윗과 생명의 언약을 맺고, 온 백성이 그를 사랑합니다. 그러나 사울 왕은 백성들이 "사울은 천천이요 다윗은 만만이로다"라고 노래하는 것을 듣고 극심한 시기심과 두려움에 사로잡힙니다. 그는 악령에 시달리며 다윗을 창으로 죽이려 하고, 블레셋과의 전투를 이용해 그를 제거하려는 계략을 꾸밉니다. 이 장은 하나님의 주권적인 함께하심(다윗)과 그에 대한 인간적인 반역(사울)의 갈등이 본격화되는 모습을 보여줍니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow-up" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 5 L 10 5 L 5 0 z" fill="#4CAF50" /></marker>
+                        <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 5 L 10 5 L 5 10 z" fill="#F44336" /></marker>
+                    </defs>
+                    <line x1="100" y1="170" x2="100" y2="30" stroke="#4CAF50" stroke-width="4" marker-end="url(#arrow-up)" />
+                    <text x="100" y="20" font-family="Noto Sans KR" font-size="14" fill="#4CAF50" text-anchor="middle" font-weight="bold">다윗의 길</text>
+                    <text x="50" y="140" font-family="Noto Sans KR" font-size="11" fill="#333" text-anchor="middle">하나님이 함께하심</text>
+                    <text x="50" y="110" font-family="Noto Sans KR" font-size="11" fill="#333" text-anchor="middle">요나단의 사랑</text>
+                    <text x="50" y="80" font-family="Noto Sans KR" font-size="11" fill="#333" text-anchor="middle">백성의 칭송</text>
+                    <text x="50" y="50" font-family="Noto Sans KR" font-size="11" fill="#333" text-anchor="middle">지혜롭게 행함</text>
+                    
+                    <line x1="300" y1="30" x2="300" y2="170" stroke="#F44336" stroke-width="4" marker-end="url(#arrow-down)" />
+                    <text x="300" y="180" font-family="Noto Sans KR" font-size="14" fill="#F44336" text-anchor="middle" font-weight="bold">사울의 길</text>
+                    <text x="350" y="60" font-family="Noto Sans KR" font-size="11" fill="#333" text-anchor="middle">시기와 분노</text>
+                    <text x="350" y="90" font-family="Noto Sans KR" font-size="11" fill="#333" text-anchor="middle">악령에 시달림</text>
+                    <text x="350" y="120" font-family="Noto Sans KR" font-size="11" fill="#333" text-anchor="middle">살해 시도</text>
+                    <text x="350" y="150" font-family="Noto Sans KR" font-size="11" fill="#333" text-anchor="middle">두려움</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>사무엘상 18장은 하나님의 선택과 유기의 주제를 극명하게 보여줍니다. 하나님이 함께하시는 다윗은 모든 일에 성공하며(14, 30절), 모든 사람에게 사랑받습니다. 반면, 하나님이 떠나신 사울은 악령에 의해 지배당하며 시기, 분노, 두려움에 빠져 이성적인 판단을 잃어버립니다. 요나단이 자신의 왕위 계승권을 상징하는 겉옷과 군복, 칼을 다윗에게 내어주는 행위는, 인간적인 계산을 넘어선 하나님의 주권적 선택을 인정하고 순복하는 아름다운 믿음의 모습입니다. 이 장에서 나타나는 사울의 다윗에 대한 적대감은 세상 나라가 하나님의 나라(와 그 대표자)를 핍박하는 원형을 보여주며, 이는 궁극적으로 세상을 대표하는 자들이 하나님의 아들 예수 그리스도를 십자가에 못 박는 사건으로 이어집니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">사무엘상 18:12</p>
+                        <p class="commentary-text">여호와께서 사울을 떠나 다윗과 함께 계시므로 사울이 그를 두려워한지라</p>
+                        <p class="commentary-text">이 구절은 사울의 모든 비이성적인 행동의 근원을 정확히 짚어냅니다. 그의 문제는 다윗의 인기가 아니라, '여호와께서 자신을 떠나 다윗과 함께 계심'을 영적으로 인지했기 때문입니다. 하나님을 떠난 인생이 느끼는 가장 큰 감정은 '두려움'입니다. 이 두려움은 하나님을 경외하는 거룩한 두려움이 아니라, 자신의 지위와 안위를 잃을까 봐 전전긍긍하는 죄된 두려움입니다. 그는 다윗에게서 하나님의 임재를 보았고, 그것이 자신에 대한 심판으로 느껴졌기에 다윗을 제거하려 했던 것입니다. 이는 불신앙이 어떻게 시기와 살의로 발전하는지를 보여주는 중요한 통찰입니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">사무엘상 18:14</p>
+                        <p class="commentary-text">다윗이 그의 모든 일을 지혜롭게 행하니라 여호와께서 그와 함께 계시니라</p>
+                        <p class="commentary-text">다윗의 성공과 지혜의 원천이 그의 개인적인 탁월함이 아니라 '여호와께서 그와 함께 계심'에 있음을 반복하여 강조합니다. '지혜롭게 행하니라'는 단순히 영리하다는 뜻을 넘어, 하나님의 뜻에 맞게 분별력 있고 성공적으로 일을 처리했음을 의미합니다. 사울의 살해 위협과 교묘한 계략 속에서도 다윗이 흔들리지 않고 승리할 수 있었던 유일한 이유는 하나님의 임재와 동행이었습니다. 이는 신약의 성도들이 세상 속에서 승리하는 삶을 살 수 있는 비결이 오직 성령의 내주하심과 인도하심에 있음을 예표합니다.</p>
+                    </li>
+                </ul>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>다윗과 요나단의 언약</strong>
+                    <div><span class="verse-number">1</span>다윗이 사울에게 말하기를 마치매 요나단의 마음이 다윗의 마음과 하나가 되어 요나단이 그를 자기 생명 같이 사랑하니라</div>
+                    <div><span class="verse-number">2</span>그 날에 사울은 다윗을 머무르게 하고 그의 아버지의 집으로 다시 돌아가기를 허락하지 아니하였고</div>
+                    <div><span class="verse-number">3</span>요나단은 다윗을 자기 생명 같이 사랑하여 더불어 언약을 맺었으며</div>
+                    <div><span class="verse-number">4</span>요나단이 자기가 입었던 겉옷을 벗어 다윗에게 주었고 자기의 군복과 칼과 활과 띠도 그리하였더라</div>
+                    <div><span class="verse-number">5</span>다윗은 사울이 보내는 곳마다 가서 지혜롭게 행하매 사울이 그를 군대의 장으로 삼았더니 온 백성이 합당하게 여겼고 사울의 신하들도 합당하게 여겼더라</div>
+                    <strong>사울의 시기와 살의</strong>
+                    <div><span class="verse-number">6</span>무리가 돌아올 때 곧 다윗이 블레셋 사람을 쳐죽이고 돌아올 때에 여인들이 이스라엘 모든 성읍에서 나와서 노래하며 춤추며 소고와 경쇠를 가지고 왕 사울을 환영하는데</div>
+                    <div><span class="verse-number">7</span>여인들이 뛰놀며 노래하여 이르되 사울이 죽인 자는 천천이요 다윗은 만만이로다 한지라</div>
+                    <div><span class="verse-number">8</span>사울이 그 말에 불쾌하여 심히 노하여 이르되 다윗에게는 만만을 돌리고 내게는 천천만 돌리니 그가 더 얻을 것이 나라 말고 무엇이냐 하고</div>
+                    <div><span class="verse-number">9</span>그 날 후로 사울이 다윗을 주목하였더라</div>
+                    <div><span class="verse-number">10</span>그 이튿날 하나님께서 부리시는 악령이 사울에게 힘 있게 내리매 그가 집 안에서 정신 없이 떠들어대므로 다윗이 평일과 같이 손으로 수금을 타는데 그 때에 사울의 손에 창이 있는지라</div>
+                    <div><span class="verse-number">11</span>그가 스스로 이르기를 내가 다윗을 벽에 박으리라 하고 사울이 그 창을 던졌으나 다윗이 그의 앞에서 두 번 피하였더라</div>
+                    <div><span class="verse-number">12</span>여호와께서 사울을 떠나 다윗과 함께 계시므로 사울이 그를 두려워한지라</div>
+                    <div><span class="verse-number">13</span>그러므로 사울이 그를 자기 곁에서 떠나게 하고 그를 천부장으로 삼으매 그가 백성 앞에 출입하며</div>
+                    <div><span class="verse-number">14</span>다윗이 그의 모든 일을 지혜롭게 행하니라 여호와께서 그와 함께 계시니라</div>
+                    <div><span class="verse-number">15</span>사울은 다윗이 크게 지혜롭게 행함을 보고 그를 두려워하였으나</div>
+                    <div><span class="verse-number">16</span>온 이스라엘과 유다는 다윗을 사랑하였으니 그가 자기들 앞에 출입하기 때문이었더라</div>
+                    <strong>사울의 계략과 다윗의 지혜</strong>
+                    <div><span class="verse-number">17</span>사울이 다윗에게 이르되 내 맏딸 메랍을 네게 아내로 주리니 오직 너는 나를 위하여 용기를 내어 여호와의 싸움을 싸우라 하니 이는 그가 생각하기를 내 손을 그에게 대지 않고 블레셋 사람들의 손을 그에게 대게 하리라 함이라</div>
+                    <div><span class="verse-number">18</span>다윗이 사울에게 이르되 내가 누구며 이스라엘 중에 내 친속이나 내 아버지의 집이 무엇이기에 내가 왕의 사위가 되리이까 하였더니</div>
+                    <div><span class="verse-number">19</span>사울의 딸 메랍을 다윗에게 줄 시기에 므홀랏 사람 아드리엘에게 아내로 준 바 되었더라</div>
+                    <div><span class="verse-number">20</span>사울의 딸 미갈이 다윗을 사랑하매 어떤 사람이 사울에게 알린지라 사울이 그 일을 좋게 여겨</div>
+                    <div><span class="verse-number">21</span>스스로 이르되 내가 딸을 그에게 주어서 그에게 올무가 되게 하고 블레셋 사람들의 손으로 그를 치게 하리라 하고 이에 사울이 다윗에게 이르되 네가 오늘 다시 내 사위가 되리라 하니라</div>
+                    <div><span class="verse-number">22</span>사울이 그의 신하들에게 명령하되 너희는 다윗에게 비밀히 말하여 이르기를 보라 왕이 너를 기뻐하시고 모든 신하도 너를 사랑하나니 그런즉 네가 왕의 사위가 되는 것이 가하니라 하라</div>
+                    <div><span class="verse-number">23</span>사울의 신하들이 이 말을 다윗의 귀에 전하매 다윗이 이르되 왕의 사위 되는 것을 너희는 작은 일로 보느냐 나는 가난하고 천한 사람이라 한지라</div>
+                    <div><span class="verse-number">24</span>사울의 신하들이 사울에게 말하여 이르되 다윗이 이러이러하게 말하더이다 하니</div>
+                    <div><span class="verse-number">25</span>사울이 이르되 너희는 다윗에게 이같이 말하기를 왕이 아무것도 원하지 아니하고 다만 왕의 원수의 보복으로 블레셋 사람들의 포피 백 개를 원하신다 하라 하였으니 이는 사울의 생각에 다윗을 블레셋 사람들의 손에 죽게 하리라 함이라</div>
+                    <div><span class="verse-number">26</span>사울의 신하들이 이 말을 다윗에게 아뢰매 다윗이 왕의 사위 되는 것을 좋게 여기므로 결혼할 날이 차기 전에</div>
+                    <div><span class="verse-number">27</span>다윗이 일어나서 그의 부하들과 함께 가서 블레셋 사람 이백 명을 죽이고 그들의 포피를 가져다가 수대로 왕께 드려 왕의 사위가 되고자 하니 사울이 그의 딸 미갈을 다윗에게 아내로 주었더라</div>
+                    <div><span class="verse-number">28</span>여호와께서 다윗과 함께 계심을 사울이 보고 알았고 사울의 딸 미갈도 그를 사랑하므로</div>
+                    <div><span class="verse-number">29</span>사울이 다윗을 더욱더욱 두려워하여 평생에 다윗의 대적이 되니라</div>
+                    <div><span class="verse-number">30</span>블레셋 사람들의 방백들이 싸우러 나오면 그들이 나올 때마다 다윗이 사울의 모든 신하보다 더 지혜롭게 행하매 이에 그의 이름이 심히 귀하게 되니라</div>
+                </div>
+            </div>
+
+            <!-- Card 2: 로마서 16 -->
+            <div class="chapter-card card-book2">
+                <h2>로마서 16장 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>로마서의 마지막 장인 16장은 바울의 개인적인 문안 인사와 마지막 권면, 그리고 송영으로 구성됩니다. 바울은 뵈뵈를 추천하며 시작하여, 로마 교회의 수많은 동역자들의 이름을 하나하나 거명하며 그들의 수고와 헌신을 치하합니다. 이는 교리가 개인의 삶과 공동체 안에서 구체적으로 구현됨을 보여줍니다. 이어서 그는 교회를 분열시키는 거짓 교사들을 경계하라고 강력하게 경고하며, 마지막으로 하나님의 영원한 계획과 계시에 대한 장엄한 송영으로 대서사시를 마무리합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="200" cy="100" r="30" fill="#f8d7da" stroke="#721c24" />
+                    <text x="200" y="105" font-family="Noto Sans KR" font-size="12" fill="#721c24" text-anchor="middle">로마 교회</text>
+                    
+                    <g transform="translate(200, 100)">
+                        <g transform="rotate(0) translate(80, 0)">
+                            <circle cx="0" cy="0" r="20" fill="#f5c6cb" />
+                            <text x="0" y="5" font-family="Noto Sans KR" font-size="9" text-anchor="middle">뵈뵈</text>
+                        </g>
+                        <g transform="rotate(45) translate(80, 0)">
+                            <circle cx="0" cy="0" r="20" fill="#f5c6cb" />
+                            <text x="0" y="5" font-family="Noto Sans KR" font-size="9" text-anchor="middle" transform="rotate(-45)">브리스가</text>
+                        </g>
+                        <g transform="rotate(90) translate(80, 0)">
+                            <circle cx="0" cy="0" r="20" fill="#f5c6cb" />
+                            <text x="0" y="5" font-family="Noto Sans KR" font-size="9" text-anchor="middle" transform="rotate(-90)">아굴라</text>
+                        </g>
+                        <g transform="rotate(135) translate(80, 0)">
+                            <circle cx="0" cy="0" r="20" fill="#f5c6cb" />
+                            <text x="0" y="5" font-family="Noto Sans KR" font-size="9" text-anchor="middle" transform="rotate(-135)">에배네도</text>
+                        </g>
+                        <g transform="rotate(180) translate(80, 0)">
+                            <circle cx="0" cy="0" r="20" fill="#f5c6cb" />
+                            <text x="0" y="5" font-family="Noto Sans KR" font-size="9" text-anchor="middle" transform="rotate(-180)">마리아</text>
+                        </g>
+                        <g transform="rotate(225) translate(80, 0)">
+                            <circle cx="0" cy="0" r="20" fill="#f5c6cb" />
+                            <text x="0" y="5" font-family="Noto Sans KR" font-size="9" text-anchor="middle" transform="rotate(-225)">안드로니고</text>
+                        </g>
+                        <g transform="rotate(270) translate(80, 0)">
+                            <circle cx="0" cy="0" r="20" fill="#f5c6cb" />
+                            <text x="0" y="5" font-family="Noto Sans KR" font-size="9" text-anchor="middle" transform="rotate(-270)">암블리아</text>
+                        </g>
+                        <g transform="rotate(315) translate(80, 0)">
+                            <circle cx="0" cy="0" r="20" fill="#f5c6cb" />
+                            <text x="0" y="5" font-family="Noto Sans KR" font-size="9" text-anchor="middle" transform="rotate(-315)">...etc</text>
+                        </g>
+                    </g>
+                    <text x="200" y="25" font-family="Noto Sans KR" font-size="14" fill="#721c24" text-anchor="middle" font-weight="bold">복음 안의 동역자 네트워크</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>로마서 16장의 긴 문안 인사 목록은 초기 기독교가 특정 유명 지도자 몇몇에 의해 움직인 것이 아니라, 이름이 잘 알려지지 않은 수많은 평신도들의 헌신과 동역 위에 세워졌음을 보여주는 귀중한 자료입니다. 특히 여성 동역자들(뵈뵈, 브리스가, 마리아, 유니아 등)의 역할이 두드러지게 나타나며, 복음 안에서는 성별이나 사회적 지위에 상관없이 모두가 귀한 동역자임을 보여줍니다. 또한 '그의 집에 있는 교회'라는 표현을 통해 초기 교회가 가정교회 형태로 모였음을 알 수 있습니다. 바울이 이토록 많은 사람을 개인적으로 기억하고 문안하는 것은, 그의 신학이 결코 차가운 이론이 아니라 사람에 대한 따뜻한 사랑과 관심에 뿌리내리고 있음을 증거합니다. 마지막 송영(25-27절)은 로마서 전체의 신학적 주제들 - 복음, 예수 그리스도의 계시, 하나님의 지혜, 믿음, 순종, 영광 - 을 압축하며 장엄하게 마무리합니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">로마서 16:17-18</p>
+                        <p class="commentary-text">형제들아 내가 너희를 권하노니 너희가 배운 교훈을 거슬러 분쟁을 일으키거나 거치게 하는 자들을 살피고 그들에게서 떠나라 이같은 자들은 우리 주 그리스도를 섬기지 아니하고 다만 자기들의 배만 섬기나니 교활한 말과 아첨하는 말로 순진한 자들의 마음을 미혹하느니라</p>
+                        <p class="commentary-text">따뜻한 문안 인사 후에 이어지는 이 강력한 경고는 교리의 순수성이 교회 공동체의 생명과 직결됨을 보여줍니다. 바울은 분열을 일으키는 자들의 특징을 두 가지로 요약합니다. 첫째, 그들의 동기는 그리스도 섬김이 아닌 '자기들의 배', 즉 개인의 이익 추구입니다. 둘째, 그들의 방법은 진리의 말씀이 아닌 '교활한 말과 아첨하는 말'로 사람들의 감정과 욕망을 자극하는 것입니다. 이에 대한 바울의 처방은 단호합니다. 그들과 논쟁하지 말고 '살피고 그들에게서 떠나라'는 것입니다. 이는 교회의 거룩함과 일치를 지키기 위한 영적 분리의 원리를 가르칩니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">로마서 16:25-27</p>
+                        <p class="commentary-text">나의 복음과 예수 그리스도를 전파함은 영세 전부터 감추어졌다가 이제는 나타내신 바 되었으며 영원하신 하나님의 명을 따라 선지자들의 글로 말미암아 모든 민족이 믿어 순종하게 하시려고 알게 하신 바 그 신비의 계시를 따라 된 것이니 이 복음으로 너희를 능히 견고하게 하실 지혜로우신 하나님께 예수 그리스도로 말미암아 영광이 세세무궁하도록 있을지어다 아멘</p>
+                        <p class="commentary-text">로마서 전체를 요약하는 장엄한 송영입니다. 이 구절은 복음의 핵심 특징들을 압축적으로 보여줍니다. (1) 복음은 바울이 만들어낸 것이 아니라 '영세 전부터' 계획된 하나님의 신비입니다. (2) 이 신비는 구약 선지자들을 통해 예언되었고, 이제 예수 그리스도 안에서 명확히 '나타났습니다'. (3) 복음의 목적은 유대인뿐 아니라 '모든 민족이 믿어 순종하게' 하는 것입니다. (4) 이 복음만이 성도를 모든 시험과 미혹 속에서 '능히 견고하게' 할 수 있습니다. 그러므로 모든 영광은 이 위대한 구원의 계획을 세우시고 성취하신 '지혜로우신 하나님께' 예수 그리스도를 통해 영원히 돌려져야 합니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>동역자들을 향한 문안</strong>
+                    <div><span class="verse-number">1</span>내가 겐그레아 교회의 일꾼으로 있는 우리 자매 뵈뵈를 너희에게 추천하노니</div>
+                    <div><span class="verse-number">2</span>너희는 주 안에서 성도들의 합당한 예절로 그를 영접하고 무엇이든지 그에게 소용되는 바를 도와 줄지니 이는 그가 여러 사람과 나의 보호자가 되었음이라</div>
+                    <div><span class="verse-number">3</span>너희는 그리스도 예수 안에서 나의 동역자들인 브리스가와 아굴라에게 문안하라</div>
+                    <div><span class="verse-number">4</span>그들은 내 목숨을 위하여 자기들의 목까지도 내놓았나니 나뿐 아니라 이방인의 모든 교회도 그들에게 감사하느니라</div>
+                    <div><span class="verse-number">5</span>또 저의 집에 있는 교회에도 문안하라 내가 사랑하는 에배네도에게 문안하라 그는 아시아에서 그리스도께 처음 맺은 열매니라</div>
+                    <div><span class="verse-number">6</span>너희를 위하여 많이 수고한 마리아에게 문안하라</div>
+                    <div><span class="verse-number">7</span>내 친척이요 나와 함께 갇혔던 안드로니고와 유니아에게 문안하라 그들은 사도들에게 존중히 여겨지고 또한 나보다 먼저 그리스도 안에 있는 자라</div>
+                    <div><span class="verse-number">8</span>또 주 안에서 내 사랑하는 암블리아에게 문안하라</div>
+                    <div><span class="verse-number">9</span>그리스도 안에서 우리의 동역자인 우르바노와 나의 사랑하는 스다구에게 문안하라</div>
+                    <div><span class="verse-number">10</span>그리스도 안에서 인정함을 받은 아벨레에게 문안하라 아리스도불로의 권속에게 문안하라</div>
+                    <div><span class="verse-number">11</span>내 친척 헤로디온에게 문안하라 나깃수의 가족 중에 주 안에 있는 자들에게 문안하라</div>
+                    <div><span class="verse-number">12</span>주 안에서 수고한 드루배나와 드루보사에게 문안하라 주 안에서 많이 수고하고 사랑하는 버시에게 문안하라</div>
+                    <div><span class="verse-number">13</span>주 안에서 택하심을 입은 루포와 그의 어머니에게 문안하라 그의 어머니는 곧 내 어머니니라</div>
+                    <div><span class="verse-number">14</span>아순그리도와 블레곤과 허메와 바드로바와 허마와 및 그들과 함께 있는 형제들에게 문안하라</div>
+                    <div><span class="verse-number">15</span>빌롤로고와 율리아와 또 네레오와 그의 자매와 올름바와 및 그들과 함께 있는 모든 성도에게 문안하라</div>
+                    <div><span class="verse-number">16</span>너희가 거룩하게 입맞춤으로 서로 문안하라 그리스도의 모든 교회가 다 너희에게 문안하느니라</div>
+                    <strong>거짓 교사들에 대한 경계</strong>
+                    <div><span class="verse-number">17</span>형제들아 내가 너희를 권하노니 너희가 배운 교훈을 거슬러 분쟁을 일으키거나 거치게 하는 자들을 살피고 그들에게서 떠나라</div>
+                    <div><span class="verse-number">18</span>이같은 자들은 우리 주 그리스도를 섬기지 아니하고 다만 자기들의 배만 섬기나니 교활한 말과 아첨하는 말로 순진한 자들의 마음을 미혹하느니라</div>
+                    <div><span class="verse-number">19</span>너희의 순종함이 모든 사람에게 들리는지라 그러므로 내가 너희로 말미암아 기뻐하노니 너희가 선한 데는 지혜롭고 악한 데는 미련하기를 원하노라</div>
+                    <div><span class="verse-number">20</span>평강의 하나님께서 속히 사탄을 너희 발 아래에서 상하게 하시리라 우리 주 예수의 은혜가 너희에게 있을지어다</div>
+                    <strong>함께한 이들의 문안과 마지막 송영</strong>
+                    <div><span class="verse-number">21</span>나의 동역자 디모데와 나의 친척 누기오와 야손과 소시바더가 너희에게 문안하느니라</div>
+                    <div><span class="verse-number">22</span>이 편지를 기록하는 나 더디오도 주 안에서 너희에게 문안하노라</div>
+                    <div><span class="verse-number">23</span>나와 온 교회를 돌보아 주는 가이오도 너희에게 문안하고 이 성의 재무관 에라스도와 형제 구아도도 너희에게 문안하느니라</div>
+                    <div><span class="verse-number">24</span>(없음)</div>
+                    <div><span class="verse-number">25</span>나의 복음과 예수 그리스도를 전파함은 영세 전부터 감추어졌다가</div>
+                    <div><span class="verse-number">26</span>이제는 나타내신 바 되었으며 영원하신 하나님의 명을 따라 선지자들의 글로 말미암아 모든 민족이 믿어 순종하게 하시려고 알게 하신 바 그 신비의 계시를 따라 된 것이니 이 복음으로 너희를 능히 견고하게 하실</div>
+                    <div><span class="verse-number">27</span>지혜로우신 하나님께 예수 그리스도로 말미암아 영광이 세세무궁하도록 있을지어다 아멘</div>
+                </div>
+            </div>
+
+            <!-- Card 3: 예레미야애가 3 -->
+            <div class="chapter-card card-book3">
+                <h2>예레미야애가 3장 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>예레미야애가의 구조적, 신학적 중심인 3장은 고통의 절정에서 소망의 전환점으로 나아가는 과정을 보여줍니다. 앞선 장들의 집단적 탄식과 달리, 3장은 한 개인('나')의 고통을 깊이 파고듭니다. 화자는 자신이 하나님의 진노의 매를 맞고 깊은 어둠과 절망 속에 던져졌다고 토로합니다. 그러나 이 고통의 한가운데서 그는 하나님의 인자와 긍휼, 성실하심을 기억해내며 소망을 발견합니다. 이 깨달음은 잠잠히 여호와의 구원을 기다리는 인내와 회개, 그리고 하나님의 주권적 선하심에 대한 신뢰로 이어집니다.</p>
+                
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 50 150 C 100 50, 300 50, 350 150" fill="none" stroke="#6c757d" stroke-width="2" />
+                    <path d="M 200 150 C 200 100, 200 100, 200 80" fill="none" stroke="#F4B400" stroke-width="3" stroke-dasharray="5,3" />
+                    <circle cx="200" cy="70" r="15" fill="#F4B400" />
+                    
+                    <text x="80" y="170" font-family="Noto Sans KR" font-size="12" fill="#333" text-anchor="middle">1. 고통의 심연 (1-20절)</text>
+                    <text x="80" y="185" font-family="Noto Sans KR" font-size="10" fill="#666" text-anchor="middle">"나를 흑암에 행하게 하셨도다"</text>
+                    
+                    <text x="200" y="45" font-family="Noto Sans KR" font-size="12" fill="#333" text-anchor="middle" font-weight="bold">2. 소망의 전환 (21-39절)</text>
+                    <text x="200" y="25" font-family="Noto Sans KR" font-size="10" fill="#666" text-anchor="middle">"주의 인자와 긍휼이 아침마다 새롭도다"</text>
+                    
+                    <text x="320" y="170" font-family="Noto Sans KR" font-size="12" fill="#333" text-anchor="middle">3. 인내와 회복 (40-66절)</text>
+                    <text x="320" y="185" font-family="Noto Sans KR" font-size="10" fill="#666" text-anchor="middle">"우리가 스스로 행위를 조사하고 여호와께로 돌아가자"</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>예레미야애가 3장은 다른 장들과 마찬가지로 히브리어 알파벳 순서에 따른 답관체 형식을 따르지만, 독특하게도 세 구절씩 같은 알파벳으로 시작하여 총 66절로 구성됩니다. 이는 고통과 소망의 주제를 더욱 깊고 체계적으로 다루려는 의도로 보입니다. 여기서 고통받는 '나'는 선지자 예레미야 자신일 수도 있고, 고통받는 이스라엘 공동체를 의인화한 것일 수도 있습니다. 중요한 것은 이 '나'가 겪는 고통이 단순한 불행이 아니라 하나님의 '진노의 매'로 인식된다는 점입니다. 죄에 대한 하나님의 공의로운 심판을 인정하는 것이 소망으로 나아가는 첫걸음입니다. 이 시의 전환점(21절)은 고통스러운 '현실'에서 하나님의 변치 않는 '성품'(인자, 긍휼, 성실)으로 기억의 초점을 옮기는 데서 비롯됩니다. 이처럼 개혁주의 신학에서 소망은 긍정적인 생각이 아니라, 객관적인 진리이신 하나님의 성품에 근거합니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">예레미야애가 3:21-23</p>
+                        <p class="commentary-text">이것을 내가 내 마음에 담아 두었더니 그것이 오히려 나의 소망이 되었사옴은 여호와의 인자와 긍휼이 무궁하시므로 우리가 진멸되지 아니함이니이다 이것들이 아침마다 새로우니 주의 성실하심이 크시도소이다</p>
+                        <p class="commentary-text">이 구절은 성경 전체에서 가장 위대한 소망의 선언 중 하나입니다. 화자는 자신의 고통스러운 상황(circumstance)에서 눈을 들어 하나님의 변치 않는 성품(character)을 바라봅니다. '인자'(헤세드)는 언약에 기초한 하나님의 변함없는 사랑을, '긍휼'(라함)은 고통받는 자를 향한 깊은 동정심을 의미합니다. 이 두 가지가 '무궁'하기 때문에, 비록 징계를 받아도 완전히 '진멸'되지는 않는다는 소망이 생깁니다. 이 하나님의 신실하심은 과거의 기억이 아니라, '아침마다 새로운' 현재적 실재입니다. "주의 성실하심이 크도소이다(Great is Thy Faithfulness)"라는 찬송의 영감이 된 구절로, 모든 소망의 궁극적인 근거가 하나님 자신임을 보여줍니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">예레미야애가 3:40</p>
+                        <p class="commentary-text">우리가 스스로 우리의 행위를 조사하고 여호와께로 돌아가자</p>
+                        <p class="commentary-text">하나님의 성품에 대한 재발견은 필연적으로 자기 성찰과 회개로 이어집니다. 고통의 원인을 외부 환경이나 타인에게 돌리던 시각에서 벗어나, '스스로 우리의 행위를 조사'하는 정직한 자기 직면이 시작됩니다. '조사하다'는 것은 철저하게 탐색하고 시험한다는 의미입니다. 이 과정을 통해 자신들의 죄를 깨닫고, 유일한 해결책이신 '여호와께로 돌아가는 것'(회개) 외에는 다른 길이 없음을 고백하는 것입니다. 참된 소망은 회개를 동반하며, 이는 단순한 감정의 변화가 아니라 삶의 방향을 하나님께로 돌이키는 의지적 결단입니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>고통받는 자의 탄식</strong>
+                    <div><span class="verse-number">1</span>여호와의 분노의 매로 말미암아 고난 당한 자는 나로다</div>
+                    <div><span class="verse-number">2</span>나를 이끌어 어둠 안에서 걸어가게 하시고 빛 안에서 걸어가지 못하게 하셨으며</div>
+                    <div><span class="verse-number">3</span>종일토록 손을 들어 자주자주 나를 치시는도다</div>
+                    <div><span class="verse-number">4</span>나의 살과 가죽을 쇠하게 하시며 나의 뼈들을 꺾으셨고</div>
+                    <div><span class="verse-number">5</span>고통과 수고를 쌓아 나를 에우셨으며</div>
+                    <div><span class="verse-number">6</span>나를 어둠 속에 살게 하시기를 죽은 지 오랜 자 같게 하셨도다</div>
+                    <div><span class="verse-number">7</span>나를 둘러싸서 나가지 못하게 하시고 내 사슬을 무겁게 하셨으며</div>
+                    <div><span class="verse-number">8</span>내가 부르짖어 도움을 구하나 내 기도를 물리치시며</div>
+                    <div><span class="verse-number">9</span>다듬은 돌을 쌓아 내 길들을 막으사 내 길들을 굽게 하셨도다</div>
+                    <div><span class="verse-number">10</span>그는 내게 대하여 엎드려 기다리는 곰과 은밀한 곳에 있는 사자 같으사</div>
+                    <div><span class="verse-number">11</span>나의 길들로 치우치게 하시며 내 몸을 찢으시며 나를 적막하게 하셨도다</div>
+                    <div><span class="verse-number">12</span>활을 당겨 나를 화살의 관역으로 삼으심이여</div>
+                    <div><span class="verse-number">13</span>화살통의 화살들로 내 허리를 맞추셨도다</div>
+                    <div><span class="verse-number">14</span>나는 내 모든 백성에게 조롱거리 곧 종일토록 그들의 노래 거리가 되었도다</div>
+                    <div><span class="verse-number">15</span>나를 쓴 것들로 배불리시고 쑥으로 취하게 하셨으며</div>
+                    <div><span class="verse-number">16</span>조약돌로 내 이들을 꺾으시고 재로 나를 덮으셨도다</div>
+                    <div><span class="verse-number">17</span>주께서 내 심령이 평강에서 멀리 떠나게 하시니 내가 복을 내어버렸음이여</div>
+                    <div><span class="verse-number">18</span>스스로 이르기를 나의 힘과 여호와께 대한 내 소망이 끊어졌다 하였도다</div>
+                    <div><span class="verse-number">19</span>내 고초와 재난 곧 쑥과 담즙을 기억하소서</div>
+                    <div><span class="verse-number">20</span>내 마음이 그것을 기억하고 내가 낙심이 되오나</div>
+                    <strong>소망의 근거이신 하나님</strong>
+                    <div><span class="verse-number">21</span>이것을 내가 내 마음에 담아 두었더니 그것이 오히려 나의 소망이 되었사옴은</div>
+                    <div><span class="verse-number">22</span>여호와의 인자와 긍휼이 무궁하시므로 우리가 진멸되지 아니함이니이다</div>
+                    <div><span class="verse-number">23</span>이것들이 아침마다 새로우니 주의 성실하심이 크시도소이다</div>
+                    <div><span class="verse-number">24</span>내 심령에 이르기를 여호와는 나의 기업이시니 그러므로 내가 그를 바라리라 하도다</div>
+                    <div><span class="verse-number">25</span>기다리는 자들에게나 구하는 영혼들에게 여호와는 선하시도다</div>
+                    <div><span class="verse-number">26</span>사람이 여호와의 구원을 바라고 잠잠히 기다림이 좋도다</div>
+                    <div><span class="verse-number">27</span>사람은 젊었을 때에 멍에를 메는 것이 좋으니</div>
+                    <div><span class="verse-number">28</span>혼자 앉아서 잠잠할 것은 주께서 그것을 그에게 메우셨음이라</div>
+                    <div><span class="verse-number">29</span>그대의 입을 티끌에 댈지어다 혹시 소망이 있을지로다</div>
+                    <div><span class="verse-number">30</span>자기를 치는 자에게 뺨을 돌려대어 치욕으로 배불릴지어다</div>
+                    <div><span class="verse-number">31</span>이는 주께서 영원하도록 버리지 아니하실 것임이며</div>
+                    <div><span class="verse-number">32</span>그가 비록 근심하게 하시나 그의 풍부한 인자하심에 따라 긍휼히 여기실 것임이라</div>
+                    <div><span class="verse-number">33</span>주께서 인생으로 고생하게 하시며 근심하게 하심은 본심이 아니시로다</div>
+                    <div><span class="verse-number">34</span>세상에 있는 모든 갇힌 자들을 발로 밟는 것과</div>
+                    <div><span class="verse-number">35</span>지존자의 얼굴 앞에서 사람의 재판을 굽게 하는 것과</div>
+                    <div><span class="verse-number">36</span>사람의 송사를 억울하게 하는 것은 다 주께서 기쁘게 보시는 것이 아니로다</div>
+                    <div><span class="verse-number">37</span>주의 명령이 아니면 누가 이것을 능히 말하여 이루게 할 수 있으랴</div>
+                    <div><span class="verse-number">38</span>화와 복이 지존자의 입으로부터 나오지 아니하느냐</div>
+                    <div><span class="verse-number">39</span>살아 있는 사람은 자기 죄들 때문에 벌을 받나니 어찌 원망하랴</div>
+                    <strong>회개와 구원을 향한 기도</strong>
+                    <div><span class="verse-number">40</span>우리가 스스로 우리의 행위를 조사하고 여호와께로 돌아가자</div>
+                    <div><span class="verse-number">41</span>우리의 마음과 손을 아울러 하늘에 계신 하나님께 들자</div>
+                    <div><span class="verse-number">42</span>우리의 범죄함과 우리의 반역함을 주께서 사하지 아니하시고</div>
+                    <div><span class="verse-number">43</span>진노로 자신을 가리시고 우리를 추격하여 죽이시며 긍휼을 베풀지 아니하셨나이다</div>
+                    <div><span class="verse-number">44</span>주께서 구름으로 자신을 가리사 기도가 상달되지 못하게 하시고</div>
+                    <div><span class="verse-number">45</span>우리를 뭇 나라 가운데에서 쓰레기와 폐물로 삼으셨으므로</div>
+                    <div><span class="verse-number">46</span>우리의 모든 원수들이 우리를 향하여 입을 크게 벌렸나이다</div>
+                    <div><span class="verse-number">47</span>두려움과 함정과 파멸과 멸망이 우리에게 임하였도다</div>
+                    <div><span class="verse-number">48</span>딸 내 백성의 파멸로 말미암아 내 눈에는 눈물이 시내 같이 흐르도다</div>
+                    <div><span class="verse-number">49</span>내 눈에 눈물이 그치지 아니하고 쉬지 아니함이여</div>
+                    <div><span class="verse-number">50</span>여호와께서 하늘에서 살피시고 돌아보실 때까지니라</div>
+                    <div><span class="verse-number">51</span>나의 성읍의 모든 여자들을 내 눈으로 보니 내 심령이 상하는도다</div>
+                    <div><span class="verse-number">52</span>나의 원수들이 이유 없이 나를 새처럼 사냥하는도다</div>
+                    <div><span class="verse-number">53</span>그들이 내 생명을 끊으려고 나를 구덩이에 넣고 그 위에 돌을 던짐이여</div>
+                    <div><span class="verse-number">54</span>물이 내 머리 위로 넘치니 내가 스스로 이르기를 이제는 멸절되었다 하도다</div>
+                    <div><span class="verse-number">55</span>여호와여 내가 심히 깊은 구덩이에서 주의 이름을 불렀나이다</div>
+                    <div><span class="verse-number">56</span>주께서 이미 나의 음성을 들으셨사오니 이제 나의 탄식과 부르짖음에 주의 귀를 가리지 마옵소서</div>
+                    <div><span class="verse-number">57</span>내가 주께 아뢴 날에 주께서 내게 가까이 하여 이르시되 두려워하지 말라 하셨나이다</div>
+                    <div><span class="verse-number">58</span>주여 주께서 내 심령의 원통함을 풀어 주셨고 내 생명을 속량하셨나이다</div>
+                    <div><span class="verse-number">59</span>여호와여 나의 억울함을 보셨사오니 나를 위하여 원통함을 풀어 주옵소서</div>
+                    <div><span class="verse-number">60</span>그들이 내게 보복하며 나를 모해함을 주께서 다 보셨나이다</div>
+                    <div><span class="verse-number">61</span>여호와여 그들이 나를 비방하며 나를 모해하는 모든 것</div>
+                    <div><span class="verse-number">62</span>곧 일어나 나를 치는 자들의 입술에서 나오는 것과 종일 나를 모해하는 것을 들으셨나이다</div>
+                    <div><span class="verse-number">63</span>그들이 앉으나 서나 나를 조롱하여 노래하는 것을 주목하여 보옵소서</div>
+                    <div><span class="verse-number">64</span>여호와여 주께서 그들의 손이 행한 대로 그들에게 보응하사</div>
+                    <div><span class="verse-number">65</span>그들에게 저주를 내리시고</div>
+                    <div><span class="verse-number">66</span>주께서 진노로 그들을 추격하사 여호와의 하늘 아래에서 멸하시리이다</div>
+                </div>
+            </div>
+
+            <!-- Card 4: 시편 34 -->
+            <div class="chapter-card card-book4">
+                <h2>시편 34편 분석</h2>
+                <h3>개요 (Overview)</h3>
+                <p>시편 34편은 다윗이 블레셋 왕 아비멜렉(아기스로 추정) 앞에서 미친 체하여 쫓겨난 후 지은 감사와 지혜의 시입니다. 시는 여호와를 송축하라는 권면으로 시작하여, 자신이 고통 중에 부르짖었을 때 하나님께서 어떻게 응답하시고 구원하셨는지를 간증합니다. 이 개인적인 경험은 "여호와의 선하심을 맛보아 알라"는 보편적인 초청으로 확장됩니다. 시의 후반부는 여호와를 경외하는 삶이 무엇인지, 의인과 악인의 결국이 어떻게 다른지에 대한 지혜 문학적인 교훈을 담고 있습니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <style>.svg-text { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; fill: #333; text-anchor: middle; }</style>
+                    <path d="M 100,100 a 70,70 0 1,1 0,0.1 z" fill="none" stroke="#a5d6a7" stroke-width="2"/>
+                    <g transform="translate(100, 30)">
+                        <text class="svg-text" font-weight="bold">부르짖음 (간구)</text>
+                    </g>
+                    <g transform="translate(170, 100)">
+                        <text class="svg-text" font-weight="bold">들으심 (응답)</text>
+                    </g>
+                    <g transform="translate(100, 170)">
+                        <text class="svg-text" font-weight="bold">건지심 (구원)</text>
+                    </g>
+                    <g transform="translate(30, 100)">
+                        <text class="svg-text" font-weight="bold">송축함 (찬양)</text>
+                    </g>
+                    <path d="M 100 45 V 20" stroke="#4caf50" marker-start="url(#arrow-green-rev)"/>
+                    <path d="M 155 100 H 180" stroke="#4caf50" marker-end="url(#arrow-green)"/>
+                    <path d="M 100 155 V 180" stroke="#4caf50" marker-end="url(#arrow-green)"/>
+                    <path d="M 45 100 H 20" stroke="#4caf50" marker-start="url(#arrow-green-rev)"/>
+                    <defs>
+                        <marker id="arrow-green" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M 0 0 L 6 3 L 0 6 z" fill="#4caf50"/></marker>
+                        <marker id="arrow-green-rev" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="M 0 0 L 6 3 L 0 6 z" fill="#4caf50"/></marker>
+                    </defs>
+                    <rect x="230" y="70" width="140" height="60" rx="5" fill="#e8f5e9" />
+                    <text x="300" y="90" class="svg-text" font-weight="bold">결론적 초청:</text>
+                    <text x="300" y="110" class="svg-text">"여호와의 선하심을 맛보아 알지어다"</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>이 시는 히브리어 알파벳 순서로 된 답관체 시로, 다윗의 특정 경험(삼상 21:10-15)에서 출발하지만 모든 성도를 위한 보편적인 진리를 가르칩니다. '여호와를 경외함'이 시 전체의 핵심 주제입니다. 여호와를 경외하는 것은 단순히 두려워하는 것이 아니라, 그의 선하심과 능력을 신뢰하고 그의 말씀에 순종하는 삶의 태도 전반을 의미합니다. 시인은 여호와를 경외하는 자에게는 부족함이 없고(9절), 천사가 그를 보호하며(7절), 그의 기도를 들으시고(17절), 모든 환난에서 건지신다(19절)고 약속합니다. 특히 "그의 모든 뼈를 보호하심이여 그 중에서 하나도 꺾이지 아니하도다"(20절)라는 구절은 요한복음 19장 36절에서 십자가에 달리신 예수님의 뼈가 꺾이지 않은 사건의 예언으로 인용되어, 의인이신 그리스도의 고난과 궁극적인 보호를 예표하는 중요한 구속사적 의미를 지닙니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <ul>
+                    <li>
+                        <p class="key-verse">시편 34:8</p>
+                        <p class="commentary-text">너희는 여호와의 선하심을 맛보아 알지어다 그에게 피하는 자는 복이 있도다</p>
+                        <p class="commentary-text">이 구절은 신앙이 단순한 지적 동의가 아니라, 인격적이고 경험적인 관계임을 보여주는 아름다운 초청입니다. '맛보아 안다'는 것은 음식을 직접 먹어보고 그 맛을 아는 것처럼, 하나님의 선하심을 삶 속에서 실제로 체험하고 깨달으라는 권면입니다. 이는 머리로만 아는 신앙을 넘어 가슴으로 느끼고 삶으로 살아내는 전인격적인 신앙으로 나아가게 합니다. 그리고 그 체험의 방법은 '그에게 피하는 것', 즉 나의 힘과 지혜를 의지하지 않고 모든 상황 속에서 하나님을 유일한 피난처로 삼고 전적으로 의뢰하는 것입니다. 그럴 때 우리는 하나님의 선하심이 얼마나 실제적인지를 경험하게 될 것입니다.</p>
+                    </li>
+                    <li>
+                        <p class="key-verse">시편 34:18</p>
+                        <p class="commentary-text">여호와는 마음이 상한 자를 가까이 하시고 충심으로 통회하는 자를 구원하시는도다</p>
+                        <p class="commentary-text">하나님께서 어떤 사람에게 가까이 계시고 구원을 베푸시는지를 보여주는 중요한 구절입니다. 하나님은 영적으로 교만한 자나 스스로 의롭다고 여기는 자가 아니라, '마음이 상한 자'와 '충심으로 통회하는 자'를 찾으십니다. '마음이 상했다'는 것은 자신의 죄와 연약함으로 인해 마음이 깨어진 상태를 의미하며, '통회하는' 영은 그러한 자신의 상태를 슬퍼하며 하나님 앞에 겸손히 엎드리는 태도를 말합니다. 이는 예수님께서 말씀하신 '심령이 가난한 자'와 같은 의미입니다. 하나님은 우리의 업적이 아니라 우리의 깨어진 마음을 귀하게 보시며, 바로 그곳에 가장 가까이 임재하시고 구원의 은혜를 베푸십니다.</p>
+                    </li>
+                </ul>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>하나님의 구원을 찬양함</strong>
+                    <div><span class="verse-number">1</span>내가 여호와를 항상 송축함이여 내 입술로 항상 주를 찬양하리이다</div>
+                    <div><span class="verse-number">2</span>내 영혼이 여호와를 자랑하리니 곤고한 자들이 이를 듣고 기뻐하리로다</div>
+                    <div><span class="verse-number">3</span>나와 함께 여호와를 광대하시다 하며 함께 그의 이름을 높이세</div>
+                    <div><span class="verse-number">4</span>내가 여호와께 간구하매 내게 응답하시고 내 모든 두려움에서 나를 건지셨도다</div>
+                    <div><span class="verse-number">5</span>그들이 주를 앙망하고 광채를 내었으니 그들의 얼굴은 부끄럽지 아니하리로다</div>
+                    <div><span class="verse-number">6</span>이 곤고한 자가 부르짖으매 여호와께서 들으시고 그의 모든 환난에서 구원하셨도다</div>
+                    <div><span class="verse-number">7</span>여호와의 천사가 주를 경외하는 자를 둘러 진 치고 그들을 건지시는도다</div>
+                    <strong>여호와를 경외하는 자의 복</strong>
+                    <div><span class="verse-number">8</span>너희는 여호와의 선하심을 맛보아 알지어다 그에게 피하는 자는 복이 있도다</div>
+                    <div><span class="verse-number">9</span>너희 성도들아 여호와를 경외하라 그를 경외하는 자에게는 부족함이 없도다</div>
+                    <div><span class="verse-number">10</span>젊은 사자는 궁핍하여 주릴지라도 여호와를 찾는 자는 모든 좋은 것에 부족함이 없으리로다</div>
+                    <div><span class="verse-number">11</span>너희 자녀들아 와서 내 말을 들으라 내가 여호와를 경외하는 법을 너희에게 가르치리로다</div>
+                    <div><span class="verse-number">12</span>생명을 사모하고 연수를 사랑하여 복 받기를 원하는 사람이 누구냐</div>
+                    <div><span class="verse-number">13</span>네 혀를 악에서 금하며 네 입술을 거짓말에서 금할지어다</div>
+                    <div><span class="verse-number">14</span>악을 버리고 선을 행하며 화평을 찾아 따를지어다</div>
+                    <strong>의인과 악인의 길</strong>
+                    <div><span class="verse-number">15</span>여호와의 눈은 의인을 향하시고 그의 귀는 그들의 부르짖음에 기울이시는도다</div>
+                    <div><span class="verse-number">16</span>여호와의 얼굴은 악을 행하는 자를 향하사 그들의 자취를 땅에서 끊으려 하시는도다</div>
+                    <div><span class="verse-number">17</span>의인이 부르짖으매 여호와께서 들으시고 그들의 모든 환난에서 건지셨도다</div>
+                    <div><span class="verse-number">18</span>여호와는 마음이 상한 자를 가까이 하시고 충심으로 통회하는 자를 구원하시는도다</div>
+                    <div><span class="verse-number">19</span>의인은 고난이 많으나 여호와께서 그의 모든 고난에서 건지시는도다</div>
+                    <div><span class="verse-number">20</span>그의 모든 뼈를 보호하심이여 그 중에서 하나도 꺾이지 아니하도다</div>
+                    <div><span class="verse-number">21</span>악이 악인을 죽일 것이라 의인을 미워하는 자는 벌을 받으리로다</div>
+                    <div><span class="verse-number">22</span>여호와께서 그의 종들의 영혼을 속량하시나니 그에게 피하는 자는 다 벌을 받지 아니하리로다</div>
+                </div>
+            </div>
+
+            <!-- Integration Card -->
+            <div class="chapter-card integration-card">
+                <h2>통합적 이해</h2>
+                
+                <h3>관통하는 주제</h3>
+                <p>하나님의 신실하심은 인간의 적대감(사무엘상 18)과 실존적 고난(예레미야애가 3) 속에서도 변치 않는 소망의 유일한 근거가 됩니다. 이 진리를 개인적으로 맛보아 아는(시편 34) 성도들은, 그 경험을 바탕으로 서로를 세우고 거짓 교훈을 분별하며 복음 안에서 견고한 공동체(로마서 16)를 이루어 하나님께 영광을 돌립니다.</p>
+
+                <h3>구속사의 파노라마 (시각적 연결고리)</h3>
+                <svg class="analysis-svg" viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+                    <style>.svg-text { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; fill: #333; } .svg-title { font-weight: bold; font-size: 13px; }</style>
+                    <defs><marker id="arrow-grey" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#808080" /></marker></defs>
+                    
+                    <rect x="20" y="20" width="220" height="90" rx="10" fill="#f0f0f0" stroke="#ccc" />
+                    <text x="130" y="45" text-anchor="middle" class="svg-title">현실: 고난과 적대감</text>
+                    <text x="70" y="80" text-anchor="middle" class="svg-text">사울의 시기 (삼상 18)</text>
+                    <text x="190" y="80" text-anchor="middle" class="svg-text">하나님의 징계 (애 3)</text>
+
+                    <rect x="260" y="140" width="220" height="90" rx="10" fill="#f0f0f0" stroke="#ccc" />
+                    <text x="370" y="165" text-anchor="middle" class="svg-title">결과: 공동체의 증거</text>
+                    <text x="320" y="200" text-anchor="middle" class="svg-text">동역과 연합 (롬 16)</text>
+                    <text x="420" y="200" text-anchor="middle" class="svg-text">진리 수호</text>
+                    
+                    <path d="M 245 65 C 150 150, 350 100, 255 185" stroke="#808080" stroke-width="2" fill="none" marker-end="url(#arrow-grey)" />
+
+                    <g transform="translate(250, 80)">
+                        <ellipse cx="0" cy="0" rx="90" ry="30" fill="#e8eaf6" stroke="#3f51b5" />
+                        <text x="0" y="5" text-anchor="middle" class="svg-title">해결: 하나님의 신실하심</text>
+                        <text x="0" y="20" text-anchor="middle" class="svg-text">(시 34, 애 3:22-23)</text>
+                    </g>
+                </svg>
+
+                <h3>본문별 연결고리 및 구속사적 맥락 (해설)</h3>
+                <p>오늘의 본문들은 성도의 삶에 나타나는 고난의 현실과 그것을 이기는 신앙의 원리를 입체적으로 보여줍니다.</p>
+                <ul>
+                    <li><b>사무엘상 18장과 예레미야애가 3장</b>은 성도가 마주하는 고난의 두 가지 측면을 보여줍니다. 하나는 세상으로부터 오는 부당한 적대감과 핍박(사울의 시기)이고, 다른 하나는 자신의 죄로 인한 하나님의 징계와 그로 인한 실존적 고통(애가의 탄식)입니다. 이 두 가지 현실은 우리를 절망과 두려움으로 몰아갑니다.</li>
+                    <li><b>시편 34편과 예레미야애가 3장 21-24절</b>은 이 절망적인 현실에 대한 유일한 해답을 제시합니다. 그것은 바로 상황과 감정에 상관없이 영원하고 변치 않는 하나님의 성품, 즉 그의 선하심과 인자하심(신실하심)을 신뢰하는 것입니다. 다윗은 자신을 죽이려는 위협 속에서, 애가의 시인은 민족적 멸망의 잿더미 위에서 오직 하나님을 피난처 삼고 그의 구원을 잠잠히 기다릴 때 소망이 있음을 발견합니다.</li>
+                    <li><b>로마서 16장</b>은 이 신앙의 원리가 어떻게 공동체적으로 구현되는지를 보여줍니다. 하나님의 신실하심을 경험한 성도들은 더 이상 홀로 존재하지 않습니다. 그들은 서로를 위해 목숨까지 내어주는 동역자(브리스가와 아굴라)가 되고, 여러 사람의 보호자(뵈뵈)가 되며, 복음 안에서 한 가족을 이룹니다. 이 공동체는 하나님의 선하심을 함께 맛보아 알며, 그 진리를 왜곡하는 거짓 가르침에 맞서 교회의 순결을 지키는 파수꾼의 역할을 감당합니다. 이처럼 개인의 고난을 통해 얻은 신앙의 정수는 공동체의 연합과 성숙을 통해 열매 맺게 됩니다.</li>
+                </ul>
+
+                <h3>주제별 심층 분석표</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>주제</th>
+                            <th>사무엘상 18</th>
+                            <th>로마서 16</th>
+                            <th>예레미야애가 3</th>
+                            <th>시편 34</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>고난의 원인</b></td>
+                            <td>세상의 시기와 적대감 (외부적)</td>
+                            <td>거짓 교사로 인한 분열의 위험 (내부적)</td>
+                            <td>죄에 대한 하나님의 징계 (내면적/관계적)</td>
+                            <td>의인이 겪는 많은 고난 (보편적)</td>
+                        </tr>
+                        <tr>
+                            <td><b>소망의 근거</b></td>
+                            <td>하나님이 함께하심 (임재)</td>
+                            <td>복음의 능력과 성도들의 연합 (공동체)</td>
+                            <td>하나님의 변치 않는 인자와 성실 (성품)</td>
+                            <td>하나님의 선하심과 구원하심 (경험)</td>
+                        </tr>
+                        <tr>
+                            <td><b>인간의 반응</b></td>
+                            <td>다윗: 지혜롭게 행함 / 사울: 두려워하고 대적함</td>
+                            <td>서로 문안하고 동역하며, 거짓 교사를 분별하고 떠남</td>
+                            <td>고통을 토로하고, 하나님의 성품을 기억하며, 회개함</td>
+                            <td>부르짖고, 맛보아 알며, 경외하고, 찬양함</td>
+                        </tr>
+                        <tr>
+                            <td><b>구속사적 연결</b></td>
+                            <td>핍박받는 다윗은 고난받는 메시아를 예표함</td>
+                            <td>그리스도 안에서 하나된 교회의 실현</td>
+                            <td>그리스도께서 담당하신 하나님의 진노를 암시함</td>
+                            <td>뼈가 꺾이지 않으신 그리스도의 고난을 예언함 (20절)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>오늘의 교훈</h3>
+                <p>우리의 삶은 외부의 부당한 공격과 내부의 죄와 연약함으로 인한 고통이 교차하는 자리입니다. 사울과 같은 사람 때문에 힘들기도 하고, 스스로의 죄 때문에 무너진 잿더미에 앉아 탄식할 때도 있습니다. 오늘 말씀은 그 어떤 상황 속에서도 소망을 잃지 않을 이유가 우리 자신이나 환경에 있지 않고, 오직 "아침마다 새로운" 하나님의 인자와 성실에 있음을 가르쳐줍니다. 고통이 깊을수록, 하나님의 선하심을 더 깊이 "맛보아 알" 기회입니다. 이 진리를 붙들 때, 우리는 고립된 개인을 넘어 서로를 격려하고 진리 위에 굳게 서는 믿음의 공동체로 세워져 갈 수 있습니다. 오늘 마주하는 시련 앞에서 하나님의 신실하심을 기억하고, 믿음의 동역자들과 함께 그 선하심을 찬양하는 하루가 되기를 소망합니다.</p>
+            </div>
+        </main>
+        
+        <footer>
+            2025 KBD 맥체인 성경읽기 프로젝트
+        </footer>
+    </div>
+
+    <script>
+        // YouTube IFrame Player API 스크립트 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var videoId = 'MpsT8xTXIPA'; // 사용자로부터 입력받은 링크에서 추출된 ID
+
+        function onYouTubeIframeAPIReady() {
+            if (videoId) {
+                player = new YT.Player('player', {
+                    height: '360',
+                    width: '640',
+                    videoId: videoId,
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                const button = document.getElementById('audio-control-button');
+                button.textContent = '오디오 자료 없음';
+                button.disabled = true;
+            }
+        }
+
+        function onPlayerReady(event) {
+            const button = document.getElementById('audio-control-button');
+            button.textContent = '오늘의 말씀듣기 ▶';
+            button.disabled = false;
+        }
+
+        function onPlayerStateChange(event) {
+            const button = document.getElementById('audio-control-button');
+            if (event.data == YT.PlayerState.PLAYING) {
+                button.textContent = '일시정지 ⏸';
+            } else {
+                button.textContent = '다시듣기 ▶';
+            }
+        }
+
+        function toggleAudio() {
+            if (player) {
+                const playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
+        
+        document.getElementById('audio-control-button').addEventListener('click', toggleAudio);
+    </script>
+</body>
+</html>

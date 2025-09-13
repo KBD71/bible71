@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 11일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Roboto:wght@400;700&display=swap');
+        :root {
+            --color-primary: #34495e; /* Wet Asphalt */
+            --color-secondary: #16a085; /* Green Sea */
+            --color-positive: #2980b9; /* Belize Hole */
+            --color-negative: #c0392b; /* Pomegranate */
+            --color-key: #f39c12; /* Orange */
+            --color-neutral: #7f8c8d; /* Gray */
+            --color-background: #ecf0f1;
+            --color-surface: #ffffff;
+            --color-text: #2c3e50;
+            --font-family-main: 'Noto Sans KR', sans-serif;
+            --border-radius: 12px;
+            --box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        }
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.8;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        header h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2em;
+            color: var(--color-neutral);
+            margin-top: 10px;
+        }
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        .card {
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .chapter-card {
+            border-left: 8px solid;
+        }
+        .card-content {
+            padding: 30px 35px;
+        }
+        .card-content h2 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.2em;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: var(--color-primary);
+        }
+        .card-content h3 {
+            font-size: 1.6em;
+            color: var(--color-text);
+            margin-top: 35px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--color-background);
+            padding-bottom: 10px;
+        }
+        .card-content h3 svg {
+            margin-right: 12px;
+            fill: var(--color-secondary);
+        }
+        .visual-analysis-container {
+            width: 100%;
+            padding: 25px;
+            box-sizing: border-box;
+            background-color: var(--color-background);
+            border-radius: var(--border-radius);
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .context-box {
+            background-color: #fdf2e9;
+            border-left: 5px solid var(--color-key);
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        .verse-commentary {
+            margin-bottom: 30px;
+        }
+        .verse-text {
+            font-weight: bold;
+            color: var(--color-primary);
+            background-color: #e9ecef;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .commentary-text {
+            color: #34495e;
+            padding-left: 18px;
+            border-left: 4px solid #bdc3c7;
+        }
+        .full-text p {
+            margin-bottom: 1.5em;
+        }
+        .full-text strong {
+            display: block;
+            color: var(--color-secondary);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .integration-card {
+            background: linear-gradient(135deg, var(--color-primary), #2c3e50);
+            color: white;
+            padding: 35px;
+        }
+        .integration-card h3 {
+            color: white;
+            font-size: 1.8em;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            padding-bottom: 10px;
+        }
+        .connection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .connection-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s;
+        }
+        .connection-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .connection-card h4 {
+            margin: 0 0 10px 0;
+            color: var(--color-key);
+        }
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        .timeline {
+            position: relative;
+            width: 100%;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 50px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--color-key);
+            border: 3px solid white;
+        }
+        .theme-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .theme-table th, .theme-table td {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            text-align: left;
+        }
+        .theme-table th {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .lesson-box {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-top: 30px;
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--color-secondary), #1abc9c);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            width: 220px;
+        }
+        .audio-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        .audio-button svg {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        #player {
+            display: none;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #bdc3c7;
+            font-size: 0.9em;
+            color: var(--color-neutral);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>8월 11일 맥체인 성경읽기</h1>
+            <p>사무엘상 1장, 로마서 1장, 예레미야 40장, 시편 13-14편</p>
+        </header>
+
+        <div style="text-align: center;">
+            <button id="audio-player-button" class="audio-button" onclick="togglePlay()">
+                <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+                <span id="button-text">오늘의 말씀 듣기</span>
+            </button>
+        </div>
+        
+        <div id="player"></div>
+
+        <div class="chapter-grid">
+            <div class="chapter-card" style="border-left-color: var(--color-positive);">
+                <div class="card-content">
+                    <h2>사무엘상 1장 분석</h2>
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 9H1v13h2V9zm4 0H5v13h2V9zm4 0H9v13h2V9zm4 0h-2v13h2V9zm4-8h-2v13h2V1zM3 7h18v2H3z"/></svg>
+                        개요 (Overview)
+                    </h3>
+                    <p>사무엘상 1장은 이스라엘의 마지막 사사이자 초대 선지자인 사무엘의 출생 배경을 그립니다. 자식이 없어 고통받던 한나가 실로의 성전에서 통곡하며 아들을 주시면 하나님께 바치겠다고 서원합니다. 하나님은 그녀의 기도를 들으시고, 한나는 약속대로 훗날 위대한 영적 지도자가 될 사무엘을 하나님께 온전히 봉헌합니다.</p>
+
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M21,3H3C1.9,3,1,3.9,1,5v14c0,1.1,0.9,2,2,2h18c1.1,0,2-0.9,2-2V5C23,3.9,22.1,3,21,3z M21,19H3V5h18V19z M9,16.5l4-4 l4,4V13l-4-4l-4,4V16.5z"/></svg>
+                        시각적 분석 (Visual Analysis)
+                    </h3>
+                    <div class="visual-analysis-container">
+                        <svg viewBox="0 0 450 250" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.1"/>
+                                </filter>
+                                <marker id="arrow_pos" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2980b9"/></marker>
+                            </defs>
+                            <style>
+                                .node-rect { fill: #fff; rx: 10; filter: url(#shadow); }
+                                .node-text { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; text-anchor: middle; }
+                                .sub-text { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; text-anchor: middle; fill: #555; }
+                                .flow-line { fill: none; stroke-width: 2.5; marker-end: url(#arrow_pos); }
+                            </style>
+                            <g>
+                                <rect class="node-rect" x="20" y="95" width="120" height="60" style="stroke: #c0392b; stroke-width:2;"/>
+                                <text class="node-text" x="80" y="120" style="fill:#c0392b;">고통 (Sorrow)</text>
+                                <text class="sub-text" x="80" y="140">자녀 없음, 격분</text>
+                            </g>
+                            <path class="flow-line" d="M 145 125 C 180 125, 170 45, 225 45" style="stroke:#f39c12;"/>
+                            <g>
+                                <rect class="node-rect" x="190" y="15" width="120" height="60" style="stroke: #f39c12; stroke-width:2;"/>
+                                <text class="node-text" x="250" y="40" style="fill:#f39c12;">서원 기도 (Vow)</text>
+                                <text class="sub-text" x="250" y="60">통곡, 마음을 쏟아냄</text>
+                            </g>
+                            <path class="flow-line" d="M 250 80 V 165" style="stroke:#2980b9;"/>
+                            <g>
+                                <rect class="node-rect" x="190" y="175" width="120" height="60" style="stroke: #2980b9; stroke-width:2;"/>
+                                <text class="node-text" x="250" y="200" style="fill:#2980b9;">응답 & 봉헌</text>
+                                <text class="sub-text" x="250" y="220">사무엘 출생, 하나님께 드림</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M12,3L2,12h3v8h14v-8h3L12,3z M12,16c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2s2,0.9,2,2C14,15.1,13.1,16,12,16z" opacity=".3"/><path d="M12,12c1.1,0,2,0.9,2,2c0-1.1-0.9,2-2,2s-2-0.9-2-2C10,12.9,10.9,12,12,12z M19,9.3V4h-3v2.6L12,3L2,12h3v8h14v-8h3 L19,9.3z M17,18H7v-6.97l5-4.22l5,4.22V18z"/></g></g></svg>
+                        배경지식 및 신학적 통찰 (Context & Theology)
+                    </h3>
+                    <div class="context-box">
+                        <p><strong>시대적 배경과 하나님의 주권:</strong> 당시 이스라엘은 영적 암흑기인 사사 시대의 끝자락에 있었습니다. 제사장 엘리의 가문은 타락했고, 신앙의 중심지였던 실로는 그 권위를 잃어가고 있었습니다. 바로 이런 절망적인 상황 속에서, 하나님은 가장 비천하고 고통받는 한 여인의 기도를 통해 구속사의 새로운 장을 여십니다. 이는 하나님의 주권적인 역사가 인간의 조건이나 세상의 평가가 아닌, 오직 그분의 은혜로운 선택과 능력에 달려있음을 보여주는 중요한 사건입니다.</p>
+                    </div>
+
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>
+                        주요 구절 해설 (Key Verse Commentary)
+                    </h3>
+                    <div class="verse-commentary">
+                        <div class="verse-text">사무엘상 1:11 - 서원하여 이르되 만군의 여호와여 만일 주의 여종의 고통을 돌보시고 나를 기억하사 주의 여종을 잊지 아니하시고 주의 여종에게 아들을 주시면 내가 그의 평생에 그를 여호와께 드리고 삭도를 그의 머리에 대지 아니하겠나이다</div>
+                        <div class="commentary-text">한나의 기도는 단순한 간구가 아닌, 자신의 가장 간절한 소원을 하나님 나라를 위해 드리겠다는 '서원'이었습니다. '삭도를 머리에 대지 않는다'는 나실인 서약은, 아들을 자신의 소유가 아닌 온전히 하나님께 구별된 자로 바치겠다는 헌신의 최고 표현입니다. 이는 이기적 욕심을 넘어선 거룩한 소원이었습니다.</div>
+                    </div>
+                    <div class="verse-commentary">
+                        <div class="verse-text">사무엘상 1:28 - 그러므로 나도 그를 여호와께 드리되 그의 평생을 여호와께 드리나이다 하고 그가 거기서 여호와께 경배하니라</div>
+                        <div class="commentary-text">기도 응답을 받은 후, 한나는 약속을 지키기 위해 가장 소중한 아들을 기꺼이 하나님께 바칩니다. '드리다'라는 단어의 원어적 의미는 '빌려주다'로, 원래 하나님의 것이었던 생명을 다시 돌려드린다는 청지기적 신앙고백입니다. 이는 모든 것의 주인이 하나님이심을 인정하는 위대한 믿음의 행위입니다.</div>
+                    </div>
+                    
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10z"/></svg>
+                        성경 본문 (Full Text)
+                    </h3>
+                    <div class="full-text">
+                        <p><strong>[엘가나와 그의 두 아내]</strong><br>1 에브라임 산지 라마다임소빔에 에브라임 사람 엘가나라 하는 사람이 있었으니 그는 여로함의 아들이요 엘리후의 손자요 도후의 증손이요 숩의 현손이더라<br>2 그에게 두 아내가 있었으니 한 사람의 이름은 한나요 한 사람의 이름은 브닌나라 브닌나에게는 자식이 있고 한나에게는 자식이 없었더라<br>3 이 사람이 매년 자기 성읍에서 나와서 실로에 올라가서 만군의 여호와께 예배하며 제사를 드렸는데 엘리의 두 아들 홉니와 비느하스가 여호와의 제사장으로 거기에 있었더라<br>4 엘가나가 제사를 드리는 날에는 제물의 분깃을 그의 아내 브닌나와 그의 모든 자녀에게 주고<br>5 한나에게는 갑절을 주니 이는 그를 사랑함이라 그러나 여호와께서 그에게 임신하지 못하게 하시니<br>6 여호와께서 그에게 임신하지 못하게 하시므로 그의 적수인 브닌나가 그를 심히 격분하게 하여 괴롭게 하더라<br>7 매년 한나가 여호와의 집에 올라갈 때마다 남편이 그같이 하매 브닌나가 그를 격분시키므로 그가 울고 먹지 아니하니<br>8 그의 남편 엘가나가 그에게 이르되 한나여 어찌하여 울며 어찌하여 먹지 아니하며 어찌하여 그대의 마음이 슬프냐 내가 그대에게 열 아들보다 낫지 아니하냐 하니라</p>
+                        <p><strong>[한나의 기도]</strong><br>9 그들이 실로에서 먹고 마신 후에 한나가 일어나니 그 때에 제사장 엘리는 여호와의 전 문설주 곁 의자에 앉아 있었더라<br>10 한나가 마음이 괴로워서 여호와께 기도하고 통곡하며<br>11 서원하여 이르되 만군의 여호와여 만일 주의 여종의 고통을 돌보시고 나를 기억하사 주의 여종을 잊지 아니하시고 주의 여종에게 아들을 주시면 내가 그의 평생에 그를 여호와께 드리고 삭도를 그의 머리에 대지 아니하겠나이다<br>12 그가 여호와 앞에 오래 기도하는 동안에 엘리가 그의 입을 주목한즉<br>13 한나가 속으로 말하매 입술만 움직이고 음성은 들리지 아니하므로 엘리는 그가 취한 줄로 생각한지라<br>14 엘리가 그에게 이르되 네가 언제까지 취하여 있겠느냐 포도주를 끊으라 하니<br>15 한나가 대답하여 이르되 내 주여 그렇지 아니하니이다 나는 마음이 슬픈 여자라 포도주나 독주를 마신 것이 아니요 여호와 앞에 내 심정을 통한 것뿐이오니<br>16 당신의 여종을 악한 여자로 여기지 마옵소서 내가 지금까지 말한 것은 나의 원통함과 격분됨이 많기 때문이니이다 하는지라<br>17 엘리가 대답하여 이르되 평안히 가라 이스라엘의 하나님이 네가 기도하여 구한 것을 허락하시기를 원하노라 하니<br>18 이르되 당신의 여종이 당신께 은혜 입기를 원하나이다 하고 가서 먹고 얼굴에 다시는 근심 빛이 없더라</p>
+                        <p><strong>[사무엘의 출생과 봉헌]</strong><br>19 그들이 아침에 일찍이 일어나 여호와 앞에 경배하고 돌아가 라마의 자기 집에 이르니라 엘가나가 그의 아내 한나와 동침하매 여호와께서 그를 생각하신지라<br>20 한나가 임신하고 때가 이르매 아들을 낳아 사무엘이라 이름하였으니 이는 내가 여호와께 그를 구하였다 함이더라<br>21 그 사람 엘가나와 그의 온 집이 여호와께 매년제와 서원제를 드리러 실로로 올라갈 때에<br>22 오직 한나는 올라가지 아니하고 그의 남편에게 이르되 아이를 젖 떼거든 내가 그를 데리고 가서 여호와 앞에 뵙게 하고 거기에 영원히 있게 하리이다 하니<br>23 그의 남편 엘가나가 그에게 이르되 그대의 소견에 좋은 대로 하여 그를 젖 떼기까지 기다리라 오직 여호와께서 그의 말씀대로 이루시기를 원하노라 하니라 이에 그 여자가 그의 아들을 양육하며 그가 젖 떼기까지 기다리다가<br>24 젖을 뗀 후에 그를 데리고 올라갈새 수소 세 마리와 밀가루 한 에바와 포도주 한 가죽부대를 가지고 실로 여호와의 집에 나아갔는데 아이가 어리더라<br>25 그들이 수소를 잡고 아이를 데리고 엘리에게 가서<br>26 한나가 이르되 내 주여 당신의 사심으로 맹세하나이다 나는 여기서 내 주 당신 곁에 서서 여호와께 기도하던 여자라<br>27 이 아이를 위하여 내가 기도하였더니 내가 구하여 기도한 바를 여호와께서 내게 허락하신지라<br>28 그러므로 나도 그를 여호와께 드리되 그의 평생을 여호와께 드리나이다 하고 그가 거기서 여호와께 경배하니라</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chapter-card" style="border-left-color: var(--color-negative);">
+                <div class="card-content">
+                    <h2>로마서 1장 분석</h2>
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 9H1v13h2V9zm4 0H5v13h2V9zm4 0H9v13h2V9zm4 0h-2v13h2V9zm4-8h-2v13h2V1zM3 7h18v2H3z"/></svg>개요 (Overview)</h3>
+                    <p>로마서 1장은 복음의 핵심과 그 필요성을 강력하게 선포합니다. 바울은 복음이 '모든 믿는 자에게 구원을 주시는 하나님의 능력'이며, 그 안에는 '하나님의 의'가 나타난다고 밝힙니다. 이어서 복음이 왜 절대적으로 필요한지를 논증하기 위해, 모든 인간이 창조 세계에 드러난 하나님을 알면서도 그를 멸시하고 우상숭배에 빠졌으며, 그 결과 하나님의 진노 아래 놓이게 되었음을 폭로합니다.</p>
+
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M21,3H3C1.9,3,1,3.9,1,5v14c0,1.1,0.9,2,2,2h18c1.1,0,2-0.9,2-2V5C23,3.9,22.1,3,21,3z M21,19H3V5h18V19z M9,16.5l4-4 l4,4V13l-4-4l-4,4V16.5z"/></svg>시각적 분석 (Visual Analysis)</h3>
+                    <div class="visual-analysis-container">
+                        <svg viewBox="0 0 450 300" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.1"/></filter>
+                                <marker id="arrow_neg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/></marker>
+                            </defs>
+                            <style>
+                                .node-rect { fill: #fff; rx: 10; filter: url(#shadow); }
+                                .text-title { font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 700; text-anchor: middle; }
+                                .text-body { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; text-anchor: middle; }
+                                .line-neg { fill: none; stroke: #c0392b; stroke-width: 2.5; marker-end: url(#arrow_neg); }
+                            </style>
+                            <g transform="translate(225, 40)">
+                                <rect class="node-rect" x="-100" y="-20" width="200" height="40" style="stroke:#2980b9; stroke-width:2;"/>
+                                <text class="text-title" y="5" style="fill:#2980b9;">복음: 하나님의 의</text>
+                                <text class="text-body" y="20" style="fill:#555;">믿음으로 얻는 구원의 능력</text>
+                            </g>
+                            <g transform="translate(225, 120)">
+                                <rect class="node-rect" x="-100" y="-20" width="200" height="40" style="stroke:#7f8c8d; stroke-width:2;"/>
+                                <text class="text-title" y="5" style="fill:#7f8c8d;">인간의 상태: 진리 억압</text>
+                                <text class="text-body" y="20" style="fill:#555;">하나님을 알되 부인함 (1:21)</text>
+                            </g>
+                            <path d="M 225 140 v 30" class="line-neg"/>
+                            <g transform="translate(110, 200)">
+                                <rect class="node-rect" x="-80" y="-20" width="160" height="40" style="stroke:#c0392b; stroke-width:2;"/>
+                                <text class="text-title" y="5" style="fill:#c0392b;">우상 숭배</text>
+                                <text class="text-body" y="20" style="fill:#555;">하나님의 영광을 바꿈 (1:23)</text>
+                            </g>
+                            <g transform="translate(340, 200)">
+                                <rect class="node-rect" x="-80" y="-20" width="160" height="40" style="stroke:#c0392b; stroke-width:2;"/>
+                                <text class="text-title" y="5" style="fill:#c0392b;">정욕에 내버려 두심</text>
+                                <text class="text-body" y="20" style="fill:#555;">죄의 심화 (1:24, 26, 28)</text>
+                            </g>
+                            <path d="M 190 220 C 225 250, 225 250, 260 220" class="line-neg"/>
+                            <text x="225" y="100" font-size="20px" font-weight="bold" fill="#c0392b">VS</text>
+                        </svg>
+                    </div>
+
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M12,3L2,12h3v8h14v-8h3L12,3z M12,16c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2s2,0.9,2,2C14,15.1,13.1,16,12,16z" opacity=".3"/><path d="M12,12c1.1,0,2,0.9,2,2c0-1.1-0.9,2-2,2s-2-0.9-2-2C10,12.9,10.9,12,12,12z M19,9.3V4h-3v2.6L12,3L2,12h3v8h14v-8h3 L19,9.3z M17,18H7v-6.97l5-4.22l5,4.22V18z"/></g></g></svg>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                    <div class="context-box" style="background-color:#fbe9e7; border-left-color:var(--color-negative);">
+                        <p><strong>일반 계시와 전적 부패:</strong> 개혁주의 신학은 로마서 1:19-20을 '일반 계시'의 핵심 근거로 봅니다. 이는 하나님이 자신의 존재와 능력을 자연 만물을 통해 모든 사람에게 분명히 보이셨다는 의미입니다. 그러나 인간은 죄로 인해 이 진리를 의도적으로 억누릅니다(전적 부패). 그 결과 나타나는 "하나님께서 내버려 두사"라는 표현은, 죄에 대한 하나님의 심판 방식 중 하나로, 인간이 자신의 죄악된 길을 가도록 허용하시는 것을 뜻합니다. 이는 인간의 완전한 무능력과 복음의 절대적인 필요성을 강조합니다.</p>
+                    </div>
+
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>주요 구절 해설 (Key Verse Commentary)</h3>
+                    <div class="verse-commentary">
+                        <div class="verse-text">로마서 1:16-17 - 내가 복음을 부끄러워하지 아니하노니 이 복음은 모든 믿는 자에게 구원을 주시는 하나님의 능력이 됨이라 먼저는 유대인에게요 그리고 헬라인에게로다 복음에는 하나님의 의가 나타나서 믿음으로 믿음에 이르게 하나니 기록된 바 오직 의인은 믿음으로 말미암아 살리라 함과 같으니라</div>
+                        <div class="commentary-text">종교개혁의 불을 붙인 이 구절은 로마서 전체의 주제입니다. '하나님의 의'는 인간의 행위로 얻는 의가 아닌, 하나님께서 그리스도를 통해 값없이 주시는 선물입니다. 이 의는 오직 '믿음'으로만 받을 수 있으며, 구원의 시작부터 끝까지 전 과정이 믿음으로 이루어짐을 '믿음으로 믿음에 이르게 한다'는 표현이 강조합니다.</div>
+                    </div>
+                    <div class="verse-commentary">
+                        <div class="verse-text">로마서 1:20 - 창세로부터 그의 보이지 아니하는 것들 곧 그의 영원하신 능력과 신성이 그가 만드신 만물에 분명히 보여 알려졌나니 그러므로 그들이 핑계하지 못할지니라</div>
+                        <div class="commentary-text">이 구절은 하나님의 존재를 부인하는 모든 이들이 심판대 앞에서 핑계할 수 없는 이유를 설명합니다. 정교하고 광대한 창조 세계 자체가 창조주의 존재를 증거하기 때문입니다. 따라서 하나님을 모른다는 것은 무지가 아니라, 의도적인 외면이며 억압이라는 것입니다.</div>
+                    </div>
+                    
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10z"/></svg>성경 본문 (Full Text)</h3>
+                    <div class="full-text">
+                        <p><strong>[인사와 복음]</strong><br>1 예수 그리스도의 종 바울은 사도로 부르심을 받아 하나님의 복음을 위하여 택정함을 입었으니<br>2 이 복음은 하나님이 선지자들을 통하여 그의 아들에 관하여 성경에 미리 약속하신 것이라<br>3 그의 아들에 관하여 말하면 육신으로는 다윗의 혈통에서 나셨고<br>4 성결의 영으로는 죽은 자들 가운데서 부활하사 능력으로 하나님의 아들로 선포되셨으니 곧 우리 주 예수 그리스도시니라<br>5 그로 말미암아 우리가 은혜와 사도의 직분을 받아 그의 이름을 위하여 모든 이방인 중에서 믿어 순종하게 하나니<br>6 너희도 그들 중에서 예수 그리스도의 것으로 부르심을 받은 자니라<br>7 로마에서 하나님의 사랑하심을 받고 성도로 부르심을 받은 모든 자에게 하나님 우리 아버지와 주 예수 그리스도로부터 은혜와 평강이 있기를 원하노라<br>8 먼저 내가 예수 그리스도로 말미암아 너희 모든 사람에 관하여 내 하나님께 감사함은 너희 믿음이 온 세상에 전파됨이로다<br>9 내가 그의 아들의 복음 안에서 내 심령으로 섬기는 하나님이 나의 증인이 되시거니와 항상 내 기도에 쉬지 않고 너희를 말하며<br>10 어떻게 하든지 이제 하나님의 뜻 안에서 너희에게로 나아갈 좋은 길 얻기를 구하노라<br>11 내가 너희 보기를 간절히 원하는 것은 어떤 신령한 은사를 너희에게 나누어 주어 너희를 견고하게 하려 함이니<br>12 이는 곧 내가 너희 가운데서 너희와 나의 믿음으로 말미암아 피차 안위함을 얻으려 함이라<br>13 형제들아 내가 여러 번 너희에게 가고자 한 것을 너희가 모르기를 원하지 아니하노니 이는 너희 중에서도 다른 이방인 중에서와 같이 열매를 맺게 하려 함이로되 지금까지 길이 막혔도다<br>14 헬라인이나 야만인이나 지혜 있는 자나 어리석은 자에게 다 내가 빚진 자라<br>15 그러므로 나는 할 수 있는 대로 로마에 있는 너희에게도 복음 전하기를 원하노라<br>16 내가 복음을 부끄러워하지 아니하노니 이 복음은 모든 믿는 자에게 구원을 주시는 하나님의 능력이 됨이라 먼저는 유대인에게요 그리고 헬라인에게로다<br>17 복음에는 하나님의 의가 나타나서 믿음으로 믿음에 이르게 하나니 기록된 바 오직 의인은 믿음으로 말미암아 살리라 함과 같으니라</p>
+                        <p><strong>[하나님의 진노]</strong><br>18 하나님의 진노가 불의로 진리를 막는 사람들의 모든 경건하지 않음과 불의에 대하여 하늘로부터 나타나나니<br>19 이는 하나님을 알 만한 것이 그들 속에 보임이라 하나님께서 이를 그들에게 보이셨느니라<br>20 창세로부터 그의 보이지 아니하는 것들 곧 그의 영원하신 능력과 신성이 그가 만드신 만물에 분명히 보여 알려졌나니 그러므로 그들이 핑계하지 못할지니라<br>21 하나님을 알되 하나님을 영화롭게도 아니하며 감사하지도 아니하고 오히려 그 생각이 허망하여지며 미련한 마음이 어두워졌나니<br>22 스스로 지혜 있다 하나 어리석게 되어<br>23 썩어지지 아니하는 하나님의 영광을 썩어질 사람과 새와 짐승과 기어다니는 동물 모양의 우상으로 바꾸었느니라<br>24 그러므로 하나님께서 그들을 마음의 정욕대로 더러움에 내버려 두사 그들의 몸을 서로 욕되게 하게 하셨으니<br>25 이는 그들이 하나님의 진리를 거짓 것으로 바꾸어 피조물을 조물주보다 더 경배하고 섬김이라 주는 곧 영원히 찬송할 이시로다 아멘<br>26 이 때문에 하나님께서 그들을 부끄러운 욕심에 내버려 두셨으니 곧 그들의 여자들도 순리대로 쓸 것을 바꾸어 역리로 쓰며<br>27 그와 같이 남자들도 순리대로 여자 쓰기를 버리고 서로 향하여 음욕이 불 일듯 하매 남자가 남자와 더불어 부끄러운 일을 행하여 그들의 그릇됨에 상당한 보응을 그들 자신이 받았느니라<br>28 또한 그들이 마음에 하나님 두기를 싫어하매 하나님께서 그들을 그 상실한 마음대로 내버려 두사 합당하지 못한 일을 하게 하셨으니<br>29 곧 모든 불의, 추악, 탐욕, 악의가 가득한 자요 시기, 살인, 분쟁, 사기, 악독이 가득한 자요 수군수군하는 자요<br>30 비방하는 자요 하나님께서 미워하시는 자요 능욕하는 자요 교만한 자요 자랑하는 자요 악을 도모하는 자요 부모를 거역하는 자요<br>31 우매한 자요 배약하는 자요 무정한 자요 무자비한 자라<br>32 그들이 이같은 일을 행하는 자는 사형에 해당한다고 하나님께서 정하심을 알고도 자기들만 행할 뿐 아니라 또한 그런 일을 행하는 자들을 옳다 하느니라</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chapter-card" style="border-left-color: var(--color-key);">
+                <div class="card-content">
+                    <h2>예레미야 40장 분석</h2>
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 9H1v13h2V9zm4 0H5v13h2V9zm4 0H9v13h2V9zm4 0h-2v13h2V9zm4-8h-2v13h2V1zM3 7h18v2H3z"/></svg>개요 (Overview)</h3>
+                    <p>예레미야 40장은 예루살렘 멸망이라는 대재앙 이후, 폐허가 된 유다 땅에 남겨진 자들의 이야기를 시작합니다. 바벨론의 시위대장 느부사라단은 포로로 잡혀가던 예레미야를 풀어주며 거취를 선택할 자유를 줍니다. 예레미야는 바벨론이 유다 총독으로 세운 그다랴에게로 가 남은 백성과 함께하기로 결정하고, 이 소식을 들은 흩어졌던 유다의 군 지휘관과 백성들이 희망을 품고 그다랴에게로 모여듭니다.</p>
+
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M21,3H3C1.9,3,1,3.9,1,5v14c0,1.1,0.9,2,2,2h18c1.1,0,2-0.9,2-2V5C23,3.9,22.1,3,21,3z M21,19H3V5h18V19z M9,16.5l4-4 l4,4V13l-4-4l-4,4V16.5z"/></svg>시각적 분석 (Visual Analysis)</h3>
+                    <div class="visual-analysis-container">
+                        <svg viewBox="0 0 450 250" xmlns="http://www.w3.org/2000/svg">
+                            <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.1"/></filter></defs>
+                            <style>
+                                .node-ellipse { fill: #fff; rx: 60; ry: 30; filter: url(#shadow); }
+                                .node-text { font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-anchor: middle; }
+                                .sub-text { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; text-anchor: middle; fill: #555; }
+                                .action-text { font-family: 'Noto Sans KR', sans-serif; font-size: 10px; font-weight: 600; text-anchor: middle; }
+                                .line { fill: none; stroke: #7f8c8d; stroke-width: 2; }
+                            </style>
+                            <ellipse class="node-ellipse" cx="225" cy="50" style="stroke:#c0392b; stroke-width:2;"/>
+                            <text class="node-text" x="225" y="55" style="fill:#c0392b;">바벨론</text>
+                            
+                            <ellipse class="node-ellipse" cx="225" cy="190" style="stroke:#2980b9; stroke-width:2;"/>
+                            <text class="node-text" x="225" y="195" style="fill:#2980b9;">그다랴</text>
+                            <text class="sub-text" x="225" y="210">(남은 자의 지도자)</text>
+
+                            <path class="line" d="M 225 80 V 160"/>
+                            <text class="action-text" x="250" y="125" fill="#333">임명</text>
+                            
+                            <ellipse class="node-ellipse" cx="70" cy="120" style="stroke:#f39c12; stroke-width:2;"/>
+                            <text class="node-text" x="70" y="125" style="fill:#f39c12;">예레미야</text>
+                            
+                            <ellipse class="node-ellipse" cx="380" cy="120" style="stroke:#16a085; stroke-width:2;"/>
+                            <text class="node-text" x="380" y="125" style="fill:#16a085;">백성들</text>
+
+                            <path class="line" d="M 130 125 C 160 140, 180 160, 205 175"/>
+                            <text class="action-text" x="160" y="160" fill="#333">합류 선택</text>
+                            
+                             <path class="line" d="M 320 125 C 290 140, 270 160, 245 175"/>
+                            <text class="action-text" x="295" y="160" fill="#333">귀순</text>
+                        </svg>
+                    </div>
+
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M12,3L2,12h3v8h14v-8h3L12,3z M12,16c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2s2,0.9,2,2C14,15.1,13.1,16,12,16z" opacity=".3"/><path d="M12,12c1.1,0,2,0.9,2,2c0-1.1-0.9,2-2,2s-2-0.9-2-2C10,12.9,10.9,12,12,12z M19,9.3V4h-3v2.6L12,3L2,12h3v8h14v-8h3 L19,9.3z M17,18H7v-6.97l5-4.22l5,4.22V18z"/></g></g></svg>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                    <div class="context-box">
+                        <p><strong>'남은 자' 사상과 하나님의 신실하심:</strong> 예레미야서는 하나님의 준엄한 심판을 선포함과 동시에, 완전한 멸망이 아닌 '남은 자(Remnant)'를 통한 회복의 희망을 꾸준히 이야기합니다. 40장은 심판이 집행된 직후, 그 남은 자들이 어떻게 형성되는지를 보여주는 장면입니다. 예레미야의 선택은 상징적입니다. 그는 개인의 안위(바벨론 행)보다 고통받는 동족과 함께하는 길을 택합니다. 이는 하나님의 마음이 여전히 유다 땅의 남은 자들에게 있음을 보여주며, 이 작은 공동체를 통해 하나님이 새로운 역사를 시작하실 것이라는 소망을 암시합니다.</p>
+                    </div>
+
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>주요 구절 해설 (Key Verse Commentary)</h3>
+                    <div class="verse-commentary">
+                        <div class="verse-text">예레미야 40:4-5 - ...네가 좋게 여기는 대로 옳게 여기는 곳으로 갈지니라...</div>
+                        <div class="commentary-text">바벨론 시위대장이 하나님의 선지자인 예레미야에게 놀라운 자유와 존중을 보여줍니다. 이는 예레미야가 전한 말씀이 참된 하나님의 말씀이었음을 역설적으로 증명하는 장면입니다. 하나님의 주권은 이방 나라의 군대장관을 통해서도 당신의 종을 보호하고 높이시는 방식으로 나타납니다.</div>
+                    </div>
+                    <div class="verse-commentary">
+                        <div class="verse-text">예레미야 40:9 - ...너희는 갈대아 사람을 섬기기를 두려워하지 말고 이 땅에 살면서 바벨론의 왕을 섬기라 그리하면 너희에게 좋으리라</div>
+                        <div class="commentary-text">그다랴의 권고는 예레미야가 일관되게 선포했던 메시지와 동일합니다. 즉, 하나님의 주권적 심판의 도구인 바벨론에 저항하지 말고, 그 통치에 순응하며 생존을 도모하라는 것입니다. 이는 정치적 항복을 넘어, 하나님의 징계를 겸허히 받아들이라는 신앙적 권면입니다. 이 현실적인 길이 곧 남은 자들이 살 길임을 보여줍니다.</div>
+                    </div>
+                    
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10z"/></svg>성경 본문 (Full Text)</h3>
+                    <div class="full-text">
+                        <p><strong>[예레미야가 풀려나다]</strong><br>1 사령관 느부사라단이 예루살렘과 유다의 포로를 바벨론으로 옮기는 중에 예레미야도 잡혀 사슬로 결박되어 가다가 라마에서 풀려난 후에 말씀이 여호와께로부터 예레미야에게 임하니라<br>2 사령관이 예레미야를 불러다가 이르되 네 하나님 여호와께서 이 곳에 이 재앙을 선포하시더니<br>3 여호와께서 그가 말씀하신 대로 행하셨으니 이는 너희가 여호와께 범죄하고 그의 목소리에 순종하지 아니하였으므로 이 일이 너희에게 임한 것이니라<br>4 보라 내가 오늘 네 손의 사슬을 풀어 너를 풀어 주노니 만일 네가 나와 함께 바벨론으로 가는 것을 좋게 여기거든 가자 내가 너를 선대하리라 만일 바벨론으로 가는 것을 좋지 않게 여기거든 그만두라 보라 온 땅이 네 앞에 있나니 네가 좋게 여기는 대로 옳게 여기는 곳으로 갈지니라 하니라<br>5 예레미야가 아직 돌이키기 전에 그가 다시 이르되 너는 바벨론의 왕이 유다 성읍들을 맡도록 세운 사반의 손자 아히감의 아들 그다랴에게로 돌아가서 그와 함께 백성 가운데 살거나 네가 옳게 여기는 곳으로 가거나 할지니라 하고 그 사령관이 그에게 양식과 선물을 주어 보내매<br>6 예레미야가 미스바로 가서 아히감의 아들 그다랴에게로 나아가서 그 땅에 남아 있는 백성 가운데서 그와 함께 사니라</p>
+                        <p><strong>[그다랴가 남은 백성을 다스리다]</strong><br>7 들에 있던 모든 지휘관과 그들의 부하들이 바벨론의 왕이 아히감의 아들 그다랴에게 그 땅을 맡기고 남녀와 유아와 그 땅의 빈민으로서 바벨론으로 끌려가지 아니한 자를 그에게 맡겼다 함을 듣고<br>8 그들 곧 느다냐의 아들 이스마엘과 가레아의 두 아들 요하난과 요나단과 단후멧의 아들 스라야와 느도바 사람 에배의 아들들과 마아가 사람의 아들 여사냐와 그들의 부하들이 미스바로 가서 그다랴에게 이르니<br>9 사반의 손자 아히감의 아들 그다랴가 그들과 그들의 부하들에게 맹세하며 이르되 너희는 갈대아 사람을 섬기기를 두려워하지 말고 이 땅에 살면서 바벨론의 왕을 섬기라 그리하면 너희에게 좋으리라<br>10 보라 나는 미스바에 살면서 우리에게로 오는 갈대아 사람을 섬기리니 너희는 포도주와 여름 과일과 기름을 모아 그릇에 저장하고 너희가 얻은 성읍들에 살라 하니라<br>11 모압과 암몬 자손 중과 에돔과 모든 지방에 있는 유다 사람도 바벨론의 왕이 유다에 백성을 남겨 둔 것과 사반의 손자 아히감의 아들 그다랴를 그들을 위하여 세웠다 함을 들었더라<br>12 그 모든 유다 사람이 쫓겨났던 각처에서 돌아와 유다 땅 미스바에 있는 그다랴에게 이르러 포도주와 여름 과일을 심히 많이 모으니라<br>13 가레아의 아들 요하난과 들에 있던 모든 군 지휘관들이 미스바에 있는 그다랴에게 이르러<br>14 그에게 이르되 암몬 자손의 왕 바알리스가 네 생명을 빼앗으려 하여 느다냐의 아들 이스마엘을 보낸 줄 네가 아느냐 하되 아히감의 아들 그다랴가 믿지 아니한지라<br>15 가레아의 아들 요하난이 미스바에서 그다랴에게 비밀히 말하여 이르되 청하노니 내가 가서 사람이 모르게 느다냐의 아들 이스마엘을 죽이게 하라 어찌하여 그가 네 생명을 빼앗게 하여 네게 모인 모든 유다 사람을 흩어지게 하며 유다의 남은 자로 멸망을 당하게 하랴<br>16 그러나 아히감의 아들 그다랴가 가레아의 아들 요하난에게 이르되 네가 이 일을 행하지 말 것이니라 네가 이스마엘에 대하여 한 말은 진정이 아니니라 하니라</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chapter-card" style="border-left-color: var(--color-secondary);">
+                <div class="card-content">
+                    <h2>시편 13-14편 분석</h2>
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 9H1v13h2V9zm4 0H5v13h2V9zm4 0H9v13h2V9zm4 0h-2v13h2V9zm4-8h-2v13h2V1zM3 7h18v2H3z"/></svg>개요 (Overview)</h3>
+                    <p><strong>시편 13편</strong>은 전형적인 개인 탄식시로, "어느 때까지니이까"라는 절규로 시작하여 하나님의 부재를 느끼는 극심한 고통을 토로합니다. 그러나 시는 극적으로 전환되어, 하나님의 변함없는 사랑(인애)에 대한 신뢰를 고백하며 구원의 확신과 찬양으로 마무리됩니다. <br><strong>시편 14편</strong>은 "하나님이 없다"고 말하는 어리석은 자의 실상과 그로 말미암은 세상의 총체적 부패를 고발하는 지혜시입니다. 시인은 이 암담한 현실 속에서 시온에서 올 구원을 간절히 소망합니다.</p>
+
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M21,3H3C1.9,3,1,3.9,1,5v14c0,1.1,0.9,2,2,2h18c1.1,0,2-0.9,2-2V5C23,3.9,22.1,3,21,3z M21,19H3V5h18V19z M9,16.5l4-4 l4,4V13l-4-4l-4,4V16.5z"/></svg>시각적 분석 (Visual Analysis)</h3>
+                    <div class="visual-analysis-container">
+                       <svg viewBox="0 0 450 220" xmlns="http://www.w3.org/2000/svg">
+                         <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.1"/></filter></defs>
+                         <style>
+                           .box-lament { fill: #fff; stroke: #c0392b; stroke-width: 2; rx: 10; filter: url(#shadow); }
+                           .box-trust { fill: #fff; stroke: #16a085; stroke-width: 2; rx: 10; filter: url(#shadow); }
+                           .text-title { font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 700; text-anchor: middle; }
+                           .text-body { font-family: 'Noto Sans KR', sans-serif; font-size: 11px; text-anchor: middle; fill: #555;}
+                         </style>
+                         <g transform="translate(125, 50)">
+                            <path d="M -100 0 h 50" stroke="#c0392b" stroke-width="2.5"/>
+                            <rect x="-50" y="-20" width="100" height="40" class="box-lament"/>
+                            <text class="text-title" style="fill:#c0392b;">탄식</text>
+                            <text class="text-body" y="15">어느 때까지...</text>
+                         </g>
+                         <g transform="translate(225, 50)">
+                            <path d="M -50 0 h 100" stroke="#f39c12" stroke-width="2.5"/>
+                            <rect x="-50" y="-20" width="100" height="40" class="box-lament" style="stroke:#f39c12;"/>
+                            <text class="text-title" style="fill:#f39c12;">신뢰</text>
+                            <text class="text-body" y="15">주의 사랑 의지</text>
+                         </g>
+                          <g transform="translate(325, 50)">
+                            <path d="M -50 0 h 100" stroke="#16a085" stroke-width="2.5"/>
+                            <rect x="-50" y="-20" width="100" height="40" class="box-trust"/>
+                            <text class="text-title" style="fill:#16a085;">찬양</text>
+                            <text class="text-body" y="15">구원을 기뻐함</text>
+                         </g>
+                         <text x="225" y="20" class="text-title">시편 13편: 신앙의 여정</text>
+                         
+                         <line x1="20" y1="95" x2="430" y2="95" stroke="#bdc3c7" stroke-dasharray="4"/>
+                         
+                         <g transform="translate(125, 150)">
+                            <rect x="-100" y="-30" width="200" height="50" class="box-lament"/>
+                            <text class="text-title" y="-5" style="fill:#c0392b;">어리석은 자</text>
+                            <text class="text-body" y="10">"하나님이 없다" → 부패</text>
+                         </g>
+                         <g transform="translate(325, 150)">
+                            <rect x="-80" y="-30" width="160" height="50" class="box-trust"/>
+                            <text class="text-title" y="-5" style="fill:#16a085;">의인의 하나님</text>
+                            <text class="text-body" y="10">굽어살피심, 피난처 되심</text>
+                         </g>
+                         <text x="225" y="120" class="text-title">시편 14편: 두 세계관</text>
+                       </svg>
+                    </div>
+
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M12,3L2,12h3v8h14v-8h3L12,3z M12,16c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2s2,0.9,2,2C14,15.1,13.1,16,12,16z" opacity=".3"/><path d="M12,12c1.1,0,2,0.9,2,2c0-1.1-0.9,2-2,2s-2-0.9-2-2C10,12.9,10.9,12,12,12z M19,9.3V4h-3v2.6L12,3L2,12h3v8h14v-8h3 L19,9.3z M17,18H7v-6.97l5-4.22l5,4.22V18z"/></g></g></svg>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                    <div class="context-box" style="background-color:#e8f5e9; border-left-color:var(--color-secondary);">
+                        <p><strong>탄식의 신학과 지혜 문학:</strong> 탄식시는 하나님께 솔직하게 고통을 아뢰는 것이 불신앙이 아니라, 오히려 하나님과의 인격적 관계를 전제하는 신앙의 한 형태임을 보여줍니다. 시편 13편의 극적인 전환은 감정이나 상황의 변화가 아니라, 하나님의 신실하신 성품(헤세드)에 대한 '의지적 신뢰'에 기반합니다. 한편, 시편 14편의 '어리석은 자'는 지능이 낮은 사람이 아닌, 하나님을 자신의 삶과 세상의 통치자로 인정하지 않는 '실존적 무신론자'를 의미합니다. 이런 태도는 필연적으로 삶의 총체적 부패로 이어진다고 성경은 진단합니다.</p>
+                    </div>
+
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>주요 구절 해설 (Key Verse Commentary)</h3>
+                    <div class="verse-commentary">
+                        <div class="verse-text">시편 13:5 - 나는 오직 주의 사랑을 의지하였사오니 나의 마음은 주의 구원을 기뻐하리이다</div>
+                        <div class="commentary-text">시 전체의 분위기를 바꾸는 핵심 구절입니다. 시인은 자신의 감정이나 환경이 아닌, '주의 사랑'(인자, 헤세드)이라는 객관적이고 변함없는 진리에 자신의 신앙의 닻을 내립니다. 고통의 현실은 변하지 않았지만, 신뢰의 대상을 바꿈으로써 마음의 상태가 절망에서 기쁨으로 전환됩니다. 이것이 믿음의 본질입니다.</div>
+                    </div>
+                    <div class="verse-commentary">
+                        <div class="verse-text">시편 14:1 - 어리석은 자는 그의 마음에 이르기를 하나님이 없다 하는도다 그들은 부패하고 그 행실이 가증하니 선을 행하는 자가 없도다</div>
+                        <div class="commentary-text">이 구절은 신학적으로 매우 중요하며, 사도 바울이 로마서 3장에서 모든 인간의 전적인 타락을 논증할 때 인용합니다. '하나님이 없다'는 선언은 단순한 지적 부인이 아니라, 하나님의 통치와 심판을 거부하는 삶의 태도입니다. 성경은 하나님을 아는 지식이 모든 윤리의 기초이며, 하나님을 부인하는 것이 모든 부패의 뿌리라고 가르칩니다.</div>
+                    </div>
+                    
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10z"/></svg>성경 본문 (Full Text)</h3>
+                    <div class="full-text">
+                        <p><strong>[시편 13편]</strong><br>1 [다윗의 시, 인도자를 따라 부르는 노래] 여호와여 어느 때까지니이까 나를 영원히 잊으시나이까 주의 얼굴을 나에게서 어느 때까지 숨기시겠나이까<br>2 나의 영혼이 번민하고 종일토록 마음에 근심하기를 어느 때까지 하오며 내 원수가 나를 치며 자랑하기를 어느 때까지 하리이까<br>3 여호와 내 하나님이여 나를 생각하사 응답하시고 나의 눈을 밝히소서 두렵건대 내가 사망의 잠을 잘까 하오며<br>4 두렵건대 나의 원수가 이르기를 내가 그를 이겼다 할까 하오며 내가 흔들릴 때에 나의 대적들이 기뻐할까 하나이다<br>5 나는 오직 주의 사랑을 의지하였사오니 나의 마음은 주의 구원을 기뻐하리이다<br>6 내가 여호와를 찬송하리니 이는 주께서 내게 은덕을 베푸심이로다</p>
+                        <p><strong>[시편 14편]</strong><br>1 [다윗의 시, 인도자를 따라 부르는 노래] 어리석은 자는 그의 마음에 이르기를 하나님이 없다 하는도다 그들은 부패하고 그 행실이 가증하니 선을 행하는 자가 없도다<br>2 여호와께서 하늘에서 인생을 굽어살피사 지각이 있어 하나님을 찾는 자가 있는가 보려 하신즉<br>3 다 치우쳐 함께 더러운 자가 되고 선을 행하는 자가 없으니 하나도 없도다<br>4 죄악을 행하는 자는 다 무지하냐 그들이 떡 먹듯이 내 백성을 먹으면서 여호와를 부르지 아니하는도다<br>5 그러나 거기서 그들은 두려워하고 두려워하였으니 하나님이 의인의 세대에 계심이로다<br>6 너희가 가난한 자의 계획을 부끄럽게 하나 오직 여호와는 그의 피난처가 되시도다<br>7 이스라엘의 구원이 시온에서 나오기를 원하도다 여호와께서 그의 백성을 포로된 곳에서 돌이키실 때에 야곱이 즐거워하고 이스라엘이 기뻐하리로다</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card integration-card">
+                <h3>관통하는 주제: 하나님의 주권과 인간의 반응</h3>
+                <p>오늘의 본문들은 서로 다른 시대와 상황 속에서 하나님의 절대적인 주권과 그 앞에서 인간이 어떻게 반응하는지를 극명하게 보여줍니다. 하나님의 통치는 개인의 가정(사무엘상), 전 인류의 역사(로마서), 국가의 흥망성쇠(예레미야), 그리고 신자의 내면(시편)에 이르기까지 모든 영역에 미칩니다.</p>
+
+                <h4>본문별 연결고리</h4>
+                <div class="connection-grid">
+                    <div class="connection-card">
+                        <h4>사무엘상 1장</h4>
+                        <p>개인적 고통 속에서 하나님의 주권을 인정하고 <strong>믿음의 기도</strong>로 반응한 한나를 통해, 하나님은 구속사의 새 시대를 여십니다.</p>
+                    </div>
+                    <div class="connection-card">
+                        <h4>로마서 1장</h4>
+                        <p>인류는 창조에 나타난 하나님의 주권을 <strong>불신과 우상숭배</strong>로 반응하여 진노 아래 놓이지만, 복음은 <strong>믿음</strong>으로 반응하는 자에게 구원을 줍니다.</p>
+                    </div>
+                    <div class="connection-card">
+                        <h4>예레미야 40장</h4>
+                        <p>국가적 심판이라는 하나님의 주권적 역사 앞에서, 남은 자들은 <strong>현실 순응과 소망</strong>으로 반응하며 새로운 공동체를 이룹니다.</p>
+                    </div>
+                    <div class="connection-card">
+                        <h4>시편 13, 14편</h4>
+                        <p>개인은 고통 속에서 하나님의 주권을 향해 <strong>신뢰</strong>로 반응하며(13편), 세상은 보편적으로 그 주권을 <strong>부인하며 반역</strong>합니다(14편).</p>
+                    </div>
+                </div>
+
+                <h3>구속사적 맥락: 주권적 통치의 실현</h3>
+                <div class="timeline-container">
+                    <ul class="timeline">
+                        <li class="timeline-item">
+                            <h4>창조 & 타락</h4>
+                            <p><strong>로마서 1장</strong>과 <strong>시편 14편</strong>은 타락한 인간이 어떻게 하나님의 주권을 조직적으로 거부하고 부패하게 되었는지 보여줍니다. 이는 구원이 왜 필수적인지에 대한 구속사적 배경을 제공합니다.</p>
+                        </li>
+                        <li class="timeline-item">
+                            <h4>구속 (이스라엘 역사)</h4>
+                            <p><strong>사무엘상 1장</strong>: 암울한 사사시대 말기, 하나님은 한나의 믿음의 반응을 통해 사무엘을 준비시키시고, 다윗 왕국으로 이어지는 길을 여십니다.<br><strong>예레미야 40장</strong>: 언약 백성의 실패로 인한 심판(포로기) 속에서도, '남은 자'를 보존하시는 하나님의 주권적 신실함을 보여줍니다. 메시아를 향한 약속의 명맥이 끊어지지 않게 하십니다.</p>
+                        </li>
+                        <li class="timeline-item">
+                            <h4>구속 (그리스도)</h4>
+                            <p><strong>로마서 1장</strong>이 제시하는 복음은 인류의 보편적 반역에 대한 하나님의 최종적인 해답입니다. 예수 그리스도의 십자가와 부활은 하나님의 의를 충족시키고, 믿는 자에게 구원을 주는 주권적 능력의 정점입니다.</p>
+                        </li>
+                        <li class="timeline-item">
+                            <h4>완성</h4>
+                            <p><strong>시편 13편</strong>의 찬양과 <strong>14편</strong>의 시온에서 올 구원에 대한 소망은, 모든 눈물이 씻기고 하나님의 완전한 통치가 회복될 새 하늘과 새 땅에 대한 갈망을 보여줍니다.</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <h3>주제별 심층 분석</h3>
+                <table class="theme-table">
+                    <thead>
+                        <tr>
+                            <th>주제</th>
+                            <th>사무엘상 1</th>
+                            <th>로마서 1</th>
+                            <th>예레미야 40</th>
+                            <th>시편 13, 14</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>하나님의 주권</strong></td>
+                            <td>생명의 주관자</td>
+                            <td>창조주, 심판주</td>
+                            <td>역사의 주관자</td>
+                            <td>고통을 아시는 통치자</td>
+                        </tr>
+                        <tr>
+                            <td><strong>인간의 반응</strong></td>
+                            <td>믿음의 기도와 서원</td>
+                            <td>보편적 불신/믿음</td>
+                            <td>섭리에 대한 순응</td>
+                            <td>탄식에서 신뢰로/주권 부인</td>
+                        </tr>
+                        <tr>
+                            <td><strong>하나님의 섭리</strong></td>
+                            <td>사무엘을 통한 회복 준비</td>
+                            <td>복음을 통한 구원</td>
+                            <td>남은 자 보존</td>
+                            <td>피난처가 되시고 구원하심</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>오늘의 교훈</h3>
+                <div class="lesson-box">
+                    <p>우리의 삶은 하나님의 주권적인 통치 아래 있습니다. 때로는 한나처럼 개인적인 고통으로, 때로는 예레미야처럼 시대적인 아픔으로 다가올 수 있습니다. 세상은 시편 14편의 어리석은 자처럼 하나님의 주권을 부인하며 로마서 1장의 모습으로 치닫습니다. 이런 상황 속에서 우리는 어떻게 반응해야 할까요? 오늘의 본문들은 우리에게 감정과 상황을 넘어, 하나님의 신실하신 약속과 복음의 능력을 의지하라고 도전합니다. "어느 때까지니이까"라는 솔직한 탄식은 허용되지만, 우리의 마지막 고백은 "나는 오직 주의 사랑을 의지하였사오니 나의 마음은 주의 구원을 기뻐하리이다"가 되어야 합니다. 이것이 하나님의 주권 아래 살아가는 성도의 능력입니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025, 맥체인 성경읽기 프로젝트. All rights reserved.</p>
+            <p>개혁주의 신학에 기반한 성경 해설 콘텐츠입니다.</p>
+        </footer>
+    </div>
+
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'bkGcffEVA_8'; // 8월 11일 맥체인 성경읽기 영상 ID (예시)
+
+        function onYouTubeIframeAPIReady() {
+            if (videoId) {
+                player = new YT.Player('player', {
+                    height: '0',
+                    width: '0',
+                    videoId: videoId,
+                    playerVars: { 'playsinline': 1 },
+                    events: { 'onStateChange': onPlayerStateChange }
+                });
+            }
+        }
+
+        function onPlayerStateChange(event) {
+            const buttonText = document.getElementById('button-text');
+            const playIcon = document.getElementById('play-icon');
+            const pauseIcon = document.getElementById('pause-icon');
+
+            if (event.data == YT.PlayerState.PLAYING) {
+                buttonText.textContent = '잠시 멈춤';
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+            } else {
+                buttonText.textContent = '오늘의 말씀 듣기';
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+            }
+        }
+
+        function togglePlay() {
+            if (player && typeof player.getPlayerState === 'function') {
+                var playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            } else {
+                alert("해당 날짜의 오디오 자료를 찾을 수 없습니다. 양해 바랍니다.");
+            }
+        }
+        
+        // 영상 ID가 없을 경우를 대비한 대체 로직
+        if (!videoId) {
+             document.getElementById('audio-player-button').onclick = function() {
+                 alert("해당 날짜의 오디오 자료를 찾을 수 없습니다. 양해 바랍니다.");
+             };
+        }
+    </script>
+</body>
+</html>

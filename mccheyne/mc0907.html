@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 7일 맥체인 성경읽기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-book1: #4285F4; /* 파랑 */
+            --color-book2: #DB4437; /* 빨강 */
+            --color-book3: #F4B400; /* 노랑 */
+            --color-book4: #0F9D58; /* 초록 */
+            --color-integration: #808080; /* 회색 */
+            --background-light: #f2f5f8;
+            --text-dark: #333;
+            --text-light: #666;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title-section {
+            background-color: var(--background-light);
+            padding: 25px 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.2em;
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+        }
+
+        h1 .subtitle {
+            font-size: 0.7em;
+            color: var(--text-light);
+            font-weight: 400;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .intro-passage {
+            font-size: 1.1em;
+            color: var(--color-integration);
+            font-weight: 700;
+        }
+
+        .chapter-card {
+            border: 1px solid #e0e0e0;
+            border-left-width: 5px;
+            border-left-style: solid;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .card-book1 { border-left-color: var(--color-book1); }
+        .card-book2 { border-left-color: var(--color-book2); }
+        .card-book3 { border-left-color: var(--color-book3); }
+        .card-book4 { border-left-color: var(--color-book4); }
+        .integration-card { border-left-color: var(--color-integration); }
+
+        h2, h3 {
+            font-family: 'Noto Serif KR', serif;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--background-light);
+            padding-bottom: 10px;
+        }
+        
+        .bible-text strong {
+            display: block;
+            margin: 20px 0 10px 0;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+        .card-book1 .bible-text strong { color: var(--color-book1); }
+        .card-book2 .bible-text strong { color: var(--color-book2); }
+        .card-book3 .bible-text strong { color: var(--color-book3); }
+        .card-book4 .bible-text strong { color: var(--color-book4); }
+
+        .verse-number {
+            font-weight: bold;
+            color: var(--text-light);
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+
+        .bible-text p {
+            margin: 0 0 5px 0;
+        }
+        
+        .integration-card .analysis-section p {
+            margin-bottom: 1em;
+        }
+        .integration-card .analysis-section p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .key-verse {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--color-integration);
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        .svg-diagram {
+            width: 100%;
+            margin: 20px 0;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--background-light);
+            font-weight: 700;
+        }
+        
+        td b, th b {
+           font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .floating-controls {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+        }
+
+        #playPauseBtn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--color-book1);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #playPauseBtn:hover {
+            background-color: #357ae8;
+        }
+        #playPauseBtn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-section">
+            <h1>9월 7일 맥체인 성경읽기<br><span class="subtitle">세상의 영광이 떠나갈 때</span></h1>
+            <p class="intro-passage">삼하1 | 고전12 | 겔10 | 시49</p>
+        </div>
+
+        <!-- 1. 사무엘하 1장 -->
+        <div class="chapter-card card-book1">
+            <h2>사무엘하 1장: 사울의 죽음에 대한 다윗의 애가</h2>
+            <h3>개요 (Overview)</h3>
+            <p>다윗이 시글락에 머물 때, 한 아말렉 청년이 사울과 요나단의 죽음 소식을 전하며 그 증거물로 사울의 왕관과 팔찌를 가져옵니다. 그는 자신이 사울을 죽였다고 주장하며 공로를 인정받으려 합니다. 그러나 다윗과 그의 사람들은 승리를 기뻐하기는커녕 옷을 찢고 금식하며 사울과 요나단, 그리고 이스라엘의 패배를 위해 슬피 웁니다. 다윗은 여호와의 기름 부음 받은 자를 해한 그 아말렉 청년을 즉시 처형하고, '활 노래'라는 애가를 지어 사울과 요나단의 죽음을 깊이 애도합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="12">
+                <g text-anchor="middle">
+                    <rect x="20" y="20" width="160" height="40" rx="5" fill="#fef9e7" stroke="#F4B400"/>
+                    <text x="100" y="45">아말렉 청년의 기대 (보상)</text>
+                    
+                    <rect x="220" y="20" width="160" height="40" rx="5" fill="#e3f2fd" stroke="#4285F4"/>
+                    <text x="300" y="45">다윗의 반응 (애도와 심판)</text>
+
+                    <path d="M 200 65 V 95" stroke="#333" stroke-width="2" marker-end="url(#arrow-down)" />
+
+                    <rect x="50" y="100" width="300" height="60" rx="10" fill="#e8f5e9" stroke="#0F9D58"/>
+                    <text x="200" y="125">반응의 근거</text>
+                    <text x="200" y="145">"여호와의 기름 부음 받은 자"에 대한 경외심</text>
+                </g>
+                 <defs>
+                    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                    </marker>
+                </defs>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>사무엘하는 다윗 왕국의 역사를 다루며, 그 시작은 전임 왕 사울의 죽음 소식으로 열립니다. 아말렉 청년은 다윗이 자신의 정적인 사울의 죽음을 기뻐하며 자신에게 상을 줄 것이라는 세상적인 계산을 했습니다. 그러나 다윗의 반응은 그의 기대를 완전히 벗어납니다. 다윗의 애도와 분노는 그의 개인적인 감정을 넘어, 하나님의 주권에 대한 깊은 경외심에서 비롯됩니다. 그는 사울이 자신을 죽이려 했던 원수였음에도 불구하고, 그가 '여호와의 기름 부음 받은 자'라는 거룩한 직분을 가졌음을 끝까지 존중했습니다. 개혁신학적 관점에서 이는 하나님께서 세우신 권위와 질서를 존중하는 성도의 올바른 태도를 보여줍니다. 다윗은 자신의 왕위가 인간적인 계략이나 복수가 아니라 오직 하나님의 손에 의해 주어짐을 믿었습니다. 그의 '활 노래'는 정적의 죽음을 조롱하는 세상의 승전가와 달리, 이스라엘의 비극을 아파하고 리더들의 명예를 지켜주려는 성숙한 리더십을 보여줍니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p><b>사무엘하 1:11-12</b> "이에 다윗이 자기 옷을 잡아 찢으매 함께 있는 모든 사람도 그리하고 사울과 그의 아들 요나단과 여호와의 백성 이스라엘 족속이 칼에 죽음으로 말미암아 저녁때까지 슬퍼하며 울며 금식하니라"</p>
+            <p>이 구절은 다윗의 반응이 계산된 정치적 행위가 아닌, 진심에서 우러나온 슬픔이었음을 보여줍니다. 그는 자신을 위해서가 아니라 '사울', '요나단', 그리고 '여호와의 백성 이스라엘 족속'을 위해 애도합니다. 그의 슬픔의 대상은 개인적인 관계를 넘어 공동체 전체로 확장됩니다. 이는 그가 이미 왕의 마음을 품고 있었음을 보여줍니다. 그는 사울의 죽음에서 개인의 해방을 보기보다, 하나님의 백성이 겪는 국가적 재난과 하나님의 영광이 가려진 것을 먼저 아파했습니다. 칼빈은 다윗의 이러한 애도가 사적인 감정을 공적인 슬픔으로 승화시킨 모범이라고 설명합니다. 성도는 개인의 유익보다 교회의 아픔과 하나님의 영광을 먼저 생각해야 한다는 것입니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>사울의 죽음 소식을 들은 다윗</strong>
+                <p><span class="verse-number">1</span> 사울이 죽은 후에 다윗이 아말렉 사람을 쳐죽이고 돌아와 다윗이 시글락에서 이틀을 머물더니</p>
+                <p><span class="verse-number">2</span> 사흘째에 한 사람이 사울의 진영에서 나왔는데 그의 옷은 찢어졌고 머리에는 흙이 있더라 그가 다윗에게 나아와 땅에 엎드려 절하매</p>
+                <p><span class="verse-number">3</span> 다윗이 그에게 묻되 너는 어디서 왔느냐 하니 대답하되 이스라엘 진영에서 도망하여 왔나이다 하니라</p>
+                <p><span class="verse-number">4</span> 다윗이 그에게 이르되 일이 어떻게 되었느냐 너는 내게 말하라 그가 대답하되 군사가 전쟁 중에 도망하기도 하였고 무리 가운데에 엎드러져 죽은 자도 많았고 사울과 그의 아들 요나단도 죽었나이다 하는지라</p>
+                <p><span class="verse-number">5</span> 다윗이 자기에게 알리는 청년에게 묻되 사울과 그의 아들 요나단이 죽은 줄을 네가 어떻게 아느냐</p>
+                <p><span class="verse-number">6</span> 그에게 알리는 청년이 이르되 내가 우연히 길보아 산에 올라가 보니 사울이 자기 창에 기대고 병거와 기병은 그를 급히 따르는데</p>
+                <p><span class="verse-number">7</span> 사울이 뒤로 돌아 나를 보고 부르시기로 내가 대답하기를 내가 여기 있나이다 한즉</p>
+                <p><span class="verse-number">8</span> 내게 이르되 너는 누구냐 하시기로 내가 그에게 대답하기를 나는 아말렉 사람이니이다 한즉</p>
+                <p><span class="verse-number">9</span> 또 내게 이르시되 내 목숨이 아직 내게 완전히 있으므로 내가 고통 중에 있나니 청하건대 너는 내 곁에 서서 나를 죽이라 하시기로</p>
+                <p><span class="verse-number">10</span> 그가 엎드러진 후에는 살 수 없는 줄을 내가 알고 그의 곁에 서서 죽이고 그의 머리에 있는 왕관과 팔에 있는 고리를 벗겨서 내 주께로 가져왔나이다 하는지라</p>
+                <p><span class="verse-number">11</span> 이에 다윗이 자기 옷을 잡아 찢으매 함께 있는 모든 사람도 그리하고</p>
+                <p><span class="verse-number">12</span> 사울과 그의 아들 요나단과 여호와의 백성 이스라엘 족속이 칼에 죽음으로 말미암아 저녁때까지 슬퍼하며 울며 금식하니라</p>
+                <p><span class="verse-number">13</span> 다윗이 그 소식을 전한 청년에게 묻되 너는 어디 사람이냐 대답하되 나는 아말렉 사람 곧 외국인의 아들이니이다 하니</p>
+                <p><span class="verse-number">14</span> 다윗이 그에게 이르되 네가 어찌하여 손을 들어 여호와의 기름 부음 받은 자 죽이기를 두려워하지 아니하였느냐 하고</p>
+                <p><span class="verse-number">15</span> 다윗이 청년 중 한 사람을 불러 이르되 가까이 가서 그를 죽이라 하매 그가 치매 곧 죽으니라</p>
+                <p><span class="verse-number">16</span> 다윗이 그에게 이르기를 네 피가 네 머리로 돌아갈지어다 네 입이 네게 대하여 증언하기를 내가 여호와의 기름 부음 받은 자를 죽였노라 함이니라 하였더라</p>
+                <strong>다윗의 애가</strong>
+                <p><span class="verse-number">17</span> 다윗이 이 슬픈 노래로 사울과 그의 아들 요나단을 조상하고</p>
+                <p><span class="verse-number">18</span> 명령하여 그것을 유다 족속에게 가르치라 하였으니 곧 활 노래라 야살의 책에 기록되었으되</p>
+                <p><span class="verse-number">19</span> 이스라엘아 네 영광이 산 위에서 죽임을 당하였도다 오호라 두 용사가 엎드러졌도다</p>
+                <p><span class="verse-number">20</span> 이 일을 가드에도 알리지 말며 아스글론 거리에도 전파하지 말지어다 블레셋 사람들의 딸들이 즐거워할까, 할례 받지 못한 자의 딸들이 개가를 부를까 염려로다</p>
+                <p><span class="verse-number">21</span> 길보아 산들아 너희 위에 이슬과 비가 내리지 아니하며 제물 낼 밭도 없을지어다 거기서 두 용사의 방패가 버려짐이니라 곧 사울의 방패가 기름 부음을 받지 아니함 같이 됨이로다</p>
+                <p><span class="verse-number">22</span> 죽은 자의 피에서, 용사의 기름에서 요나단의 활이 뒤로 물러가지 아니하였으며 사울의 칼이 헛되이 돌아오지 아니하였도다</p>
+                <p><span class="verse-number">23</span> 사울과 요나단이 생전에 사랑스럽고 아름다운 자이러니 죽을 때에도 서로 떠나지 아니하였도다 그들은 독수리보다 빠르고 사자보다 강하였도다</p>
+                <p><span class="verse-number">24</span> 이스라엘 딸들아 사울을 슬퍼하여 울지어다 그가 붉은 옷으로 너희에게 화려하게 입혔고 금 노리개를 너희 옷에 채웠도다</p>
+                <p><span class="verse-number">25</span> 오호라 두 용사가 전쟁 중에 엎드러졌도다 요나단이 네 산 위에서 죽임을 당하였도다</p>
+                <p><span class="verse-number">26</span> 내 형 요나단이여 내가 그대를 애통함은 그대는 내게 심히 아름다움이라 그대가 나를 사랑함이 기이하여 여인의 사랑보다 더하였도다</p>
+                <p><span class="verse-number">27</span> 오호라 두 용사가 엎드러졌으며 싸우는 무기가 망하였도다 하였더라</p>
+            </div>
+        </div>
+
+        <!-- 2. 고린도전서 12장 -->
+        <div class="chapter-card card-book2">
+            <h2>고린도전서 12장: 한 몸과 여러 지체</h2>
+            <h3>개요 (Overview)</h3>
+            <p>바울은 성령의 은사들에 대해 가르칩니다. 그는 성령 안에서만 예수를 주로 고백할 수 있음을 분명히 하며, 은사는 여러 가지지만 그것을 주시는 분은 같은 성령이심을 강조합니다. 지혜, 지식, 믿음, 병 고침, 능력 행함, 예언, 영 분별, 방언, 통역 등 다양한 은사는 모두 교회의 공동 유익을 위해 주어진 것입니다. 바울은 교회를 그리스도의 몸에 비유합니다. 몸이 하나이지만 많은 지체로 이루어진 것처럼, 교회도 다양한 은사를 가진 성도들이 모여 한 몸을 이룹니다. 어떤 지체도 다른 지체에게 쓸모없다고 말할 수 없으며, 오히려 약해 보이는 지체가 더 중요합니다. 모든 지체는 서로를 돌보며 함께 아파하고 함께 즐거워해야 합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="12">
+                <g text-anchor="middle">
+                    <path d="M 200 150 C 150 120, 150 80, 200 50 C 250 80, 250 120, 200 150 Z" fill="#e3f2fd" stroke="#4285F4"/>
+                    <text x="200" y="105" font-size="14" font-weight="bold">그리스도의 몸 (교회)</text>
+                    
+                    <rect x="20" y="20" width="100" height="40" rx="5" fill="#e8f5e9" stroke="#0F9D58"/>
+                    <text x="70" y="45">지혜의 말씀</text>
+                    
+                    <rect x="20" y="140" width="100" height="40" rx="5" fill="#e8f5e9" stroke="#0F9D58"/>
+                    <text x="70" y="165">병 고침</text>
+                    
+                    <rect x="280" y="20" width="100" height="40" rx="5" fill="#e8f5e9" stroke="#0F9D58"/>
+                    <text x="330" y="45">예언</text>
+                    
+                    <rect x="280" y="140" width="100" height="40" rx="5" fill="#e8f5e9" stroke="#0F9D58"/>
+                    <text x="330" y="165">방언</text>
+                    
+                    <text x="200" y="30" font-size="12" font-weight="bold">"같은 한 성령이 행하사"</text>
+                    <path d="M 200 50 V 35" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-up)" />
+                </g>
+                 <defs>
+                    <marker id="arrow-up" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 5 L 10 5 L 5 0 Z" fill="#333" />
+                    </marker>
+                </defs>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>고린도 교회는 성령의 은사가 풍성했지만, 동시에 특정 은사(특히 방언)를 더 우월하게 여기는 영적 교만과 분열의 문제가 심각했습니다. 바울은 이 문제를 해결하기 위해 은사의 근원과 목적을 바로잡습니다. 모든 다양한 은사의 근원은 삼위일체 하나님(성령, 주, 하나님)이시며, 그 목적은 개인의 자랑이 아니라 '공동의 유익'입니다. '몸의 비유'는 교회의 본질을 설명하는 바울 신학의 핵심입니다. 이 비유는 두 가지 중요한 진리를 가르칩니다. 첫째, 다양성입니다. 몸에 눈, 손, 발 등 다양한 지체가 필요하듯 교회에도 다양한 은사가 필요합니다. 획일성은 건강한 몸의 특징이 아닙니다. 둘째, 통일성입니다. 모든 지체는 '한 몸'에 속해 있으며, 머리이신 그리스도의 통제를 받습니다. 개혁신학은 교회를 단순한 신자들의 모임이 아닌, 성령으로 연합된 그리스도의 유기적인 몸으로 이해합니다. 따라서 한 지체의 아픔은 몸 전체의 아픔이며, 한 지체의 영광은 몸 전체의 영광입니다.</p>
+            
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p><b>고린도전서 12:4-7</b> "은사는 여러 가지나 성령은 같고 직분은 여러 가지나 주는 같으며 또 사역은 여러 가지나 모든 것을 모든 사람 가운데서 이루시는 하나님은 같으니 각 사람에게 성령을 나타내심은 유익하게 하려 하심이라"</p>
+            <p>이 구절은 은사에 대한 삼위일체적 관점과 그 목적을 명확하게 보여줍니다. 바울은 '은사'(카리스마타), '직분'(디아코니아, 섬김), '사역'(에네르게마타, 능력의 역사)이라는 단어를 사용하며 다양한 영적 활동들을 묘사합니다. 그러나 이 모든 다양성 뒤에는 통일된 근원이신 삼위일체 하나님이 계십니다. '성령'은 은사를 주시고, '주'(예수님)는 섬김의 직분을 주시며, '하나님'(아버지)은 그 모든 사역을 통해 능력을 행하십니다. 이처럼 모든 은사는 하나님의 주권적인 역사입니다. 그리고 그 모든 은사의 목적은 7절에서 명시됩니다: "유익하게 하려 하심이라." 여기서 '유익'은 개인의 영적 만족이나 과시가 아니라, '공동의 유익' 즉 교회를 세우고 덕을 끼치는 것을 의미합니다. 칼빈은 이 구절을 통해 어떤 은사도 다른 은사보다 본질적으로 우월하지 않으며, 모든 은사는 오직 교회의 덕을 세우기 위해 사용될 때만 그 가치가 있다고 강조합니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>성령의 은사</strong>
+                <p><span class="verse-number">1</span> 형제들아 신령한 것에 대하여 나는 너희가 알지 못하기를 원하지 아니하노니</p>
+                <p><span class="verse-number">2</span> 너희도 알거니와 너희가 이방인으로 있을 때에 말 못하는 우상에게로 끄는 그대로 끌려 갔느니라</p>
+                <p><span class="verse-number">3</span> 그러므로 내가 너희에게 알리노니 하나님의 영으로 말하는 자는 누구든지 예수를 저주할 자라 하지 아니하고 또 성령으로 아니하고는 누구든지 예수를 주시라 할 수 없느니라</p>
+                <p><span class="verse-number">4</span> 은사는 여러 가지나 성령은 같고</p>
+                <p><span class="verse-number">5</span> 직분은 여러 가지나 주는 같으며</p>
+                <p><span class="verse-number">6</span> 또 사역은 여러 가지나 모든 것을 모든 사람 가운데서 이루시는 하나님은 같으니</p>
+                <p><span class="verse-number">7</span> 각 사람에게 성령을 나타내심은 유익하게 하려 하심이라</p>
+                <p><span class="verse-number">8</span> 어떤 사람에게는 성령으로 말미암아 지혜의 말씀을, 어떤 사람에게는 같은 성령을 따라 지식의 말씀을,</p>
+                <p><span class="verse-number">9</span> 다른 사람에게는 같은 성령으로 믿음을, 어떤 사람에게는 한 성령으로 병 고치는 은사를,</p>
+                <p><span class="verse-number">10</span> 어떤 사람에게는 능력 행함을, 어떤 사람에게는 예언함을, 어떤 사람에게는 영들 분별함을, 다른 사람에게는 각종 방언 말함을, 어떤 사람에게는 방언들 통역함을 주시나니</p>
+                <p><span class="verse-number">11</span> 이 모든 일은 같은 한 성령이 행하사 그의 뜻대로 각 사람에게 나누어 주시는 것이니라</p>
+                <strong>그리스도의 몸인 교회</strong>
+                <p><span class="verse-number">12</span> 몸은 하나인데 많은 지체가 있고 몸의 지체가 많으나 한 몸임과 같이 그리스도도 그러하니라</p>
+                <p><span class="verse-number">13</span> 우리가 유대인이나 헬라인이나 종이나 자유인이나 다 한 성령으로 세례를 받아 한 몸이 되었고 또 다 한 성령을 마시게 하셨느니라</p>
+                <p><span class="verse-number">14</span> 몸은 한 지체뿐만 아니요 여럿이니</p>
+                <p><span class="verse-number">15</span> 만일 발이 이르되 나는 손이 아니니 몸에 붙지 아니하였다 할지라도 이로써 몸에 붙지 아니한 것이 아니요</p>
+                <p><span class="verse-number">16</span> 또 귀가 이르되 나는 눈이 아니니 몸에 붙지 아니하였다 할지라도 이로써 몸에 붙지 아니한 것이 아니니</p>
+                <p><span class="verse-number">17</span> 만일 온 몸이 눈이면 듣는 곳은 어디며 온 몸이 듣는 곳이면 냄새 맡는 곳은 어디냐</p>
+                <p><span class="verse-number">18</span> 그러나 이제 하나님이 그 원하시는 대로 지체를 각각 몸에 두셨으니</p>
+                <p><span class="verse-number">19</span> 만일 다 한 지체뿐이면 몸은 어디냐</p>
+                <p><span class="verse-number">20</span> 이제 지체는 많으나 몸은 하나라</p>
+                <p><span class="verse-number">21</span> 눈이 손더러 내가 너를 쓸 데가 없다 하거나 또한 머리가 발더러 내가 너를 쓸 데가 없다 하지 못하리라</p>
+                <p><span class="verse-number">22</span> 그뿐 아니라 더 약하게 보이는 몸의 지체가 도리어 요긴하고</p>
+                <p><span class="verse-number">23</span> 우리가 몸의 덜 귀히 여기는 그것들을 더욱 귀한 것들로 입혀 주며 우리의 아름답지 못한 지체는 더욱 아름다운 것을 얻느니라 그런즉</p>
+                <p><span class="verse-number">24</span> 우리의 아름다운 지체는 그럴 필요가 없느니라 오직 하나님이 몸을 고르게 하여 부족한 지체에게 귀중함을 더하사</p>
+                <p><span class="verse-number">25</span> 몸 가운데서 분쟁이 없고 오직 여러 지체가 서로 같이 돌보게 하셨느니라</p>
+                <p><span class="verse-number">26</span> 만일 한 지체가 고통을 받으면 모든 지체가 함께 고통을 받고 한 지체가 영광을 얻으면 모든 지체가 함께 즐거워하느니라</p>
+                <p><span class="verse-number">27</span> 너희는 그리스도의 몸이요 지체의 각 부분이라</p>
+                <p><span class="verse-number">28</span> 하나님이 교회 중에 몇을 세우셨으니 첫째는 사도요 둘째는 선지자요 셋째는 교사요 그 다음은 능력을 행하는 자요 그 다음은 병 고치는 은사와 서로 돕는 것과 다스리는 것과 각종 방언을 말하는 것이라</p>
+                <p><span class="verse-number">29</span> 다 사도이겠느냐 다 선지자이겠느냐 다 교사이겠느냐 다 능력을 행하는 자이겠느냐</p>
+                <p><span class="verse-number">30</span> 다 병 고치는 은사를 가진 자이겠느냐 다 방언을 말하는 자이겠느냐 다 통역하는 자이겠느냐</p>
+                <p><span class="verse-number">31</span> 너희는 더욱 큰 은사를 사모하라 내가 또한 가장 좋은 길을 너희에게 보이리라</p>
+            </div>
+        </div>
+
+        <!-- 3. 에스겔 10장 -->
+        <div class="chapter-card card-book3">
+            <h2>에스겔 10장: 여호와의 영광이 성전을 떠나다</h2>
+            <h3>개요 (Overview)</h3>
+            <p>에스겔은 1장에서 보았던 하나님의 보좌 환상을 다시 봅니다. 네 생물인 그룹(cherubim)과 바퀴들이 등장하고, 여호와의 영광이 그룹 위에서부터 일어나 성전 문지방에 이릅니다. 성전에는 구름과 광채가 가득합니다. 가는 베옷을 입은 사람이 그룹 사이에서 숯불을 받아 성읍 위에 흩으라는 명령을 받는데, 이는 심판을 상징합니다. 그리고 마침내, 여호와의 영광이 그룹들의 날개와 함께 성전 문지방을 떠나 동문으로 이동하고, 마침내 성읍을 떠나 동쪽 산에 머무릅니다. 하나님의 임재가 그의 백성과 성전을 완전히 떠나는 비극적인 장면입니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="12">
+                <g>
+                    <rect x="20" y="80" width="80" height="40" rx="5" fill="#e3f2fd" stroke="#4285F4"/>
+                    <text x="60" y="105" text-anchor="middle">지성소</text>
+                    
+                    <path d="M 105 100 H 145" stroke="#333" stroke-width="2" marker-end="url(#arrow-side)" />
+
+                    <rect x="150" y="80" width="80" height="40" rx="5" fill="#fef9e7" stroke="#F4B400"/>
+                    <text x="190" y="105" text-anchor="middle">성전 문지방</text>
+
+                    <path d="M 235 100 H 275" stroke="#333" stroke-width="2" marker-end="url(#arrow-side)" />
+
+                    <rect x="280" y="80" width="100" height="40" rx="5" fill="#ffebee" stroke="#DB4437"/>
+                    <text x="330" y="105" text-anchor="middle">성읍 동쪽 산</text>
+                    
+                    <text x="200" y="40" text-anchor="middle" font-size="14" font-weight="bold">여호와의 영광(כָּבוֹד)의 이동 경로</text>
+                    <text x="200" y="150" text-anchor="middle">(하나님의 임재가 떠나가는 과정)</text>
+                </g>
+                <defs>
+                    <marker id="arrow-side" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                    </marker>
+                </defs>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>'여호와의 영광'(카보드 야훼)은 하나님의 임재와 현존을 나타내는 가시적인 표현입니다. 이 영광은 이스라엘의 역사 속에서 성막과 성전에 머물며 하나님의 함께하심을 상징했습니다. 그런데 이제 그 영광이 성전을 떠나고 있습니다. 이는 단순한 현상이 아니라, 이스라엘과의 언약 관계가 파기되었음을 보여주는 신학적인 대재앙입니다. 하나님께서 더 이상 그들의 죄악을 참지 않으시고, 스스로를 더럽힌 성전에서 당신의 거룩한 임재를 거두시는 것입니다. 이 환상은 포로로 잡혀와 절망에 빠진 백성들에게 예루살렘의 멸망이 하나님의 무능 때문이 아니라, 백성의 죄에 대한 하나님의 공의로운 심판이었음을 깨닫게 합니다. 개혁신학적으로 볼 때, 하나님의 영광이 떠난 성전은 더 이상 의미가 없습니다. 이는 교회의 본질이 건물이 아니라 하나님의 임재에 있음을 가르쳐줍니다. 이 비극은 장차 참 성전이신 예수 그리스도를 통해 하나님의 영광이 자기 백성에게 영원히 거하게 될 것이라는 소망을 품게 합니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p><b>에스겔 10:18-19</b> "여호와의 영광이 성전 문지방을 떠나서 그룹들 위에 머무르니 그룹들이 날개를 들고 내 눈 앞의 땅에서 올라가는데 그들이 나갈 때에 바퀴도 그 곁에서 함께 하더라 그들이 여호와의 전으로 들어가는 동문 곁에 머물고 이스라엘 하나님의 영광이 그 위에 덮였더라"</p>
+            <p>이 구절은 하나님의 영광이 떠나는 과정을 구체적으로 묘사하며 그 비극성을 고조시킵니다. 영광의 이동은 갑작스럽지 않고 단계적으로, 마치 미련을 둔 채 떠나는 것처럼 보입니다. 지성소를 떠나 문지방에, 그리고 동문에 머무는 모습은 하나님께서 마지막 순간까지 이스라엘이 회개하고 돌아오기를 기다리셨음을 암시합니다. 그러나 결국 그들은 돌이키지 않았고, 영광은 떠나갑니다. 그룹과 바퀴가 함께 움직이는 모습은 하나님의 전능하신 통치와 주권이 단지 성전 안에만 갇혀 있는 것이 아니라, 온 세상을 향해 움직이고 있음을 보여줍니다. 칼빈은 이 장면을 통해 하나님께서 당신의 임재를 거두시는 것이 얼마나 두려운 심판인지를 강조하며, 성도는 결코 하나님의 임재를 당연하게 여겨서는 안 된다고 경고합니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>성전을 떠나는 여호와의 영광</strong>
+                <p><span class="verse-number">1</span> 이에 내가 보니 그룹들 머리 위 궁창에 남보석 같은 것이 나타나는데 그들 위에 보좌의 형상이 있는 것 같더라</p>
+                <p><span class="verse-number">2</span> 하나님이 가는 베 옷을 입은 사람에게 말씀하여 이르시되 너는 그룹 밑에 있는 바퀴 사이로 들어가 그 속에서 숯불을 두 손에 가득히 가지고 성읍 위에 흩으라 하시매 그가 내 목전에서 들어가더라</p>
+                <p><span class="verse-number">3</span> 그 사람이 들어갈 때에 그룹들은 성전 오른쪽에 서 있고 구름은 안뜰에 가득하며</p>
+                <p><span class="verse-number">4</span> 여호와의 영광이 그룹에서 올라와 성전 문지방에 이르니 구름이 성전에 가득하며 여호와의 영화로운 광채가 뜰에 가득하였고</p>
+                <p><span class="verse-number">5</span> 그룹들의 날개 소리는 바깥뜰까지 들리는데 전능하신 하나님이 말씀하시는 음성 같더라</p>
+                <p><span class="verse-number">6</span> 하나님이 이같이 가는 베 옷을 입은 자에게 명령하시기를 바퀴 사이 곧 그룹들 사이에서 불을 가지라 하셨으므로 그가 들어가 바퀴 옆에 서매</p>
+                <p><span class="verse-number">7</span> 그 그룹이 그룹들 사이에서 손을 내밀어 그 그룹들 사이에 있는 불을 집어 가는 베 옷을 입은 자의 손에 주매 그가 받아 가지고 나가는데</p>
+                <p><span class="verse-number">8</span> 그룹들에게는 사람의 손 같은 것이 나타나 보이더라</p>
+                <p><span class="verse-number">9</span> 내가 보니 그룹들 곁에 네 바퀴가 있는데 이 그룹 곁에도 한 바퀴가 있고 저 그룹 곁에도 한 바퀴가 있으며 그 바퀴 모양은 황옥 같으며</p>
+                <p><span class="verse-number">10</span> 그 모양은 넷이 꼭 같은데, 바퀴 안에 바퀴가 있는 것 같으며</p>
+                <p><span class="verse-number">11</span> 그룹들이 나아갈 때에는 사방으로 몸을 돌리지 아니하고 나아가며 몸을 돌리지 아니하고 그 머리 향한 곳으로 나아가며</p>
+                <p><span class="verse-number">12</span> 그 온 몸과 등과 손과 날개와 바퀴 곧 네 그룹의 바퀴 둘레에 다 눈이 가득하더라</p>
+                <p><span class="verse-number">13</span> 내가 들으니 그 바퀴들을 도는 것이라 부르며</p>
+                <p><span class="verse-number">14</span> 그룹들에게는 각기 네 면이 있는데 첫째 면은 그룹의 얼굴이요 둘째 면은 사람의 얼굴이요 셋째는 사자의 얼굴이요 넷째는 독수리의 얼굴이더라</p>
+                <p><span class="verse-number">15</span> 그룹들이 올라가니 그들은 내가 그발 강 가에서 보던 생물이라</p>
+                <p><span class="verse-number">16</span> 그룹들이 나아갈 때에는 바퀴도 그 곁에서 나아가고 그룹들이 날개를 들고 땅에서 올라가려 할 때에도 바퀴가 그 곁을 떠나지 아니하며</p>
+                <p><span class="verse-number">17</span> 그들이 서면 이들도 서고 그들이 올라가면 이들도 함께 올라가니 이는 생물의 영이 바퀴 가운데에 있음이라</p>
+                <p><span class="verse-number">18</span> 여호와의 영광이 성전 문지방을 떠나서 그룹들 위에 머무르니</p>
+                <p><span class="verse-number">19</span> 그룹들이 날개를 들고 내 눈 앞의 땅에서 올라가는데 그들이 나갈 때에 바퀴도 그 곁에서 함께 하더라 그들이 여호와의 전으로 들어가는 동문 곁에 머물고 이스라엘 하나님의 영광이 그 위에 덮였더라</p>
+                <p><span class="verse-number">20</span> 그것은 내가 그발 강 가에서 보던 이스라엘의 하나님 아래에 있던 생물이라 그들이 그룹들인 줄을 내가 아니라</p>
+                <p><span class="verse-number">21</span> 각기 네 얼굴과 네 날개가 있으며 날개 밑에는 사람의 손 형상이 있으니</p>
+                <p><span class="verse-number">22</span> 그 얼굴의 형상은 내가 그발 강 가에서 보던 얼굴이며 그 모양과 그 몸도 그러하며 각기 곧게 앞으로 가더라</p>
+            </div>
+        </div>
+
+        <!-- 4. 시편 49편 -->
+        <div class="chapter-card card-book4">
+            <h2>시편 49편: 재물의 헛됨과 영혼의 구속</h2>
+            <h3>개요 (Overview)</h3>
+            <p>이 시편은 모든 계층의 사람들을 향해 재물의 헛됨에 대한 지혜의 가르침을 들으라고 요청하며 시작됩니다. 시인은 부유한 자들이 자신의 재물을 의지하고 자랑하지만, 그 어떤 재물로도 죽음에서 자기 자신이나 형제를 구원할 수 없다고 선포합니다. 지혜로운 자나 어리석은 자나 모두 죽어서 재물을 남에게 남겨두고 떠나며, 그들의 영광도 무덤에서 소멸될 뿐입니다. 그러나 시인은 자신은 다르다고 고백합니다. 비록 세상의 부자들은 짐승처럼 멸망하지만, "하나님은 나를 영접하시리니 이러므로 내 영혼을 스올의 권세에서 건져내시리로다"라고 노래하며 하나님께 소망을 둡니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="12">
+                <g>
+                    <rect x="20" y="20" width="160" height="60" rx="5" fill="#fef9e7" stroke="#F4B400"/>
+                    <text x="100" y="45" text-anchor="middle">세상의 길 (부자)</text>
+                    <text x="100" y="65" text-anchor="middle">재물을 의지함</text>
+                    
+                    <rect x="220" y="20" width="160" height="60" rx="5" fill="#e8f5e9" stroke="#0F9D58"/>
+                    <text x="300" y="45" text-anchor="middle">의인의 길</text>
+                    <text x="300" y="65" text-anchor="middle">하나님을 의지함</text>
+                    
+                    <path d="M 100 85 V 125" stroke="#333" stroke-width="2" marker-end="url(#arrow-down)" />
+                    <path d="M 300 85 V 125" stroke="#333" stroke-width="2" marker-end="url(#arrow-down)" />
+
+                    <rect x="20" y="130" width="160" height="40" rx="5" fill="#ffebee" stroke="#DB4437"/>
+                    <text x="100" y="155" text-anchor="middle">결말: 멸망 (짐승 같음)</text>
+                    
+                    <rect x="220" y="130" width="160" height="40" rx="5" fill="#e3f2fd" stroke="#4285F4"/>
+                    <text x="300" y="155" text-anchor="middle">결말: 구속 (하나님이 영접)</text>
+                </g>
+                 <defs>
+                    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+                    </marker>
+                </defs>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>이 시편은 전도서와 유사한 지혜 문학의 성격을 가집니다. 세상의 부와 명예가 죽음 앞에서 얼마나 무력한지를 통찰하며, 참된 소망이 어디에 있는지를 가르칩니다. '스올'(Sheol)은 구약에서 죽은 자들이 가는 어둡고 힘없는 장소, 즉 무덤을 의미합니다. 시인은 모든 인간이 스올로 내려가는 운명이지만, 그곳에서 영혼을 건져내실 수 있는 분은 오직 하나님뿐이라고 고백합니다. '생명의 값은 너무 비싸서 영원히 마련하지 못한다'는 선언은 인간의 행위나 재물로는 구원을 얻을 수 없다는, 종교개혁의 핵심 사상과도 맞닿아 있습니다. 개혁신학에서 이 시는 인간의 전적인 무능력과 하나님의 주권적인 구원의 은혜를 명확하게 보여주는 본문으로 이해됩니다. 부활에 대한 소망이 명확하지 않았던 구약 시대에 "하나님은 나를 영접하시리니"라고 고백하는 것은, 죽음을 넘어서는 하나님과의 관계를 바라보는 놀라운 믿음의 선포입니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <p><b>시편 49:15</b> "그러나 하나님은 나를 영접하시리니 이러므로 내 영혼을 스올의 권세에서 건져내시리로다 (셀라)"</p>
+            <p>이 구절은 시 전체의 분위기를 반전시키는 소망의 정점입니다. 세상 부자들이 죽음 앞에서 절망하고 모든 것을 잃는 것과 대조적으로, 시인은 '그러나'라는 접속사를 사용하여 자신의 운명이 그들과 다를 것임을 선포합니다. 그의 소망의 근거는 자신의 의로움이나 지혜가 아니라, 전적으로 '하나님'의 구속 행위에 있습니다. '나를 영접하시리니'라는 표현은 죽음이 끝이 아니라, 하나님과의 더 깊은 만남으로 이어진다는 소망을 담고 있습니다. '스올의 권세에서 건져내신다'는 것은 죽음의 지배로부터의 해방을 의미합니다. 이는 신약 시대의 성도들이 예수 그리스도의 부활을 통해 갖게 된 소망의 명확한 예고편입니다. 칼빈은 이 구절이 육체의 죽음에도 불구하고 영혼은 하나님께서 안전하게 지키시고 결국 구원하실 것이라는 성도의 견고한 믿음을 보여준다고 설명합니다.</p>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>재물의 헛됨을 노래하다</strong>
+                <p><span class="verse-number">1</span> 뭇 백성들아 이를 들으라 세상의 거민들아 모두 귀를 기울이라</p>
+                <p><span class="verse-number">2</span> 귀천 빈부를 막론하고 다 들을지어다</p>
+                <p><span class="verse-number">3</span> 내 입은 지혜를 말하겠고 내 마음은 명철을 작은 소리로 읊조리리로다</p>
+                <p><span class="verse-number">4</span> 내가 비유에 내 귀를 기울이고 수금으로 나의 오묘한 말을 풀리로다</p>
+                <p><span class="verse-number">5</span> 죄악이 나를 따라다니며 나를 에워싸는 환난의 날에 내가 어찌 두려워하랴</p>
+                <p><span class="verse-number">6</span> 자기의 재물을 의지하고 부유함을 자랑하는 자는</p>
+                <p><span class="verse-number">7</span> 아무도 자기의 형제를 구원하지 못하며 그를 위한 속전을 하나님께 바치지도 못할 것은</p>
+                <p><span class="verse-number">8</span> 그들의 생명을 속량하는 값이 너무 엄청나서 영원히 마련하지 못할 것임이니라</p>
+                <p><span class="verse-number">9</span> 그가 영원히 살아서 죽음을 보지 않을 것인가</p>
+                <p><span class="verse-number">10</span> 그러나 그는 지혜 있는 자도 죽고 어리석고 무지한 자도 함께 망하며 그들의 재물은 남에게 남겨 두고 떠나는 것을 보게 되리로다</p>
+                <p><span class="verse-number">11</span> 그러나 그들의 속생각에 그들의 집은 영원히 있고 그들의 거처는 대대에 이르리라 하여 그들의 토지를 자기 이름으로 부르는도다</p>
+                <p><span class="verse-number">12</span> 사람은 존귀하나 장구하지 못함이여 멸망하는 짐승 같도다</p>
+                <p><span class="verse-number">13</span> 이것이 바로 어리석은 자들의 길이요 그들의 말을 기뻐하는 자들의 종말로다 (셀라)</p>
+                <p><span class="verse-number">14</span> 그들은 양 같이 스올에 두기로 작정되었으니 사망이 그들의 목자일 것이라 정직한 자들이 아침에 그들을 다스리리니 그들의 아름다움은 소멸하고 스올이 그들의 거처가 되리라</p>
+                <p><span class="verse-number">15</span> 그러나 하나님은 나를 영접하시리니 이러므로 내 영혼을 스올의 권세에서 건져내시리로다 (셀라)</p>
+                <p><span class="verse-number">16</span> 사람이 치부하여 그의 집의 영광이 더할 때에 너는 두려워하지 말지어다</p>
+                <p><span class="verse-number">17</span> 그가 죽으매 가져가는 것이 없고 그의 영광이 그를 따라 내려가지 못함이로다</p>
+                <p><span class="verse-number">18</span> 그가 비록 생시에 자기를 축하하며 스스로 좋게 여길지라도</p>
+                <p><span class="verse-number">19</span> 그들은 그들의 역대 조상들에게로 돌아가리니 영원히 빛을 보지 못하리로다</p>
+                <p><span class="verse-number">20</span> 존귀하나 깨닫지 못하는 사람은 멸망하는 짐승 같도다</p>
+            </div>
+        </div>
+        
+        <!-- 5. 통합적 이해 -->
+        <div class="chapter-card integration-card">
+            <h2>통합적 이해</h2>
+            
+            <h3>관통하는 주제: 세상의 영광이 떠나갈 때</h3>
+            <div class="analysis-section">
+                <p>오늘의 본문들은 한목소리로 세상의 영광이 얼마나 덧없이 사라지는지를 보여줍니다. 사무엘하에서 사울 왕의 영광은 길보아 산에서 비참한 죽음과 함께 끝이 납니다. 그의 왕관과 팔찌는 헛된 유물로 남을 뿐입니다. 에스겔의 환상 속에서 이스라엘의 가장 큰 영광이었던 하나님의 임재(카보드)는 죄악으로 더럽혀진 성전을 떠나갑니다. 시편 49편은 인간이 그토록 자랑하는 부와 명예의 영광이 죽음 앞에서는 아무런 힘이 없으며 짐승과 같이 소멸한다고 노래합니다. 이처럼 세상의 영광이 떠나가는 비극적인 현실 속에서, 고린도전서는 새로운 영광의 공동체인 교회를 소개합니다. 교회의 영광은 세상적인 힘이나 부, 지위가 아니라, 각 지체에게 주어진 다양한 성령의 은사들이 한 몸 안에서 조화를 이루는 것에 있습니다. 세상의 영광은 떠나가지만, 그리스도의 몸 된 교회의 지체로서 서로를 섬기며 살아가는 영광은 영원합니다. 다윗은 사라진 사울의 영광 앞에서 애통하며 하나님을 경외했고, 시편 기자는 헛된 세상의 영광 대신 자신을 스올에서 건져내실 하나님께 소망을 두었습니다. 우리 역시 떠나갈 세상의 영광을 붙들려 하지 말고, 그리스도 안에서 주어진 영원한 영광을 붙들고 살아가야 합니다.</p>
+            </div>
+
+            <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+            <svg class="svg-diagram" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR" font-size="10">
+                 <style>
+                    .box { stroke-width: 1; rx: 5; }
+                    .fading-glory { fill: #ffebee; stroke: #DB4437; }
+                    .true-glory { fill: #e8f5e9; stroke: #0F9D58; }
+                    .realization { fill: #fef9e7; stroke: #F4B400; }
+                    .source-of-glory { fill: #e3f2fd; stroke: #4285F4; }
+                    .arrow { marker-end: url(#arrow); stroke: #555; stroke-width: 1.5; fill: none;}
+                </style>
+                <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#555" />
+                    </marker>
+                </defs>
+                <g text-anchor="middle">
+                    <rect class="box fading-glory" x="50" y="20" width="300" height="60"/>
+                    <text x="200" y="45">떠나가는 세상의 영광</text>
+                    <text x="200" y="65">(사울의 왕권, 성전의 임재, 재물의 영광)</text>
+                    
+                    <path class="arrow" d="M 200 85 V 125" />
+
+                    <rect class="box realization" x="100" y="130" width="200" height="40"/>
+                    <text x="200" y="155">참된 영광을 향한 갈망</text>
+                    
+                    <path class="arrow" d="M 200 175 V 215" />
+
+                    <rect class="box true-glory" x="20" y="220" width="160" height="60"/>
+                    <text x="100" y="245">새로운 영광의 공동체</text>
+                    <text x="100" y="265">(교회, 그리스도의 몸)</text>
+
+                    <rect class="box source-of-glory" x="220" y="220" width="160" height="60" />
+                    <text x="300" y="245">모든 영광의 근원</text>
+                    <text x="300" y="265">예수 그리스도</text>
+                </g>
+            </svg>
+
+            <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
+            <div class="analysis-section">
+                <p>오늘의 본문들은 옛 언약 아래 있던 영광의 한계와 상실을 통해, 새 언약 안에서 나타날 더 크고 영원한 영광이신 예수 그리스도를 증거합니다.</p>
+                <p>사무엘하 1장에서 기름 부음 받은 왕 사울의 죽음은, 율법 아래 있는 인간의 실패를 상징합니다. 그의 죽음으로 다윗 왕조의 길이 열리지만, 다윗 역시 불완전합니다. 이는 죽음을 이기시고 영원한 왕권을 성취하실 진정한 기름 부음 받은 자, 메시아를 기다리게 합니다.</p>
+                <p>에스겔 10장에서 눈에 보이는 성전을 떠나시는 하나님의 영광은, 더 이상 건물이 아닌 사람 안에 거하실 성령의 시대를 예고합니다. 예수 그리스도께서 "내가 성령을 너희에게 보내리니 그가 너희 속에 계시겠음이라"(요 14:16-17)라고 약속하셨을 때, 이 에스겔의 비극은 새로운 소망으로 전환됩니다. 그리스도는 우리 안에 거하시는 하나님의 영광 그 자체이십니다.</p>
+                <p>시편 49편에서 그 누구도 치를 수 없다고 선언된 '생명의 속량 값'은, 하나님의 아들 예수 그리스도께서 자신의 생명을 대속물로 내어주심으로 완벽하게 지불되었습니다. 재물이 줄 수 없는 영원한 생명과 스올의 권세로부터의 구원이, 오직 십자가를 통해 우리에게 주어졌습니다.</p>
+                <p>고린도전서 12장의 교회는 이 모든 구속의 결과로 탄생한 새로운 공동체입니다. 그리스도의 피로 구속받고, 성령이 내주하시며, 영원한 왕이신 그리스도를 머리로 모신 '그리스도의 몸'입니다. 이곳이야말로 옛 성전의 영광과 비교할 수 없는, 삼위일체 하나님의 영광이 거하는 참된 성전입니다.</p>
+            </div>
+
+            <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>본문</th>
+                        <th>사라지는 영광</th>
+                        <th>영원한 실체/소망</th>
+                        <th>인간의 반응</th>
+                        <th>하나님의 성품</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>삼하 1</b></td>
+                        <td>사울의 왕권과 생명</td>
+                        <td>하나님의 기름 부으심</td>
+                        <td>애도, 하나님의 주권 존중</td>
+                        <td>공의로운 심판자</td>
+                    </tr>
+                    <tr>
+                        <td><b>고전 12</b></td>
+                        <td>개인의 은사 자랑 (교만)</td>
+                        <td>그리스도의 한 몸 (교회)</td>
+                        <td>서로 돌봄, 연합 추구</td>
+                        <td>질서와 조화의 하나님</td>
+                    </tr>
+                    <tr>
+                        <td><b>겔 10</b></td>
+                        <td>성전에 머물던 하나님의 영광</td>
+                        <td>(떠나심으로 보여준) 하나님의 거룩</td>
+                        <td>불순종, 우상숭배</td>
+                        <td>거룩하신 분, 공의로우신 분</td>
+                    </tr>
+                    <tr>
+                        <td><b>시 49</b></td>
+                        <td>재물의 영광</td>
+                        <td>하나님의 구속</td>
+                        <td>재물을 의지하거나, 하나님께 소망을 둠</td>
+                        <td>영혼을 구속하시는 분</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>오늘의 교훈 (Application)</h3>
+            <div class="analysis-section">
+                <p>우리는 알게 모르게 세상의 영광을 추구하며 살아갑니다. 사울처럼 나의 지위와 명예가 훼손될까 두려워하고, 시편의 부자처럼 재물이 나를 안전하게 지켜줄 것이라 착각합니다. 심지어 교회 안에서조차 고린도 교회 성도들처럼 내가 가진 은사와 직분을 다른 사람과 비교하며 나의 영광을 구하려 할 때가 있습니다. 오늘 말씀은 이 모든 것이 결국 사라질 것임을 엄중히 경고합니다. 하나님의 영광이 떠난 성전이 빈 껍데기에 불과하듯, 하나님의 임재와 인정이 없는 우리의 모든 성취는 결국 아무것도 아닙니다. 진정한 영광은 오직 하나, 예수 그리스도 안에 있습니다. 그분의 십자가는 세상의 모든 영광이 얼마나 헛된지를 보여주는 동시에, 우리에게 영원한 생명을 주는 하나님의 참된 영광을 보여줍니다. 오늘 우리는 무엇을 위해 옷을 찢고 애통해야 합니까? 사라질 나의 영광 때문이 아니라, 이 땅에서 가려진 하나님의 영광을 위해 애통해야 합니다. 그리고 그리스도의 몸 된 교회의 한 지체로서, 작고 연약해 보일지라도 하나님이 주신 나의 자리를 지키며 다른 지체를 섬기는 것, 그것이 바로 우리가 추구해야 할 영원하고 참된 영광입니다.</p>
+            </div>
+        </div>
+
+        <footer>
+            © 2025 KBD 맥체인 성경읽기 프로젝트
+        </footer>
+    </div>
+
+    <div class="floating-controls">
+        <audio id="audioPlayer" src="https://sen0991-my.sharepoint.com/:u:/g/personal/mathtox_munhyeon_hs_kr/EeQwU6NG25FKgYEXBviJ0KQBhhSIweEYg1jdVxOJl8_Mrg?download=1"></audio>
+        <button id="playPauseBtn">▶</button>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playPauseBtn.innerHTML = '❚❚';
+            } else {
+                audioPlayer.pause();
+                playPauseBtn.innerHTML = '▶';
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
+
+        document.body.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' && event.target === document.body) {
+                event.preventDefault();
+                togglePlayPause();
+            }
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            playPauseBtn.innerHTML = '▶';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 23일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        h1 .subtitle {
+            display: block;
+            font-size: 0.6em;
+            color: #e74c3c;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+        .toc {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        .chapter-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #3498db;
+            transition: box-shadow 0.3s ease;
+        }
+        .chapter-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+        .card-book1 { border-left-color: #4285F4; } /* 사무엘상 */
+        .card-book2 { border-left-color: #DB4437; } /* 로마서 */
+        .card-book3 { border-left-color: #F4B400; } /* 예레미야 */
+        .card-book4 { border-left-color: #0F9D58; } /* 시편 */
+        .integration-card { border-left-color: #808080; } /* 통합 */
+
+        h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        h2 { font-size: 1.8em; }
+        h3 { font-size: 1.4em; margin-top: 25px; }
+
+        .bible-text {
+            background-color: #fdfdfd;
+            border: 1px solid #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .bible-text div {
+            margin-bottom: 10px;
+        }
+        .verse-number {
+            font-weight: 700;
+            color: #888888;
+            margin-right: 8px;
+            font-size: 0.9em;
+        }
+        .bible-text strong {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #3498db;
+        }
+        .card-book1 .bible-text strong { color: #4285F4; }
+        .card-book2 .bible-text strong { color: #DB4437; }
+        .card-book3 .bible-text strong { color: #F4B400; }
+        .card-book4 .bible-text strong { color: #0F9D58; }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #bdc3c7;
+        }
+        /* 카드별 핵심 구절 리스트 색상 적용 */
+        .card-book1 li { border-left-color: #4285F4; }
+        .card-book2 li { border-left-color: #DB4437; }
+        .card-book3 li { border-left-color: #F4B400; }
+        .card-book4 li { border-left-color: #0F9D58; }
+
+        .key-verse {
+            font-weight: bold;
+            color: #34495e;
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 6px;
+            display: block;
+        }
+        .commentary-text {
+            color: #555;
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 2px solid #ecf0f1;
+        }
+        .svg-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        svg {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: 700;
+        }
+        td {
+            background-color: #fff;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            font-size: 0.9em;
+        }
+        #audio-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        #audio-control:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+        #audio-control.disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        #player {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+    <button id="audio-control">오디오 로딩 중...</button>
+
+    <div class="container">
+        <h1>
+            8월 23일 맥체인 성경읽기
+            <span class="subtitle">하나님의 주권: 순종과 불순종의 갈림길</span>
+        </h1>
+        <p class="toc">사무엘상 15장, 로마서 13장, 예레미야 52장, 시편 31편</p>
+
+        <!-- 사무엘상 15장 -->
+        <div class="chapter-card card-book1">
+            <h2>사무엘상 15장 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>사무엘상 15장은 사울 왕의 통치에 결정적인 전환점이 되는 사건을 기록합니다. 하나님은 사무엘을 통해 아말렉을 진멸하라는 명확한 명령을 내리시지만, 사울은 이 명령에 부분적으로만 순종합니다. 그는 아각 왕을 사로잡고 가장 좋은 가축들을 남겨두는 불순종을 저지릅니다. 이로 인해 하나님은 사울을 왕으로 세우신 것을 후회하시며 그를 버리기로 결정하십니다. 이 장은 '순종이 제사보다 낫다'는 유명한 선언을 통해 하나님의 뜻에 대한 온전한 순종의 중요성을 강력하게 교훈합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-container">
+                <svg viewBox="0 0 400 250">
+                    <title>사무엘상 15장 구조 분석</title>
+                    <!-- 배경 -->
+                    <rect x="0" y="0" width="400" height="250" fill="#f0f8ff"/>
+                    
+                    <!-- 흐름 화살표 -->
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#4285F4" />
+                        </marker>
+                    </defs>
+                    <path d="M 50 50 Q 200 20 350 50" stroke="#4285F4" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+                    <path d="M 350 120 Q 200 150 50 120" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+                    <path d="M 50 200 C 150 230, 250 230, 350 200" stroke="#2c3e50" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+                
+                    <!-- 요소 -->
+                    <g>
+                        <rect x="10" y="30" width="80" height="40" rx="5" fill="#ffffff" stroke="#4285F4" stroke-width="2"/>
+                        <text x="50" y="55" text-anchor="middle" font-size="10" fill="#333">하나님의 명령</text>
+                        <text x="50" y="65" text-anchor="middle" font-size="8" fill="#555">(아말렉 진멸)</text>
+                    </g>
+                    
+                    <g>
+                        <rect x="160" y="70" width="80" height="40" rx="5" fill="#fffbe6" stroke="#F4B400" stroke-width="2"/>
+                        <text x="200" y="95" text-anchor="middle" font-size="10" fill="#333">사울의 불순종</text>
+                        <text x="200" y="105" text-anchor="middle" font-size="8" fill="#555">(부분 순종, 변명)</text>
+                    </g>
+                    
+                    <g>
+                        <rect x="310" y="30" width="80" height="40" rx="5" fill="#ffffff" stroke="#4285F4" stroke-width="2"/>
+                        <text x="350" y="55" text-anchor="middle" font-size="10" fill="#333">사무엘의 책망</text>
+                         <text x="350" y="65" text-anchor="middle" font-size="8" fill="#555">(순종 > 제사)</text>
+                    </g>
+                    
+                    <g>
+                        <rect x="10" y="100" width="80" height="40" rx="5" fill="#ffffff" stroke="#e74c3c" stroke-width="2"/>
+                        <text x="50" y="125" text-anchor="middle" font-size="10" fill="#333">하나님의 후회</text>
+                        <text x="50" y="135" text-anchor="middle" font-size="8" fill="#555">(사울을 버리심)</text>
+                    </g>
+
+                    <g>
+                        <rect x="310" y="100" width="80" height="40" rx="5" fill="#ffffff" stroke="#e74c3c" stroke-width="2"/>
+                        <text x="350" y="125" text-anchor="middle" font-size="10" fill="#333">사울의 폐위</text>
+                        <text x="350" y="135" text-anchor="middle" font-size="8" fill="#555">(왕위 상실)</text>
+                    </g>
+
+                    <g>
+                        <rect x="130" y="180" width="140" height="50" rx="8" fill="#2c3e50" stroke="#ffffff" stroke-width="1"/>
+                        <text x="200" y="205" text-anchor="middle" font-size="14" fill="white" font-weight="bold">핵심: 순종의 절대성</text>
+                    </g>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>아말렉은 출애굽 당시 이스라엘이 광야를 지날 때 배후를 공격했던 족속으로, 하나님의 백성을 대적하는 세력의 상징입니다(출 17:8-16). 따라서 아말렉을 진멸하라는 명령은 단순한 군사적 명령이 아니라, 하나님의 거룩한 전쟁(헤렘)의 개념으로 이해해야 합니다. 이는 하나님의 공의를 세우고, 이스라엘 공동체를 죄의 오염으로부터 보호하기 위한 조치였습니다. 사울이 아각 왕과 좋은 가축을 남긴 것은 인간적인 탐욕과 공명심이 하나님의 절대적인 명령보다 앞선 결과였습니다. 이는 하나님 나라의 왕은 자신의 뜻이 아닌 하나님의 뜻을 온전히 대리해야 한다는 원리를 위배한 것입니다. '순종이 제사보다 낫다'는 말씀은 종교적 형식주의를 비판하며, 마음 중심의 순종이 하나님과의 관계에서 핵심임을 보여줍니다. 이는 신약에서 예수님이 바리새인들을 책망하신 것과 맥을 같이 합니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <ul>
+                <li>
+                    <p class="key-verse">사무엘상 15:22-23 - 사무엘이 이르되 여호와께서 번제와 다른 제사를 그의 목소리를 청종하는 것을 좋아하심 같이 좋아하시겠나이까 순종이 제사보다 낫고 듣는 것이 숫양의 기름보다 나으니 이는 거역하는 것은 점치는 죄와 같고 완고한 것은 사신 우상에게 절하는 죄와 같음이라 왕이 여호와의 말씀을 버렸으므로 여호와께서도 왕을 버려 왕이 되지 못하게 하셨나이다 하니</p>
+                    <p class="commentary-text">이 구절은 구약 전체를 관통하는 핵심 진리 중 하나입니다. 하나님께서 원하시는 것은 종교적 행위의 껍데기가 아니라, 그분의 말씀을 듣고 따르는 마음의 태도, 즉 순종입니다. 사무엘은 불순종을 '점치는 죄'와 '우상 숭배'라는 심각한 죄와 동일시합니다. 이는 하나님의 말씀을 거역하는 것이 곧 다른 신을 섬기는 행위와 같다는 의미입니다. 하나님의 주권을 인정하지 않고 자신의 뜻을 내세우는 것이 바로 우상 숭배의 본질이기 때문입니다. 사울이 하나님의 말씀을 '버렸기' 때문에, 하나님도 그를 '버리시는' 상호적 관계가 나타납니다. 이는 하나님의 언약 관계가 순종을 기반으로 함을 명확히 보여줍니다.</p>
+                </li>
+            </ul>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>하나님의 명령과 사울의 부분적 순종</strong>
+                <div><span class="verse-number">1</span>사무엘이 사울에게 이르되 여호와께서 나를 보내어 왕에게 기름을 부어 그의 백성 이스라엘 위에 왕으로 삼으셨은즉 이제 왕은 여호와의 말씀을 들으소서</div>
+                <div><span class="verse-number">2</span>만군의 여호와께서 이같이 말씀하시기를 아말렉이 이스라엘에게 행한 일 곧 애굽에서 나올 때에 길에서 대적한 일로 내가 그들을 벌하노니</div>
+                <div><span class="verse-number">3</span>지금 가서 아말렉을 쳐서 그들의 모든 소유를 남기지 말고 진멸하되 남녀와 소아와 젖 먹는 아이와 우양과 낙타와 나귀를 죽이라 하셨나이다 하니</div>
+                <div><span class="verse-number">4</span>사울이 백성을 소집하고 그들을 들라임에서 세어 보니 보병이 이십만 명이요 유다 사람이 만 명이라</div>
+                <div><span class="verse-number">5</span>사울이 아말렉 성에 이르러 골짜기에 복병시키니라</div>
+                <div><span class="verse-number">6</span>사울이 겐 사람에게 이르되 아말렉 사람 중에서 떠나가라 그들과 함께 너희를 멸하게 될까 하노라 이스라엘 모든 자손이 애굽에서 올라올 때에 너희가 그들을 선대하였느니라 이에 겐 사람이 아말렉 사람 중에서 떠나니라</div>
+                <div><span class="verse-number">7</span>사울이 하윌라에서부터 애굽 앞 술에 이르기까지 아말렉 사람을 치고</div>
+                <div><span class="verse-number">8</span>아말렉 사람의 왕 아각을 사로잡고 칼날로 그의 모든 백성을 진멸하였으되</div>
+                <div><span class="verse-number">9</span>사울과 백성이 아각과 그의 양과 소의 가장 좋은 것 또는 기름진 것과 어린 양과 모든 좋은 것을 남기고 진멸하기를 즐겨 아니하고 가치 없고 하찮은 것은 진멸하니라</div>
+                <strong>사무엘의 책망과 사울의 변명</strong>
+                <div><span class="verse-number">10</span>여호와의 말씀이 사무엘에게 임하니라 이르시되</div>
+                <div><span class="verse-number">11</span>내가 사울을 왕으로 세운 것을 후회하노니 그가 돌이켜서 나를 따르지 아니하며 내 명령을 행하지 아니하였음이니라 하신지라 사무엘이 근심하여 온 밤을 여호와께 부르짖으니라</div>
+                <div><span class="verse-number">12</span>사무엘이 사울을 만나려고 아침에 일찍이 일어났더니 어떤 사람이 사무엘에게 말하여 이르되 사울이 갈멜에 이르러 자기를 위하여 기념비를 세우고 발길을 돌려 길갈로 내려갔다 하는지라</div>
+                <div><span class="verse-number">13</span>사무엘이 사울에게 이른즉 사울이 그에게 이르되 원하건대 당신은 여호와께 복을 받으소서 내가 여호와의 명령을 행하였나이다 하니</div>
+                <div><span class="verse-number">14</span>사무엘이 이르되 그러면 내 귀에 들려오는 이 양의 소리와 내게 들리는 소의 소리는 어찌 됨이니이까 하니라</div>
+                <div><span class="verse-number">15</span>사울이 이르되 그것은 무리가 아말렉 사람에게서 끌어 온 것인데 백성이 당신의 하나님 여호와께 제사하려 하여 양들과 소들 중에서 가장 좋은 것을 남김이요 그 외의 것은 우리가 진멸하였나이다 하는지라</div>
+                <div><span class="verse-number">16</span>사무엘이 사울에게 이르되 가만히 계시옵소서 간 밤에 여호와께서 내게 이르신 것을 왕에게 말하리이다 하니 그가 이르되 말씀하소서</div>
+                <div><span class="verse-number">17</span>사무엘이 이르되 왕이 스스로 작게 여길 그 때에 이스라엘 지파의 머리가 되지 아니하셨나이까 여호와께서 왕에게 기름을 부어 이스라엘 왕을 삼으시고</div>
+                <div><span class="verse-number">18</span>또 왕을 길로 보내시며 이르시기를 가서 죄인 아말렉 사람을 진멸하되 다 없어지기까지 치라 하셨거늘</div>
+                <div><span class="verse-number">19</span>어찌하여 왕이 여호와의 목소리를 청종하지 아니하고 탈취하기에만 급하여 여호와께서 악하게 여기시는 일을 행하였나이까</div>
+                <div><span class="verse-number">20</span>사울이 사무엘에게 이르되 나는 실로 여호와의 목소리를 청종하여 여호와께서 보내신 길로 가서 아말렉 왕 아각을 끌어 왔고 아말렉 사람들을 진멸하였으나</div>
+                <div><span class="verse-number">21</span>다만 백성이 그 마땅히 멸할 것 중에서 가장 좋은 것으로 길갈에서 당신의 하나님 여호와께 제사하려고 양과 소를 끌어 왔나이다 하는지라</div>
+                <strong>순종과 하나님의 심판</strong>
+                <div><span class="verse-number">22</span>사무엘이 이르되 여호와께서 번제와 다른 제사를 그의 목소리를 청종하는 것을 좋아하심 같이 좋아하시겠나이까 순종이 제사보다 낫고 듣는 것이 숫양의 기름보다 나으니</div>
+                <div><span class="verse-number">23</span>이는 거역하는 것은 점치는 죄와 같고 완고한 것은 사신 우상에게 절하는 죄와 같음이라 왕이 여호와의 말씀을 버렸으므로 여호와께서도 왕을 버려 왕이 되지 못하게 하셨나이다 하니</div>
+                <div><span class="verse-number">24</span>사울이 사무엘에게 이르되 내가 범죄하였나이다 내가 여호와의 명령과 당신의 말씀을 어긴 것은 내가 백성을 두려워하여 그들의 말을 청종하였음이니이다</div>
+                <div><span class="verse-number">25</span>청하오니 지금 내 죄를 사하고 나와 함께 돌아가서 나로 하여금 여호와께 경배하게 하소서 하니</div>
+                <div><span class="verse-number">26</span>사무엘이 사울에게 이르되 나는 왕과 함께 돌아가지 아니하리니 이는 왕이 여호와의 말씀을 버렸으므로 여호와께서 왕을 버려 이스라엘 왕이 되지 못하게 하셨음이니이다 하고</div>
+                <div><span class="verse-number">27</span>사무엘이 가려고 돌아설 때에 사울이 그의 겉옷자락을 붙잡으매 찢어진지라</div>
+                <div><span class="verse-number">28</span>사무엘이 그에게 이르되 여호와께서 오늘 이스라엘 나라를 왕에게서 떼어 왕보다 나은 왕의 이웃에게 주셨나이다</div>
+                <div><span class="verse-number">29</span>이스라엘의 지존자는 거짓이나 변개함이 없으시니 그는 사람이 아니시므로 결코 변개하지 않으심이니이다 하니</div>
+                <div><span class="verse-number">30</span>사울이 이르되 내가 범죄하였을지라도 이제 청하옵나니 내 백성의 장로들 앞과 이스라엘 앞에서 나를 높이사 나와 함께 돌아가서 내가 당신의 하나님 여호와께 경배하게 하소서 하더라</div>
+                <div><span class="verse-number">31</span>이에 사무엘이 돌이켜 사울을 따라가매 사울이 여호와께 경배하니라</div>
+                <div><span class="verse-number">32</span>사무엘이 이르되 너희는 아말렉 사람의 왕 아각을 내게로 끌어오라 하였더니 아각이 즐거이 오며 이르되 진실로 사망의 괴로움이 지났도다 하니라</div>
+                <div><span class="verse-number">33</span>사무엘이 이르되 네 칼이 여인들에게 자식이 없게 한 것 같이 여인 중 네 어미에게 자식이 없으리라 하고 그가 길갈에서 여호와 앞에서 아각을 찍어 쪼개니라</div>
+                <div><span class="verse-number">34</span>이에 사무엘은 라마로 가고 사울은 사울 기브아 자기의 집으로 올라가니라</div>
+                <div><span class="verse-number">35</span>사무엘이 죽는 날까지 사울을 다시 가서 보지 아니하였으니 이는 그가 사울을 위하여 슬퍼함이었고 여호와께서는 사울을 이스라엘 왕으로 삼으신 것을 후회하셨더라</div>
+            </div>
+        </div>
+
+        <!-- 로마서 13장 -->
+        <div class="chapter-card card-book2">
+            <h2>로마서 13장 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>로마서 13장은 그리스도인의 사회적 책임, 특히 국가 권세에 대한 태도를 다룹니다. 바울은 모든 권세는 하나님으로부터 났으므로, 성도는 마땅히 국가의 법과 질서에 순종해야 한다고 가르칩니다. 이는 단순히 처벌이 두려워서가 아니라, 하나님의 뜻을 따르는 양심의 문제임을 강조합니다. 이어서 바울은 모든 율법의 완성이 '사랑'임을 선언하며, 이웃 사랑의 실천을 촉구합니다. 마지막으로, 마지막 때가 가까웠음을 상기시키며 성도들이 어둠의 일을 벗고 빛의 갑옷을 입어 거룩하고 깨어 있는 삶을 살아야 할 것을 권면합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-container">
+                <svg viewBox="0 0 400 250">
+                    <title>로마서 13장 구조 분석</title>
+                    <rect x="0" y="0" width="400" height="250" fill="#fff5f5"/>
+                    
+                    <!-- 중심 주제 -->
+                    <ellipse cx="200" cy="125" rx="80" ry="50" fill="#DB4437"/>
+                    <text x="200" y="120" text-anchor="middle" font-size="14" fill="white" font-weight="bold">성도의 사회적 책임</text>
+                    <text x="200" y="140" text-anchor="middle" font-size="12" fill="white">(사랑과 순종)</text>
+                    
+                    <!-- 세부 주제 -->
+                    <g>
+                        <path d="M 200 75 Q 100 50 50 30" stroke="#DB4437" stroke-width="2" fill="none"/>
+                        <circle cx="50" cy="30" r="25" fill="white" stroke="#DB4437" stroke-width="2"/>
+                        <text x="50" y="28" text-anchor="middle" font-size="10">권세에 대한</text>
+                        <text x="50" y="40" text-anchor="middle" font-size="10">순종 (1-7절)</text>
+                    </g>
+                    
+                    <g>
+                        <path d="M 200 75 Q 300 50 350 30" stroke="#DB4437" stroke-width="2" fill="none"/>
+                        <circle cx="350" cy="30" r="25" fill="white" stroke="#DB4437" stroke-width="2"/>
+                        <text x="350" y="28" text-anchor="middle" font-size="10">사랑: 율법의</text>
+                        <text x="350" y="40" text-anchor="middle" font-size="10">완성 (8-10절)</text>
+                    </g>
+                    
+                    <g>
+                        <path d="M 200 175 Q 150 210 100 220" stroke="#DB4437" stroke-width="2" fill="none"/>
+                        <circle cx="100" cy="220" r="25" fill="white" stroke="#DB4437" stroke-width="2"/>
+                        <text x="100" y="218" text-anchor="middle" font-size="10">때를 아는</text>
+                        <text x="100" y="230" text-anchor="middle" font-size="10">지혜 (11-14절)</text>
+                    </g>
+
+                    <g>
+                        <path d="M 200 175 Q 250 210 300 220" stroke="#DB4437" stroke-width="2" fill="none"/>
+                        <circle cx="300" cy="220" r="25" fill="white" stroke="#DB4437" stroke-width="2"/>
+                        <text x="300" y="218" text-anchor="middle" font-size="10">빛의 갑옷을</text>
+                        <text x="300" y="230" text-anchor="middle" font-size="10">입으라</text>
+                    </g>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>로마 제국의 통치 아래 있던 로마 교회 성도들에게 국가 권력에 대한 태도는 매우 현실적인 문제였습니다. 특히 네로 황제와 같은 폭군 아래서 세금을 내고 법을 지키는 것은 신앙적 갈등을 유발할 수 있었습니다. 바울은 이러한 상황 속에서 '모든 권세는 하나님께로부터 나지 않음이 없다'는 대원칙을 선포합니다. 이는 국가 권력 그 자체를 신성시하는 것이 아니라, 질서를 유지하고 악을 징벌하는 권세의 '기능'이 하나님으로부터 위임받았다는 의미입니다. 따라서 성도의 순종은 통치자 개인에 대한 굴복이 아니라, 그 배후에서 일하시는 하나님의 주권에 대한 순종입니다. 물론, 국가 권력이 하나님의 법에 정면으로 위배되는 것을 요구할 때는 '사람보다 하나님께 순종하는 것이 마땅하다'는(행 5:29) 원칙이 적용됩니다. 바울은 이어서 사랑을 모든 계명의 완성으로 제시하며, 사회적 순종의 근본 동기가 율법주의적 의무감이 아닌 이웃을 향한 사랑이어야 함을 밝힙니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <ul>
+                <li>
+                    <p class="key-verse">로마서 13:1 - 각 사람은 위에 있는 권세들에게 복종하라 권세는 하나님으로부터 나지 않음이 없나니 모든 권세는 다 하나님께서 정하신 바라</p>
+                    <p class="commentary-text">이 구절은 기독교의 국가관에 대한 근본적인 토대를 제공합니다. '위에 있는 권세들'은 정부, 통치자 등 사회 질서를 유지하는 모든 합법적인 권력을 포함합니다. 바울은 이 권세의 기원이 하나님께 있음을 분명히 합니다. 이는 세상의 모든 주권이 궁극적으로 하나님께 속해 있다는 개혁주의 신학의 핵심 사상과 일치합니다. 성도가 권세에 복종해야 하는 이유는 통치자가 완벽해서가 아니라, 그 권위의 배후에 계신 하나님을 인정하기 때문입니다. 이 원리는 무정부주의나 맹목적인 반항을 경계하게 하며, 동시에 국가 권력이 스스로를 신격화하려는 시도에 대해서는 저항할 수 있는 신학적 근거를 제공합니다. 권세가 하나님의 뜻을 벗어나 악을 행할 때, 그 권위의 위임자이신 하나님께 불순종하는 것이기 때문입니다.</p>
+                </li>
+                <li>
+                    <p class="key-verse">로마서 13:10 - 사랑은 이웃에게 악을 행하지 아니하나니 그러므로 사랑은 율법의 완성이니라</p>
+                    <p class="commentary-text">바울은 수많은 율법 조항들의 핵심 정신이 '사랑'이라고 요약합니다. 살인, 간음, 도둑질, 탐심 등 모든 계명은 결국 이웃에게 해를 끼치지 말라는 것입니다. 사랑은 이러한 소극적인 차원을 넘어, 이웃의 유익을 적극적으로 구하는 것까지 포함합니다. 따라서 사랑을 실천하는 것은 율법의 모든 요구를 이루는 것과 같습니다. 이는 율법을 폐기하는 것이 아니라, 율법의 본래 목적을 성취하는 것입니다. 예수님께서 가장 큰 계명으로 하나님 사랑과 이웃 사랑을 말씀하신 것(마 22:37-40)과 동일한 맥락입니다. 성도의 사회적 책임과 윤리적 삶의 대강령은 바로 이 '사랑'에서 출발하고 완성됩니다.</p>
+                </li>
+            </ul>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>국가 권세에 대한 순종</strong>
+                <div><span class="verse-number">1</span>각 사람은 위에 있는 권세들에게 복종하라 권세는 하나님으로부터 나지 않음이 없나니 모든 권세는 다 하나님께서 정하신 바라</div>
+                <div><span class="verse-number">2</span>그러므로 권세를 거스르는 자는 하나님의 명을 거스름이니 거스르는 자들은 심판을 자취하리라</div>
+                <div><span class="verse-number">3</span>다스리는 자들은 선한 일에 대하여 두려움이 되지 않고 악한 일에 대하여 되나니 네가 권세를 두려워하지 아니하려느냐 선을 행하라 그리하면 그에게 칭찬을 받으리라</div>
+                <div><span class="verse-number">4</span>그는 하나님의 사역자가 되어 네게 선을 베푸는 자니라 그러나 네가 악을 행하거든 두려워하라 그가 공연히 칼을 가지지 아니하였으니 곧 하나님의 사역자가 되어 악을 행하는 자에게 진노하심을 따라 보응하는 자니라</div>
+                <div><span class="verse-number">5</span>그러므로 복종하지 아니할 수 없으니 진노 때문에 할 것이 아니라 양심을 따라 할 것이라</div>
+                <div><span class="verse-number">6</span>너희가 조세를 바치는 것도 이로 말미암음이라 그들이 하나님의 일꾼이 되어 바로 이 일에 항상 힘쓰느니라</div>
+                <div><span class="verse-number">7</span>모든 자에게 줄 것을 주되 조세를 받을 자에게 조세를 바치고 관세를 받을 자에게 관세를 바치고 두려워할 자를 두려워하며 존경할 자를 존경하라</div>
+                <strong>사랑은 율법의 완성</strong>
+                <div><span class="verse-number">8</span>피차 사랑의 빚 외에는 아무에게든지 아무 빚도 지지 말라 남을 사랑하는 자는 율법을 다 이루었느니라</div>
+                <div><span class="verse-number">9</span>간음하지 말라, 살인하지 말라, 도둑질하지 말라, 탐내지 말라 한 것과 그 외에 다른 계명이 있을지라도 네 이웃을 네 자신과 같이 사랑하라 하신 그 말씀 가운데 다 들었느니라</div>
+                <div><span class="verse-number">10</span>사랑은 이웃에게 악을 행하지 아니하나니 그러므로 사랑은 율법의 완성이니라</div>
+                <strong>빛의 갑옷을 입으라</strong>
+                <div><span class="verse-number">11</span>또한 너희가 이 시기를 알거니와 자다가 깰 때가 벌써 되었으니 이는 이제 우리의 구원이 처음 믿을 때보다 가까웠음이라</div>
+                <div><span class="verse-number">12</span>밤이 깊고 낮이 가까웠으니 그러므로 우리가 어둠의 일을 벗고 빛의 갑옷을 입자</div>
+                <div><span class="verse-number">13</span>낮에와 같이 단정히 행하고 방탕하거나 술 취하지 말며 음란하거나 호색하지 말며 다투거나 시기하지 말고</div>
+                <div><span class="verse-number">14</span>오직 주 예수 그리스도로 옷 입고 정욕을 위하여 육신의 일을 도모하지 말라</div>
+            </div>
+        </div>
+
+        <!-- 예레미야 52장 -->
+        <div class="chapter-card card-book3">
+            <h2>예레미야 52장 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>예레미야 52장은 예레미야서의 역사적 부록으로, 남유다 왕국의 최종적인 멸망과 그 비참한 결과를 객관적으로 서술합니다. 시드기야 왕의 통치와 그의 반역, 그로 인한 바벨론의 예루살렘 포위와 함락, 성전 파괴, 백성들의 포로 이송 과정이 상세하게 기록되어 있습니다. 이 장은 예레미야가 그토록 눈물로 선포했던 심판의 예언이 역사적으로 정확하게 성취되었음을 보여주는 증거 역할을 합니다. 그러나 마지막 부분에서 포로로 잡혀간 여호야긴 왕이 바벨론에서 특별한 대우를 받는 장면을 추가함으로써, 완전한 절망 속에서도 다윗의 가문을 향한 하나님의 언약이 끊어지지 않았음을 암시하는 작은 희망의 불씨를 남겨둡니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-container">
+                <svg viewBox="0 0 400 250">
+                    <title>예레미야 52장 구조 분석</title>
+                    <rect x="0" y="0" width="400" height="250" fill="#fff8e1"/>
+                    
+                    <!-- 타임라인 -->
+                    <line x1="20" y1="125" x2="380" y2="125" stroke="#F4B400" stroke-width="3"/>
+                    
+                    <!-- 이벤트 -->
+                    <g>
+                        <circle cx="50" cy="125" r="8" fill="#F4B400" stroke="white" stroke-width="2"/>
+                        <text x="50" y="105" text-anchor="middle" font-size="10">시드기야의 통치</text>
+                        <text x="50" y="115" text-anchor="middle" font-size="9" fill="#555">(반역)</text>
+                    </g>
+                    
+                    <g>
+                        <circle cx="130" cy="125" r="8" fill="#F4B400" stroke="white" stroke-width="2"/>
+                        <text x="130" y="150" text-anchor="middle" font-size="10">예루살렘 함락</text>
+                        <text x="130" y="160" text-anchor="middle" font-size="9" fill="#555">(BC 586)</text>
+                    </g>
+                    
+                    <g>
+                        <circle cx="210" cy="125" r="8" fill="#F4B400" stroke="white" stroke-width="2"/>
+                        <text x="210" y="105" text-anchor="middle" font-size="10">성전 파괴</text>
+                        <text x="210" y="115" text-anchor="middle" font-size="9" fill="#555">(하나님의 영광 떠남)</text>
+                    </g>
+                    
+                    <g>
+                        <circle cx="290" cy="125" r="8" fill="#F4B400" stroke="white" stroke-width="2"/>
+                        <text x="290" y="150" text-anchor="middle" font-size="10">백성의 포로 이송</text>
+                        <text x="290" y="160" text-anchor="middle" font-size="9" fill="#555">(심판의 성취)</text>
+                    </g>
+                    
+                    <g>
+                        <circle cx="370" cy="125" r="10" fill="#0F9D58" stroke="white" stroke-width="2"/>
+                        <text x="370" y="105" text-anchor="middle" font-size="10">여호야긴의 회복</text>
+                        <text x="370" y="115" text-anchor="middle" font-size="9" fill="#555">(작은 희망)</text>
+                    </g>
+
+                    <text x="200" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#F4B400">유다 멸망: 심판의 성취와 남은 소망</text>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>예레미야 52장은 열왕기하 24-25장과 내용이 거의 동일하며, 이는 예레미야서의 예언이 역사적 사실에 근거하고 있음을 강조하기 위한 편집자의 의도로 보입니다. 유다의 멸망은 단순히 정치적, 군사적 패배가 아니라, 수백 년간 쌓여온 우상숭배와 불순종에 대한 하나님의 공의로운 심판의 결과입니다. 특히 성전의 파괴는 하나님께서 더 이상 죄악된 백성 가운데 거하시지 않겠다는 상징적인 사건으로, 이스라엘에게는 가장 큰 충격이었습니다. 포로로 잡혀간 사람들의 명단과 숫자를 구체적으로 기록한 것은 심판의 철저함과 예언의 정확성을 보여줍니다. 그럼에도 불구하고, 마지막에 여호야긴 왕이 회복되는 이야기는 매우 중요합니다. 여호야긴은 다윗의 혈통을 잇는 합법적인 왕입니다. 그가 살아남아 왕의 지위를 회복했다는 것은, 하나님께서 다윗과 맺으신 언약(삼하 7장)을 완전히 폐기하지 않으셨으며, 그의 후손을 통해 구원 역사를 이어가실 것이라는 소망을 품게 합니다. 이는 장차 오실 메시아에 대한 기대로 연결됩니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <ul>
+                <li>
+                    <p class="key-verse">예레미야 52:2-3 - 그가 여호야김의 모든 행위를 본받아 여호와 보시기에 악을 행한지라 여호와께서 예루살렘과 유다에게 진노하심이 그들을 자기 앞에서 쫓아내시기까지 이르렀더라 시드기야가 바벨론 왕을 배반하니라</p>
+                    <p class="commentary-text">유다 멸망의 원인이 명확하게 제시됩니다. 첫째는 영적인 원인으로, 왕들이 계속해서 '여호와 보시기에 악을 행한 것'입니다. 이는 언약 파기를 의미합니다. 둘째는 정치적인 원인으로, 시드기야가 바벨론 왕을 배반한 것입니다. 예레미야는 계속해서 바벨론에 항복하는 것이 하나님의 뜻이라고 선포했지만, 시드기야는 이를 무시하고 인간적인 계산으로 애굽을 의지하며 반역을 꾀했습니다. 결국, 하나님의 말씀을 거역한 정치적 결정이 멸망을 초래한 것입니다. 이는 하나님의 주권이 개인의 신앙뿐만 아니라 역사의 흐름과 국제 정세까지도 다스리심을 보여줍니다.</p>
+                </li>
+                 <li>
+                    <p class="key-verse">예레미야 52:31, 33 - 유다 왕 여호야긴이 사로잡혀 간 지 삼십칠 년 곧 바벨론의 에윌므로닥 왕의 즉위 원년 열두째 달 스물다섯째 날에 그가 유다의 여호야긴 왕의 머리를 들어 주었고... 그 죄수 의복을 벗게 하고 그의 평생에 항상 왕의 앞에서 먹게 하였으며</p>
+                    <p class="commentary-text">이 구절은 칠흑 같은 어둠 속에서 비추는 한 줄기 빛과 같습니다. 37년이라는 긴 포로 생활 끝에 다윗 왕가의 적통인 여호야긴이 회복됩니다. '머리를 들어 주었다'는 것은 사면과 지위 회복을 의미하는 관용적 표현입니다. 그가 죄수복을 벗고 왕 앞에서 식사하게 된 것은 단순한 개인의 회복을 넘어, 다윗 왕조의 명맥이 끊어지지 않았다는 상징적인 의미를 지닙니다. 이 작은 사건을 통해 하나님은 자신의 언약에 신실하시며, 심판 중에도 긍휼을 잊지 않으시고 구원의 계획을 이어가고 계심을 보여주십니다. 이는 포로 공동체에게 미래에 대한 소망을 주었을 것입니다.</p>
+                </li>
+            </ul>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>시드기야의 통치와 예루살렘의 멸망</strong>
+                <div><span class="verse-number">1</span>시드기야가 왕위에 오를 때에 나이가 이십일 세라 예루살렘에서 십일 년 동안 다스리니라 그의 어머니의 이름은 하무달이라 립나인 예레미야의 딸이더라</div>
+                <div><span class="verse-number">2</span>그가 여호야김의 모든 행위를 본받아 여호와 보시기에 악을 행한지라</div>
+                <div><span class="verse-number">3</span>여호와께서 예루살렘과 유다에게 진노하심이 그들을 자기 앞에서 쫓아내시기까지 이르렀더라 시드기야가 바벨론 왕을 배반하니라</div>
+                <div><span class="verse-number">4</span>시드기야 제구년 열째 달 열째 날에 바벨론 왕 느부갓네살이 그의 모든 군대를 거느리고 예루살렘을 치러 올라와서 그 성에 대하여 진을 치고 주위에 토성을 쌓으매</div>
+                <div><span class="verse-number">5</span>그 성이 시드기야 왕 제십일년까지 포위되었더라</div>
+                <div><span class="verse-number">6</span>그 해 넷째 달 아홉째 날에 성중에 기근이 심하여 그 땅 백성의 양식이 떨어졌더라</div>
+                <div><span class="verse-number">7</span>그 성벽이 파괴되매 모든 군사가 밤중에 두 성벽 사이 왕의 동산 곁문 길로 도망하여 갈대아인들이 그 성읍을 에워쌌으므로 그들이 아라바 길로 가더니</div>
+                <div><span class="verse-number">8</span>갈대아 군대가 그 왕을 뒤쫓아가 여리고 평지에서 시드기야에게 미치매 왕의 모든 군대가 그를 떠나 흩어진지라</div>
+                <div><span class="verse-number">9</span>그들이 왕을 사로잡아 그를 하맛 땅 리블라에 있는 바벨론 왕에게로 끌고 가매 그가 시드기야를 심문하니라</div>
+                <div><span class="verse-number">10</span>바벨론 왕이 시드기야의 아들들을 그의 눈 앞에서 죽이고 또 리블라에서 유다의 모든 고관을 죽이며</div>
+                <div><span class="verse-number">11</span>시드기야의 두 눈을 빼고 놋사슬로 그를 결박하여 바벨론 왕이 그를 바벨론으로 끌고 가서 그가 죽는 날까지 옥에 가두었더라</div>
+                <strong>성전 파괴와 백성의 포로됨</strong>
+                <div><span class="verse-number">12</span>바벨론 왕 느부갓네살의 열아홉째 해 다섯째 달 열째 날에 바벨론 왕의 어전 사령관 느부사라단이 예루살렘에 이르러</div>
+                <div><span class="verse-number">13</span>여호와의 성전과 왕궁을 불사르고 예루살렘의 모든 집과 고관들의 집까지 불살랐으며</div>
+                <div><span class="verse-number">14</span>사령관을 따르는 갈대아 사람의 모든 군대가 예루살렘 주위의 모든 성벽을 헐었더라</div>
+                <div><span class="verse-number">15</span>사령관 느부사라단이 백성 중 가난한 자와 성중에 남아 있는 백성과 바벨론 왕에게 항복한 자와 무리의 남은 자를 사로잡아 갔고</div>
+                <div><span class="verse-number">16</span>가난한 백성은 남겨 두어 포도원을 관리하는 자와 농부가 되게 하였더라</div>
+                <div><span class="verse-number">17</span>갈대아 사람이 또 여호와의 성전의 두 놋기둥과 받침들과 여호와의 성전의 놋대야를 깨뜨려 그 놋을 바벨론으로 가져갔고</div>
+                <div><span class="verse-number">18</span>가마들과 부삽들과 부집게들과 주발들과 숟가락들과 섬길 때에 쓰는 모든 놋그릇을 다 가져갔고</div>
+                <div><span class="verse-number">19</span>사령관은 잔들과 화로들과 주발들과 솥들과 촛대들과 숟가락들과 바리들 곧 금으로 만든 것이나 은으로 만든 것을 다 가져갔더라</div>
+                <div><span class="verse-number">20</span>솔로몬 왕이 여호와의 성전을 위하여 만든 두 기둥과 한 바다와 그 받침 아래에 있는 열두 놋소 곧 이 모든 기구의 놋 무게는 헤아릴 수 없었더라</div>
+                <div><span class="verse-number">21</span>그 기둥은 한 기둥의 높이가 십팔 규빗이요 그 둘레는 십이 규빗이며 그 속이 비었고 그 두께는 네 손가락 두께이며</div>
+                <div><span class="verse-number">22</span>기둥 위에 놋머리가 있어 그 높이가 다섯 규빗이요 머리 사면으로 돌아가며 꾸민 그물과 석류가 다 놋이며 또 다른 기둥에도 이 모든 것과 석류가 있었더라</div>
+                <div><span class="verse-number">23</span>그 사면에 있는 석류는 아흔여섯 개요 그 그물 위에 둘려 있는 석류는 모두 백 개였더라</div>
+                <div><span class="verse-number">24</span>사령관이 대제사장 스라야와 부제사장 스바냐와 성전 문지기 세 사람을 사로잡고</div>
+                <div><span class="verse-number">25</span>또 성 안에서 사람을 사로잡았으니 곧 군사를 거느린 지휘관 한 사람과 또 성중에서 만난 왕의 내시 칠 인과 군인을 감독하는 군 지휘관의 서기관 한 사람과 성 안에서 만난 평민 육십 명이라</div>
+                <div><span class="verse-number">26</span>사령관 느부사라단이 그들을 사로잡아 리블라에 있는 바벨론 왕에게 나아가매</div>
+                <div><span class="verse-number">27</span>바벨론 왕이 하맛 땅 리블라에서 그들을 다 쳐죽였더라 이와 같이 유다가 사로잡혀 본국에서 떠났더라</div>
+                <strong>포로로 잡혀간 자들의 수</strong>
+                <div><span class="verse-number">28</span>느부갓네살이 사로잡아 간 백성은 이러하니라 제칠년에 유다인이 삼천이십삼 명이요</div>
+                <div><span class="verse-number">29</span>느부갓네살의 열여덟째 해에 예루살렘에서 사로잡아 간 자가 팔백삼십이 명이요</div>
+                <div><span class="verse-number">30</span>느부갓네살의 제이십삼년에 사령관 느부사라단이 사로잡아 간 유다 사람이 칠백사십오 명이니 그 총수가 사천육백 명이더라</div>
+                <strong>여호야긴 왕의 회복</strong>
+                <div><span class="verse-number">31</span>유다 왕 여호야긴이 사로잡혀 간 지 삼십칠 년 곧 바벨론의 에윌므로닥 왕의 즉위 원년 열두째 달 스물다섯째 날에 그가 유다의 여호야긴 왕의 머리를 들어 주었고 감옥에서 풀어 주었더라</div>
+                <div><span class="verse-number">32</span>그에게 친절하게 말하고 그의 자리를 그와 함께 바벨론에 있는 왕들의 자리보다 높이고</div>
+                <div><span class="verse-number">33</span>그 죄수 의복을 벗게 하고 그의 평생에 항상 왕의 앞에서 먹게 하였으며</div>
+                <div><span class="verse-number">34</span>그가 쓸 것은 날마다 왕에게서 받는 양이 있어서 죽는 날까지 곧 종신토록 끊이지 아니하였더라</div>
+            </div>
+        </div>
+
+        <!-- 시편 31편 -->
+        <div class="chapter-card card-book4">
+            <h2>시편 31편 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>시편 31편은 극심한 고난과 대적들의 비방 속에서 하나님께 피하는 다윗의 간절한 탄원과 신뢰의 고백을 담은 시입니다. 다윗은 하나님을 자신의 '반석', '요새', '피할 바위'로 묘사하며 절대적인 보호를 구합니다. 그는 자신의 영혼을 주님께 의탁하며, 자신을 둘러싼 음모와 고통 속에서도 하나님의 인자하심과 신실하심을 굳게 믿습니다. 시는 단순한 탄식에서 그치지 않고, 하나님의 구원을 경험한 후의 감사와 찬양, 그리고 다른 성도들을 향한 권면으로 나아갑니다. 고난 속에서 드리는 진솔한 기도와 변함없는 신뢰가 어떻게 찬양으로 변화되는지를 보여주는 아름다운 신앙 고백입니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-container">
+                <svg viewBox="0 0 400 250">
+                    <title>시편 31편 구조 분석</title>
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#e6f3e6;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="400" height="250" fill="url(#grad1)"/>
+                    
+                    <!-- 중심 이미지 -->
+                    <path d="M 150 220 L 200 150 L 250 220 Z" fill="#0F9D58" stroke="#333" stroke-width="2"/>
+                    <text x="200" y="200" text-anchor="middle" font-size="12" fill="white">하나님: 나의 반석</text>
+                    
+                    <!-- 요소들 -->
+                    <g transform="translate(50, 50)">
+                        <circle cx="0" cy="0" r="30" fill="#ffffff" stroke="#0F9D58" stroke-width="2"/>
+                        <text x="0" y="-5" text-anchor="middle" font-size="10">탄원과 간구</text>
+                        <text x="0" y="10" text-anchor="middle" font-size="9" fill="#555">(1-8절)</text>
+                    </g>
+                    
+                    <g transform="translate(200, 40)">
+                        <rect x="-35" y="-20" width="70" height="40" rx="5" fill="#ffffff" stroke="#DB4437" stroke-width="2"/>
+                        <text x="0" y="-5" text-anchor="middle" font-size="10">고통의 호소</text>
+                        <text x="0" y="10" text-anchor="middle" font-size="9" fill="#555">(9-18절)</text>
+                    </g>
+                    
+                    <g transform="translate(350, 50)">
+                        <circle cx="0" cy="0" r="30" fill="#ffffff" stroke="#0F9D58" stroke-width="2"/>
+                        <text x="0" y="-5" text-anchor="middle" font-size="10">신뢰의 고백</text>
+                        <text x="0" y="10" text-anchor="middle" font-size="9" fill="#555">(19-22절)</text>
+                    </g>
+                    
+                     <g transform="translate(200, 110)">
+                        <rect x="-40" y="-20" width="80" height="40" rx="5" fill="#ffffff" stroke="#4285F4" stroke-width="2"/>
+                        <text x="0" y="-5" text-anchor="middle" font-size="10">찬양과 권면</text>
+                        <text x="0" y="10" text-anchor="middle" font-size="9" fill="#555">(23-24절)</text>
+                    </g>
+                    
+                    <!-- 연결선 -->
+                    <path d="M 80 50 C 150 20, 150 60, 165 75" stroke="#aaa" stroke-width="1.5" fill="none" stroke-dasharray="4 2"/>
+                    <path d="M 235 75 C 280 60, 300 30, 320 50" stroke="#aaa" stroke-width="1.5" fill="none" stroke-dasharray="4 2"/>
+                    <path d="M 200 80 V 150" stroke="#aaa" stroke-width="1.5" fill="none" stroke-dasharray="4 2"/>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>이 시는 '내 영혼을 주의 손에 부탁하나이다' (5절)라는 구절로 유명한데, 이는 십자가 위에서 예수님이 마지막으로 하신 말씀 중 하나입니다(눅 23:46). 예수님은 인류의 죄를 대신 지고 가장 큰 고난과 버림받음의 순간에, 이 시편의 고백으로 자신의 영혼을 아버지께 온전히 의탁하셨습니다. 이는 시편 31편이 단순한 개인의 고통을 넘어, 의인이 겪는 고난과 그 속에서의 궁극적인 신뢰를 예표하는 시임을 보여줍니다. 다윗은 육체적, 정신적 고통뿐만 아니라 주변 사람들의 비방과 배신으로 인한 사회적 고립감까지 토로합니다. 그러나 그의 시선은 자신의 비참한 상황에 머무르지 않고, 언약에 신실하신 하나님의 '인자하심'(헤세드)을 향합니다. 고난 속에서 하나님의 성품을 붙드는 것이야말로 신뢰의 본질임을 보여줍니다. 이 시는 고난받는 모든 성도에게 어떻게 기도해야 하며, 무엇을 믿어야 하는지를 가르쳐주는 위대한 지침서입니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <ul>
+                <li>
+                    <p class="key-verse">시편 31:5 - 내가 나의 영을 주의 손에 부탁하나이다 진리의 하나님 여호와여 나를 속량하셨나이다</p>
+                    <p class="commentary-text">이 구절은 신뢰의 절정을 보여주는 고백입니다. '나의 영을 주의 손에 부탁한다'는 것은 자신의 생명과 운명, 존재 전체를 하나님의 주권적인 손에 온전히 맡긴다는 의미입니다. 이는 죽음의 위협 앞에서도 흔들리지 않는 믿음의 표현입니다. 다윗이 이렇게 고백할 수 있는 근거는 '진리의 하나님 여호와께서 나를 속량하셨기' 때문입니다. '속량'은 값을 치르고 구원해 내셨다는 뜻으로, 과거의 구원 경험에 대한 회상이 현재의 신뢰를 뒷받침하고 있습니다. 이 고백을 통해 다윗은 하나님이 과거에도 구원자이셨고, 현재에도 보호자이시며, 미래에도 신실하실 것임을 선포합니다. 예수님께서 이 구절을 인용하신 것은 자신의 죽음이 끝이 아니라, 아버지의 손 안에서 새로운 생명으로 나아가는 과정임을 믿으셨기 때문입니다.</p>
+                </li>
+                <li>
+                    <p class="key-verse">시편 31:19-20 - 주를 두려워하는 자를 위하여 쌓아 두신 은혜 곧 주께 피하는 자를 위하여 인생 앞에 베푸신 은혜가 어찌 그리 큰지요 주께서 그들을 주의 은밀한 곳에 숨기사 사람의 꾀에서 벗어나게 하시고 비밀히 장막에 감추사 말다툼에서 면하게 하시리이다</p>
+                    <p class="commentary-text">고통의 현실을 토로하던 시인은 이제 시선을 돌려 하나님께서 베푸실 미래의 은혜를 바라봅니다. 하나님께서는 그를 경외하고 신뢰하는 자들을 위해 은혜를 '쌓아 두셨다'고 표현합니다. 이는 하나님의 구원이 즉흥적인 것이 아니라, 영원 전부터 계획되고 예비된 풍성한 것임을 보여줍니다. '주의 은밀한 곳', '비밀 장막'은 하나님의 임재와 보호가 가장 완벽한 피난처임을 시적으로 표현한 것입니다. 세상의 어떤 음모나 비방도 하나님의 보호 아래 있는 성도를 해칠 수 없다는 강력한 확신이 담겨 있습니다. 이 구절은 현재의 고난이 아무리 크더라도, 하나님 안에 예비된 은혜와 보호는 그것을 능가하고도 남음이 있음을 가르쳐줍니다.</p>
+                </li>
+            </ul>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>하나님께 피하는 기도</strong>
+                <div><span class="verse-number">1</span>여호와여 내가 주께 피하오니 나를 영원히 부끄럽게 하지 마시고 주의 공의로 나를 건지소서</div>
+                <div><span class="verse-number">2</span>내게 귀를 기울여 속히 건지시고 내게 견고한 바위와 구원하는 산성이 되소서</div>
+                <div><span class="verse-number">3</span>주는 나의 반석과 산성이시니 그러므로 주의 이름을 생각하셔서 나를 인도하시고 지도하소서</div>
+                <div><span class="verse-number">4</span>그들이 나를 위하여 비밀히 친 그물에서 빼내주소서 주는 나의 산성이시니이다</div>
+                <div><span class="verse-number">5</span>내가 나의 영을 주의 손에 부탁하나이다 진리의 하나님 여호와여 나를 속량하셨나이다</div>
+                <div><span class="verse-number">6</span>내가 허탄한 거짓을 숭상하는 자들을 미워하고 여호와를 의지하나이다</div>
+                <div><span class="verse-number">7</span>내가 주의 인자하심을 기뻐하며 즐거워할 것은 주께서 나의 고난을 보시고 환난 중에 있는 내 영혼을 아셨으며</div>
+                <div><span class="verse-number">8</span>나를 원수의 수중에 가두지 아니하셨고 내 발을 넓은 곳에 세우셨음이니이다</div>
+                <strong>고통 속의 탄원</strong>
+                <div><span class="verse-number">9</span>여호와여 내가 고통 중에 있사오니 내게 은혜를 베푸소서 내가 근심 때문에 눈과 영혼과 몸이 쇠하였나이다</div>
+                <div><span class="verse-number">10</span>내 일생을 슬픔으로 보내며 나의 연수를 탄식으로 보냄이여 내 기력이 나의 죄악 때문에 약하여지며 나의 뼈가 쇠하도소이다</div>
+                <div><span class="verse-number">11</span>내가 모든 대적들 때문에 욕을 당하고 내 이웃에게서는 심히 당하니 내 친구가 놀라고 길에서 보는 자가 나를 피하였나이다</div>
+                <div><span class="verse-number">12</span>내가 잊어버린 바 됨이 죽은 자를 마음에 두지 아니함 같고 깨진 그릇과 같으니이다</div>
+                <div><span class="verse-number">13</span>내가 무리의 비방을 들었으므로 사방이 두려움으로 감싸였나이다 그들이 나를 치려고 함께 의논할 때에 내 생명을 빼앗기로 꾀하였나이다</div>
+                <div><span class="verse-number">14</span>여호와여 그러하여도 나는 주께 의지하고 말하기를 주는 내 하나님이시라 하였나이다</div>
+                <div><span class="verse-number">15</span>나의 앞날이 주의 손에 있사오니 내 원수들과 나를 핍박하는 자들의 손에서 나를 건져 주소서</div>
+                <div><span class="verse-number">16</span>주의 얼굴을 주의 종에게 비추시고 주의 사랑하심으로 나를 구원하소서</div>
+                <div><span class="verse-number">17</span>여호와여 내가 주를 불렀사오니 나를 부끄럽게 하지 마시고 악인들을 부끄럽게 하사 스올에서 잠잠하게 하소서</div>
+                <div><span class="verse-number">18</span>교만하고 완악한 말로 무례히 의인을 치는 거짓 입술이 말 못하는 자 되게 하소서</div>
+                <strong>구원에 대한 감사와 찬양</strong>
+                <div><span class="verse-number">19</span>주를 두려워하는 자를 위하여 쌓아 두신 은혜 곧 주께 피하는 자를 위하여 인생 앞에 베푸신 은혜가 어찌 그리 큰지요</div>
+                <div><span class="verse-number">20</span>주께서 그들을 주의 은밀한 곳에 숨기사 사람의 꾀에서 벗어나게 하시고 비밀히 장막에 감추사 말다툼에서 면하게 하시리이다</div>
+                <div><span class="verse-number">21</span>여호와를 찬송할지어다 견고한 성에서 그의 놀라운 인자를 내게 보이셨음이로다</div>
+                <div><span class="verse-number">22</span>내가 놀라서 말하기를 주의 목전에서 끊어졌다 하였사오나 내가 주께 부르짖을 때에 주께서 나의 간구하는 소리를 들으셨나이다</div>
+                <div><span class="verse-number">23</span>너희 모든 성도들아 여호와를 사랑하라 여호와께서 진실한 자를 보호하시고 교만하게 행하는 자에게 엄중히 갚으시느니라</div>
+                <div><span class="verse-number">24</span>여호와를 바라는 너희들아 강하고 담대하라</div>
+            </div>
+        </div>
+
+        <!-- 통합적 이해 -->
+        <div class="chapter-card integration-card">
+            <h2>통합적 이해: 하나님의 주권과 인간의 책임</h2>
+            <h3>관통하는 주제</h3>
+            <p>오늘의 네 본문은 서로 다른 시대와 상황 속에서 <strong>'절대적인 하나님의 주권 아래 인간이 어떻게 순종하며 살아야 하는가'</strong>라는 공통된 주제를 다룹니다. 왕의 불순종과 그 결과(사무엘상), 세상 권세에 대한 성도의 순종(로마서), 민족적 불순종으로 인한 심판의 성취(예레미야), 그리고 개인의 고난 속에서의 절대적 신뢰와 순종(시편)을 통해 이 주제를 입체적으로 조명합니다.</p>
+
+            <h3>구속사의 파노라마 (시각적 연결고리)</h3>
+            <div class="svg-container">
+                <svg viewBox="0 0 400 250">
+                    <title>8월 23일 본문 구속사적 연결</title>
+                    <rect x="0" y="0" width="400" height="250" fill="#f5f5f5"/>
+                    
+                    <!-- 중심 주제 -->
+                    <g>
+                        <rect x="125" y="10" width="150" height="40" rx="10" fill="#808080"/>
+                        <text x="200" y="35" text-anchor="middle" font-size="14" fill="white" font-weight="bold">하나님의 주권</text>
+                    </g>
+                    
+                    <!-- 본문 노드 -->
+                    <g>
+                        <circle cx="70" cy="100" r="30" fill="#4285F4"/>
+                        <text x="70" y="100" text-anchor="middle" font-size="9" fill="white">삼상 15</text>
+                        <text x="70" y="110" text-anchor="middle" font-size="8" fill="white">왕의 불순종</text>
+                    </g>
+                    <g>
+                        <circle cx="150" cy="180" r="30" fill="#DB4437"/>
+                        <text x="150" y="180" text-anchor="middle" font-size="9" fill="white">롬 13</text>
+                        <text x="150" y="190" text-anchor="middle" font-size="8" fill="white">권세에 순종</text>
+                    </g>
+                    <g>
+                        <circle cx="250" cy="180" r="30" fill="#F4B400"/>
+                        <text x="250" y="180" text-anchor="middle" font-size="9" fill="white">렘 52</text>
+                        <text x="250" y="190" text-anchor="middle" font-size="8" fill="white">심판의 성취</text>
+                    </g>
+                    <g>
+                        <circle cx="330" cy="100" r="30" fill="#0F9D58"/>
+                        <text x="330" y="100" text-anchor="middle" font-size="9" fill="white">시 31</text>
+                        <text x="330" y="110" text-anchor="middle" font-size="8" fill="white">고난 중 순종</text>
+                    </g>
+                    
+                    <!-- 연결선과 텍스트 -->
+                    <path d="M 180 50 V 100" stroke="#808080" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                    <text x="185" y="80" font-size="9">명령</text>
+
+                    <path d="M 220 50 V 100" stroke="#808080" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                    <text x="225" y="80" font-size="9">섭리</text>
+
+                    <path d="M 100 110 C 130 140, 120 150, 135 170" stroke="#DB4437" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/>
+                    <text x="125" y="145" font-size="9" fill="#DB4437">책임</text>
+
+                    <path d="M 265 170 C 280 150, 290 140, 300 110" stroke="#0F9D58" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/>
+                    <text x="275" y="145" font-size="9" fill="#0F9D58">신뢰</text>
+                    
+                    <path d="M 100 100 H 300" stroke="#808080" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/>
+                    <text x="200" y="95" text-anchor="middle" font-size="9">인간의 반응</text>
+
+                    <path d="M 180 180 H 220" stroke="#808080" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/>
+                     <text x="200" y="210" text-anchor="middle" font-size="9">결과</text>
+                </svg>
+            </div>
+
+            <h3>본문별 연결고리 및 구속사적 맥락</h3>
+            <p>오늘의 본문들은 하나님의 주권이라는 거대한 주제 아래 유기적으로 연결됩니다. <strong>사무엘상 15장</strong>은 하나님 나라의 대리 통치자인 왕이 하나님의 명령에 불순종했을 때 어떤 비극적 결과를 맞이하는지 보여줍니다. 이는 장차 오실 참된 왕, 예수 그리스도는 자신의 뜻이 아닌 아버지의 뜻에 온전히 순종하심으로 구원을 이루실 것을 역설적으로 보여줍니다. 사울의 실패는 완전한 순종을 이루실 메시아의 필요성을 부각시킵니다.</p>
+            <p><strong>로마서 13장</strong>은 이 하나님의 주권이 영적인 영역뿐만 아니라 세상의 정치, 사회 구조에도 미치고 있음을 선언합니다. 성도는 세상 권세에 순종함으로써 그 배후에 계신 하나님의 주권을 인정하는 것입니다. 이는 하나님 나라의 백성이 이 땅에서 어떻게 질서의 일원으로 살아가야 하는지에 대한 원리를 제공합니다. 사울이 하나님의 명령을 거역한 것과 대조적으로, 성도는 하나님의 일반은총 아래 있는 세상의 질서에 순종하도록 부름받습니다.</p>
+            <p><strong>예레미야 52장</strong>은 국가적 차원에서 지속된 불순종의 최종 결과를 보여줍니다. 예레미야를 통해 수없이 경고하셨던 하나님의 말씀이 역사 속에서 그대로 성취되는 것을 통해, 하나님의 공의와 심판의 주권을 확인하게 됩니다. 사울 한 사람의 불순종이 왕위를 잃게 했다면, 이스라엘 민족 전체의 불순종은 나라의 멸망을 가져왔습니다. 그러나 그 속에서도 여호야긴을 통해 다윗의 언약을 이어가시는 하나님의 신실하심은, 심판 속에서도 구속사를 이끌어 가시는 하나님의 주권을 보여줍니다.</p>
+            <p><strong>시편 31편</strong>은 이 모든 거대한 역사적 흐름 속에서 한 개인이 겪는 고난과 그에 대한 반응을 보여줍니다. 다윗은 자신을 둘러싼 불의와 고통 속에서, 자신의 상황이나 감정이 아닌 하나님의 주권과 신실하심에 자신의 영혼을 의탁합니다. 이는 사울처럼 변명하거나(삼상 15), 시드기야처럼 인간적인 꾀를 의지하는(렘 52) 모습과 극명한 대조를 이룹니다. 다윗의 기도는 하나님의 주권을 온전히 인정하는 자가 고난 속에서 어떻게 순종의 삶을 살아내는지를 보여주는 모델이 됩니다. 예수님께서 십자가에서 이 기도를 드리심으로, 다윗의 신뢰는 인류 구원을 위한 가장 위대한 순종으로 완성됩니다.</p>
+
+            <h3>주제별 심층 분석표</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>주제</th>
+                        <th>사무엘상 15</th>
+                        <th>로마서 13</th>
+                        <th>예레미야 52</th>
+                        <th>시편 31</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>하나님의 주권</strong></td>
+                        <td>왕을 세우고 폐하시는 주권</td>
+                        <td>세상 권세를 세우시는 주권</td>
+                        <td>역사를 심판하고 이끄시는 주권</td>
+                        <td>개인의 생사를 다스리시는 주권</td>
+                    </tr>
+                    <tr>
+                        <td><strong>인간의 순종/불순종</strong></td>
+                        <td>왕의 부분적 순종 (불순종)</td>
+                        <td>성도의 사회적 순종 (의무)</td>
+                        <td>민족의 지속적 불순종 (결과)</td>
+                        <td>의인의 고난 중 순종 (신뢰)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>결과/열매</strong></td>
+                        <td>폐위와 버림받음</td>
+                        <td>질서 유지와 칭찬</td>
+                        <td>멸망과 포로됨</td>
+                        <td>구원과 찬양</td>
+                    </tr>
+                    <tr>
+                        <td><strong>구속사적 연결</strong></td>
+                        <td>참된 순종의 왕이신 그리스도의 필요성</td>
+                        <td>하나님 나라 백성의 세상 속 삶의 원리</td>
+                        <td>심판 속에서도 언약을 지키시는 하나님의 신실함</td>
+                        <td>그리스도의 십자가 고난과 온전한 의탁의 예표</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>오늘의 교훈</h3>
+            <p>우리의 삶은 매 순간 순종과 불순종의 갈림길에 놓여 있습니다. 사울처럼 '하나님을 위한다'는 명분으로 자신의 욕심을 따를 수도 있고, 시드기야처럼 하나님의 말씀보다 세상의 소리에 귀 기울일 수도 있습니다. 그러나 오늘 말씀은 우리에게 순종이 화려한 제사보다 낫다고 분명히 선언합니다. 우리의 순종은 가정과 직장에서, 그리고 사회의 법과 질서를 따르는 구체적인 삶으로 나타나야 합니다. 때로 다윗처럼 억울한 고난과 이해할 수 없는 상황에 처할지라도, 우리의 생명과 모든 것이 주님의 손에 있음을 믿고 잠잠히 신뢰하는 것이 최고의 순종입니다. 하나님의 주권을 온전히 인정할 때, 우리는 어떤 상황에서도 두려워하지 않고 빛의 갑옷을 입고 담대하게 살아갈 수 있습니다.</p>
+        </div>
+    </div>
+
+    <footer>
+        2025 KBD 맥체인 성경읽기 프로젝트
+    </footer>
+
+    <script>
+        // YouTube IFrame Player API 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'nAHGMjI1Ptk'; // 사용자로부터 받은 영상 ID
+        const audioControlButton = document.getElementById('audio-control');
+        let isPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            if (videoId) {
+                player = new YT.Player('player', {
+                    height: '0',
+                    width: '0',
+                    videoId: videoId,
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                disableAudioControl();
+            }
+        }
+
+        function onPlayerReady(event) {
+            audioControlButton.textContent = '오늘의 말씀듣기 ▶';
+            audioControlButton.classList.remove('disabled');
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
+                audioControlButton.textContent = '오늘의 말씀듣기 ▶';
+                player.seekTo(0);
+                player.stopVideo();
+            }
+        }
+
+        function toggleAudio() {
+            if (!player || typeof player.getPlayerState !== 'function') {
+                disableAudioControl();
+                return;
+            }
+            
+            if (isPlaying) {
+                player.pauseVideo();
+                audioControlButton.textContent = '오늘의 말씀듣기 ▶';
+            } else {
+                player.playVideo();
+                audioControlButton.textContent = '일시정지 ⏸';
+            }
+            isPlaying = !isPlaying;
+        }
+        
+        function disableAudioControl() {
+             audioControlButton.textContent = '오디오 자료 없음';
+             audioControlButton.classList.add('disabled');
+             audioControlButton.removeEventListener('click', toggleAudio);
+        }
+
+        if (videoId) {
+            audioControlButton.addEventListener('click', toggleAudio);
+        } else {
+            window.addEventListener('DOMContentLoaded', disableAudioControl);
+        }
+
+    </script>
+</body>
+</html>

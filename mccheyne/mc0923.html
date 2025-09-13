@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 23일 맥체인 성경읽기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --book1-color: #4A90E2; /* 사무엘하 - Blue */
+            --book2-color: #50E3C2; /* 고린도후서 - Teal */
+            --book3-color: #F5A623; /* 에스겔 - Orange */
+            --book4-color: #9013FE; /* 시편 - Purple */
+            --integration-color: #D0021B; /* 통합 - Red */
+            --text-primary: #333;
+            --text-secondary: #555;
+            --bg-light: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title-section {
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: var(--text-primary);
+        }
+
+        h1 .subtitle {
+            font-size: 0.6em;
+            color: var(--text-secondary);
+            font-weight: 400;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .intro-passage {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .chapter-card {
+            background-color: #fff;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-left: 5px solid;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .chapter-card:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .card-book1 { border-left-color: var(--book1-color); }
+        .card-book2 { border-left-color: var(--book2-color); }
+        .card-book3 { border-left-color: var(--book3-color); }
+        .card-book4 { border-left-color: var(--book4-color); }
+        .integration-card { border-left-color: var(--integration-color); }
+
+        h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .bible-text {
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .bible-text p {
+            margin: 0 0 10px 0;
+        }
+
+        .verse-number {
+            font-weight: bold;
+            color: var(--text-secondary);
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+
+        .card-book1 .bible-text strong { color: var(--book1-color); }
+        .card-book2 .bible-text strong { color: var(--book2-color); }
+        .card-book3 .bible-text strong { color: var(--book3-color); }
+        .card-book4 .bible-text strong { color: var(--book4-color); }
+
+        .analysis-svg {
+            width: 100%;
+            margin: 20px 0;
+            background-color: var(--bg-light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        /* Key Verse Commentary Style Update */
+        .key-verse {
+            margin-bottom: 20px;
+        }
+        .key-verse .verse-text {
+            font-style: italic;
+            background-color: var(--bg-light);
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 3px solid;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .card-book1 .key-verse .verse-text { border-left-color: var(--book1-color); color: var(--book1-color); }
+        .card-book2 .key-verse .verse-text { border-left-color: var(--book2-color); color: var(--book2-color); }
+        .card-book3 .key-verse .verse-text { border-left-color: var(--book3-color); color: var(--book3-color); }
+        .card-book4 .key-verse .verse-text { border-left-color: var(--book4-color); color: var(--book4-color); }
+        .key-verse .commentary-text {
+            padding-left: 5px;
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 700;
+        }
+        
+        td:first-child {
+            font-weight: bold;
+            font-family: 'Noto Serif KR', serif;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        /* Player Styles */
+        #player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+        }
+
+        #floatingPlayPauseBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background-color: var(--text-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #floatingPlayPauseBtn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        #floatingPlayPauseBtn:not(:disabled):hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        #floatingPlayPauseBtn.paused {
+            opacity: 0.8;
+        }
+        
+        #floatingPlayPauseBtn .play-icon, 
+        #floatingPlayPauseBtn .pause-icon {
+            display: none;
+        }
+
+        #floatingPlayPauseBtn.paused .play-icon {
+            display: block;
+        }
+
+        #floatingPlayPauseBtn:not(.paused) .pause-icon {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="player-container"></div>
+    <button id="floatingPlayPauseBtn" disabled>
+        <span class="play-icon">
+            <svg xmlns="http://www.w.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+            </svg>
+        </span>
+        <span class="pause-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+            </svg>
+        </span>
+    </button>
+    
+    <div class="container">
+        <header class="title-section">
+            <h1>9월 23일 맥체인 성경읽기<br><span class="subtitle">약함 속에 임하는 은혜, 폐허 위에 세우는 언약</span></h1>
+            <p class="intro-passage">삼하19 | 고후12 | 겔26 | 시74</p>
+        </header>
+
+        <main>
+            <!-- Card 1: 2 Samuel 19 -->
+            <section class="chapter-card card-book1">
+                <h2>사무엘하 19장: 왕의 귀환, 깨어진 공동체</h2>
+                <h3>개요 (Overview)</h3>
+                <p>아들의 죽음에 대한 다윗의 슬픔이 지나치자 요압이 나서서 왕을 책망하고 백성들을 돌보게 합니다. 예루살렘으로 돌아오는 길에 다윗은 자신을 저주했던 시므이를 용서하고, 오해를 받았던 므비보셋을 받아들이며, 피난길에 자신을 도왔던 바르실래에게 은혜를 베풉니다. 그러나 왕의 귀환을 두고 유다 지파와 이스라엘 지파 사이에 갈등이 폭발하며, 공동체의 분열이라는 또 다른 위기를 맞이하게 됩니다.</p>
+                
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#555" /></marker></defs>
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">다윗의 귀환: 회복과 갈등</text>
+                    
+                    <rect x="20" y="30" width="160" height="110" rx="5" fill="#EFF6FF" stroke="#3B82F6"/>
+                    <text x="100" y="50" text-anchor="middle" font-weight="bold">개인의 회복</text>
+                    <text x="100" y="70" text-anchor="middle" fill="#555">시므이 (용서)</text>
+                    <text x="100" y="90" text-anchor="middle" fill="#555">므비보셋 (화해)</text>
+                    <text x="100" y="110" text-anchor="middle" fill="#555">바르실래 (보상)</text>
+
+                    <rect x="220" y="30" width="160" height="110" rx="5" fill="#FEF2F2" stroke="#EF4444"/>
+                    <text x="300" y="50" text-anchor="middle" font-weight="bold">공동체의 갈등</text>
+                    <text x="300" y="80" text-anchor="middle">유다 vs 이스라엘</text>
+                    <text x="300" y="100" text-anchor="middle" font-size="9" fill="#D0021B">(왕의 소유권 다툼)</text>
+
+                    <text x="200" y="155" text-anchor="middle" font-size="9" fill="#555">왕의 은혜가 개인에게는 임했으나, 공동체의 분열은 막지 못했습니다.</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>다윗의 귀환 과정은 한 나라의 지도자가 겪는 복잡한 현실을 보여줍니다. 그는 개인적인 슬픔을 억누르고 왕으로서의 공적 책임을 다해야 했고, 과거의 적과 동지를 모두 아우르는 정치적 결단을 내려야 했습니다. 시므이에 대한 용서는 왕의 너그러움을 보여주지만, 동시에 솔로몬에게 그의 죄를 기억하라는 유언을 남김으로써 정치적 현실의 한계를 드러냅니다. 유다와 이스라엘 지파 간의 갈등은 다윗 왕국에 내재된 근본적인 분열의 씨앗을 보여줍니다. 이 갈등은 결국 솔로몬 사후에 나라가 남북으로 갈라지는 비극의 전조가 됩니다. 신학적으로 다윗의 귀환은 완벽하지 않습니다. 그의 용서와 회복은 정치적 계산과 미래의 갈등을 완전히 해결하지 못합니다. 이는 우리에게 땅의 왕의 한계를 보여주며, 참된 용서와 온전한 회복, 영원한 통일을 가져오실 완전한 왕, 예수 그리스도를 대망하게 합니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>19장 22-23절</strong>: "오늘 어찌하여 이스라엘 가운데에서 사람을 죽이겠느냐 내가 오늘 이스라엘의 왕이 된 것을 내가 알지 못하리요 하고 시므이에게 이르되 네가 죽지 아니하리라 하고 그에게 맹세하니라"</p>
+                    <p class="commentary-text">다윗은 복귀하는 왕으로서 자신의 권위를 복수가 아닌 용서를 통해 세우고자 합니다. 그는 자신의 왕권 회복이 하나님의 은혜임을 알았기에, 그 은혜를 시므이에게 베풉니다. 이는 개인적인 차원을 넘어, 국가적인 화합을 위한 정치적 제스처이기도 합니다. 그러나 이 용서는 완전하지 않았고, 훗날 솔로몬에게 그의 죄를 처벌할 것을 명하게 됩니다. 오직 그리스도의 십자가를 통해서만 조건 없고 완전한 용서가 가능합니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>19장 43절</strong>: "이스라엘 사람이 유다 사람에게 대답하여 이르되 우리는 왕에 대하여 열 몫을 가졌으니 다윗에게 대하여 너희보다 더욱 관계가 있거늘... 유다 사람의 말이 이스라엘 사람의 말보다 더 강경하였더라"</p>
+                    <p class="commentary-text">왕을 섬기는 영광스러운 일마저도 지분 싸움과 갈등의 원인이 되는 인간 공동체의 죄성을 보여줍니다. 그들은 다윗을 '섬기는' 문제로 다투는 것이 아니라, 다윗에 대한 '소유권'을 주장하며 다투고 있습니다. 이 뿌리 깊은 갈등은 결국 이스라엘 왕국의 분열로 이어집니다. 이는 교회가 그리스도의 몸으로서 하나 되지 못하고, 세상적인 방식의 주도권 싸움에 빠질 때 어떤 비극이 일어나는지를 경고하는 말씀입니다.</p>
+                </div>
+
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>다윗을 책망하는 요압</strong>
+                    <p><span class="verse-number">1</span> 어떤 사람이 요압에게 아뢰되 왕이 압살롬을 위하여 울며 슬퍼하시나이다 하니</p>
+                    <p><span class="verse-number">2</span> 왕이 그 아들을 위하여 슬퍼한다 함이 그 날에 백성들에게 들리매 그 날의 승리가 모든 백성에게 슬픔이 된지라</p>
+                    <p><span class="verse-number">3</span> 그 날에 백성들이 싸움에 쫓겨 부끄러워 도망함 같이 가만히 성읍으로 들어가니라</p>
+                    <p><span class="verse-number">4</span> 왕이 그의 얼굴을 가리고 큰 소리로 부르되 내 아들 압살롬아 압살롬아 내 아들아 내 아들아 하니</p>
+                    <p><span class="verse-number">5</span> 요압이 집에 들어가서 왕께 말씀하되 왕께서 오늘 왕의 생명과 왕의 자녀의 생명과 처첩과 비빈들의 생명을 구원한 모든 부하들의 얼굴을 부끄럽게 하시니</p>
+                    <p><span class="verse-number">6</span> 이는 왕께서 미워하는 자는 사랑하시며 사랑하는 자는 미워하시고 오늘 지휘관들과 부하들을 멸시하심을 나타내심이라 오늘 내가 깨달으니 만일 압살롬이 살고 오늘 우리가 다 죽었더면 왕이 마땅히 여기실 뻔하였나이다</p>
+                    <p><span class="verse-number">7</span> 이제 곧 일어나 나가 왕의 부하들의 마음을 위로하여 말씀하옵소서 내가 여호와를 두고 맹세하옵나니 왕이 만일 나가지 아니하시면 오늘 밤에 한 사람도 왕과 함께 머물지 아니할지라 그리하면 그 화가 왕이 젊었을 때부터 지금까지 당하신 모든 화보다 더욱 심하리이다 하니</p>
+                    <p><span class="verse-number">8</span> 왕이 일어나 성문에 앉으매 어떤 사람이 모든 백성에게 말하되 왕이 문에 앉아 계신다 하니 모든 백성이 왕 앞으로 나아오니라 이스라엘은 이미 각기 장막으로 도망하였더라</p>
+                    <strong>왕의 귀환을 논의하는 백성들</strong>
+                    <p><span class="verse-number">9</span> 이스라엘 모든 지파 백성들이 변론하여 이르되 왕이 우리를 원수의 손에서 구원하여 내셨고 또 우리를 블레셋 사람들의 손에서 구원하셨으나 이제 압살롬을 피하여 그 땅에서 나가셨고</p>
+                    <p><span class="verse-number">10</span> 우리가 기름을 부어 우리를 다스리게 한 압살롬은 싸움에서 죽었거늘 이제 너희가 어찌하여 왕을 도로 모셔 올 일에 잠잠하고 있느냐 하니라</p>
+                    <p><span class="verse-number">11</span> 다윗 왕이 사독과 아비아달 두 제사장에게 소식을 전하여 이르되 너희는 유다 장로들에게 말하여 이르기를 왕의 말씀이 온 이스라엘이 왕을 왕궁으로 도로 모셔오자 하는 말이 왕께 들렸거늘 너희는 어찌하여 왕을 궁으로 모시는 일에 나중이 되느냐</p>
+                    <p><span class="verse-number">12</span> 너희는 내 형제요 내 골육이거늘 너희는 어찌하여 왕을 도로 모셔 오는 일에 나중이 되리요 하셨다 하고</p>
+                    <p><span class="verse-number">13</span> 너희는 또 아마사에게 이르기를 너는 내 골육이 아니냐 네가 요압을 이어서 항상 내 앞에서 지휘관이 되지 아니하면 하나님이 내게 벌 위에 벌을 내리시기를 바라노라 하셨다 하라 하여</p>
+                    <p><span class="verse-number">14</span> 모든 유다 사람들의 마음을 하나 같이 기울게 하매 그들이 왕께 전갈을 보내어 이르되 당신께서는 모든 부하들과 더불어 돌아오소서 한지라</p>
+                    <strong>용서와 화해, 그리고 보상</strong>
+                    <p><span class="verse-number">15</span> 왕이 돌아와 요단에 이르매 유다 족속이 왕을 맞아 요단을 건너가게 하려고 길갈로 오니라</p>
+                    <p><span class="verse-number">16</span> 바후림에 있는 베냐민 사람 게라의 아들 시므이가 급히 유다 사람과 함께 다윗 왕을 맞으러 내려올 때에</p>
+                    <p><span class="verse-number">17</span> 베냐민 사람 천 명이 그와 함께 하고 사울 집안의 종 시바도 그의 아들 열다섯과 종 스무 명과 더불어 그와 함께 하여 요단 강을 밟고 건너 왕 앞으로 나아오니라</p>
+                    <p><span class="verse-number">18</span> 왕의 가족을 건너가게 하며 왕이 좋게 여기는 대로 쓰게 하려 하여 나룻배가 건너가니 왕이 요단을 건너가게 할 때에 게라의 아들 시므이가 왕 앞에 엎드려</p>
+                    <p><span class="verse-number">19</span> 왕께 아뢰되 내 주여 원하건대 내게 죄를 돌리지 마옵소서 내 주 왕께서 예루살렘에서 나오시던 날에 종의 패역한 일을 기억하지 마시오며 왕의 마음에 두지 마옵소서</p>
+                    <p><span class="verse-number">20</span> 왕의 종 내가 범죄한 줄 아옵기에 오늘 요셉의 온 족속 중 내가 먼저 내려와서 내 주 왕을 영접하나이다 하니</p>
+                    <p><span class="verse-number">21</span> 스루야의 아들 아비새가 대답하여 이르되 시므이가 여호와의 기름 부으신 자를 저주하였으니 그로 말미암아 죽어야 마땅하지 아니하니이까 하니라</p>
+                    <p><span class="verse-number">22</span> 다윗이 이르되 스루야의 아들들아 내가 너희와 무슨 상관이 있기에 너희가 오늘 나의 원수가 되느냐 오늘 어찌하여 이스라엘 가운데에서 사람을 죽이겠느냐 내가 오늘 이스라엘의 왕이 된 것을 내가 알지 못하리요 하고</p>
+                    <p><span class="verse-number">23</span> 왕이 시므이에게 이르되 네가 죽지 아니하리라 하고 그에게 맹세하니라</p>
+                    <p><span class="verse-number">24</span> 사울의 손자 므비보셋이 내려와 왕을 맞으니 그는 왕이 떠난 날부터 평안히 돌아오는 날까지 그의 발을 맵시 내지 아니하며 그의 수염을 깎지 아니하며 옷을 빨지 아니하였더라</p>
+                    <p><span class="verse-number">25</span> 예루살렘에서 와서 왕을 맞을 때에 왕이 그에게 물어 이르되 므비보셋이여 네가 어찌하여 나와 함께 가지 아니하였더냐 하니</p>
+                    <p><span class="verse-number">26</span> 대답하되 내 주 왕이여 왕의 종 나는 다리를 절므로 내 나귀에 안장을 지워 그 위에 타고 왕과 함께 가려 하였더니 내 종이 나를 속이고</p>
+                    <p><span class="verse-number">27</span> 종인 나를 내 주 왕께 모함하였나이다 내 주 왕께서는 하나님의 사자와 같으시니 왕의 처분대로 하옵소서</p>
+                    <p><span class="verse-number">28</span> 내 아버지의 온 집이 내 주 왕 앞에서는 다만 죽을 사람이 되지 아니하였나이까 그러나 종을 왕의 상에서 음식 먹는 자 가운데에 두셨사오니 내게 아직 무슨 공의가 있어서 다시 왕께 부르짖을 수 있사오리이까 하니라</p>
+                    <p><span class="verse-number">29</span> 왕이 그에게 이르되 네가 어찌하여 또 네 일을 말하느냐 내가 이르노니 너는 시바와 밭을 나누라 하니</p>
+                    <p><span class="verse-number">30</span> 므비보셋이 왕께 아뢰되 내 주 왕께서 평안히 왕궁에 돌아오시게 되었으니 그로 그 전부를 차지하게 하옵소서 하니라</p>
+                    <p><span class="verse-number">31</span> 길르앗 사람 바르실래가 왕이 요단을 건너가게 하려고 로글림에서 내려와 함께 요단에 이르니</p>
+                    <p><span class="verse-number">32</span> 바르실래는 매우 늙어 나이가 팔십 세라 그는 큰 부자이므로 왕이 마하나임에 머물 때에 그가 왕을 공궤하였더라</p>
+                    <p><span class="verse-number">33</span> 왕이 바르실래에게 이르되 너는 나와 함께 건너가자 예루살렘에서 내가 너를 공궤하리라</p>
+                    <p><span class="verse-number">34</span> 바르실래가 왕께 아뢰되 내 생명의 날이 얼마나 있사옵겠기에 어찌 왕과 함께 예루살렘으로 올라가리이까</p>
+                    <p><span class="verse-number">35</span> 내 나이가 이제 팔십 세라 어떻게 좋고 흉한 것을 분간할 수 있사오며 음식의 맛을 알 수 있사오리이까 이 종이 어떻게 다시 노래하는 남자나 여인의 소리를 알아들을 수 있사오리이까 어찌하여 종이 내 주 왕께 아직도 누가 되오리이까</p>
+                    <p><span class="verse-number">36</span> 당신의 종은 왕을 모시고 요단을 건너려는 것뿐이거늘 왕께서 어찌하여 이같은 상으로 내게 갚으려 하시나이까</p>
+                    <p><span class="verse-number">37</span> 청하건대 당신의 종을 돌려보내옵소서 내가 내 고향 부모의 묘 곁에서 죽으려 하나이다 그러나 왕의 종 김함이 여기 있사오니 청하건대 그가 내 주 왕과 함께 건너가게 하시옵고 왕의 처분대로 그에게 베푸소서 하니라</p>
+                    <p><span class="verse-number">38</span> 왕이 대답하되 김함이 나와 함께 건너가리니 나는 네가 좋게 여기는 대로 그에게 베풀겠고 또 너는 내게 구하는 것은 다 너를 위하여 시행하리라 하니라</p>
+                    <p><span class="verse-number">39</span> 뭇 백성이 요단을 건너매 왕도 건너가서 왕이 바르실래에게 입을 맞추고 그에게 복을 비니 그가 자기 곳으로 돌아가니라</p>
+                    <strong>유다와 이스라엘의 갈등</strong>
+                    <p><span class="verse-number">40</span> 왕이 길갈로 건너오고 김함도 함께 건너오니 온 유다 백성과 이스라엘 백성의 절반이나 왕과 함께 건너니라</p>
+                    <p><span class="verse-number">41</span> 온 이스라엘 사람이 왕께 나아와 왕께 아뢰되 우리 형제 유다 사람들이 어찌 왕을 도둑하여 왕과 왕의 가족과 왕을 따르는 모든 사람을 인도하여 요단을 건너가게 하였나이까 하매</p>
+                    <p><span class="verse-number">42</span> 모든 유다 사람이 이스라엘 사람에게 대답하되 왕은 우리의 종친인 까닭이라 너희가 어찌 이 일에 대하여 분내느냐 우리가 왕의 것을 조금이라도 먹었느냐 왕께서 우리에게 선물로 주신 것이 있느냐</p>
+                    <p><span class="verse-number">43</span> 이스라엘 사람이 유다 사람에게 대답하여 이르되 우리는 왕에 대하여 열 몫을 가졌으니 다윗에게 대하여 너희보다 더욱 관계가 있거늘 너희가 어찌 우리를 멸시하여 우리 왕을 모셔 오는 일에 먼저 우리와 의논하지 아니하였느냐 하나 유다 사람의 말이 이스라엘 사람의 말보다 더 강경하였더라</p>
+                </div>
+            </section>
+            
+            <!-- Card 2: 2 Corinthians 12 -->
+            <section class="chapter-card card-book2">
+                <h2>고린도후서 12장: 내 은혜가 네게 족하도다</h2>
+                <h3>개요 (Overview)</h3>
+                <p>바울은 자신이 경험한 삼층천의 신비로운 환상을 마지못해 언급한 뒤, 교만하지 않도록 하나님께서 허락하신 '육체의 가시'에 대해 이야기합니다. 그는 이 가시가 떠나가기를 세 번이나 간절히 기도했지만, 하나님께서는 "내 은혜가 네게 족하도다 이는 내 능력이 약한 데서 온전하여짐이라"고 응답하셨습니다. 이를 깨달은 바울은 도리어 자신의 여러 약한 것들을 자랑하며, 자신이 약할 그 때에 곧 강함이라고 고백합니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">약함 속 온전해지는 능력</text>
+                    <g text-anchor="middle">
+                        <path d="M50 40 L150 40 L150 120 L50 120 Z" fill="#E6FFFA" stroke="#50E3C2"/>
+                        <text x="100" y="60" font-weight="bold">바울의 약함</text>
+                        <text x="100" y="80" fill="#555">"육체의 가시"</text>
+                        <text x="100" y="95" fill="#555">(질병, 대적, 고난)</text>
+                    </g>
+                    <g text-anchor="middle">
+                        <path d="M250 40 L350 40 L350 120 L250 120 Z" fill="#E6FFFA" stroke="#50E3C2"/>
+                        <text x="300" y="60" font-weight="bold">하나님의 능력</text>
+                        <text x="300" y="80" fill="#555">"내 은혜가 네게 족하다"</text>
+                        <text x="300" y="95" fill="#555">(그리스도의 능력이 머뭄)</text>
+                    </g>
+                    <path d="M150 80 H 250" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    <text x="200" y="75" text-anchor="middle" font-weight="bold">통로</text>
+                    <text x="200" y="140" text-anchor="middle" font-weight="bold" fill="#007bff">"내가 약할 그 때에 강함이라"</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>바울의 '육체의 가시'가 정확히 무엇이었는지에 대해서는 안질, 간질, 대인기피증 등 다양한 해석이 있지만, 중요한 것은 그것이 바울을 지속적으로 고통스럽게 하고 약하게 만드는 것이었다는 점입니다. 거짓 사도들이 자신의 강함과 신비한 체험을 자랑하는 세상에서, 바울은 자신의 약함과 고통을 자랑하는 역설을 보여줍니다. 신학적으로 이는 기독교 신앙의 핵심 원리를 드러냅니다. 하나님의 능력은 인간의 강함이 아닌 약함 속에서 가장 온전하게 나타납니다. 우리가 약할 때, 비로소 우리는 우리 자신을 의지하지 않고 오직 하나님의 은혜만을 붙들게 되기 때문입니다. '내 은혜가 네게 족하다'는 하나님의 응답은, 문제 해결 자체가 아니라 문제 속에서도 충분하신 하나님의 은혜를 누리는 것이 진정한 응답임을 가르쳐줍니다. 강함을 추구하는 세상의 원리와 정반대되는, 십자가의 길을 보여주는 말씀입니다.</p>
+                
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>12장 9절</strong>: "나에게 이르시기를 내 은혜가 네게 족하도다 이는 내 능력이 약한 데서 온전하여짐이라 하신지라 그러므로 도리어 크게 기뻐함으로 나의 여러 약한 것들에 대하여 자랑하리니 이는 그리스도의 능력이 내게 머물게 하려 함이라"</p>
+                    <p class="commentary-text">복음의 진수가 담긴 위대한 구절입니다. 하나님은 우리의 약함을 제거해주시는 방식으로 일하시기보다, 그 약함 가운데 당신의 충분한 은혜를 부어주시고 당신의 능력을 드러내시는 방식으로 일하십니다. 우리의 약함은 더 이상 수치나 저주가 아니라, 그리스도의 능력이 머무는 영광스러운 통로가 됩니다. 이 진리를 깨달을 때, 우리는 비로소 우리의 약함을 기뻐하고 자랑할 수 있게 됩니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>12장 10절</strong>: "그러므로 내가 그리스도를 위하여 약한 것들과 능욕과 궁핍과 박해와 곤고를 기뻐하노니 이는 내가 약할 그 때에 강함이라"</p>
+                    <p class="commentary-text">9절의 원리를 자신의 삶에 적용한 신앙 고백입니다. 바울은 '그리스도를 위하여' 겪는 모든 약함을 기쁨의 이유로 삼습니다. 왜냐하면 그 약함의 순간이야말로, 자신의 힘이 아닌 그리스도의 능력으로 살아가는 가장 강한 순간임을 알기 때문입니다. 이는 모든 성도가 추구해야 할 신앙의 목표입니다. 세상적인 강함이 아닌, 그리스도 안에서 발견되는 참된 강함을 소유하는 것입니다.</p>
+                </div>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>바울이 본 환상과 계시</strong>
+                    <p><span class="verse-number">1</span> 무익하나마 내가 부득불 자랑하노니 주의 환상과 계시를 말하리라</p>
+                    <p><span class="verse-number">2</span> 내가 그리스도 안에 있는 한 사람을 아노니 그는 십사 년 전에 셋째 하늘에 이끌려 간 자라 (그가 몸 안에 있었는지 몸 밖에 있었는지 나는 모르거니와 하나님은 아시느니라)</p>
+                    <p><span class="verse-number">3</span> 내가 이런 사람을 아노니 (그가 몸 안에 있었는지 몸 밖에 있었는지 나는 모르거니와 하나님은 아시느니라)</p>
+                    <p><span class="verse-number">4</span> 그가 낙원으로 이끌려 가서 말로 표현할 수 없는 말을 들었으니 사람이 가히 이르지 못할 말이로다</p>
+                    <p><span class="verse-number">5</span> 내가 이런 사람을 위하여 자랑하겠으나 나를 위하여는 약한 것들 외에 자랑하지 아니하리라</p>
+                    <p><span class="verse-number">6</span> 내가 만일 자랑하고자 하여도 어리석은 자가 되지 아니할 것은 내가 참말을 함이라 그러나 누가 나를 보는 바와 내게서 듣는 바에 지나치게 생각할까 두려워하여 그만두노라</p>
+                    <strong>육체의 가시와 하나님의 은혜</strong>
+                    <p><span class="verse-number">7</span> 여러 계시를 받은 것이 지극히 크므로 너무 자만하지 않게 하시려고 내 육체에 가시 곧 사탄의 사자를 주셨으니 이는 나를 쳐서 너무 자만하지 않게 하려 하심이라</p>
+                    <p><span class="verse-number">8</span> 이것이 내게서 떠나가게 하기 위하여 내가 세 번 주께 간구하였더니</p>
+                    <p><span class="verse-number">9</span> 나에게 이르시기를 내 은혜가 네게 족하도다 이는 내 능력이 약한 데서 온전하여짐이라 하신지라 그러므로 도리어 크게 기뻐함으로 나의 여러 약한 것들에 대하여 자랑하리니 이는 그리스도의 능력이 내게 머물게 하려 함이라</p>
+                    <p><span class="verse-number">10</span> 그러므로 내가 그리스도를 위하여 약한 것들과 능욕과 궁핍과 박해와 곤고를 기뻐하노니 이는 내가 약할 그 때에 강함이라</p>
+                    <strong>고린도 교회를 향한 바울의 사랑</strong>
+                    <p><span class="verse-number">11</span> 내가 어리석은 자가 되었으나 너희가 억지로 시킨 것이니 나는 너희에게 칭찬을 받아야 마땅하도다 내가 아무 것도 아니나 지극히 크다는 사도들보다 조금도 부족하지 아니하니라</p>
+                    <p><span class="verse-number">12</span> 사도의 표가 된 것은 내가 너희 가운데서 모든 참음과 표적과 기사와 능력을 행한 것이라</p>
+                    <p><span class="verse-number">13</span> 내 자신이 너희에게 폐를 끼치지 아니한 일밖에 다른 교회보다 부족하게 한 것이 무엇이 있느냐 너희는 나의 이 공평하지 못한 것을 용서하라</p>
+                    <p><span class="verse-number">14</span> 보라 내가 이제 세 번째 너희에게 가기를 준비하였으나 너희에게 폐를 끼치지는 아니하리라 내가 구하는 것은 너희의 재물이 아니요 오직 너희니라 어린 아이가 부모를 위하여 재물을 저축하는 것이 아니요 부모가 어린 아이를 위하여 하느니라</p>
+                    <p><span class="verse-number">15</span> 내가 너희 영혼을 위하여 크게 기뻐하므로 재물을 사용하고 또 내 자신까지도 내어 주리니 너희를 더욱 사랑할수록 나는 사랑을 덜 받겠느냐</p>
+                    <p><span class="verse-number">16</span> 하여간 어떤 이의 말이 내가 너희에게 짐을 지우지는 아니하였을지라도 교활한 자가 되어 너희를 속임수로 취하였다 하니</p>
+                    <p><span class="verse-number">17</span> 내가 너희에게 보낸 자 중에 누구로 너희의 이익을 빼앗더냐</p>
+                    <p><span class="verse-number">18</span> 내가 디도를 권하고 함께 한 형제를 보냈으니 디도가 너희의 이익을 빼앗더냐 우리가 동일한 성령으로 행하지 아니하더냐 동일한 보조로 하지 아니하더냐</p>
+                    <p><span class="verse-number">19</span> 너희는 이 때까지 우리가 우리 자신을 너희에게 변명하는 줄로 생각하는구나 우리는 그리스도 안에서 하나님 앞에 말하노라 사랑하는 자들아 이 모든 것은 너희의 덕을 세우기 위함이니라</p>
+                    <p><span class="verse-number">20</span> 내가 갈 때에 너희를 내가 원하는 것과 같이 보지 못하고 또 내가 너희에게 너희가 원하지 않는 것과 같이 보일까 두려워하며 또 다툼과 시기와 분냄과 당 짓는 것과 비방과 수군거림과 거만함과 혼란이 있을까 두려워하고</p>
+                    <p><span class="verse-number">21</span> 또 내가 다시 갈 때에 내 하나님이 나를 너희 앞에서 낮추실까 두려워하고 또 내가 전에 죄를 지은 여러 사람의 그 행한 바 더러움과 음란함과 호색함을 회개하지 아니함 때문에 슬퍼할까 두려워하노라</p>
+                </div>
+            </section>
+
+            <!-- Card 3: Ezekiel 26 -->
+            <section class="chapter-card card-book3">
+                <h2>에스겔 26장: 교만한 두로의 멸망</h2>
+                <h3>개요 (Overview)</h3>
+                <p>하나님은 해상 무역으로 막대한 부와 명성을 쌓고 교만해진 두로(Tyre)의 완전한 멸망을 예언하십니다. 예루살렘의 멸망을 보며 자신들의 상업적 이익을 기대했던 두로에게, 하나님은 여러 민족을 일으켜 그들을 칠 것이라고 선언합니다. 그들의 성벽은 무너지고, 재물은 약탈당하며, 결국에는 고기 그물을 말리는 '맨 바위'처럼 되어 다시는 건축되지 못할 것이라는 무서운 심판이 선포됩니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">두로의 교만과 몰락</text>
+                    <g>
+                        <rect x="20" y="30" width="160" height="110" rx="5" fill="#FEF6E8" stroke="#F5A623"/>
+                        <text x="100" y="50" text-anchor="middle" font-weight="bold">교만의 원인</text>
+                        <text x="100" y="70" text-anchor="middle" fill="#555">지리적 안전 (섬)</text>
+                        <text x="100" y="90" text-anchor="middle" fill="#555">막대한 부 (무역)</text>
+                        <text x="100" y="110" text-anchor="middle" fill="#555">스스로 높아진 마음</text>
+                    </g>
+                    <path d="M180 85 H 220" stroke="#D0021B" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                     <g>
+                        <rect x="220" y="30" width="160" height="110" rx="5" fill="#FEF2F2" stroke="#EF4444"/>
+                        <text x="300" y="50" text-anchor="middle" font-weight="bold">심판의 결과</text>
+                        <text x="300" y="70" text-anchor="middle" fill="#555">완전한 파괴</text>
+                        <text x="300" y="90" text-anchor="middle" fill="#555">재물 약탈</text>
+                        <text x="300" y="110" text-anchor="middle" font-weight="bold" fill="#D0021B">'맨 바위'가 됨</text>
+                    </g>
+                    <text x="200" y="155" text-anchor="middle" font-size="9" fill="#555">세상의 부와 안전을 의지한 교만은 하나님의 심판 아래 완전히 무너집니다.</text>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>두로는 고대 페니키아의 가장 중요한 항구 도시로, 지중해 무역을 독점하며 엄청난 부를 누렸습니다. 특히 섬에 위치한 본성은 난공불락의 요새로 여겨졌습니다. 그들은 예루살렘의 멸망을 보며 종교적, 도덕적 교훈을 얻기보다, 강력한 경쟁 상대가 사라진 것을 기뻐하는 상업적 계산에 빠졌습니다. 이는 어제 묵상했던 암몬, 모압과 같은 죄입니다. 이들의 교만은 단순한 자부심을 넘어, 하나님 없이도 자신들의 힘과 부로 영원히 안전할 것이라는 착각에 기반한 것이었습니다. 신학적으로 두로는 하나님을 대적하는 세상 나라의 부와 교만을 상징합니다. 하나님은 이 예언을 역사를 통해 성취하셨습니다. 바벨론의 느부갓네살 왕이 육지 도시를 파괴했고, 수백 년 후 알렉산더 대왕이 바다를 메워 둑을 쌓아 섬 도시까지 완전히 파괴함으로 '맨 바위'가 되게 하리라는 예언을 문자 그대로 이루었습니다. 이는 하나님의 말씀이 반드시 성취된다는 것과, 세상의 그 어떤 부와 권세도 하나님의 주권 아래 있음을 보여줍니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>26장 2절</strong>: "...두로가 예루살렘에 관하여 이르기를 아하, 만민의 문이 깨져서 내게로 돌아왔도다 그가 황폐하였으니 내가 충만함을 얻으리라 하였도다"</p>
+                    <p class="commentary-text">두로의 죄악의 핵심을 보여줍니다. 그들은 형제 나라의 고통을 자신의 이익을 채울 기회로 여겼습니다. '내가 충만함을 얻으리라'는 말 속에는 하나님을 무시하고 오직 자신의 부만을 추구하는 극단적인 이기심과 교만이 담겨 있습니다. 이는 하나님 나라의 가치관, 즉 이웃을 내 몸과 같이 사랑하라는 계명과 정면으로 배치됩니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>26장 14절</strong>: "내가 너를 맨 바위가 되게 한즉 네가 그물 말리는 곳이 되고 다시는 건축되지 못하리니 나 여호와가 말하였음이니라 주 여호와의 말씀이니라"</p>
+                    <p class="commentary-text">하나님 심판의 철저함과 최종성을 보여주는 무서운 선언입니다. 화려했던 국제 무역항이 초라한 어부의 그물 건조장이 될 것이라는 예언은 완전한 몰락을 의미합니다. '다시는 건축되지 못하리라'는 말씀은 이 심판이 회복 불가능한 것임을 보여줍니다. 세상의 영광을 의지하는 모든 것의 결국은 이와 같을 것입니다. 오직 하나님이 세우시는 성만이 영원합니다.</p>
+                </div>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>두로의 멸망에 대한 예언</strong>
+                    <p><span class="verse-number">1</span> 열한째 해 어느 달 초하루에 여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p><span class="verse-number">2</span> 인자야 두로가 예루살렘에 관하여 이르기를 아하, 만민의 문이 깨져서 내게로 돌아왔도다 그가 황폐하였으니 내가 충만함을 얻으리라 하였도다</p>
+                    <p><span class="verse-number">3</span> 그러므로 주 여호와께서 이같이 말씀하셨느니라 두로야 내가 너를 대적하여 바다가 그 파도를 일으킴 같이 내가 여러 민족들을 들어 너를 치게 하리니</p>
+                    <p><span class="verse-number">4</span> 그들이 두로의 성벽을 무너뜨리며 그 망대를 헐 것이요 나도 티끌을 그 위에서 쓸어버려 맨 바위가 되게 하며</p>
+                    <p><span class="verse-number">5</span> 바다 가운데에 그물 치는 곳이 되게 하리니 내가 말하였음이라 주 여호와의 말씀이니라 그가 이방의 노략거리가 될 것이요</p>
+                    <p><span class="verse-number">6</span> 들에 있는 그의 딸들은 칼에 죽으리니 내가 주 여호와인 줄을 그들이 알리라</p>
+                    <strong>느부갓네살을 통한 심판</strong>
+                    <p><span class="verse-number">7</span> 주 여호와께서 이같이 말씀하셨느니라 내가 왕들 중의 왕 곧 바벨론의 느부갓네살 왕으로 하여금 북쪽에서 말과 병거와 기병과 군대와 백성의 큰 무리를 거느리고 와서 두로를 치게 할 때에</p>
+                    <p><span class="verse-number">8</span> 그가 들에 있는 네 딸들을 칼로 죽이고 너를 치기 위하여 흙 언덕을 쌓고 너를 치기 위하여 토성을 쌓고 너를 치기 위하여 방패를 갖추며</p>
+                    <p><span class="verse-number">9</span> 공성퇴를 가지고 네 성벽을 치며 도끼로 네 망대들을 찍을 것이며</p>
+                    <p><span class="verse-number">10</span> 그의 말이 많으므로 그 먼지가 너를 덮을 것이며 그의 기병과 수레와 병거의 소리로 말미암아 네 성곽이 진동할 것이며 그가 성이 함락될 때에 그 곳으로 들어가는 것 같이 네 모든 거리로 들어가리라</p>
+                    <p><span class="verse-number">11</span> 그가 그의 말발굽으로 네 모든 거리를 밟을 것이며 칼로 네 백성을 죽일 것이며 네 견고한 석상을 땅에 엎드러뜨릴 것이며</p>
+                    <p><span class="verse-number">12</span> 네 재물을 빼앗을 것이며 네가 무역한 것을 노략할 것이며 네 성벽을 헐 것이며 네가 기뻐하는 집을 무너뜨릴 것이며 또 네 돌들과 네 재목과 네 흙을 다 물 가운데에 던지리라</p>
+                    <p><span class="verse-number">13</span> 내가 네 노랫소리를 그치게 하며 네 수금 소리를 다시 들리지 않게 하고</p>
+                    <p><span class="verse-number">14</span> 내가 너를 맨 바위가 되게 한즉 네가 그물 말리는 곳이 되고 다시는 건축되지 못하리니 나 여호와가 말하였음이니라 주 여호와의 말씀이니라</p>
+                    <strong>두로의 몰락을 보고 놀라는 열방</strong>
+                    <p><span class="verse-number">15</span> 주 여호와께서 이같이 두로에 대하여 말씀하시되 네가 엎드러지는 소리에 모든 섬이 진동하지 아니하겠느냐 곧 상한 자가 부르짖으며 그 가운데에서 살륙이 일어날 때에라</p>
+                    <p><span class="verse-number">16</span> 바다의 모든 왕이 그들의 왕좌에서 내려 왕복을 벗으며 수 놓은 옷을 버리고 떨림을 옷 입듯 하고 땅에 앉아서 너로 말미암아 무시로 떨며 놀랄 것이며</p>
+                    <p><span class="verse-number">17</span> 그들이 너를 위하여 슬픈 노래를 불러 이르기를 항해자가 사는 유명한 성읍이여 너와 너의 주민이 바다 가운데에 있어 견고하였도다 바다를 정복한 자여 어찌 그리 멸망하였는고</p>
+                    <p><span class="verse-number">18</span> 네가 무너지는 날에 섬들이 진동할 것임이여 바다 가운데의 섬들이 네 결국을 보고 놀라리로다 하리라</p>
+                    <p><span class="verse-number">19</span> 주 여호와께서 이같이 말씀하셨느니라 내가 너를 주민이 없는 성읍과 같이 황폐한 성읍이 되게 하고 깊은 바다로 네 위에 오르게 하며 큰 물로 너를 덮을 때에</p>
+                    <p><span class="verse-number">20</span> 내가 너를 구덩이에 내려가는 자와 함께 내려가게 하여 옛날 사람에게로 이르게 하고 너를 그 구덩이에 내려간 자처럼 땅 깊은 곳 곧 영원히 황폐한 곳에 살게 할 것이라</p>
+                    <p><span class="verse-number">21</span> 내가 너를 패망하게 하여 다시 잊지 못하게 하리니 사람이 비록 너를 찾을지라도 다시는 영원히 만나지 못하리라 주 여호와의 말씀이니라</p>
+                </div>
+            </section>
+            
+            <!-- Card 4: Psalm 74 -->
+            <section class="chapter-card card-book4">
+                <h2>시편 74편: 폐허가 된 성소에서 언약을 구하다</h2>
+                <h3>개요 (Overview)</h3>
+                <p>이 시편은 성전이 파괴된 끔찍한 현실 앞에서 하나님께 드리는 공동체의 탄식입니다. 시인은 대적이 성소의 모든 것을 파괴하고 자신들의 깃발을 세운 참상을 고발하며, 왜 하나님께서 영원히 우리를 버리시는 것처럼 침묵하시는지 묻습니다. 그는 선지자도, 표적도 없는 절망적인 상황 속에서, 과거 창조와 출애굽 때에 보여주셨던 하나님의 능력을 상기시키며, 당신의 백성과 맺으신 언약을 기억하시고 이 고통에서 구원해달라고 간절히 부르짖습니다.</p>
+
+                <h3>시각적 분석 (Visual Analysis)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
+                    <text x="200" y="20" text-anchor="middle" font-size="12" font-weight="bold">절망 속에서 희망을 찾는 길</text>
+                    <g text-anchor="middle">
+                        <rect x="20" y="40" width="160" height="80" rx="5" fill="#FEF2F2"/>
+                        <text x="100" y="60" font-weight="bold">현재의 절망</text>
+                        <text x="100" y="80" fill="#D0021B">파괴된 성소</text>
+                        <text x="100" y="95" fill="#D0021B">하나님의 침묵</text>
+                    </g>
+                     <path d="M180 80 H 220" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+                    <text x="200" y="75" text-anchor="middle">기억</text>
+                    <g text-anchor="middle">
+                        <rect x="220" y="40" width="160" height="80" rx="5" fill="#EFF6FF"/>
+                        <text x="300" y="60" font-weight="bold">과거의 소망</text>
+                        <text x="300" y="80" fill="#3B82F6">창조의 능력</text>
+                        <text x="300" y="95" fill="#3B82F6">구원의 역사 (언약)</text>
+                    </g>
+                </svg>
+
+                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+                <p>이 시는 바벨론에 의해 예루살렘 성전이 파괴된 후(BC 586년)의 비참한 상황을 배경으로 합니다. 성전은 단순한 건물이 아니라, 하나님께서 자기 백성 가운데 임재하시는 가시적인 상징이었습니다. 따라서 성전의 파괴는 하나님께서 그들을 버리셨다는 절망적인 신호로 받아들여졌습니다. 이 시편은 이처럼 하나님마저 부재하시는 것처럼 느껴지는 극심한 고통 속에서 어떻게 기도해야 하는지를 가르쳐줍니다. 시인은 자신의 감정을 숨기지 않고 정직하게 탄식하며 하나님께 따져 묻습니다. 그러나 그는 절망에만 머무르지 않습니다. 그는 눈을 들어 현실을 넘어, 천지를 창조하시고 홍해를 가르신 하나님의 전능하신 과거를 '기억'합니다. 그리고 그 신실하신 하나님께서 자기 백성과 맺으신 '언약'을 기억해달라고 호소합니다. 신학적으로 이는 고난을 이기는 가장 강력한 힘이 하나님의 신실하신 성품과 변하지 않는 언약을 기억하는 데 있음을 보여줍니다.</p>
+
+                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>74편 9절</strong>: "우리의 표적은 보이지 아니하며 선지자도 더 이상 없으며 이런 일이 얼마나 오랠는지 우리 중에 아는 자도 없나이다"</p>
+                    <p class="commentary-text">영적 암흑기의 고통을 절절하게 표현합니다. 하나님의 뜻을 알 수 있는 표적도, 말씀을 전해 줄 선지자도 없는 완전한 침묵의 상태입니다. 언제 끝날지 모르는 고난만큼 사람을 지치게 하는 것은 없습니다. 이들의 절망은 말라기 이후 400년간의 침묵기를 지나 세례 요한이 등장하기까지 이스라엘이 겪어야 했던 기다림을 예고하며, 궁극적으로는 우리에게 말씀하시고 자신을 보여주신 로고스, 예수 그리스도의 오심이 얼마나 큰 은혜인지를 역설적으로 보여줍니다.</p>
+                </div>
+                <div class="key-verse">
+                    <p class="verse-text"><strong>74편 20절</strong>: "그 언약을 눈여겨 보소서 무릇 땅의 어두운 곳에 포악한 자의 처소가 가득하나이다"</p>
+                    <p class="commentary-text">시인의 마지막 희망이 어디에 있는지를 보여줍니다. 그것은 자신들의 의로움이나 가능성이 아니라, 전적으로 신실하신 하나님께서 먼저 맺어주신 '언약'입니다. 그는 하나님께 당신의 이름을 걸고 하신 그 약속을 기억해달라고 호소합니다. 땅이 아무리 어둡고 포악이 가득할지라도, 하나님의 언약은 결코 폐하여지지 않습니다. 이 언약에 대한 신뢰가 가장 어두운 절망 속에서도 성도를 다시 일으켜 세우는 힘입니다.</p>
+                </div>
+                
+                <h3>성경 본문 (Full Text)</h3>
+                <div class="bible-text">
+                    <strong>파괴된 성전에 대한 탄식</strong>
+                    <p><span class="verse-number">1</span> (아삽의 마스길) 하나님이여 주께서 어찌하여 우리를 영원히 버리시나이까 어찌하여 주께서 기르시는 양을 향하여 진노의 연기를 뿜으시나이까</p>
+                    <p><span class="verse-number">2</span> 옛적부터 얻으시고 속량하사 주의 기업의 지파로 삼으신 주의 회중을 기억하시며 주께서 계시던 시온 산도 생각하소서</p>
+                    <p><span class="verse-number">3</span> 영구히 파멸된 곳을 향하여 주의 발을 옮겨 놓으소서 원수가 성소에서 모든 악을 행하였나이다</p>
+                    <p><span class="verse-number">4</span> 주의 대적이 주의 회중 가운데에서 떠들며 자기들의 깃발을 세워 표적으로 삼았으니</p>
+                    <p><span class="verse-number">5</span> 그들은 마치 도끼를 들어 삼림을 베는 사람 같으니이다</p>
+                    <p><span class="verse-number">6</span> 이제 그들이 도끼와 철퇴로 성소의 모든 조각품을 쳐서 부수고</p>
+                    <p><span class="verse-number">7</span> 주의 성소를 불사르며 주의 이름이 계신 곳을 더럽혀 땅에 엎었나이다</p>
+                    <p><span class="verse-number">8</span> 그들이 마음속으로 이르기를 우리가 그들을 진멸하자 하고 이 땅에 있는 하나님의 모든 회당을 불살랐나이다</p>
+                    <p><span class="verse-number">9</span> 우리의 표적은 보이지 아니하며 선지자도 더 이상 없으며 이런 일이 얼마나 오랠는지 우리 중에 아는 자도 없나이다</p>
+                    <p><span class="verse-number">10</span> 하나님이여 대적이 언제까지 비방하겠으며 원수가 주의 이름을 영원히 능욕하리이까</p>
+                    <p><span class="verse-number">11</span> 주께서 어찌하여 주의 손 곧 주의 오른손을 거두시나이까 주의 품에서 빼내시어 그들을 멸하소서</p>
+                    <strong>창조와 구원의 하나님을 기억함</strong>
+                    <p><span class="verse-number">12</span> 하나님은 예로부터 나의 왕이시라 사람에게 구원을 베푸셨나이다</p>
+                    <p><span class="verse-number">13</span> 주께서 주의 능력으로 바다를 나누시고 물 가운데 용들의 머리를 깨뜨리셨으며</p>
+                    <p><span class="verse-number">14</span> 리워야단의 머리를 부수시고 그것을 사막에 사는 자에게 음식물로 주셨으며</p>
+                    <p><span class="verse-number">15</span> 주께서 바위를 쪼개어 큰 물을 내시며 주께서 늘 흐르는 강들을 마르게 하셨나이다</p>
+                    <p><span class="verse-number">16</span> 낮도 주의 것이요 밤도 주의 것이라 주께서 빛과 해를 마련하셨으며</p>
+                    <p><span class="verse-number">17</span> 주께서 땅의 경계를 정하시며 주께서 여름과 겨울을 만드셨나이다</p>
+                    <strong>언약을 기억하여 구원하시기를 간구함</strong>
+                    <p><span class="verse-number">18</span> 여호와여 이것을 기억하소서 대적이 주를 비방하며 우매한 백성이 주의 이름을 능욕하였나이다</p>
+                    <p><span class="verse-number">19</span> 주의 멧비둘기의 생명을 들짐승에게 주지 마시며 주의 가난한 자의 목숨을 영원히 잊지 마소서</p>
+                    <p><span class="verse-number">20</span> 그 언약을 눈여겨 보소서 무릇 땅의 어두운 곳에 포악한 자의 처소가 가득하나이다</p>
+                    <p><span class="verse-number">21</span> 학대 받은 자가 부끄러이 돌아가게 하지 마시고 가난한 자와 궁핍한 자가 주의 이름을 찬송하게 하소서</p>
+                    <p><span class="verse-number">22</span> 하나님이여 일어나 주의 원통함을 푸시고 우매한 자가 종일 주를 비방하는 것을 기억하소서</p>
+                    <p><span class="verse-number">23</span> 주의 대적들의 소리를 잊지 마소서 일어나 주께 항거하는 자의 떠드는 소리가 항상 주께 상달되나이다</p>
+                </div>
+            </section>
+
+            <!-- Integration Card -->
+            <section class="chapter-card integration-card">
+                <h2>통합적 이해: 약함 속에 임하는 은혜, 폐허 위에 세우는 언약</h2>
+                <h3>관통하는 주제 (Overarching Theme)</h3>
+                <p>오늘의 본문들은 인간의 실패와 절망, 즉 '폐허'의 현장 속에서 하나님의 은혜와 언약이 어떻게 새로운 시작을 여는지를 보여줍니다. <strong>사무엘하 19장</strong>은 반역으로 폐허가 된 왕국을 재건하는 다윗의 고군분투를 보여주지만, 인간적인 용서와 화해는 또 다른 갈등의 씨앗을 남기는 한계를 보여줍니다. <strong>에스겔 26장</strong>은 인간이 쌓아 올린 교만과 부의 상징인 두로가 하나님의 심판 아래 완벽한 폐허가 될 것을 예언합니다. 이렇게 인간의 힘과 영광이 모두 무너진 폐허와 같은 절망 속에서, <strong>시편 74편</strong>의 기도는 우리의 유일한 희망이 하나님의 '언약'에 있음을 부르짖습니다. 모든 것이 무너져도 하나님의 약속만은 굳게 서 있기 때문입니다. 이 언약의 은혜가 어떻게 우리 삶에 실제가 되는지를 <strong>고린도후서 12장</strong>이 보여줍니다. 바울은 자신의 '약함'이라는 개인적인 폐허 속에서 "내 은혜가 네게 족하다"는 하나님의 음성을 듣습니다. 결국 우리의 가장 깊은 절망과 약함의 자리가, 세상의 힘이 아닌 오직 하나님의 은혜와 언약만을 붙들게 하는 가장 복된 자리가 되는 역설을 오늘의 본문들은 증거하고 있습니다.</p>
+
+                <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="9">
+                    <line x1="20" y1="100" x2="380" y2="100" stroke="#333" stroke-width="1.5"/>
+                    <g text-anchor="middle">
+                        <circle cx="60" cy="100" r="4" fill="#4A90E2"/>
+                        <text x="60" y="120">다윗 왕국</text>
+                        <text x="60" y="132" fill="#555">(삼하 19)</text>
+
+                        <circle cx="140" cy="100" r="4" fill="#F5A623"/>
+                        <text x="140" y="120">바벨론 포로</text>
+                        <text x="140" y="132" fill="#555">(겔 26)</text>
+
+                        <circle cx="340" cy="100" r="4" fill="#50E3C2"/>
+                        <text x="340" y="120">초대 교회</text>
+                        <text x="340" y="132" fill="#555">(고후 12)</text>
+                        
+                        <text x="200" y="40" font-size="14" font-weight="bold" fill="#D0021B">예수 그리스도</text>
+                        <path d="M 185 45 L 215 45 L 200 65 Z" fill="#D0021B"/>
+
+                        <!-- Arrows -->
+                        <path d="M 60 95 Q 120 70 195 68" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <text x="110" y="65" font-size="8">참된 화해를 이루는 왕</text>
+                        <path d="M 140 95 Q 160 80 195 68" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <text x="150" y="90" font-size="8">참된 성전, 영원한 반석</text>
+                        <path d="M 340 95 Q 280 70 205 68" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
+                        <text x="285" y="65" font-size="8">십자가의 약함으로 승리</text>
+                    </g>
+                     <text x="200" y="170" text-anchor="middle" font-size="9" fill="#555">시편 74편은 파괴된 성전을 보며 참 성전이신 그리스도를 통한 새 언약을 대망하게 합니다.</text>
+                </svg>
+
+                <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
+                <p>오늘의 본문들이 보여주는 인간의 한계와 폐허는 궁극적으로 완전한 해결자이신 예수 그리스도를 가리킵니다. <strong>사무엘하 19장</strong>의 다윗은 유다와 이스라엘을 온전히 하나로 묶지 못했지만, 예수 그리스도는 자신의 십자가로 유대인과 이방인 사이의 막힌 담을 허시고 교회를 통해 하나의 새 사람을 만드셨습니다. <strong>에스겔 26장</strong>에서 세상의 교만한 성읍 두로는 '맨 바위'가 될 운명이었지만, 예수 그리스도는 바로 그 '버려진 돌' 위에 하나님의 영원한 도성, 즉 교회를 세우셨습니다. <strong>시편 74편</strong>의 무너진 성전은, 스스로 성전 되신 예수 그리스도의 죽음과 부활을 통해 영원히 무너지지 않는 참된 성전으로 재건될 것을 예표합니다. 마지막으로 <strong>고린도후서 12장</strong>의 바울이 발견한 '약할 때 강함'의 원리는, 십자가에서 가장 약한 모습으로 죽으셨으나 그 죽음을 통해 죄와 사망의 권세를 이기신 예수 그리스도의 사역에서 그 정점을 이룹니다. 그분 안에서 우리의 모든 약함과 폐허는 하나님의 은혜가 임하는 통로가 되며, 새 언약의 능력을 경험하는 현장이 됩니다.</p>
+
+                <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>주제 (Theme)</th>
+                            <th>사무엘하 19</th>
+                            <th>고린도후서 12</th>
+                            <th>에스겔 26</th>
+                            <th>시편 74</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>약함/폐허</strong></td>
+                            <td>분열된 왕국, 불안정한 회복</td>
+                            <td>육체의 가시, 고난과 핍박</td>
+                            <td>교만한 성읍의 완전한 파멸</td>
+                            <td>파괴된 성소, 하나님의 침묵</td>
+                        </tr>
+                        <tr>
+                            <td><strong>인간의 반응</strong></td>
+                            <td>용서와 정치적 타협, 그리고 갈등</td>
+                            <td>약함을 기뻐하고 자랑함</td>
+                            <td>형제의 멸망을 기뻐함</td>
+                            <td>정직한 탄식과 언약에의 호소</td>
+                        </tr>
+                        <tr>
+                            <td><strong>하나님의 은혜/언약</strong></td>
+                            <td>왕의 귀환을 통한 불완전한 은혜</td>
+                            <td>"내 은혜가 네게 족하도다"</td>
+                            <td>교만을 심판하시는 공의</td>
+                            <td>과거의 구원과 언약을 기억하심</td>
+                        </tr>
+                        <tr>
+                            <td><strong>결과/소망</strong></td>
+                            <td>또 다른 분열의 씨앗</td>
+                            <td>그리스도의 능력이 머묾</td>
+                            <td>하나님이 주권자임을 알게 됨</td>
+                            <td>하나님의 구원을 대망함</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>오늘의 교훈 (Application)</h3>
+                <p>우리는 삶의 폐허를 마주할 때가 있습니다. 관계가 무너지고, 건강을 잃고, 계획이 실패로 돌아가는 자리입니다. 혹은 바울처럼 평생을 짊어지고 가야 하는 '가시' 때문에 고통받기도 합니다. 세상은 우리에게 빨리 폐허를 복구하고 약함을 극복하라고 말하지만, 오늘 말씀은 다른 길을 제시합니다. 바로 그 약함과 폐허의 자리에서 하나님의 은혜를 구하고 그의 언약을 붙드는 것입니다. 나의 실패를 인정할 때, 나의 한계를 고백할 때, "내 은혜가 네게 족하다"는 주님의 음성이 들려옵니다. 우리의 무너진 자리는 세상의 끝이 아니라, 하나님의 능력이 시작되는 출발점입니다. 모든 것이 사라진 폐허 위에서, 우리는 비로소 오직 변치 않는 하나님의 언약만이 우리의 유일한 소망임을 발견하게 될 것입니다.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 맥체인 성경읽기. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // YouTube IFrame API 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        const videoId = 'h0IFqAwGFh0';
+        const playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // 플레이어가 준비되면 버튼 활성화
+            playPauseBtn.disabled = false;
+            playPauseBtn.classList.add('paused');
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playPauseBtn.classList.remove('paused');
+            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+                playPauseBtn.classList.add('paused');
+            }
+        }
+
+        function togglePlayPause() {
+            if (!player || typeof player.getPlayerState !== 'function') return;
+            var playerState = player.getPlayerState();
+            if (playerState == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
+
+        // 스페이스바 이벤트 추가
+        document.addEventListener('keydown', function(event) {
+            // 입력 필드나 텍스트 영역에 포커스 되어 있을 때는 작동하지 않도록 함
+            const target = event.target;
+            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+                return;
+            }
+
+            if (event.code === 'Space') {
+                event.preventDefault(); // 페이지 스크롤 방지
+                togglePlayPause();
+            }
+        });
+    </script>
+</body>
+</html>
