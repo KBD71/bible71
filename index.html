@@ -24,23 +24,23 @@
             inset: 0;
             z-index: -1;
             
-            background-image: url('./back.png'); /* 배경 이미지 파일 경로를 확인해주세요. */
+            background-image: url('./back1.png'); /* 배경 이미지 파일 경로를 확인해주세요. */
             background-size: cover; /* 모든 방향(가로, 세로)에서 화면을 꽉 채우도록 설정 */
             background-position: center center; /* 이미지를 항상 중앙에 위치시켜 중요한 부분이 보이도록 함 */
             background-repeat: no-repeat;
             background-color: #667eea; /* 배경 이미지가 로드되기 전 또는 일부만 보일 때의 배경색 */
         }
-
-        /* 세로 모드에서 특수하게 배경 크기를 조정하던 @media 쿼리 부분을 제거합니다.
-           이렇게 하면 모든 방향에서 'background-size: cover;'가 적용됩니다. */
-        /*
-        @media (orientation: portrait) {
-            body::before {
-                background-size: auto 100vh; // 이 부분을 제거하거나 cover로 변경
-            }
-        }
-        */
         
+        /* 1. 오늘의 성경공부 & Daily Bible Study 텍스트 가독성 개선 */
+        h1.font-bold {
+            color: #ffffff; /* 흰색으로 변경 */
+            text-shadow: 2px 2px 6px rgba(180, 150, 50, 0.8); /* 웨스트민스터 색상톤 반영한 깊은 그림자 */
+        }
+        header p { /* Daily Bible Study 텍스트 */
+            color: #ffffff; /* 흰색으로 변경 */
+            text-shadow: 1px 1px 3px rgba(180, 150, 50, 0.7); /* 웨스트민스터 색상톤 반영한 그림자 */
+        }
+
         .glass-effect {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -84,36 +84,44 @@
             50% { transform: translateY(-10px); }
         }
         
+        /* 아이콘 버튼 투명도 및 배경화면 조화 */
         .icon-button {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15); /* 약간 더 투명하게 조정 */
+            backdrop-filter: blur(8px); /* 블러 강도 조정 */
+            border: 1px solid rgba(255, 255, 255, 0.25); /* 테두리도 약간 밝게 */
             transition: all 0.3s ease;
         }
         
         .icon-button:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3); /* 호버 시 약간 더 불투명 */
             transform: scale(1.05);
         }
         
         .modern-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05); /* 카드 배경 투명도 유지 */
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
         }
         
+        /* 날짜 표시 영역 가독성 개선 */
         .date-display {
             cursor: pointer;
             transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.6); /* 더 밝게 */
+            backdrop-filter: blur(12px); /* 블러 강도 조정 */
+            border: 1px solid rgba(180, 150, 50, 0.5); /* 웨스트민스터 톤의 테두리 */
+            color: #1f2937; /* 텍스트는 어둡게 */
+            text-shadow: 0.5px 0.5px 1px rgba(255, 255, 255, 0.5); /* 밝은 그림자 */
         }
         
         .date-display:hover {
             transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
         }
         
         /* 메인 날짜 요일별 색상 */
+        /* 이 부분은 텍스트에 직접 적용되므로 기존 색상 유지 */
         .weekday-color {
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
@@ -127,10 +135,21 @@
             color: #dc2626;
         }
         
+        /* 하단 설명 카드 배경 및 텍스트 색상 개선 */
         .notification-card {
-            background: linear-gradient(135deg, rgba(103, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border: 1px solid rgba(103, 126, 234, 0.2);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85); /* 불투명도를 높여 텍스트 가독성 확보 */
+            border: 1px solid rgba(180, 150, 50, 0.3); /* 웨스트민스터 톤의 테두리 */
+            backdrop-filter: blur(15px); /* 블러 효과 강화 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+        }
+        .notification-card p {
+            color: #1f2937; /* 텍스트 색상을 어두운 계열로 변경하여 대비를 높임 */
+        }
+        .notification-card .font-medium {
+            color: #000000; /* 강조 텍스트는 검은색으로 */
+        }
+        .notification-card svg {
+            color: #8B4513; /* 아이콘 색상도 이미지 톤에 맞춰 갈색 계열로 변경 (세피아 톤) */
         }
         
         .shine-effect {
