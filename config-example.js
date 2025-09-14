@@ -1,9 +1,9 @@
-// API 설정 파일
-// 실제 사용시 API 키는 환경변수나 서버사이드에서 관리해야 합니다.
+// API 설정 파일 예시
+// 사용하려면 이 파일을 config-local.js로 복사하고 API 키를 입력하세요
 
 const CONFIG = {
     // Claude API 설정 (기본 사용)
-    CLAUDE_API_KEY: '', // 보안을 위해 API 키는 별도로 설정하세요
+    CLAUDE_API_KEY: 'sk-ant-api03-여기에_실제_API_키_입력', // Anthropic API 키
     CLAUDE_API_URL: 'https://api.anthropic.com/v1/messages',
 
     // OpenAI API 설정 (대체 옵션)
@@ -42,8 +42,8 @@ const CONFIG = {
 };
 
 // API 키가 설정되지 않은 경우 경고
-if (CONFIG.API_SERVICE === 'claude' && (!CONFIG.CLAUDE_API_KEY || CONFIG.CLAUDE_API_KEY === '')) {
-    console.warn('⚠️ Claude API 키가 설정되지 않았습니다. config.js 파일에서 CLAUDE_API_KEY를 설정해주세요.');
+if (CONFIG.API_SERVICE === 'claude' && (!CONFIG.CLAUDE_API_KEY || CONFIG.CLAUDE_API_KEY === '' || CONFIG.CLAUDE_API_KEY.includes('여기에'))) {
+    console.warn('⚠️ Claude API 키가 설정되지 않았습니다. config-local.js 파일을 생성하고 API 키를 설정해주세요.');
 } else if (CONFIG.API_SERVICE === 'openai' && (!CONFIG.OPENAI_API_KEY || CONFIG.OPENAI_API_KEY === '')) {
-    console.warn('⚠️ OpenAI API 키가 설정되지 않았습니다. config.js 파일에서 OPENAI_API_KEY를 설정해주세요.');
+    console.warn('⚠️ OpenAI API 키가 설정되지 않았습니다. config-local.js 파일을 생성하고 API 키를 설정해주세요.');
 }

@@ -908,7 +908,21 @@
     </script>
 
     <!-- API 기반 챗봇 관련 스크립트 추가 -->
-    <script src="config.js"></script>
+    <script>
+        // config-local.js 우선 로드 시도, 실패시 config.js 로드
+        function loadConfig() {
+            const script1 = document.createElement('script');
+            script1.src = 'config-local.js';
+            script1.onerror = function() {
+                console.log('config-local.js 없음. config.js 로드 중...');
+                const script2 = document.createElement('script');
+                script2.src = 'config.js';
+                document.head.appendChild(script2);
+            };
+            document.head.appendChild(script1);
+        }
+        loadConfig();
+    </script>
     <script src="theology-system.js"></script>
     <script src="question-filter.js"></script>
     <script src="api-handler.js"></script>
