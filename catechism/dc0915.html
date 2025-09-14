@@ -94,22 +94,17 @@
     </div>
 
     <script>
-        // === 전체 스크립트 로직 수정 ===
         let player;
-        const audioToggleButton = document.getElementById('audio-toggle');
-        const audioText = document.getElementById('audio-text');
-        const audioIcon = document.getElementById('audio-icon');
-        
         const playIconPath = "M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z";
         const pauseIconPath = "M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 00-1 1v2a1 1 0 001 1h1a1 1 0 001-1V9a1 1 0 00-1-1H7zm5 0a1 1 0 00-1 1v2a1 1 0 001 1h1a1 1 0 001-1V9a1 1 0 00-1-1h-1z";
 
-        // 1. YouTube API 스크립트 비동기 로드
+        // YouTube API 스크립트 비동기 로드
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        // 2. API 준비 완료 시 플레이어 생성
+        // API 준비 완료 시 플레이어 생성
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
                 height: '0',
@@ -120,10 +115,12 @@
             });
         }
 
-        // 3. (핵심 수정) 플레이어의 '실제 상태'에 따라 버튼 UI를 업데이트하는 함수
-        // 이 함수가 버튼 UI의 유일한 제어 지점이 됩니다.
+        // 플레이어의 '실제 상태'에 따라 버튼 UI를 업데이트하는 함수
         function onPlayerStateChange(event) {
+            const audioText = document.getElementById('audio-text');
+            const audioIcon = document.getElementById('audio-icon');
             const playerState = event.data;
+
             if (playerState === YT.PlayerState.PLAYING) {
                 audioText.textContent = '일시정지';
                 audioIcon.querySelector('path').setAttribute('d', pauseIconPath);
@@ -133,7 +130,7 @@
             }
         }
 
-        // 4. (핵심 수정) 버튼 클릭 시 '명령'만 내리도록 단순화된 함수
+        // 버튼 클릭 시 '명령'만 내리도록 하는 함수
         async function toggleAudio() {
             if (!player || typeof player.getPlayerState !== 'function') {
                 alert('플레이어가 아직 준비되지 않았습니다.');
@@ -142,7 +139,6 @@
 
             const currentState = player.getPlayerState();
 
-            // 이미 영상이 로드되어 있는 경우 (재생/일시정지 토글)
             if (player.getVideoData().video_id) {
                 if (currentState === YT.PlayerState.PLAYING) {
                     player.pauseVideo();
@@ -152,32 +148,35 @@
                 return;
             }
 
-            // 영상이 로드되지 않은 경우, 파일에서 ID를 가져와 로드 및 재생
             const videoIdPath = `../address/0915.txt`;
             try {
                 const response = await fetch(videoIdPath);
-                if (!response.ok) {
-                    throw new Error('File not found');
-                }
+                if (!response.ok) throw new Error('File not found');
                 const videoId = await response.text();
                 
-                // (수정) 불러온 ID가 비어있는지 확인
                 if (!videoId.trim()) {
                     alert('유효한 오디오 주소가 파일에 없습니다.');
                     return;
                 }
 
                 player.loadVideoById(videoId.trim());
-                player.playVideo(); // API가 준비되는 대로 재생을 시작합니다.
-                                    // UI 변경은 onPlayerStateChange가 알아서 처리합니다.
+                player.playVideo();
             } catch (error) {
                 alert('아직 업로드 전입니다');
                 console.error('Error fetching video ID:', error);
             }
         }
 
-        // 5. 버튼에 클릭 이벤트 리스너 할당
-        audioToggleButton.addEventListener('click', toggleAudio);
+        // --- 핵심 수정 ---
+        // DOM(Document Object Model)이 완전히 로드된 후에 스크립트를 실행하도록 변경
+        document.addEventListener('DOMContentLoaded', () => {
+            const audioToggleButton = document.getElementById('audio-toggle');
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', toggleAudio);
+            } else {
+                console.error('오디오 토글 버튼을 찾을 수 없습니다.');
+            }
+        });
     </script>
 </body>
 </html>
