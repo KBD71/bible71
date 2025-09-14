@@ -9,6 +9,7 @@ import urllib.request
 import urllib.parse
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.error import HTTPError
+import ssl
 import sys
 
 class ProxyHandler(BaseHTTPRequestHandler):
@@ -56,15 +57,20 @@ class ProxyHandler(BaseHTTPRequestHandler):
                 'temperature': request_data.get('temperature', 0.3)
             }
 
-            # Claude API 호출
+            # Claude API 호출 (SSL 검증 비활성화)
             req = urllib.request.Request(
                 claude_url,
                 data=json.dumps(claude_request).encode('utf-8'),
                 headers=headers
             )
 
+            # SSL 컨텍스트 생성 (인증서 검증 비활성화)
+            ssl_context = ssl.create_default_context()
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
+
             try:
-                with urllib.request.urlopen(req) as response:
+                with urllib.request.urlopen(req, context=ssl_context) as response:
                     response_data = response.read().decode('utf-8')
 
                 # 성공 응답

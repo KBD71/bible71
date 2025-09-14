@@ -3,7 +3,7 @@
 
 const CONFIG = {
     // Claude API 설정 (기본 사용)
-    CLAUDE_API_KEY: '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', // 여기에 실제 Claude API 키를 넣으세요
+    CLAUDE_API_KEY: '', // 여기에 실제 Claude API 키를 넣으세요
     CLAUDE_API_URL: 'https://api.anthropic.com/v1/messages',
 
     // OpenAI API 설정 (대체 옵션)
@@ -19,7 +19,7 @@ const CONFIG = {
     // MODEL: 'claude-3-5-sonnet-20241022', // Claude 3.5 Sonnet (더 정확, 비싸)
 
     // 응답 설정
-    MAX_TOKENS: 1000,
+    MAX_TOKENS: 300, // 간결한 답변을 위해 토큰 수 제한
     TEMPERATURE: 0.3, // 더 일관된 응답을 위해 낮은 값 설정
 
     // Claude 전용 설정
