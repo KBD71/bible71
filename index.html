@@ -35,7 +35,7 @@
         body { font-family: 'Noto Sans KR', sans-serif; min-height: 100dvh; }
         body::before {
             content: ''; position: fixed; inset: 0; z-index: -1;
-            background-image: url('./back.png'); background-size: cover; background-position: center center;
+            background-image: url('back.png'); background-size: cover; background-position: center center;
             background-repeat: no-repeat; background-color: #2c1e1a;
         }
         .serif { font-family: 'Noto Serif KR', serif; }
@@ -72,35 +72,6 @@
         .calendar-day.selected { outline: 2px solid var(--color-primary); z-index: 10; }
         #close-calendar { background-color: var(--color-text-light); }
         #close-calendar:hover { background-color: var(--color-text-main); }
-        /* --- 플로팅 챗봇 스타일 --- */
-        .chatbot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: 'Noto Sans KR', sans-serif; }
-        .chatbot-toggle { width: 60px; height: 60px; background: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: all 0.3s ease; border: 2px solid var(--color-accent); }
-        .chatbot-toggle:hover { transform: scale(1.1); box-shadow: 0 6px 25px rgba(0,0,0,0.4); }
-        .chatbot-toggle svg { width: 28px; height: 28px; color: var(--color-parchment); }
-        .chatbot-window { position: absolute; bottom: 80px; right: 0; width: 350px; height: 500px; background: var(--color-parchment); border: 2px solid var(--color-accent); border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); display: none; flex-direction: column; overflow: hidden; }
-        .chatbot-header { background: linear-gradient(135deg, var(--color-primary), #A00000); color: var(--color-parchment); padding: 16px; text-align: center; font-weight: 600; font-size: 16px; border-bottom: 1px solid var(--color-accent); }
-        .chatbot-messages { flex: 1; padding: 16px; overflow-y: auto; background: var(--color-parchment); }
-        .message { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px; }
-        .message.user { justify-content: flex-end; }
-        .message.bot { justify-content: flex-start; }
-        .message-content { max-width: 80%; padding: 10px 12px; border-radius: 12px; font-size: 14px; line-height: 1.4; white-space: pre-wrap; }
-        .message.user .message-content { background: var(--color-secondary); color: var(--color-parchment); border-bottom-right-radius: 4px; }
-        .message.bot .message-content { background: rgba(218, 165, 32, 0.1); color: var(--color-text-main); border: 1px solid rgba(218, 165, 32, 0.3); border-bottom-left-radius: 4px; }
-        .chatbot-input { padding: 12px; border-top: 1px solid rgba(218, 165, 32, 0.3); background: var(--color-parchment); }
-        .chatbot-input-field { width: 100%; padding: 10px 12px; border: 1px solid rgba(218, 165, 32, 0.3); border-radius: 20px; outline: none; font-size: 14px; background: white; color: var(--color-text-main); }
-        .chatbot-input-field:focus { border-color: var(--color-accent); }
-        .quick-questions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-        .quick-question-btn { padding: 6px 12px; background: rgba(218, 165, 32, 0.1); border: 1px solid rgba(218, 165, 32, 0.3); border-radius: 15px; font-size: 12px; cursor: pointer; transition: all 0.2s; color: var(--color-text-main); }
-        .quick-question-btn:hover { background: var(--color-accent); color: white; }
-        .loading-dots span { animation: blink 1.4s infinite both; }
-        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
-        @media (max-width: 768px) {
-            .chatbot-container { bottom: 15px; right: 15px; }
-            .chatbot-window { width: calc(100vw - 30px); right: -15px; height: 450px; }
-            .chatbot-toggle { width: 55px; height: 55px; }
-        }
         /* --- 콘텐츠 뷰 --- */
         .content-view { background: var(--color-parchment); }
         .content-header { background: #fff; border-bottom: 1px solid #e5e7eb; }
@@ -228,35 +199,6 @@
         </div>
     </div>
 
-    <div class="chatbot-container">
-        <div class="chatbot-window" id="chatbot-window">
-            <div class="chatbot-header">
-                📖 개혁신학 성경 도우미
-                <div style="font-size: 12px; opacity: 0.8; margin-top: 2px;">존 칼빈의 전통을 따라</div>
-            </div>
-            <div class="chatbot-messages" id="chatbot-messages">
-                <div class="message bot">
-                    <div class="message-content">
-                        성경이나 신앙에 대해 궁금한 점을 질문해주세요. 🙏
-                    </div>
-                </div>
-            </div>
-            <div class="chatbot-input">
-                <input type="text" class="chatbot-input-field" id="chatbot-input" placeholder="여기에 질문을 입력하세요...">
-                <div class="quick-questions">
-                    <button class="quick-question-btn" data-question="하나님의 주권에 대해 설명해주세요">하나님의 주권</button>
-                    <button class="quick-question-btn" data-question="칭의와 성화의 차이점은 무엇인가요?">칭의와 성화</button>
-                    <button class="quick-question-btn" data-question="예정론에 대한 개혁신학적 관점을 알려주세요">예정론</button>
-                    <button class="quick-question-btn" data-question="오직 은혜의 교리를 설명해주세요">오직 은혜</button>
-                </div>
-            </div>
-        </div>
-        <div class="chatbot-toggle" id="chatbot-toggle">
-            <div style="color: #F5EFE6; font-weight: bold; font-size: 16px; text-align: center;">
-                Q&A
-            </div>
-        </div>
-    </div>
 
     <script>
         // ==========================================================
@@ -447,108 +389,8 @@
 
             window.addEventListener('resize', () => updatePageForDate(currentDate));
 
-            // ==========================================================
-            // ✨ 새로운 챗봇 기능 초기화
-            // ==========================================================
-            initChatbot();
         });
 
-        // ==========================================================
-        // ✨ 새로운 챗봇 기능 구현 (Vercel 서버리스 함수 연동)
-        // ==========================================================
-        function initChatbot() {
-            const chatbotToggle = document.getElementById('chatbot-toggle');
-            const chatbotWindow = document.getElementById('chatbot-window');
-            const chatbotInput = document.getElementById('chatbot-input');
-            const chatbotMessages = document.getElementById('chatbot-messages');
-            const quickQuestionBtns = document.querySelectorAll('.quick-question-btn');
-            let isChatbotOpen = false;
-
-            // 챗봇 창 열기/닫기
-            chatbotToggle.addEventListener('click', () => {
-                isChatbotOpen = !isChatbotOpen;
-                chatbotWindow.style.display = isChatbotOpen ? 'flex' : 'none';
-                if (isChatbotOpen) {
-                    chatbotInput.focus();
-                }
-            });
-
-            // 메시지를 화면에 추가하는 함수
-            function addMessage(content, type) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${type}`;
-
-                const messageContent = document.createElement('div');
-                messageContent.className = 'message-content';
-
-                // 'loading' 타입일 경우, 로딩 애니메이션 추가
-                if (type === 'loading') {
-                    messageContent.innerHTML = `<div class="loading-dots"><span>.</span><span>.</span><span>.</span></div>`;
-                    messageDiv.classList.add('bot');
-                } else {
-                    messageContent.textContent = content;
-                }
-                
-                messageDiv.appendChild(messageContent);
-                chatbotMessages.appendChild(messageDiv);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // 항상 최신 메시지로 스크롤
-                return messageDiv;
-            }
-
-            // 메시지 전송 처리 함수
-            async function handleSendMessage(messageText) {
-                const message = messageText.trim();
-                if (message === '') return;
-
-                addMessage(message, 'user');
-                chatbotInput.value = ''; // 입력창 비우기
-
-                const loadingMessage = addMessage('', 'loading'); // 로딩 메시지 표시
-
-                try {
-                    // Vercel 서버리스 함수(/api/chat)에 요청 전송
-                    const response = await fetch('/api/chat?v=20250915', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Cache-Control': 'no-cache',
-                        },
-                        body: JSON.stringify({ message: message }),
-                    });
-
-                    loadingMessage.remove(); // 로딩 메시지 제거
-
-                    if (!response.ok) {
-                        throw new Error('서버에서 오류가 발생했습니다.');
-                    }
-
-                    const data = await response.json();
-                    addMessage(data.reply, 'bot'); // AI 응답 추가
-
-                } catch (error) {
-                    console.error('챗봇 오류:', error);
-                    loadingMessage.remove();
-                    addMessage('죄송합니다. 답변을 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.', 'bot');
-                }
-            }
-
-            // 엔터 키로 메시지 전송
-            chatbotInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleSendMessage(chatbotInput.value);
-                }
-            });
-
-            // 빠른 질문 버튼 클릭 시 메시지 전송
-            quickQuestionBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const question = btn.dataset.question;
-                    chatbotInput.value = question; // 질문을 입력창에 표시
-                    handleSendMessage(question);
-                });
-            });
-        }
     </script>
 </body>
 </html>
