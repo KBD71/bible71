@@ -908,30 +908,10 @@
     </script>
 
     <!-- API 기반 챗봇 관련 스크립트 추가 -->
-    <!-- GitHub Pages 직접 사용 설정 -->
-    <script>
-        // GitHub Pages용 동적 설정 로드
-        function loadGitHubPagesConfig() {
-            // config-local.js가 있으면 사용, 없으면 config.js 사용
-            const script1 = document.createElement('script');
-            script1.src = 'config-local.js';
-            script1.onerror = function() {
-                const script2 = document.createElement('script');
-                script2.src = 'config.js';
-                script2.onload = function() {
-                    // config.js 로드 후 API 키가 없으면 경고
-                    if (!CONFIG.CLAUDE_API_KEY) {
-                        console.warn('⚠️ API 키가 설정되지 않았습니다. config-local.js를 생성하거나 config.js를 수정해주세요.');
-                    }
-                };
-                document.head.appendChild(script2);
-            };
-            document.head.appendChild(script1);
-        }
-        loadGitHubPagesConfig();
-    </script>
+    <!-- Vercel 서버리스 함수 사용 설정 -->
+    <script src="config-vercel.js"></script>
     <script src="theology-system.js"></script>
     <script src="question-filter.js"></script>
-    <script src="api-handler.js"></script>
+    <script src="api-handler-backend.js"></script>
 </body>
 </html>
