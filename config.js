@@ -3,8 +3,7 @@
 
 const CONFIG = {
     // Claude API 설정 (기본 사용)
-    CLAUDE_API_KEY: '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
-', // 여기에 실제 Claude API 키를 넣으세요
+    CLAUDE_API_KEY: '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', // 여기에 실제 Claude API 키를 넣으세요
     CLAUDE_API_URL: 'https://api.anthropic.com/v1/messages',
 
     // OpenAI API 설정 (대체 옵션)
@@ -24,7 +23,7 @@ const CONFIG = {
     TEMPERATURE: 0.3, // 더 일관된 응답을 위해 낮은 값 설정
 
     // Claude 전용 설정
-    ANTHROPIC_VERSION: '2023-06-01'
+    ANTHROPIC_VERSION: '2023-06-01',
 
     // 성경 관련 키워드 (질문 필터링용)
     BIBLE_KEYWORDS: [
