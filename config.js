@@ -3,7 +3,7 @@
 
 const CONFIG = {
     // Claude API 설정 (기본 사용)
-    CLAUDE_API_KEY: '', // 여기에 실제 Claude API 키를 넣으세요
+    CLAUDE_API_KEY: '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', // 여기에 실제 Claude API 키를 넣으세요
     CLAUDE_API_URL: 'https://api.anthropic.com/v1/messages',
 
     // OpenAI API 설정 (대체 옵션)
