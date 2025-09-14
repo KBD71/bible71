@@ -28,6 +28,9 @@ class BibleChatBackendAPI {
             // 메시지를 히스토리에 추가
             this.addToHistory('user', message);
 
+            console.log('🔗 API 호출 시작:', `${this.backendUrl}/api/chat`);
+            console.log('📤 전송 데이터:', { message });
+
             const response = await fetch(`${this.backendUrl}/api/chat`, {
                 method: 'POST',
                 headers: {
@@ -37,6 +40,8 @@ class BibleChatBackendAPI {
                     message: message
                 })
             });
+
+            console.log('📥 응답 상태:', response.status, response.statusText);
 
             const data = await response.json();
 
@@ -57,13 +62,19 @@ class BibleChatBackendAPI {
             }
 
         } catch (error) {
-            console.error('백엔드 API 호출 오류:', error);
+            console.error('❌ 백엔드 API 호출 오류:', error);
+            console.error('🔍 오류 상세:', {
+                name: error.name,
+                message: error.message,
+                stack: error.stack
+            });
 
             // 네트워크 오류인 경우
-            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            if (error.name === 'TypeError' && (error.message.includes('fetch') || error.message.includes('Failed to fetch'))) {
+                console.error('🌐 네트워크 연결 오류 발생');
                 return {
                     success: false,
-                    error: '서버에 연결할 수 없습니다. 백엔드 서버가 실행 중인지 확인해주세요.',
+                    error: '서버에 연결할 수 없습니다. 네트워크 상태를 확인해주세요.',
                     fallbackResponse: this.getFallbackResponse(message)
                 };
             }
