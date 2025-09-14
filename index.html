@@ -731,24 +731,47 @@
                 const sanitizedQuestion = questionFilter.sanitizeQuestion(userMessage);
 
                 // API가 설정되어 있는지 확인
-                if (!bibleAPI.isConfigured()) {
-                    return getFallbackResponse(sanitizedQuestion);
+                if (!CONFIG.CLAUDE_API_KEY || CONFIG.CLAUDE_API_KEY === '') {
+                    return '죄송합니다. API 키가 설정되지 않았습니다.';
                 }
 
                 try {
-                    // API 호출
-                    const result = await bibleAPI.callAPI(sanitizedQuestion);
+                    // Claude API 직접 호출
+                    const response = await fetch(CONFIG.CLAUDE_API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': CONFIG.CLAUDE_API_KEY,
+                            'anthropic-version': CONFIG.ANTHROPIC_VERSION
+                        },
+                        body: JSON.stringify({
+                            model: CONFIG.MODEL,
+                            max_tokens: CONFIG.MAX_TOKENS,
+                            temperature: CONFIG.TEMPERATURE,
+                            messages: [{
+                                role: 'user',
+                                content: `당신은 개혁신학 기반의 성경 연구 도우미입니다. 다음 질문에 성경적 관점에서 간결하고 정확하게 답변해주세요:
 
-                    if (result.success) {
-                        return bibleAPI.formatResponse(result.response);
+${sanitizedQuestion}`
+                            }]
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+
+                    if (data.content && data.content[0] && data.content[0].text) {
+                        return data.content[0].text;
                     } else {
-                        console.error('API 오류:', result.error);
-                        return result.error;
+                        throw new Error('응답 형식이 올바르지 않습니다.');
                     }
 
                 } catch (error) {
                     console.error('응답 생성 오류:', error);
-                    return '죄송합니다. 일시적인 오류가 발생했습니다.';
+                    return '죄송합니다. 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
                 }
             }
 
@@ -884,11 +907,9 @@
         }
     </script>
 
-    <!-- API 기반 챗봇 관련 스크립트 추가 -->
-    <!-- Vercel 서버리스 함수 사용 설정 -->
-    <script src="config-vercel.js"></script>
+    <!-- 설정 파일 로드 -->
+    <script src="config.js"></script>
     <script src="theology-system.js"></script>
     <script src="question-filter.js"></script>
-    <script src="api-handler-backend.js"></script>
 </body>
 </html>
