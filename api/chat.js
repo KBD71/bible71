@@ -8,6 +8,16 @@ const anthropic = new Anthropic({
 
 // Vercel 서버리스 함수의 기본 핸들러입니다.
 module.exports = async (req, res) => {
+  // CORS 헤더 설정
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // OPTIONS 요청 처리 (CORS preflight)
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // POST 요청이 아니면 에러를 반환합니다.
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
@@ -35,6 +45,16 @@ module.exports = async (req, res) => {
 
   } catch (error) {
     console.error('Error calling Anthropic API:', error);
-    res.status(500).json({ error: 'AI 응답을 가져오는 중 오류가 발생했습니다.' });
+    
+    // API 키 관련 오류인지 확인
+    if (error.status === 401) {
+      return res.status(500).json({ error: 'API 키가 유효하지 않습니다.' });
+    }
+    
+    // 상세한 오류 정보 반환
+    return res.status(500).json({ 
+      error: 'AI 응답을 가져오는 중 오류가 발생했습니다.',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
