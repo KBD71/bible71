@@ -77,7 +77,7 @@ async function callClaudeAPI(message) {
 export default async function handler(req, res) {
     // CORS 헤더 설정
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     // OPTIONS 요청 처리 (CORS preflight)
@@ -85,11 +85,36 @@ export default async function handler(req, res) {
         return res.status(200).end();
     }
 
+    // GET 요청시 디버그 정보 반환
+    if (req.method === 'GET') {
+        return res.json({
+            status: 'OK',
+            timestamp: new Date().toISOString(),
+            message: '성경 챗봇 API가 작동 중입니다! 📖',
+            debug: {
+                hasApiKey: !!process.env.CLAUDE_API_KEY,
+                apiKeyLength: process.env.CLAUDE_API_KEY ? process.env.CLAUDE_API_KEY.length : 0,
+                model: process.env.CLAUDE_MODEL || 'claude-sonnet-4-20250514',
+                maxTokens: process.env.MAX_TOKENS || '300',
+                temperature: process.env.TEMPERATURE || '0.3'
+            }
+        });
+    }
+
     // POST 요청만 허용
     if (req.method !== 'POST') {
         return res.status(405).json({
             success: false,
-            error: 'POST 요청만 허용됩니다.'
+            error: 'POST, GET 요청만 허용됩니다.'
+        });
+    }
+
+    // API 키 확인
+    if (!process.env.CLAUDE_API_KEY) {
+        console.error('CLAUDE_API_KEY 환경변수가 설정되지 않았습니다');
+        return res.status(500).json({
+            success: false,
+            error: 'API 키가 설정되지 않았습니다. Vercel 환경변수를 확인해주세요.'
         });
     }
 

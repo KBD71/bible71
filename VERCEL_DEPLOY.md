@@ -92,25 +92,49 @@ Vercel에서 커스텀 도메인 설정:
 
 ## 🚨 트러블슈팅
 
-### 1. 환경변수 오류
-```
-Error: CLAUDE_API_KEY is not defined
-```
-→ Vercel 대시보드에서 환경변수 확인 후 다시 배포
+### 1. 환경변수 설정 확인
+**첫 번째 디버그 단계**:
+1. 브라우저에서 `https://your-app.vercel.app/api/chat` 접속 (GET 요청)
+2. 다음 정보 확인:
+   ```json
+   {
+     "debug": {
+       "hasApiKey": true,  // false면 환경변수 설정 안됨
+       "apiKeyLength": 107, // API 키 길이 확인
+       "model": "claude-sonnet-4-20250514"
+     }
+   }
+   ```
 
-### 2. API 호출 실패
+**환경변수 설정이 안된 경우**:
+1. Vercel 대시보드 → 프로젝트 → Settings → Environment Variables
+2. `CLAUDE_API_KEY` 추가 (Production, Preview, Development 모두 체크)
+3. 반드시 **Redeploy** 버튼 클릭하여 재배포
+
+### 2. 환경변수가 설정되었는데도 안되는 경우
+**가능한 원인들**:
+- API 키에 공백이나 특수문자 포함
+- 환경변수 이름 오타 (`CLAUDE_API_KEY` 정확히 입력)
+- 재배포를 하지 않음
+
+**해결 방법**:
+1. API 키 재확인 (Anthropic Console에서 새 키 생성)
+2. 환경변수 삭제 후 다시 추가
+3. 반드시 Redeploy
+
+### 3. API 호출 실패
 ```
 Error: 500 Internal Server Error
 ```
-→ Function Logs에서 오류 확인
-→ Claude API 키 유효성 확인
+→ Vercel Functions 로그 확인
+→ `/api/chat` GET 요청으로 디버그 정보 확인
 
-### 3. CORS 오류
+### 4. CORS 오류
 ```
 Access to fetch blocked by CORS policy
 ```
-→ api/chat.js의 CORS 헤더 확인
 → 보통 자동으로 해결됨
+→ 브라우저 새로고침
 
 ## 💡 최적화 팁
 
