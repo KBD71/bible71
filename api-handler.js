@@ -100,15 +100,16 @@ class BibleChatAPI {
             let response;
 
             if (this.apiService === 'claude') {
-                // Claude API 호출
-                response = await fetch(this.apiUrl, {
+                // Claude API 호출 (프록시 서버 통해)
+                const proxyUrl = 'http://localhost:8001/api/claude';
+                response = await fetch(proxyUrl, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'x-api-key': this.apiKey,
-                        'anthropic-version': this.anthropicVersion
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
+                        api_key: this.apiKey,
+                        anthropic_version: this.anthropicVersion,
                         model: this.model,
                         system: messageData.system,
                         messages: messageData.messages,
@@ -171,7 +172,21 @@ class BibleChatAPI {
             };
 
         } catch (error) {
-            console.error('API 호출 오류:', error);
+            console.error('API 호출 상세 오류:', {
+                message: error.message,
+                stack: error.stack,
+                name: error.name,
+                apiService: this.apiService,
+                apiUrl: this.apiUrl,
+                hasApiKey: !!this.apiKey
+            });
+
+            // CORS 에러인지 확인
+            if (error.message.includes('CORS') || error.message.includes('fetch')) {
+                console.warn('🚨 CORS 에러가 발생했습니다. 브라우저에서 직접 외부 API를 호출할 수 없습니다.');
+                console.info('💡 해결방법: 프록시 서버를 사용하거나 서버사이드에서 API를 호출해야 합니다.');
+            }
+
             return {
                 success: false,
                 error: error.message,

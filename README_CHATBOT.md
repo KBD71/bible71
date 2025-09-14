@@ -144,8 +144,37 @@ bible71/
 ├── question-filter.js     # 질문 필터링
 ├── api-handler.js         # API 호출 처리
 ├── chatbot-trigger.js     # iframe용 트리거
+├── proxy-server.py        # CORS 문제 해결용 프록시 서버
 └── index.html            # 메인 챗봇 (업데이트됨)
 ```
+
+## 실행 방법
+
+### 1. 프록시 서버 실행 (중요!)
+
+브라우저의 CORS 정책으로 인해 Claude API 호출을 위한 프록시 서버가 필요합니다.
+
+**터미널 1: 프록시 서버 실행**
+```bash
+cd /Users/kbd/Desktop/bible/bible71
+python3 proxy-server.py
+```
+
+### 2. 웹 서버 실행
+
+**터미널 2: 웹 서버 실행**
+```bash
+cd /Users/kbd/Desktop/bible/bible71
+python3 -m http.server 8000
+```
+
+### 3. 챗봇 사용
+
+브라우저에서 `http://localhost:8000`을 열어 챗봇을 사용하세요.
+
+⚠️ **두 서버 모두 실행되어야 합니다**:
+- 프록시 서버: `localhost:8001` (Claude API 통신용)
+- 웹 서버: `localhost:8000` (챗봇 UI용)
 
 ## 사용법
 
