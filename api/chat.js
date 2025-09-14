@@ -23,8 +23,8 @@ module.exports = async (req, res) => {
 
     // AI에게 보낼 메시지를 생성합니다.
     const msg = await anthropic.messages.create({
-      // ✍️ TODO: 요청하신 모델명으로 변경하세요. 현재는 안정적인 Sonnet 3.5 모델을 사용합니다.
-      model: "claude-3-5-sonnet-20240620", 
+      // Sonnet 4 모델 사용
+      model: "claude-sonnet-4-20250514", 
       max_tokens: 1024,
       system: "당신은 존 칼빈의 신학적 전통을 따르는 개혁신학 성경 연구 도우미입니다. 사용자의 질문에 대해 성경 구절을 인용하고 신학적 개념을 명확히 하여, 친절하고 이해하기 쉽게 답변해주세요.",
       messages: [{ role: 'user', content: message }],
