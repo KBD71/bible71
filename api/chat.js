@@ -1,5 +1,5 @@
 // Vercel 서버리스 함수: 챗봇 API
-import axios from 'axios';
+const axios = require('axios');
 
 // 성경 관련 키워드
 const BIBLE_KEYWORDS = [
@@ -74,7 +74,7 @@ async function callClaudeAPI(message) {
 }
 
 // Vercel 서버리스 함수 핸들러
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     // CORS 헤더 설정
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');

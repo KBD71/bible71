@@ -1,5 +1,5 @@
 // Vercel 서버리스 함수: 헬스체크
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
     // CORS 헤더 설정
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
