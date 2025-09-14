@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>오늘의 성경공부</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23764ba2'><path d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'/></svg>">
-    <script src="https://cdn.tailwindcss.com?v=3.4.0"></script>
+    <script src="https://cdn.tailwindcss.com?v=3.4.0&cache-bust=20250915"></script>
     <script>
         tailwind.config = {
             content: ["./index.html"],
@@ -504,10 +507,11 @@
 
                 try {
                     // Vercel 서버리스 함수(/api/chat)에 요청 전송
-                    const response = await fetch('/api/chat', {
+                    const response = await fetch('/api/chat?v=20250915', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'Cache-Control': 'no-cache',
                         },
                         body: JSON.stringify({ message: message }),
                     });
