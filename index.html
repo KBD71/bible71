@@ -168,6 +168,156 @@
         .calendar-day.selected { outline: 2px solid var(--color-primary); z-index: 10; }
         #close-calendar { background-color: var(--color-text-light); }
         #close-calendar:hover { background-color: var(--color-text-main); }
+        /* --- 플로팅 챗봇 스타일 --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: 2px solid var(--color-accent);
+        }
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+        }
+        .chatbot-toggle svg {
+            width: 28px;
+            height: 28px;
+            color: var(--color-parchment);
+        }
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--color-parchment);
+            border: 2px solid var(--color-accent);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--color-primary), #A00000);
+            color: var(--color-parchment);
+            padding: 16px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            border-bottom: 1px solid var(--color-accent);
+        }
+        .chatbot-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            background: var(--color-parchment);
+        }
+        .message {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message.bot {
+            justify-content: flex-start;
+        }
+        .message-content {
+            max-width: 80%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .message.user .message-content {
+            background: var(--color-secondary);
+            color: var(--color-parchment);
+            border-bottom-right-radius: 4px;
+        }
+        .message.bot .message-content {
+            background: rgba(218, 165, 32, 0.1);
+            color: var(--color-text-main);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            border-bottom-left-radius: 4px;
+        }
+        .chatbot-input {
+            padding: 12px;
+            border-top: 1px solid rgba(218, 165, 32, 0.3);
+            background: var(--color-parchment);
+        }
+        .chatbot-input-field {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+            color: var(--color-text-main);
+        }
+        .chatbot-input-field:focus {
+            border-color: var(--color-accent);
+        }
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .quick-question-btn {
+            padding: 6px 12px;
+            background: rgba(218, 165, 32, 0.1);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--color-text-main);
+        }
+        .quick-question-btn:hover {
+            background: var(--color-accent);
+            color: white;
+        }
+        .loading-dots {
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0%, 20% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @media (max-width: 768px) {
+            .chatbot-container {
+                bottom: 15px;
+                right: 15px;
+            }
+            .chatbot-window {
+                width: calc(100vw - 30px);
+                right: -15px;
+                height: 450px;
+            }
+            .chatbot-toggle {
+                width: 55px;
+                height: 55px;
+            }
+        }
         /* --- 콘텐츠 뷰 --- */
         .content-view { background: var(--color-parchment); }
         .content-header { background: #fff; border-bottom: 1px solid #e5e7eb; }
@@ -298,6 +448,59 @@
              </div>
         </div>
     </div>
+
+    <!-- 플로팅 챗봇 -->
+    <div class="chatbot-container">
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                📖 개혁신학 성경 도우미
+                <div style="font-size: 12px; opacity: 0.8; margin-top: 2px;">존 칼빈의 전통을 따라</div>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot">
+                    <div class="message-content">
+                        안녕하세요! 개혁신학 전통에 따라 성경 말씀을 해석하고 가르쳐드립니다. 하나님의 주권과 은혜, 성경의 권위에 대해 궁금한 점이 있으시면 언제든 질문해주세요! 📖✨
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" class="chatbot-input-field" id="chatbot-input" placeholder="성경이나 신앙에 관해 질문해보세요...">
+                <div class="quick-questions">
+                    <button class="quick-question-btn" data-question="하나님의 주권에 대해 설명해주세요">하나님의 주권</button>
+                    <button class="quick-question-btn" data-question="칭의와 성화의 차이점은 무엇인가요?">칭의와 성화</button>
+                    <button class="quick-question-btn" data-question="예정론에 대한 개혁신학적 관점을 알려주세요">예정론</button>
+                    <button class="quick-question-btn" data-question="오직 은혜의 교리를 설명해주세요">오직 은혜</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chatbot-toggle" id="chatbot-toggle">
+            <!-- 존 칼빈 옆모습 실루엣 아이콘 -->
+            <svg viewBox="0 0 100 100" fill="currentColor">
+                <!-- 칼빈의 특징적인 베레모 -->
+                <path d="M25 20c0-8 8-15 20-15s20 7 20 15c0 3-2 6-5 8 3 2 5 5 5 8 0 2-1 4-3 5-2 3-8 5-12 5s-10-2-12-5c-2-1-3-3-3-5 0-3 2-6 5-8-3-2-5-5-5-8z"/>
+
+                <!-- 얼굴 윤곽 (옆모습) -->
+                <path d="M45 25c8 0 12 2 15 5v25c0 8-7 15-15 15s-15-7-15-15V30c3-3 7-5 15-5z"/>
+
+                <!-- 특징적인 긴 코 -->
+                <path d="M60 40c2 0 4 1 4 3s-2 3-4 3-2-1-2-3 0-3 2-3z"/>
+
+                <!-- 수염 -->
+                <path d="M45 50c5 0 8 2 10 5v8c0 5-4 8-10 8s-10-3-10-8v-8c2-3 5-5 10-5z"/>
+
+                <!-- 베레모의 접힌 부분 -->
+                <path d="M35 22c-2-1-3-3-2-5s3-2 5-1 8 3 12 3 10-2 12-3c2-1 4-1 5 1s0 4-2 5c-3 2-8 4-15 4s-12-2-15-4z"/>
+
+                <!-- 성경을 들고 있는 모습 -->
+                <rect x="25" y="65" width="12" height="8" rx="2" fill="currentColor"/>
+                <rect x="24" y="63" width="14" height="2" rx="1" fill="currentColor"/>
+                <line x1="28" y1="67" x2="33" y2="67" stroke="var(--color-parchment)" stroke-width="0.5"/>
+                <line x1="28" y1="69" x2="35" y2="69" stroke="var(--color-parchment)" stroke-width="0.5"/>
+            </svg>
+        </div>
+    </div>
+
     <script>
         // JavaScript 로직은 기존과 거의 동일하게 작동합니다.
         // UI 요소의 ID와 클래스가 유지되었으므로, 별도의 JS 수정 없이도 대부분의 기능이 정상적으로 동작합니다.
@@ -481,9 +684,252 @@
                 });
             });
             document.getElementById('home-button').addEventListener('click', hideContent);
-            
+
             window.addEventListener('resize', () => updatePageForDate(currentDate));
+
+            // 챗봇 기능 초기화
+            initChatbot();
         });
+
+        // 챗봇 기능 구현
+        function initChatbot() {
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotInput = document.getElementById('chatbot-input');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            const quickQuestionBtns = document.querySelectorAll('.quick-question-btn');
+
+            let isChatbotOpen = false;
+
+            // 챗봇 토글 기능
+            chatbotToggle.addEventListener('click', () => {
+                isChatbotOpen = !isChatbotOpen;
+                chatbotWindow.style.display = isChatbotOpen ? 'flex' : 'none';
+
+                if (isChatbotOpen) {
+                    chatbotInput.focus();
+                }
+            });
+
+            // 메시지 추가 함수
+            function addMessage(content, isUser = false, isLoading = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isUser ? 'user' : 'bot'}${isLoading ? ' loading-message' : ''}`;
+
+                const messageContent = document.createElement('div');
+                messageContent.className = 'message-content';
+
+                if (isLoading) {
+                    messageContent.innerHTML = content + ' <span class="loading-dots">⋯</span>';
+                } else {
+                    messageContent.textContent = content;
+                }
+
+                messageDiv.appendChild(messageContent);
+                chatbotMessages.appendChild(messageDiv);
+
+                // 스크롤을 맨 아래로
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+
+            // API 기반 챗봇 응답 생성 함수
+            async function getBotResponse(userMessage) {
+                // 먼저 질문의 적절성 검사
+                const validation = questionFilter.isAppropriate(userMessage);
+                if (!validation.isValid) {
+                    return validation.message;
+                }
+
+                // 응급 상황 감지
+                const emergency = questionFilter.detectEmergency(userMessage);
+                if (emergency.isEmergency) {
+                    return emergency.message;
+                }
+
+                // 질문 정제
+                const sanitizedQuestion = questionFilter.sanitizeQuestion(userMessage);
+
+                // API가 설정되어 있는지 확인
+                if (!bibleAPI.isConfigured()) {
+                    return getFallbackResponse(sanitizedQuestion);
+                }
+
+                try {
+                    // API 호출
+                    const result = await bibleAPI.callAPI(sanitizedQuestion);
+
+                    if (result.success) {
+                        return bibleAPI.formatResponse(result.response);
+                    } else {
+                        console.error('API 오류:', result.error);
+                        return result.fallbackResponse;
+                    }
+
+                } catch (error) {
+                    console.error('응답 생성 오류:', error);
+                    return getFallbackResponse(sanitizedQuestion);
+                }
+            }
+
+            // API 없이도 사용할 수 있는 기본 응답
+            function getFallbackResponse(message) {
+                const lowerMessage = message.toLowerCase();
+
+                if (lowerMessage.includes('기도') || lowerMessage.includes('기도시간') || lowerMessage.includes('기도방법')) {
+                    return '기도는 하나님과의 소통입니다. "아무것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라" (빌립보서 4:6) 🙏';
+                } else if (lowerMessage.includes('성경읽기') || lowerMessage.includes('읽기계획') || lowerMessage.includes('성경공부')) {
+                    return '성경을 체계적으로 읽으시려면 맥체인 성경읽기를 추천합니다! "모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니" (디모데후서 3:16) 📖';
+                } else if (lowerMessage.includes('구원') || lowerMessage.includes('믿음')) {
+                    return '구원은 오직 예수 그리스도를 믿음으로만 얻을 수 있습니다. "믿음으로 말미암아 은혜로 구원을 받았나니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라" (에베소서 2:8) ✨';
+                } else if (lowerMessage.includes('오늘') && (lowerMessage.includes('말씀') || lowerMessage.includes('성경') || lowerMessage.includes('구절'))) {
+                    const today = new Date();
+                    const verses = [
+                        '"여호와는 나의 목자시니 내게 부족함이 없으리로다" - 시편 23:1',
+                        '"수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라" - 마태복음 11:28',
+                        '"내가 너희에게 평강을 끼치노니 곧 나의 평강을 너희에게 주노라" - 요한복음 14:27',
+                        '"범사에 감사하라 이것이 그리스도 예수 안에서 너희를 향하신 하나님의 뜻이니라" - 데살로니가전서 5:18'
+                    ];
+                    return verses[today.getDate() % verses.length];
+                } else {
+                    return '성경이나 신앙생활에 관한 질문을 해주시면 개혁신학적 관점에서 답변드리겠습니다. 더 정확한 답변을 위해 API 키를 설정해주세요. 💡';
+                }
+            }
+
+            // 메시지 전송 함수
+            async function sendMessage() {
+                const message = chatbotInput.value.trim();
+                if (message === '') return;
+
+                // 사용자 메시지 추가
+                addMessage(message, true);
+
+                // 입력창 비우기
+                chatbotInput.value = '';
+
+                // 로딩 메시지 추가
+                addMessage('답변을 준비하고 있습니다...', false, true);
+
+                try {
+                    // API 기반 응답 생성
+                    const response = await getBotResponse(message);
+
+                    // 로딩 메시지 제거
+                    const loadingMessage = chatbotMessages.querySelector('.loading-message');
+                    if (loadingMessage) {
+                        loadingMessage.remove();
+                    }
+
+                    // 실제 응답 추가
+                    addMessage(response, false);
+                } catch (error) {
+                    console.error('메시지 전송 오류:', error);
+
+                    // 로딩 메시지 제거
+                    const loadingMessage = chatbotMessages.querySelector('.loading-message');
+                    if (loadingMessage) {
+                        loadingMessage.remove();
+                    }
+
+                    // 오류 메시지 표시
+                    addMessage('죄송합니다. 일시적인 오류가 발생했습니다. 다시 시도해주세요.', false);
+                }
+            }
+
+            // 엔터키로 메시지 전송
+            chatbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // 빠른 질문 버튼 클릭 처리
+            quickQuestionBtns.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const question = btn.dataset.question;
+                    addMessage(question, true);
+
+                    // 로딩 메시지 추가
+                    addMessage('답변을 준비하고 있습니다...', false, true);
+
+                    try {
+                        const response = await getBotResponse(question);
+
+                        // 로딩 메시지 제거
+                        const loadingMessage = chatbotMessages.querySelector('.loading-message');
+                        if (loadingMessage) {
+                            loadingMessage.remove();
+                        }
+
+                        addMessage(response, false);
+                    } catch (error) {
+                        console.error('빠른 질문 처리 오류:', error);
+
+                        // 로딩 메시지 제거
+                        const loadingMessage = chatbotMessages.querySelector('.loading-message');
+                        if (loadingMessage) {
+                            loadingMessage.remove();
+                        }
+
+                        addMessage('죄송합니다. 일시적인 오류가 발생했습니다.', false);
+                    }
+                });
+            });
+
+            // 외부 클릭시 챗봇 닫기
+            document.addEventListener('click', (e) => {
+                if (!chatbotToggle.contains(e.target) && !chatbotWindow.contains(e.target) && isChatbotOpen) {
+                    isChatbotOpen = false;
+                    chatbotWindow.style.display = 'none';
+                }
+            });
+
+            // iframe에서 오는 메시지 처리 (챗봇 요청)
+            window.addEventListener('message', (event) => {
+                // 보안을 위해 origin 체크 (같은 도메인에서만 허용)
+                if (event.origin !== window.location.origin) return;
+
+                if (event.data.type === 'OPEN_CHATBOT') {
+                    if (!isChatbotOpen) {
+                        isChatbotOpen = true;
+                        chatbotWindow.style.display = 'flex';
+                        chatbotInput.focus();
+                    }
+                } else if (event.data.type === 'CHATBOT_MESSAGE') {
+                    // iframe에서 온 메시지를 챗봇에 추가
+                    addMessage(event.data.message, true);
+
+                    // 로딩 메시지 추가
+                    addMessage('답변을 준비하고 있습니다...', false, true);
+
+                    // 비동기 응답 처리
+                    getBotResponse(event.data.message).then(response => {
+                        // 로딩 메시지 제거
+                        const loadingMessage = chatbotMessages.querySelector('.loading-message');
+                        if (loadingMessage) {
+                            loadingMessage.remove();
+                        }
+
+                        addMessage(response, false);
+                    }).catch(error => {
+                        console.error('iframe 메시지 처리 오류:', error);
+
+                        // 로딩 메시지 제거
+                        const loadingMessage = chatbotMessages.querySelector('.loading-message');
+                        if (loadingMessage) {
+                            loadingMessage.remove();
+                        }
+
+                        addMessage('죄송합니다. 일시적인 오류가 발생했습니다.', false);
+                    });
+                }
+            });
+        }
     </script>
+
+    <!-- API 기반 챗봇 관련 스크립트 추가 -->
+    <script src="config.js"></script>
+    <script src="theology-system.js"></script>
+    <script src="question-filter.js"></script>
+    <script src="api-handler.js"></script>
 </body>
 </html>
