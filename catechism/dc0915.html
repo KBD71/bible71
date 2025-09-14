@@ -130,6 +130,13 @@
             }
         }
 
+        // YouTube URL에서 비디오 ID를 추출하는 함수
+        function extractVideoId(url) {
+            const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([^&\n?#]+)/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
         // 버튼 클릭 시 '명령'만 내리도록 하는 함수
         async function toggleAudio() {
             if (!player || typeof player.getPlayerState !== 'function') {
@@ -152,14 +159,21 @@
             try {
                 const response = await fetch(videoIdPath);
                 if (!response.ok) throw new Error('File not found');
-                const videoId = await response.text();
-                
-                if (!videoId.trim()) {
+                const urlText = await response.text();
+
+                if (!urlText.trim()) {
                     alert('유효한 오디오 주소가 파일에 없습니다.');
                     return;
                 }
 
-                player.loadVideoById(videoId.trim());
+                // YouTube URL에서 비디오 ID 추출
+                const videoId = extractVideoId(urlText.trim());
+                if (!videoId) {
+                    alert('유효한 YouTube URL이 아닙니다.');
+                    return;
+                }
+
+                player.loadVideoById(videoId);
                 player.playVideo();
             } catch (error) {
                 alert('아직 업로드 전입니다');
