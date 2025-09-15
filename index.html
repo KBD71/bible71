@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; frame-src 'self' https://www.youtube.com https://youtube.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://cdn.tailwindcss.com https://fonts.googleapis.com;">
-    <title>오늘의 말씀</title>
+    <title>말씀의 샘</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23764ba2'><path d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'/></svg>">
     <script src="https://cdn.tailwindcss.com?v=3.4.0&cache-bust=20250915"></script>
     <script>
@@ -45,53 +45,41 @@
         .modern-card { background: var(--color-card-bg); backdrop-filter: blur(12px); border: 1px solid var(--color-card-border); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); max-width: 420px; width: 100%; }
         .header-title { color: var(--color-parchment); text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
         .header-subtitle { color: var(--color-parchment); opacity: 0.8; text-shadow: 1px 1px 2px rgba(0,0,0,0.4); }
-        .header-icon-bg { background: rgba(245, 239, 230, 0.1); border: 1px solid rgba(245, 239, 230, 0.2); }
+        .header-icon-bg { background: rgba(245, 239, 230, 0.15); border: 1px solid rgba(245, 239, 230, 0.25); }
         .date-display { background: rgba(245, 239, 230, 0.1); backdrop-filter: blur(5px); border: 1px solid var(--color-card-border); color: var(--color-parchment); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); transition: all 0.3s ease; }
         .date-display:hover { background: rgba(245, 239, 230, 0.2); transform: scale(1.03); }
         .icon-button { background: rgba(245, 239, 230, 0.1); backdrop-filter: blur(5px); border: 1px solid var(--color-card-border); color: var(--color-parchment); transition: all 0.3s ease; }
         .icon-button:hover { background: rgba(245, 239, 230, 0.2); transform: scale(1.05); }
         
-        .custom-button { border: none; position: relative; overflow: hidden; transition: all 0.3s ease; padding: 0.8rem 1.2rem; font-size: 0.95rem; border-radius: 1rem; color: var(--color-parchment); border: 1px solid rgba(245, 239, 230, 0.3); }
-        .custom-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-        
-        .custom-button.primary { background-color: var(--color-primary); }
-        .custom-button.secondary { background-color: var(--color-secondary); }
-        .custom-button.accent { 
-            background-color: var(--color-accent); 
-            color: #371F1B;
-        }
-
-        .sermon-main-button {
+        .category-group {
             background-color: var(--color-text-main);
             padding: 0.8rem;
             border-radius: 1rem;
-            cursor: default;
         }
         
-        .sermon-sub-button {
-            padding: 0.6rem;
-            font-size: 0.875rem;
-            border-radius: 0.75rem;
+        .category-button {
+            border: 1px solid rgba(245, 239, 230, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            padding: 0.8rem;
+            font-size: 0.95rem;
+            border-radius: 1rem;
             color: var(--color-parchment);
-            transition: all 0.2s ease;
             font-weight: 500;
-            text-align: center;
         }
-        .sermon-sub-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        .category-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-        .sermon-sub-button.primary { background-color: var(--color-primary); }
-        .sermon-sub-button.secondary { background-color: var(--color-secondary); }
-        .sermon-sub-button.accent { 
+        
+        .category-button.primary { background-color: var(--color-primary); }
+        .category-button.secondary { background-color: var(--color-secondary); }
+        .category-button.accent { 
             background-color: var(--color-accent); 
             color: #371F1B;
         }
         
-        .notification-card { background: rgba(78, 52, 46, 0.3); border: 1px solid var(--color-card-border); backdrop-filter: blur(5px); }
-        .notification-card p { color: var(--color-parchment); font-size: 0.85rem; opacity: 0.9; }
-        .notification-card .font-medium { color: var(--color-parchment); font-weight: 600; }
-        .notification-card svg { color: var(--color-accent); }
         .calendar-modal { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); }
         .calendar-container { background: var(--color-parchment); border: 1px solid var(--color-accent); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); color: var(--color-text-main); }
         .calendar-header { border-bottom: 1px solid var(--color-card-border); }
@@ -101,8 +89,15 @@
         .calendar-day { background: #fff; }
         .calendar-day:hover { background: #fdfaf5; }
         .calendar-day.other-month { color: #ccc; background: #f8f9fa;}
-        .calendar-day.today { background: var(--color-accent); color: white; }
-        .calendar-day.selected { outline: 2px solid var(--color-primary); z-index: 10; }
+        .calendar-day.today { background: var(--color-accent); color: white; font-weight: bold; }
+        .calendar-day.selected { 
+            outline: 2px solid var(--color-primary); 
+            outline-offset: 2px;
+            background-color: rgba(139, 0, 0, 0.1);
+        }
+        .saturday-day-color { color: #2563eb; }
+        .sunday-day-color { color: #dc2626; }
+
         #close-calendar { background-color: var(--color-text-light); }
         #close-calendar:hover { background-color: var(--color-text-main); }
         .content-view { background: var(--color-parchment); }
@@ -125,8 +120,8 @@
                         </svg>
                     </div>
                     
-                    <h1 class="text-2xl sm:text-3xl font-bold header-title serif">오늘의 말씀</h1>
-                    <p class="text-sm header-subtitle font-light tracking-widest">Daily Bible</p>
+                    <h1 class="text-2xl sm:text-3xl font-bold header-title serif">말씀의 샘</h1>
+                    <p class="text-sm header-subtitle font-light tracking-widest">Fountain of the Word</p>
                 </div>
                 
                 <div class="flex items-center justify-center space-x-2 sm:space-x-4">
@@ -145,60 +140,51 @@
             </header>
             
             <main class="px-6 pb-6 sm:px-8 sm:pb-8 space-y-3">
-                <div class="sermon-main-button w-full">
+                <div class="category-group w-full">
                     <div class="flex items-center space-x-2">
                         <svg class="w-5 h-5 text-[var(--color-parchment)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
                         <span class="font-semibold text-[var(--color-parchment)]">주일강설</span>
                     </div>
                     <div class="grid grid-cols-3 gap-2 mt-3">
-                        <button class="sermon-sub-button secondary" data-prefix="ae">오전장년</button>
-                        <button class="sermon-sub-button primary" data-prefix="ms">오전강설</button>
-                        <button class="sermon-sub-button accent" data-prefix="as">오후강설</button>
+                        <button class="category-button secondary" data-prefix="ae">오전장년</button>
+                        <button class="category-button primary" data-prefix="ms">오전강설</button>
+                        <button class="category-button accent" data-prefix="as">오후강설</button>
                     </div>
                 </div>
 
-                <div class="link-container" data-prefix="db">
-                    <button class="custom-button secondary w-full font-semibold">
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                            <span>매일성경 (새벽기도)</span>
+                <div class="category-group w-full">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-[var(--color-parchment)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="font-semibold text-[var(--color-parchment)]">매일의 말씀</span>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2 mt-3">
+                        <div class="link-container" data-prefix="db">
+                            <button class="category-button secondary w-full">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                    <span>매일성경 (새벽기도)</span>
+                                </div>
+                            </button>
                         </div>
-                    </button>
-                </div>
-                
-                <div class="link-container" data-prefix="mc">
-                    <button class="custom-button primary w-full font-semibold">
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            <span>맥체인 성경읽기</span>
+                        <div class="link-container" data-prefix="mc">
+                            <button class="category-button primary w-full">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                    <span>맥체인 성경읽기</span>
+                                </div>
+                            </button>
                         </div>
-                    </button>
-                </div>
-                
-                <div class="link-container" data-prefix="day">
-                    <button class="custom-button accent w-full font-semibold">
-                        <div class="flex items-center justify-center space-x-2">
-                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                            <span>날마다 교리</span>
-                        </div>
-                    </button>
-                </div>
-            </main>
-            
-            <footer class="px-6 pb-6 sm:px-8 sm:pb-8">
-                <div class="notification-card p-3 rounded-xl">
-                    <div class="flex items-start space-x-3">
-                        <div class="flex-shrink-0 mt-0.5">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </div>
-                        <div class="flex-1">
-                            <p class="leading-relaxed">
-                                <span class="font-medium">날짜 선택:</span> 가운데 날짜를 클릭하면 달력이 열립니다.
-                            </p>
+                        <div class="link-container" data-prefix="day">
+                            <button class="category-button accent w-full">
+                                <div class="flex items-center justify-center space-x-2">
+                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                                    <span>날마다 교리</span>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
-            </footer>
+            </main>
         </div>
     </div>
 
@@ -281,10 +267,12 @@
             const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
             const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
             
-            document.querySelectorAll('.sermon-sub-button').forEach(button => {
+            document.querySelectorAll('.category-group .category-button').forEach(button => {
                 const prefix = button.dataset.prefix;
-                const url = `./sermon/${prefix}${dateSuffix}.html`;
-                button.dataset.url = url;
+                if (prefix) { // 주일강설 버튼만 해당
+                    const url = `./sermon/${prefix}${dateSuffix}.html`;
+                    button.dataset.url = url;
+                }
             });
         }
 
@@ -321,6 +309,14 @@
                 
                 dayElement.className = 'calendar-day flex items-center justify-center aspect-square cursor-pointer transition-transform duration-200 hover:scale-105 rounded-full';
                 dayElement.textContent = day;
+                
+                const dayOfWeek = dayDate.getDay();
+                if (dayOfWeek === 0) {
+                    dayElement.classList.add('sunday-day-color');
+                } else if (dayOfWeek === 6) {
+                    dayElement.classList.add('saturday-day-color');
+                }
+
                 if (dayDate.toDateString() === today.toDateString()) {
                     dayElement.classList.add('today');
                 }
@@ -431,8 +427,10 @@
                     if (url) showContent(url, title);
                 });
             });
-
-            document.querySelectorAll('.sermon-sub-button').forEach(button => {
+            
+            // 주일강설 버튼 이벤트 리스너 (이벤트 위임으로 변경하지 않고 기존 구조 유지)
+            const sermonButtons = document.querySelectorAll('.category-group .category-button[data-prefix]');
+            sermonButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const url = e.currentTarget.dataset.url;
