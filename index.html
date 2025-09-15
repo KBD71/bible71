@@ -58,9 +58,26 @@
             background-color: var(--color-accent); 
             color: #371F1B;
         }
-        .custom-button.sermon { 
+        
+        /* ▼▼▼ [추가됨] 주일설교말씀 작은 버튼 스타일 ▼▼▼ */
+        .sermon-sub-button {
             background-color: var(--color-text-main);
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            border-radius: 0.75rem;
+            color: var(--color-parchment);
+            border: 1px solid rgba(245, 239, 230, 0.2);
+            transition: all 0.2s ease;
+            text-align: center;
+            font-weight: 500;
         }
+        .sermon-sub-button:hover {
+            background-color: var(--color-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        /* ▲▲▲▲▲ [추가됨] 주일설교말씀 작은 버튼 스타일 ▲▲▲▲▲ */
+
         .notification-card { background: rgba(78, 52, 46, 0.3); border: 1px solid var(--color-card-border); backdrop-filter: blur(5px); }
         .notification-card p { color: var(--color-parchment); font-size: 0.85rem; opacity: 0.9; }
         .notification-card .font-medium { color: var(--color-parchment); font-weight: 600; }
@@ -146,19 +163,18 @@
                     </button>
                 </div>
                 
-                <div class="relative" id="sermon-dropdown-container">
-                    <button id="sermon-dropdown-button" class="custom-button sermon w-full font-semibold">
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
-                            <span>주일설교말씀</span>
-                            <svg class="w-4 h-4 ml-1 transition-transform duration-300" id="sermon-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                    </button>
-                    <div id="sermon-dropdown-menu" 
-                         class="absolute hidden z-20 top-full mt-2 w-full lg:top-0 lg:left-full lg:mt-0 lg:ml-2 lg:w-auto bg-[var(--color-parchment)]/95 backdrop-blur-md rounded-xl shadow-lg overflow-hidden border border-[var(--color-card-border)]">
-                        <a href="#" class="sermon-link block px-4 py-3 text-center lg:text-left lg:whitespace-nowrap font-medium text-[var(--color-text-main)] hover:bg-[var(--color-primary)] hover:text-[var(--color-parchment)] transition-colors duration-200" data-prefix="ae">오전장년교육</a>
-                        <a href="#" class="sermon-link block px-4 py-3 text-center lg:text-left lg:whitespace-nowrap font-medium text-[var(--color-text-main)] hover:bg-[var(--color-primary)] hover:text-[var(--color-parchment)] transition-colors duration-200 border-y border-[var(--color-text-main)]/20" data-prefix="ms">오전강설</a>
-                        <a href="#" class="sermon-link block px-4 py-3 text-center lg:text-left lg:whitespace-nowrap font-medium text-[var(--color-text-main)] hover:bg-[var(--color-primary)] hover:text-[var(--color-parchment)] transition-colors duration-200" data-prefix="as">오후강설</a>
+                <div class="space-y-2 pt-2">
+                    <p class="text-center text-sm font-semibold text-[var(--color-parchment)] opacity-80 serif">주일설교말씀</p>
+                    <div class="flex justify-between items-center space-x-2">
+                        <button class="sermon-sub-button flex-1" data-prefix="ae">
+                            <span>오전장년</span>
+                        </button>
+                        <button class="sermon-sub-button flex-1" data-prefix="ms">
+                            <span>오전강설</span>
+                        </button>
+                        <button class="sermon-sub-button flex-1" data-prefix="as">
+                            <span>오후강설</span>
+                        </button>
                     </div>
                 </div>
                 </main>
@@ -214,7 +230,6 @@
 
 
     <script>
-        // JavaScript는 수정할 필요 없이 그대로 작동합니다.
         let currentDate = new Date();
         let calendarDate = new Date();
 
@@ -255,15 +270,16 @@
                 if (button) button.dataset.url = url;
             });
             
+            // ▼▼▼ [수정됨] 작은 버튼들의 링크 업데이트 로직 ▼▼▼
             const lastSunday = new Date(date);
             lastSunday.setDate(date.getDate() - date.getDay());
             const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
             const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
             
-            document.querySelectorAll('.sermon-link').forEach(link => {
-                const prefix = link.dataset.prefix; // ae, ms, as
+            document.querySelectorAll('.sermon-sub-button').forEach(button => {
+                const prefix = button.dataset.prefix; // ae, ms, as
                 const url = `./sermon/${prefix}${dateSuffix}.html`;
-                link.dataset.url = url;
+                button.dataset.url = url;
             });
         }
 
@@ -401,35 +417,17 @@
                 });
             });
 
-            const sermonDropdownButton = document.getElementById('sermon-dropdown-button');
-            const sermonDropdownMenu = document.getElementById('sermon-dropdown-menu');
-            const sermonArrow = document.getElementById('sermon-arrow');
-
-            sermonDropdownButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                sermonDropdownMenu.classList.toggle('hidden');
-                sermonArrow.classList.toggle('rotate-180');
-            });
-
-            document.querySelectorAll('.sermon-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
+            // ▼▼▼ [수정됨] 작은 버튼들에 대한 이벤트 리스너 추가 ▼▼▼
+            document.querySelectorAll('.sermon-sub-button').forEach(button => {
+                button.addEventListener('click', (e) => {
                     const url = e.currentTarget.dataset.url;
-                    const title = e.currentTarget.textContent;
+                    const title = `주일설교: ${e.currentTarget.textContent}`;
                     if (url) {
                         showContent(url, title);
-                        sermonDropdownMenu.classList.add('hidden');
-                        sermonArrow.classList.remove('rotate-180');
                     }
                 });
             });
-
-            window.addEventListener('click', () => {
-                if (!sermonDropdownMenu.classList.contains('hidden')) {
-                    sermonDropdownMenu.classList.add('hidden');
-                    sermonArrow.classList.remove('rotate-180');
-                }
-            });
+            // ▲▲▲ [수정됨] 기존 드롭다운 관련 코드는 모두 제거됨 ▲▲▲
 
             document.getElementById('home-button').addEventListener('click', hideContent);
             window.addEventListener('resize', () => updatePageForDate(currentDate));
