@@ -54,12 +54,11 @@
         .custom-button { border: none; position: relative; overflow: hidden; transition: all 0.3s ease; padding: 0.8rem 1.2rem; font-size: 0.95rem; border-radius: 1rem; color: var(--color-parchment); border: 1px solid rgba(245, 239, 230, 0.3); }
         .custom-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
         
-        /* ▼▼▼ [수정됨] 개별 색상 적용 ▼▼▼ */
         .custom-button.primary { background-color: var(--color-primary); }
         .custom-button.secondary { background-color: var(--color-secondary); }
         .custom-button.accent { 
             background-color: var(--color-accent); 
-            color: #371F1B; /* 가독성 높은 진한 갈색 */
+            color: #371F1B;
         }
 
         .sermon-main-button {
@@ -69,7 +68,6 @@
             cursor: default;
         }
         
-        /* ▼▼▼ [수정됨] 세부 버튼 스타일 개선 ▼▼▼ */
         .sermon-sub-button {
             padding: 0.4rem 0.6rem;
             font-size: 0.8rem;
@@ -86,7 +84,7 @@
         .sermon-sub-button.secondary { background-color: var(--color-secondary); }
         .sermon-sub-button.accent { 
             background-color: var(--color-accent); 
-            color: #371F1B; /* 가독성 높은 진한 갈색 */
+            color: #371F1B;
         }
         
         .notification-card { background: rgba(78, 52, 46, 0.3); border: 1px solid var(--color-card-border); backdrop-filter: blur(5px); }
@@ -146,7 +144,6 @@
             </header>
             
             <main class="px-6 pb-6 sm:px-8 sm:pb-8 space-y-3">
-
                 <div class="sermon-main-button w-full">
                     <div class="flex items-center justify-between w-full">
                         <div class="flex items-center space-x-2">
@@ -187,7 +184,7 @@
                         </div>
                     </button>
                 </div>
-                </main>
+            </main>
             
             <footer class="px-6 pb-6 sm:px-8 sm:pb-8">
                 <div class="notification-card p-3 rounded-xl">
@@ -205,10 +202,39 @@
             </footer>
         </div>
     </div>
+
     <div id="calendar-modal" class="calendar-modal fixed inset-0 z-50 items-center justify-center" style="display: none;">
+        <div class="calendar-container rounded-2xl w-full max-w-sm mx-4">
+             <div class="calendar-header flex items-center justify-between p-4">
+                <button id="prev-month" class="p-2 rounded-full hover:bg-black/10 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <h3 id="calendar-title" class="text-lg font-semibold serif"></h3>
+                <button id="next-month" class="p-2 rounded-full hover:bg-black/10 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+            <div class="calendar-grid p-2 grid grid-cols-7 gap-1" id="calendar-grid"></div>
+            <div class="p-3 border-t border-black/10">
+                <button id="close-calendar" class="w-full text-white py-2 px-4 rounded-lg transition-colors">닫기</button>
+            </div>
         </div>
+    </div>
     <div id="content-view" class="content-view fixed inset-0 z-[100] flex flex-col" style="display: none;">
-       </div>
+       <div class="content-header shadow-md p-4 flex items-center justify-between">
+            <button id="home-button" class="home-button py-2 px-4 rounded-lg font-semibold flex items-center transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                <span>홈으로</span>
+            </button>
+            <h2 id="content-title" class="text-xl sm:text-2xl lg:text-3xl font-bold serif mx-4 text-center flex-1 truncate"></h2>
+            <div class="w-24"></div> </div>
+        <div class="content-body flex-1 relative">
+            <div id="loading-spinner" class="loading-spinner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 border-4 border-gray-200 border-t-4 rounded-full animate-spin"></div>
+            <iframe id="content-iframe" class="w-full h-full border-none" style="display: none;" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation allow-modals allow-top-navigation allow-downloads" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+            <div id="error-message" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-md border rounded-lg p-6 text-center shadow-lg" style="display: none;">
+             </div>
+        </div>
+    </div>
 
     <script>
         let currentDate = new Date();
@@ -324,10 +350,11 @@
             const calendarModal = document.getElementById('calendar-modal');
             calendarDate = new Date(currentDate);
             generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
-            calendarModal.style.display = 'flex';
+            if(calendarModal) calendarModal.style.display = 'flex';
         }
         function closeCalendar() {
-            document.getElementById('calendar-modal').style.display = 'none';
+            const calendarModal = document.getElementById('calendar-modal');
+            if(calendarModal) calendarModal.style.display = 'none';
         }
         
         function showContent(url, title) {
@@ -336,6 +363,8 @@
             const contentIframe = document.getElementById('content-iframe');
             const loadingSpinner = document.getElementById('loading-spinner');
             const errorMessageDiv = document.getElementById('error-message');
+
+            if (!contentView || !contentTitle || !contentIframe || !loadingSpinner || !errorMessageDiv) return;
 
             contentTitle.textContent = title;
             contentView.style.display = 'flex';
@@ -359,14 +388,14 @@
         function hideContent() {
              const contentView = document.getElementById('content-view');
              const contentIframe = document.getElementById('content-iframe');
-             const errorMessageDiv = document.getElementById('error-message');
+             if(!contentView || !contentIframe) return;
              contentView.style.display = 'none';
              contentIframe.src = 'about:blank';
-             errorMessageDiv.style.display = 'none';
         }
         
         document.addEventListener('DOMContentLoaded', () => {
             updatePageForDate(currentDate);
+
             document.getElementById('prev-day').addEventListener('click', () => {
                 currentDate.setDate(currentDate.getDate() - 1);
                 updatePageForDate(currentDate);
@@ -406,7 +435,7 @@
 
             document.querySelectorAll('.sermon-sub-button').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    e.stopPropagation(); // 상위 요소로 클릭 이벤트가 전파되는 것을 막음
+                    e.stopPropagation();
                     const url = e.currentTarget.dataset.url;
                     const title = `주일강설: ${e.currentTarget.textContent}`;
                     if (url) {
