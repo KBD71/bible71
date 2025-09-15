@@ -54,17 +54,13 @@
         .custom-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
         .custom-button.primary { background-color: var(--color-primary); }
         .custom-button.secondary { background-color: var(--color-secondary); }
-        
-        /* ▼▼▼ [수정됨] 가독성 개선 ▼▼▼ */
         .custom-button.accent { 
             background-color: var(--color-accent); 
-            color: #371F1B; /* 기존보다 훨씬 어두운 갈색으로 변경 */
+            color: #371F1B; /* 가독성 개선된 진한 갈색 */
         }
-        /* ▼▼▼ [수정됨] 디자인 통일성 개선 ▼▼▼ */
         .custom-button.sermon { 
-            background-color: var(--color-text-main); /* 보라색에서 짙은 갈색으로 변경 */
+            background-color: var(--color-text-main); /* 통일성을 위해 짙은 갈색으로 변경 */
         }
-
         .notification-card { background: rgba(78, 52, 46, 0.3); border: 1px solid var(--color-card-border); backdrop-filter: blur(5px); }
         .notification-card p { color: var(--color-parchment); font-size: 0.85rem; opacity: 0.9; }
         .notification-card .font-medium { color: var(--color-parchment); font-weight: 600; }
@@ -164,7 +160,7 @@
                         <a href="#" class="sermon-link block px-4 py-3 text-center font-medium text-[var(--color-text-main)] hover:bg-[var(--color-primary)] hover:text-[var(--color-parchment)] transition-colors duration-200" data-prefix="as">오후강설</a>
                     </div>
                 </div>
-            </main>
+                </main>
             
             <footer class="px-6 pb-6 sm:px-8 sm:pb-8">
                 <div class="notification-card p-3 rounded-xl">
@@ -182,14 +178,260 @@
             </footer>
         </div>
     </div>
-    
     <div id="calendar-modal" class="calendar-modal fixed inset-0 z-50 items-center justify-center" style="display: none;">
+        <div class="calendar-container rounded-2xl w-full max-w-sm mx-4">
+             <div class="calendar-header flex items-center justify-between p-4">
+                <button id="prev-month" class="p-2 rounded-full hover:bg-black/10 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <h3 id="calendar-title" class="text-lg font-semibold serif"></h3>
+                <button id="next-month" class="p-2 rounded-full hover:bg-black/10 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+            <div class="calendar-grid p-2 grid grid-cols-7 gap-1" id="calendar-grid"></div>
+            <div class="p-3 border-t border-black/10">
+                <button id="close-calendar" class="w-full text-white py-2 px-4 rounded-lg transition-colors">닫기</button>
+            </div>
         </div>
+    </div>
     <div id="content-view" class="content-view fixed inset-0 z-[100] flex flex-col" style="display: none;">
+        <div class="content-header shadow-md p-4 flex items-center justify-between">
+            <button id="home-button" class="home-button py-2 px-4 rounded-lg font-semibold flex items-center transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                <span>홈으로</span>
+            </button>
+            <h2 id="content-title" class="text-xl sm:text-2xl lg:text-3xl font-bold serif mx-4 text-center flex-1 truncate"></h2>
+            <div class="w-24"></div> </div>
+        <div class="content-body flex-1 relative">
+            <div id="loading-spinner" class="loading-spinner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 border-4 border-gray-200 border-t-4 rounded-full animate-spin"></div>
+            <iframe id="content-iframe" class="w-full h-full border-none" style="display: none;" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation allow-modals allow-top-navigation allow-downloads" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+            <div id="error-message" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-md border rounded-lg p-6 text-center shadow-lg" style="display: none;">
+             </div>
         </div>
+    </div>
+
 
     <script>
-        // JavaScript is unchanged
+        let currentDate = new Date();
+        let calendarDate = new Date();
+
+        function pad(num) {
+            return num < 10 ? '0' + num : String(num);
+        }
+
+        function updatePageForDate(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+            const dayOfWeek = daysOfWeek[date.getDay()];
+            
+            const dateDisplay = document.getElementById('current-date');
+            
+            if (window.innerWidth < 640) {
+                dateDisplay.textContent = `${month}/${day} (${dayOfWeek})`;
+            } else {
+                dateDisplay.textContent = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
+            }
+            
+            document.querySelectorAll('.link-container').forEach(container => {
+                const prefix = container.dataset.prefix;
+                const button = container.querySelector('button');
+                let url;
+                if (prefix === 'mc') {
+                    const dateSuffix = `${pad(month)}${pad(day)}`;
+                    url = `./mccheyne/mc${dateSuffix}.html`;
+                } else if (prefix === 'db') {
+                    const yearSuffix = String(year).slice(-2);
+                    const dateSuffix = `${yearSuffix}${pad(month)}${pad(day)}`;
+                    url = `./dailybible/db${dateSuffix}.html`;
+                } else if (prefix === 'day') {
+                    const dateSuffix = `${pad(month)}${pad(day)}`;
+                    url = `./catechism/dc${dateSuffix}.html`;
+                } 
+                if (button) button.dataset.url = url;
+            });
+            
+            const lastSunday = new Date(date);
+            lastSunday.setDate(date.getDate() - date.getDay());
+            const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
+            const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
+            
+            document.querySelectorAll('.sermon-link').forEach(link => {
+                const prefix = link.dataset.prefix; // ae, ms, as
+                const url = `./sermon/${prefix}${dateSuffix}.html`;
+                link.dataset.url = url;
+            });
+        }
+
+        function generateCalendar(year, month) {
+            const calendarGrid = document.getElementById('calendar-grid');
+            const calendarTitle = document.getElementById('calendar-title');
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const firstDayOfWeek = firstDay.getDay();
+            const daysInMonth = lastDay.getDate();
+            const today = new Date();
+            calendarTitle.textContent = `${year}년 ${month + 1}월`;
+            calendarGrid.innerHTML = '';
+            const dayHeaders = ['일', '월', '화', '수', '목', '금', '토'];
+            dayHeaders.forEach((day, index) => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day-header text-center text-xs font-semibold p-1';
+                dayHeader.textContent = day;
+                if (index === 0) dayHeader.classList.add('sunday-header-color');
+                else if (index === 6) dayHeader.classList.add('saturday-header-color');
+                calendarGrid.appendChild(dayHeader);
+            });
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+            for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day other-month flex items-center justify-center aspect-square';
+                dayElement.textContent = prevMonthLastDay - i;
+                calendarGrid.appendChild(dayElement);
+            }
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                const dayDate = new Date(year, month, day);
+                
+                dayElement.className = 'calendar-day flex items-center justify-center aspect-square cursor-pointer transition-transform duration-200 hover:scale-105 rounded-full';
+                dayElement.textContent = day;
+                if (dayDate.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+                if (dayDate.toDateString() === currentDate.toDateString()) {
+                    dayElement.classList.add('selected');
+                }
+                dayElement.addEventListener('click', () => {
+                    currentDate = new Date(year, month, day);
+                    updatePageForDate(currentDate);
+                    closeCalendar();
+                });
+                calendarGrid.appendChild(dayElement);
+            }
+             const totalCells = firstDayOfWeek + daysInMonth;
+            const remainingCells = (totalCells > 35) ? (42 - totalCells) : (35 - totalCells);
+            
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day other-month flex items-center justify-center aspect-square';
+                dayElement.textContent = day;
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+        
+        function showCalendar() {
+            const calendarModal = document.getElementById('calendar-modal');
+            calendarDate = new Date(currentDate);
+            generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            calendarModal.style.display = 'flex';
+        }
+        function closeCalendar() {
+            document.getElementById('calendar-modal').style.display = 'none';
+        }
+        
+        function showContent(url, title) {
+            const contentView = document.getElementById('content-view');
+            const contentTitle = document.getElementById('content-title');
+            const contentIframe = document.getElementById('content-iframe');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            
+            contentTitle.textContent = title;
+            contentView.style.display = 'flex';
+            loadingSpinner.style.display = 'block';
+            contentIframe.style.display = 'none';
+            contentIframe.src = url;
+            contentIframe.onload = () => {
+                loadingSpinner.style.display = 'none';
+                contentIframe.style.display = 'block';
+            };
+            
+            contentIframe.onerror = () => {
+                 loadingSpinner.style.display = 'none';
+                 const errorMessageDiv = document.getElementById('error-message');
+                 errorMessageDiv.innerHTML = `<h3 class='text-lg font-bold text-red-600 mb-2'>콘텐츠 로딩 실패</h3><p class='text-gray-700'>해당 날짜의 자료를 찾을 수 없습니다.<br>다른 날짜를 선택해주세요.</p>`;
+                 errorMessageDiv.style.display = 'block';
+            }
+        }
+
+        function hideContent() {
+             const contentView = document.getElementById('content-view');
+             const contentIframe = document.getElementById('content-iframe');
+             const errorMessageDiv = document.getElementById('error-message');
+             contentView.style.display = 'none';
+             contentIframe.src = 'about:blank';
+             errorMessageDiv.style.display = 'none';
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePageForDate(currentDate);
+            document.getElementById('prev-day').addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 1);
+                updatePageForDate(currentDate);
+            });
+            document.getElementById('next-day').addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 1);
+                updatePageForDate(currentDate);
+            });
+            
+            document.getElementById('date-picker').addEventListener('click', showCalendar);
+            document.getElementById('prev-month').addEventListener('click', () => {
+                calendarDate.setMonth(calendarDate.getMonth() - 1);
+                generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            });
+            document.getElementById('next-month').addEventListener('click', () => {
+                calendarDate.setMonth(calendarDate.getMonth() + 1);
+                generateCalendar(calendarDate.getFullYear(), calendarDate.getMonth());
+            });
+            
+            const calendarModal = document.getElementById('calendar-modal');
+            document.getElementById('close-calendar').addEventListener('click', closeCalendar);
+            calendarModal.addEventListener('click', (e) => {
+                 if (e.target === calendarModal) closeCalendar();
+            });
+
+            document.querySelectorAll('.link-container button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const url = e.currentTarget.dataset.url;
+                    const title = e.currentTarget.querySelector('span').textContent;
+                    if (url) showContent(url, title);
+                });
+            });
+
+            const sermonDropdownButton = document.getElementById('sermon-dropdown-button');
+            const sermonDropdownMenu = document.getElementById('sermon-dropdown-menu');
+            const sermonArrow = document.getElementById('sermon-arrow');
+
+            sermonDropdownButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sermonDropdownMenu.classList.toggle('hidden');
+                sermonArrow.classList.toggle('rotate-180');
+            });
+
+            document.querySelectorAll('.sermon-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const url = e.currentTarget.dataset.url;
+                    const title = e.currentTarget.textContent;
+                    if (url) {
+                        showContent(url, title);
+                        sermonDropdownMenu.classList.add('hidden');
+                        sermonArrow.classList.remove('rotate-180');
+                    }
+                });
+            });
+
+            window.addEventListener('click', () => {
+                if (!sermonDropdownMenu.classList.contains('hidden')) {
+                    sermonDropdownMenu.classList.add('hidden');
+                    sermonArrow.classList.remove('rotate-180');
+                }
+            });
+
+            document.getElementById('home-button').addEventListener('click', hideContent);
+            window.addEventListener('resize', () => updatePageForDate(currentDate));
+        });
     </script>
 </body>
 </html>
