@@ -141,15 +141,21 @@
                     </button>
                 </div>
                 
-                <div class="link-container" data-prefix="ms">
-                    <button class="custom-button sermon w-full font-semibold">
+                <div class="relative" id="sermon-dropdown-container">
+                    <button id="sermon-dropdown-button" class="custom-button sermon w-full font-semibold">
                         <div class="flex items-center justify-center space-x-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
                             <span>주일설교말씀</span>
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-300" id="sermon-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                     </button>
+                    <div id="sermon-dropdown-menu" class="absolute hidden bottom-full mb-2 w-full bg-white/90 backdrop-blur-md rounded-xl shadow-lg z-20 overflow-hidden border border-[var(--color-card-border)]">
+                        <a href="#" class="sermon-link block px-4 py-3 text-center font-medium text-[var(--color-text-main)] hover:bg-[var(--color-card-bg)] hover:text-white transition-colors duration-200" data-prefix="ae">오전장년교육</a>
+                        <a href="#" class="sermon-link block px-4 py-3 text-center font-medium text-[var(--color-text-main)] hover:bg-[var(--color-card-bg)] hover:text-white transition-colors duration-200 border-y border-[var(--color-card-border)]" data-prefix="ms">오전강설</a>
+                        <a href="#" class="sermon-link block px-4 py-3 text-center font-medium text-[var(--color-text-main)] hover:bg-[var(--color-card-bg)] hover:text-white transition-colors duration-200" data-prefix="as">오후강설</a>
+                    </div>
                 </div>
-            </main>
+                </main>
             
             <footer class="px-6 pb-6 sm:px-8 sm:pb-8">
                 <div class="notification-card p-3 rounded-xl">
@@ -202,10 +208,6 @@
 
 
     <script>
-        // ==========================================================
-        // 기본 페이지 로직 (날짜, 달력, iframe 콘텐츠 로드 등)
-        // 이 부분은 수정하지 않았습니다.
-        // ==========================================================
         let currentDate = new Date();
         let calendarDate = new Date();
 
@@ -242,15 +244,21 @@
                 } else if (prefix === 'day') {
                     const dateSuffix = `${pad(month)}${pad(day)}`;
                     url = `./catechism/dc${dateSuffix}.html`;
-                } else if (prefix === 'ms') {
-                    const lastSunday = new Date(date);
-                    lastSunday.setDate(date.getDate() - date.getDay());
-                    const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
-                    const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
-                    url = `./sermon/ms${dateSuffix}.html`;
-                }
-                
+                } 
+                // ▼▼▼▼▼ [수정됨] 기존 'ms' 관련 로직은 제거됨 ▼▼▼▼▼
                 if (button) button.dataset.url = url;
+            });
+            
+            // ▼▼▼▼▼ [추가됨] 드롭다운 메뉴 링크 업데이트 로직 ▼▼▼▼▼
+            const lastSunday = new Date(date);
+            lastSunday.setDate(date.getDate() - date.getDay());
+            const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
+            const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
+            
+            document.querySelectorAll('.sermon-link').forEach(link => {
+                const prefix = link.dataset.prefix; // ae, ms, as
+                const url = `./sermon/${prefix}${dateSuffix}.html`;
+                link.dataset.url = url;
             });
         }
 
@@ -379,6 +387,8 @@
             calendarModal.addEventListener('click', (e) => {
                  if (e.target === calendarModal) closeCalendar();
             });
+
+            // 일반 버튼 이벤트 리스너
             document.querySelectorAll('.link-container button').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const url = e.currentTarget.dataset.url;
@@ -386,6 +396,42 @@
                     if (url) showContent(url, title);
                 });
             });
+
+            // ▼▼▼▼▼ [추가됨] 드롭다운 관련 이벤트 리스너 ▼▼▼▼▼
+            const sermonDropdownButton = document.getElementById('sermon-dropdown-button');
+            const sermonDropdownMenu = document.getElementById('sermon-dropdown-menu');
+            const sermonArrow = document.getElementById('sermon-arrow');
+
+            sermonDropdownButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // 이벤트 전파 중단
+                sermonDropdownMenu.classList.toggle('hidden');
+                sermonArrow.classList.toggle('rotate-180');
+            });
+
+            // 드롭다운 메뉴 아이템 클릭 이벤트
+            document.querySelectorAll('.sermon-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const url = e.currentTarget.dataset.url;
+                    const title = e.currentTarget.textContent;
+                    if (url) {
+                        showContent(url, title);
+                        sermonDropdownMenu.classList.add('hidden');
+                        sermonArrow.classList.remove('rotate-180');
+                    }
+                });
+            });
+
+            // 페이지의 다른 곳을 클릭하면 드롭다운 닫기
+            window.addEventListener('click', () => {
+                if (!sermonDropdownMenu.classList.contains('hidden')) {
+                    sermonDropdownMenu.classList.add('hidden');
+                    sermonArrow.classList.remove('rotate-180');
+                }
+            });
+            // ▲▲▲▲▲ [추가됨] 드롭다운 관련 이벤트 리스너 ▲▲▲▲▲
+
+
             document.getElementById('home-button').addEventListener('click', hideContent);
 
             window.addEventListener('resize', () => updatePageForDate(currentDate));
