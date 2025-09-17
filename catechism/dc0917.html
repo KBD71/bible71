@@ -205,49 +205,72 @@
             return match ? match[1] : null;
         }
 
-        // 7. 페이지 로드 완료 후 버튼에 이벤트 리스너 추가
-        document.addEventListener('DOMContentLoaded', () => {
-            audioToggleButton.addEventListener('click', async () => {
-                // 플레이어가 아직 생성되지 않은 경우
-                if (!player) {
-                    try {
-                        const response = await fetch('../address/0917.txt');
-                        if (!response.ok) {
-                            throw new Error('file not found');
-                        }
-                        
-                        const fullUrl = await response.text();
-                        if (!fullUrl.trim()) {
-                            alert('유효한 오디오 주소가 파일에 없습니다.');
-                            return;
-                        }
-                        
-                        videoId = extractVideoId(fullUrl);
-                        if (!videoId) {
-                            alert('유효한 YouTube URL이 아닙니다.');
-                            return;
-                        }
+     // ... (script 태그 상단 및 다른 함수들은 그대로 유지) ...
 
-                        createPlayer(videoId);
+// 7. 페이지 로드 완료 후 버튼에 이벤트 리스너 추가
+document.addEventListener('DOMContentLoaded', () => {
+    // 이 페이지에 해당하는 날짜 문자열 (예: '0917')
+    // 실제 구현에서는 페이지 생성 시 동적으로 이 값을 설정해야 합니다.
+    const pageDate = '0917';
 
-                    } catch (error) {
-                        if (error.message === 'file not found') {
-                            alert('아직 업로드 전입니다.');
-                        } else {
-                            console.error('오디오 파일 로드 오류:', error);
-                        }
-                    }
-                } else {
-                    // 플레이어가 이미 생성된 경우, 상태에 따라 재생/일시정지 토글
-                    const playerState = player.getPlayerState();
-                    if (playerState === YT.PlayerState.PLAYING) {
-                        player.pauseVideo();
-                    } else {
-                        player.playVideo();
-                    }
+    audioToggleButton.addEventListener('click', async () => {
+        if (!player) {
+            try {
+                // 1. mc.txt 마스터 파일 가져오기
+                const response = await fetch('../address/mc.txt');
+                if (!response.ok) {
+                    throw new Error('file not found');
                 }
-            });
-        });
+                
+                const textContent = await response.text();
+                if (!textContent.trim()) {
+                    alert('mc.txt 파일이 비어있습니다.');
+                    return;
+                }
+
+                // 2. 텍스트를 줄 단위로 나누고, 해당 날짜의 인덱스 찾기
+                const lines = textContent.split('\n').map(line => line.trim());
+                const dateIndex = lines.indexOf(pageDate);
+                
+                let fullUrl = null;
+
+                // 3. 날짜를 찾았고, 그 다음 줄이 파일 범위 내에 있는지 확인
+                if (dateIndex > -1 && dateIndex + 1 < lines.length) {
+                    fullUrl = lines[dateIndex + 1];
+                }
+
+                if (!fullUrl) {
+                    // 날짜가 없거나, 날짜가 마지막 줄이거나, 다음 줄이 비어있는 경우
+                    alert('해당 날짜(' + pageDate + ')의 오디오 주소를 찾을 수 없습니다.');
+                    return;
+                }
+                
+                // --- 아래 로직은 기존과 동일 ---
+                videoId = extractVideoId(fullUrl);
+                if (!videoId) {
+                    alert('유효한 YouTube URL이 아닙니다.');
+                    return;
+                }
+
+                createPlayer(videoId);
+
+            } catch (error) {
+                if (error.message === 'file not found') {
+                    alert('오디오 주소 파일(mc.txt)을 찾을 수 없습니다.');
+                } else {
+                    console.error('오디오 파일 로드 오류:', error);
+                }
+            }
+        } else {
+            const playerState = player.getPlayerState();
+            if (playerState === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+    });
+});
     </script>
 </body>
 </html>
