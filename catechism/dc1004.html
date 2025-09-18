@@ -186,13 +186,30 @@
 
             async function fetchAndPlayAudio() {
                 try {
-                    const response = await fetch('../address/1004.txt');
+                    const response = await fetch('../address/dcaddr.txt');
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    const url = (await response.text()).trim();
-                    if (!url) {
+                    const fileContent = (await response.text()).trim();
+                    if (!fileContent) {
                         alert('유효한 오디오 주소가 파일에 없습니다.');
+                        return;
+                    }
+
+                    // 1004 날짜에 해당하는 링크 찾기
+                    const lines = fileContent.split('\n');
+                    const targetDate = '1004'; // 파일명에서 추출한 날짜
+                    let url = '';
+
+                    for (const line of lines) {
+                        if (line.trim().startsWith(targetDate + ' ')) {
+                            url = line.trim().substring(5); // '1004 ' 부분 제거
+                            break;
+                        }
+                    }
+
+                    if (!url) {
+                        alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
                         return;
                     }
                     

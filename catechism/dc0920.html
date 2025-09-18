@@ -206,14 +206,31 @@
             audioToggleButton.addEventListener('click', async () => {
                 if (!player) {
                     try {
-                        const response = await fetch('../address/mc.txt');
+                        const response = await fetch('../address/dcaddr.txt');
                         if (!response.ok) {
                             throw new Error('file not found');
                         }
-                        
-                        const fullUrl = await response.text();
-                        if (!fullUrl.trim()) {
+
+                        const fileContent = await response.text();
+                        if (!fileContent.trim()) {
                             alert('유효한 오디오 주소가 파일에 없습니다.');
+                            return;
+                        }
+
+                        // 0920 날짜에 해당하는 링크 찾기
+                        const lines = fileContent.split('\n');
+                        const targetDate = '0920';
+                        let fullUrl = '';
+
+                        for (const line of lines) {
+                            if (line.trim().startsWith(targetDate + ' ')) {
+                                fullUrl = line.trim().substring(5); // '0920 ' 부분 제거
+                                break;
+                            }
+                        }
+
+                        if (!fullUrl) {
+                            alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
                             return;
                         }
                         

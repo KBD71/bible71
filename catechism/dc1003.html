@@ -223,8 +223,8 @@
                     } 
                     // 플레이어가 없는 경우, 새로 생성
                     else {
-                        const audioFilePath = '../address/1003.txt';
-                        
+                        const audioFilePath = '../address/dcaddr.txt';
+
                         fetch(audioFilePath)
                             .then(response => {
                                 if (!response.ok) {
@@ -233,9 +233,26 @@
                                 }
                                 return response.text();
                             })
-                            .then(url => {
-                                if (!url || url.trim() === '') {
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
                                     alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                // 1003 날짜에 해당하는 링크 찾기
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1003'; // 파일명에서 추출한 날짜
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5); // '1003 ' 부분 제거
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
                                     return;
                                 }
 
