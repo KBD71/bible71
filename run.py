@@ -1,7 +1,7 @@
 import os
 import google.generativeai as genai
 from googleapiclient.discovery import build
-from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api import get_transcript as youtube_get_transcript
 from datetime import datetime, timedelta
 
 # --- 설정 (사용자 정의) ---
@@ -49,10 +49,14 @@ def get_latest_video_from_playlist(playlist_id):
 def get_transcript(video_id):
     """유튜브 영상의 스크립트(자막)를 가져옵니다."""
     try:
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=['ko'])
+        # 라이브러리 함수 호출 방식을 직접적이고 명확하게 변경
+        transcript_list = youtube_get_transcript(video_id, languages=['ko'])
         return " ".join([item['text'] for item in transcript_list])
     except Exception as e:
+        # 예외 발생 시 더 상세한 오류 메시지를 출력하도록 개선
+        import traceback
         print(f"스크립트를 가져올 수 없습니다: {e}")
+        traceback.print_exc()
         return None
 
 def generate_html_content(transcript, video_info):
