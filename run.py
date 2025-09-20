@@ -1,8 +1,10 @@
 import os
 import google.generativeai as genai
 from googleapiclient.discovery import build
+# 변경점 1: 라이브러리 함수를 직접, 별명을 붙여서 가져옵니다.
 from youtube_transcript_api import get_transcript as youtube_get_transcript
 from datetime import datetime, timedelta
+import traceback
 
 # --- 설정 (사용자 정의) ---
 YOUTUBE_PLAYLIST_ID = "PLfNjKaA2UoyqqPrAPu4skV75DJk_p5O5V"
@@ -19,7 +21,7 @@ if not GEMINI_API_KEY or not YOUTUBE_API_KEY:
 
 # Gemini API 설정
 genai.configure(api_key=GEMINI_API_KEY)
-gemini_model = genai.GenerativeModel('gemini-1.5-pro-latest') # 긴 텍스트 처리를 위해 1.5 Pro 사용
+gemini_model = genai.GenerativeModel('gemini-1.5-pro-latest')
 
 def get_last_processed_video_id():
     """마지막으로 처리한 영상 ID를 파일에서 읽어옵니다."""
@@ -49,21 +51,16 @@ def get_latest_video_from_playlist(playlist_id):
 def get_transcript(video_id):
     """유튜브 영상의 스크립트(자막)를 가져옵니다."""
     try:
-        # 라이브러리 함수 호출 방식을 직접적이고 명확하게 변경
+        # 변경점 2: 별명으로 가져온 함수를 직접 호출합니다.
         transcript_list = youtube_get_transcript(video_id, languages=['ko'])
         return " ".join([item['text'] for item in transcript_list])
     except Exception as e:
-        # 예외 발생 시 더 상세한 오류 메시지를 출력하도록 개선
-        import traceback
         print(f"스크립트를 가져올 수 없습니다: {e}")
         traceback.print_exc()
         return None
 
 def generate_html_content(transcript, video_info):
     """Gemini API를 호출하여 HTML 콘텐츠를 생성합니다."""
-
-    # 사용자로부터 받은 프롬프트를 여기에 그대로 삽입합니다.
-    # f-string을 사용하여 동적으로 영상 정보를 전달합니다.
     prompt_template = f"""
 [기본 임무] 당신은 제공된 유튜브 설교 영상을 분석하여, 개혁신학적으로 깊이 있고 웹 프-레임워크 환경에서도 완벽하게 렌더링되는 인포그래픽 형태의 학습 자료를 생성하는 전문 콘텐츠 제작자입니다. 당신의 임무는 설교의 논리적 핵심뿐만 아니라 감성적 뉘앙스까지 완벽하게 파악하여, 아래의 모든 지침에 따라 상세하고 가독성 높은 단일 HTML 파일을 생성하는 것입니다.
 
@@ -120,12 +117,10 @@ CSS 스타일링 기술 지침:
 다른 부가 설명 없이, 위 모든 지침을 따라 생성된 index.html 파일의 전체 코드를 담은 단일 코드 블록으로만 응답을 마무리합니다.
 
 아이콘 라이브러리 (Icon Library)
-카테고리설명색상 클래스SVG 코드원리/본질주제의 핵심 정의, 신학적 원리, 기초 개념bg-purple-600<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>목록/규례구체적인 항목, 목록, 지켜야 할 규례 나열bg-blue-600<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042" /></svg>적용/목적삶에 적용하는 방법, 실천적 교훈, 목적 설명bg-emerald-600<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582" /></svg>경고/배격피해야 할 것, 잘못된 것에 대한 경고, 책임bg-rose-600<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.134-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.067-2.09 1.02-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>역사/배경역사적 사건, 성경적 배경, 인물 소개bg-orange-500<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" /></svg>결론/책임최종 결론, 요약, 성도의 책임과 자세bg-gray-600<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166l-1.591 1.591M21.75 12h-2.25m-1.666 5.834L16.409 16.5M4.5 12H2.25m1.666-5.834L5.591 7.5M12 21.75v-2.25" /></svg>
+카테고리설명색상 클래스SVG 코드원리/본질주제의 핵심 정의, 신학적 원리, 기초 개념bg-purple-600<svg xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>목록/규례구체적인 항목, 목록, 지켜야 할 규례 나열bg-blue-600<svg xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0A9.043 9.043 0 0 1 12 6.042" /></svg>적용/목적삶에 적용하는 방법, 실천적 교훈, 목적 설명bg-emerald-600<svg xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582" /></svg>경고/배격피해야 할 것, 잘못된 것에 대한 경고, 책임bg-rose-600<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.134-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.067-2.09 1.02-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>역사/배경역사적 사건, 성경적 배경, 인물 소개bg-orange-500<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" /></svg>결론/책임최종 결론, 요약, 성도의 책임과 자세bg-gray-600<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166l-1.591 1.591M21.75 12h-2.25m-1.666 5.834L16.409 16.5M4.5 12H2.25m1.666-5.834L5.591 7.5M12 21.75v-2.25" /></svg>
 """
-
     try:
         response = gemini_model.generate_content(prompt_template)
-        # Gemini가 생성한 코드 블록(```html ... ```)에서 순수 HTML 코드만 추출
         html_code = response.text.strip()
         if html_code.startswith("```html"):
             html_code = html_code[7:]
@@ -160,12 +155,10 @@ def main():
         print("스크립트를 가져오지 못해 작업을 중단합니다.")
         return
 
-    # 날짜 처리 로직
     published_iso = latest_video['snippet']['publishedAt']
     published_date = datetime.fromisoformat(published_iso.replace('Z', '+00:00')).date()
-    weekday = published_date.weekday() # 월요일=0, 금요일=4, 토요일=5
+    weekday = published_date.weekday()
 
-    # 금요일 또는 토요일 영상이면 다음 날짜로 저장
     if weekday == 4 or weekday == 5:
         published_date += timedelta(days=1)
     
