@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10월 4일 맥체인 성경읽기 (소제목 색상 변경)</title>
+    <style>
+        :root {
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #F4B400;
+            --book4-color: #0F9D58;
+            --integration-color: #808080;
+            --text-color: #212529;
+            --bg-color: #f8f9fa;
+            --card-bg-color: #ffffff;
+            --border-color: #dee2e6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            font-size: 17px;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1280px;
+            width: 100%;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        h1 span {
+            font-size: 1.2rem;
+            color: #6c757d;
+            display: block;
+            margin-top: 0.5rem;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 h3 { color: var(--book4-color); }
+        .integration-card h3 { color: var(--integration-color); }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 1rem;
+        }
+
+        .chapter-card, .integration-card {
+            background-color: var(--card-bg-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2.5rem;
+            padding: 2rem 2.5rem;
+            border-left: 8px solid;
+            overflow: hidden;
+        }
+
+        .card-book1 { border-color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); }
+        .integration-card { border-color: var(--integration-color); }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .card-title svg {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        button {
+            background-color: var(--text-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #000;
+            transform: translateY(-2px);
+        }
+        
+        blockquote {
+            border-left: 4px solid var(--border-color);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: #6c757d;
+        }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             border-bottom: 1px solid var(--border-color);
+             padding-bottom: 1rem;
+             margin-bottom: 1rem;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .close-button {
+            font-size: 2rem;
+            font-weight: bold;
+            line-height: 1;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .modal-body {
+            font-size: 16px;
+        }
+
+        /* Audio Player FAB */
+        .audio-player-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--text-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: transform 0.3s ease;
+        }
+        
+        .audio-player-fab:hover {
+            transform: scale(1.1);
+        }
+
+        .audio-player-fab svg {
+            width: 28px;
+            height: 28px;
+        }
+        
+        #youtube-player {
+            display: none;
+        }
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>10월 4일
+                <span>맥체인 성경읽기</span>
+            </h1>
+        </header>
+
+        <main>
+            <!-- Card 1: 1 Kings 7 -->
+            <section class="chapter-card card-book1">
+                <div class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="var(--book1-color)" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                    <div>
+                        <h2>열왕기상 7장</h2>
+                        <p>솔로몬의 궁전과 성전 기물 제작</p>
+                    </div>
+                </div>
+                <h3>개요</h3>
+                <p>열왕기상 7장은 성전 건축(6장)에 이어, 13년에 걸쳐 지어진 솔로몬 자신의 왕궁 건축과 성전에서 사용될 거룩한 기물들의 제작 과정을 상세히 기록합니다. 특히 히람이 만든 두 놋기둥 '야긴'과 '보아스', 그리고 거대한 '놋바다'는 하나님의 영광과 언약의 견고함을 상징적으로 보여주는 중요한 요소입니다.</p>
+                
+                <h3>신학적 해설</h3>
+                <p><strong>하나님의 집과 왕의 집:</strong> 성전 건축이 7년, 왕궁 건축이 13년이 걸렸다는 사실은 단순히 기간의 차이를 넘어 중요한 신학적 의미를 가집니다. 성전이 하나님의 임재와 통치를 상징하는 중심이라면, 왕궁은 그 통치를 위임받은 지상의 대리자인 왕의 권위를 보여줍니다. 이 두 건축물의 공존은 신정 국가 이스라엘의 정체성을 드러냅니다. 그러나 왕궁 건축 기간이 더 길었다다는 점은 인간적인 영광에 대한 미묘한 경고로도 읽을 수 있으며, 이후 솔로몬의 타락을 암시하는 복선이 됩니다. 개혁주의적 관점에서, 이 땅의 모든 권세는 궁극적으로 하나님의 주권 아래 있으며, 그분의 영광을 위해 사용될 때만 참된 의미를 가집니다.</p>
+
+                <p><strong>야긴과 보아스 (언약의 두 기둥):</strong> 성전 입구에 세워진 두 기둥 '야긴'('그가 세우신다')과 '보아스'('그에게 능력이 있다')는 단순한 장식물이 아닙니다. 이는 하나님의 언약에 대한 신앙 고백입니다. 즉, 이 성전과 나라는 인간의 힘이 아닌 '하나님께서 친히 세우시고 그의 능력으로 지키신다'는 의미입니다. 이 기둥들은 이스라엘 백성이 성전에 들어갈 때마다 하나님의 주권적인 은혜와 능력에 대한 언약을 기억하게 하는 시각적 설교였습니다. 오늘날 교회는 그리스도라는 더 견고한 반석 위에 세워졌으며, 그분의 능력으로 유지됩니다. 우리는 눈에 보이는 건물이 아니라, 그리스도 안에서 하나님의 언약의 백성으로 함께 세워져 가는 '성전'입니다(엡 2:20-22).</p>
+                
+                <h3>성경 본문 보기</h3>
+                <div class="button-group">
+                    <button onclick="openBibleModal('../bible_html/OT/OT_11_1KI_07.html', '열왕기상 7장')">열왕기상 7장 전체 보기</button>
+                </div>
+            </section>
+
+            <!-- Card 2: Ephesians 4 -->
+            <section class="chapter-card card-book2">
+                <div class="card-title">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="var(--book2-color)" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                    <div>
+                        <h2>에베소서 4장</h2>
+                        <p>성령이 하나 되게 하신 것</p>
+                    </div>
+                </div>
+                <h3>개요</h3>
+                <p>에베소서 4장은 교리적인 전반부(1-3장)에서 실천적인 후반부(4-6장)로 넘어가는 전환점입니다. 바울은 '부르심에 합당하게 행하라'고 권면하며, 교회의 본질적 특성인 '하나 됨'(Unity)을 강조합니다. 이 하나 됨은 성령 안에서 이미 주어진 것이며, 성도들은 이를 힘써 지켜야 합니다. 또한 그리스도께서 각 사람에게 주신 은사를 통해 교회가 어떻게 유기적으로 성장하는지를 설명합니다.</p>
+                
+                <h3>신학적 해설</h3>
+                <p><strong>하나 됨의 기초 (삼위일체 하나님):</strong> 바울이 강조하는 교회의 하나 됨은 인간적인 노력이나 조직의 연합이 아닙니다. 그 근거는 '주도 한 분이시요 믿음도 하나요 세례도 하나요 하나님도 한 분'(4:5-6)이라는 삼위일체 하나님께 있습니다. 성부, 성자, 성령의 내재적 연합이 교회의 하나 됨의 원형이자 기초입니다. 개혁주의 신학은 교회를 '선택된 백성들의 유기적 연합체'로 이해하며, 이 연합은 인간의 의지가 아닌 하나님의 주권적인 부르심과 성령의 사역에 근거한다고 봅니다. 따라서 하나 됨을 '만드는 것'이 아니라, 성령이 이미 이루신 하나 됨을 겸손과 온유로 '지키는 것'이 성도의 과제입니다.</p>
+                
+                <p><strong>은사와 교회의 성장:</strong> 그리스도께서는 승천하시면서 교회에 다양한 은사(사도, 선지자, 복음 전하는 자, 목사와 교사)를 주셨습니다. 이 은사들의 목적은 '성도를 온전하게 하여 봉사의 일을 하게 하며 그리스도의 몸을 세우려 하심'(4:12)입니다. 각 지체는 받은 은사를 따라 섬김으로써, 교회 전체가 '그리스도의 장성한 분량이 충만한 데까지' 함께 자라갑니다. 이는 교회의 성장이 특정 개인의 카리스마에 의존하는 것이 아니라, 모든 성도가 각자의 자리에서 말씀의 원리에 따라 유기적으로 연결되고 기능할 때 이루어짐을 보여줍니다. 교회는 단순한 조직이 아니라 생명을 가진 그리스도의 몸입니다.</p>
+
+                <h3>성경 본문 보기</h3>
+                <div class="button-group">
+                    <button onclick="openBibleModal('../bible_html/NT/NT_49_EPH_04.html', '에베소서 4장')">에베소서 4장 전체 보기</button>
+                </div>
+            </section>
+            
+            <!-- Card 3: Ezekiel 37 -->
+            <section class="chapter-card card-book3">
+                <div class="card-title">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="var(--book3-color)" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                    <div>
+                        <h2>에스겔 37장</h2>
+                        <p>마른 뼈들의 환상</p>
+                    </div>
+                </div>
+                <h3>개요</h3>
+                <p>에스겔 37장은 성경에서 가장 극적인 환상 중 하나인 '마른 뼈 골짜기' 환상을 담고 있습니다. 하나님께서는 선지자 에스겔에게 완전히 말라버린 뼈들이 다시 살아나 큰 군대를 이루는 모습을 보여주심으로써, 절망적인 상태에 빠진 이스라엘의 회복을 약속하십니다. 이 환상은 하나님의 창조적 능력과 언약에 대한 신실하심을 강력하게 증거합니다.</p>
+                
+                <h3>신학적 해설</h3>
+                <p><strong>전적인 무능과 하나님의 주권적 능력:</strong> 골짜기에 가득한 '심히 마른 뼈들'은 소망이 완전히 끊어진 이스라엘의 영적 상태를 상징합니다. 그들은 스스로 살아날 가능성이 전혀 없는, 전적으로 무능한 상태입니다. 이때 하나님은 에스겔에게 "이 뼈들이 능히 살 수 있겠느냐"고 물으시고, 에스겔은 "주 여호와여 주께서 아시나이다"라고 답합니다. 이 대화는 구원이 인간의 가능성이 아닌 오직 하나님의 주권적인 능력과 지식에 달려있음을 명확히 합니다. 개혁주의의 '전적 타락' 교리는 바로 이 마른 뼈와 같은 인간의 상태를 설명합니다. 스스로 하나님을 찾거나 구원에 이를 수 없는 영적 죽음의 상태에서, 오직 하나님의 말씀과 성령의 사역만이 생명을 줄 수 있습니다.</p>
+
+                <p><strong>말씀과 성령 (중생의 두 요소):</strong> 뼈들이 살아나는 과정은 두 단계로 이루어집니다. 첫째, 에스겔이 하나님의 말씀을 '대언'하자 뼈들이 서로 연결되고 힘줄과 살이 입혀집니다. 둘째, '생기'(히브리어 '루아흐', 성령을 의미)가 그들에게 들어가자 비로소 살아나 군대를 이룹니다. 이는 개인의 구원(중생)과 교회의 탄생에 말씀과 성령이 필수적임을 보여주는 강력한 모형입니다. 말씀 선포는 구원의 방편이며, 성령께서는 그 말씀을 통해 죽은 영혼에 생명을 불어넣으십니다. 이 환상은 바벨론 포로로부터의 민족적 회복을 넘어, 그리스도를 통해 이루어질 영적 죽음에서의 부활과 새 언약 백성의 탄생을 예표합니다.</p>
+                
+                <h3>성경 본문 보기</h3>
+                <div class="button-group">
+                    <button onclick="openBibleModal('../bible_html/OT/OT_26_EZE_37.html', '에스겔 37장')">에스겔 37장 전체 보기</button>
+                </div>
+            </section>
+            
+            <!-- Card 4: Psalms 87-88 -->
+            <section class="chapter-card card-book4">
+                <div class="card-title">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="var(--book4-color)" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                    <div>
+                        <h2>시편 87-88편</h2>
+                        <p>시온의 영광과 극심한 고통의 탄식</p>
+                    </div>
+                </div>
+                <h3>개요</h3>
+                <p>시편 87편과 88편은 극명한 대조를 이룹니다. 87편은 하나님의 도성 시온의 영광과 그곳에서 태어날 열방을 노래하는 환희에 찬 찬송입니다. 반면 88편은 시편 전체에서 가장 어둡고 절망적인 탄식 시로, 한 줄기 빛도 없이 오직 고통과 버림받음의 현실을 토로합니다. 이 두 시편을 함께 읽으며 우리는 신앙의 양면성, 즉 영광스러운 소망과 처절한 현실 사이의 긴장을 마주하게 됩니다.</p>
+
+                <h3>신학적 해설</h3>
+                <p><strong>시온의 영광과 교회의 보편성 (시편 87편):</strong> 87편은 하나님께서 거하시는 시온(예루살렘)을 모든 장소 위에 뛰어나게 사랑하신다고 선포합니다. 놀라운 점은 애굽(라합), 바벨론, 블레셋, 구스 등 이스라엘의 원수였던 이방 민족들이 시온에서 태어난 자로 등록될 것이라는 예언입니다. 이는 구속사의 관점에서 매우 중요한 통찰을 제공합니다. 구약의 시온은 장차 세워질 그리스도의 몸 된 교회를 예표합니다. 이 교회는 혈통이나 민족을 넘어, 믿음으로 그리스도 안에서 태어난 모든 열방을 포함하는 보편적(catholic) 공동체입니다. 시편 87편은 하나님의 구원 계획이 처음부터 온 세상을 향하고 있었음을 보여주는 증거입니다.</p>
+
+                <p><strong>십자가의 어둠을 예표하는 탄식 (시편 88편):</strong> 88편은 "흑암만이 나의 벗"이라는 처절한 고백으로 끝나는 유일한 탄식 시입니다. 시인은 하나님의 진노 아래 있으며, 친구와 이웃에게서 끊어지고, 죽음의 문턱에 이르렀다고 절규합니다. 이 시는 해결되지 않는 고난 속에서 신음하는 성도의 현실을 정직하게 반영합니다. 더 나아가, 이 시의 가장 깊은 의미는 예수 그리스도의 고난에서 발견됩니다. 겟세마네 동산과 십자가 위에서 모든 이에게 버림받고 "나의 하나님, 나의 하나님, 어찌하여 나를 버리셨나이까"라고 외치셨던 그리스도는 88편의 고통을 온몸으로 체현하셨습니다. 그러므로 우리는 가장 깊은 절망 속에서도, 우리의 고통을 남김없이 이해하시고 우리를 위해 그 길을 먼저 가신 그리스도께 나아갈 수 있습니다.</p>
+
+                <h3>성경 본문 보기</h3>
+                <div class="button-group">
+                    <button onclick="openBibleModal('../bible_html/OT/OT_19_PSA_87.html', '시편 87편')">시편 87편 전체 보기</button>
+                    <button onclick="openBibleModal('../bible_html/OT/OT_19_PSA_88.html', '시편 88편')">시편 88편 전체 보기</button>
+                </div>
+            </section>
+
+            <!-- Integration Card -->
+            <section class="integration-card">
+                <div class="card-title">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="var(--integration-color)" viewBox="0 0 24 24"><path d="M12.5 3.5c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm6.5 15.5H5v-2h14v2zm-4-3H9v-2h6v2zm4-3H5v-2h14v2zM19 8H5V6h14v2z"/></svg>
+                    <div>
+                        <h2>오늘의 통합적 묵상</h2>
+                        <p>하나님의 집을 세우는 능력과 고난</p>
+                    </div>
+                </div>
+                <h3>관통하는 주제</h3>
+                <p>오늘의 네 본문은 '하나님의 집'(성전, 교회, 회복된 이스라엘)이 어떻게 세워지는지를 다각적으로 조명합니다. 열왕기상은 인간의 기술과 재물을 총동원하여 가시적인 하나님의 집을 짓는 모습을 보여줍니다. 에베소서는 눈에 보이지 않는 영적인 집, 즉 교회가 그리스도의 은사와 성도들의 연합을 통해 세워짐을 가르칩니다. 에스겔서는 절망적인 죽음의 상태에서 오직 하나님의 말씀과 성령의 능력으로 새로운 생명의 공동체가 창조되는 과정을 보여줍니다.</p>
+                <p>그리고 이 모든 과정의 이면에는 시편 88편의 깊은 어둠이 존재합니다. 하나님의 집은 화려함과 영광(시 87)만으로 세워지지 않습니다. 그 기초에는 반드시 고난과 죽음, 그리고 그것을 뚫고 나오는 부활의 능력이 있습니다. 솔로몬의 성전도, 에베소 교회도, 에스겔의 군대도 궁극적으로는 십자가의 고난(시 88)을 통과하시고 부활하심으로 참 성전이 되시고 교회의 머리가 되신 예수 그리스도를 가리킵니다. 그분 안에서 마른 뼈 같은 우리가 살아나 한 몸을 이루고(엡 4), 열방이 함께 하나님의 백성으로 등록되는(시 87) 놀라운 영광에 참여하게 됩니다. 따라서 우리는 신앙의 여정에서 마주하는 고난을 이상하게 여기지 말고, 오히려 우리를 그리스도와 연합시켜 그의 몸을 세워가는 과정으로 이해해야 합니다.</p>
+                
+                <h3>핵심 단어 연구</h3>
+                <p><strong>רוּחַ (루아흐)</strong> - 에스겔 37장에서 '생기', '영', '바람', '호흡'으로 번역되는 이 단어는 구약에서 하나님의 창조적이고 생명을 주는 능력을 나타내는 핵심 용어입니다. 물리적인 바람부터 인간의 영, 그리고 하나님의 영(성령)까지 폭넓게 사용됩니다. 에스겔 37장에서 '루아흐'는 네 번 등장하며(바람, 생기, 내 영) 점층적으로 하나님의 생명 창조 사역의 핵심임을 보여줍니다. 이것은 단순한 생명력이 아니라, 하나님의 인격적인 능력이며, 언약을 성취하시는 성령의 사역을 예표합니다. 태초에 수면 위를 운행하시던(창 1:2) 바로 그 '하나님의 영'이 마른 뼈들을 살려 새 창조를 이루십니다. 신약의 성도들은 이 '루아흐', 즉 성령으로 거듭나고 인치심을 받은 존재입니다(엡 1:13).</p>
+
+                <h3>본문 간 상호 참조</h3>
+                <ul>
+                    <li><strong>능력으로 세우심:</strong> 구약의 성전 기둥이 "그가 세우신다"(야긴), "그에게 능력이 있다"(보아스)는 이름으로 하나님의 주권을 선포했듯이(<strong>왕상 7:21</strong>), 신약의 교회는 머리 되신 그리스도로부터 오는 능력으로 온 몸이 연결되고 세워져 갑니다(<strong>엡 4:16</strong>).</li>
+                    <li><strong>성령으로 살리시고 하나되게 하심:</strong> 하나님께서는 죽은 이스라엘 속에 "내 영을 두어 너희가 살아나게" 하실 것을 약속하셨고(<strong>겔 37:14</strong>), 그 성령은 신약의 교회를 "하나 되게 하신" 분으로서, 성도들은 그 연합을 힘써 지켜야 합니다(<strong>엡 4:3</strong>).</li>
+                     <li><strong>열방을 품는 하나님의 집:</strong> 이방의 원수들까지도 시온에서 태어난 자로 인정받게 될 것이라는 비전(<strong>시 87:4-5</strong>)은, 그리스도 안에서 모든 믿는 자가 "서로 지체"가 되어 한 몸을 이루는 교회의 신비로 성취됩니다(<strong>엡 4:25</strong>).</li>
+                </ul>
+
+                <h3>묵상을 위한 질문</h3>
+                <ol>
+                    <li>나는 내 삶의 자원(시간, 재능, 물질)을 하나님의 집(교회, 하나님 나라)을 세우는 데 어떻게 사용하고 있습니까? 솔로몬의 건축과 나의 헌신을 비교하며 묵상해 봅시다.</li>
+                    <li>에스겔의 마른 뼈 환상처럼, 내 삶이나 공동체에서 완전히 소망이 끊어졌다고 느끼는 영역은 어디입니까? 그곳에 하나님의 말씀과 성령의 생기가 임하기를 어떻게 기도하고 있습니까?</li>
+                    <li>교회의 하나 됨(엡 4장)을 지키기 위해 내가 오늘 실천해야 할 구체적인 겸손과 온유, 오래 참음은 무엇입니까? 또한 시편 88편의 고통과 같이 이해할 수 없는 고난 속에서도 나는 어떻게 하나님께 정직하게 나아가고 있습니까?</li>
+                </ol>
+
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 KBD 맥체인 성경읽기 프로젝트</p>
+        </footer>
+    </div>
+    
+    <!-- Audio Player FAB -->
+    <div class="audio-player-fab" id="audio-fab" onclick="togglePlayPause()">
+        <!-- Play Icon -->
+        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+        <!-- Pause Icon (hidden by default) -->
+        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" style="display:none;">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+    </div>
+    <div id="youtube-player"></div>
+
+    <!-- Bible Modal -->
+    <div class="modal-backdrop" id="bible-modal" onclick="closeModalOnClick(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title-text"></h2>
+                <button class="close-button" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body-content">
+                <p>본문을 불러오는 중입니다...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- YouTube IFrame Player API ---
+        const videoId = ''; // No video ID provided for this date.
+        let player;
+        let isPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            if (videoId) {
+                player = new YT.Player('youtube-player', {
+                    height: '0',
+                    width: '0',
+                    videoId: videoId,
+                    playerVars: {
+                        'playsinline': 1
+                    },
+                    events: {
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                 const audioFab = document.getElementById('audio-fab');
+                 audioFab.style.backgroundColor = '#6c757d'; // grey out
+                 audioFab.title = "오디오 자료 없음";
+                 audioFab.style.cursor = 'not-allowed';
+                 audioFab.onclick = null; // disable click
+            }
+        }
+        
+        function onPlayerStateChange(event) {
+            isPlaying = (event.data == YT.PlayerState.PLAYING);
+            updatePlayPauseIcon();
+        }
+
+        function togglePlayPause() {
+            if (!player) return;
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+        
+        function updatePlayPauseIcon() {
+            document.getElementById('play-icon').style.display = isPlaying ? 'none' : 'block';
+            document.getElementById('pause-icon').style.display = isPlaying ? 'block' : 'none';
+        }
+
+        // --- Bible Modal Logic ---
+        const modal = document.getElementById('bible-modal');
+        const modalTitle = document.getElementById('modal-title-text');
+        const modalBody = document.getElementById('modal-body-content');
+
+        function openBibleModal(filePath, title) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = '<p>본문을 불러오는 중입니다...</p>';
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('네트워크 오류 또는 파일을 찾을 수 없습니다.');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    modalBody.innerHTML = html;
+                })
+                .catch(error => {
+                    modalBody.innerHTML = `<p style="color:red;">본문을 불러오는 데 실패했습니다. 파일 경로를 확인해주세요: ${filePath}</p><p>오류: ${error.message}</p>`;
+                });
+        }
+        
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnClick(event) {
+            // Close modal if the backdrop is clicked, but not the content inside
+            if (event.target === modal) {
+                 closeModal();
+            }
+        }
+
+        // Load YouTube API script
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    </script>
+</body>
+</html>
+
