@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10월 3일 맥체인 성경읽기</title>
+    <style>
+        :root {
+            --font-size-base: 17px;
+            --line-height-base: 1.8;
+            --color-text: #212529;
+            --color-primary: #0d6efd;
+            --max-width: 1280px;
+
+            --color-book1: #4285F4;
+            --color-book2: #DB4437;
+            --color-book3: #F4B400;
+            --color-book4: #0F9D58;
+            --color-integration: #808080;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: var(--color-text);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 0.8rem;
+            margin-top: 3.5rem;
+            margin-bottom: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            margin-bottom: 1.25rem;
+        }
+        strong {
+            font-weight: 600;
+        }
+        .card {
+            background-color: #fff;
+            border-left: 8px solid;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .card-book1 { border-color: var(--color-book1); }
+        .card-book1 h3 { color: var(--color-book1); }
+        .card-book2 { border-color: var(--color-book2); }
+        .card-book2 h3 { color: var(--color-book2); }
+        .card-book3 { border-color: var(--color-book3); }
+        .card-book3 h3 { color: var(--color-book3); }
+        .card-book4 { border-color: var(--color-book4); }
+        .card-book4 h3 { color: var(--color-book4); }
+        .integration-card { border-color: var(--color-integration); }
+        .integration-card h3 { color: var(--color-integration); }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .btn {
+            display: inline-block;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            background-color: #6c757d;
+            border: 1px solid transparent;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 0.3rem;
+            text-decoration: none;
+            transition: background-color 0.15s ease-in-out;
+        }
+        .btn-view { background-color: #343a40; }
+        .btn-view:hover { background-color: #23272b; }
+        .btn-listen { background-color: #198754; }
+        .btn-listen:hover { background-color: #157347; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 900px;
+            height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .modal-content-inner {
+             font-family: 'KoPub Batang', serif;
+             font-size: 18px;
+             line-height: 2;
+        }
+
+        #audio-player-bar {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            width: 100%;
+            background-color: #212529;
+            color: #fff;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1010;
+            transition: bottom 0.3s ease-in-out;
+        }
+        #audio-player-bar.visible {
+            bottom: 0;
+        }
+        #player-info {
+            font-weight: 500;
+        }
+        #player-controls button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        #youtube-player {
+            display: none;
+        }
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 1px solid #dee2e6;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>10월 3일</h1>
+            <p>맥체인 성경읽기표</p>
+        </header>
+
+        <main>
+            <div id="content-cards">
+                <div class="card card-book1 chapter-card">
+                    <h2>열왕기상 6장</h2>
+                    <h3>상세 개요: 솔로몬 성전 건축</h3>
+                    <p>열왕기상 6장은 솔로몬이 이스라엘의 하나님 여호와를 위하여 성전을 건축하는 과정을 상세히 기록합니다. 이 장은 성전 건축의 시작 시점(출애굽 후 480년, 솔로몬 통치 4년)을 명시하며 그 역사적 중요성을 강조합니다. 성전의 규모, 구조(성소와 지성소), 사용된 재료(백향목, 잣나무, 금), 그리고 내부 장식(그룹, 종려, 꽃 형상) 등이 정교하게 묘사됩니다. 건축 과정에서 돌을 다듬는 소리가 들리지 않도록 현장에서 조용히 작업한 점은 하나님의 집에 대한 경외심을 보여줍니다. 특히, 하나님께서는 솔로몬에게 나타나셔서, 그가 하나님의 율례와 법도를 따르면 이스라엘 가운데 거하시고 그들을 버리지 않으실 것이라는 언약적 약속을 재확인하십니다. 이는 성전이 단순한 건물이 아니라, 하나님께서 그의 백성과 함께하시는 언약적 임재의 상징임을 분명히 합니다.</p>
+                    <h3>심층 신학적 해설</h3>
+                    <p><strong>1. 하나님의 임재와 언약의 가시적 상징としての 성전:</strong> 솔로몬 성전은 눈에 보이지 않는 하나님께서 그의 백성 가운데 거하신다는 약속의 가시적 실체입니다. 성전의 모든 구조와 장식은 하나님의 거룩하심과 영광을 드러내도록 설계되었습니다. 지성소에 순금으로 입히고 언약궤를 두는 것은 하나님의 임재의 중심을 상징하며, 이는 하나님과의 언약 관계가 이스라엘의 모든 것의 핵심임을 보여줍니다. 그러나 하나님은 건물 자체에 갇히시는 분이 아님을 분명히 하십니다(왕상 8:27). 성전의 진정한 의미는 건물이 아니라, 그곳에 임재하시는 하나님과 그의 백성이 맺는 언약적 관계에 있습니다. 하나님께서 솔로몬에게 순종을 조건으로 임재를 약속하신 것은, 성전이 하나님의 백성에게 요구되는 거룩한 삶의 중심임을 가르칩니다.</p>
+                    <p><strong>2. 구속사의 예표로서의 성전:</strong> 솔로몬의 성전은 장차 오실 참 성전이신 예수 그리스도를 예표합니다. 요한복음 2장 19-21절에서 예수님은 자신의 몸을 가리켜 성전이라 말씀하심으로, 자신이 하나님께서 인간 가운데 거하시는 궁극적인 처소임을 선언하셨습니다. 성전의 정교한 재료와 아름다움은 흠 없고 완전하신 그리스도의 신성과 인성의 영광을 희미하게 보여줄 뿐입니다. 또한, 성전 건축 과정에서 돌 뜨는 소리가 들리지 않았던 것은, 그리스도께서 십자가 위에서 "소리 없이" 자신을 희생 제물로 드림으로 교회를 세우실 것을 예표하는 것으로 해석할 수 있습니다. 구약의 성전은 그림자요, 그 실체는 오직 예수 그리스도이십니다.</p>
+                    <div class="btn-group">
+                        <button class="btn btn-view" data-path="OT/OT_11_1KI_06.html">본문 보기</button>
+                        <button class="btn btn-listen" data-key="1KI_6" data-title="열왕기상 6장">성경 듣기</button>
+                    </div>
+                </div>
+
+                <div class="card card-book2 chapter-card">
+                    <h2>에베소서 3장</h2>
+                    <h3>상세 개요: 이방인을 향한 구원의 신비</h3>
+                    <p>에베소서 3장에서 사도 바울은 자신이 '그리스도의 비밀'을 맡은 청지기임을 밝힙니다. 그 비밀의 핵심은 이방인들이 복음을 통해 그리스도 예수 안에서 유대인과 함께 상속자가 되고, 함께 지체가 되며, 함께 약속에 참여하는 자가 되는 것입니다. 이것은 과거 세대에게는 감추어졌던 신비였으나, 이제 성령으로 사도들과 선지자들에게 나타내셨습니다. 바울은 이 비밀을 전파하기 위해 자신이 모든 성도 중에 지극히 작은 자보다 더 작음에도 불구하고, 측량할 수 없는 그리스도의 풍성함을 이방인에게 전하는 은혜를 받았다고 고백합니다. 그는 교회를 통해 하늘에 있는 통치자들과 권세들에게 하나님의 각종 지혜를 알게 하려 하심이라는 원대한 목적을 제시하며, 성도들이 속사람의 능력으로 강건해지고, 믿음으로 그리스도께서 마음에 계시게 되기를 간구합니다. 그의 기도는 성도들이 지식에 넘치는 그리스도의 사랑을 알아 하나님의 모든 충만하심으로 채워지기를 바라는 소망으로 절정에 이릅니다.</p>
+                    <h3>심층 신학적 해설</h3>
+                    <p><strong>1. 교회, 하나님의 비밀이 계시된 공동체:</strong> 바울이 말하는 '비밀'(μυστήριον, 미스테리온)은 이방인과 유대인이 그리스도 안에서 아무런 차별 없이 한 몸, 즉 교회를 이룬다는 놀라운 진리입니다. 이는 구약 시대에는 온전히 드러나지 않았던 하나님의 구원 계획의 절정입니다. 교회는 단순히 구원받은 개인들의 모임이 아니라, 오랫동안 존재했던 장벽(율법, 인종, 문화)을 허무신 그리스도의 십자가 사역의 결과물이며, 하나님의 지혜와 경륜을 온 우주에 선포하는 증거 공동체입니다. 개혁주의 신학은 교회를 구원의 복음이 선포되고 성례가 집행되며, 성도들이 그리스도의 몸으로 세워져 가는 '어머니'와 같은 존재로 이해합니다. 에베소서 3장은 이러한 교회의 영광스러운 정체성을 웅변적으로 보여줍니다.</p>
+                    <p><strong>2. 그리스도의 내주(內住)와 성도의 충만:</strong> 바울의 기도는 단순히 지적인 앎을 넘어, 그리스도의 사랑을 체험적으로 알고 그분과의 깊은 연합에 이르는 것을 목표로 합니다. "믿음으로 말미암아 그리스도께서 너희 마음에 계시게 하시옵고"라는 기도는, 그리스도께서 신자의 삶의 주인이 되시어 그 인격과 삶 전체를 다스리시는 것을 의미합니다. 이 내주하시는 그리스도와의 교제를 통해 성도는 '하나님의 모든 충만하신 것으로 충만하게' 됩니다. 이것은 성화의 과정이며, 성령 하나님의 능력으로만 가능합니다. 성전이 하나님의 충만한 영광이 거하는 장소였듯이, 이제는 그리스도를 모신 성도 한 사람 한 사람과 교회 공동체가 하나님의 충만이 거하는 새로운 성전이 됩니다. 이는 인간의 노력이 아닌, 우리 안에서 능력으로 역사하시는 하나님의 은혜로 이루어집니다.</p>
+                    <div class="btn-group">
+                        <button class="btn btn-view" data-path="NT/NT_10_EPH_03.html">본문 보기</button>
+                        <button class="btn btn-listen" data-key="EPH_3" data-title="에베소서 3장">성경 듣기</button>
+                    </div>
+                </div>
+
+                <div class="card card-book3 chapter-card">
+                    <h2>에스겔 36장</h2>
+                    <h3>상세 개요: 이스라엘의 회복과 새 마음</h3>
+                    <p>에스겔 36장은 이스라엘의 완전한 회복에 대한 하나님의 강력한 약속을 담고 있습니다. 하나님은 먼저 이스라엘을 조롱하고 황폐하게 만든 주변 민족들을 심판하실 것을 선언하십니다. 이어서, 포로 된 백성을 모든 나라 가운데서 모아내어 그들의 고국 땅으로 돌아오게 하실 것을 약속하십니다. 이 회복은 단순한 물리적 귀환을 넘어, 영적이고 내적인 정결과 변화를 포함합니다. 하나님은 "맑은 물을 너희에게 뿌려서 너희로 정결하게 하되 곧 너희 모든 더러운 것에서와 모든 우상 숭배에서 너희를 정결하게 할 것이라"고 말씀하십니다. 더 나아가, 하나님은 그들의 돌 같은 굳은 마음을 제거하고 살처럼 부드러운 새 마음을 주시며, 그의 영(성령)을 그들 속에 두어 하나님의 율례를 행하게 하실 것이라고 약속하십니다. 이 모든 회복의 목적은 이스라엘의 자격 때문이 아니라, 열방 가운데서 더럽혀진 하나님의 거룩한 이름을 위하여 행하시는 것임을 분명히 밝힙니다. 이로써 열방은 여호와가 하나님이신 줄 알게 될 것입니다.</p>
+                    <h3>심층 신학적 해설</h3>
+                    <p><strong>1. 새 언약의 핵심: 내적 변화와 성령의 내주:</strong> 에스겔 36장의 약속은 예레미야 31장에 나타난 '새 언약'의 핵심을 구체적으로 보여줍니다. 옛 언약이 율법을 돌 판에 새겨 외부적인 순종을 요구했다면, 새 언약은 하나님의 법을 마음 판에 새기고(새 마음), 순종할 수 있는 능력(새 영, 즉 성령)을 부어주시는 것을 특징으로 합니다. '돌 같은 마음'을 '부드러운 살 같은 마음'으로 바꾸시는 것은 전적인 중생(Regeneration)의 사역이며, 이는 오직 성령 하나님만이 하실 수 있는 주권적인 역사입니다. 이것은 인간의 결단이나 노력이 아닌, 위로부터 오는 하나님의 창조적인 능력의 결과입니다. 이 약속은 오순절 성령 강림을 통해 성취되었으며, 오늘날 모든 신자는 성령의 내주하심을 통해 이 새 언약의 복을 누립니다.</p>
+                    <p><strong>2. 하나님의 영광을 위한 구원 (Soli Deo Gloria):</strong> 본문은 구원의 궁극적인 목적이 인간의 행복이나 만족을 넘어, 하나님의 거룩한 이름과 영광에 있음을 강력하게 선포합니다. "이스라엘 족속아 내가 이렇게 행함은 너희를 위함이 아니요 너희가 들어간 그 여러 나라에서 더럽힌 나의 거룩한 이름을 위함이라"(22절). 이스라엘의 죄는 하나님의 이름을 더럽혔고, 그들의 회복은 하나님의 이름의 거룩함을 회복하는 사건입니다. 이 신학은 개혁주의의 핵심 원리인 '오직 하나님께 영광'(Soli Deo Gloria)과 정확히 일치합니다. 우리의 구원은 처음부터 끝까지 하나님의 주권적인 은혜의 결과이며, 따라서 모든 영광은 구원의 계획자이시요 성취자이신 삼위일체 하나님께만 돌려져야 합니다.</p>
+                    <div class="btn-group">
+                        <button class="btn btn-view" data-path="OT/OT_26_EZK_36.html">본문 보기</button>
+                        <button class="btn btn-listen" data-key="EZK_36" data-title="에스겔 36장">성경 듣기</button>
+                    </div>
+                </div>
+
+                <div class="card card-book4 chapter-card">
+                    <h2>시편 86편</h2>
+                    <h3>상세 개요: 곤고한 자의 기도</h3>
+                    <p>시편 86편은 "다윗의 기도"라는 표제어가 붙은 유일한 시편 중 하나로, 곤고하고 궁핍한 자가 하나님께 드리는 간절한 탄원입니다. 시인은 자신이 "경건하오니"(하씨드, 언약에 신실한 자) 주의 종을 구원해달라고 호소하며 시작합니다. 그는 종일 주께 부르짖으며, 오직 주님만이 자신의 소망임을 고백합니다. 이 시의 특징은 하나님의 성품에 대한 깊은 신뢰를 바탕으로 기도가 전개된다는 점입니다. 시인은 "주는 선하사 사죄하기를 즐거워하시며 주께 부르짖는 자에게 인자함이 후하심이니이다"라고 고백하며, 모든 신들 위에 뛰어나신 하나님의 유일성과 위대하심을 찬양합니다. 그는 대적들의 위협 속에서, 주께서 자신에게 "주의 도를 가르치소서"라고 구하며 진리 안에서 행하고 마음을 다해 주를 경외하게 해달라고 기도합니다. 마지막으로 그는 주께서 자신을 도우시고 위로하시는 "은총의 표적"을 보여주시어, 원수들이 부끄러움을 당하게 해달라고 간구하며 기도를 마칩니다.</p>
+                    <h3>심층 신학적 해설</h3>
+                    <p><strong>1. 언약적 신실함(헤세드)에 근거한 기도:</strong> 시인은 자신의 의로움이 아니라, 하나님의 언약적 사랑과 신실하심(헤세드)에 근거하여 담대하게 기도합니다. 그가 자신을 '경건한 자'(하씨드)라고 칭하는 것은 도덕적 완전함을 자랑하는 것이 아니라, 자신을 하나님의 언약 백성으로 여기며 그 언약에 신실하신 하나님께 의존하고 있음을 표현하는 것입니다. 특히 15절에서 "주께서는 긍휼히 여기시며 은혜를 베푸시며 노하기를 더디하시며 인자와 진실이 풍성하신 하나님이시오니"라는 고백은, 출애굽기 34장 6-7절에 나타난 하나님의 자기 계시를 그대로 인용하는 것으로, 그의 기도가 하나님의 계시된 성품에 깊이 뿌리내리고 있음을 보여줍니다. 우리의 기도는 우리의 감정이나 상황이 아니라, 변치 않으시는 하나님의 성품과 약속에 근거할 때 가장 강력한 힘을 발휘합니다.</p>
+                    <p><strong>2. 고난 중에 드리는 중보자 그리스도의 기도:</strong> 시편 86편의 기도는 고난받는 의인의 부르짖음으로서, 궁극적으로는 우리의 대제사장이신 예수 그리스도의 기도를 예표합니다. 예수님께서는 이 땅에서 "심한 통곡과 눈물로 간구와 소원을 올렸고"(히 5:7), 십자가 위에서 원수들을 위해 기도하셨습니다. 시인이 구하는 "은총의 표적"의 궁극적인 성취는 바로 예수 그리스도의 부활입니다. 부활은 하나님께서 그리스도의 기도를 들으셨으며, 그를 대적들로부터 건져내시고 높이셨다는 가장 확실한 표적입니다. 이제 우리는 그리스도의 이름으로, 그분 안에서 하나님께 나아갑니다. 우리의 연약한 기도는 하늘 보좌 우편에서 우리를 위해 간구하시는 그리스도의 중보 기도를 통해 하나님께 상달됩니다.</p>
+                    <div class="btn-group">
+                        <button class="btn btn-view" data-path="OT/OT_19_PSA_086.html">본문 보기</button>
+                        <button class="btn btn-listen" data-key="PSA_86" data-title="시편 86편">성경 듣기</button>
+                    </div>
+                </div>
+
+                <div class="card integration-card">
+                    <h2>통합 묵상: 하나님의 거룩한 처소, 그 영광의 회복과 완성</h2>
+                    <h3>관통하는 주제 논증</h3>
+                    <p>오늘의 네 본문은 '하나님의 거룩한 처소(성전)'라는 주제를 중심으로 유기적으로 연결되며, 구속사의 점진적인 발전을 아름답게 보여줍니다. <strong>열왕기상 6장</strong>은 가시적인 건물로서의 성전 건축을 통해 하나님의 임재가 어떻게 구체화되었는지를 보여줍니다. 이는 하나님의 영광이 거하는 장소에 대한 갈망의 시작점입니다. 그러나 이 성전은 불완전한 그림자였습니다. <strong>에스겔 36장</strong>은 이스라엘의 죄로 인해 성전이 파괴되고 백성이 흩어진 절망적인 상황 속에서, 하나님께서 그의 백성의 '마음'을 새로운 성전으로 삼으시겠다는 놀라운 약속을 제시합니다. '새 영'을 부어주심으로 내적인 변화를 통해 하나님을 모실 수 있는 존재로 재창조하시겠다는 것입니다. <strong>에베소서 3장</strong>은 이 약속의 성취가 바로 '교회'임을 선포합니다. 유대인과 이방인이 그리스도 안에서 한 몸을 이루어, 이제는 성령 안에서 하나님이 거하실 처소, 즉 살아있는 성전으로 함께 지어져 갑니다. 이는 과거에는 감추어졌던 비밀의 계시입니다. 마지막으로 <strong>시편 86편</strong>은 이 모든 하나님의 역사를 체험하는 성도의 개인적인 기도를 보여줍니다. 그는 고난 속에서 하나님의 임재와 도우심, 즉 '은총의 표적'을 구합니다. 이는 성전 되신 그리스도 안에서, 그리고 성령을 모신 성전 된 우리 안에서 하나님의 임재를 누리고자 하는 모든 성도의 간절한 부르짖음이라 할 수 있습니다. 이처럼 오늘의 본문들은 유형의 성전에서 내면의 성전으로, 그리고 공동체적 성전으로 확장되고 완성되는 하나님의 구원 계획을 입체적으로 조명합니다.</p>
+                    
+                    <h3>입체적 핵심 단어 연구: 비밀 (μυστήριον, 미스테리온)</h3>
+                    <p>에베소서 3장에서 바울이 사용하는 헬라어 '미스테리온'(μυστήριον)은 단순히 풀리지 않는 수수께끼를 의미하지 않습니다. 신약성경에서 이 단어는 '과거에는 감추어져 있었으나, 때가 되어 하나님께서 선택된 자들에게 계시하신 진리'라는 특별한 신학적 의미를 가집니다. 그 핵심은 하나님의 구원 계획입니다. 고대 신비 종교에서는 소수의 입문자에게만 비밀 의식을 통해 비밀 지식을 전수했지만, 기독교의 '비밀'은 복음 전파를 통해 만민에게 공개적으로 선포된다는 점에서 근본적인 차이가 있습니다. 바울에게 있어 '미스테리온'의 정점은 바로 '그리스도' 자신이며(골 2:2), 구체적으로는 유대인과 이방인이 그리스도의 십자가를 통해 한 몸, 즉 교회를 이룬다는 사실입니다(엡 3:4-6). 이는 인간의 지혜로는 도저히 상상할 수 없었던, 하나님의 주권적인 계획과 은혜의 산물입니다. 따라서 '미스테리온'은 우리를 지적 교만으로 이끄는 것이 아니라, 측량할 수 없는 하나님의 지혜와 사랑 앞에 겸손히 무릎 꿇게 하는 경이로운 진리입니다.</p>
+
+                    <h3>심층 상호 참조</h3>
+                    <p><strong>1. 열왕기상 6:13 → 에스겔 36:27:</strong> 열왕기상에서 하나님은 솔로몬에게 "네가 만일 내 법도를 따르며... 행하면 내가... 너희 가운데에 거할 것이요"라고 조건부 임재를 약속하십니다. 이는 순종이 임재의 조건임을 보여줍니다. 그러나 이스라엘은 실패했습니다. 에스겔 36장은 이 실패에 대한 하나님의 주권적 해답을 제시합니다. "또 내 영을 너희 속에 두어 너희로 내 율례를 행하게 하리니 너희가 내 규례를 지켜 행할지라." 이제 하나님은 단순히 외부에서 순종을 요구하시는 것을 넘어, 성령을 우리 안에 내주하게 하심으로 순종할 수 있는 능력 자체를 부어주십니다. 실패할 수밖에 없는 인간의 조건부 순종에서, 하나님의 능력으로 말미암는 필연적 순종으로 언약의 방식이 전환되는 것을 극명하게 보여줍니다.</p>
+                    <p><strong>2. 에스겔 36:26-27 → 에베소서 3:16-17:</strong> 에스겔의 '새 영을 주시겠다'는 약속이 신약에서 어떻게 성취되는지를 보여주는 연결고리입니다. 바울은 에베소 교회를 위해 기도하며 "그의 성령으로 말미암아 너희 속사람을 능력으로 강건하게 하시오며 믿음으로 말미암아 그리스도께서 너희 마음에 계시게 하시옵고"라고 간구합니다. 에스겔이 예언한 '내 영'(성령)이 바로 신자의 '속사람'을 강건하게 하는 능력의 근원이며, 그 결과 '그리스도께서 마음에 계시게' 됩니다. 즉, 성령의 내주 사역을 통해 우리의 마음이 비로소 그리스도를 모시는 합당한 처소, 즉 살아있는 성전이 되는 것입니다. 구약의 예언과 신약의 성취가 완벽하게 연결되는 지점입니다.</p>
+
+                    <h3>적용을 위한 성찰 질문</h3>
+                    <ol>
+                        <li>솔로몬 성전은 최고의 재료와 정성으로 지어졌습니다. 오늘날 하나님께서 거하시는 성전은 바로 우리 자신과 교회 공동체입니다(고전 3:16). 나는 나의 삶이라는 성전을 하나님의 영광이 거하시기에 합당하도록 거룩하게 구별하고 가꾸고 있습니까? 나의 시간, 재능, 물질을 드리는 태도는 어떠합니까?</li>
+                        <li>에베소서 3장은 유대인과 이방인을 하나로 만드신 교회의 비밀을 말합니다. 오늘날 우리 교회 안에는 여전히 눈에 보이지 않는 장벽(세대, 빈부, 정치적 견해 등)이 존재하지 않습니까? 그리스도 안에서 '함께 상속자, 함께 지체'가 되었다는 진리를 나의 공동체 안에서 어떻게 구체적으로 실현할 수 있을까요?</li>
+                        <li>하나님은 우리의 '돌 같은 마음'을 제거하고 '부드러운 마음'을 주시겠다고 약속하셨습니다(겔 36:26). 최근 나의 마음이 하나님의 말씀이나 타인의 아픔에 대해 굳어져 있지는 않았습니까? 성령께서 나의 마음을 부드럽게 경작해주시도록, 그리고 하나님의 뜻에 민감하게 반응하도록 무엇을 구해야 할까요?</li>
+                        <li>시편 86편의 시인처럼, 현재 내가 겪고 있는 '곤고하고 궁핍한' 상황은 무엇입니까? 시인이 하나님의 변치 않는 성품(인자, 진실, 긍휼)에 의지하여 기도했던 것처럼, 나의 기도의 근거를 나의 상황이 아닌 하나님의 약속에 두고 있습니까? 나에게 필요한 '은총의 표적'은 무엇이며, 이를 어떻게 믿음으로 구할 수 있을까요?</li>
+                    </ol>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
+        </footer>
+    </div>
+
+    <div class="modal-overlay" id="bible-modal">
+        <div class="modal-content">
+            <div class="modal-content-inner" id="bible-text-content">
+                </div>
+        </div>
+    </div>
+
+    <div id="audio-player-bar">
+        <div id="player-info"></div>
+        <div id="player-controls">
+            <button id="play-pause-btn">▶</button>
+            <button id="close-player-btn">✖</button>
+        </div>
+        <div id="youtube-player"></div>
+    </div>
+
+    <script>
+        const bibleModal = document.getElementById('bible-modal');
+        const bibleTextContent = document.getElementById('bible-text-content');
+        const audioPlayerBar = document.getElementById('audio-player-bar');
+        const playerInfo = document.getElementById('player-info');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const closePlayerBtn = document.getElementById('close-player-btn');
+        const contentCards = document.getElementById('content-cards');
+        
+        let player;
+        let audioLinks = new Map();
+        let isPlayerReady = false;
+        let isPlaying = false;
+
+        // 1. Load YouTube IFrame API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 2. This function creates an <iframe> (and YouTube player) after the API code downloads.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                playPauseBtn.innerHTML = '❚❚';
+            } else {
+                isPlaying = false;
+                playPauseBtn.innerHTML = '▶';
+            }
+        }
+
+        // 3. Fetch and parse mcbible.txt
+        async function loadAudioLinks() {
+            try {
+                const response = await fetch('../address/mcbible.txt');
+                const text = await response.text();
+                text.split('\n').forEach(line => {
+                    if (line.trim() !== '') {
+                        const parts = line.split(/\s+/);
+                        const fullKey = parts[0];
+                        const url = parts[1];
+                        const keyParts = fullKey.split('_'); // OT_11_1KI_03 -> [OT, 11, 1KI, 03]
+                        if (keyParts.length >= 4) {
+                            const book = keyParts[2];
+                            const chapter = parseInt(keyParts[3], 10);
+                            const shortKey = `${book}_${chapter}`;
+                            audioLinks.set(shortKey, url);
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading audio links:', error);
+            }
+        }
+        
+        function getYouTubeID(url) {
+            let id = '';
+            url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+            if (url[2] !== undefined) {
+                id = url[2].split(/[^0-9a-z_\-]/i);
+                id = id[0];
+            } else {
+                id = url;
+            }
+            return id;
+        }
+
+        // 4. Event Delegation for buttons
+        contentCards.addEventListener('click', async (e) => {
+            const target = e.target;
+            
+            // Handle "본문 보기"
+            if (target.classList.contains('btn-view')) {
+                const path = target.dataset.path;
+                try {
+                    const response = await fetch(`../bible_html/${path}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const html = await response.text();
+                    bibleTextContent.innerHTML = html;
+                    bibleModal.style.display = 'flex';
+                } catch (error) {
+                    bibleTextContent.innerHTML = `<p>성경 본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
+                    bibleModal.style.display = 'flex';
+                }
+            }
+            
+            // Handle "성경 듣기"
+            if (target.classList.contains('btn-listen')) {
+                if (!isPlayerReady || audioLinks.size === 0) {
+                    alert('오디오 플레이어를 준비 중이거나, 오디오 링크를 불러오는 데 실패했습니다.');
+                    return;
+                }
+                const key = target.dataset.key;
+                const title = target.dataset.title;
+                const url = audioLinks.get(key);
+
+                if (url) {
+                    const videoId = getYouTubeID(url);
+                    player.loadVideoById(videoId);
+                    playerInfo.textContent = `현재 재생: ${title}`;
+                    audioPlayerBar.classList.add('visible');
+                } else {
+                    alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다.`);
+                }
+            }
+        });
+
+        // 5. Modal and Player Controls
+        bibleModal.addEventListener('click', (e) => {
+            if (e.target === bibleModal) {
+                bibleModal.style.display = 'none';
+            }
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        });
+
+        closePlayerBtn.addEventListener('click', () => {
+            player.stopVideo();
+            audioPlayerBar.classList.remove('visible');
+        });
+        
+        // Initial load
+        loadAudioLinks();
+
+    </script>
+</body>
+</html>
