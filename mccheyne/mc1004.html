@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10월 4일 맥체인 성경읽기 (소제목 색상 변경)</title>
+    <title>10월 4일 맥체인 성경읽기 (기능 개선)</title>
     <style>
         :root {
             --book1-color: #4285F4;
@@ -236,7 +236,7 @@
             align-items: center;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 999;
+            z-index: 1001; /* Changed to be above modal */
             transition: transform 0.3s ease;
         }
         
@@ -427,29 +427,77 @@
 
     <script>
         // --- YouTube IFrame Player API ---
-        const videoId = ''; // No video ID provided for this date.
         let player;
         let isPlaying = false;
 
-        function onYouTubeIframeAPIReady() {
+        /**
+         * Extracts YouTube video ID from various URL formats.
+         * @param {string} url The YouTube URL.
+         * @returns {string|null} The video ID or null if not found.
+         */
+        function extractVideoIdFromUrl(url) {
+            if (!url) return null;
+            let videoId = null;
+            try {
+                const urlObject = new URL(url);
+                if (urlObject.hostname === 'youtu.be') {
+                    // Handles short URLs like youtu.be/VIDEO_ID
+                    videoId = urlObject.pathname.slice(1);
+                } else if (urlObject.hostname.includes('youtube.com') && urlObject.pathname === '/watch') {
+                    // Handles long URLs like youtube.com/watch?v=VIDEO_ID
+                    videoId = urlObject.searchParams.get('v');
+                }
+                // Ensures no extra parameters are included with the ID
+                return videoId ? videoId.split('&')[0] : null;
+            } catch (e) {
+                console.error("Could not parse URL:", url, e);
+                return null;
+            }
+        }
+
+        /**
+         * Fetches audio data file and returns the video ID for today.
+         * @returns {Promise<string|null>} A promise that resolves with the video ID.
+         */
+        async function getVideoIdForToday() {
+            try {
+                const response = await fetch('../address/mccheyne.txt');
+                if (!response.ok) throw new Error('Audio address file could not be loaded.');
+                const textData = await response.text();
+                const lines = textData.split('\n');
+                const line = lines.find(l => l.trim().startsWith('1004'));
+                
+                if (line) {
+                    const parts = line.split(/\s+/);
+                    if (parts.length > 1) {
+                        const videoId = extractVideoIdFromUrl(parts[1]);
+                        if (videoId) return videoId;
+                    }
+                }
+                throw new Error('Video ID for today not found or invalid.');
+            } catch (error) {
+                console.error("Failed to get video ID:", error);
+                return null; // Resolve with null on failure
+            }
+        }
+
+        /**
+         * This function is the official callback for the YouTube IFrame Player API.
+         * It's called automatically when the API is ready.
+         */
+        async function onYouTubeIframeAPIReady() {
+            const videoId = await getVideoIdForToday(); // Wait for our data to be fetched
+
             if (videoId) {
                 player = new YT.Player('youtube-player', {
                     height: '0',
                     width: '0',
                     videoId: videoId,
-                    playerVars: {
-                        'playsinline': 1
-                    },
-                    events: {
-                        'onStateChange': onPlayerStateChange
-                    }
+                    playerVars: { 'playsinline': 1 },
+                    events: { 'onStateChange': onPlayerStateChange }
                 });
             } else {
-                 const audioFab = document.getElementById('audio-fab');
-                 audioFab.style.backgroundColor = '#6c757d'; // grey out
-                 audioFab.title = "오디오 자료 없음";
-                 audioFab.style.cursor = 'not-allowed';
-                 audioFab.onclick = null; // disable click
+                disableAudioPlayer();
             }
         }
         
@@ -460,16 +508,20 @@
 
         function togglePlayPause() {
             if (!player) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
+            isPlaying ? player.pauseVideo() : player.playVideo();
         }
         
         function updatePlayPauseIcon() {
             document.getElementById('play-icon').style.display = isPlaying ? 'none' : 'block';
             document.getElementById('pause-icon').style.display = isPlaying ? 'block' : 'none';
+        }
+
+        function disableAudioPlayer() {
+            const audioFab = document.getElementById('audio-fab');
+            audioFab.style.backgroundColor = '#6c757d';
+            audioFab.title = "오디오 자료 없음";
+            audioFab.style.cursor = 'not-allowed';
+            audioFab.onclick = null;
         }
 
         // --- Bible Modal Logic ---
@@ -510,12 +562,12 @@
             }
         }
 
-        // Load YouTube API script
+        // --- Script Initialization ---
+        // Load the YouTube API script. It will automatically call onYouTubeIframeAPIReady() when it's loaded.
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
     </script>
 </body>
 </html>
