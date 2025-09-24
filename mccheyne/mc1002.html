@@ -361,7 +361,10 @@
                     const book = button.dataset.book;
                     const chapter = button.dataset.chapter;
                     const bookInfo = bibleData[book];
-                    if (!bookInfo) return;
+                    if (!bookInfo) {
+                        console.error('책 정보를 찾을 수 없습니다:', book);
+                        return;
+                    }
 
                     const chapterPadded = String(chapter).padStart(2, '0');
                     const fileName = `${bookInfo.testament}_${bookInfo.bookNum}_${bookInfo.bookCode}_${chapterPadded}.html`;
@@ -528,3 +531,4 @@
 
 </body>
 </html>
+
