@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설교 요약: 솔로몬 왕국의 번영과 하나님 나라의 영광</title>
+    <title>설교 요약: 하나님의 영광과 왕의 사명</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .keyword {
@@ -22,10 +22,13 @@
             font-style: italic;
             color: #6B7280; /* Tailwind gray-500 */
         }
-        @media (max-width: 640px) {
-            .grid-cols-2 {
-                grid-template-columns: 1fr;
-            }
+        /* Hide the YouTube player */
+        #player-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 0;
+            height: 0;
         }
     </style>
 </head>
@@ -39,10 +42,12 @@
     </header>
 
     <div class="mb-8 p-4 bg-white rounded-lg shadow-md">
-        <button id="playAudio" class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4">
+        <button id="audio-control-button" class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline inline-block">
             설교 듣기
         </button>
-        <audio id="sermonAudio" src="http://www.youtube.com/watch?v=FOqWIK8v6fs" class="w-full" controls preload="none" style="display:none;"></audio>
+        <div id="player-container">
+            <div id="player"></div>
+        </div>
     </div>
 
     <div class="scripture-text-section bg-white p-6 rounded-lg shadow-md mb-8">
@@ -63,7 +68,7 @@
         <p class="text-gray-700 mb-2 leading-relaxed"><strong>12</strong> 솔로몬 왕이 스바 여왕이 가져온 대로 답례하고 그 외에 또 그의 소원대로 구하는 것을 모두 주니 이에 그가 그의 신하들과 더불어 본국으로 돌아갔더라</p>
     </div>
 
-    <main class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <main class="grid grid-cols-1 gap-6">
 
         <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-orange-500">
             <div class="flex items-center mb-4">
@@ -135,20 +140,52 @@
         </div>
 
     </main>
-
+    
     <script>
-        document.getElementById('playAudio').addEventListener('click', function() {
-            var audio = document.getElementById('sermonAudio');
-            var button = this;
-            if (audio.paused) {
-                audio.style.display = 'block';
-                audio.play();
-                button.textContent = '설교 일시정지';
-            } else {
-                audio.pause();
-                button.textContent = '설교 듣기';
+        // Load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        // This function creates an <iframe> (and YouTube player) after the API code downloads.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'FOqWIK8v6fs',
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            const controlButton = document.getElementById('audio-control-button');
+            controlButton.addEventListener('click', function() {
+                const playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            });
+        }
+
+        // The API calls this function when the player's state changes.
+        function onPlayerStateChange(event) {
+            const controlButton = document.getElementById('audio-control-button');
+            if (event.data == YT.PlayerState.PLAYING) {
+                controlButton.textContent = '일시정지';
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                controlButton.textContent = '설교 듣기';
+            } else if (event.data == YT.PlayerState.ENDED) {
+                controlButton.textContent = '다시 듣기';
             }
-        });
+        }
     </script>
 
 </body>
