@@ -141,21 +141,22 @@
         }
 
         async function fetchAudioAddressAndCreatePlayer() {
+            const today = '1013'; // For generating the static page for Oct 13th
+            let todayLine;
+
             try {
                 const response = await fetch('../address/dcaddr.txt');
                 if (!response.ok) {
                     throw new Error('오디오 주소 파일을 불러오는 데 실패했습니다.');
                 }
                 const text = await response.text();
-                
-                // Use the fixed date from the document for this specific generation task
-                const today = '1013'; 
-
                 const lines = text.split('\n');
-                const todayLine = lines.find(line => line.trim().startsWith(today));
+                todayLine = lines.find(line => line.trim().startsWith(today));
 
                 if (!todayLine) {
-                    throw new Error(`오늘(${today}) 날짜에 해당하는 오디오를 찾을 수 없습니다.`);
+                    // This specific error is handled outside the catch block
+                    displayError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
+                    return;
                 }
                 
                 const url = todayLine.substring(today.length).trim();
@@ -169,6 +170,7 @@
 
             } catch (error) {
                 console.error('Audio Player Error:', error);
+                // Handle all other errors generically
                 displayError(error.message);
             }
         }
@@ -224,7 +226,8 @@
 
         function displayError(message) {
             playerUi.classList.add('hidden');
-            errorMessageDiv.textContent = `오류: ${message}`;
+            // Do not prefix with "오류: " for the custom message.
+            errorMessageDiv.textContent = message;
             errorMessageDiv.classList.remove('hidden');
         }
 
