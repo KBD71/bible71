@@ -4,722 +4,737 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>9월 19일 맥체인 성경읽기</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
         :root {
-            --book1-color: #4A90E2; /* 사무엘하 - Blue */
-            --book2-color: #50E3C2; /* 고린도후서 - Teal */
-            --book3-color: #F5A623; /* 에스겔 - Orange */
-            --book4-color: #9013FE; /* 시편 - Purple */
-            --integration-color: #D0021B; /* 통합 - Red */
-            --text-primary: #333;
-            --text-secondary: #555;
-            --bg-light: #f8f9fa;
-            --border-color: #dee2e6;
+            --card-book1-color: #4285F4; /* 파랑 */
+            --card-book2-color: #DB4437; /* 빨강 */
+            --card-book3-color: #F4B400; /* 노랑 */
+            --card-book4-color: #0F9D58; /* 초록 */
+            --integration-card-color: #808080; /* 회색 */
+            --text-primary-color: #202124;
+            --text-secondary-color: #5f6368;
+            --background-color: #f8f9fa;
+            --card-background-color: #ffffff;
+            --border-color: #e0e0e0;
         }
 
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            line-height: 1.8;
-            color: var(--text-primary);
             margin: 0;
-            padding: 0;
-            background-color: #fff;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-primary-color);
+            line-height: 1.8;
+            display: flex;
+            justify-content: center;
         }
 
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 1280px;
+            width: 100%;
         }
 
-        .title-section {
-            background-color: var(--bg-light);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
+        header {
             text-align: center;
-            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         h1 {
-            font-family: 'Noto Serif KR', serif;
             font-size: 2.5em;
-            margin: 0 0 10px 0;
-            color: var(--text-primary);
+            font-weight: 700;
+            margin-bottom: 0;
         }
 
         h1 .subtitle {
             font-size: 0.6em;
-            color: var(--text-secondary);
             font-weight: 400;
+            color: var(--text-secondary-color);
             display: block;
             margin-top: 10px;
         }
 
-        .intro-passage {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--text-secondary);
-            margin: 0;
+        .reading-list {
+            font-size: 1.1em;
+            color: var(--text-secondary-color);
         }
 
-        .chapter-card {
-            background-color: #fff;
-            border-radius: 12px;
+        .card {
+            background-color: var(--card-background-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 30px;
-            padding: 25px;
-            border: 1px solid var(--border-color);
-            border-left: 5px solid;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: box-shadow 0.3s ease;
-        }
-        
-        .chapter-card:hover {
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-left: 10px solid;
+            overflow: hidden;
         }
 
-        .card-book1 { border-left-color: var(--book1-color); }
-        .card-book2 { border-left-color: var(--book2-color); }
-        .card-book3 { border-left-color: var(--book3-color); }
-        .card-book4 { border-left-color: var(--book4-color); }
-        .integration-card { border-left-color: var(--integration-color); }
+        .card-book1 { border-color: var(--card-book1-color); }
+        .card-book2 { border-color: var(--card-book2-color); }
+        .card-book3 { border-color: var(--card-book3-color); }
+        .card-book4 { border-color: var(--card-book4-color); }
+        .integration-card { border-color: var(--integration-card-color); }
 
-        h2 {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 2em;
-            border-bottom: 2px solid var(--border-color);
+        h2, h3 {
+            font-weight: 500;
+            color: var(--text-primary-color);
             padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
             margin-top: 0;
         }
+        
+        h2 { font-size: 1.8em; }
+        h3 { font-size: 1.4em; margin-top: 25px; }
 
-        h3 {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 1.5em;
-            margin-top: 25px;
-            margin-bottom: 15px;
+        .key-verse {
+            background-color: #e8f0fe;
+            border-left: 4px solid var(--card-book1-color);
+            padding: 15px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        .card-book2 .key-verse { background-color: #fce8e6; border-color: var(--card-book2-color); }
+        .card-book3 .key-verse { background-color: #fff8e1; border-color: var(--card-book3-color); }
+        .card-book4 .key-verse { background-color: #e6f4ea; border-color: var(--card-book4-color); }
+
+        .commentary-text {
+            padding-left: 20px;
+            border-left: 2px solid #ccc;
+            color: #3c4043;
         }
 
         .bible-text {
-            background-color: var(--bg-light);
-            padding: 20px;
-            border-radius: 8px;
             margin-top: 20px;
+            text-align: justify;
         }
 
         .bible-text p {
-            margin: 0 0 10px 0;
-        }
-
-        .verse-number {
-            font-weight: bold;
-            color: var(--text-secondary);
-            margin-right: 8px;
-            font-size: 0.8em;
-        }
-
-        .card-book1 .bible-text strong { color: var(--book1-color); }
-        .card-book2 .bible-text strong { color: var(--book2-color); }
-        .card-book3 .bible-text strong { color: var(--book3-color); }
-        .card-book4 .bible-text strong { color: var(--book4-color); }
-
-        .analysis-svg {
-            width: 100%;
-            margin: 20px 0;
-            background-color: var(--bg-light);
-            padding: 15px;
-            border-radius: 8px;
+            margin-bottom: 15px;
         }
         
+        .bible-text strong {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: var(--text-secondary-color);
+        }
+        
+        .visual-analysis-container {
+            width: 100%;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .visual-analysis-container svg {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            font-size: 0.95em;
         }
-
+        
         th, td {
             border: 1px solid var(--border-color);
             padding: 12px;
             text-align: left;
-        }
-
-        th {
-            background-color: var(--bg-light);
-            font-weight: 700;
+            vertical-align: top;
         }
         
-        td:first-child {
-            font-weight: bold;
-            font-family: 'Noto Serif KR', serif;
+        th {
+            background-color: #f1f3f4;
+            font-weight: 700;
         }
         
         footer {
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #aaa;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary-color);
         }
 
-        /* Player Styles */
-        #player-container {
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-            width: 1px;
-            height: 1px;
-        }
-
-        #floatingPlayPauseBtn {
+        #audio-controller {
             position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 20px;
+            right: 20px;
             z-index: 1000;
-            width: 60px;
-            height: 60px;
-            background-color: var(--text-primary);
+        }
+
+        #play-pause-btn {
+            background-color: #1a73e8;
             color: white;
             border: none;
-            border-radius: 50%;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 1em;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        #floatingPlayPauseBtn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        #floatingPlayPauseBtn:not(:disabled):hover {
-            transform: translateX(-50%) scale(1.1);
-        }
-
-        #floatingPlayPauseBtn.paused {
-            opacity: 0.8;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.1s;
         }
         
-        #floatingPlayPauseBtn .play-icon, 
-        #floatingPlayPauseBtn .pause-icon {
+        #play-pause-btn:hover {
+            background-color: #185abc;
+        }
+        
+        #play-pause-btn:active {
+            transform: scale(0.95);
+        }
+
+        #play-pause-btn.playing {
+            background-color: #d93025;
+        }
+        
+        #play-pause-btn:disabled {
+            background-color: #9e9e9e;
+            cursor: not-allowed;
+        }
+
+        #youtube-player {
             display: none;
-        }
-
-        #floatingPlayPauseBtn.paused .play-icon {
-            display: block;
-        }
-
-        #floatingPlayPauseBtn:not(.paused) .pause-icon {
-            display: block;
         }
     </style>
 </head>
 <body>
 
-    <div id="player-container"></div>
-    <button id="floatingPlayPauseBtn" disabled>
-        <span class="play-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
-            </svg>
-        </span>
-        <span class="pause-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
-            </svg>
-        </span>
-    </button>
-    
     <div class="container">
-        <header class="title-section">
-            <h1>9월 19일 맥체인 성경읽기<br><span class="subtitle">마음의 중심: 반역 혹은 헌신</span></h1>
-            <p class="intro-passage">삼하15 | 고후8 | 겔22 | 시69</p>
+        <header>
+            <h1>9월 19일 맥체인 성경읽기<span class="subtitle">고난 속에 드러나는 하나님의 공의와 은혜</span></h1>
+            <p class="reading-list">사무엘하 15장, 고린도후서 8장, 에스겔 22장, 시편 69편</p>
         </header>
 
         <main>
-            <!-- Card 1: 2 Samuel 15 -->
-            <section class="chapter-card card-book1">
-                <h2>사무엘하 15장: 마음을 훔친 아들, 피눈물 흘리는 아버지</h2>
+            <!-- Card 1: 사무엘하 15장 -->
+            <div class="card card-book1">
+                <h2>사무엘하 15장 분석</h2>
                 <h3>개요 (Overview)</h3>
-                <p>압살롬이 치밀한 계획으로 4년간 이스라엘 백성의 마음을 훔칩니다. 그는 성문 길에서 재판을 갈망하는 이들의 편을 들어주며 다윗 왕의 통치에 대한 불만을 키워나갑니다. 마침내 헤브론에서 왕으로 추대된 압살롬의 반역 소식에, 다윗은 신하들과 함께 맨발로 울며 예루살렘을 떠나 피난길에 오릅니다. 다윗 왕국의 가장 큰 위기가 시작됩니다.</p>
-                
+                <p>사무엘하 15장은 다윗 왕국의 비극적인 전환점을 보여줍니다. 다윗의 아들 압살롬이 치밀한 계획으로 백성의 마음을 훔쳐 반역을 일으키고, 결국 다윗은 사랑하는 아들을 피해 예루살렘에서 쫓겨나 맨발로 울며 피난길에 오릅니다. 이는 단순한 정치적 쿠데타가 아니라, 나단 선지자를 통해 예언되었던 다윗의 죄에 대한 하나님의 징계가 성취되는 과정이며, 동시에 배신과 고통 속에서도 하나님의 주권을 신뢰하는 다윗의 믿음을 보여주는 장입니다.</p>
+
                 <h3>시각적 분석 (Visual Analysis)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 160" xmlns="http://www.w.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
-                    <defs>
-                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#555" />
-                        </marker>
-                    </defs>
-                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">압살롬의 반역 전략</text>
-                    <g text-anchor="middle">
-                        <rect x="10" y="30" width="85" height="40" rx="5" fill="#EAF2FA" stroke="#4A90E2"/>
-                        <text x="52.5" y="48">1. 민심 청취</text>
-                        <text x="52.5" y="62">(성문 앞)</text>
+                <div class="visual-analysis-container">
+                    <svg viewBox="0 0 800 200">
+                        <defs>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#5f6368" />
+                            </marker>
+                        </defs>
+                        <line x1="180" y1="100" x2="330" y2="100" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)" />
+                        <line x1="470" y1="100" x2="620" y2="100" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)" />
 
-                        <rect x="105" y="30" width="85" height="40" rx="5" fill="#EAF2FA" stroke="#4A90E2"/>
-                        <text x="147.5" y="48">2. 불만 조장</text>
-                        <text x="147.5" y="62">(왕의 재판 비판)</text>
-
-                        <rect x="200" y="30" width="85" height="40" rx="5" fill="#EAF2FA" stroke="#4A90E2"/>
-                        <text x="242.5" y="48">3. 마음 훔치기</text>
-                        <text x="242.5" y="62">(친밀한 스킨십)</text>
-
-                        <rect x="300" y="30" width="85" height="40" rx="5" fill="#EAF2FA" stroke="#4A90E2"/>
-                        <text x="342.5" y="48">4. 명분 쌓기</text>
-                        <text x="342.5" y="62">(헤브론 제사)</text>
-                    </g>
-                     <path d="M 95 50 L 105 50" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" />
-                     <path d="M 190 50 L 200 50" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" />
-                     <path d="M 285 50 L 300 50" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" />
-                     
-                     <path d="M 197.5 70 Q 197.5 85 197.5 100" stroke="#D0021B" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
-                     
-                     <rect x="150" y="100" width="95" height="40" rx="5" fill="#FDEBEB" stroke="#D0021B"/>
-                     <text x="197.5" y="118" text-anchor="middle" font-weight="bold">반역 & 다윗의 피난</text>
-                </svg>
+                        <g>
+                            <rect x="50" y="70" width="130" height="60" rx="10" fill="#e8f0fe" stroke="#4285F4" stroke-width="2" />
+                            <text x="115" y="105" text-anchor="middle" font-size="16" fill="#202124">치밀한 민심 장악</text>
+                        </g>
+                        <g>
+                            <rect x="200" y="70" width="130" height="60" rx="10" fill="#e8f0fe" stroke="#4285F4" stroke-width="2" />
+                            <text x="265" y="105" text-anchor="middle" font-size="16" fill="#202124">헤브론에서의 반역</text>
+                        </g>
+                        <g>
+                            <rect x="350" y="70" width="120" height="60" rx="10" fill="#fce8e6" stroke="#DB4437" stroke-width="2" />
+                            <text x="410" y="105" text-anchor="middle" font-size="16" fill="#202124">다윗의 피난</text>
+                        </g>
+                        <g>
+                            <rect x="490" y="70" width="130" height="60" rx="10" fill="#e8f0fe" stroke="#4285F4" stroke-width="2" />
+                            <text x="555" y="105" text-anchor="middle" font-size="16" fill="#202124">하나님께 맡김</text>
+                        </g>
+                        <text x="125" y="50" font-size="14" fill="#5f6368">(압살롬의 계획)</text>
+                        <text x="420" y="50" font-size="14" fill="#5f6368">(다윗의 반응)</text>
+                    </svg>
+                </div>
 
                 <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
-                <p>압살롬의 반역은 다윗이 밧세바와 우리아에게 저지른 죄에 대해 나단 선지자가 예언한 '칼이 네 집에서 영원토록 떠나지 아니하리라'(삼하 12:10)는 말씀의 구체적인 성취입니다. 다윗 가정의 비극은 이제 국가적인 재앙으로 번집니다. 신학적으로, 본문은 인간의 마음이 얼마나 교활하고 기만적인지를 보여줍니다. 압살롬은 정의를 가장하여 자신의 야망을 채우고, 백성들은 참된 왕을 버리고 외모가 출중하고 듣기 좋은 말을 하는 거짓 왕을 따릅니다. 이는 인간의 전적인 타락과 죄의 파괴적인 본성을 드러냅니다. 다윗이 머리를 가리고 맨발로 울며 감람산을 넘어가는 모습은, 훗날 그의 위대한 후손이신 예수 그리스도께서 겟세마네 동산에서 고난 받으실 것을 예표하는 그림자입니다. 참된 왕은 자기 백성에게 버림받는 고난을 통해 자기 백성을 구원하십니다.</p>
-                
+                <p>압살롬의 반역은 다윗이 밧세바와 우리아에게 저지른 죄의 직접적인 결과입니다(삼하 12:10-11). "칼이 네 집에서 영원토록 떠나지 아니하리라"는 예언이 아들의 반역을 통해 고통스럽게 성취됩니다. 그러나 다윗은 이 고난을 단순히 인간적인 배신으로만 보지 않고, 하나님의 주권적인 징계로 받아들입니다. 그가 법궤를 돌려보내며 "여호와께서 선하게 여기시는 대로 내게 행하시리이다"라고 고백하는 모습에서, 그의 깊은 신앙을 엿볼 수 있습니다. 이는 고난 속에서 자신의 죄를 돌아보고 하나님의 처분을 겸허히 기다리는 성도의 자세를 보여줍니다.</p>
+
                 <h3>주요 구절 해설 (Key Verse Commentary)</h3>
-                <p><strong>15장 6절</strong>: "이스라엘 무리 중에 왕께 재판을 청하러 오는 자들마다 압살롬의 행함이 이와 같아서 이스라엘 사람의 마음을 압살롬이 훔치니라" - '마음을 훔쳤다'는 표현은 압살롬의 행동이 얼마나 교활하고 계산적이었는지를 보여줍니다. 그는 진정한 사랑이나 섬김이 아닌, 자신의 정치적 목적을 위해 백성의 환심을 샀습니다. 이는 참된 목자이신 예수님께서 양들을 위해 목숨을 버리심으로 그들의 마음을 얻으시는 것과 극명한 대조를 이룹니다. 세상의 리더십은 종종 이처럼 사람의 마음을 '훔쳐' 자신의 왕국을 세우려 하지만, 하나님의 리더십은 자신을 내어줌으로 백성을 섬깁니다.</p>
-                <p><strong>15장 30절</strong>: "다윗이 감람 산 길로 올라갈 때에 그의 머리를 그가 가리고 맨발로 울며 가고 그와 함께 가는 모든 백성도 각각 자기의 머리를 가리고 울며 올라가니라" - 이 장면은 다윗의 생애에서 가장 비참하고 굴욕적인 순간 중 하나입니다. 왕이 맨발로 쫓겨나는 이 모습은 그의 왕권이 완전히 땅에 떨어졌음을 보여줍니다. 그러나 이 깊은 슬픔과 회개 속에서 다윗은 하나님을 의지하는 법을 배웁니다. 그의 고난은 단순한 징벌이 아니라, 그를 더욱 정결하게 하시고 하나님만 바라보게 하시는 연단의 과정이었습니다. 이 길은 훗날 그리스도께서 걸어가실 고난의 길을 미리 보여주는 예표가 됩니다.</p>
+                <p class="key-verse">"이같이 압살롬이 이스라엘 무리 중에 왕께 재판을 청하러 오는 자들마다에게 행하여 이스라엘 사람의 마음을 압살롬이 도둑하니라" (사무엘하 15:6)</p>
+                <p class="commentary-text">'마음을 도둑했다'는 표현은 압살롬의 교활함을 극명하게 보여줍니다. 그는 정의를 가장하여 백성들의 환심을 샀고, 아버지의 권위를 은밀하게 무너뜨렸습니다. 이는 외적인 경건과 선행의 모습 뒤에 숨겨진 악한 동기가 얼마나 파괴적일 수 있는지를 경고합니다.</p>
+                
+                <p class="key-verse">"다윗이 감람 산 길로 올라가며 그의 머리를 그가 가리고 맨발로 울며 가고 그와 함께 가는 모든 백성도 각각 자기의 머리를 가리고 울며 올라가니라" (사무엘하 15:30)</p>
+                <p class="commentary-text">이스라엘의 위대한 왕 다윗이 머리를 가리고 맨발로 우는 모습은 그의 깊은 슬픔과 처절한 심정을 보여줍니다. 이는 왕으로서의 권위가 아닌, 한 아버지로서, 그리고 하나님의 징계 앞에 선 죄인으로서의 겸손한 자세입니다. 훗날 예수 그리스도께서 이와 비슷한 길에서 고난을 예감하신 것은 결코 우연이 아닐 것입니다.</p>
 
                 <h3>성경 본문 (Full Text)</h3>
                 <div class="bible-text">
-                    <strong>백성의 마음을 훔치는 압살롬</strong>
-                    <p><span class="verse-number">1</span> 그 후에 압살롬이 자기를 위하여 병거와 말들을 준비하고 호위병 오십 명을 그 앞에 세우니라</p>
-                    <p><span class="verse-number">2</span> 압살롬이 일찍이 일어나 성문 길 곁에 서서 어떤 사람이든지 송사가 있어 왕에게 재판을 청하러 올 때에 그 사람을 불러 이르되 너는 어느 성읍 사람이냐 하니 그 사람의 대답이 종은 이스라엘 아무 지파에 속하였나이다 하면</p>
-                    <p><span class="verse-number">3</span> 압살롬이 그에게 이르기를 보라 네 일이 옳고 바르다마는 네 송사를 들을 사람을 왕께서 세우지 아니하셨다 하고</p>
-                    <p><span class="verse-number">4</span> 또 압살롬이 이르기를 내가 이 땅에서 재판관이 되고 누구든지 송사나 재판할 일이 있어 내게로 오는 자에게 내가 정의 베풀기를 원하노라 하고</p>
-                    <p><span class="verse-number">5</span> 사람이 가까이 와서 그에게 절하려 하면 압살롬이 손을 펴 그 사람을 붙들고 그에게 입을 맞추니</p>
-                    <p><span class="verse-number">6</span> 이스라엘 무리 중에 왕께 재판을 청하러 오는 자들마다 압살롬의 행함이 이와 같아서 이스라엘 사람의 마음을 압살롬이 훔치니라</p>
-                    <strong>헤브론에서 시작된 반역</strong>
-                    <p><span class="verse-number">7</span> 사 년 만에 압살롬이 왕께 아뢰되 내가 여호와께 서원한 것이 있사오니 청하건대 내가 헤브론에 가서 그 서원을 이루게 하소서</p>
-                    <p><span class="verse-number">8</span> 당신의 종이 아람 그술에 있을 때에 서원하기를 만일 여호와께서 반드시 나를 예루살렘으로 돌아가게 하시면 내가 여호와를 섬기리이다 하였나이다</p>
-                    <p><span class="verse-number">9</span> 왕이 그에게 이르되 평안히 가라 하니 그가 일어나 헤브론으로 가니라</p>
-                    <p><span class="verse-number">10</span> 이에 압살롬이 정탐을 이스라엘 모든 지파 가운데에 두루 보내 이르기를 너희는 나팔 소리를 듣거든 곧 말하기를 압살롬이 헤브론에서 왕이 되었다 하라 하니라</p>
-                    <p><span class="verse-number">11</span> 그 때에 압살롬이 청한 이백 명이 그와 함께 예루살렘에서부터 헤브론으로 내려갔으니 그들은 압살롬이 꾸민 그 모든 일을 알지 못하고 그저 따라가기만 한 사람들이라</p>
-                    <p><span class="verse-number">12</span> 제사 드릴 때에 압살롬이 사람을 보내 다윗의 모사 길로 사람 아히도벨을 그의 성읍 길로에서 청하여 온지라 반역하는 일이 커가매 압살롬에게로 돌아오는 백성이 많아지니라</p>
-                    <strong>예루살렘을 떠나는 다윗</strong>
-                    <p><span class="verse-number">13</span> 전령이 다윗에게 와서 말하되 이스라엘의 인심이 다 압살롬에게로 돌아갔나이다 한지라</p>
-                    <p><span class="verse-number">14</span> 다윗이 예루살렘에 함께 있는 그의 모든 신하들에게 이르되 일어나 도망하자 그렇지 아니하면 우리 중 한 사람도 압살롬에게서 피하지 못하리라 빨리 가자 두렵건대 그가 우리를 급히 따라와 우리를 해하고 칼날로 성읍을 칠까 하노라</p>
-                    <p><span class="verse-number">15</span> 왕의 신하들이 왕께 아뢰되 우리 주 왕께서 하고자 하시는 대로 우리가 행하리이다 보소서 왕의 종들이니이다 하더라</p>
-                    <p><span class="verse-number">16</span> 왕이 나갈 때에 그의 가족을 다 따르게 하고 후궁 열 명을 왕이 남겨 두어 왕궁을 지키게 하니라</p>
-                    <p><span class="verse-number">17</span> 왕이 나가매 모든 백성이 다 따라서 벧메르학에 이르러 머물러 서니</p>
-                    <p><span class="verse-number">18</span> 그의 모든 신하들이 그의 곁으로 지나가고 모든 그렛 사람과 모든 블렛 사람과 및 왕을 따라 가드에서 온 모든 가드 사람 육백 명이 왕 앞으로 행진하니라</p>
-                    <p><span class="verse-number">19</span> 그 때에 왕이 가드 사람 잇대에게 이르되 어찌하여 너도 우리와 함께 가느냐 너는 쫓겨난 나그네이니 돌아가서 왕과 함께 네 곳에 있으라</p>
-                    <p><span class="verse-number">20</span> 너는 어제 왔고 나는 정처없이 가니 오늘 어찌 너를 우리와 함께 떠돌아다니게 하리요 너도 돌아가고 네 동포들도 데려가라 은혜와 진리가 너와 함께 있기를 원하노라 하니라</p>
-                    <p><span class="verse-number">21</span> 잇대가 왕께 대답하여 이르되 여호와의 살아 계심과 내 주 왕의 살아 계심으로 맹세하옵나니 진실로 내 주 왕께서 어느 곳에 계시든지 사나 죽으나 종도 그 곳에 있겠나이다 하니</p>
-                    <p><span class="verse-number">22</span> 다윗이 잇대에게 이르되 앞서 건너가라 하매 가드 사람 잇대와 그의 추종자들과 그와 함께 한 아이들이 다 건너가고</p>
-                    <p><span class="verse-number">23</span> 온 땅 사람이 큰 소리로 울며 모든 백성이 앞서 건너가매 왕도 기드론 시내를 건너가니 건너간 모든 백성이 광야 길로 향하니라</p>
-                    <strong>언약궤와 제사장들</strong>
-                    <p><span class="verse-number">24</span> 보라 사독과 그와 함께 한 모든 레위 사람도 하나님의 언약궤를 메어다가 하나님의 궤를 내려놓고 아비아달도 올라와서 모든 백성이 성에서 나오기를 기다리도다</p>
-                    <p><span class="verse-number">25</span> 왕이 사독에게 이르되 보라 하나님의 궤를 성읍으로 도로 메어 가라 만일 내가 여호와 앞에서 은혜를 입으면 도로 나를 인도하사 내게 그 궤와 그 계신 데를 보이시리라</p>
-                    <p><span class="verse-number">26</span> 그러나 그가 이와 같이 말씀하시기를 내가 너를 기뻐하지 아니한다 하시면 종이 여기 있사오니 처분대로 하옵소서 하리이다</p>
-                    <p><span class="verse-number">27</span> 왕이 또 제사장 사독에게 이르되 네가 선견자가 아니냐 너는 너희의 두 아들 곧 네 아들 아히마아스와 아비아달의 아들 요나단을 데리고 평안히 성읍으로 돌아가라</p>
-                    <p><span class="verse-number">28</span> 너희에게서 내게 알리는 소식이 올 때까지 내가 광야 나루터에서 기다리리라 하니라</p>
-                    <p><span class="verse-number">29</span> 사독과 아비아달이 하나님의 궤를 예루살렘으로 도로 메어다 놓고 거기에 머물러 있으니라</p>
-                    <strong>감람 산 길에서 울며 기도하는 다윗</strong>
-                    <p><span class="verse-number">30</span> 다윗이 감람 산 길로 올라갈 때에 그의 머리를 그가 가리고 맨발로 울며 가고 그와 함께 가는 모든 백성도 각각 자기의 머리를 가리고 울며 올라가니라</p>
-                    <p><span class="verse-number">31</span> 어떤 사람이 다윗에게 알리되 압살롬과 함께 모반한 자들 가운데 아히도벨이 있나이다 하니 다윗이 이르되 여호와여 원하옵건대 아히도벨의 모략을 어리석게 하옵소서 하니라</p>
-                    <p><span class="verse-number">32</span> 다윗이 하나님을 경배하는 마루턱에 이를 때에 아렉 사람 후새가 옷을 찢고 흙을 머리에 덮어쓰고 다윗을 맞으러 온지라</p>
-                    <p><span class="verse-number">33</span> 다윗이 그에게 이르되 네가 만일 나와 함께 나아가면 내게 누를 끼치리라</p>
-                    <p><span class="verse-number">34</span> 그러나 네가 만일 성읍으로 돌아가서 압살롬에게 말하기를 왕이여 내가 왕의 종이니이다 전에는 내가 왕의 아버지의 종이었더니 이제는 내가 왕의 종이니이다 하면 네가 나를 위하여 아히도벨의 모략을 패하게 하리라</p>
-                    <p><span class="verse-number">35</span> 사독과 아비아달 두 제사장이 너와 함께 거기 있지 아니하냐 네가 왕의 집에서 무엇을 듣든지 사독과 아비아달 두 제사장에게 알리라</p>
-                    <p><span class="verse-number">36</span> 그들의 두 아들 곧 사독의 아히마아스와 아비아달의 요나단이 그들과 함께 거기 있나니 너희가 듣는 모든 것을 그들 편에 내게 소식을 알릴지니라 하는지라</p>
-                    <p><span class="verse-number">37</span> 다윗의 친구 후새가 곧 성읍으로 들어가고 압살롬도 예루살렘으로 들어갔더라</p>
+                    <p><strong>압살롬이 백성의 마음을 훔치다</strong></p>
+                    <p>1 그 후에 압살롬이 자기를 위하여 병거와 말들을 준비하고 호위병 오십 명을 그 앞에 세우니라</p>
+                    <p>2 압살롬이 일찍이 일어나 성문 길 곁에 서서 어떤 사람이든지 송사가 있어 왕에게 재판을 청하러 올 때에 그 사람을 불러 이르되 너는 어느 성읍 사람이냐 하니 그 사람의 대답이 종은 이스라엘 아무 지파에 속하였나이다 하면</p>
+                    <p>3 압살롬이 그에게 이르기를 보라 네 일이 옳고 바르다마는 네 송사를 들을 사람을 왕께서 세우지 아니하셨다 하고</p>
+                    <p>4 또 압살롬이 이르기를 내가 이 땅에서 재판관이 되고 누구든지 송사나 재판할 일이 있어 내게로 오는 자는 내가 정의 베풀기를 원하노라 하고</p>
+                    <p>5 사람이 가까이 와서 그에게 절하려 하면 압살롬이 손을 펴서 그 사람을 붙들고 그에게 입을 맞추니</p>
+                    <p>6 이스라엘 무리 중에 왕께 재판을 청하러 오는 자들마다 압살롬의 행함이 이와 같아서 이스라엘 사람의 마음을 압살롬이 훔치니라</p>
+                    <p><strong>압살롬이 헤브론에서 반역하다</strong></p>
+                    <p>7 사 년 만에 압살롬이 왕께 아뢰되 내가 여호와께 서원한 것이 있사오니 청하건대 내가 헤브론에 가서 그 서원을 이루게 하소서</p>
+                    <p>8 당신의 종이 아람 그술에 있을 때에 서원하기를 만일 여호와께서 반드시 나를 예루살렘으로 돌아가게 하시면 내가 여호와를 섬기리이다 하였나이다</p>
+                    <p>9 왕이 그에게 이르되 평안히 가라 하니 그가 일어나 헤브론으로 가니라</p>
+                    <p>10 이에 압살롬이 정탐을 이스라엘 모든 지파 가운데에 두루 보내 이르기를 너희는 나팔 소리를 듣거든 곧 말하기를 압살롬이 헤브론에서 왕이 되었다 하라 하니라</p>
+                    <p>11 그 때에 압살롬이 청한 이백 명이 그와 함께 예루살렘에서부터 헤브론으로 내려갔으니 그들은 압살롬이 꾸민 그 모든 일을 알지 못하고 그저 따라가기만 한 사람들이라</p>
+                    <p>12 제사 드릴 때에 압살롬이 사람을 보내 다윗의 모사 길로 사람 아히도벨을 그의 성읍 길로에서 청하여 온지라 반역하는 일이 커가매 압살롬에게로 돌아오는 백성이 많아지니라</p>
+                    <p><strong>다윗이 예루살렘을 떠나다</strong></p>
+                    <p>13 전령이 다윗에게 와서 말하되 이스라엘의 인심이 다 압살롬에게로 돌아갔나이다 한지라</p>
+                    <p>14 다윗이 예루살렘에 함께 있는 그의 모든 신하들에게 이르되 일어나 도망하자 그렇지 아니하면 우리 중 한 사람도 압살롬에게서 피하지 못하리라 빨리 가자 두렵건대 그가 우리를 급히 따라와 우리를 해하고 칼날로 성읍을 칠까 하노라</p>
+                    <p>15 왕의 신하들이 왕께 아뢰되 우리 주 왕께서 하고자 하시는 대로 우리가 행하리이다 보소서 당신의 종들이니이다 하더라</p>
+                    <p>16 왕이 나갈 때에 그의 가족을 다 따르게 하고 후궁 열 명을 왕이 남겨 두어 왕궁을 지키게 하니라</p>
+                    <p>17 왕이 나가매 모든 백성이 다 따라서 벧메르학에 이르러 머물러 서니</p>
+                    <p>18 그의 모든 신하들이 그의 곁으로 지나가고 모든 그렛 사람과 모든 블렛 사람과 및 왕을 따라 가드에서 온 모든 가드 사람 육백 명이 왕 앞으로 행진하니라</p>
+                    <p>19 그 때에 왕이 가드 사람 잇대에게 이르되 어찌하여 너도 우리와 함께 가느냐 너는 쫓겨난 나그네이니 돌아가서 왕과 함께 네 곳에 있으라</p>
+                    <p>20 너는 어제 왔고 나는 정처없이 가니 오늘 어찌 너를 우리와 함께 떠돌아다니게 하리요 너도 돌아가고 네 동포들도 데려가라 은혜와 진리가 너와 함께 있기를 원하노라 하니라</p>
+                    <p>21 잇대가 왕께 대답하여 이르되 내 주 왕의 살아 계심과 내 주 왕께서 어느 곳에 계시든지 사나 죽으나 종도 그 곳에 있겠나이다 하니</p>
+                    <p>22 다윗이 잇대에게 이르되 앞서 건너가라 하매 가드 사람 잇대와 그의 수행자들과 그와 함께 한 아이들이 다 건너가고</p>
+                    <p>23 온 땅 사람이 큰 소리로 울며 모든 백성이 앞서 건너가매 왕도 기드론 시내를 건너가니 건너간 모든 백성이 광야 길로 향하니라</p>
+                    <p><strong>다윗이 법궤를 돌려보내다</strong></p>
+                    <p>24 보라 사독과 그와 함께 한 모든 레위 사람도 하나님의 언약궤를 메어다가 하나님의 궤를 내려놓고 아비아달도 올라와서 모든 백성이 성에서 나오기를 기다리도다</p>
+                    <p>25 왕이 사독에게 이르되 보라 하나님의 궤를 성읍으로 도로 메어 가라 만일 내가 여호와 앞에서 은혜를 입으면 도로 나를 인도하사 내게 그 궤와 그 계신 데를 보이시리라</p>
+                    <p>26 그러나 그가 이와 같이 말씀하시기를 내가 너를 기뻐하지 아니한다 하시면 종이 여기 있사오니 선히 여기시는 대로 내게 행하시옵소서 하리라</p>
+                    <p>27 왕이 또 제사장 사독에게 이르되 네가 선견자가 아니냐 너는 너희의 두 아들 곧 네 아들 아히마아스와 아비아달의 아들 요나단을 데리고 평안히 성읍으로 돌아가라</p>
+                    <p>28 너희에게서 소식이 내게 올 때까지 내가 광야 나루터에서 기다리리라 하니라</p>
+                    <p>29 사독과 아비아달이 하나님의 궤를 예루살렘으로 도로 메어다 놓고 거기에 머물러 있으니라</p>
+                    <p><strong>다윗이 슬퍼하며 기도하다</strong></p>
+                    <p>30 다윗이 감람 산 길로 올라가며 그의 머리를 그가 가리고 맨발로 울며 가고 그와 함께 가는 모든 백성도 각각 자기의 머리를 가리고 울며 올라가니라</p>
+                    <p>31 어떤 사람이 다윗에게 알리되 압살롬과 함께 모반한 자들 가운데 아히도벨이 있나이다 하니 다윗이 이르되 여호와여 원하옵건대 아히도벨의 모략을 어리석게 하옵소서 하니라</p>
+                    <p>32 다윗이 하나님을 경배하는 마루턱에 이를 때에 아렉 사람 후새가 옷을 찢고 흙을 머리에 덮어쓰고 다윗을 맞으러 온지라</p>
+                    <p>33 다윗이 그에게 이르되 네가 만일 나와 함께 나아가면 내게 누를 끼치리라</p>
+                    <p>34 그러나 네가 만일 성읍으로 돌아가서 압살롬에게 말하기를 왕이여 내가 왕의 종이니이다 전에는 내가 왕의 아버지의 종이었더니 이제는 내가 왕의 종이니이다 하면 네가 나를 위하여 아히도벨의 모략을 패하게 하리라</p>
+                    <p>35 사독과 아비아달 두 제사장이 너와 함께 거기 있지 아니하냐 네가 왕의 궁중에서 무엇을 듣든지 사독과 아비아달 두 제사장에게 알리라</p>
+                    <p>36 그들의 두 아들 곧 사독의 아히마아스와 아비아달의 요나단이 그들과 함께 거기 있나니 너희가 듣는 모든 것을 그들 편에 내게 소식을 알릴지니라 하는지라</p>
+                    <p>37 다윗의 친구 후새가 곧 성읍으로 들어가고 압살롬도 예루살렘으로 들어갔더라</p>
                 </div>
-            </section>
-            
-            <!-- Card 2: 2 Corinthians 8 -->
-            <section class="chapter-card card-book2">
-                <h2>고린도후서 8장: 부요하신 이가 가난하게 되심 같이</h2>
+            </div>
+
+            <!-- Card 2: 고린도후서 8장 -->
+            <div class="card card-book2">
+                <h2>고린도후서 8장 분석</h2>
                 <h3>개요 (Overview)</h3>
-                <p>바울은 예루살렘의 가난한 성도들을 위한 연보(헌금)에 대해 고린도 교회에 권면합니다. 그는 극심한 환난과 가난 속에서도 풍성한 연보를 드린 마게도냐 교회를 칭찬하며, 무엇보다 자신을 주께 먼저 드린 그들의 헌신을 강조합니다. 이 모든 헌신의 동기와 모델은 바로 우리를 위해 부요하신 분으로서 가난하게 되신 예수 그리스도의 은혜임을 선포하며, 고린도 교회가 시작한 이 선한 일을 마무리할 것을 촉구합니다.</p>
+                <p>바울은 예루살렘 교회의 가난한 성도들을 돕기 위한 연보(헌금)에 고린도 교회가 참여할 것을 권면합니다. 그는 극심한 가난 속에서도 넘치는 기쁨으로 헌금한 마게도냐 교회를 모범으로 제시하며, 연보의 진정한 동기는 의무나 강요가 아닌, 우리를 위해 가난하게 되신 예수 그리스도의 은혜에 대한 자발적이고 기쁜 반응이어야 함을 강조합니다.</p>
 
                 <h3>시각적 분석 (Visual Analysis)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
-                    <line x1="100" y1="120" x2="300" y2="120" stroke="#333" stroke-width="2"/>
-                    <path d="M 200 120 L 200 40 L 195 45 M 200 40 L 205 45" stroke="#333" stroke-width="2" fill="none"/>
-                    <text x="200" y="30" text-anchor="middle" font-weight="bold" fill="#50E3C2">은혜 (GRACE)</text>
-                    
-                    <g text-anchor="middle">
-                        <text x="140" y="60">그리스도의 부요</text>
-                        <text x="140" y="75" font-size="9" fill="#555">(하늘 영광)</text>
-                        <path d="M 150 90 C 170 110, 180 110, 200 90" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
-                        <text x="140" y="110">우리를 위한 가난</text>
-                    </g>
-                     <g text-anchor="middle">
-                        <text x="260" y="60">우리의 부요</text>
-                        <text x="260" y="75" font-size="9" fill="#555">(영적 부요)</text>
-                        <path d="M 250 110 C 230 90, 220 90, 200 110" fill="none" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
-                        <text x="260" y="110">우리의 가난</text>
-                    </g>
-                    <text x="200" y="140" text-anchor="middle" font-size="12" font-weight="bold">위대한 교환 (The Great Exchange)</text>
-                </svg>
+                <div class="visual-analysis-container">
+                    <svg viewBox="0 0 800 250">
+                        <defs>
+                            <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#DB4437" />
+                            </marker>
+                        </defs>
+                        <g>
+                            <rect x="50" y="30" width="200" height="70" rx="10" fill="#fce8e6" stroke="#DB4437" stroke-width="2"/>
+                            <text x="150" y="60" text-anchor="middle" font-size="16" fill="#202124">그리스도의 은혜 (궁극적 모델)</text>
+                            <text x="150" y="85" text-anchor="middle" font-size="14" fill="#5f6368">(부요하신 이가 가난하게 되심)</text>
+                        </g>
+                        <path d="M 260 65 Q 325 30 400 65" stroke="#DB4437" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrow-red)"/>
+                        <text x="325" y="45" font-size="14" fill="#DB4437">은혜의 동기</text>
+                        <g>
+                            <rect x="100" y="150" width="200" height="70" rx="10" fill="#fef7e0" stroke="#F4B400" stroke-width="2"/>
+                            <text x="200" y="180" text-anchor="middle" font-size="16" fill="#202124">마게도냐 교회의 모범</text>
+                            <text x="200" y="205" text-anchor="middle" font-size="14" fill="#5f6368">(가난 속의 풍성한 연보)</text>
+                        </g>
+                        <g>
+                            <rect x="500" y="150" width="200" height="70" rx="10" fill="#e6f4ea" stroke="#0F9D58" stroke-width="2"/>
+                            <text x="600" y="180" text-anchor="middle" font-size="16" fill="#202124">고린도 교회를 향한 권면</text>
+                            <text x="600" y="205" text-anchor="middle" font-size="14" fill="#5f6368">(시작한 일을 성취하라)</text>
+                        </g>
+                        <path d="M 400 80 V 160" stroke="#DB4437" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
+                        <path d="M 400 175 L 480 175" stroke="#DB4437" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
+                        <path d="M 400 175 L 320 175" stroke="#DB4437" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
+                        <text x="400" y="130" text-anchor="middle" font-size="14" fill="#DB4437">↓ 은혜의 적용 ↓</text>
+                    </svg>
+                </div>
 
                 <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
-                <p>초대 교회 시대에 예루살렘 교회는 기근과 박해로 인해 심각한 경제적 어려움을 겪었습니다. 이에 바울은 자신이 개척한 이방인 교회들을 대상으로 구제 헌금을 모으는 일을 매우 중요하게 여겼습니다. 이 연보는 단순한 구제가 아니라, 유대인과 이방인 성도들이 그리스도 안에서 하나 됨을 보여주는 가시적인 증거였습니다. 신학적으로 바울의 연보 권면은 율법적 의무가 아닌, '은혜'에 대한 자발적인 응답에 기초합니다. 마게도냐 교인들이 '힘에 지나도록' 헌신할 수 있었던 이유는, 그들이 먼저 자신을 주께 드렸기 때문입니다. 그리고 이 모든 헌신의 궁극적인 모델은 바로 성육신하신 예수 그리스도입니다. 그의 '자기 비움'(케노시스)과 십자가의 가난이야말로 모든 성도의 섬김과 헌신의 원천이자 동력입니다.</p>
+                <p>초대교회에서 연보는 단순한 구제 활동을 넘어, 이방인 교회와 유대인 교회 사이의 연합과 교제를 상징하는 중요한 행위였습니다. 바울은 이 연보를 '은혜(카리스)'와 '섬김(디아코니아)'이라는 신학적 용어로 설명합니다. 이는 우리의 나눔이 하나님의 값없는 은혜에서 비롯되며, 그리스도의 몸 된 교회를 섬기는 거룩한 사역임을 의미합니다. 개혁주의 관점에서 헌금은 구원의 조건이 아니라, 구원받은 자가 하나님의 은혜에 감사하여 드리는 기쁨의 응답입니다.</p>
                 
                 <h3>주요 구절 해설 (Key Verse Commentary)</h3>
-                <p><strong>8장 5절</strong>: "우리가 바라던 것뿐 아니라 그들이 먼저 자신을 주께 드리고 하나님의 뜻을 따라 우리에게 주었도다" - 바울은 마게도냐 교인들의 헌금이 놀라웠던 핵심 이유를 밝힙니다. 그들은 돈을 먼저 드린 것이 아니라 '자신을 먼저 주께' 드렸습니다. 진정한 헌신은 물질이 아닌 마음의 중심에서 시작됩니다. 나의 모든 소유권이 주님께 있음을 인정할 때, 비로소 우리는 아낌없이 나눌 수 있습니다. 순서가 중요합니다. 주님께 나를 드리는 것이 먼저이고, 그 후에 나의 소유를 드리는 것은 자연스러운 결과입니다.</p>
-                <p><strong>8장 9절</strong>: "우리 주 예수 그리스도의 은혜를 너희가 알거니와 부요하신 이로서 너희를 위하여 가난하게 되심은 그의 가난함으로 말미암아 너희를 부요하게 하려 하심이라" - 기독교 신학의 핵심인 '위대한 교환'을 가장 아름답게 요약한 구절 중 하나입니다. '부요하신 이'는 창조주로서 온 우주를 소유하신 그리스도의 신성을, '가난하게 되심'은 그의 성육신과 십자가의 고난과 죽음을 의미합니다. 그분은 우리의 죄와 가난, 저주를 모두 짊어지셨고, 그 대신 우리에게 그의 의와 생명, 하늘의 영광이라는 '부요함'을 선물로 주셨습니다. 우리의 모든 구원과 소망이 이 은혜로운 교환에 담겨 있습니다.</p>
-                
+                <p class="key-verse">"환난의 많은 시련 가운데서 그들의 넘치는 기쁨과 극심한 가난이 그들의 풍성한 연보를 넘치도록 하게 하였느니라" (고린도후서 8:2)</p>
+                <p class="commentary-text">이 구절은 세상의 논리를 뒤엎는 복음의 역설을 보여줍니다. '넘치는 기쁨'과 '극심한 가난'이라는 양립 불가능해 보이는 두 상태가 '풍성한 연보'라는 열매를 맺었습니다. 이는 참된 기쁨과 관대함이 소유의 많고 적음이 아니라, 그리스도 안에 있는 생명과 은혜에서 비롯됨을 증명합니다.</p>
+
+                <p class="key-verse">"우리 주 예수 그리스도의 은혜를 너희가 알거니와 부요하신 이로서 너희를 위하여 가난하게 되심은 그의 가난함으로 말미암아 너희를 부요하게 하려 하심이라" (고린도후서 8:9)</p>
+                <p class="commentary-text">이 구절은 기독교 신앙의 핵심인 성육신과 대속의 교리를 담고 있습니다. '부요하신 이'이신 그리스도께서 하늘의 영광을 버리고 '가난하게 되신' 것은, 우리를 죄와 사망에서 건져내어 영적으로 '부요하게' 하시기 위함입니다. 이 위대한 교환(The Great Exchange)은 모든 그리스도인의 나눔과 섬김의 궁극적인 동기이자 모델이 됩니다.</p>
+
                 <h3>성경 본문 (Full Text)</h3>
                 <div class="bible-text">
-                    <strong>마게도냐 교회의 헌신적인 연보</strong>
-                    <p><span class="verse-number">1</span> 형제들아 하나님께서 마게도냐 교회들에게 주신 은혜를 우리가 너희에게 알리노니</p>
-                    <p><span class="verse-number">2</span> 환난의 많은 시련 가운데서 그들의 넘치는 기쁨과 극심한 가난이 그들의 풍성한 연보를 넘치도록 하게 하였느니라</p>
-                    <p><span class="verse-number">3</span> 내가 증언하노니 그들이 힘대로 할 뿐 아니라 힘에 지나도록 자원하여</p>
-                    <p><span class="verse-number">4</span> 이 은혜와 성도 섬기는 일에 참여함에 대하여 우리에게 간절히 구하니</p>
-                    <p><span class="verse-number">5</span> 우리가 바라던 것뿐 아니라 그들이 먼저 자신을 주께 드리고 하나님의 뜻을 따라 우리에게 주었도다</p>
-                    <p><span class="verse-number">6</span> 그러므로 우리가 디도를 권하여 그가 이미 너희 가운데서 시작하였은즉 이 은혜를 그대로 성취하게 하라 하였노라</p>
-                    <p><span class="verse-number">7</span> 오직 너희는 믿음과 말과 지식과 모든 간절함과 우리를 사랑하는 이 모든 일에 풍성한 것 같이 이 은혜에도 풍성하게 할지니라</p>
-                    <strong>헌신의 모델이신 예수 그리스도</strong>
-                    <p><span class="verse-number">8</span> 내가 명령으로 하는 말이 아니요 오직 다른 이들의 간절함을 가지고 너희의 사랑의 진실함을 증명하고자 함이로라</p>
-                    <p><span class="verse-number">9</span> 우리 주 예수 그리스도의 은혜를 너희가 알거니와 부요하신 이로서 너희를 위하여 가난하게 되심은 그의 가난함으로 말미암아 너희를 부요하게 하려 하심이라</p>
-                    <p><span class="verse-number">10</span> 이 일에 관하여 나의 뜻을 알리노니 이 일은 너희에게 유익함이라 너희가 일 년 전에 행하기를 먼저 시작할 뿐 아니라 원하기도 하였은즉</p>
-                    <p><span class="verse-number">11</span> 이제는 하던 일을 성취할지니 마음에 원하던 것과 같이 완성하되 있는 대로 하라</p>
-                    <p><span class="verse-number">12</span> 할 마음만 있으면 있는 대로 받으실 터이요 없는 것은 받지 아니하시리라</p>
-                    <p><span class="verse-number">13</span> 이는 다른 사람들은 평안하게 하고 너희는 곤고하게 하려는 것이 아니요 균등하게 하려 함이니</p>
-                    <p><span class="verse-number">14</span> 이제 너희의 넉넉한 것으로 그들의 부족한 것을 보충함은 후에 그들의 넉넉한 것으로 너희의 부족한 것을 보충하여 균등하게 하려 함이라</p>
-                    <p><span class="verse-number">15</span> 기록된 것 같이 많이 거둔 자도 남지 아니하였고 적게 거둔 자도 모자라지 아니하였느니라</p>
-                    <strong>연보를 위한 동역자들</strong>
-                    <p><span class="verse-number">16</span> 너희를 위하여 같은 간절함을 디도의 마음에도 주시는 하나님께 감사하노니</p>
-                    <p><span class="verse-number">17</span> 그가 권함을 받고 더욱 간절함으로 자원하여 너희에게 나아갔고</p>
-                    <p><span class="verse-number">18</span> 또 그와 함께 그 형제를 보냈으니 이 사람은 복음으로써 모든 교회에서 칭찬을 받는 자요</p>
-                    <p><span class="verse-number">19</span> 이뿐 아니라 그는 동일한 주의 영광과 우리의 원을 나타내기 위하여 여러 교회의 택함을 받아 우리가 맡은 은혜의 일로 우리와 동행하는 자라</p>
-                    <p><span class="verse-number">20</span> 이것을 조심함은 우리가 맡은 이 거액의 연보에 대하여 아무도 우리를 비방하지 못하게 하려 함이니</p>
-                    <p><span class="verse-number">21</span> 이는 우리가 주 앞에서뿐 아니라 사람 앞에서도 선한 일에 조심하려 함이라</p>
-                    <p><span class="verse-number">22</span> 또 그들과 함께 우리의 한 형제를 보냈노니 우리는 그가 여러 가지 일에 간절한 것을 여러 번 확인하였거니와 이제 그가 너희를 크게 믿으므로 더욱 간절하니라</p>
-                    <p><span class="verse-number">23</span> 디도로 말하면 나의 동료요 너희를 위한 나의 동역자요 우리 형제들로 말하면 여러 교회의 사자들이요 그리스도의 영광이니라</p>
-                    <p><span class="verse-number">24</span> 그러므로 너희는 여러 교회 앞에서 너희의 사랑과 너희에 대한 우리 자랑의 증거를 그들에게 보이라</p>
+                    <p><strong>연보에 대한 마게도냐 교회의 모범</strong></p>
+                    <p>1 형제들아 하나님께서 마게도냐 교회들에게 주신 은혜를 우리가 너희에게 알리노니</p>
+                    <p>2 환난의 많은 시련 가운데서 그들의 넘치는 기쁨과 극심한 가난이 그들의 풍성한 연보를 넘치도록 하게 하였느니라</p>
+                    <p>3 내가 증언하노니 그들이 힘대로 할 뿐 아니라 힘에 지나도록 자원하여</p>
+                    <p>4 이 은혜와 성도 섬기는 일에 참여함에 대하여 우리에게 간절히 구하니</p>
+                    <p>5 우리가 바라던 것뿐 아니라 그들이 먼저 자신을 주께 드리고 또 하나님의 뜻을 따라 우리에게 주었도다</p>
+                    <p>6 그러므로 우리가 디도를 권하여 그가 이미 너희 가운데서 시작하였은즉 이 은혜를 그대로 성취하게 하라 하였노라</p>
+                    <p>7 오직 너희는 믿음과 말과 지식과 모든 간절함과 우리를 사랑하는 이 모든 일에 풍성한 것 같이 이 은혜에도 풍성하게 할지니라</p>
+                    <p><strong>그리스도의 은혜를 본받으라</strong></p>
+                    <p>8 내가 명령으로 하는 말이 아니요 오직 다른 이들의 간절함을 가지고 너희의 사랑의 진실함을 증명하고자 함이로라</p>
+                    <p>9 우리 주 예수 그리스도의 은혜를 너희가 알거니와 부요하신 이로서 너희를 위하여 가난하게 되심은 그의 가난함으로 말미암아 너희를 부요하게 하려 하심이라</p>
+                    <p>10 이 일에 관하여 나의 뜻을 알리노니 이 일은 너희에게 유익함이라 너희가 일 년 전에 행하기를 먼저 시작할 뿐 아니라 원하기도 하였은즉</p>
+                    <p>11 이제는 하던 일을 성취할지니 마음에 원하던 것과 같이 완성하되 있는 대로 하라</p>
+                    <p>12 할 마음만 있으면 있는 대로 받으실 터이요 없는 것은 받지 아니하시리라</p>
+                    <p>13 이는 다른 사람들은 평안하게 하고 너희는 곤고하게 하려는 것이 아니요 균등하게 하려 함이니</p>
+                    <p>14 이제 너희의 넉넉한 것으로 그들의 부족한 것을 보충함은 후에 그들의 넉넉한 것으로 너희의 부족한 것을 보충하여 균등하게 하려 함이라</p>
+                    <p>15 기록된 것 같이 많이 거둔 자도 남지 아니하였고 적게 거둔 자도 모자라지 아니하였느니라</p>
+                    <p><strong>디도와 그의 동역자들을 칭찬하다</strong></p>
+                    <p>16 너희를 위하여 같은 간절함을 디도의 마음에도 주시는 하나님께 감사하노니</p>
+                    <p>17 그가 권함을 받고 더욱 간절함으로 자원하여 너희에게 나아갔고</p>
+                    <p>18 또 그와 함께 그 형제를 보냈으니 이 사람은 복음으로써 모든 교회에서 칭찬을 받는 자요</p>
+                    <p>19 이뿐 아니라 그는 동일한 주의 영광과 우리의 원을 나타내기 위하여 여러 교회의 택함을 받아 우리가 맡은 은혜의 일로 우리와 동행하는 자라</p>
+                    <p>20 이것을 조심함은 우리가 맡은 이 거액의 연보에 대하여 아무도 우리를 비방하지 못하게 하려 함이니</p>
+                    <p>21 이는 우리가 주 앞에서뿐 아니라 사람 앞에서도 선한 일에 조심하려 함이라</p>
+                    <p>22 또 그들과 함께 우리의 한 형제를 보냈노니 우리는 그가 여러 가지 일에 간절한 것을 여러 번 확인하였거니와 이제 그가 너희를 크게 믿으므로 더욱 간절하니라</p>
+                    <p>23 디도로 말하면 나의 동료요 너희를 위한 나의 동역자요 우리 형제들로 말하면 여러 교회의 사자들이요 그리스도의 영광이니라</p>
+                    <p>24 그러므로 너희는 여러 교회 앞에서 너희의 사랑과 너희에 대한 우리 자랑의 증거를 그들에게 보이라</p>
                 </div>
-            </section>
+            </div>
 
-            <!-- Card 3: Ezekiel 22 -->
-            <section class="chapter-card card-book3">
-                <h2>에스겔 22장: 중보자 없는 피의 성읍</h2>
+            <!-- Card 3: 에스겔 22장 -->
+            <div class="card card-book3">
+                <h2>에스겔 22장 분석</h2>
                 <h3>개요 (Overview)</h3>
-                <p>하나님께서는 에스겔을 통해 '피의 성읍' 예루살렘의 죄악을 낱낱이 고발하십니다. 지도자인 방백들부터 제사장, 고관, 그리고 일반 백성에 이르기까지, 사회 모든 계층이 총체적으로 부패했습니다. 그들은 피 흘리고, 우상을 숭배하며, 가난한 자를 학대하고, 율법을 멸시했습니다. 하나님은 이 땅의 무너진 데를 막아서서 하나님의 진노를 막을 의인 한 사람을 찾으셨으나, 찾지 못하시고 결국 심판을 선언하십니다.</p>
+                <p>하나님은 에스겔 선지자를 통해 예루살렘의 죄악을 신랄하게 고발하십니다. 피 흘림, 우상 숭배, 부모 공경 소홀, 가난한 자 압제, 안식일 모독 등 사회 전반에 걸친 총체적인 타락상을 나열하며, 그들의 죄가 하나님의 이름을 더럽혔다고 선언합니다. 결국 하나님은 이스라엘을 풀무불에 던져 넣어 찌꺼기 같은 죄악을 녹여버리는 것과 같은 맹렬한 심판을 행하실 것을 경고하십니다.</p>
 
                 <h3>시각적 분석 (Visual Analysis)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
-                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">예루살렘의 총체적 부패</text>
-                    <rect x="50" y="30" width="300" height="120" rx="10" fill="none" stroke="#F5A623" stroke-width="2" />
+                <div class="visual-analysis-container">
+                    <svg viewBox="0 0 800 300">
+                        <circle cx="400" cy="150" r="140" fill="#fff8e1" stroke="#F4B400" stroke-width="3"/>
+                        <text x="400" y="150" text-anchor="middle" font-size="24" font-weight="bold" fill="#202124">예루살렘의 죄악</text>
+                        <text x="400" y="180" text-anchor="middle" font-size="16" fill="#5f6368">(하나님의 고발)</text>
 
-                    <g text-anchor="middle">
-                        <text x="200" y="50" font-weight="bold">방백들 (지도층)</text>
-                        <text x="200" y="65" fill="#555">피 흘림, 불의한 이익</text>
-
-                        <line x1="70" y1="75" x2="330" y2="75" stroke="#ccc" stroke-dasharray="4"/>
-
-                        <text x="200" y="90" font-weight="bold">제사장 & 선지자들</text>
-                        <text x="200" y="105" fill="#555">율법 모독, 거짓 예언</text>
-
-                        <line x1="70" y1="115" x2="330" y2="115" stroke="#ccc" stroke-dasharray="4"/>
+                        <line x1="400" y1="10" x2="400" y2="100" stroke="#F4B400" stroke-width="2"/>
+                        <text x="400" y="30" text-anchor="middle" font-size="16">우상 숭배</text>
                         
-                        <text x="200" y="130" font-weight="bold">백성들</text>
-                        <text x="200" y="145" fill="#555">포악, 강탈, 약자 학대</text>
-                    </g>
-                    <text x="360" y="100" font-size="20" fill="#D0021B">🔥</text>
-                    <text x="360" y="120" font-size="9" fill="#D0021B">심판</text>
-                </svg>
+                        <line x1="580" y1="55" x2="495" y2="110" stroke="#F4B400" stroke-width="2"/>
+                        <text x="600" y="50" text-anchor="middle" font-size="16">피 흘림</text>
+
+                        <line x1="650" y1="150" x2="540" y2="150" stroke="#F4B400" stroke-width="2"/>
+                        <text x="660" y="155" text-anchor="middle" font-size="16">사회적 불의</text>
+
+                        <line x1="580" y1="245" x2="495" y2="190" stroke="#F4B400" stroke-width="2"/>
+                        <text x="600" y="250" text-anchor="middle" font-size="16">성적 타락</text>
+
+                        <line x1="400" y1="290" x2="400" y2="200" stroke="#F4B400" stroke-width="2"/>
+                        <text x="400" y="270" text-anchor="middle" font-size="16">안식일 모독</text>
+
+                        <line x1="220" y1="245" x2="305" y2="190" stroke="#F4B400" stroke-width="2"/>
+                        <text x="200" y="250" text-anchor="middle" font-size="16">부모 경멸</text>
+
+                        <line x1="150" y1="150" x2="260" y2="150" stroke="#F4B400" stroke-width="2"/>
+                        <text x="140" y="155" text-anchor="middle" font-size="16">이웃 압제</text>
+
+                        <line x1="220" y1="55" x2="305" y2="110" stroke="#F4B400" stroke-width="2"/>
+                        <text x="200" y="50" text-anchor="middle" font-size="16">하나님을 잊음</text>
+                    </svg>
+                </div>
 
                 <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
-                <p>에스겔 22장은 바벨론에 의한 예루살렘 멸망이 임박한 시점에서, 그 심판이 왜 정당하고 필연적인지를 변호하는 하나님의 기소장과 같습니다. 죄는 개인의 문제를 넘어 사회 전체를 병들게 하는 전염병과 같습니다. 지도층의 부패는 제사장과 선지자의 타락으로, 이는 다시 백성들의 도덕적 해이로 이어지며 총체적인 붕괴를 가져왔습니다. 신학적으로 이는 인간 사회의 전적인 부패(Total Depravity)를 보여주는 생생한 증거입니다. 어느 한 곳도 성한 곳이 없는 상태입니다. 특히 "성 무너진 데를 막아서서... 멸하지 못하게 할 사람을... 찾지 못했다"는 하나님의 탄식은, 인간에게는 스스로를 구원할 의와 능력이 전혀 없음을 보여줍니다. 이 절망적인 선언은 역설적으로 우리에게 유일한 중보자, 우리의 무너진 곳을 자신의 몸으로 막아서신 예수 그리스도의 필요성과 그 은혜의 위대함을 절실히 깨닫게 합니다.</p>
+                <p>에스겔 22장은 언약 백성이 율법의 정신을 완전히 저버렸을 때 어떤 결과에 이르는지를 보여주는 '신적 고소장'과 같습니다. 특히 지도자들(고관, 제사장, 선지자)의 타락이 백성 전체의 타락을 부추겼음을 지적합니다. 하나님의 심판은 단순히 죄에 대한 보복이 아니라, 당신의 거룩하심을 회복하고 더럽혀진 이름을 깨끗하게 하시는 공의의 실현입니다. '풀무불' 비유는 심판의 철저함과 고통스러움을 암시하지만, 동시에 불순물을 제거하고 순수한 것을 남기려는 정화의 목적 또한 내포하고 있습니다.</p>
 
                 <h3>주요 구절 해설 (Key Verse Commentary)</h3>
-                <p><strong>22장 3절, 4절</strong>: "너는 이르기를 주 여호와의 말씀에 자기 가운데에 피를 흘려 벌 받을 때가 이르게 하며 자기를 위하여 우상을 만들어 스스로 더럽히는 성아... 네가 흘린 피로 말미암아 죄가 있고 네가 만든 우상으로 말미암아 스스로 더러워졌으니 네 날이 가까웠고 네 연한이 찼도다" - 하나님은 예루살렘의 죄를 '피 흘림'과 '우상 숭배'라는 두 가지 핵심으로 요약하십니다. 이는 십계명의 두 돌판, 즉 하나님 사랑과 이웃 사랑 모두를 파괴했음을 의미합니다. 하나님을 버리고 우상을 섬기는 마음은 필연적으로 이웃의 생명을 경시하고 착취하는 행동으로 이어집니다. 신앙과 윤리는 분리될 수 없으며, 하나님과의 관계 파괴가 모든 사회악의 근원임을 보여줍니다.</p>
-                <p><strong>22장 30절</strong>: "이 땅을 위하여 성을 쌓으며 성 무너진 데를 막아서서 나로 하여금 멸하지 못하게 할 사람을 내가 그 가운데에서 찾다가 찾지 못하였으므로" - 이 구절은 하나님의 안타까움과 슬픔이 절절히 묻어나는 구절입니다. 하나님은 심판 자체를 즐기시는 분이 아니라, 어떻게든 심판을 피할 길을 찾으시는 분입니다. 아브라함이 소돔을 위해 기도했던 것처럼, 단 한 사람의 의로운 중보자라도 있었다면 진노를 거두셨을 것입니다. 그러나 예루살렘에는 그런 사람이 없었습니다. 이 비극적인 공백은 훗날 인류의 무너진 성벽을 자신의 몸으로 막아서신 유일하고 완전한 중보자, 예수 그리스도를 통해 채워집니다.</p>
+                <p class="key-verse">"네 가운데에 피를 흘리려고 자기 부모를 경홀히 여기는 자가 있었으며, 네 가운데에 나그네를 학대하는 자가 있었으며, 네 가운데에 고아와 과부를 해하는 자가 있었도다" (에스겔 22:7)</p>
+                <p class="commentary-text">하나님은 예배의 타락뿐만 아니라 사회 윤리의 붕괴를 심각하게 지적하십니다. 부모 공경, 나그네와 고아, 과부 보호는 율법의 핵심 가치입니다. 하나님을 경외하는 신앙은 반드시 사회적 약자를 보호하고 정의를 실현하는 삶으로 나타나야 함을 보여줍니다. 이 둘은 분리될 수 없습니다.</p>
+
+                <p class="key-verse">"사람이 은이나 놋이나 쇠나 납이나 주석이나 모아 풀무 속에 넣고 불을 불어 녹이는 것 같이 내가 노여움과 분으로 너희를 모아 거기에 두고 녹이리라" (에스겔 22:20)</p>
+                <p class="commentary-text">이 맹렬한 심판의 이미지는 하나님의 공의가 얼마나 엄중한지를 보여줍니다. 죄는 결코 간과될 수 없으며, 반드시 그에 상응하는 대가를 치르게 됩니다. 이 이미지는 훗날 십자가에서 예수 그리스도께서 우리 대신 받으신 진노가 얼마나 엄청난 것이었는지를 짐작하게 합니다.</p>
 
                 <h3>성경 본문 (Full Text)</h3>
                 <div class="bible-text">
-                    <strong>피의 성읍 예루살렘의 죄악</strong>
-                    <p><span class="verse-number">1</span> 여호와의 말씀이 또 내게 임하여 이르시되</p>
-                    <p><span class="verse-number">2</span> 인자야 네가 어찌하려느냐 네가 이 피 흘린 성읍을 심문하려느냐 그리하려거든 자기의 모든 가증한 일을 그에게 알리어</p>
-                    <p><span class="verse-number">3</span> 이르기를 주 여호와께서 이같이 말씀하셨느니라 자기 가운데에 피를 흘려 벌 받을 때가 이르게 하며 자기를 위하여 우상을 만들어 스스로 더럽히는 성아</p>
-                    <p><span class="verse-number">4</span> 네가 흘린 피로 말미암아 죄가 있고 네가 만든 우상으로 말미암아 스스로 더러워졌으니 네 날이 가까웠고 네 연한이 찼도다 그러므로 내가 너로 이방의 능욕을 받으며 모든 나라의 조롱 거리가 되게 하였노라</p>
-                    <p><span class="verse-number">5</span> 너 이름이 더럽고 어지러움이 많은 자여 가까운 자나 먼 자나 다 너를 조롱하리라</p>
-                    <strong>지도층의 부패</strong>
-                    <p><span class="verse-number">6</span> 이스라엘 모든 고관은 각기 권세대로 피를 흘리려고 네 가운데에 있었도다</p>
-                    <p><span class="verse-number">7</span> 그들이 네 가운데에서 부모를 업신여겼으며 네 가운데에서 나그네를 학대하였으며 네 가운데에서 고아와 과부를 해하였도다</p>
-                    <p><span class="verse-number">8</span> 너는 나의 성물들을 업신여겼으며 나의 안식일을 더럽혔으며</p>
-                    <p><span class="verse-number">9</span> 네 가운데에는 피를 흘리려고 이간을 붙이는 자도 있었으며 네 가운데에는 산 위에서 제물을 먹는 자도 있었으며 네 가운데에는 음란한 자도 있었으며</p>
-                    <p><span class="verse-number">10</span> 네 가운데에는 자기 아버지의 하체를 드러내는 자도 있었으며 네 가운데에는 월경하는 부정한 여인과 관계하는 자도 있었으며</p>
-                    <p><span class="verse-number">11</span> 어떤 사람은 그 이웃의 아내와 가증한 일을 행하였으며 어떤 사람은 그의 며느리를 더럽혀 음행하였으며 네 가운데에는 어떤 사람이 그 자매 곧 아버지의 딸과 관계하였으며</p>
-                    <p><span class="verse-number">12</span> 네 가운데에는 피를 흘리려고 뇌물을 받는 자도 있었으며 네가 변돈과 이자를 받았으며 이익을 탐하여 이웃을 속여 빼앗았으며 나를 잊어버렸도다 주 여호와의 말씀이니라</p>
-                    <p><span class="verse-number">13</span> 내가 불의하게 이익을 얻은 일과 네 가운데에 피 흘린 일로 말미암아 손뼉을 쳤나니</p>
-                    <p><span class="verse-number">14</span> 내가 네게 보응하는 날에 네 마음이 견디겠느냐 네 손이 힘이 있겠느냐 나 여호와가 말하였으니 내가 이루리라</p>
-                    <p><span class="verse-number">15</span> 내가 너를 뭇 나라 가운데에 흩으며 각 나라에 헤치고 너의 더러운 것을 네 가운데에서 멸하리라</p>
-                    <p><span class="verse-number">16</span> 네가 자기의 죄로 말미암아 뭇 나라의 눈 앞에서 더럽힘을 당하리니 내가 여호와인 줄을 네가 알리라 하셨다 하라</p>
-                    <strong>풀무불 속의 이스라엘</strong>
-                    <p><span class="verse-number">17</span> 여호와의 말씀이 내게 임하여 이르시되</p>
-                    <p><span class="verse-number">18</span> 인자야 이스라엘 족속이 내게 찌꺼기가 되었나니 곧 풀무 불 가운데에 있는 놋이나 주석이나 쇠나 납이며 은의 찌꺼기로다</p>
-                    <p><span class="verse-number">19</span> 그러므로 주 여호와께서 이같이 말씀하셨느니라 너희가 다 찌꺼기가 되었은즉 내가 너희를 예루살렘 가운데에 모으고</p>
-                    <p><span class="verse-number">20</span> 사람이 은이나 놋이나 쇠나 납이나 주석이나 모아서 풀무 불 속에 넣고 불을 불어 녹이는 것 같이 내가 노여움과 분으로 너희를 모아 거기에 두고 녹이리라</p>
-                    <p><span class="verse-number">21</span> 내가 너희를 모으고 내 분노의 불을 너희에게 불면 너희가 그 가운데에서 녹되</p>
-                    <p><span class="verse-number">22</span> 은이 풀무 불 가운데에서 녹는 것 같이 너희가 그 가운데에서 녹으리니 나 여호와가 분노를 너희 위에 쏟은 줄을 너희가 알리라</p>
-                    <strong>총체적인 타락에 대한 고발</strong>
-                    <p><span class="verse-number">23</span> 여호와의 말씀이 내게 임하여 이르시되</p>
-                    <p><span class="verse-number">24</span> 인자야 너는 그에게 이르기를 너는 정결함을 얻지 못한 땅이요 진노의 날에 비를 얻지 못한 땅이로다 하라</p>
-                    <p><span class="verse-number">25</span> 그 가운데에서 선지자들의 반역함이 우는 사자가 음식물을 움킴 같았도다 그들이 사람의 영혼을 삼켰으며 재산과 보물을 탈취하며 과부를 그 가운데에 많게 하였으며</p>
-                    <p><span class="verse-number">26</span> 그의 제사장들은 내 율법을 범하였으며 나의 성물을 더럽혔으며 거룩함과 속된 것을 구별하지 아니하였으며 부정함과 정한 것을 사람이 구별하게 하지 아니하였으며 그의 눈을 가리어 나의 안식일을 보지 아니하였으므로 내가 그들 가운데에서 더럽힘을 받았느니라</p>
-                    <p><span class="verse-number">27</span> 그 가운데의 고관들은 음식물을 삼키는 이리 같아서 불의한 이익을 얻으려고 피를 흘려 영혼을 멸하거늘</p>
-                    <p><span class="verse-number">28</span> 그의 선지자들이 그들을 위하여 회를 칠하고 스스로 허탄한 이상을 보며 거짓 복술을 행하며 여호와가 말하지 아니하였어도 주 여호와께서 이같이 말씀하셨느니라 하였으며</p>
-                    <p><span class="verse-number">29</span> 이 땅 백성은 포악하고 강탈을 일삼고 가난하고 궁핍한 자를 압제하고 부당하게 나그네를 학대하였으므로</p>
-                    <strong>중보자를 찾으시는 하나님</strong>
-                    <p><span class="verse-number">30</span> 이 땅을 위하여 성을 쌓으며 성 무너진 데를 막아서서 나로 하여금 멸하지 못하게 할 사람을 내가 그 가운데에서 찾다가 찾지 못하였으므로</p>
-                    <p><span class="verse-number">31</span> 내가 내 분노를 그들 위에 쏟으며 내 진노의 불로 멸하여 그들 행위대로 그들 머리에 보응하였느니라 주 여호와의 말씀이니라</p>
+                    <p><strong>예루살렘의 죄악 목록</strong></p>
+                    <p>1 여호와의 말씀이 또 내게 임하여 이르시되</p>
+                    <p>2 인자야 네가 심문하려느냐 이 피 흘린 성읍을 심문하려느냐 그리하려거든 자기의 모든 가증한 일을 그들이 알게 하여</p>
+                    <p>3 이르기를 주 여호와께서 이같이 말씀하셨느니라 자기 가운데에 피를 흘려 벌 받을 때가 이르게 하며 우상을 만들어 스스로 더럽히는 성아</p>
+                    <p>4 네가 흘린 피로 말미암아 죄가 있고 네가 만든 우상으로 말미암아 스스로 더럽혔으니 네 날이 가까웠고 네 연한이 찼도다 그러므로 내가 너로 이방의 능욕을 받으며 만국의 조롱 거리가 되게 하였노라</p>
+                    <p>5 너 이름이 더럽고 어지러움이 많은 자여 가까운 자나 먼 자나 다 너를 조롱하리라</p>
+                    <p>6 이스라엘 모든 고관은 각기 권세대로 피를 흘리려고 네 가운데에 있었도다</p>
+                    <p>7 그들이 네 가운데에서 부모를 업신여겼으며 네 가운데에서 나그네를 학대하였으며 네 가운데에서 고아와 과부를 해하였도다</p>
+                    <p>8 너는 나의 성물들을 업신여겼으며 나의 안식일을 더럽혔으며</p>
+                    <p>9 네 가운데에는 피를 흘리려고 이간을 붙이는 자도 있었으며 네 가운데에는 산 위에서 제물을 먹는 자도 있었으며 네 가운데에는 음란한 자도 있었으며</p>
+                    <p>10 네 가운데에는 자기 아버지의 하체를 드러내는 자도 있었으며 네 가운데에는 월경하는 부정한 여인과 관계하는 자도 있었으며</p>
+                    <p>11 어떤 사람은 그 이웃의 아내와 가증한 일을 행하였으며 어떤 사람은 그의 며느리를 더럽혀 음행하였으며 네 가운데에는 어떤 사람이 그 자매 곧 아버지의 딸과 관계하였으며</p>
+                    <p>12 네 가운데에는 피를 흘리려고 뇌물을 받는 자도 있었으며 네가 변돈과 이자를 받았으며 이익을 탐하여 이웃을 속여 빼앗았으며 나를 잊어버렸도다 주 여호와의 말씀이니라</p>
+                    <p>13 내가 불의하게 이익을 얻은 일과 네 가운데에 피 흘린 일로 말미암아 손뼉을 쳤나니</p>
+                    <p>14 내가 네게 보응하는 날에 네 마음이 견디겠느냐 네 손이 힘이 있겠느냐 나 여호와가 말하였으니 반드시 이루리라</p>
+                    <p>15 내가 너를 뭇 나라 가운데에 흩으며 각 나라에 헤치고 너의 더러운 것을 네 가운데에서 멸하리라</p>
+                    <p>16 네가 자기의 까닭으로 여러 나라의 눈 앞에서 더럽힘을 당하리니 내가 여호와인 줄을 네가 알리라 하셨다 하라</p>
+                    <p><strong>풀무 불의 심판</strong></p>
+                    <p>17 여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p>18 인자야 이스라엘 족속이 내게 찌꺼기가 되었나니 곧 풀무 불 가운데에 있는 놋이나 주석이나 쇠나 납이며 은의 찌꺼기로다</p>
+                    <p>19 그러므로 주 여호와께서 이같이 말씀하셨느니라 너희가 다 찌꺼기가 되었은즉 내가 너희를 예루살렘 가운데에 모으고</p>
+                    <p>20 사람이 은이나 놋이나 쇠나 납이나 주석이나 모아 풀무 불 속에 넣고 불을 불어 녹이는 것 같이 내가 노여움과 분으로 너희를 모아 거기에 두고 녹이리라</p>
+                    <p>21 내가 너희를 모으고 내 분노의 불을 너희에게 불면 너희가 그 가운데에서 녹되</p>
+                    <p>22 은이 풀무 불 가운데에서 녹는 것 같이 너희가 그 가운데에서 녹으리니 나 여호와가 분노를 너희 위에 쏟은 줄을 너희가 알리라</p>
+                    <p><strong>지도자들의 죄악</strong></p>
+                    <p>23 여호와의 말씀이 내게 임하여 이르시되</p>
+                    <p>24 인자야 너는 그에게 이르기를 너는 정결함을 얻지 못한 땅이요 진노의 날에 비를 얻지 못한 땅이로다 하라</p>
+                    <p>25 그 가운데에서 선지자들의 반역함이 우는 사자가 음식물을 움킴 같았도다 그들이 사람의 영혼을 삼켰으며 재산과 보물을 탈취하며 과부를 그 가운데에 많게 하였으며</p>
+                    <p>26 그 제사장들은 내 율법을 범하였으며 나의 성물을 더럽혔으며 거룩함과 속된 것을 구별하지 아니하였으며 부정함과 정한 것을 사람이 구별하게 하지 아니하였으며 그의 눈을 가리어 나의 안식일을 보지 아니하였으므로 내가 그들 가운데에서 더럽힘을 받았느니라</p>
+                    <p>27 그 가운데의 고관들은 음식물을 삼키는 이리 같아서 불의한 이익을 얻으려고 피를 흘려 영혼을 멸하거늘</p>
+                    <p>28 그 선지자들이 그들을 위하여 회를 칠하고 스스로 허탄한 이상을 보며 거짓 복술을 행하며 여호와가 말하지 아니하였어도 주 여호와께서 이같이 말씀하셨느니라 하였으며</p>
+                    <p>29 이 땅 백성은 포악하고 강탈을 일삼고 가난하고 궁핍한 자를 압제하고 나그네를 부당하게 학대하였으므로</p>
+                    <p>30 이 땅을 위하여 성을 쌓으며 성 무너진 데를 막아 서서 나로 하여금 멸하지 못하게 할 사람을 내가 그 가운데에서 찾다가 찾지 못하였으므로</p>
+                    <p>31 내가 내 분노를 그들 위에 쏟으며 내 진노의 불로 멸하여 그들 행위대로 그들 머리에 보응하였느니라 주 여호와의 말씀이니라</p>
                 </div>
-            </section>
-            
-            <!-- Card 4: Psalm 69 -->
-            <section class="chapter-card card-book4">
-                <h2>시편 69편: 깊은 수렁에서 드리는 기도</h2>
+            </div>
+
+            <!-- Card 4: 시편 69편 -->
+            <div class="card card-book4">
+                <h2>시편 69편 분석</h2>
                 <h3>개요 (Overview)</h3>
-                <p>시편 기자는 깊은 수렁과 큰 물에 빠진 것 같은 극심한 고난 속에서 하나님께 구원을 호소합니다. 그는 까닭 없이 자신을 미워하는 대적들과, 하나님의 집을 위한 열심 때문에 받는 비방과 수치로 고통받고 있습니다. 목마를 때 쓸개와 초를 받는 절망적인 상황 속에서도, 그는 하나님의 인자하심과 구원을 확신하며, 자신의 기도가 응답될 것을 믿고 하나님을 찬양으로 마무리합니다.</p>
-
+                <p>시편 69편은 깊은 고난 속에서 하나님께 부르짖는 처절한 탄원시입니다. 시인은 이유 없는 미움과 비방으로 인해 죽음의 위협("깊은 물")에 처해있다고 호소합니다. 그는 자신의 죄를 인정하면서도, 하나님을 향한 열심 때문에 받는 고난임을 토로합니다. 이 시는 원수들을 향한 저주와 함께 시작하여, 결국 하나님의 구원을 확신하며 찬양으로 마무리됩니다. 특히 신약에서 예수 그리스도의 고난을 예표하는 시편으로 자주 인용됩니다.</p>
+                
                 <h3>시각적 분석 (Visual Analysis)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
-                    <path d="M 0 150 C 100 100, 150 130, 200 100 C 250 70, 300 100, 400 80" fill="none" stroke="#4A90E2" stroke-width="2" />
-                    <path d="M 0 150 C 100 110, 150 140, 200 110 C 250 80, 300 110, 400 90" fill="#4A90E2" opacity="0.3"/>
-                    <text x="50" y="130" fill="#555">수치, 비방, 미움</text>
-                    <text x="320" y="110" fill="#555">외로움, 조롱</text>
-                    
-                    <g text-anchor="middle" transform="translate(180, 90)">
-                        <circle cx="0" cy="0" r="10" fill="#9013FE"/>
-                        <text y="4" fill="white" font-size="9">나</text>
-                    </g>
-                    <text x="180" y="115" text-anchor="middle" font-weight="bold">"깊은 수렁에 빠졌나이다"</text>
+                <div class="visual-analysis-container">
+                    <svg viewBox="0 0 800 250">
+                        <path d="M 50 200 Q 200 50, 400 150 T 750 200" stroke="#0F9D58" stroke-width="3" fill="none" />
+                        <text x="50" y="220" font-size="16">고난의 깊은 물</text>
+                        <text x="750" y="220" font-size="16">구원의 찬양</text>
 
-                    <path d="M 180 78 L 180 20" stroke="#9013FE" stroke-width="2" marker-end="url(#arrow)"/>
-                    <text x="180" y="15" text-anchor="middle" font-weight="bold">"하나님이여 나를 구원하소서"</text>
-                </svg>
+                        <circle cx="150" cy="110" r="10" fill="#DB4437"/>
+                        <text x="150" y="90" text-anchor="middle" font-size="14">부르짖음 (1-4절)</text>
+
+                        <circle cx="300" cy="90" r="10" fill="#DB4437"/>
+                        <text x="300" y="70" text-anchor="middle" font-size="14">수치와 비방 (19-21절)</text>
+
+                        <circle cx="500" cy="150" r="10" fill="#DB4437"/>
+                        <text x="500" y="130" text-anchor="middle" font-size="14">원수에 대한 탄원 (22-28절)</text>
+
+                        <circle cx="650" cy="185" r="10" fill="#4285F4"/>
+                        <text x="650" y="165" text-anchor="middle" font-size="14">찬양의 서원 (30-34절)</text>
+                        
+                        <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="bold">탄원에서 찬양으로의 전환</text>
+                    </svg>
+                </div>
 
                 <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
-                <p>이 시는 다윗의 시로 알려져 있으며, 그의 생애 중 겪었던 수많은 고난 중 하나를 배경으로 합니다. 그러나 시편의 언어는 개인적인 탄식을 넘어, 하나님의 언약 백성이 겪는 고난의 원형을 보여줍니다. 특별히 신약성경은 이 시편을 예수 그리스도의 고난을 예언한 대표적인 '메시야 시편'으로 해석합니다. 예수님께서 성전을 정화하실 때 제자들이 "주의 집을 위하는 열성이 나를 삼키리라"는 말씀을 기억했고(요 2:17), 십자가 위에서 쓸개 탄 포도주와 신 포도주를 받으신 사건은 이 시의 성취로 여겨집니다(마 27:34, 48). 신학적으로 이 시편은 '의인의 고난'이라는 주제를 다룹니다. 하나님을 향한 열심이 세상으로부터 미움과 조롱을 받는 역설적인 상황 속에서, 성도는 오직 하나님의 구원만을 의지할 수밖에 없음을 보여줍니다. 그리스도께서는 이 고난의 길을 온전히 걸어가심으로, 고난받는 모든 성도의 위로와 소망이 되셨습니다.</p>
+                <p>시편 69편은 대표적인 '메시아 시편'입니다. 시인의 고난은 단순한 개인의 경험을 넘어, 장차 오실 그리스도께서 겪으실 고난을 놀라울 정도로 정확하게 예표합니다. 까닭 없는 미움(요 15:25), 성전을 향한 열심(요 2:17), 쓸개와 신 포도주를 받으심(마 27:34, 48) 등 신약 기자들은 이 시편을 통해 예수님의 고난을 해석했습니다. 개혁주의 관점에서 이 시는 그리스도와의 연합을 가르칩니다. 그리스도께서 우리를 위해 이 모든 고난을 당하셨기에, 우리 또한 주를 위해 고난받을 때 이 시편을 통해 위로받고 소망을 가질 수 있습니다.</p>
 
                 <h3>주요 구절 해설 (Key Verse Commentary)</h3>
-                <p><strong>69편 4절</strong>: "까닭 없이 나를 미워하는 자가 내 머리털보다 많고 부당하게 나의 원수가 되어 나를 끊으려 하는 자가 강하였으니 내가 빼앗지 아니한 것도 물어 주게 되었나이다" - 이 구절은 부당한 고난의 핵심을 찌릅니다. 시인은 자신의 잘못 때문이 아니라, '까닭 없이' 미움을 받고 있습니다. 이는 세상이 본질적으로 하나님의 의를 미워하기 때문입니다. 예수님께서는 이 말씀을 자신에게 적용하여, 세상이 아버지를 미워했기 때문에 자기도 미워한다고 말씀하셨습니다(요 15:25). 성도가 세상에서 겪는 부당한 미움은, 우리가 그리스도에게 속했다는 영광스러운 증거가 될 수 있습니다.</p>
-                <p><strong>69편 9절</strong>: "주의 집을 위하는 열성이 나를 삼키고 주를 비방하는 비방이 내게 미쳤나이다" - 시인은 자신의 고난이 개인적인 원한 때문이 아니라, 하나님을 향한 열심과 충성 때문이라고 고백합니다. 그는 하나님과 자신을 동일시하여, 하나님을 향한 비방을 자신을 향한 비방으로 여기고 있습니다. 이는 그리스도의 대속적 고난을 가장 선명하게 예표하는 구절입니다. 그리스도께서는 하나님의 영광을 위해 불타는 열심으로 사셨고, 우리를 향한 하나님의 진노와 세상의 모든 비방을 친히 자신의 몸으로 감당하셨습니다.</p>
-                
+                <p class="key-verse">"무릇 주의 집을 위하는 열심이 나를 삼키고 주를 비방하는 비방이 내게 미쳤나이다" (시편 69:9)</p>
+                <p class="commentary-text">이 구절은 예수님께서 성전을 정화하실 때 제자들이 기억했던 말씀입니다(요 2:17). 시인의 고난은 개인적인 잘못 때문이 아니라, 하나님을 향한 거룩한 열심에서 비롯되었습니다. 이는 의를 위해 박해를 받는 모든 성도들의 고난의 성격과 동일하며, 그 정점은 바로 십자가를 지신 예수 그리스도이십니다.</p>
+
+                <p class="key-verse">"그들이 쓸개를 나의 음식물로 주며 목마르다 할 때에는 초를 마시게 하였사오니" (시편 69:21)</p>
+                <p class="commentary-text">이 구절은 십자가 위에서 예수님이 겪으신 일을 놀랍도록 생생하게 예언합니다. 이는 시편이 단순한 인간의 노래가 아니라, 성령의 영감으로 기록된 하나님의 말씀임을 증명합니다. 시인의 가장 깊은 고통의 순간은 인류를 구원하시기 위한 그리스도의 고난의 정점과 맞닿아 있습니다.</p>
+
                 <h3>성경 본문 (Full Text)</h3>
                 <div class="bible-text">
-                    <strong>깊은 수렁에서의 부르짖음</strong>
-                    <p><span class="verse-number">1</span> (다윗의 시, 소산님에 맞춘 노래, 인도자를 따라 부르는 노래) 하나님이여 나를 구원하소서 물들이 내 영혼에까지 흘러 들어왔나이다</p>
-                    <p><span class="verse-number">2</span> 나는 설 곳이 없는 깊은 수렁에 빠지며 깊은 물에 들어가니 큰 물이 내게 넘치나이다</p>
-                    <p><span class="verse-number">3</span> 내가 부르짖음으로 피곤하여 나의 목이 마르며 나의 하나님을 바라서 나의 눈이 쇠하였나이다</p>
-                    <p><span class="verse-number">4</span> 까닭 없이 나를 미워하는 자가 내 머리털보다 많고 부당하게 나의 원수가 되어 나를 끊으려 하는 자가 강하였으니 내가 빼앗지 아니한 것도 물어 주게 되었나이다</p>
-                    <p><span class="verse-number">5</span> 하나님이여 주는 나의 우매함을 아시오니 나의 죄가 주 앞에서 숨김이 없나이다</p>
-                    <p><span class="verse-number">6</span> 주 만군의 여호와여 주를 바라는 자들이 나를 인하여 수치를 당하게 하지 마옵소서 이스라엘의 하나님이여 주를 찾는 자가 나로 말미암아 욕을 당하게 하지 마옵소서</p>
-                    <strong>주를 위한 열심으로 받는 고난</strong>
-                    <p><span class="verse-number">7</span> 내가 주를 위하여 비방을 받았사오니 수치가 나의 얼굴에 덮였나이다</p>
-                    <p><span class="verse-number">8</span> 내가 나의 형제에게는 객이 되고 나의 어머니의 자녀에게는 낯선 사람이 되었나이다</p>
-                    <p><span class="verse-number">9</span> 주의 집을 위하는 열성이 나를 삼키고 주를 비방하는 비방이 내게 미쳤나이다</p>
-                    <p><span class="verse-number">10</span> 내가 곡하고 금식하였더니 그것이 도리어 나의 욕이 되었으며</p>
-                    <p><span class="verse-number">11</span> 내가 굵은 베로 내 옷을 삼았더니 내가 그들의 놀림거리가 되었나이다</p>
-                    <p><span class="verse-number">12</span> 성문에 앉은 자가 나를 비난하며 독주에 취한 무리가 나를 두고 노래하나이다</p>
-                    <strong>긍휼을 구하는 기도</strong>
-                    <p><span class="verse-number">13</span> 여호와여 나를 반기시는 때에 내가 주께 기도하오니 하나님이여 많은 인자와 구원의 진리로 내게 응답하소서</p>
-                    <p><span class="verse-number">14</span> 나를 수렁에서 건지사 빠지지 말게 하시고 나를 미워하는 자에게서와 깊은 물에서 건지소서</p>
-                    <p><span class="verse-number">15</span> 큰 물이 나를 휩쓸거나 깊음이 나를 삼키지 못하게 하시며 웅덩이가 내 위에 덮쳐 그것의 입을 닫지 못하게 하소서</p>
-                    <p><span class="verse-number">16</span> 여호와여 주의 인자하심이 선하시오니 내게 응답하시며 주의 많은 긍휼에 따라 내게로 돌이키소서</p>
-                    <p><span class="verse-number">17</span> 주의 얼굴을 주의 종에게서 숨기지 마소서 내가 환난 중에 있사오니 속히 내게 응답하소서</p>
-                    <p><span class="verse-number">18</span> 내 영혼에게 가까이하사 구원하시며 내 원수로 말미암아 나를 속량하소서</p>
-                    <strong>고통 중에 드리는 탄원</strong>
-                    <p><span class="verse-number">19</span> 주께서 나의 비방과 수치와 능욕을 아시나이다 나의 대적자들이 다 주님 앞에 있나이다</p>
-                    <p><span class="verse-number">20</span> 비방이 나의 마음을 상하게 하여 근심이 충만하니 불쌍히 여길 자를 바라나 없고 긍휼히 여길 자를 바라나 찾지 못하였나이다</p>
-                    <p><span class="verse-number">21</span> 그들이 쓸개를 나의 음식물로 주며 목마를 때에는 초를 마시게 하였사오니</p>
-                    <p><span class="verse-number">22</span> 그들의 밥상이 올무가 되게 하시며 그들의 평안이 덫이 되게 하소서</p>
-                    <p><span class="verse-number">23</span> 그들의 눈이 어두워 보지 못하게 하시며 그들의 허리가 항상 떨리게 하소서</p>
-                    <p><span class="verse-number">24</span> 주의 분노를 그들의 위에 부으시며 주의 맹렬한 노가 그들에게 미치게 하소서</p>
-                    <p><span class="verse-number">25</span> 그들의 거처가 황폐하게 하시며 그들의 장막에 사는 자가 없게 하소서</p>
-                    <p><span class="verse-number">26</span> 무릇 그들이 주께서 치신 자를 핍박하며 주께서 상하게 하신 자의 슬픔을 말하였사오니</p>
-                    <p><span class="verse-number">27</span> 그들의 죄악에 죄악을 더하사 주의 공의에 들어오지 못하게 하소서</p>
-                    <p><span class="verse-number">28</span> 그들을 생명책에서 지우사 의인들과 함께 기록되지 말게 하소서</p>
-                    <strong>구원의 확신과 찬양</strong>
-                    <p><span class="verse-number">29</span> 오직 나는 가난하고 슬프오니 하나님이여 주의 구원으로 나를 높이소서</p>
-                    <p><span class="verse-number">30</span> 내가 노래로 하나님의 이름을 찬송하며 감사함으로 하나님을 위대하시다 하리니</p>
-                    <p><span class="verse-number">31</span> 이것이 소 곧 뿔과 굽이 있는 황소를 드림보다 여호와를 더욱 기쁘시게 함이 될 것이라</p>
-                    <p><span class="verse-number">32</span> 곤고한 자가 이를 보고 기뻐하나니 하나님을 찾는 너희들아 너희 마음을 소생하게 할지어다</p>
-                    <p><span class="verse-number">33</span> 여호와는 궁핍한 자의 소리를 들으시며 자기로 말미암아 갇힌 자를 멸시하지 아니하시나니</p>
-                    <p><span class="verse-number">34</span> 천지가 그를 찬송할 것이요 바다와 그 중의 모든 생물도 그리할지로다</p>
-                    <p><span class="verse-number">35</span> 하나님이 시온을 구원하시고 유다 성읍들을 건설하시리니 무리가 거기에 살며 소유를 삼으리로다</p>
-                    <p><span class="verse-number">36</span> 그의 종들의 후손이 또한 이를 상속하고 그의 이름을 사랑하는 자가 그 중에 살리로다</p>
+                    <p><strong>(다윗의 시, 인도자를 따라 소산님에 맞춘 노래)</strong></p>
+                    <p><strong>깊은 고난 속의 부르짖음</strong></p>
+                    <p>1 하나님이여 나를 구원하소서 물들이 내 영혼에까지 흘러 들어왔나이다</p>
+                    <p>2 나는 설 곳이 없는 깊은 수렁에 빠지며 깊은 물에 들어가니 큰 물이 내게 넘치나이다</p>
+                    <p>3 내가 부르짖음으로 피곤하여 나의 목이 마르며 나의 하나님을 바라서 나의 눈이 쇠하였나이다</p>
+                    <p>4 까닭 없이 나를 미워하는 자가 나의 머리털보다 많고 부당하게 나의 원수가 되어 나를 끊으려 하는 자가 강하였으니 내가 빼앗지 아니한 것도 물어 주게 되었나이다</p>
+                    <p>5 하나님이여 주는 나의 우매함을 아시오니 나의 죄가 주 앞에서 숨김이 없나이다</p>
+                    <p>6 주 만군의 여호와여 주를 바라는 자들이 나를 인하여 수치를 당하게 하지 마옵소서 이스라엘의 하나님이여 주를 찾는 자가 나로 말미암아 욕을 당하게 하지 마옵소서</p>
+                    <p>7 내가 주를 위하여 비방을 받았사오니 수치가 나의 얼굴에 덮였나이다</p>
+                    <p>8 내가 나의 형제에게는 객이 되고 나의 어머니의 자녀에게는 낯선 사람이 되었나이다</p>
+                    <p>9 주의 집을 위하는 열성이 나를 삼키고 주를 비방하는 비방이 내게 미쳤나이다</p>
+                    <p>10 내가 곡하고 금식하였더니 그것이 도리어 나의 욕이 되었으며</p>
+                    <p>11 내가 굵은 베로 내 옷을 삼았더니 내가 그들의 놀림거리가 되었나이다</p>
+                    <p>12 성문에 앉은 자가 나를 비난하며 독주에 취한 무리가 나를 두고 노래하나이다</p>
+                    <p><strong>구원을 위한 간절한 기도</strong></p>
+                    <p>13 여호와여 나를 반기시는 때에 내가 주께 기도하오니 하나님이여 많은 인자와 구원의 진리로 내게 응답하소서</p>
+                    <p>14 나를 수렁에서 건지사 빠지지 말게 하시고 나를 미워하는 자에게서와 깊은 물에서 건지소서</p>
+                    <p>15 큰 물이 나를 휩쓸거나 깊음이 나를 삼키지 못하게 하시며 웅덩이가 내 위에 덮쳐 그것의 입을 닫지 못하게 하소서</p>
+                    <p>16 여호와여 주의 인자하심이 선하시오니 내게 응답하시며 주의 많은 긍휼에 따라 내게로 돌이키소서</p>
+                    <p>17 주의 얼굴을 주의 종에게서 숨기지 마소서 내가 환난 중에 있사오니 속히 내게 응답하소서</p>
+                    <p>18 내 영혼에게 가까이하사 구원하시며 내 원수로 말미암아 나를 속량하소서</p>
+                    <p>19 주께서 나의 비방과 수치와 능욕을 아시나이다 나의 대적자들이 다 주님 앞에 있나이다</p>
+                    <p>20 비방이 나의 마음을 상하게 하여 근심이 충만하니 불쌍히 여길 자를 바라나 없고 긍휼히 여길 자를 바라나 찾지 못하였나이다</p>
+                    <p>21 그들이 쓸개를 나의 음식물로 주며 목마르다 할 때에는 초를 마시게 하였사오니</p>
+                    <p><strong>원수들에 대한 심판을 구함</strong></p>
+                    <p>22 그들의 밥상이 올무가 되게 하시며 그들의 평안이 덫이 되게 하소서</p>
+                    <p>23 그들의 눈이 어두워 보지 못하게 하시며 그들의 허리가 항상 떨리게 하소서</p>
+                    <p>24 주의 분노를 그들의 위에 부으시며 주의 맹렬하신 노가 그들에게 미치게 하소서</p>
+                    <p>25 그들의 거처가 황폐하게 하시며 그들의 장막에 사는 자가 없게 하소서</p>
+                    <p>26 무릇 그들이 주께서 치신 자를 핍박하며 주께서 상하게 하신 자의 슬픔을 말하였사오니</p>
+                    <p>27 그들의 죄악에 죄악을 더하사 주의 공의에 들어오지 못하게 하소서</p>
+                    <p>28 그들을 생명책에서 지우사 의인들과 함께 기록되지 말게 하소서</p>
+                    <p>29 오직 나는 가난하고 슬프오니 하나님이여 주의 구원으로 나를 높이소서</p>
+                    <p><strong>찬양과 감사의 서원</strong></p>
+                    <p>30 내가 노래로 하나님의 이름을 찬송하며 감사함으로 하나님을 위대하시다 하리니</p>
+                    <p>31 이것이 소 곧 뿔과 굽이 있는 황소를 드림보다 여호와를 더욱 기쁘시게 함이 될 것이라</p>
+                    <p>32 곤고한 자가 이를 보고 기뻐하나니 하나님을 찾는 너희들아 너희 마음을 소생하게 할지어다</p>
+                    <p>33 여호와는 궁핍한 자의 소리를 들으시며 자기로 말미암아 갇힌 자를 멸시하지 아니하시나니</p>
+                    <p>34 천지가 그를 찬송할 것이요 바다와 그 중의 모든 생물도 그리할지로다</p>
+                    <p>35 하나님이 시온을 구원하시고 유다 성읍들을 건설하시리니 무리가 거기에 살며 소유를 삼으리로다</p>
+                    <p>36 그의 종들의 후손이 또한 이를 상속하고 그의 이름을 사랑하는 자가 그 중에 살리로다</p>
                 </div>
-            </section>
+            </div>
 
             <!-- Integration Card -->
-            <section class="chapter-card integration-card">
-                <h2>통합적 이해: 마음의 중심 - 반역 혹은 헌신</h2>
-                <h3>관통하는 주제 (Overarching Theme)</h3>
-                <p>오늘의 본문들은 우리의 '마음'이 어디를 향하고 있는지를 날카롭게 질문합니다. <strong>사무엘하 15장</strong>의 압살롬은 교활한 계획으로 백성의 마음을 '훔쳐' 자신의 영광을 위한 반역의 길로 나아갑니다. <strong>에스겔 22장</strong>의 예루살렘은 지도자부터 백성까지 마음의 중심이 하나님을 떠나 탐욕과 우상숭배, 포악함으로 가득 차 하나님의 심판을 자초합니다. 이처럼 하나님을 떠난 마음은 파멸로 향합니다. 반면, <strong>시편 69편</strong>의 기자는 고난 속에서도 마음을 다해 하나님께 부르짖으며 구원을 호소합니다. 그의 마음은 세상을 향한 반역이 아닌, 하나님을 향한 신실한 의지를 보여줍니다. 그리고 <strong>고린도후서 8장</strong>은 이 마음의 방향이 어디서 비롯되는지를 보여줍니다. 마게도냐 교인들은 먼저 자신의 마음을 주께 드렸기에, 그리스도의 마음을 품고 기쁨으로 헌신할 수 있었습니다. 결국 오늘의 말씀은 우리에게 묻습니다. 당신 마음의 중심은 압살롬처럼 자기 왕국을 세우려는 반역의 마음입니까, 아니면 그리스도처럼 자신을 내어주는 헌신의 마음입니까?</p>
+            <div class="card integration-card">
+                <h2>통합적 분석 및 적용</h2>
+                <h3>관통하는 주제: 고난 속에 드러나는 하나님의 공의와 은혜</h3>
+                <p>오늘의 네 본문은 '고난'이라는 공통된 실타래로 엮여 있습니다. 다윗은 아들의 배신으로, 마게도냐 교회는 극심한 가난으로, 이스라엘은 죄로 인한 심판으로, 시편 기자는 부당한 미움으로 고통받습니다. 그러나 성경은 이 다양한 형태의 고난 속에서 당신의 뜻을 이루어 가시는 하나님의 손길을 보여줍니다. 때로는 공의로운 심판으로, 때로는 은혜를 위한 연단으로 나타나는 고난을 통해, 우리는 결국 우리를 위해 가장 큰 고난을 당하신 예수 그리스도를 바라보게 됩니다.</p>
 
                 <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="9">
-                    <line x1="20" y1="100" x2="380" y2="100" stroke="#333" stroke-width="1.5"/>
-                    <g text-anchor="middle">
-                        <circle cx="60" cy="100" r="4" fill="#4A90E2"/>
-                        <text x="60" y="120">다윗 왕국</text>
-                        <text x="60" y="132" fill="#555">(삼하 15)</text>
-
-                        <circle cx="140" cy="100" r="4" fill="#F5A623"/>
-                        <text x="140" y="120">바벨론 포로</text>
-                        <text x="140" y="132" fill="#555">(겔 22)</text>
-
-                        <circle cx="340" cy="100" r="4" fill="#50E3C2"/>
-                        <text x="340" y="120">초대 교회</text>
-                        <text x="340" y="132" fill="#555">(고후 8)</text>
+                <div class="visual-analysis-container">
+                    <svg viewBox="0 0 800 300">
+                        <style>.label{font-size:14px; fill:#333;} .book{font-size:16px; font-weight:bold;} .arrow-text{font-size:12px; fill:#555;}</style>
+                        <line x1="50" y1="150" x2="750" y2="150" stroke="#808080" stroke-width="3" marker-end="url(#arrow)"/>
                         
-                        <text x="200" y="40" font-size="14" font-weight="bold" fill="#D0021B">예수 그리스도</text>
-                        <path d="M 185 45 L 215 45 L 200 65 Z" fill="#D0021B"/>
+                        <g>
+                            <circle cx="100" cy="150" r="15" fill="#4285F4"/>
+                            <text x="100" y="190" text-anchor="middle" class="book">삼하 15 / 시 69</text>
+                            <text x="100" y="210" text-anchor="middle" class="label">의인의 고난(예표)</text>
+                        </g>
 
-                        <!-- Arrows -->
-                        <path d="M 60 95 Q 120 70 195 68" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
-                        <text x="110" y="65" font-size="8">거짓 왕 vs 참된 왕</text>
-                        <path d="M 140 95 Q 160 80 195 68" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
-                        <text x="150" y="90" font-size="8">중보자의 부재, 참 중보자를 예고</text>
-                        <path d="M 340 95 Q 280 70 205 68" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
-                        <text x="285" y="65" font-size="8">그리스도의 은혜를 본받는 삶</text>
-                    </g>
-                     <text x="200" y="170" text-anchor="middle" font-size="9" fill="#555">시편 69편은 시대를 초월하여 그리스도의 고난과 기도를 예표합니다.</text>
-                </svg>
+                        <g>
+                            <circle cx="300" cy="150" r="15" fill="#F4B400"/>
+                            <text x="300" y="190" text-anchor="middle" class="book">겔 22</text>
+                            <text x="300" y="210" text-anchor="middle" class="label">죄와 심판</text>
+                        </g>
 
-                <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
-                <p>오늘의 본문들은 각기 다른 시대 속에서 참된 왕이신 예수 그리스도를 대망하게 합니다. <strong>사무엘하 15장</strong>에서 백성의 마음을 훔쳐 왕이 되려는 압살롬은 자기 영광을 위해 오는 거짓 왕의 전형입니다. 그의 실패는 자신을 내어줌으로 백성의 마음을 얻으시는 참된 왕 그리스도의 길과 대조됩니다. <strong>에스겔 22장</strong>에서 하나님은 무너진 성벽을 막아설 한 사람의 중보자를 찾지 못하십니다. 이스라엘의 완전한 실패와 중보자의 부재는, 하나님과 우리 사이의 무너진 성벽을 자신의 몸으로 막아서신 유일한 중보자 예수 그리스도의 필연성을 역설합니다. <strong>시편 69편</strong>은 바로 그 그리스도께서 이 땅에서 겪으실 고난을 생생하게 예언합니다. 그는 까닭 없이 미움 받으시고, 하나님의 집을 위한 열심으로 고통받으심으로 시편 기자의 고난을 온전히 성취하셨습니다. 마지막으로 <strong>고린도후서 8장</strong>은, 바로 그 그리스도의 자기 비움의 은혜가 어떻게 교회의 삶 속에서 구체적인 '헌신'과 '나눔'으로 나타나는지를 보여줍니다. 구약이 예표하고 예언했던 그리스도의 사역이, 이제 교회를 통해 세상에 증거되고 있는 것입니다.</p>
+                        <g>
+                            <circle cx="500" cy="150" r="20" fill="#DB4437"/>
+                            <text x="500" y="110" text-anchor="middle" class="book">예수 그리스도</text>
+                            <text x="500" y="85" text-anchor="middle" class="label">고난의 성취와 대속</text>
+                        </g>
+                        
+                        <g>
+                            <circle cx="700" cy="150" r="15" fill="#0F9D58"/>
+                            <text x="700" y="190" text-anchor="middle" class="book">고후 8</text>
+                            <text x="700" y="210" text-anchor="middle" class="label">은혜에 대한 반응(교회)</text>
+                        </g>
 
-                <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+                        <path d="M 120 140 Q 300 80 480 140" fill="none" stroke="#DB4437" stroke-width="1.5" stroke-dasharray="4"/>
+                        <path d="M 320 140 Q 400 110 480 140" fill="none" stroke="#DB4437" stroke-width="1.5" stroke-dasharray="4"/>
+                        <text x="210" y="130" class="arrow-text">예표</text>
+                        <text x="400" y="125" class="arrow-text">필요성</text>
+                        
+                        <path d="M 520 140 Q 600 110 680 140" fill="none" stroke="#0F9D58" stroke-width="1.5" stroke-dasharray="4"/>
+                        <text x="600" y="125" class="arrow-text">결과</text>
+                    </svg>
+                </div>
+                <h3>본문별 연결고리 및 구속사적 맥락</h3>
+                <p>다윗과 시편 기자의 고난(삼하 15, 시 69)은 장차 오실 메시아가 겪을 부당한 고난을 예표합니다. 에스겔서에 나타난 이스라엘의 총체적 타락과 피할 수 없는 심판(겔 22)은 왜 인류에게 그리스도의 대속적 죽음이 반드시 필요했는지를 보여줍니다. 이 모든 구속사의 흐름은 예수 그리스도의 십자가에서 정점을 이룹니다. 그분은 의인이셨지만 가장 큰 고난을 당하심으로 우리의 죄를 대속하셨습니다. 그리고 그 놀라운 은혜(고후 8:9)를 깨달은 교회는, 이제 마게도냐 교회처럼(고후 8) 고난 속에서도 기쁨으로 나누고 섬기는 삶으로 응답하게 됩니다.</p>
+
+                <h3>주제별 심층 분석표</h3>
                 <table>
                     <thead>
                         <tr>
                             <th>주제 (Theme)</th>
-                            <th>사무엘하 15</th>
-                            <th>고린도후서 8</th>
-                            <th>에스겔 22</th>
-                            <th>시편 69</th>
+                            <th>사무엘하 15장</th>
+                            <th>고린도후서 8장</th>
+                            <th>에스겔 22장</th>
+                            <th>시편 69편</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>마음의 중심</strong></td>
-                            <td>야망과 반역으로 가득 찬 마음</td>
-                            <td>은혜에 감사하여 드리는 마음</td>
-                            <td>탐욕과 우상으로 더러워진 마음</td>
-                            <td>고난 중에도 하나님을 향한 마음</td>
+                            <td><b>고난의 원인</b></td>
+                            <td>아들의 배신과 반역</td>
+                            <td>복음을 위한 자발적 가난</td>
+                            <td>죄에 대한 하나님의 공의로운 심판</td>
+                            <td>부당한 미움과 비방</td>
                         </tr>
                         <tr>
-                            <td><strong>리더십/왕권</strong></td>
-                            <td>백성을 기만하는 거짓 왕</td>
-                            <td>자신을 내어주는 그리스도의 모델</td>
-                            <td>백성을 착취하는 타락한 지도자</td>
-                            <td>고난받는 의로운 왕</td>
+                            <td><b>인간의 반응</b></td>
+                            <td>슬픔, 도피, 하나님께 맡김</td>
+                            <td>넘치는 기쁨과 풍성한 연보</td>
+                            <td>총체적 부패와 회개 없음</td>
+                            <td>하나님을 향한 간절한 부르짖음</td>
                         </tr>
                         <tr>
-                            <td><strong>고난과 심판</strong></td>
-                            <td>죄의 결과로 인한 피난과 고통</td>
-                            <td>환난 중의 넘치는 기쁨과 헌신</td>
-                            <td>총체적 부패에 대한 하나님의 진노</td>
-                            <td>의인을 향한 부당한 핍박</td>
+                            <td><b>하나님의 성품</b></td>
+                            <td>주권적으로 역사를 이끄심</td>
+                            <td>은혜로우시며 부요케 하심</td>
+                            <td>거룩하시고 공의로우심</td>
+                            <td>신실하게 응답하시고 구원하심</td>
                         </tr>
                         <tr>
-                            <td><strong>헌신과 섬김</strong></td>
-                            <td>자기 영광을 위한 거짓 섬김</td>
-                            <td>자신을 먼저 주께 드리는 참된 헌신</td>
-                            <td>헌신이 부재한 이기적인 사회</td>
-                            <td>하나님을 향한 열심과 충성</td>
+                            <td><b>구속사적 연결</b></td>
+                            <td>그리스도의 고난을 예표함</td>
+                            <td>그리스도의 성육신적 은혜</td>
+                            <td>그리스도의 대속의 필요성</td>
+                            <td>그리스도의 수난을 직접 예언</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <h3>오늘의 교훈 (Application)</h3>
-                <p>우리의 마음은 끊임없이 우리의 왕좌에 자기 자신을 앉히려 합니다. 압살롬처럼 다른 사람의 인정과 지지를 통해 나의 왕국을 세우려 하고, 에스겔 시대의 백성들처럼 하나님의 기준이 아닌 세상의 풍요와 안락을 마음에 품고 살아갑니다. 오늘 말씀은 우리에게 마음의 중심을 점검하라고 강력하게 도전합니다. 나의 시간과 재물, 재능을 사용하는 동기가 나의 영광을 위함입니까, 아니면 나를 위해 가난하게 되신 그리스도의 은혜에 대한 감사와 헌신입니까? 진정한 헌신은 마지못해 드리는 희생이 아니라, 먼저 나 자신을 주께 온전히 드리는 마음에서 흘러나오는 기쁨의 열매입니다.</p>
-                <p><strong>기도 제목:</strong> 주님, 제 마음의 숨겨진 압살롬을 보게 하시고, 저의 영광을 구했던 모든 교만을 십자가 앞에 내려놓게 하옵소서. 부요하신 주님이 저를 위해 가난하게 되신 그 놀라운 은혜가 제 삶의 모든 영역을 다스리는 원리가 되게 하여 주옵소서. 그리하여 세상의 인정을 구하는 자가 아니라, 주님의 마음을 시원케 하는 자발적인 헌신과 사랑의 사람으로 살아가게 하옵소서. 고난 중에도 주를 향한 열심을 잃지 않게 하시고, 모든 상황 속에서 주님만이 나의 구원이심을 찬양하게 하소서. 아멘.</p>
-            </section>
+                <h3>오늘의 교훈</h3>
+                <p>우리의 삶에도 다양한 고난이 찾아옵니다. 때로는 타인의 죄로 인해 다윗과 같이 억울한 고통을 겪고, 때로는 복음을 위해 마게도냐 교회와 같이 자발적인 어려움을 선택하기도 합니다. 또한 우리 자신의 죄로 인해 에스겔 시대처럼 하나님의 징계를 경험할 수도 있습니다. 어떤 상황에 있든지, 오늘의 말씀은 우리에게 고난의 의미를 되새기게 합니다. 모든 고난은 하나님의 주권 아래 있으며, 그 속에는 우리를 정결케 하시는 공의와 새롭게 하시는 은혜가 담겨 있습니다. 우리의 시선을 고난 자체에 고정하지 말고, 우리를 위해 모든 고난을 이기신 예수 그리스도께 고정해야 합니다.</p>
+                <p><b>[기도 제목]</b> 주님, 저희가 겪는 고난 속에서 원망과 절망 대신 하나님의 공의와 은혜를 발견하는 눈을 열어주소서. 그리스도의 고난을 묵상하며 모든 상황을 믿음으로 인내하게 하시고, 받은 은혜에 감사하며 기쁨으로 나누는 삶을 살게 하옵소서. 예수님의 이름으로 기도합니다. 아멘.</p>
+            </div>
         </main>
 
         <footer>
-            <p>&copy; 2024 맥체인 성경읽기. All rights reserved.</p>
+            <p>2025 KBD 맥체인 성경읽기 프로젝트</p>
         </footer>
     </div>
+    
+    <div id="audio-controller">
+        <button id="play-pause-btn" disabled>오디오 로딩 중...</button>
+    </div>
+    
+    <div id="youtube-player"></div>
 
     <script>
-        // YouTube IFrame API 로드
+        // YouTube IFrame Player API 로드
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        const videoId = 'O5rN3aysPF8';
-        const playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+        const videoId = 'o3H0psN6qGo'; // 9월 19일 드라마바이블 맥체인 성경읽기 영상 ID
+        const playPauseBtn = document.getElementById('play-pause-btn');
 
-        function onYouTubeIFrameAPIReady() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                    'showinfo': 0,
-                    'rel': 0,
-                    'modestbranding': 1
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+        // API 로드 후 플레이어 생성
+        function onYouTubeIframeAPIReady() {
+            if (videoId) {
+                player = new YT.Player('youtube-player', {
+                    height: '0',
+                    width: '0',
+                    videoId: videoId,
+                    playerVars: {
+                        'playsinline': 1
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                handleNoAudio();
+            }
         }
 
+        // 플레이어 준비 완료
         function onPlayerReady(event) {
-            // 플레이어가 준비되면 버튼 활성화
             playPauseBtn.disabled = false;
-            playPauseBtn.classList.add('paused');
+            playPauseBtn.textContent = '오늘의 말씀듣기 ▶';
         }
 
+        // 오디오 자료 없을 때 처리
+        function handleNoAudio() {
+             playPauseBtn.disabled = true;
+             playPauseBtn.textContent = '오디오 자료 없음';
+        }
+        
+        // 플레이어 상태 변경 감지
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.PLAYING) {
-                playPauseBtn.classList.remove('paused');
-            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
-                playPauseBtn.classList.add('paused');
-            }
-        }
-
-        function togglePlayPause() {
-            if (!player || typeof player.getPlayerState !== 'function') return;
-            var playerState = player.getPlayerState();
-            if (playerState == YT.PlayerState.PLAYING) {
-                player.pauseVideo();
+                playPauseBtn.textContent = '일시정지 ⏸';
+                playPauseBtn.classList.add('playing');
             } else {
-                player.playVideo();
+                playPauseBtn.textContent = '계속듣기 ▶';
+                playPauseBtn.classList.remove('playing');
             }
         }
 
-        playPauseBtn.addEventListener('click', togglePlayPause);
-
-        // 스페이스바 이벤트 추가
-        document.addEventListener('keydown', function(event) {
-            // 입력 필드나 텍스트 영역에 포커스 되어 있을 때는 작동하지 않도록 함
-            const target = event.target;
-            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
-                return;
-            }
-
-            if (event.code === 'Space') {
-                event.preventDefault(); // 페이지 스크롤 방지
-                togglePlayPause();
+        // 버튼 클릭 이벤트
+        playPauseBtn.addEventListener('click', function() {
+            if (player && typeof player.getPlayerState === 'function') {
+                var playerState = player.getPlayerState();
+                if (playerState == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
             }
         });
+
     </script>
 </body>
 </html>
+

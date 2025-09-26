@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맥체인 성경읽기 - 10월 2일</title>
+    <style>
+        :root {
+            --font-size-base: 17px;
+            --line-height-base: 1.8;
+            --color-text: #212529;
+            --color-card-book1: #4285F4;
+            --color-card-book2: #DB4437;
+            --color-card-book3: #F4B400;
+            --color-card-book4: #0F9D58;
+            --color-integration-card: #808080;
+            --max-width: 1280px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: var(--color-text);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        h1 {
+            font-size: clamp(2.0rem, 5vw, 2.8rem);
+            font-weight: 700;
+            margin: 0;
+        }
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.0rem);
+            font-weight: 600;
+            margin-top: 10px;
+            color: #495057;
+        }
+        .chapter-card, .integration-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            padding: 30px;
+            border-left: 8px solid;
+        }
+        .card-book1 { border-color: var(--color-card-book1); }
+        .card-book2 { border-color: var(--color-card-book2); }
+        .card-book3 { border-color: var(--color-card-book3); }
+        .card-book4 { border-color: var(--color-card-book4); }
+        .integration-card { border-color: var(--color-integration-card); }
+
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .card-book1 h3 { color: var(--color-card-book1); }
+        .card-book2 h3 { color: var(--color-card-book2); }
+        .card-book3 h3 { color: var(--color-card-book3); }
+        .card-book4 h3 { color: var(--color-card-book4); }
+        .integration-card h3 { color: var(--color-integration-card); }
+
+        h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 5px;
+        }
+        p, ul, ol {
+            margin-bottom: 1rem;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            color: white;
+        }
+        .btn-view { background-color: #6c757d; }
+        .btn-listen { background-color: #007bff; }
+        .btn-view:hover { background-color: #5a6268; transform: translateY(-2px); }
+        .btn-listen:hover { background-color: #0056b3; transform: translateY(-2px); }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 900px;
+            border-radius: 8px;
+            animation-name: slideIn;
+            animation-duration: 0.4s;
+        }
+        @keyframes slideIn {
+            from {transform: translateY(-50px); opacity: 0}
+            to {transform: translateY(0); opacity: 1}
+        }
+        .modal-body {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        #bible-text-content {
+            line-height: 2;
+        }
+        #modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #343a40;
+        }
+
+        /* Audio Player Styles */
+        #audio-player-bar {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            width: 100%;
+            background-color: #212529;
+            color: white;
+            padding: 15px;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1050;
+            transition: bottom 0.3s ease-in-out;
+        }
+        #audio-player-bar.show {
+            bottom: 0;
+        }
+        #player-info {
+            font-weight: bold;
+        }
+        #player-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        #youtube-player {
+            display: none;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            background-color: #e9ecef;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>맥체인 성경읽기</h1>
+            <h2>10월 2일</h2>
+        </header>
+
+        <main>
+            <!-- Card 1: 1 Kings 4-5 -->
+            <section class="chapter-card card-book1">
+                <h3>열왕기상 4-5장: 솔로몬의 지혜와 성전 건축 준비</h3>
+                <h4>상세 개요</h4>
+                <p>4장에서는 솔로몬 왕국의 견고한 행정 조직과 그의 지혜로 말미암은 전례 없는 번영과 명성이 상세히 기록됩니다. 그의 통치 아래 이스라엘은 "단에서부터 브엘세바에 이르기까지 각기 포도나무 아래와 무화과나무 아래에서 평안히 살았다"고 묘사될 정도의 태평성대를 누렸습니다. 5장은 이 평화의 시기에 솔로몬이 평생의 숙원이었던 하나님의 성전을 건축하기 위해 구체적인 준비에 착수하는 모습을 보여줍니다. 그는 부친 다윗과 우호적 관계였던 두로 왕 히람에게 사절을 보내 동맹을 갱신하고, 성전의 핵심 자재인 레바논의 백향목과 잣나무를 공급받기로 합니다. 이를 위해 대규모 역군을 동원하는 등 국가적 역량이 총동원됩니다.</p>
+
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>언약의 성취로서의 평화와 번영:</strong> 솔로몬 시대의 평화와 번영(4:20-25)은 하나님께서 아브라함에게 약속하신 "네 자손이 하늘의 별과 같고 바닷가의 모래와 같게 하리라"(창 22:17)는 언약과, 다윗에게 약속하신 "그의 나라 왕위를 영원히 견고하게 하리라"(삼하 7:13)는 언약의 가시적인 성취입니다. 이는 단순한 정치적 안정이 아니라, 하나님께서 왕으로 통치하실 때 주어지는 하나님 나라의 '샬롬(Shalom)'이 어떠한지를 미리 보여주는 예표입니다. 이 땅의 불완전한 평화는 만왕의 왕이신 그리스도께서 가져오실 완전하고 영원한 평화의 나라를 소망하게 합니다.</li>
+                    <li><strong>하나님 나라 통치를 위한 지혜:</strong> 솔로몬의 지혜는 개인의 명성이나 부국강병을 위한 도구가 아니었습니다. 그 지혜의 핵심 목적은 첫째, 하나님의 백성을 공의로 다스리는 것(4:29-34)이었고, 둘째, 하나님의 집, 즉 성전을 짓는 거룩한 사명을 감당하는 것이었습니다. 이는 참된 지혜가 '여호와를 경외하는 것'에서 시작되며(잠 9:10), 그분의 뜻을 이 땅에 이루는 데 사용될 때 가장 빛난다는 사실을 증명합니다. 신약의 성도들 또한 세상 속에서 하나님 나라를 세워가는 거룩한 청지기로서 성령의 지혜를 구해야 합니다.</li>
+                    <li><strong>성전 건축의 구속사적 의미:</strong> 성전은 단순한 종교 건물이 아니라, 거룩하신 하나님께서 죄 많은 자기 백성 가운데 거하시겠다는 임재의 상징이자 은혜의 장소입니다. 흥미로운 점은, 이 거룩한 성전이 이방 왕 히람과 그의 백성들의 도움으로 건축된다는 것입니다. 이는 하나님의 구원 계획이 처음부터 이스라엘을 넘어 모든 민족을 향하고 있었음을 보여주는 중요한 복선입니다. 이방인의 손길로 지어지는 성전은, 장차 참된 성전이신 예수 그리스도를 통해 유대인과 이방인의 막힌 담이 허물어지고 모든 민족이 하나님께 나아오게 될 위대한 구원의 그림을 미리 보여주는 것입니다.</li>
+                </ol>
+
+                <div class="button-group">
+                    <button class="btn btn-view" data-book="열왕기상" data-chapter="4">열왕기상 4장 본문 보기</button>
+                    <button class="btn btn-listen" data-book="열왕기상" data-key="1KI_4">열왕기상 4장 성경 듣기</button>
+                    <button class="btn btn-view" data-book="열왕기상" data-chapter="5">열왕기상 5장 본문 보기</button>
+                    <button class="btn btn-listen" data-book="열왕기상" data-key="1KI_5">열왕기상 5장 성경 듣기</button>
+                </div>
+            </section>
+
+            <!-- Card 2: Ephesians 2 -->
+            <section class="chapter-card card-book2">
+                <h3>에베소서 2장: 은혜로 얻은 구원과 새로운 공동체</h3>
+                <h4>상세 개요</h4>
+                <p>바울은 구원 받기 이전 인간의 영적 상태를 "허물과 죄로 죽었다"는 충격적인 진단으로 시작합니다. 우리는 본질상 진노의 자녀였으나, 하나님의 측량할 수 없는 긍휼과 사랑으로 말미암아 오직 은혜로 구원을 받았습니다. 이 구원은 우리의 행위가 아닌 하나님의 선물입니다. 더 나아가, 이 구원은 개인에게만 머무르지 않습니다. 그리스도의 십자가는 유대인과 이방인을 가르던 율법이라는 적대감의 벽을 허물었고, 둘을 그리스도 안에서 '한 새 사람'으로 창조하여 하나님과 화목하게 하셨습니다. 이제 교회는 그리스도를 모퉁잇돌로 삼아, 성령 안에서 하나님이 거하시는 거룩한 성전으로 함께 지어져 갑니다.</p>
+
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>전적 타락과 주권적 은혜 (Total Depravity & Sovereign Grace):</strong> "너희의 허물과 죄로 죽었던 너희를 살리셨도다"(1절)라는 선언은 인간의 전적인 영적 무능력 상태를 명확히 보여줍니다. 죽은 자가 스스로 살아날 수 없듯이, 죄인에게는 스스로를 구원할 의지나 능력이 전혀 없습니다. 따라서 구원은 인간의 어떠한 가능성이나 공로, 심지어 믿기로 결단하는 행위에서조차 시작되는 것이 아니라, 전적으로 하나님의 긍휼과 사랑, 즉 주권적인 은혜의 선물입니다(8절). 이것이 바로 '오직 은혜(Sola Gratia)'라는 종교개혁의 핵심 원리이며, 우리의 구원이 얼마나 안전하고 확실한 기반 위에 서 있는지를 보여줍니다.</li>
+                    <li><strong>그리스도를 통한 이중적 화평(샬롬):</strong> 그리스도의 십자가는 이중적인 화평을 성취했습니다. 첫째는 하나님과 원수 되었던 우리 사이의 수직적 화평이며, 둘째는 유대인과 이방인으로 나뉘어 서로를 적대하던 인류 사이의 수평적 화평입니다(14-16절). 그리스도는 율법 조문으로 된 계명의 벽을 자신의 몸으로 허무시고 "우리의 화평" 그 자체가 되셨습니다. 그러므로 교회는 이 화평의 복음을 통해 세워진, 세상이 결코 만들어낼 수 없는 인종과 문화, 계층을 초월한 하나님의 새로운 가족 공동체입니다.</li>
+                    <li><strong>교회, 살아있는 성전:</strong> 구약 시대에 돌과 나무로 지었던 성전은 하나님의 임재의 모형이었습니다. 이제 그 실체이신 그리스도께서 오심으로, 교회 공동체가 새로운 영적 성전이 되었습니다. 교회는 "사도들과 선지자들의 터 위에 세우심을 입은 자라 그리스도 예수께서 친히 모퉁잇돌이 되셨느니라"(20절)는 말씀처럼, 살아있는 유기체적 건축물입니다. 각 성도는 이 성전의 일부인 '살아있는 돌'로서, 성령 안에서 서로 연결되고 함께 지어져 가며(22절), 세상 속에서 하나님의 임재를 드러내는 거룩한 처소의 사명을 감당합니다.</li>
+                </ol>
+
+                <div class="button-group">
+                    <button class="btn btn-view" data-book="에베소서" data-chapter="2">본문 보기</button>
+                    <button class="btn btn-listen" data-book="에베소서" data-key="EPH_2">성경 듣기</button>
+                </div>
+            </section>
+
+            <!-- Card 3: Ezekiel 35 -->
+            <section class="chapter-card card-book3">
+                <h3>에스겔 35장: 세일 산(에돔)을 향한 심판</h3>
+                <h4>상세 개요</h4>
+                <p>하나님은 에스겔 선지자를 통해 야곱의 형제 에서의 후손인 에돔(세일 산)을 향한 준엄하고도 구체적인 심판을 선고하십니다. 그 이유는 단지 이스라엘과 적대 관계였기 때문이 아닙니다. 그들은 이스라엘이 바벨론에 의해 심판받는 '재앙의 날'에 기뻐하며 조롱했고(15절), 더 나아가 하나님의 땅을 차지하려는 신성모독적인 탐욕(10절)을 품었습니다. 하나님은 그들의 뿌리 깊은 증오와 교만에 대해 그들이 행한 그대로 갚으실 것이며, 그 땅을 영원한 황무지로 만드심으로 자신이 온 땅의 주권자이심을 모든 민족 앞에 드러내시겠다고 선언하십니다.</p>
+
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>하나님의 공의와 언약 백성에 대한 보호:</strong> 에돔에 대한 심판은 국제 정치에 대한 하나님의 개입을 넘어섭니다. 이는 하나님의 언약 백성을 대적하는 행위가 곧 하나님 자신을 대적하는 것임을 보여주는 중요한 원리입니다. 시편 기자가 "무릇 너희를 범하는 자는 그의 눈동자를 범하는 것이라"(슥 2:8)고 노래했듯이, 하나님은 자기 백성과 자신을 동일시하시며, 그들을 향한 악의적인 공격에 대해 반드시 공의로 심판하십니다. 이는 세상 속에서 고난받는 하나님의 백성에게 큰 위로와 소망의 근거가 됩니다.</li>
+                    <li><strong>하나님의 주권을 무시하는 교만의 죄:</strong> 에돔의 가장 근본적인 죄는 교만입니다. 그들은 "이 두 민족과 이 두 땅은 다 내 것이라 내가 차지하리라"(10절)고 말했지만, 성경은 바로 뒤에 "그러나 여호와께서 거기에 계셨느니라"고 지적하며 그들의 어리석음을 폭로합니다. 하나님의 임재와 주권을 무시하고 스스로의 힘과 계획을 의지하는 교만은 하나님께서 가장 미워하시는 죄이며, 반드시 하나님의 심판을 초래합니다.</li>
+                    <li><strong>심판을 통한 자기 계시:</strong> 하나님께서 심판을 행하시는 궁극적인 이유는 단순한 파괴나 복수가 아닙니다. 그 목적은 "내가 주 여호와인 줄을 네가 알리라"(15절)는 말씀에 반복적으로 나타납니다. 하나님의 심판은 그분의 거룩하심, 공의, 그리고 온 세상에 대한 절대 주권을 온 우주에 드러내시는 자기 계시의 한 방법입니다. 이 심판을 통해 이스라엘뿐만 아니라 모든 민족은 누가 역사의 참된 주관자인지를 알게 될 것입니다.</li>
+                </ol>
+
+                <div class="button-group">
+                    <button class="btn btn-view" data-book="에스겔" data-chapter="35">본문 보기</button>
+                    <button class="btn btn-listen" data-book="에스겔" data-key="EZE_35">성경 듣기</button>
+                </div>
+            </section>
+
+            <!-- Card 4: Psalms 85 -->
+            <section class="chapter-card card-book4">
+                <h3>시편 85편: 회복을 위한 기도와 구원의 약속</h3>
+                <h4>상세 개요</h4>
+                <p>이 시는 바벨론 포로기 이후의 공동체가 드리는 탄원과 소망의 노래로 보입니다. 시인은 먼저 과거에 베푸셨던 하나님의 구원과 용서의 은혜(1-3절)를 회상하며 기도를 시작합니다. 이를 근거로, 현재 겪고 있는 하나님의 진노에서 돌이켜 다시 공동체를 회복시켜 주시기를 간절히 간구합니다(4-7절). 그리고 시인은 믿음의 귀를 열어 하나님께서 하실 말씀을 듣겠다며 기도의 응답을 확신합니다. 그가 바라보는 미래는 하나님의 구원이 임할 때 나타날 '인애와 진리', '의와 화평'이라는 하나님의 성품들이 서로 만나 입 맞추는 영광스러운 회복의 모습입니다(8-13절).</p>
+
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>회개의 공동체성과 기억의 역할:</strong> 시인은 "우리"라는 표현을 반복하며 개인의 죄를 넘어 공동체 전체의 죄를 함께 아파하며 하나님의 긍휼을 구합니다. 신앙은 결코 개인주의적인 것이 아니라, 언약 공동체 전체의 거룩함과 유기적으로 연결되어 있음을 보여줍니다. 또한, 과거에 베푸신 하나님의 은혜를 '기억'하는 것은 현재의 고난을 이기고 미래를 향한 기도를 드릴 수 있는 강력한 신학적 동력이 됩니다.</li>
+                    <li><strong>하나님의 성품에 근거한 소망:</strong> 이 기도의 근거는 우리의 자격이나 가능성이 아니라, 과거에 신실하셨던 하나님의 변치 않는 성품입니다. 과거에 "주의 백성의 죄악을 사하시고 그들의 모든 죄를 덮으셨던"(2절) 하나님은 오늘도 동일하게 행하실 수 있다는 믿음이 기도의 유일한 기반입니다. 우리의 소망은 시시각각 변하는 우리의 상황이나 감정이 아니라, 영원히 신실하신 하나님의 성품에 뿌리를 두어야 합니다.</li>
+                    <li>**십자가에서 만난 하나님의 속성들:** "인애와 진리가 같이 만나고 의와 화평이 서로 입맞추었으며"(10절)라는 구절은 구원의 신비를 가장 아름답게 묘사한 부분 중 하나입니다. 죄인을 향한 하나님의 무한한 '인애(헤세드)'와 죄를 반드시 심판하셔야 하는 그분의 '진리(공의)'는 인간의 관점에서는 서로 모순되며 양립할 수 없어 보입니다. 그러나 이 거룩한 딜레마는 예수 그리스도의 십자가에서 완벽하게 해결되고 조화를 이루었습니다. 십자가에서 하나님의 공의가 남김없이 만족되었고('의'), 그 결과 하나님과 우리 사이에 참된 '화평'의 길이 열렸습니다. 이 시편은 신약의 관점에서 볼 때, 십자가의 복음을 놀랍도록 선명하게 예언하고 노래하고 있습니다.</li>
+                </ol>
+
+                <div class="button-group">
+                    <button class="btn btn-view" data-book="시편" data-chapter="85">본문 보기</button>
+                    <button class="btn btn-listen" data-book="시편" data-key="PSA_85">성경 듣기</button>
+                </div>
+            </section>
+            
+            <!-- Integration Card -->
+            <section class="integration-card">
+                <h3>통합 묵상: 하나님의 집을 세우는 길</h3>
+                
+                <h4>관통하는 주제 논증</h4>
+                <p>오늘의 본문들은 물리적이든 영적이든 '하나님의 집(거처)'이 어떻게 세워지고 보호받는지를 다각적으로 조명합니다. 열왕기상에서는 솔로몬이 하나님께서 주신 지혜와 평화 속에서 유형의 성전을 건축할 준비를 합니다. 이것은 하나님의 집을 세우는 데 인간의 순종과 지혜로운 준비가 필요함을 보여줍니다. 그러나 에베소서는 이 유형의 성전이 예표했던 참된 실체, 즉 그리스도를 모퉁잇돌로 하여 이전에는 원수였던 유대인과 이방인이 함께 지어져 가는 '교회'라는 영적 성전을 보여주며, 이 집의 건설자가 인간이 아닌 오직 하나님이심을 선포합니다. 그렇다면 이 하나님의 집을 위협하는 세력은 어떻게 되는가? 에스겔서는 이 하나님의 백성(하나님의 집)을 대적하고 그 땅을 탐내는 세력(에돔)에 대한 하나님의 준엄한 심판과 절대적인 보호를 선포합니다. 마지막으로 시편 85편은 이 모든 것을 가능하게 하는 근원, 즉 죄로 인해 깨어진 하나님과 인간의 관계를 회복시키시고 '의와 화평'이 입 맞추게 하시는 하나님의 구원 사역이야말로 하나님의 집이 세워질 수 있는 유일한 기초임을 노래합니다. 결국 하나님의 집은 인간의 노력이 아닌, 오직 십자가로 화평을 이루시는 하나님의 은혜와 그분의 신실한 보호하심 속에서만 견고하게 세워질 수 있음을 발견하게 됩니다.</p>
+
+                <h4>입체적 핵심 단어 연구</h4>
+                <p><strong>'은혜' (χάρις, 카리스) - 에베소서 2:8</strong></p>
+                <p>헬라어 '카리스'는 단순히 '친절'이나 '호의'를 의미하는 단어가 아닙니다. 성경에서 이 단어는 '전혀 자격 없는 자에게 값없이, 일방적으로 베푸시는 하나님의 주권적이고 능동적인 사랑과 호의'라는 신학적 의미를 갖습니다. 이것은 받을 만한 자격이 있어서 주어지는 보상이나 대가가 아니라, 오히려 허물과 죄로 죽어 하나님의 진노 아래 있던 원수에게 베풀어지는 '선물'입니다. 에베소서 2장에서 '카리스'는 구원의 유일한 원천으로 제시됩니다. 우리의 믿음조차도 이 은혜의 결과로 주어진 선물이라고 말합니다(8절). 따라서 구원의 모든 과정에서 인간이 자신의 행위를 근거로 자랑할 것은 단 하나도 없으며, 모든 영광은 오직 은혜를 베푸시는 하나님께만 돌려져야 함을 강조하는, 개혁주의 신앙의 심장과도 같은 단어입니다.</p>
+
+                <h4>심층 상호 참조</h4>
+                <ul>
+                    <li><strong>열왕기상 5:4 & 에베소서 2:14</strong><br>솔로몬은 "내 하나님 여호와께서 내게 사방의 태평을 주시매 원수도 없고 재앙도 없도다"라고 말하며 성전 건축의 최적기임을 선언합니다. 이 외부적인 '태평(샬롬)'은 에베소서에서 "그는 우리의 화평(샬롬)이신지라 둘로 하나를 만드사 원수 된 것 곧 중간에 막힌 담을 자기 육체로 허시고"라는 선포로 연결됩니다. 솔로몬 시대의 정치적 평화는 참된 평화이신 그리스도께서 십자가로 원수 된 것을 허무시고 가져오실 영적 평화의 그림자였습니다. 참된 성전인 교회는 오직 그리스도께서 이루신 화평의 터 위에서만 세워질 수 있습니다.</li>
+                    <li><strong>에스겔 35:10 & 에베소서 2:22</strong><br>에돔은 교만하게 하나님의 땅을 향해 "이 두 땅은 다 내 것이라 내가 차지하리라"고 주장하며 하나님의 소유를 탐냈습니다. 그러나 에베소서는 정반대의 진리를 선포합니다. 우리는 본래 하나님의 진노의 자녀였으나, 이제는 "성령 안에서 하나님이 거하실 처소(성전)가 되기 위하여" 함께 지어져 간다고 선언합니다. 에돔의 교만은 하나님의 집을 파괴하려 했지만, 하나님의 은혜는 원수였던 우리를 불러 당신이 친히 거하시는 거룩한 집으로 삼으십니다. 이는 심판과 구원의 극명한 대조를 보여줍니다.</li>
+                    <li><strong>시편 85:10 & 에베소서 2:8-9</strong><br>시편 기자가 꿈꾸었던 "의와 화평"의 입맞춤, 즉 하나님의 공의의 만족과 죄인과의 관계 회복이라는 신비는, 에베소서의 "너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라"는 말씀으로 그 명확한 해답을 찾습니다. 하나님께서는 자신의 아들을 십자가에 내어주심으로 자신의 공의를 남김없이 만족시키셨고('의'), 그를 믿는 자에게 값없는 구원과 하나님과의 화목('화평')을 선물('은혜')로 주셨습니다. 시편의 아름다운 갈망이 에베소서의 영광스러운 선포로 성취된 것입니다.</li>
+                </ul>
+
+                <h4>적용을 위한 성찰 질문</h4>
+                <ol>
+                    <li>나는 하나님께서 내 삶에 허락하신 평화와 안정의 시기(샬롬)를 솔로몬처럼 하나님의 집(교회 공동체와 하나님 나라)을 세우는 기회로 선용하고 있습니까, 아니면 개인의 안락과 만족을 위해서만 사용하고 있습니까?</li>
+                    <li>나는 과거에 죄로 죽었던 비참한 상태였고, 지금 내가 누리는 구원과 모든 것이 전적인 '은혜(카리스)'의 선물임을 매일의 삶 속에서 얼마나 깊이 인식하며 감사하고 있습니까? 나의 삶에서 '자랑'하고 싶은 영역이 있다면, 그것은 무엇입니까?</li>
+                    <li>나의 공동체(가정, 교회, 사회) 안에 아직도 그리스도께서 허무신 장벽(편견, 차별, 미움, 갈등)이 남아있다면, '우리의 화평'이신 예수님의 마음으로 그 장벽을 허물기 위해 내가 할 수 있는 구체적인 행동은 무엇까요?</li>
+                    <li>나는 시편 기자처럼 과거에 베푸신 하나님의 은혜를 자주 기억하며, 그것을 현재의 어려움을 이겨낼 기도의 동력으로 삼고 있습니까?</li>
+                </ol>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="bible-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title"></h3>
+            <div class="modal-body">
+                <div id="bible-text-content"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio Player -->
+    <div id="audio-player-bar">
+        <div id="player-info"></div>
+        <div id="player-controls">
+            <button id="play-pause-btn">▶</button>
+            <button id="close-player-btn">×</button>
+        </div>
+        <div id="youtube-player"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bible data map with corrected book numbers and keys
+            const bibleData = {
+                '창세기': { bookCode: 'GEN', testament: 'OT', totalChapters: 50, bookNum: '01' }, '출애굽기': { bookCode: 'EXO', testament: 'OT', totalChapters: 40, bookNum: '02' }, '레위기': { bookCode: 'LEV', testament: 'OT', totalChapters: 27, bookNum: '03' }, '민수기': { bookCode: 'NUM', testament: 'OT', totalChapters: 36, bookNum: '04' }, '신명기': { bookCode: 'DEU', testament: 'OT', totalChapters: 34, bookNum: '05' }, '여호수아': { bookCode: 'JOS', testament: 'OT', totalChapters: 24, bookNum: '06' }, '사사기': { bookCode: 'JDG', testament: 'OT', totalChapters: 21, bookNum: '07' }, '룻기': { bookCode: 'RUT', testament: 'OT', totalChapters: 4, bookNum: '08' }, '사무엘상': { bookCode: '1SA', testament: 'OT', totalChapters: 31, bookNum: '09' }, '사무엘하': { bookCode: '2SA', testament: 'OT', totalChapters: 24, bookNum: '10' }, '열왕기상': { bookCode: '1KI', testament: 'OT', totalChapters: 22, bookNum: '11' }, '열왕기하': { bookCode: '2KI', testament: 'OT', totalChapters: 25, bookNum: '12' }, '역대상': { bookCode: '1CH', testament: 'OT', totalChapters: 29, bookNum: '13' }, '역대하': { bookCode: '2CH', testament: 'OT', totalChapters: 36, bookNum: '14' }, '에스라': { bookCode: 'EZR', testament: 'OT', totalChapters: 10, bookNum: '15' }, '느헤미야': { bookCode: 'NEH', testament: 'OT', totalChapters: 13, bookNum: '16' }, '에스더': { bookCode: 'EST', testament: 'OT', totalChapters: 10, bookNum: '17' }, '욥기': { bookCode: 'JOB', testament: 'OT', totalChapters: 42, bookNum: '18' }, '시편': { bookCode: 'PSA', testament: 'OT', totalChapters: 150, bookNum: '19' }, '잠언': { bookCode: 'PRO', testament: 'OT', totalChapters: 31, bookNum: '20' }, '전도서': { bookCode: 'ECC', testament: 'OT', totalChapters: 12, bookNum: '21' }, '아가': { bookCode: 'SOS', testament: 'OT', totalChapters: 8, bookNum: '22' }, '이사야': { bookCode: 'ISA', testament: 'OT', totalChapters: 66, bookNum: '23' }, '예레미야': { bookCode: 'JER', testament: 'OT', totalChapters: 52, bookNum: '24' }, '예레미야애가': { bookCode: 'LAM', testament: 'OT', totalChapters: 5, bookNum: '25' }, '에스겔': { bookCode: 'EZE', testament: 'OT', totalChapters: 48, bookNum: '26' }, '다니엘': { bookCode: 'DAN', testament: 'OT', totalChapters: 12, bookNum: '27' }, '호세아': { bookCode: 'HOS', testament: 'OT', totalChapters: 14, bookNum: '28' }, '요엘': { bookCode: 'JOE', testament: 'OT', totalChapters: 3, bookNum: '29' }, '아모스': { bookCode: 'AMO', testament: 'OT', totalChapters: 9, bookNum: '30' }, '오바댜': { bookCode: 'OBA', testament: 'OT', totalChapters: 1, bookNum: '31' }, '요나': { bookCode: 'JON', testament: 'OT', totalChapters: 4, bookNum: '32' }, '미가': { bookCode: 'MIC', testament: 'OT', totalChapters: 7, bookNum: '33' }, '나훔': { bookCode: 'NAH', testament: 'OT', totalChapters: 3, bookNum: '34' }, '하박국': { bookCode: 'HAB', testament: 'OT', totalChapters: 3, bookNum: '35' }, '스바냐': { bookCode: 'ZEP', testament: 'OT', totalChapters: 3, bookNum: '36' }, '학개': { bookCode: 'HAG', testament: 'OT', totalChapters: 2, bookNum: '37' }, '스가랴': { bookCode: 'ZEC', testament: 'OT', totalChapters: 14, bookNum: '38' }, '말라기': { bookCode: 'MAL', testament: 'OT', totalChapters: 4, bookNum: '39' },
+                '마태복음': { bookCode: 'MAT', testament: 'NT', totalChapters: 28, bookNum: '01' }, '마가복음': { bookCode: 'MAR', testament: 'NT', totalChapters: 16, bookNum: '02' }, '누가복음': { bookCode: 'LUK', testament: 'NT', totalChapters: 24, bookNum: '03' }, '요한복음': { bookCode: 'JOH', testament: 'NT', totalChapters: 21, bookNum: '04' }, '사도행전': { bookCode: 'ACT', testament: 'NT', totalChapters: 28, bookNum: '05' }, '로마서': { bookCode: 'ROM', testament: 'NT', totalChapters: 16, bookNum: '06' }, '고린도전서': { bookCode: '1CO', testament: 'NT', totalChapters: 16, bookNum: '07' }, '고린도후서': { bookCode: '2CO', testament: 'NT', totalChapters: 13, bookNum: '08' }, '갈라디아서': { bookCode: 'GAL', testament: 'NT', totalChapters: 6, bookNum: '09' },
+                '에베소서': { bookCode: 'EPH', testament: 'NT', totalChapters: 6, bookNum: '10' },
+                '빌립보서': { bookCode: 'PHI', testament: 'NT', totalChapters: 4, bookNum: '11' }, '골로새서': { bookCode: 'COL', testament: 'NT', totalChapters: 4, bookNum: '12' }, '데살로니가전서': { bookCode: '1TH', testament: 'NT', totalChapters: 5, bookNum: '13' }, '데살로니가후서': { bookCode: '2TH', testament: 'NT', totalChapters: 3, bookNum: '14' }, '디모데전서': { bookCode: '1TI', testament: 'NT', totalChapters: 6, bookNum: '15' }, '디모데후서': { bookCode: '2TI', testament: 'NT', totalChapters: 4, bookNum: '16' }, '디도서': { bookCode: 'TIT', testament: 'NT', totalChapters: 3, bookNum: '17' }, '빌레몬서': { bookCode: 'PHM', testament: 'NT', totalChapters: 1, bookNum: '18' }, '히브리서': { bookCode: 'HEB', testament: 'NT', totalChapters: 13, bookNum: '19' }, '야고보서': { bookCode: 'JAM', testament: 'NT', totalChapters: 5, bookNum: '20' }, '베드로전서': { bookCode: '1PE', testament: 'NT', totalChapters: 5, bookNum: '21' }, '베드로후서': { bookCode: '2PE', testament: 'NT', totalChapters: 3, bookNum: '22' }, '요한1서': { bookCode: '1JO', testament: 'NT', totalChapters: 5, bookNum: '23' }, '요한2서': { bookCode: '2JO', testament: 'NT', totalChapters: 1, bookNum: '24' }, '요한3서': { bookCode: '3JO', testament: 'NT', totalChapters: 1, bookNum: '25' }, '유다서': { bookCode: 'JUD', testament: 'NT', totalChapters: 1, bookNum: '26' }, '요한계시록': { bookCode: 'REV', testament: 'NT', totalChapters: 22, bookNum: '27' }
+            };
+
+            // Modal
+            const modal = document.getElementById('bible-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('bible-text-content');
+            
+            document.querySelectorAll('.btn-view').forEach(button => {
+                button.addEventListener('click', async () => {
+                    const book = button.dataset.book;
+                    const chapter = button.dataset.chapter;
+                    const bookInfo = bibleData[book];
+                    if (!bookInfo) {
+                        console.error('책 정보를 찾을 수 없습니다:', book);
+                        modalTitle.textContent = '오류';
+                        modalContent.innerHTML = `'${book}'에 대한 책 정보를 찾을 수 없습니다. 코드의 bibleData 객체를 확인해주세요.`;
+                        modal.style.display = 'block';
+                        return;
+                    }
+
+                    const chapterPadded = String(chapter).padStart(2, '0');
+                    const fileName = `${bookInfo.testament}_${bookInfo.bookNum}_${bookInfo.bookCode}_${chapterPadded}.html`;
+                    const filePath = `../bible_html/${bookInfo.testament}/${fileName}`;
+                    
+                    modalTitle.textContent = `${book} ${chapter}장`;
+                    modalContent.innerHTML = '로딩 중...';
+                    modal.style.display = 'block';
+
+                    try {
+                        const response = await fetch(filePath);
+                        if (!response.ok) throw new Error('파일을 불러올 수 없습니다.');
+                        const text = await response.text();
+                        modalContent.innerHTML = text;
+                    } catch (error) {
+                        modalContent.innerHTML = '성경 본문을 불러오는 데 실패했습니다.';
+                        console.error('Error fetching bible text:', error);
+                    }
+                });
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // --- Audio Player Logic (Revised) ---
+            const audioPlayerBar = document.getElementById('audio-player-bar');
+            const playerInfo = document.getElementById('player-info');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const closePlayerBtn = document.getElementById('close-player-btn');
+            
+            let player;
+            let audioLinks = {};
+            let isPlaying = false;
+            let playerReady = false;
+            let pendingVideoId = null;
+
+            async function loadAudioLinks() {
+                try {
+                    const response = await fetch('../address/mcbible.txt');
+                    if (!response.ok) throw new Error('오디오 주소 파일을 찾을 수 없습니다.');
+                    const text = await response.text();
+                    text.split('\n').forEach(line => {
+                        if (line.trim()) {
+                            const [fullKey, url] = line.split(/\s+/);
+                            // Convert OT_11_1KI_03 -> 1KI_3
+                            const keyParts = fullKey.split('_');
+                            if (keyParts.length >= 4) {
+                                const shortKey = `${keyParts[2]}_${parseInt(keyParts[3], 10)}`;
+                                audioLinks[shortKey] = url;
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error("오디오 링크 로딩 오류:", error);
+                }
+            }
+
+            function getYouTubeID(url) {
+                if (!url) return null;
+                let id = '';
+                try {
+                    const urlObj = new URL(url);
+                    if (urlObj.hostname === 'youtu.be') {
+                        id = urlObj.pathname.slice(1).split('?')[0];
+                    } else if (urlObj.hostname.includes('youtube.com')) {
+                        id = urlObj.searchParams.get('v');
+                    } else if (urlObj.hostname.includes('google.com') && urlObj.pathname.includes('search')) {
+                        const youtubeUrlStr = urlObj.searchParams.get('q');
+                        if (youtubeUrlStr) {
+                           const youtubeUrl = new URL(youtubeUrlStr);
+                           id = youtubeUrl.searchParams.get('v');
+                        }
+                    }
+                } catch(e) { /* Fallback for malformed URLs */ }
+                
+                if (!id) {
+                    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    const match = url.match(regExp);
+                    if (match && match[2].length === 11) {
+                        id = match[2];
+                    }
+                }
+                return id;
+            }
+
+            // This function creates an <iframe> (and YouTube player) after the API code downloads.
+            window.onYouTubeIframeAPIReady = function() {
+                player = new YT.Player('youtube-player', {
+                    height: '0',
+                    width: '0',
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            }
+            
+            function onPlayerReady(event) {
+                playerReady = true;
+                if (pendingVideoId) {
+                    event.target.loadVideoById(pendingVideoId);
+                    pendingVideoId = null;
+                }
+            }
+
+            function onPlayerStateChange(event) {
+                isPlaying = (event.data === YT.PlayerState.PLAYING);
+                playPauseBtn.textContent = isPlaying ? '⏸' : '▶';
+            }
+
+            function playVideo(book, key) {
+                const url = audioLinks[key];
+                if (!url) {
+                    alert(`'${book} ${key.split('_')[1]}장'에 대한 오디오 링크를 찾을 수 없습니다.`);
+                    return;
+                }
+                const videoId = getYouTubeID(url);
+                if (!videoId) {
+                     alert('유효한 YouTube 영상 ID를 찾을 수 없습니다.');
+                    return;
+                }
+
+                playerInfo.textContent = `${book} ${key.split('_')[1]}장`;
+                audioPlayerBar.classList.add('show');
+
+                if (playerReady) {
+                    player.loadVideoById(videoId);
+                } else {
+                    pendingVideoId = videoId;
+                }
+            }
+            
+            document.querySelectorAll('.btn-listen').forEach(button => {
+                button.addEventListener('click', () => {
+                    const book = button.dataset.book;
+                    const key = button.dataset.key;
+                    playVideo(book, key);
+                });
+            });
+
+            playPauseBtn.addEventListener('click', () => {
+                if (playerReady) {
+                    if (isPlaying) player.pauseVideo();
+                    else player.playVideo();
+                }
+            });
+
+            closePlayerBtn.addEventListener('click', () => {
+                if (playerReady) player.stopVideo();
+                audioPlayerBar.classList.remove('show');
+            });
+            
+            // Load everything
+            loadAudioLinks();
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        });
+    </script>
+
+</body>
+</html>
+

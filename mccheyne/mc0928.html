@@ -3,702 +3,509 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9월 28일 맥체인 성경읽기</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <title>9월 28일 - 맥체인 성경읽기</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
+
         :root {
-            --book1-color: #4A90E2; /* 사무엘하 - Blue */
-            --book2-color: #E91E63; /* 갈라디아서 - Pink */
-            --book3-color: #F5A623; /* 에스겔 - Orange */
-            --book4-color: #9013FE; /* 시편 - Purple */
-            --integration-color: #D0021B; /* 통합 - Red */
-            --text-primary: #333;
-            --text-secondary: #555;
-            --bg-light: #f8f9fa;
-            --border-color: #dee2e6;
+            --font-serif: 'KoPub Batang', serif;
+            --font-sans-serif: 'Pretendard', sans-serif;
+            
+            --color-text: #343a40;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            --color-muted: #868e96;
+
+            --color-book1: #4285F4;
+            --color-book2: #DB4437;
+            --color-book3: #c89200;
+            --color-book4: #0F9D58;
+            --color-integration: #5f6368;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Noto Sans KR', sans-serif;
+            font-family: var(--font-serif);
+            font-size: 17px;
             line-height: 1.8;
-            color: var(--text-primary);
+            color: var(--color-text);
+            background-color: var(--color-background);
             margin: 0;
-            padding: 0;
-            background-color: #fff;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
         }
 
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            width: 100%;
+            max-width: 1280px;
         }
 
-        .title-section {
-            background-color: var(--bg-light);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
+        header, main {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        header {
             text-align: center;
-            border: 1px solid var(--border-color);
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 1.5rem;
         }
 
         h1 {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 2.5em;
-            margin: 0 0 10px 0;
-            color: var(--text-primary);
-        }
-
-        h1 .subtitle {
-            font-size: 0.6em;
-            color: var(--text-secondary);
-            font-weight: 400;
-            display: block;
-            margin-top: 10px;
-        }
-
-        .intro-passage {
-            font-size: 1.2em;
+            font-family: var(--font-sans-serif);
+            font-size: clamp(2.2rem, 5vw, 3rem);
             font-weight: 700;
-            color: var(--text-secondary);
-            margin: 0;
-        }
-
-        .chapter-card {
-            background-color: #fff;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            padding: 25px;
-            border: 1px solid var(--border-color);
-            border-left: 5px solid;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: box-shadow 0.3s ease;
+            margin: 0.5em 0;
+            color: #212529;
         }
         
-        .chapter-card:hover {
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-        }
-
-        .card-book1 { border-left-color: var(--book1-color); }
-        .card-book2 { border-left-color: var(--book2-color); }
-        .card-book3 { border-left-color: var(--book3-color); }
-        .card-book4 { border-left-color: var(--book4-color); }
-        .integration-card { border-left-color: var(--integration-color); }
-
-        h2 {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 2em;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-
         h3 {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 1.5em;
-            margin-top: 25px;
-            margin-bottom: 15px;
-        }
-
-        .bible-text {
-            background-color: var(--bg-light);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .bible-text p {
-            margin: 0 0 10px 0;
-        }
-
-        .verse-number {
-            font-weight: bold;
-            color: var(--text-secondary);
-            margin-right: 8px;
-            font-size: 0.8em;
-        }
-
-        .card-book1 .bible-text strong { color: var(--book1-color); }
-        .card-book2 .bible-text strong { color: var(--book2-color); }
-        .card-book3 .bible-text strong { color: var(--book3-color); }
-        .card-book4 .bible-text strong { color: var(--book4-color); }
-
-        .analysis-svg {
-            width: 100%;
-            margin: 20px 0;
-            background-color: var(--bg-light);
-            padding: 15px;
-            border-radius: 8px;
-        }
-        
-        .key-verse {
-            margin-bottom: 20px;
-        }
-        .key-verse .verse-text {
-            font-style: italic;
-            background-color: var(--bg-light);
-            padding: 12px;
-            border-radius: 4px;
-            border-left: 3px solid;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        .card-book1 .key-verse .verse-text { border-left-color: var(--book1-color); color: var(--book1-color); }
-        .card-book2 .key-verse .verse-text { border-left-color: var(--book2-color); color: var(--book2-color); }
-        .card-book3 .key-verse .verse-text { border-left-color: var(--book3-color); color: var(--book3-color); }
-        .card-book4 .key-verse .verse-text { border-left-color: var(--book4-color); color: var(--book4-color); }
-        .key-verse .commentary-text {
-            padding-left: 5px;
-            margin: 0;
-            color: var(--text-secondary);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 0.95em;
-        }
-
-        th, td {
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: var(--bg-light);
+            font-family: var(--font-sans-serif);
+            font-size: 1.4rem;
             font-weight: 700;
-        }
-        
-        td:first-child {
-            font-weight: bold;
-            font-family: 'Noto Serif KR', serif;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #aaa;
+            margin-bottom: 1.5rem;
         }
 
-        #player-container {
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-            width: 1px;
-            height: 1px;
+        h4 {
+            font-family: var(--font-sans-serif);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-top: 0;
+            margin-bottom: 1.5em;
+        }
+        p:last-of-type {
+            margin-bottom: 0;
         }
 
-        #floatingPlayPauseBtn {
+        .chapter-card, .integration-card {
+            background-color: var(--color-card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 3.5rem;
+            padding: 2rem 2.5rem;
+            border-left: 8px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-card:hover, .integration-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .card-book1 { border-color: var(--color-book1); }
+        .card-book1 h3 { color: var(--color-book1); }
+        .card-book2 { border-color: var(--color-book2); }
+        .card-book2 h3 { color: var(--color-book2); }
+        .card-book3 { border-color: var(--color-book3); }
+        .card-book3 h3 { color: var(--color-book3); }
+        .card-book4 { border-color: var(--color-book4); }
+        .card-book4 h3 { color: var(--color-book4); }
+        .integration-card { border-color: var(--color-integration); }
+        .integration-card h3 { color: var(--color-integration); }
+
+        .btn-group {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--font-sans-serif);
+            padding: 0.6em 1.2em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            color: white;
+        }
+
+        .btn-view { background-color: #343a40; }
+        .btn-listen { background-color: var(--color-integration); }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+        .btn:active {
+            transform: translateY(0);
+            filter: brightness(0.95);
+        }
+        
+        .modal {
+            display: none;
             position: fixed;
-            bottom: 30px;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: var(--color-card-bg);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+        
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .modal-close-btn:hover {
+            color: #333;
+        }
+
+        .modal-body {
+             max-height: 70vh;
+             overflow-y: auto;
+             font-size: 18px;
+             line-height: 2;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 100px auto;
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
+
+        .audio-player {
+            position: fixed;
+            bottom: -100px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1000;
-            width: 60px;
-            height: 60px;
-            background-color: var(--text-primary);
+            width: 95%;
+            max-width: 500px;
+            background-color: #2c3e50;
             color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
+            padding: 15px 20px;
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+            transition: bottom 0.3s ease-in-out;
+            z-index: 1001;
         }
+        .audio-player.show { bottom: 0; }
+        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
+        .audio-player-controls button:hover { color: #bdc3c7; }
+        #youtube-player-container { display: none; }
 
-        #floatingPlayPauseBtn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        #floatingPlayPauseBtn:not(:disabled):hover {
-            transform: translateX(-50%) scale(1.1);
-        }
-
-        #floatingPlayPauseBtn.paused {
-            opacity: 0.8;
-        }
-        
-        #floatingPlayPauseBtn .play-icon, 
-        #floatingPlayPauseBtn .pause-icon {
-            display: none;
-        }
-
-        #floatingPlayPauseBtn.paused .play-icon {
-            display: block;
-        }
-
-        #floatingPlayPauseBtn:not(.paused) .pause-icon {
-            display: block;
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--color-border);
+            color: #6c757d;
         }
     </style>
 </head>
 <body>
-
-    <div id="player-container"></div>
-    <button id="floatingPlayPauseBtn" disabled>
-        <span class="play-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
-            </svg>
-        </span>
-        <span class="pause-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
-            </svg>
-        </span>
-    </button>
-    
-    <div class="container">
-        <header class="title-section">
-            <h1>9월 28일 맥체인 성경읽기<br><span class="subtitle">인간의 죄, 하나님의 속량</span></h1>
-            <p class="intro-passage">삼하24 | 갈4 | 겔31 | 시79</p>
+    <div class="container" id="main-container">
+        <header>
+            <h1>9월 28일</h1>
+            <p>하나님의 심판과 약속, 그리고 참된 아들의 유업</p>
         </header>
 
         <main>
-            <!-- Card 1: 2 Samuel 24 -->
-            <section class="chapter-card card-book1">
-                <h2>사무엘하 24장: 교만의 대가와 속죄의 제단</h2>
-                <h3>개요 (Overview)</h3>
-                <p>다윗이 하나님의 격노하심 속에서 이스라엘의 인구를 조사하는 죄를 범합니다. 이 죄로 인해 하나님은 세 가지 재앙(기근, 전쟁, 전염병) 중 하나를 선택하게 하시고, 다윗은 하나님의 긍휼에 자신을 맡기며 전염병을 택합니다. 7만 명이 죽은 후에야 하나님은 진노를 거두시고, 다윗은 선지자 갓의 지시에 따라 아라우나의 타작마당을 사서 제단을 쌓고 번제와 화목제를 드림으로 재앙을 멈춥니다.</p>
+            <div class="chapter-card card-book1">
+                <h3>사무엘하 24장: 다윗의 인구조사와 하나님의 징계</h3>
+                <h4>상세 개요</h4>
+                <p>사무엘하 24장은 다윗의 통치 말년에 있었던 심각한 범죄와 그로 인한 하나님의 징계를 기록합니다. 하나님께서 이스라엘을 향해 진노하사, 다윗의 마음을 격동시켜 이스라엘과 유다의 인구를 계수하게 하십니다. 군사령관 요압의 강력한 반대에도 불구하고 다윗은 인구 조사를 강행합니다. 조사를 마친 후 다윗은 자신의 죄를 깨닫고 회개하지만, 하나님께서는 선지자 갓을 통해 세 가지 재앙 중 하나를 택하라고 하십니다. 다윗은 하나님의 긍휼에 자신을 맡기며 전염병을 택하고, 이로 인해 이스라엘 백성 칠만 명이 죽습니다. 재앙이 예루살렘에 이르려 할 때, 하나님께서 뜻을 돌이키시고, 다윗은 아라우나(오르난)의 타작마당에서 제단을 쌓고 번제와 화목제를 드림으로써 재앙이 그치게 됩니다. 이 장소는 훗날 솔로몬 성전이 세워지는 중요한 곳이 됩니다.</p>
                 
-                <h3>시각적 분석 (Visual Analysis)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
-                    <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#555" /></marker></defs>
-                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">죄, 심판, 그리고 속죄</text>
-                    
-                    <rect x="20" y="40" width="100" height="40" rx="5" fill="#FEF2F2" stroke="#EF4444"/>
-                    <text x="70" y="65" text-anchor="middle">다윗의 죄 (인구조사)</text>
-                    <path d="M70 80 v 20" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
-                    <text x="70" y="115" text-anchor="middle">하나님의 진노</text>
-                    
-                    <path d="M120 60 h 60" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
-                    <rect x="180" y="40" width="100" height="40" rx="5" fill="#FFFBEB" stroke="#FBBF24"/>
-                    <text x="230" y="65" text-anchor="middle">심판 (전염병)</text>
-                    
-                    <path d="M280 60 h 20" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
-                    <rect x="300" y="40" width="80" height="90" rx="5" fill="#EFF6FF" stroke="#3B82F6"/>
-                    <text x="340" y="65" text-anchor="middle">회개</text>
-                    <path d="M340 85 v 10" stroke="#3B82F6" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
-                    <text x="340" y="110" text-anchor="middle">속죄 제사</text>
-                </svg>
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>하나님의 주권과 인간의 책임:</strong> 본문은 "여호와께서 다시 이스라엘을 향하여 진노하사 그들을 치시려고 다윗을 격동시키사"(1절)라고 시작하여 사건의 궁극적인 원인이 하나님의 주권에 있음을 보여줍니다. 그러나 역대상 21장 1절은 동일 사건을 "사탄이 일어나 이스라엘을 대적하고 다윗을 충동하여"라고 기록합니다. 이는 하나님의 주권적 허용 안에서 사탄이 활동하며, 그럼에도 불구하고 죄를 선택한 다윗에게 책임이 있음을 동시에 보여주는 신학적 긴장입니다. 다윗의 죄는 군사력을 의지하려는 교만과 하나님에 대한 불신뢰였습니다. 이는 하나님의 백성이 자신의 힘이 아닌 오직 여호와만을 의지해야 함을 강력하게 교훈합니다.</li>
+                    <li><strong>대속의 원리와 거룩한 장소의 구별:</strong> 다윗은 "나는 죄를 범하였거니와 이 양 무리는 무엇을 행하였나이까"(17절)라고 부르짖으며 자신 때문에 백성이 고통받는 것을 아파합니다. 이는 목자 되신 왕의 책임감과 함께, 죄 없는 자가 죄 있는 자를 위해 고난받는 대속의 원리를 희미하게 보여줍니다. 이 사건의 정점은 아라우나의 타작마당에서 드려진 제사입니다. 다윗은 "값 없이는 내 하나님 여호와께 번제를 드리지 아니하리라"(24절)고 말하며 정당한 값을 치르고 땅을 사서 제단을 쌓습니다. 죄의 용서는 반드시 거룩한 희생의 피를 요구하며, 이 희생이 드려진 장소가 거룩하게 구별된다는 것을 보여줍니다. 이는 십자가 위에서 자신의 몸을 값없이 내어주신 예수 그리스도의 완전한 희생을 통해 우리의 모든 죄가 용서받고 하나님과 화목하게 됨을 예표하는 중요한 사건입니다.</li>
+                </ol>
 
-                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
-                <p>인구조사 자체가 죄는 아니지만, 다윗의 동기는 하나님을 의지하기보다 자신의 군사력을 의지하려는 교만에서 비롯되었기에 큰 죄가 되었습니다. 역대상 21장 1절은 사탄이 다윗을 충동했다고 기록하는 반면, 사무엘하 24장 1절은 여호와께서 이스라엘을 향해 진노하사 다윗을 격동시켰다고 기록합니다. 이는 사탄의 충동조차 하나님의 주권적인 허용 아래 있음을 보여주는 개혁주의적 관점을 지지합니다. 다윗의 죄는 그 개인뿐 아니라 백성 전체에게 끔찍한 결과를 가져왔습니다. 이는 지도자의 죄가 공동체에 미치는 영향을 보여줍니다. 이 사건의 가장 중요한 신학적 의미는 아라우나의 타작마당에서 속죄가 이루어졌다는 점입니다. 이 장소는 훗날 솔로몬이 성전을 건축한 곳(대하 3:1)으로, 죄인들이 하나님께 나아가 용서받는 유일한 장소인 성전의 예표가 됩니다. 이는 죄의 문제를 해결하기 위해 반드시 희생제물이 필요한 대속의 원리를 보여주며, 궁극적으로 십자가 위에서 자신의 몸을 드려 온 인류의 죄를 대속하신 예수 그리스도를 가리킵니다.</p>
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="OT/OT_10_2SA_24.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="2SA_24" data-title="사무엘하 24장">성경 듣기</button>
+                </div>
+            </div>
+
+            <div class="chapter-card card-book2">
+                <h3>갈라디아서 4장: 종에서 아들로, 유업을 이을 자</h3>
+                <h4>상세 개요</h4>
+                <p>갈라디아서 4장에서 바울은 율법 아래 있는 상태를 '종' 또는 '어린 아이'의 상태에 비유합니다. 유업을 이을 자라도 어렸을 동안에는 후견인과 청지기 아래 있어 종과 다름이 없듯이, 우리도 율법이라는 '초등학문' 아래 종 노릇 했다는 것입니다. 그러나 "때가 차매 하나님이 그 아들을 보내사 여자에게서 나게 하시고 율법 아래에 나게 하신 것은 율법 아래에 있는 자들을 속량하시고 우리로 아들의 명분을 얻게 하려 하심이라"(4-5절)고 선포합니다. 이제 우리는 종이 아니라 하나님의 아들이 되었으며, 성령께서 우리 마음 가운데 오셔서 하나님을 "아빠 아버지"라 부르게 하십니다. 아들이 되었기에 우리는 하나님의 유업을 이을 자가 되었습니다. 바울은 이러한 자유를 얻은 갈라디아 교인들이 다시 율법의 절기나 규례 같은 '약하고 천박한 초등학문'으로 돌아가려는 것을 강하게 책망하며, 사라와 하갈의 비유를 통해 율법을 따르는 자는 종의 자녀이며, 약속을 믿는 자만이 자유인의 자녀, 즉 아브라함의 참된 상속자임을 논증합니다.</p>
                 
-                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
-                <div class="key-verse">
-                    <p class="verse-text"><strong>삼하 24:14</strong>: "다윗이 갓에게 이르되 내가 고통 중에 있도다 청하건대 여호와께서는 긍휼이 크시니 우리가 여호와의 손에 빠지고 내가 사람의 손에 빠지지 아니하기를 원하노라 하는지라"</p>
-                    <p class="commentary-text">자신의 죄에 대한 심판 앞에서 다윗이 보여준 태도는, 인간의 잔인함보다 하나님의 긍휼에 자신을 맡기는 것이었습니다. 그는 비록 하나님께서 징계하시더라도 그분의 손 안에 있는 것이 가장 안전함을 알았던 것입니다. 이는 심판 중에도 하나님의 성품을 신뢰하는 참된 신앙인의 모습을 보여줍니다.</p>
-                </div>
-                <div class="key-verse">
-                    <p class="verse-text"><strong>삼하 24:24</strong>: "왕이 아라우나에게 이르되 그렇지 아니하다 내가 값을 주고 네게서 사리라 값 없이는 내 하나님 여호와께 번제를 드리지 아니하리라 하고 다윗이 은 오십 세겔로 타작 마당과 소를 사니라"</p>
-                    <p class="commentary-text">참된 예배와 헌신의 본질을 보여주는 중요한 고백입니다. 다윗은 아무런 희생이나 대가 없이 드리는 제사를 하나님께서 받지 않으실 것을 알았습니다. 하나님께 드리는 것은 나의 가장 귀한 것을 드리는 행위입니다. 이 원리는 우리를 위해 가장 귀한 독생자를 내어주신 하나님의 사랑과, 그 은혜에 감사하여 우리의 삶 전체를 산 제물로 드려야 하는 성도의 삶에 그대로 적용됩니다.</p>
-                </div>
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>성육신의 목적: 아들의 명분(양자됨):</strong> 바울은 그리스도의 성육신(Incarnation)과 십자가 사역의 궁극적인 목적을 "우리로 아들의 명분을 얻게 하려 하심"(5절)이라고 명확히 밝힙니다. 구원은 단순히 죄의 용서를 넘어, 하나님과의 관계가 근본적으로 변화되는 사건입니다. 죄로 인해 하나님의 원수요 종이었던 우리가, 그리스도의 대속을 통해 하나님의 자녀로 입양(Adoption)되는 것입니다. 우리 안에 내주하시는 "아들의 영"(성령)께서 우리가 하나님의 자녀임을 보증하시고, 하나님을 두려움의 대상이 아닌 "아빠 아버지"(Abba, Father)라고 친밀하게 부를 수 있는 특권을 주십니다. 이는 개혁주의 신학에서 강조하는 '양자됨'의 교리로, 성도가 누리는 가장 영광스러운 신분과 특권입니다.</li>
+                    <li><strong>약속과 율법의 대조: 두 언약:</strong> 바울은 하갈과 사라의 비유를 통해 구약 전체를 두 언약의 관점으로 해석합니다. 하갈은 '시내 산으로부터 종을 낳은 자'로, 율법의 행위를 통해 의를 이루려는 모든 시도를 상징합니다. 이는 현재의 '땅의 예루살렘'이며 그 결과는 종의 신분을 벗어나지 못합니다. 반면 사라는 '위에 있는 예루살렘', 즉 '자유자'이며, 인간의 노력이 아닌 하나님의 '약속'을 통해 이삭을 낳았습니다. 이는 오직 믿음으로 하나님의 약속을 붙드는 모든 성도가 속한 하늘의 언약 공동체를 상징합니다. 바울은 "그런즉 형제들아 우리는 여종의 자녀가 아니요 자유 있는 여자의 자녀니라"(31절)고 결론 내리며, 율법주의로 돌아가는 것이 얼마나 복음의 본질에서 벗어나는 것인지를 강력하게 경고합니다.</li>
+                </ol>
 
-                <h3>성경 본문 (Full Text)</h3>
-                <div class="bible-text">
-                    <strong>다윗의 인구 조사</strong>
-                    <p><span class="verse-number">1</span> 여호와께서 다시 이스라엘을 향하여 진노하사 그들을 치시려고 다윗을 격동시키사 가서 이스라엘과 유다의 인구를 조사하라 하신지라</p>
-                    <p><span class="verse-number">2</span> 이에 왕이 그 곁에 있는 군사령관 요압에게 이르되 너는 이스라엘 모든 지파 가운데로 다니며 이제 단에서부터 브엘세바까지 인구를 조사하여 백성의 수를 내게 보고하라 하니</p>
-                    <p><span class="verse-number">3</span> 요압이 왕께 아뢰되 이 백성이 얼마든지 왕의 하나님 여호와께서 백 배나 더하게 하사 내 주 왕의 눈으로 보게 하시기를 원하나이다 그런데 내 주 왕은 어찌하여 이런 일을 기뻐하시나이까 하되</p>
-                    <p><span class="verse-number">4</span> 왕의 명령이 요압과 군대 사령관들을 재촉한지라 요압과 사령관들이 이스라엘 인구를 조사하려고 왕 앞에서 물러나</p>
-                    <p><span class="verse-number">5</span> 요단을 건너 갓 골짜기 가운데 성읍 아로엘 오른쪽 곧 야셀 맞은쪽에 이르러 장막을 치고</p>
-                    <p><span class="verse-number">6</span> 길르앗에 이르고 닷딤홋시 땅에 이르고 또 다냐안에 이르러서는 시돈으로 돌아</p>
-                    <p><span class="verse-number">7</span> 두로 견고한 성에 이르고 히위 사람과 가나안 사람의 모든 성읍에 이르고 유다 남쪽으로 나와 브엘세바에 이르니라</p>
-                    <p><span class="verse-number">8</span> 그들 무리가 온 땅을 두루 다녀 아홉 달 스무 날 만에 예루살렘에 이르러</p>
-                    <p><span class="verse-number">9</span> 요압이 백성의 수를 왕께 보고하니 이스라엘에서 칼을 빼는 담대한 자가 팔십만 명이요 유다 사람이 오십만 명이었더라</p>
-                    <strong>하나님의 징계</strong>
-                    <p><span class="verse-number">10</span> 다윗이 백성을 조사한 후에 그의 마음에 자책하고 다윗이 여호와께 아뢰되 내가 이 일을 행함으로 큰 죄를 범하였나이다 여호와여 이제 간구하옵나니 종의 죄를 사하여 주옵소서 내가 심히 미련하게 행하였나이다 하니라</p>
-                    <p><span class="verse-number">11</span> 다윗이 아침에 일어날 때에 여호와의 말씀이 다윗의 선견자 된 선지자 갓에게 임하여 이르시되</p>
-                    <p><span class="verse-number">12</span> 가서 다윗에게 말하기를 여호와께서 이와 같이 말씀하시기를 내가 네게 세 가지를 보이노니 너를 위하여 너는 그 중에서 하나를 택하라 내가 그것을 네게 행하리라 하셨다 하라</p>
-                    <p><span class="verse-number">13</span> 갓이 다윗에게 이르러 아뢰어 이르되 왕의 땅에 칠 년 기근이 있을 것이니이까 혹은 왕이 왕의 원수에게 쫓겨 석 달 동안 그들 앞에서 도망하실 것이니이까 혹은 왕의 땅에 사흘 동안 전염병이 있을 것이니이까 왕은 생각하여 보고 나를 보내신 이에게 무엇을 대답하게 하소서 하는지라</p>
-                    <p><span class="verse-number">14</span> 다윗이 갓에게 이르되 내가 고통 중에 있도다 청하건대 여호와께서는 긍휼이 크시니 우리가 여호와의 손에 빠지고 내가 사람의 손에 빠지지 아니하기를 원하노라 하는지라</p>
-                    <p><span class="verse-number">15</span> 이에 여호와께서 그 아침부터 정하신 때까지 전염병을 이스라엘에게 내리시니 단에서부터 브엘세바까지 백성의 죽은 자가 칠만 명이라</p>
-                    <p><span class="verse-number">16</span> 천사가 예루살렘을 향하여 그의 손을 들어 멸하려 하더니 여호와께서 이 재앙 내리심을 뉘우치사 백성을 멸하는 천사에게 이르시되 족하다 이제는 네 손을 거두라 하시니 여호와의 사자가 여부스 사람 아라우나의 타작 마당 곁에 있는지라</p>
-                    <p><span class="verse-number">17</span> 다윗이 백성을 치는 천사를 보고 곧 여호와께 아뢰어 이르되 나는 범죄하였고 악을 행하였거니와 이 양 무리는 무엇을 행하였나이까 청하건대 주의 손으로 나와 내 아버지의 집을 치소서 하니라</p>
-                    <strong>다윗이 제단을 쌓다</strong>
-                    <p><span class="verse-number">18</span> 이 날에 갓이 다윗에게 이르러 그에게 아뢰되 올라가서 여부스 사람 아라우나의 타작 마당에서 여호와를 위하여 제단을 쌓으소서 하매</p>
-                    <p><span class="verse-number">19</span> 다윗이 여호와께서 명령하신 바 갓의 말대로 올라가니라</p>
-                    <p><span class="verse-number">20</span> 아라우나가 바라보다가 왕과 그의 부하들이 자기를 향하여 건너옴을 보고 나가 왕 앞에서 얼굴을 땅에 대고 절하며</p>
-                    <p><span class="verse-number">21</span> 이르되 어찌하여 내 주 왕께서 종에게 임하시나이까 하니 다윗이 이르되 네게서 타작 마당을 사서 여호와께 제단을 쌓아 백성에게 내리는 재앙을 그치게 하려 함이라 하는지라</p>
-                    <p><span class="verse-number">22</span> 아라우나가 다윗에게 아뢰되 원하건대 내 주 왕은 좋게 여기시는 대로 취하여 드리소서 번제에 대하여는 소가 있고 땔 나무에 대하여는 마당질 하는 도구와 소의 멍에가 있나이다</p>
-                    <p><span class="verse-number">23</span> 왕이여 아라우나가 이것을 다 왕께 드리나이다 하고 또 왕께 아뢰되 왕의 하나님 여호와께서 왕을 기쁘게 받으시기를 원하나이다</p>
-                    <p><span class="verse-number">24</span> 왕이 아라우나에게 이르되 그렇지 아니하다 내가 값을 주고 네게서 사리라 값 없이는 내 하나님 여호와께 번제를 드리지 아니하리라 하고 다윗이 은 오십 세겔로 타작 마당과 소를 사니라</p>
-                    <p><span class="verse-number">25</span> 그 곳에서 여호와를 위하여 제단을 쌓고 번제와 화목제를 드렸더니 이에 여호와께서 그 땅을 위한 기도를 들으시매 이스라엘에게 내리는 재앙이 그쳤더라</p>
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="NT/NT_48_GAL_04.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="GAL_4" data-title="갈라디아서 4장">성경 듣기</button>
                 </div>
-            </section>
-            
-            <!-- Card 2: Galatians 4 -->
-            <section class="chapter-card card-book2">
-                <h2>갈라디아서 4장: 종의 멍에에서 아들의 자유로</h2>
-                <h3>개요 (Overview)</h3>
-                <p>바울은 율법 아래 있는 상태를 아직 성년이 되지 않아 후견인 아래 있는 상속자, 즉 '종'의 상태에 비유합니다. 그러나 때가 차매 하나님께서 자기 아들을 보내셔서 율법 아래 있는 자들을 속량하시고 우리에게 '아들의 명분'을 주셨다고 선포합니다. 이제 우리는 성령을 통해 하나님을 "아빠 아버지"라 부르는 자녀가 되었으므로, 다시 율법이라는 초등학문으로 돌아가 종노릇해서는 안 된다고 경고합니다. 마지막으로 하갈과 사라의 비유를 통해, 율법을 따르는 자는 종의 자녀요, 믿음의 약속을 따르는 우리는 자유로운 어머니의 자녀임을 분명히 합니다.</p>
+            </div>
 
-                <h3>시각적 분석 (Visual Analysis)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
-                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">두 언약: 하갈과 사라</text>
-                    <g text-anchor="middle">
-                        <rect x="20" y="40" width="160" height="90" rx="5" fill="#FFEBEE" stroke="#F44336"/>
-                        <text x="100" y="60" font-weight="bold">하갈 (종)</text>
-                        <text x="100" y="80" fill="#555">율법 / 시내 산</text>
-                        <text x="100" y="100" fill="#555">땅의 예루살렘</text>
-                        <text x="100" y="120" fill="#B71C1C">→ 종노릇 (Bondage)</text>
-                    </g>
-                     <path d="M180 85 h 40" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
-                     <text x="200" y="80">그리스도의 속량</text>
-                    <g text-anchor="middle">
-                        <rect x="220" y="40" width="160" height="90" rx="5" fill="#E8F5E9" stroke="#4CAF50"/>
-                        <text x="300" y="60" font-weight="bold">사라 (자유인)</text>
-                        <text x="300" y="80" fill="#555">약속 / 은혜</text>
-                        <text x="300" y="100" fill="#555">하늘의 예루살렘</text>
-                        <text x="300" y="120" fill="#1B5E20">→ 아들의 자유 (Freedom)</text>
-                    </g>
-                </svg>
+            <div class="chapter-card card-book3">
+                <h3>에스겔 31장: 앗수르의 교만과 몰락</h3>
+                <h4>상세 개요</h4>
+                <p>에스겔 31장은 애굽 왕 바로에게 주는 경고의 메시지로, 과거 강대했던 앗수르 제국의 교만과 그 비참한 몰락을 비유로 설명합니다. 앗수르는 레바논의 백향목에 비유되는데, 그 키가 크고 가지가 아름다워 모든 나무 위에 뛰어났으며, 많은 민족이 그 그늘 아래 거했습니다. 그의 강대함의 근원은 "물이 많으므로"(7절) 였지만, 그는 그 영광으로 인해 "마음이 교만하여졌습니다"(10절). 이 교만 때문에 하나님께서는 그를 "여러 나라의 능한 자의 손에 넘겨주실"(11절) 것이며, 결국 그는 베임을 당해 구덩이(스올)에 내려가는 모든 자들과 함께 비참한 최후를 맞이하게 될 것이라고 선포합니다. 이 앗수르의 운명은 곧 애굽 왕 바로가 맞이하게 될 미래이며, 세상의 어떤 강대한 권세도 하나님의 심판을 피할 수 없음을 강력하게 경고하는 메시지입니다.</p>
 
-                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
-                <p>바울은 로마법의 '후견인' 개념을 사용하여 율법의 역할을 설명합니다. 아버지가 살아있고 상속이 약속되었더라도, 아들이 미성년일 때는 종과 다름없이 후견인의 지도를 받아야 합니다. 이처럼 율법은 인류가 영적으로 미성숙했을 때 우리를 지도하는 역할을 했습니다. 그러나 '때가 찼을 때', 즉 하나님의 구원 계획의 정점에 이르렀을 때, 예수 그리스도께서 오심으로 우리는 더 이상 율법의 종이 아니라 하나님의 완전한 자녀가 되는 권세를 얻었습니다. 이것이 '양자됨(Adoption)'의 교리입니다. 우리는 본래 진노의 자녀였으나, 그리스도의 피 값으로 하나님의 가족으로 입양되었습니다. 그 증거로 우리 안에 오신 성령께서 우리가 하나님을 '아빠'라고 친밀하게 부를 수 있도록 하십니다. 하갈과 사라의 비유는 이 두 신분의 차이를 극명하게 보여줍니다. 율법주의는 우리를 하갈의 자녀, 즉 율법의 종으로 만들지만, 복음은 우리를 사라의 자녀, 즉 약속을 상속받는 자유인으로 만듭니다.</p>
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>교만의 본질과 하나님의 심판:</strong> 앗수르의 죄는 단순히 강대해진 것이 아니라, 그 강대함의 근원이신 하나님을 잊고 "그 높음을 인하여 마음이 교만"(10절)해진 것입니다. 그는 스스로를 모든 것의 중심으로 여기며 자기 영광에 도취되었습니다. 성경 전체를 관통하는 핵심적인 죄악인 교만은, 피조물이 창조주의 자리를 넘보는 것입니다. 하나님은 이러한 교만을 결코 용납하지 않으십니다. "나 주 여호와가 말하노라 그가 스스로 높아졌으므로"(10절) 하나님께서 직접 그를 심판하십니다. 이는 세상 권세의 흥망성쇠가 인간의 힘에 달린 것이 아니라, 오직 만물을 다스리시는 하나님의 주권적인 심판 아래 있음을 보여주는 장엄한 선포입니다.</li>
+                    <li><strong>에덴 동산 모티브와 타락의 재현:</strong> 본문은 앗수르의 영광을 묘사하며 "하나님의 동산 에덴에 있는 모든 나무가 다 그를 시기하였느니라"(9절)고 말하여 에덴 동산의 이미지를 사용합니다. 이는 앗수르가 거의 낙원과 같은 번영과 영광을 누렸음을 시적으로 표현한 것입니다. 그러나 그는 그 영광 속에서 교만해져 몰락합니다. 이는 마치 에덴 동산에서 하나님의 영광을 누리던 아담이 교만으로 인해 선악과를 따먹고 타락하여 에덴에서 쫓겨난 사건을 재현하는 것과 같습니다. 이 비유를 통해 에스겔은 바로와 애굽의 심판이 단순한 한 나라의 멸망이 아니라, 하나님을 대적하는 모든 교만한 세력이 겪게 될 필연적인 타락과 심판의 원형임을 보여주고 있습니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="OT/OT_26_EZE_31.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="EZE_31" data-title="에스겔 31장">성경 듣기</button>
+                </div>
+            </div>
+
+            <div class="chapter-card card-book4">
+                <h3>시편 79편: 파괴된 성전을 위한 탄식</h3>
+                <h4>상세 개요</h4>
+                <p>시편 79편은 아삽의 시로, 이방 민족에 의해 예루살렘이 짓밟히고 성전이 더럽혀지며, 수많은 백성이 학살당한 국가적 참사를 배경으로 하는 공동체의 탄식시입니다. 시인은 "하나님이여 이방 나라들이 주의 기업의 땅에 들어와서 주의 성전을 더럽히고 예루살렘이 돌무더기가 되게 하였나이다"(1절)라고 비통하게 부르짖습니다. 주의 종들의 시체가 공중의 새와 들짐승의 밥이 되고, 그들의 피가 예루살렘 사방에 물 같이 흘렀으나 장사 지내주는 이조차 없는 참상을 고발합니다. 이 모든 재앙의 원인이 자신들의 죄 때문임을 인정하면서도, 시인은 하나님의 긍휼을 구하며 "주의 이름의 영광을 위하여 우리를 도우시며 주의 이름을 증거하기 위하여 우리를 건지시며 우리 죄를 사하소서"(9절)라고 간구합니다. 그는 이방인들이 "그들의 하나님이 어디 있느냐"고 조롱하는 상황 속에서, 하나님의 명예 회복을 위해 원수들에게 복수해 주실 것을 요청하며 기도를 마칩니다.</p>
                 
-                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
-                <div class="key-verse">
-                    <p class="verse-text"><strong>갈 4:4-5</strong>: "때가 차매 하나님이 그 아들을 보내사 여자에게서 나게 하시고 율법 아래에 나게 하신 것은 율법 아래에 있는 자들을 속량하시고 우리로 아들의 명분을 얻게 하려 하심이라"</p>
-                    <p class="commentary-text">성육신(Incarnation)의 목적과 시기에 대한 가장 정교하고 위대한 요약입니다. 예수님의 오심은 우연이 아니라 하나님의 완벽한 시간표, '때가 찼을 때' 이루어졌습니다. 그분은 우리와 같은 인간('여자에게서 나게 하시고')이 되셨고, 율법의 모든 요구 아래 들어오셔서('율법 아래 나게 하시고') 그것을 완벽하게 지키고 그 저주를 대신 짊어지셨습니다. 이 모든 일의 목적은 우리를 율법의 감옥에서 값을 치르고 사내어(속량), 하나님의 자녀로 입양(아들의 명분)하시기 위함입니다.</p>
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>하나님의 이름과 영광을 위한 기도:</strong> 이 시편의 기도는 단순히 고통에서 벗어나게 해달라는 차원을 넘어섭니다. 기도의 핵심 근거는 바로 '하나님의 이름의 영광'입니다. "주의 이름의 영광을 위하여 우리를 도우시며"(9절)라는 간구는, 이스라엘의 구원이 곧 열방 가운데서 조롱받는 하나님의 명예를 회복하는 사건임을 보여줍니다. 이스라엘의 패배는 곧 그들의 하나님이 무능하다는 모독으로 이어지기 때문입니다. 이는 개혁주의 신학의 핵심 원리인 '오직 하나님께 영광'(Soli Deo Gloria)과 깊이 연결됩니다. 우리의 기도의 궁극적인 목적 또한 우리의 필요 충족이 아니라, 우리의 삶과 구원을 통해 하나님의 이름이 거룩히 여김을 받으시는 것이 되어야 함을 가르칩니다.</li>
+                    <li><strong>언약 백성의 고난과 속죄의 간구:</strong> 시인은 고통의 현실 속에서 "우리의 조상들의 죄악을 기억하지 마시고"(8절)라고 기도하며, 현재의 재앙이 과거로부터 누적된 죄의 결과임을 인식하고 있습니다. 그들은 하나님의 언약을 파기한 백성으로서 마땅히 징계를 받아야 함을 인정합니다. 그러나 그들은 언약에 근거하여 하나님의 긍휼을 구하며 "우리 죄를 사하소서"(9절)라고 부르짖습니다. 이는 언약 백성이 고난 속에서 취해야 할 올바른 태도를 보여줍니다. 자신의 죄를 정직하게 인정하고, 자신의 행위가 아닌 오직 하나님의 긍휼과 용서에만 소망을 두는 것입니다. 이들의 기도는 장차 오실 그리스도의 완전한 속죄를 통해 성취될 것입니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="OT/OT_19_PSA_79.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="PSA_79" data-title="시편 79편">성경 듣기</button>
                 </div>
-                <div class="key-verse">
-                    <p class="verse-text"><strong>갈 4:7</strong>: "그러므로 네가 이 후로는 종이 아니요 아들이니 아들이면 하나님으로 말미암아 유업을 받을 자니라"</p>
-                    <p class="commentary-text">복음이 가져온 신분 변화의 최종 결론입니다. 우리의 신분은 더 이상 죄나 율법의 '종'이 아니라, 하나님의 '아들'입니다. 아들이라는 신분은 필연적으로 '유업', 즉 하나님 나라의 모든 풍성함을 상속받을 권리를 동반합니다. 이 놀라운 특권은 우리의 노력이나 자격이 아닌, 전적으로 우리를 아들 삼아주신 하나님의 은혜로 말미암은 것입니다.</p>
-                </div>
+            </div>
+
+            <div class="integration-card">
+                <h2>통합 묵상: 교만의 심판과 아들의 유업</h2>
+                <h3>관통하는 주제 논증: 자기 의(義)의 파산과 하나님의 약속 상속</h3>
+                <p>오늘의 네 본문은 '인간의 교만과 자기 의(義)의 필연적 몰락'과 '오직 하나님의 약속과 은혜를 믿음으로 상속자가 되는 길'이라는 두 축을 중심으로 깊이 연결됩니다. 사무엘하 24장과 에스겔 31장은 교만의 문제를 정면으로 다룹니다. 다윗은 자신의 군사력을 의지하는 교만으로, 앗수르(와 애굽)는 스스로 높아진 교만으로 하나님의 주권적인 심판을 받습니다. 그들이 의지했던 힘과 영광은 결국 재앙의 원인이 될 뿐입니다. 시편 79편은 이 심판의 결과를 겪는 공동체의 처절한 탄식을 통해, 인간의 힘이 얼마나 허무하게 무너지는지를 보여줍니다. 이처럼 인간의 모든 자랑과 노력이 파산선고를 받는 절망의 자리에서, 갈라디아서 4장은 유일한 소망을 선포합니다. 그것은 바로 "때가 차매" 오신 예수 그리스도를 통해 우리가 종의 신분에서 '아들의 명분'을 얻는 길입니다. 율법(인간의 노력)의 종노릇에서 벗어나, 오직 약속을 믿음으로 하나님의 유업을 이을 상속자가 되는 것입니다. 결국 오늘의 본문들은 다윗의 교만이든, 앗수르의 교만이든, 율법적 의를 쌓으려는 종교적 교만이든, 모든 종류의 자기 의존은 하나님의 심판 아래 있음을 보여주며, 오직 그리스도 안에서 '아들' 됨의 신분을 얻는 것만이 참된 구원이요 유업을 얻는 길임을 강력하게 논증합니다.</p>
+
+                <h3>입체적 핵심 단어 연구: 아빠 (Ἀββᾶ, Abba)</h3>
+                <p>갈라디아서 4장 6절에서 바울이 사용하는 아람어 '아빠'(Ἀββᾶ)는 신약성경에서 단 세 번 등장하는 매우 특별한 단어입니다(막 14:36; 롬 8:15). 이는 어린 아이가 아버지를 가장 친밀하고 다정하게 부르는 말로, '아빠'라는 한국어의 뉘앙스와 거의 동일합니다. 유대교에서는 하나님의 거룩한 이름을 망령되이 일컫지 않기 위해 하나님을 이렇게 부르는 것을 상상조차 할 수 없었습니다. 그러나 예수님께서는 겟세마네 동산에서 "아빠 아버지여 아버지께서는 모든 것이 가능하시오니"(막 14:36)라고 기도하시며 하나님과의 독특하고 친밀한 아들로서의 관계를 보여주셨습니다. 바울은 이제 성령께서 우리 안에 오셔서, 우리 또한 예수님과 동일하게 하나님을 '아빠 아버지'라 부를 수 있는 특권을 얻었다고 선포합니다. 이는 단순히 감정적인 친밀함을 넘어, 법적인 '양자됨'의 효력이 발생했음을 의미합니다. 우리는 더 이상 두려움의 대상이나 멀리 계신 재판관이 아닌, 사랑과 긍휼이 풍성하신 아버지의 자녀가 된 것입니다. 이 '아빠'라는 한 단어 안에는 종의 신분에서 아들의 신분으로 옮겨진 복음의 모든 영광과 특권이 압축되어 있습니다.</p>
                 
-                <h3>성경 본문 (Full Text)</h3>
-                <div class="bible-text">
-                    <strong>종과 아들</strong>
-                    <p><span class="verse-number">1</span> 내가 또 말하노니 유업을 이을 자가 모든 것의 주인이나 어렸을 동안에는 종과 다름이 없어서</p>
-                    <p><span class="verse-number">2</span> 그 아버지가 정한 때까지 후견인과 청지기 아래에 있나니</p>
-                    <p><span class="verse-number">3</span> 이와 같이 우리도 어렸을 때에 이 세상의 초등학문 아래에 있어서 종 노릇 하였더니</p>
-                    <p><span class="verse-number">4</span> 때가 차매 하나님이 그 아들을 보내사 여자에게서 나게 하시고 율법 아래에 나게 하신 것은</p>
-                    <p><span class="verse-number">5</span> 율법 아래에 있는 자들을 속량하시고 우리로 아들의 명분을 얻게 하려 하심이라</p>
-                    <p><span class="verse-number">6</span> 너희가 아들이므로 하나님이 그 아들의 영을 우리 마음 가운데 보내사 아빠 아버지라 부르게 하셨느니라</p>
-                    <p><span class="verse-number">7</span> 그러므로 네가 이 후로는 종이 아니요 아들이니 아들이면 하나님으로 말미암아 유업을 받을 자니라</p>
-                    <strong>갈라디아 교인들에 대한 염려</strong>
-                    <p><span class="verse-number">8</span> 그러나 너희가 그 때에는 하나님을 알지 못하여 본질상 하나님이 아닌 자들에게 종 노릇 하였더니</p>
-                    <p><span class="verse-number">9</span> 이제는 너희가 하나님을 알 뿐 아니라 더욱이 하나님이 아신 바 되었거늘 어찌하여 다시 약하고 천박한 초등학문으로 돌아가서 다시 그들에게 종 노릇 하려 하느냐</p>
-                    <p><span class="verse-number">10</span> 너희가 날과 달과 절기와 해를 삼가 지키니</p>
-                    <p><span class="verse-number">11</span> 내가 너희를 위하여 수고한 것이 헛될까 두려워하노라</p>
-                    <p><span class="verse-number">12</span> 형제들아 내가 너희와 같이 되었은즉 너희도 나와 같이 되기를 구하노라 너희가 내게 해롭게 하지 아니하였느니라</p>
-                    <p><span class="verse-number">13</span> 내가 처음에 육체의 약함으로 말미암아 너희에게 복음을 전한 것을 너희가 아는 바라</p>
-                    <p><span class="verse-number">14</span> 너희를 시험하는 것이 내 육체에 있으되 이것을 너희가 업신여기지도 아니하며 버리지도 아니하고 오직 나를 하나님의 천사와 같이 또는 그리스도 예수와 같이 영접하였도다</p>
-                    <p><span class="verse-number">15</span> 너희의 복이 지금 어디 있느냐 내가 너희에게 증언하노니 너희가 할 수만 있었더라면 너희의 눈이라도 빼어 나에게 주었으리라</p>
-                    <p><span class="verse-number">16</span> 그런즉 내가 너희에게 참된 말을 하므로 원수가 되었느냐</p>
-                    <p><span class="verse-number">17</span> 그들이 너희에게 대하여 열심 내는 것은 좋은 뜻이 아니요 오직 너희를 이간시켜 너희로 그들에게 대하여 열심을 내게 하려 함이라</p>
-                    <p><span class="verse-number">18</span> 좋은 일에 대하여 열심으로 사모함을 받음은 내가 너희를 대하였을 때뿐 아니라 언제든지 좋으니라</p>
-                    <p><span class="verse-number">19</span> 나의 자녀들아 너희 속에 그리스도의 형상을 이루기까지 다시 너희를 위하여 해산하는 수고를 하노니</p>
-                    <p><span class="verse-number">20</span> 내가 이제라도 너희와 함께 있어 내 언성을 높이려 함은 너희에 대하여 의혹이 있음이라</p>
-                    <strong>하갈과 사라</strong>
-                    <p><span class="verse-number">21</span> 내게 말하라 율법 아래에 있고자 하는 자들아 율법을 듣지 못하였느냐</p>
-                    <p><span class="verse-number">22</span> 기록된 바 아브라함에게 두 아들이 있으니 하나는 여종에게서, 하나는 자유 있는 여자에게서 났다 하였으며</p>
-                    <p><span class="verse-number">23</span> 여종에게서는 육체를 따라 났고 자유 있는 여자에게서는 약속으로 말미암았느니라</p>
-                    <p><span class="verse-number">24</span> 이것은 비유니 이 여자들은 두 언약이라 하나는 시내 산으로부터 종을 낳은 자니 곧 하갈이라</p>
-                    <p><span class="verse-number">25</span> 이 하갈은 아라비아에 있는 시내 산으로서 지금 있는 예루살렘과 같은 곳이니 그가 그 자녀들과 더불어 종 노릇 하고</p>
-                    <p><span class="verse-number">26</span> 오직 위에 있는 예루살렘은 자유자니 곧 우리 어머니라</p>
-                    <p><span class="verse-number">27</span> 기록된 바 잉태하지 못한 자여 즐거워하라 산고를 모르는 자여 소리 질러 외치라 이는 홀로 사는 자의 자녀가 남편 있는 자의 자녀보다 많음이라 하였으니</p>
-                    <p><span class="verse-number">28</span> 형제들아 너희는 이삭과 같이 약속의 자녀라</p>
-                    <p><span class="verse-number">29</span> 그러나 그 때에 육체를 따라 난 자가 성령을 따라 난 자를 박해한 것 같이 이제도 그러하도다</p>
-                    <p><span class="verse-number">30</span> 그러나 성경이 무엇을 말하느냐 여종과 그 아들을 내쫓으라 여종의 아들이 자유 있는 여자의 아들과 더불어 유업을 얻지 못하리라 하였느니라</p>
-                    <p><span class="verse-number">31</span> 그런즉 형제들아 우리는 여종의 자녀가 아니요 자유 있는 여자의 자녀니라</p>
-                </div>
-            </section>
+                <h3>심층 상호 참조</h3>
+                <ul>
+                    <li><strong>사무엘하 24:1, 10 & 에스겔 31:10-11:</strong> 사무엘하에서 다윗은 인구를 계수한 후 "마음에 자책하고... 내가 이 일을 행함으로 큰 죄를 범하였나이다"라고 고백합니다. 그의 죄의 본질은 자신의 군사력을 의지하려는 교만이었습니다. 에스겔은 이 교만의 결과를 국가적 차원에서 보여줍니다. 앗수르가 "그 높음을 인하여 마음이 교만하였은즉 내가 여러 나라의 능한 자의 손에 넘겨 줄지라". 두 본문은 개인의 차원이든 제국의 차원이든, 하나님 앞에서 스스로 높아지려는 교만은 반드시 하나님의 주권적인 심판을 초래한다는 동일한 신학적 원리를 증거합니다.</li>
+                    <li><strong>시편 79:9 & 갈라디아서 4:4-5:</strong> 시편 기자는 "우리 구원의 하나님이여 주의 이름의 영광을 위하여 우리를 도우시며... 우리 죄를 사하소서"라고 절박하게 간구합니다. 이는 죄의 문제를 해결하고 구원을 얻고자 하는 인간의 근원적인 부르짖음입니다. 갈라디아서는 이 기도에 대한 하나님의 궁극적인 응답을 보여줍니다. "때가 차매 하나님이 그 아들을 보내사... 율법 아래에 있는 자들을 속량하시고 우리로 아들의 명분을 얻게 하려 하심이라". 시편의 간절한 기도는 예수 그리스도의 십자가 속량과 우리를 아들 삼으시는 은혜를 통해 완벽하게 성취되었습니다.</li>
+                </ul>
 
-            <!-- Card 3: Ezekiel 31 -->
-            <section class="chapter-card card-book3">
-                <h2>에스겔 31장: 교만한 백향목의 최후</h2>
-                <h3>개요 (Overview)</h3>
-                <p>하나님은 애굽 왕 바로를 향한 경고의 메시지로, 과거 강대했던 앗수르 제국의 비유를 드십니다. 앗수르는 레바논의 거대한 '백향목'처럼 모든 나무 위에 뛰어나게 아름답고 강성했습니다. 그러나 그 높음과 아름다움으로 인해 마음이 교만해지자, 하나님은 그를 이방의 강한 통치자의 손에 넘겨 비참하게 쓰러지게 하셨습니다. 그의 몰락은 다른 모든 나라들에게 큰 충격과 두려움을 주었습니다. 하나님은 바로에게 "네가 그처럼 영화로웠으나 결국 그와 같이 수치스럽게 몰락할 것"이라고 경고하십니다.</p>
-
-                <h3>시각적 분석 (Visual Analysis)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
-                    <text x="200" y="15" text-anchor="middle" font-size="12" font-weight="bold">교만의 흥망성쇠: 앗수르의 비유</text>
-                    
-                    <path d="M 80 140 C 100 100, 100 60, 120 40" stroke="#4CAF50" stroke-width="3" fill="none"/>
-                    <path d="M 120 40 L 110 50 M 120 40 L 130 50" stroke="#4CAF50" stroke-width="3" fill="none"/>
-                    <text x="60" y="100" text-anchor="middle">흥함 (강성, 아름다움)</text>
-                    
-                    <path d="M 120 40 C 140 30, 160 30, 180 40" stroke="#F44336" stroke-width="2" fill="none"/>
-                    <text x="150" y="30" text-anchor="middle" fill="#B71C1C">교만</text>
-
-                    <path d="M 180 40 C 200 60, 200 100, 220 140" stroke="#B71C1C" stroke-width="3" fill="none"/>
-                    <path d="M 220 140 L 210 130 M 220 140 L 230 130" stroke="#B71C1C" stroke-width="3" fill="none"/>
-                    <text x="240" y="100" text-anchor="middle">망함 (비참한 몰락)</text>
-                    
-                    <path d="M 220 140 H 280" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
-                    <text x="320" y="145" text-anchor="middle">애굽을 향한 경고</text>
-                </svg>
-
-                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
-                <p>백향목, 특히 '레바논의 백향목'은 성경에서 힘, 아름다움, 고귀함의 상징으로 자주 사용됩니다. 솔로몬 성전의 주요 자재였을 만큼 귀한 나무였습니다. 하나님은 앗수르 제국의 위용을 이 백향목에 비유하심으로써 그들이 얼마나 대단한 세력이었는지를 인정하십니다. 그러나 이 비유의 핵심은 그들의 위대함이 아니라, 그 위대함 때문에 생긴 '교만'과 그로 인한 '몰락'입니다. 신학적으로 이는 하나님께서 주신 모든 축복(힘, 지위, 아름다움, 부)이 교만의 재료가 될 때 얼마나 위험한지를 경고합니다. 하나님은 교만한 자를 대적하시고 겸손한 자에게 은혜를 베푸시는 분입니다(벧전 5:5). 앗수르의 몰락은 단지 한 제국의 역사적 사건이 아니라, 하나님을 떠난 모든 인간 문명과 권력의 최종적인 운명을 보여주는 예표입니다.</p>
-
-                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
-                <div class="key-verse">
-                    <p class="verse-text"><strong>겔 31:10-11</strong>: "그러므로 주 여호와께서 이같이 말씀하셨느니라 그의 키가 크고 꼭대기가 구름에 닿아서 높이 솟아났으므로 마음이 교만하였은즉 내가 여러 나라의 능한 자의 손에 넘겨 줄지라 그가 임의로 대우할 것은 내가 그의 악으로 말미암아 쫓아내었음이라"</p>
-                    <p class="commentary-text">몰락의 원인이 외부의 강력함이 아니라 내부의 '교만'에 있었음을 명확히 지적합니다. 하늘 높은 줄 모르고 솟아오른 것이 곧 교만의 모습입니다. 하나님은 그 교만을 심판하시기 위해 다른 강대국(바벨론)을 도구로 사용하십니다. 이는 세상의 모든 흥망성쇠가 하나님의 주권적인 심판의 과정임을 보여줍니다.</p>
-                </div>
-                <div class="key-verse">
-                    <p class="verse-text"><strong>겔 31:18</strong>: "너의 영광과 위대함이 에덴의 나무들 중에서 어떤 것과 같은고 그런즉 네가 에덴의 나무들과 함께 땅 아래에 내려갈 것이요 네가 거기에서 할례를 받지 못하고 칼에 죽임 당한 자 가운데에 누우리라 이 사람은 바로와 그의 모든 군대니라 주 여호와의 말씀이니라 하라"</p>
-                    <p class="commentary-text">비유의 결론이자 바로 왕을 향한 직접적인 경고입니다. 과거 앗수르가 누렸던 그 어떤 영광도 그를 구원하지 못했듯이, 현재 애굽이 누리는 영광도 하나님의 심판 앞에서 아무런 힘이 되지 못할 것임을 선포합니다. '에덴의 나무들'이라는 표현은 인류 최초의 교만을 상기시키며, 모든 교만의 결국은 죽음과 수치뿐임을 강조합니다.</p>
-                </div>
-                
-                <h3>성경 본문 (Full Text)</h3>
-                <div class="bible-text">
-                    <strong>앗수르에 대한 비유</strong>
-                    <p><span class="verse-number">1</span> 열한째 해 셋째 달 초하루에 여호와의 말씀이 내게 임하여 이르시되</p>
-                    <p><span class="verse-number">2</span> 인자야 너는 애굽의 바로 왕과 그 무리에게 이르기를 네 큰 위엄을 누구에게 비하랴</p>
-                    <p><span class="verse-number">3</span> 볼지어다 앗수르 사람은 가지가 아름답고 그늘은 숲의 그늘 같으며 키가 크고 꼭대기가 구름에 닿은 레바논 백향목이었느니라</p>
-                    <p><span class="verse-number">4</span> 물들이 그것을 기르며 깊은 물이 그것을 자라게 하며 강들이 그 심긴 곳을 둘러 흐르며 둑의 물이 들의 모든 나무에까지 미치매</p>
-                    <p><span class="verse-number">5</span> 그 나무가 물이 많으므로 키가 들의 모든 나무보다 크며 굵은 가지가 번성하며 가는 가지가 길게 뻗어 나갔고</p>
-                    <p><span class="verse-number">6</span> 공중의 모든 새가 그 큰 가지에 깃들이며 들의 모든 짐승이 그 가는 가지 밑에 새끼를 낳으며 모든 큰 나라가 그 그늘 아래에 거주하였느니라</p>
-                    <p><span class="verse-number">7</span> 그 뿌리가 큰 물 가에 있으므로 그 나무가 크고 가지가 길어 모양이 아름다우매</p>
-                    <p><span class="verse-number">8</span> 하나님의 동산의 백향목이 능히 그를 가리지 못하며 잣나무가 그 굵은 가지만 못하며 단풍나무가 그 가는 가지만 못하며 하나님의 동산의 어떤 나무도 그 아름다운 모양과 같지 못하였도다</p>
-                    <p><span class="verse-number">9</span> 내가 그 가지를 많게 하여 모양이 아름답게 하였더니 하나님의 동산 에덴에 있는 모든 나무가 다 시기하였느니라</p>
-                    <strong>앗수르의 몰락</strong>
-                    <p><span class="verse-number">10</span> 그러므로 주 여호와께서 이같이 말씀하셨느니라 그의 키가 크고 꼭대기가 구름에 닿아서 높이 솟아났으므로 마음이 교만하였은즉</p>
-                    <p><span class="verse-number">11</span> 내가 여러 나라의 능한 자의 손에 넘겨 줄지라 그가 임의로 대우할 것은 내가 그의 악으로 말미암아 쫓아내었음이라</p>
-                    <p><span class="verse-number">12</span> 여러 나라 가운데에 강포한 다른 민족이 그를 찍어 버렸으므로 그 가는 가지가 산과 모든 골짜기에 떨어졌고 그 굵은 가지가 그 땅 모든 물 가에 꺾어졌으며 세상 모든 백성이 그를 버리고 그 그늘 아래에서 떠나매</p>
-                    <p><span class="verse-number">13</span> 공중의 모든 새가 그 넘어진 나무에 거주하며 들의 모든 짐승이 그 가지에 있으니</p>
-                    <p><span class="verse-number">14</span> 이는 물 가에 있는 모든 나무는 키가 크다고 교만하지 못하게 하며 그 꼭대기가 구름에 닿지 못하게 하며 또 물을 마시는 모든 나무가 스스로 높아 서지 못하게 함이니 그들을 다 죽음에 넘겨 주어 사람들 가운데에서 구덩이로 내려가는 자와 함께 지하로 내려가게 하였음이라</p>
-                    <p><span class="verse-number">15</span> 주 여호와께서 이같이 말씀하셨느니라 그가 스올에 내려가던 날에 내가 그를 위하여 슬프게 울게 하며 깊은 바다를 덮으며 모든 강을 쉬게 하며 큰 물을 그치게 하고 레바논이 그를 위하여 슬프게 울게 하며 들의 모든 나무가 그로 말미암아 쇠잔하게 하였느니라</p>
-                    <p><span class="verse-number">16</span> 내가 그를 구덩이에 내려가는 자와 함께 스올에 떨어뜨리던 때에 백성들이 그의 떨어지는 소리로 말미암아 진동하게 하였고 물을 마시는 에덴의 모든 나무 곧 레바논의 뛰어나고 아름다운 모든 나무가 지하에서 위로를 받았느니라</p>
-                    <p><span class="verse-number">17</span> 그들도 그와 함께 스올에 내려 칼에 죽임 당한 자에게 이르렀나니 그들은 옛적에 그의 팔이 된 자요 여러 나라 가운데에서 그 그늘 아래에 거주하던 자니라</p>
-                    <p><span class="verse-number">18</span> 너의 영광과 위대함이 에덴의 나무들 중에서 어떤 것과 같은고 그런즉 네가 에덴의 나무들과 함께 땅 아래에 내려갈 것이요 네가 거기에서 할례를 받지 못하고 칼에 죽임 당한 자 가운데에 누우리라 이 사람은 바로와 그의 모든 군대니라 주 여호와의 말씀이니라 하라</p>
-                </div>
-            </section>
-            
-            <!-- Card 4: Psalm 79 -->
-            <section class="chapter-card card-book4">
-                <h2>시편 79편: 주의 이름을 위하여 우리를 도우소서</h2>
-                <h3>개요 (Overview)</h3>
-                <p>나라가 멸망하고 성전이 이방인에 의해 더럽혀진 참담한 상황 속에서 드리는 공동체의 탄식시입니다. 시인은 예루살렘의 폐허와 백성들의 시체가 짐승의 밥이 된 비극을 하나님께 아뢰며 "주여 어느 때까지니이까"라고 부르짖습니다. 그는 이 모든 재앙이 조상들의 죄 때문임을 인정하면서도, 이로 인해 하나님의 이름이 이방인들에게 모욕당하는 것을 더 가슴 아파합니다. 그래서 그는 이스라엘의 공로가 아닌, 오직 '주의 이름의 영광'을 위해 구원해 주시고 죄를 사해달라고 간구하며, 구원받은 백성으로서 영원히 주를 찬양할 것을 서약합니다.</p>
-
-                <h3>시각적 분석 (Visual Analysis)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="10">
-                    <text x="200" y="20" text-anchor="middle" font-size="12" font-weight="bold">영광을 위한 기도</text>
-                    <g text-anchor="middle">
-                        <rect x="20" y="40" width="160" height="90" rx="5" fill="#FEE2E2" stroke="#DC2626"/>
-                        <text x="100" y="60" font-weight="bold">참담한 현실</text>
-                        <text x="100" y="80">성전 파괴, 백성의 죽음</text>
-                        <text x="100" y="100" fill="#7F1D1D">"그들의 하나님이 어디 있느냐?"</text>
-                        <text x="100" y="120" fill="#7F1D1D">(하나님의 이름이 모독 받음)</text>
-                    </g>
-                    <path d="M180 85 H 220" stroke="#555" stroke-width="2" marker-end="url(#arrow)" fill="none"/>
-                    <g text-anchor="middle">
-                        <rect x="220" y="40" width="160" height="90" rx="5" fill="#F0F9FF" stroke="#0284C7"/>
-                        <text x="300" y="60" font-weight="bold">기도의 근거</text>
-                        <text x="300" y="80">우리의 공로 (X)</text>
-                        <text x="300" y="100" font-weight="bold" fill="#0369A1">주의 이름의 영광 (O)</text>
-                        <text x="300" y="120" fill="#0369A1">"우리를 도우소서"</text>
-                    </g>
-                </svg>
-
-                <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
-                <p>이 시편은 바벨론에 의해 예루살렘이 멸망한 직후의 상황을 배경으로 하는 것으로 보입니다. 성전의 파괴는 고대 이스라엘에게 단순한 건물의 파괴가 아니라, 하나님의 임재가 떠나고 언약 관계가 파기된 것 같은 신학적 대재앙이었습니다. 시인의 기도는 자기 연민에 빠져있지 않고, 이 재앙이 하나님의 영광에 어떤 영향을 미치는가에 초점을 맞추고 있습니다. '그들의 하나님이 어디 있느냐'는 이방인들의 조롱은 곧 하나님 자신을 향한 모독입니다. 따라서 시인은 "우리를 위해서가 아니라, 조롱받는 주의 이름을 위해서" 우리를 구원해 달라고 기도합니다. 신학적으로 이는 모든 기도의 가장 궁극적인 목적이 '하나님의 영광'임을 가르쳐줍니다. 우리의 필요를 구하는 것 역시, 그 필요가 채워짐을 통해 하나님의 선하심과 능력이 드러나고 그분의 이름이 높아지기를 바라는 동기에서 비롯될 때 가장 성숙한 기도가 됩니다. 이 시편은 결국 하나님의 자기 영광을 위한 열심이 우리 구원의 가장 확실한 보증임을 보여줍니다.</p>
-
-                <h3>주요 구절 해설 (Key Verse Commentary)</h3>
-                <div class="key-verse">
-                    <p class="verse-text"><strong>시 79:8</strong>: "우리 조상들의 죄악을 기억하지 마시고 주의 긍휼로 우리를 속히 영접하소서 우리가 매우 가련하게 되었나이다"</p>
-                    <p class="commentary-text">자신들의 고통이 죄의 결과임을 인정하는 정직한 회개가 담겨 있습니다. 그들은 자신들의 무죄를 주장하지 않고, 오직 하나님의 긍휼에만 호소합니다. '속히'라는 부사는 그들의 고통이 얼마나 절박한지를 보여주며, 이는 고난 중에 있는 모든 성도들이 하나님께 드릴 수 있는 정직한 간구입니다.</p>
-                </div>
-                <div class="key-verse">
-                    <p class="verse-text"><strong>시 79:9</strong>: "우리 구원의 하나님이여 주의 이름의 영광스러운 행사를 위하여 우리를 도우시며 주의 이름을 위하여 우리를 건지시며 우리 죄를 사하소서"</p>
-                    <p class="commentary-text">기도의 근거를 자신의 필요나 자격이 아닌, 오직 '주의 이름의 영광'에 두고 있습니다. 우리의 구원, 우리의 회복, 우리의 죄 사함의 목적은 일차적으로 우리 자신이 아니라, 그 일을 통해 하나님의 이름이 거룩히 여김을 받으시는 것입니다. 이것이 바로 주기도문의 첫 번째 간구("이름이 거룩히 여김을 받으시오며")와 일치하는 기도의 핵심 원리입니다.</p>
-                </div>
-                
-                <h3>성경 본문 (Full Text)</h3>
-                <div class="bible-text">
-                    <strong>파괴된 예루살렘을 위한 탄식</strong>
-                    <p><span class="verse-number">1</span> (아삽의 시) 하나님이여 이방 나라들이 주의 기업의 땅에 들어와서 주의 성전을 더럽히고 예루살렘이 돌무더기가 되게 하였나이다</p>
-                    <p><span class="verse-number">2</span> 그들이 주의 종들의 시체를 공중의 새에게 밥으로, 주의 성도들의 육체를 땅의 짐승에게 주며</p>
-                    <p><span class="verse-number">3</span> 그들의 피를 예루살렘 사방에 물 같이 흘렸으나 그들을 매장하는 자가 없었나이다</p>
-                    <p><span class="verse-number">4</span> 우리는 우리 이웃에게 비방거리가 되며 우리를 에워싼 자에게 조소와 조롱을 당하나이다</p>
-                    <p><span class="verse-number">5</span> 여호와여 어느 때까지니이까 영원히 노하시리이까 주의 질투가 불붙듯 하시리이까</p>
-                    <p><span class="verse-number">6</span> 주를 알지 아니하는 민족들과 주의 이름을 부르지 아니하는 나라들에게 주의 노를 쏟으소서</p>
-                    <p><span class="verse-number">7</span> 그들이 야곱을 삼키고 그의 거처를 황폐하게 함이니이다</p>
-                    <p><span class="verse-number">8</span> 우리 조상들의 죄악을 기억하지 마시고 주의 긍휼로 우리를 속히 영접하소서 우리가 매우 가련하게 되었나이다</p>
-                    <p><span class="verse-number">9</span> 우리 구원의 하나님이여 주의 이름의 영광스러운 행사를 위하여 우리를 도우시며 주의 이름을 위하여 우리를 건지시며 우리 죄를 사하소서</p>
-                    <p><span class="verse-number">10</span> 이방 나라들이 어찌하여 그들의 하나님이 어디 있느냐 말하나이까 주의 종들이 피 흘림에 대한 복수를 우리의 목전에서 그들에게 보여 주소서</p>
-                    <p><span class="verse-number">11</span> 갇힌 자의 탄식을 주의 앞에 이르게 하시며 죽이기로 정해진 자도 주의 크신 능력을 따라 보존하소서</p>
-                    <p><span class="verse-number">12</span> 주여 우리 이웃이 주를 비방한 그 비방을 그들의 품에 칠 배나 갚으소서</p>
-                    <p><span class="verse-number">13</span> 우리는 주의 백성이요 주의 목장의 양이니 우리는 영원히 주께 감사하며 주의 영예를 대대에 전하리이다</p>
-                </div>
-            </section>
-
-            <!-- Integration Card -->
-            <section class="chapter-card integration-card">
-                <h2>통합적 이해: 인간의 죄, 하나님의 속량</h2>
-                <h3>관통하는 주제 (Overarching Theme)</h3>
-                <p>오늘의 본문들은 인간의 교만과 죄가 어떻게 하나님의 심판을 불러오는지, 그리고 그 절망적인 상황 속에서 하나님의 속량과 구원이 어떻게 주어지는지를 보여줍니다. <strong>사무엘하 24장</strong>에서 다윗은 자신의 힘을 의지하려는 교만(인구조사)으로 온 백성에게 재앙을 가져왔지만, 값비싼 희생 제사를 통해 속죄의 길을 엽니다. <strong>에스겔 31장</strong>은 앗수르와 애굽의 교만이 그들의 완전한 몰락을 가져올 것이라고 경고하며, 인간의 힘이 얼마나 헛된지를 보여줍니다. 이처럼 스스로의 힘(교만)이나 노력(율법)으로 서려는 인간의 모든 시도가 실패할 수밖에 없는 현실 속에서, <strong>갈라디아서 4장</strong>은 유일한 해답을 제시합니다. 그것은 바로 '때가 차매' 오신 예수 그리스도를 통해 우리를 종의 신분에서 아들의 신분으로 바꾸시는 하나님의 속량입니다. <strong>시편 79편</strong>은 죄로 인해 모든 것을 잃고 하나님의 이름마저 모독당하는 절망의 자리에서, 바로 이 하나님의 속량을 부르짖는 기도가 터져 나옵니다. 그들은 자신의 공로가 아닌, 오직 "주의 이름을 위하여" 우리를 건져달라고 기도합니다. 결국, 인간의 교만은 심판을, 죄는 파멸을 낳지만, 하나님의 은혜는 아들을 보내심으로 우리를 속량하시고, 주의 이름을 위해 우리를 구원하십니다.</p>
-
-                <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
-                <svg class="analysis-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans KR', sans-serif" font-size="9">
-                    <line x1="20" y1="100" x2="380" y2="100" stroke="#333" stroke-width="1.5"/>
-                    <g text-anchor="middle">
-                        <circle cx="60" cy="100" r="4" fill="#4A90E2"/>
-                        <text x="60" y="120">다윗의 제사</text>
-                        <text x="60" y="132" fill="#555">(삼하 24)</text>
-
-                        <circle cx="140" cy="100" r="4" fill="#9013FE"/>
-                        <text x="140" y="120">성전 파괴</text>
-                        <text x="140" y="132" fill="#555">(시 79)</text>
-
-                        <circle cx="340" cy="100" r="4" fill="#E91E63"/>
-                        <text x="340" y="120">교회의 탄생</text>
-                        <text x="340" y="132" fill="#555">(갈 4)</text>
-                        
-                        <text x="230" y="40" font-size="14" font-weight="bold" fill="#D0021B">예수 그리스도</text>
-                        <text x="230" y="55" font-size="9" font-weight="bold" fill="#D0021B">(완전한 속량, 아들의 명분)</text>
-                        <path d="M 215 60 L 245 60 L 230 80 Z" fill="#D0021B"/>
-
-                        <!-- Arrows -->
-                        <path d="M 60 95 Q 140 70 225 83" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
-                        <text x="120" y="70" font-size="8">대속 제사의 예표</text>
-                        <path d="M 140 95 Q 180 80 225 83" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
-                        <text x="170" y="120" font-size="8">참 성전 되심</text>
-                        <path d="M 340 95 Q 290 70 235 83" stroke="#555" stroke-width="1" fill="none" marker-end="url(#arrow)"/>
-                        <text x="295" y="70" font-size="8">아들 됨의 근거</text>
-                    </g>
-                     <text x="200" y="170" text-anchor="middle" font-size="9" fill="#555">에스겔 31장은 교만한 세상 나라에 대한 그리스도의 최종 심판을 예고합니다.</text>
-                </svg>
-
-                <h3>구속사적 맥락 (Redemptive-Historical Context)</h3>
-                <p>오늘의 본문들은 불완전한 구약의 그림자들을 통해 완전한 실체이신 예수 그리스도를 선명하게 보여줍니다. <strong>사무엘하 24장</strong>에서 드려진 다윗의 희생 제사는 이스라엘에 내린 재앙을 멈추게 했습니다. 이 아라우나의 타작마당, 즉 미래의 성전 터에서 드려진 불완전한 제사는, 온 인류의 죄의 재앙을 멈추기 위해 갈보리 언덕에서 단번에 자신을 드리신 예수 그리스도의 완전한 속죄 제사를 가리킵니다. <strong>시편 79편</strong>의 무너진 성전 앞에서 드리는 기도는, 무너진 성전을 사흘 만에 일으키시겠다고 말씀하신(요 2:19) 참 성전이신 예수 그리스도를 통해 응답됩니다. <strong>에스겔 31장</strong>에서 예언된 교만한 세상 나라에 대한 심판은, 장차 만왕의 왕으로 다시 오셔서 모든 교만한 권세를 심판하실 예수 그리스도를 통해 성취될 것입니다. 이 모든 구약의 소망이 어떻게 우리에게 적용되는지를 <strong>갈라디아서 4장</strong>이 설명합니다. 바로 '때가 차매' 오신 예수 그리스도의 속량 사역을 통해, 우리는 율법의 종에서 해방되어 하나님을 '아빠 아버지'라 부르는 아들의 신분을 얻게 된 것입니다. 이것이 죄와 심판 아래 있던 우리가 누리게 된 구원의 복음입니다.</p>
-
-                <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>주제 (Theme)</th>
-                            <th>사무엘하 24</th>
-                            <th>갈라디아서 4</th>
-                            <th>에스겔 31</th>
-                            <th>시편 79</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>인간의 죄</strong></td>
-                            <td>하나님보다 군사력을 의지한 교만</td>
-                            <td>자유를 버리고 다시 종이 되려는 어리석음</td>
-                            <td>스스로 높아져 교만해짐</td>
-                            <td>과거의 죄악으로 인한 국가적 재앙</td>
-                        </tr>
-                        <tr>
-                            <td><strong>하나님의 심판</strong></td>
-                            <td>세 가지 재앙 중 선택 (전염병)</td>
-                            <td>(경고) 율법 아래는 저주뿐임</td>
-                            <td>교만한 제국(앗수르, 애굽)의 몰락</td>
-                            <td>성전 파괴와 백성의 죽음</td>
-                        </tr>
-                        <tr>
-                            <td><strong>구원의 길</strong></td>
-                            <td>대가 있는 희생 제사 (속죄)</td>
-                            <td>그리스도를 통한 아들의 명분 (속량)</td>
-                            <td>(없음 - 오직 심판)</td>
-                            <td>주의 이름을 위한 긍휼에 호소</td>
-                        </tr>
-                        <tr>
-                            <td><strong>결과</strong></td>
-                            <td>재앙이 그치고 용서받음</td>
-                            <td>종이 아닌 아들, 유업을 이을 자가 됨</td>
-                            <td>비참한 최후와 수치를 당함</td>
-                            <td>영원히 주를 찬양하는 백성이 됨</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>오늘의 교훈 (Application)</h3>
-                <p>우리는 다윗처럼 나의 성공이나 업적을 은연중에 의지하며 교만해질 때가 있습니다. 또는 갈라디아 교인들처럼, 복음의 자유를 누리기보다 눈에 보이는 종교적 규칙들을 지키며 스스로의 의를 쌓으려 할 때도 있습니다. 오늘 말씀은 이러한 모든 인간적인 노력이 결국 하나님의 심판과 헛됨으로 귀결될 뿐임을 경고합니다. 앗수르와 애굽의 영광도 한순간에 무너졌습니다. 우리의 유일한 소망은, 우리를 종의 자리에서 아들의 자리로 옮기시기 위해 '때가 차매' 이 땅에 오신 예수 그리스도뿐입니다. 죄로 인해 모든 것을 잃고 하나님의 이름마저 모독당하는 것 같은 절망적인 상황에 처할지라도, 시편 기자처럼 "주의 이름을 위하여 우리를 도우소서"라고 기도할 수 있는 이유가 바로 여기에 있습니다. 우리의 구원은 나의 어떠함이 아니라, 우리를 위해 모든 값을 치르시고 우리를 자녀 삼으신 하나님의 신실하심과 그분의 영광에 달려있기 때문입니다.</p>
-            </section>
+                <h3>적용을 위한 성찰 질문</h3>
+                <ol>
+                    <li>다윗은 자신의 성공과 안정의 정점에서 하나님보다 자신의 군사력을 의지하려는 교만의 죄를 범했습니다. 내 삶이 가장 안정되고 성공적이라고 느낄 때, 내가 하나님보다 더 신뢰하고 의지하게 되는 '나의 군사력'은 무엇입니까?</li>
+                    <li>갈라디아서는 우리가 더 이상 종이 아니라 하나님의 자녀로서 '아빠 아버지'라 부를 수 있게 되었다고 말합니다. 당신의 기도 생활에서 하나님을 엄격한 재판관이나 멀리 계신 분으로 느끼고 있습니까, 아니면 친밀하고 사랑이 많으신 '아빠'로 느끼고 있습니까? 이러한 관계의 변화를 위해 무엇이 필요할까요?</li>
+                    <li>앗수르는 과거의 영광과 힘 때문에 교만해져 멸망했습니다. 당신의 과거 성공 경험이나 현재의 재능이 오히려 당신을 교만하게 만들어 하나님의 은혜를 구하지 못하게 하는 장애물이 되고 있지는 않습니까?</li>
+                    <li>시편 기자는 국가적 재앙 앞에서 "주의 이름의 영광을 위하여" 기도했습니다. 나의 개인적인 고난이나 어려움 속에서, 나의 문제 해결을 넘어 '하나님의 이름의 영광'이 드러나기를 구하는 기도를 드려본 적이 있습니까? 어떻게 나의 기도 제목을 더 하나님 중심적으로 바꿀 수 있을까요?</li>
+                </ol>
+            </div>
         </main>
 
         <footer>
-            <p>&copy; 2024 맥체인 성경읽기. All rights reserved.</p>
+            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
         </footer>
     </div>
 
+    <div id="bible-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <div id="audio-player" class="audio-player">
+        <div class="audio-player-info" id="player-info"></div>
+        <div class="audio-player-controls">
+            <button id="play-pause-btn">▶</button>
+            <button id="close-player-btn">✖</button>
+        </div>
+    </div>
+    <div id="youtube-player-container"></div>
+
     <script>
-        // YouTube IFrame API 로드
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContainer = document.getElementById('main-container');
+            const bibleModal = document.getElementById('bible-modal');
+            const modalBody = document.getElementById('modal-body-content');
+            const closeModalBtn = document.querySelector('.modal-close-btn');
+            const audioPlayerBar = document.getElementById('audio-player');
+            const playerInfo = document.getElementById('player-info');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const closePlayerBtn = document.getElementById('close-player-btn');
+            
+            let ytPlayer;
+            let audioLinks = new Map();
+            let isPlayerReady = false;
 
-        var player;
-        const videoId = 'tuFOsJxpOfA';
-        const playPauseBtn = document.getElementById('floatingPlayPauseBtn');
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                    'showinfo': 0,
-                    'rel': 0,
-                    'modestbranding': 1
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+            window.onYouTubeIframeAPIReady = function() {
+                ytPlayer = new YT.Player('youtube-player-container', {
+                    height: '0',
+                    width: '0',
+                    events: {
+                        'onReady': () => { isPlayerReady = true; },
+                        'onStateChange': (event) => {
+                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
+                        }
+                    }
+                });
+            }
+
+            async function loadAudioLinks() {
+                try {
+                    const response = await fetch('../address/mcbible.txt');
+                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
+                    const text = await response.text();
+                    text.split('\n').forEach(line => {
+                        if (line.trim() !== '') {
+                            const parts = line.split(/\s+/);
+                            const fullKey = parts[0];
+                            const url = parts[1];
+                            const keyParts = fullKey.split('_'); 
+                            
+                            if (keyParts.length >= 3) {
+                                const book = keyParts[2];
+                                const chapter = parseInt(keyParts.at(-1), 10);
+                                const shortKey = `${book}_${chapter}`;
+                                audioLinks.set(shortKey, url);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('오디오 링크 로딩 오류:', error);
+                }
+            }
+            
+            function getYouTubeID(url) {
+                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                const match = url.match(regex);
+                return match ? match[1] : null;
+            }
+
+            mainContainer.addEventListener('click', async (e) => {
+                const target = e.target.closest('.btn');
+                if (!target) return;
+
+                if (target.classList.contains('btn-view')) {
+                    const path = target.dataset.path;
+                    bibleModal.style.display = 'block';
+                    modalBody.innerHTML = '<div class="spinner"></div>';
+                    try {
+                        const response = await fetch(`../bible_html/${path}`);
+                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
+                        const html = await response.text();
+                        modalBody.innerHTML = html;
+                    } catch (error) {
+                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
+                    }
+                }
+                
+                if (target.classList.contains('btn-listen')) {
+                    if (!isPlayerReady) {
+                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
+                        return;
+                    }
+                    if (audioLinks.size === 0) {
+                        await loadAudioLinks(); 
+                         if (audioLinks.size === 0) {
+                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
+                            return;
+                        }
+                    }
+                    const key = target.dataset.key;
+                    const title = target.dataset.title;
+                    const url = audioLinks.get(key);
+
+                    if (url) {
+                        const videoId = getYouTubeID(url);
+                        if (videoId) {
+                            ytPlayer.loadVideoById(videoId);
+                            playerInfo.textContent = `재생중: ${title}`;
+                            audioPlayerBar.classList.add('show');
+                        } else {
+                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
+                        }
+                    } else {
+                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
+                    }
                 }
             });
-        }
 
-        function onPlayerReady(event) {
-            // 플레이어가 준비되면 버튼 활성화
-            playPauseBtn.disabled = false;
-            playPauseBtn.classList.add('paused');
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.PLAYING) {
-                playPauseBtn.classList.remove('paused');
-            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
-                playPauseBtn.classList.add('paused');
-            }
-        }
-
-        function togglePlayPause() {
-            if (!player || typeof player.getPlayerState !== 'function') return;
-            var playerState = player.getPlayerState();
-            if (playerState == YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        playPauseBtn.addEventListener('click', togglePlayPause);
-
-        // 스페이스바 이벤트 추가
-        document.addEventListener('keydown', function(event) {
-            // 입력 필드나 텍스트 영역에 포커스 되어 있을 때는 작동하지 않도록 함
-            const target = event.target;
-            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
-                return;
+            function closeModal() {
+                bibleModal.style.display = 'none';
+                modalBody.innerHTML = '';
             }
 
-            if (event.code === 'Space') {
-                event.preventDefault(); // 페이지 스크롤 방지
-                togglePlayPause();
-            }
+            closeModalBtn.addEventListener('click', closeModal);
+            bibleModal.addEventListener('click', (e) => {
+                if (e.target === bibleModal) {
+                    closeModal();
+                }
+            });
+
+            playPauseBtn.addEventListener('click', () => {
+                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
+                const playerState = ytPlayer.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING) {
+                    ytPlayer.pauseVideo();
+                } else {
+                    ytPlayer.playVideo();
+                }
+            });
+
+            closePlayerBtn.addEventListener('click', () => {
+                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
+                    ytPlayer.stopVideo();
+                }
+                audioPlayerBar.classList.remove('show');
+            });
+            
+            loadAudioLinks();
         });
     </script>
 </body>
