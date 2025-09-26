@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10월 9일 - 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
+
+        :root {
+            --font-serif: 'KoPub Batang', serif;
+            --font-sans-serif: 'Pretendard', sans-serif;
+            
+            --color-text: #343a40;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            --color-muted: #868e96;
+
+            --color-book1: #4285F4;
+            --color-book2: #DB4437;
+            --color-book3: #c89200;
+            --color-book4: #0F9D58;
+            --color-integration: #5f6368;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--color-text);
+            background-color: var(--color-background);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+        }
+
+        header, main {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-family: var(--font-sans-serif);
+            font-size: clamp(2.2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin: 0.5em 0;
+            color: #212529;
+        }
+        
+        h3 {
+            font-family: var(--font-sans-serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        h4 {
+            font-family: var(--font-sans-serif);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-top: 0;
+            margin-bottom: 1.5em;
+        }
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .chapter-card, .integration-card {
+            background-color: var(--color-card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 3.5rem;
+            padding: 2rem 2.5rem;
+            border-left: 8px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-card:hover, .integration-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .card-book1 { border-color: var(--color-book1); }
+        .card-book1 h3 { color: var(--color-book1); }
+        .card-book2 { border-color: var(--color-book2); }
+        .card-book2 h3 { color: var(--color-book2); }
+        .card-book3 { border-color: var(--color-book3); }
+        .card-book3 h3 { color: var(--color-book3); }
+        .card-book4 { border-color: var(--color-book4); }
+        .card-book4 h3 { color: var(--color-book4); }
+        .integration-card { border-color: var(--color-integration); }
+        .integration-card h3 { color: var(--color-integration); }
+
+        .btn-group {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--font-sans-serif);
+            padding: 0.6em 1.2em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            color: white;
+        }
+
+        .btn-view { background-color: #343a40; }
+        .btn-listen { background-color: var(--color-integration); }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+        .btn:active {
+            transform: translateY(0);
+            filter: brightness(0.95);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: var(--color-card-bg);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+        
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .modal-close-btn:hover {
+            color: #333;
+        }
+
+        .modal-body {
+             max-height: 70vh;
+             overflow-y: auto;
+             font-size: 18px;
+             line-height: 2;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 100px auto;
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
+
+        .audio-player {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 500px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: bottom 0.3s ease-in-out;
+            z-index: 1001;
+        }
+        .audio-player.show { bottom: 0; }
+        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
+        .audio-player-controls button:hover { color: #bdc3c7; }
+        #youtube-player-container { display: none; }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--color-border);
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <header>
+            <h1>10월 9일</h1>
+            <p>참된 예배와 거짓 예배, 그리고 그리스도인의 표지</p>
+        </header>
+
+        <main>
+            <div class="chapter-card card-book1">
+                <h3>열왕기상 12장: 이스라엘 왕국의 분열</h3>
+                <h4>상세 개요</h4>
+                <p>열왕기상 12장은 통일 왕국 이스라엘이 남북으로 분열되는 비극적인 과정을 상세히 기록합니다. 솔로몬이 죽은 후, 그의 아들 르호보암이 왕위를 계승하기 위해 세겜으로 갑니다. 이때 북쪽 지파들은 여로보암을 앞세워 르호보암에게 솔로몬 시대의 과도한 노역과 세금을 줄여달라고 요청합니다. 르호보암은 원로들의 지혜로운 조언을 무시하고, 자기와 함께 자라난 젊은 신하들의 강경한 조언을 따라 백성에게 "내 아버지는 채찍으로 너희를 징계하였으나 나는 전갈 채찍으로 하리라"(11절)고 위협적으로 선포합니다. 이에 격분한 북쪽 열 지파는 다윗의 집에 대한 충성을 철회하고 여로보암을 왕으로 추대함으로써, 마침내 왕국은 남 유다와 북 이스라엘로 분열됩니다. 이후 북 이스라엘의 왕이 된 여로보암은 백성들이 예루살렘 성전으로 가는 것을 막기 위해 벧엘과 단에 금송아지 우상을 세우고, 레위인이 아닌 일반 백성으로 제사장을 삼으며, 절기까지 마음대로 바꾸는 등 하나님 앞에 심각한 죄를 범합니다.</p>
+                
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>하나님의 주권과 인간의 어리석음:</strong> 왕국의 분열은 르호보암의 교만하고 어리석은 결정 때문에 일어난 것처럼 보입니다. 그러나 성경은 "이 일은 주께로 말미암아 난 것이라"(15절)고 분명히 밝히며, 이 모든 사건의 배후에 솔로몬의 죄를 심판하시려는 하나님의 주권적인 계획이 있었음을 보여줍니다. 하나님께서는 선지자 아히야를 통해 이미 여로보암에게 열 지파를 주시겠다고 약속하셨습니다(왕상 11:31). 이는 인간의 죄악된 선택과 어리석음조차도 하나님의 더 큰 섭리와 계획을 이루는 도구가 될 수 있음을 보여주는 신학적 원리입니다. 그러나 이는 르호보암의 책임이 면제된다는 의미가 아닙니다. 그는 백성의 고통을 외면하고 포용적인 리더십을 발휘하지 못한 자신의 선택에 대해 분명한 책임을 져야 합니다.</li>
+                    <li><strong>정치적 불안이 낳은 거짓 예배:</strong> 여로보암은 "이 백성이 만일 예루살렘에 있는 여호와의 성전에 제사를 드리고자 올라가면... 저희가... 유다 왕 르호보암에게로 돌아가서 나를 죽이리이다"(27절)라는 정치적 불안감 때문에 금송아지 우상을 만듭니다. 그의 우상 숭배는 순수한 종교적 동기가 아니라, 자신의 왕권을 유지하려는 정치적 계산에서 비롯된 것입니다. 그는 하나님을 섬기는 방식(예배 장소, 제사장, 절기)을 자신의 편의에 맞게 바꾸어 버렸습니다. 이는 참된 예배가 하나님께서 정하신 방식대로 드려져야 함을 어기는 심각한 죄입니다. 하나님을 섬긴다고 말하면서도 그 본질은 자신의 안전과 이익을 추구하는 것이었기에, 이는 결국 하나님을 섬기는 것이 아니라 자기 자신을 섬기는 행위였습니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="OT/OT_11_1KI_12.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="1KI_12" data-title="열왕기상 12장">성경 듣기</button>
+                </div>
+            </div>
+
+            <div class="chapter-card card-book2">
+                <h3>빌립보서 3장: 그리스도를 아는 지식의 탁월함</h3>
+                <h4>상세 개요</h4>
+                <p>빌립보서 3장에서 바울은 거짓 교사들, 특히 할례를 주장하는 유대주의자들을 "개들", "행악하는 자들", "몸을 상해하는 일"을 하는 자들이라고 강하게 비판합니다. 그는 참된 할례는 육체에 행하는 것이 아니라 "하나님의 성령으로 봉사하며 그리스도 예수를 자랑하고 육체를 신뢰하지 아니하는"(3절) 것이라고 정의합니다. 이어서 바울은 자신이 유대인으로서 가졌던 모든 육체적, 종교적 자랑거리(팔일 만의 할례, 이스라엘 족속, 베냐민 지파, 율법의 의로는 흠이 없는 자)를 열거합니다. 그러나 그는 "무엇이든지 내게 유익하던 것을 내가 그리스도를 위하여 다 해로 여길뿐더러 또한 모든 것을 해로 여김은 내 주 그리스도 예수를 아는 지식이 가장 고상하기 때문이라"(7-8절)고 선포합니다. 그는 이 모든 것을 배설물로 여기고, 오직 그리스도를 얻고 그 안에서 발견되고자 하는 소망을 밝힙니다. 그의 목표는 율법에서 난 자기 의가 아니라, 오직 그리스도를 믿음으로 말미암는 하나님의 의를 얻고, 그리스도의 부활의 능력과 고난에 참여하여 죽으심을 본받는 것입니다.</p>
+                
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>자기 의(義)의 파산 선고:</strong> 바울은 자신이 과거에 의지했던 모든 종교적 업적과 혈통적 배경을 '배설물'(σκύβαλα, 스퀴발라)이라는 극단적인 단어를 사용하여 평가절하합니다. 이는 인간이 하나님 앞에서 내세울 수 있는 자기 의가 얼마나 무가치하고 더러운 것인지를 강력하게 보여주는 선언입니다. '율법의 의로는 흠이 없었던' 바울조차도, 그리스도를 아는 지식의 빛 아래에서 자신의 모든 것이 무익함을 깨달았습니다. 이는 구원이 인간의 노력이나 자격에 조금도 근거하지 않으며, 오직 외부에서 주어지는 하나님의 은혜, 즉 '믿음으로 말미암는 의'를 통해서만 가능하다는 칭의 교리의 핵심을 드러냅니다.</li>
+                    <li><strong>그리스도를 아는 지식 (Gnosis Christou):</strong> 바울이 모든 것을 버릴 만큼 가치 있게 여긴 것은 "내 주 그리스도 예수를 아는 지식"입니다. 여기서 '아는 것'은 단순한 정보적 지식(episteme)이 아니라, 인격적인 관계와 체험을 통해 아는 깊은 지식(gnosis)을 의미합니다. 이 앎은 그리스도의 부활의 능력을 경험하고(성화), 그의 고난에 동참하며(십자가의 길), 마침내 그의 죽으심을 본받아 부활에 이르는 역동적인 과정 전체를 포함합니다. 바울에게 신앙이란 그리스도와 연합하여 그분의 삶과 죽음, 그리고 부활에 실제로 참여하는 것이었습니다. 이 그리스도를 아는 지식이야말로 성도의 삶의 유일한 목표요, 가장 고상한 가치입니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="NT/NT_50_PHP_03.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="PHP_3" data-title="빌립보서 3장">성경 듣기</button>
+                </div>
+            </div>
+
+            <div class="chapter-card card-book3">
+                <h3>에스겔 42장: 제사장의 방과 성전의 경계</h3>
+                <h4>상세 개요</h4>
+                <p>에스겔 42장은 새 성전 환상의 일부로, 안뜰 북쪽과 남쪽에 위치한 제사장들의 방(골방)에 대한 측량과 그 용도를 설명합니다. 이 방들은 두 구역으로 나뉘어 있으며, 3층 구조로 되어 있습니다. 이 방들은 제사장들이 지성물(소제, 속죄제, 속건제의 제물)을 먹는 매우 거룩한 장소입니다. 또한 제사장들이 백성이 있는 바깥뜰로 나가기 전에, 성전에서 입었던 거룩한 옷을 벗고 다른 옷으로 갈아입는 장소이기도 합니다. 이는 거룩한 것과 속된 것을 엄격하게 구별하기 위함입니다. 제사장의 방에 대한 설명이 끝난 후, 안내자는 성전의 바깥 담 사방을 측량합니다. 그 길이는 사방으로 각각 오백 척으로, 정사각형 모양의 거대한 경계를 이룹니다. 이 담의 목적은 "거룩한 것과 속된 것을 구별하는 것"(20절)이라고 명시됩니다.</p>
+                
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>거룩과 속됨의 구별:</strong> 이 장의 핵심 주제는 '구별'(separation)입니다. 제사장들이 지성물을 먹는 장소가 따로 구별되고, 성전에서 입는 옷과 밖에서 입는 옷을 갈아입는 절차가 있는 것, 그리고 성전 전체를 둘러싼 거대한 담의 목적이 "거룩한 것과 속된 것을 구별하는 것"에 있다는 점은 모두 하나님의 거룩하심이 세상의 속됨과 섞일 수 없음을 강력하게 보여줍니다. 이는 하나님의 백성 또한 세상 속에서 살아가지만 세상의 방식과 가치관에 동화되지 않고, 구별된 백성으로서의 거룩함을 지켜야 한다는 신학적 원리를 가르칩니다. 새 언약의 백성인 교회는 세상과 분리된 게토를 만드는 것이 아니라, 세상 속에서 빛과 소금으로서 구별된 삶의 방식을 통해 하나님의 거룩함을 드러내야 합니다.</li>
+                    <li><strong>제사장, 거룩의 중재자:</strong> 제사장들은 거룩한 성전과 속된 바깥뜰 사이를 오가며 중재자의 역할을 합니다. 그들은 거룩한 지성물을 먹고 하나님과 교제하지만, 동시에 백성들에게 나아가 그들을 섬깁니다. 그러나 백성에게 나아갈 때는 반드시 거룩한 옷을 벗어둠으로써, 하나님의 지엄한 거룩함이 백성에게 직접적으로 해가 되지 않도록 합니다. 이는 구약 제사장 직분의 중재적 역할을 보여주는 동시에, 우리의 영원한 대제사장이신 예수 그리스도를 예표합니다. 예수님께서는 거룩한 하나님이시면서 동시에 속된 인간의 몸을 입고 우리 가운데 오셔서, 하나님과 우리 사이를 화목하게 하시는 완벽한 중재자가 되셨습니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="OT/OT_26_EZE_42.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="EZE_42" data-title="에스겔 42장">성경 듣기</button>
+                </div>
+            </div>
+
+            <div class="chapter-card card-book4">
+                <h3>시편 94편: 악인에 대한 심판과 의인에 대한 위로</h3>
+                <h4>상세 개요</h4>
+                <p>시편 94편은 악인들의 횡포와 불의가 만연한 세상 속에서 하나님의 공의로운 심판을 간절히 구하는 탄원시이자 지혜시입니다. 시인은 "심판하시는 하나님이여... 교만한 자들에게 마땅한 벌을 주소서"(1-2절)라고 부르짖으며 기도를 시작합니다. 그는 악인들이 주의 백성을 짓밟고 과부와 나그네와 고아를 죽이며, "여호와가 보지 못하며 야곱의 하나님이 알아차리지 못하리라"(7절)고 말하는 그들의 교만과 무신론적인 태도를 고발합니다. 이어서 시인은 귀를 지으신 이가 듣지 못하시겠으며 눈을 만드신 이가 보지 못하시겠느냐고 반문하며, 인간의 생각이 허무함을 아시는 하나님의 전지하심을 선포합니다. 그는 주께서 징계하시고 주의 율법으로 교훈하시는 자가 복이 있다고 말하며, 하나님께서는 결코 자기 백성을 버리지 않으시고 의인을 환난에서 건져주실 것을 신뢰합니다. 시인은 자신의 번뇌 속에서 주의 위로가 영혼을 즐겁게 하며, 여호와는 자신의 요새요 피할 반석이심을 고백하며 끝을 맺습니다.</p>
+                
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>하나님의 침묵과 공의의 질문:</strong> 이 시편은 악이 번성하고 의인이 고난받는 현실 속에서 모든 신실한 성도들이 던지는 질문, 즉 "여호와여 악인이 언제까지, 언제까지 개가를 부르리이까"(3절)라는 고통스러운 질문을 담고 있습니다. 시인은 하나님의 공의로운 통치를 믿지만, 눈앞의 현실은 그 믿음을 시험합니다. 이처럼 하나님의 침묵처럼 보이는 시간 속에서 정직하게 탄식하고 질문하는 것은 불신앙이 아니라, 오히려 하나님의 공의를 간절히 갈망하는 믿음의 표현입니다. 이 질문에 대한 궁극적인 대답은 십자가에서 주어졌습니다. 십자가는 세상의 모든 악이 최고조에 달한 자리였지만, 동시에 그 악을 심판하시고 구원을 이루시는 하나님의 공의와 사랑이 가장 분명하게 나타난 자리였습니다.</li>
+                    <li><strong>고난을 통한 연단과 위로:</strong> 시인은 "여호와여 주로부터 징벌을 받으며 주의 법으로 교훈하심을 받는 자가 복이 있나니"(12절)라고 고백합니다. 이는 고난에 대한 깊은 신학적 통찰을 보여줍니다. 성도에게 닥치는 고난은 단순한 불행이 아니라, 하나님께서 우리를 연단하시고 당신의 말씀으로 가르치시는 은혜의 수단이 될 수 있습니다. 이 고난의 과정을 통해 우리는 세상의 헛됨을 깨닫고, 오직 "여호와는 내 요새이시며 내 하나님은 내가 피할 반석"(22절)이심을 체험적으로 배우게 됩니다. 또한, "내 속에 생각이 많을 때에 주의 위안이 내 영혼을 즐겁게 하시나이다"(19절)라는 고백처럼, 가장 깊은 번뇌의 순간이야말로 세상이 줄 수 없는 하나님의 위로를 가장 깊이 경험하는 시간이 될 수 있습니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="OT/OT_19_PSA_094.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="PSA_94" data-title="시편 94편">성경 듣기</button>
+                </div>
+            </div>
+
+            <div class="integration-card">
+                <h2>통합 묵상: 참된 예배와 거짓 예배, 그리고 신자의 표지</h2>
+                <h3>관통하는 주제 논증: 무엇을 의지하며, 어떻게 구별되는가?</h3>
+                <p>오늘의 네 본문은 '참된 신앙 공동체는 무엇을 의지하며 어떻게 세상과 구별되는가?'라는 근본적인 질문에 답합니다. 열왕기상 12장은 거짓 예배의 시작을 보여줍니다. 여로보암은 하나님이 아닌 자신의 왕권이라는 정치적 안정을 의지하여, 백성들의 편의에 맞춘 금송아지 우상을 세웁니다. 이는 하나님께서 정하신 예배의 방식을 버리고 세속적인 방법과 타협하는 거짓 교회의 시작점입니다. 에스겔 42장은 이와 정반대로, "거룩한 것과 속된 것을 구별하는" 담으로 둘러싸인 새 성전의 모습을 통해 참된 예배 공동체의 본질이 '구별됨'과 '거룩함'에 있음을 보여줍니다. 시편 94편은 이 구별된 백성이 세상의 불의 속에서 어떻게 살아야 하는지를 보여줍니다. 그들은 악인들의 방식을 따르지 않고, 고난 속에서도 오직 하나님의 공의로운 심판을 신뢰하며 그분을 피난처로 삼습니다. 그렇다면 이 모든 것을 가능하게 하는 내적인 원리는 무엇인가? 빌립보서 3장은 그 해답을 제시합니다. 참된 신자는 여로보암처럼 자신의 안위를 의지하거나, 유대주의자들처럼 자신의 종교적 행위(육체)를 의지하는 자가 아닙니다. 그는 바울처럼 자신의 모든 자랑을 '배설물'로 여기고, 오직 "그리스도 예수를 아는 지식"만을 가장 고상한 것으로 여기며, 믿음으로 말미암는 하나님의 의를 의지하는 사람입니다. 결국 오늘의 본문들은, 참된 하나님의 백성은 세상의 방식과 타협하지 않고 거룩하게 구별되며, 자신의 의가 아닌 오직 그리스도만을 자랑하고 의지하는 자들임을 강력하게 증거합니다.</p>
+
+                <h3>입체적 핵심 단어 연구: 자랑 (καύχησις, 카우케시스)</h3>
+                <p>빌립보서 3장 3절에서 바울이 "그리스도 예수를 자랑하고 육체를 신뢰하지 아니하는 우리가 곧 참 할례파라"고 말할 때 사용된 헬라어 '카우케시스'(καύχησις)와 그 동사형 '카우카오마이'(καυχάομαι)는 '자랑하다, 뽐내다'는 의미를 가집니다. 바울 신학에서 이 '자랑'은 신앙의 핵심적인 시금석 역할을 합니다. 인간은 본성적으로 무언가를 '자랑'하려는 경향이 있습니다. 율법주의자들은 자신의 혈통, 지식, 종교적 열심 등 '육체'에 속한 것을 자랑했습니다(빌 3:4-6). 그러나 바울은 복음 안에서 자랑의 대상이 근본적으로 바뀌어야 한다고 선포합니다. 이제 우리의 유일한 자랑거리는 나의 업적이나 소유가 아니라, "우리 주 예수 그리스도의 십자가"(갈 6:14)와 "우리의 약한 것들"(고후 12:9)입니다. 왜냐하면 십자가는 나의 완전한 무능력과 하나님의 전적인 은혜를 보여주는 장소이며, 나의 약함 속에서 그리스도의 능력이 가장 온전하게 드러나기 때문입니다. 당신이 무엇을 자랑하는지를 보면, 당신이 진정으로 무엇을 신뢰하고 의지하는지를 알 수 있습니다. 참된 그리스도인은 자신의 모든 자랑을 내려놓고 오직 그리스도 한 분만을 자랑하는 사람입니다.</p>
+                
+                <h3>심층 상호 참조</h3>
+                <ul>
+                    <li><strong>열왕기상 12:28-29 & 빌립보서 3:3, 7-8:</strong> 여로보암은 백성들에게 "너희가 다시는 예루살렘으로 올라갈 것이 없도다 이스라엘아 이는 너희를 애굽 땅에서 인도하여 올린 너희의 신들이라"하며 금송아지를 제시합니다. 이는 눈에 보이는 것, 편리한 것, 육체적인 것을 신뢰하게 만드는 거짓 신앙의 본질을 보여줍니다. 바울은 이를 정면으로 반박합니다. "우리는... 육체를 신뢰하지 아니하는... 자라. 나는... 모든 것을 해로 여김은 내 주 그리스도 예수를 아는 지식이 가장 고상하기 때문이라". 여로보암이 의지했던 '육체의 편의'와 바울이 '배설물'로 여긴 '육체의 자랑'은 결국 같은 뿌리에서 나온 것입니다.</li>
+                    <li><strong>에스겔 42:20 & 시편 94:22:</strong> 에스겔 성전의 담은 "거룩한 것과 속된 것을 구별"하기 위해 존재했습니다. 이는 하나님의 백성이 세상과 구별된 거룩한 공간 안에 보호받고 있음을 상징합니다. 시편 기자는 이 공간적 구별을 관계적 신뢰로 표현합니다. "여호와는 내 요새이시며 내 하나님은 내가 피할 반석이시라". 세상의 불의와 혼돈이 넘실거릴 때, 성도는 하나님의 거룩한 통치와 보호라는 영적 요새 안으로 피함으로써 세상과 구별됩니다. 성전의 담은 곧 우리를 보호하시는 하나님 자신을 상징하는 것입니다.</li>
+                </ul>
+
+                <h3>적용을 위한 성찰 질문</h3>
+                <ol>
+                    <li>여로보암은 자신의 왕권을 지키기 위해 예배의 원칙을 타협했습니다. 나는 나의 안정, 편의, 또는 이익을 위해 신앙의 원칙을 타협하고 있는 부분은 없습니까? 나의 예배와 신앙생활의 중심에 하나님이 계십니까, 아니면 나 자신이 있습니까?</li>
+                    <li>바울은 자신이 평생 쌓아온 모든 것을 그리스도를 아는 지식과 비교하여 '배설물'로 여겼습니다. 현재 내가 가장 가치있게 여기고 자랑스러워하는 것은 무엇입니까? 만약 그것을 그리스도를 위해 포기해야 한다면, 나는 기꺼이 그렇게 할 수 있습니까?</li>
+                    <li>에스겔 성전의 담은 '거룩'과 '속됨'을 구별했습니다. 오늘날 나의 삶에서 세상의 가치관과 구별되어야 할 영역은 무엇이라고 생각합니까? (예: 시간 사용, 물질관, 인간관계 등) 어떻게 그 영역에서 거룩함을 지켜나갈 수 있을까요?</li>
+                    <li>시편 94편의 시인처럼, 세상의 불의와 악인들의 번성을 보며 하나님의 공의에 대해 질문하고 답답함을 느낀 적이 있습니까? 그럴 때, 하나님의 심판을 신뢰하며 인내하기 위해 나에게 필요한 것은 무엇일까요?</li>
+                </ol>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
+        </footer>
+    </div>
+
+    <div id="bible-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <div id="audio-player" class="audio-player">
+        <div class="audio-player-info" id="player-info"></div>
+        <div class="audio-player-controls">
+            <button id="play-pause-btn">▶</button>
+            <button id="close-player-btn">✖</button>
+        </div>
+    </div>
+    <div id="youtube-player-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContainer = document.getElementById('main-container');
+            const bibleModal = document.getElementById('bible-modal');
+            const modalBody = document.getElementById('modal-body-content');
+            const closeModalBtn = document.querySelector('.modal-close-btn');
+            const audioPlayerBar = document.getElementById('audio-player');
+            const playerInfo = document.getElementById('player-info');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const closePlayerBtn = document.getElementById('close-player-btn');
+            
+            let ytPlayer;
+            let audioLinks = new Map();
+            let isPlayerReady = false;
+
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            window.onYouTubeIframeAPIReady = function() {
+                ytPlayer = new YT.Player('youtube-player-container', {
+                    height: '0',
+                    width: '0',
+                    events: {
+                        'onReady': () => { isPlayerReady = true; },
+                        'onStateChange': (event) => {
+                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
+                        }
+                    }
+                });
+            }
+
+            async function loadAudioLinks() {
+                try {
+                    const response = await fetch('../address/mcbible.txt');
+                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
+                    const text = await response.text();
+                    text.split('\n').forEach(line => {
+                        if (line.trim() !== '') {
+                            const parts = line.split(/\s+/);
+                            const fullKey = parts[0];
+                            const url = parts[1];
+                            const keyParts = fullKey.split('_'); 
+                            
+                            if (keyParts.length >= 3) {
+                                const book = keyParts[2];
+                                const chapter = parseInt(keyParts.at(-1), 10);
+                                const shortKey = `${book}_${chapter}`;
+                                audioLinks.set(shortKey, url);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('오디오 링크 로딩 오류:', error);
+                }
+            }
+            
+            function getYouTubeID(url) {
+                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                const match = url.match(regex);
+                return match ? match[1] : null;
+            }
+
+            mainContainer.addEventListener('click', async (e) => {
+                const target = e.target.closest('.btn');
+                if (!target) return;
+
+                if (target.classList.contains('btn-view')) {
+                    const path = target.dataset.path;
+                    bibleModal.style.display = 'block';
+                    modalBody.innerHTML = '<div class="spinner"></div>';
+                    try {
+                        const response = await fetch(`../bible_html/${path}`);
+                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
+                        const html = await response.text();
+                        modalBody.innerHTML = html;
+                    } catch (error) {
+                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
+                    }
+                }
+                
+                if (target.classList.contains('btn-listen')) {
+                    if (!isPlayerReady) {
+                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
+                        return;
+                    }
+                    if (audioLinks.size === 0) {
+                        await loadAudioLinks(); 
+                         if (audioLinks.size === 0) {
+                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
+                            return;
+                        }
+                    }
+                    const key = target.dataset.key;
+                    const title = target.dataset.title;
+                    const url = audioLinks.get(key);
+
+                    if (url) {
+                        const videoId = getYouTubeID(url);
+                        if (videoId) {
+                            ytPlayer.loadVideoById(videoId);
+                            playerInfo.textContent = `재생중: ${title}`;
+                            audioPlayerBar.classList.add('show');
+                        } else {
+                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
+                        }
+                    } else {
+                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
+                    }
+                }
+            });
+
+            function closeModal() {
+                bibleModal.style.display = 'none';
+                modalBody.innerHTML = '';
+            }
+
+            closeModalBtn.addEventListener('click', closeModal);
+            bibleModal.addEventListener('click', (e) => {
+                if (e.target === bibleModal) {
+                    closeModal();
+                }
+            });
+
+            playPauseBtn.addEventListener('click', () => {
+                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
+                const playerState = ytPlayer.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING) {
+                    ytPlayer.pauseVideo();
+                } else {
+                    ytPlayer.playVideo();
+                }
+            });
+
+            closePlayerBtn.addEventListener('click', () => {
+                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
+                    ytPlayer.stopVideo();
+                }
+                audioPlayerBar.classList.remove('show');
+            });
+            
+            loadAudioLinks();
+        });
+    </script>
+</body>
+</html>
