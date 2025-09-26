@@ -253,7 +253,7 @@
             <div class="chapter-card card-book1">
                 <h3>사무엘하 24장: 다윗의 인구조사와 하나님의 징계</h3>
                 <h4>상세 개요</h4>
-                <p>사무엘하 24장은 다윗의 통치 말년에 있었던 심각한 범죄와 그로 인한 하나님의 징계를 기록합니다. 하나님께서 이스라엘을 향해 진노하사, 다윗의 마음을 격동시켜 이스라엘과 유다의 인구를 계수하게 하십니다. 군사령관 요압의 강력한 반대에도 불구하고 다윗은 인구 조사를 강행합니다. 조사를 마친 후 다윗은 자신의 죄를 깨닫고 하나님께 회개하지만, 하나님께서는 선지자 갓을 통해 세 가지 재앙(7년 기근, 3개월의 전쟁 패배, 3일의 전염병) 중 하나를 택하라고 하십니다. 다윗은 하나님의 긍휼에 자신을 맡기며 전염병을 택하고, 이로 인해 이스라엘 백성 칠만 명이 죽습니다. 재앙이 예루살렘에 이르려 할 때, 하나님께서 뜻을 돌이키시고, 다윗은 아라우나(오르난)의 타작마당에서 제단을 쌓고 번제와 화목제를 드림으로써 재앙이 그치게 됩니다. 이 장소는 훗날 솔로몬 성전이 세워지는 중요한 곳이 됩니다.</p>
+                <p>사무엘하 24장은 다윗의 통치 말년에 있었던 심각한 범죄와 그로 인한 하나님의 징계를 기록합니다. 하나님께서 이스라엘을 향해 진노하사, 다윗의 마음을 격동시켜 이스라엘과 유다의 인구를 계수하게 하십니다. 군사령관 요압의 강력한 반대에도 불구하고 다윗은 인구 조사를 강행합니다. 조사를 마친 후 다윗은 자신의 죄를 깨닫고 회개하지만, 하나님께서는 선지자 갓을 통해 세 가지 재앙 중 하나를 택하라고 하십니다. 다윗은 하나님의 긍휼에 자신을 맡기며 전염병을 택하고, 이로 인해 이스라엘 백성 칠만 명이 죽습니다. 재앙이 예루살렘에 이르려 할 때, 하나님께서 뜻을 돌이키시고, 다윗은 아라우나(오르난)의 타작마당에서 제단을 쌓고 번제와 화목제를 드림으로써 재앙이 그치게 됩니다. 이 장소는 훗날 솔로몬 성전이 세워지는 중요한 곳이 됩니다.</p>
                 
                 <h4>심층 신학적 해설</h4>
                 <ol>
@@ -390,4 +390,123 @@
                     events: {
                         'onReady': () => { isPlayerReady = true; },
                         'onStateChange': (event) => {
-                            playPauseBtn.innerHTML
+                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
+                        }
+                    }
+                });
+            }
+
+            async function loadAudioLinks() {
+                try {
+                    const response = await fetch('../address/mcbible.txt');
+                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
+                    const text = await response.text();
+                    text.split('\n').forEach(line => {
+                        if (line.trim() !== '') {
+                            const parts = line.split(/\s+/);
+                            const fullKey = parts[0];
+                            const url = parts[1];
+                            const keyParts = fullKey.split('_'); 
+                            
+                            if (keyParts.length >= 3) {
+                                const book = keyParts[2];
+                                const chapter = parseInt(keyParts.at(-1), 10);
+                                const shortKey = `${book}_${chapter}`;
+                                audioLinks.set(shortKey, url);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('오디오 링크 로딩 오류:', error);
+                }
+            }
+            
+            function getYouTubeID(url) {
+                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                const match = url.match(regex);
+                return match ? match[1] : null;
+            }
+
+            mainContainer.addEventListener('click', async (e) => {
+                const target = e.target.closest('.btn');
+                if (!target) return;
+
+                if (target.classList.contains('btn-view')) {
+                    const path = target.dataset.path;
+                    bibleModal.style.display = 'block';
+                    modalBody.innerHTML = '<div class="spinner"></div>';
+                    try {
+                        const response = await fetch(`../bible_html/${path}`);
+                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
+                        const html = await response.text();
+                        modalBody.innerHTML = html;
+                    } catch (error) {
+                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
+                    }
+                }
+                
+                if (target.classList.contains('btn-listen')) {
+                    if (!isPlayerReady) {
+                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
+                        return;
+                    }
+                    if (audioLinks.size === 0) {
+                        await loadAudioLinks(); 
+                         if (audioLinks.size === 0) {
+                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
+                            return;
+                        }
+                    }
+                    const key = target.dataset.key;
+                    const title = target.dataset.title;
+                    const url = audioLinks.get(key);
+
+                    if (url) {
+                        const videoId = getYouTubeID(url);
+                        if (videoId) {
+                            ytPlayer.loadVideoById(videoId);
+                            playerInfo.textContent = `재생중: ${title}`;
+                            audioPlayerBar.classList.add('show');
+                        } else {
+                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
+                        }
+                    } else {
+                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
+                    }
+                }
+            });
+
+            function closeModal() {
+                bibleModal.style.display = 'none';
+                modalBody.innerHTML = '';
+            }
+
+            closeModalBtn.addEventListener('click', closeModal);
+            bibleModal.addEventListener('click', (e) => {
+                if (e.target === bibleModal) {
+                    closeModal();
+                }
+            });
+
+            playPauseBtn.addEventListener('click', () => {
+                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
+                const playerState = ytPlayer.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING) {
+                    ytPlayer.pauseVideo();
+                } else {
+                    ytPlayer.playVideo();
+                }
+            });
+
+            closePlayerBtn.addEventListener('click', () => {
+                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
+                    ytPlayer.stopVideo();
+                }
+                audioPlayerBar.classList.remove('show');
+            });
+            
+            loadAudioLinks();
+        });
+    </script>
+</body>
+</html>
