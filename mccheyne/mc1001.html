@@ -193,6 +193,107 @@
             display: none;
         }
 
+        /* 탭 네비게이션 */
+        .tab-navigation {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            border-bottom: 1px solid #dee2e6;
+            z-index: 100;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tab-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 0;
+            padding: 0 1rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab-container::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        .tab-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .tab-container::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .tab-btn {
+            flex: 0 0 auto;
+            min-width: 120px;
+            padding: 1rem 0.5rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .tab-btn.active {
+            color: var(--color-card-book1);
+            font-weight: 600;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--color-card-book1);
+        }
+
+        .tab-btn:hover {
+            color: var(--color-card-book1);
+            background: rgba(66, 133, 244, 0.05);
+        }
+
+        .tab-title {
+            display: block;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* 탭 콘텐츠 */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .tab-btn {
+                min-width: 100px;
+                padding: 0.8rem 0.3rem;
+                font-size: 0.8rem;
+            }
+
+            .tab-container {
+                padding: 0 0.5rem;
+            }
+        }
+
         footer {
             width: 100%;
             text-align: center;
@@ -211,9 +312,30 @@
             <h2>10월 1일</h2>
         </header>
 
+        <!-- 탭 네비게이션 -->
+        <nav class="tab-navigation">
+            <div class="tab-container">
+                <button class="tab-btn active" data-target="book1">
+                    <span class="tab-title">열왕기상 3장</span>
+                </button>
+                <button class="tab-btn" data-target="book2">
+                    <span class="tab-title">에베소서 1장</span>
+                </button>
+                <button class="tab-btn" data-target="book3">
+                    <span class="tab-title">에스겔 34장</span>
+                </button>
+                <button class="tab-btn" data-target="book4">
+                    <span class="tab-title">시편 83-84편</span>
+                </button>
+                <button class="tab-btn" data-target="integration">
+                    <span class="tab-title">통합 묵상</span>
+                </button>
+            </div>
+        </nav>
+
         <main>
             <!-- Card 1: 1 Kings 3 -->
-            <section class="chapter-card card-book1">
+            <section class="chapter-card card-book1 tab-content" data-tab="book1">
                 <h3>열왕기상 3장: 지혜의 왕, 솔로몬</h3>
                 <h4>상세 개요</h4>
                 <p>본 장은 솔로몬의 통치가 하나님의 특별한 은혜 아래 시작됨을 보여줍니다. 그는 기브온 산당에서 일천 번제를 드리는 열정을 보였고, 그날 밤 꿈에 나타나신 하나님께 부나 명예가 아닌 백성을 올바르게 재판할 수 있는 '듣는 마음', 즉 지혜를 구합니다. 하나님께서는 그의 기도를 기쁘게 여기시고 구하지 않은 부와 영광까지 약속하셨습니다. 이 지혜는 곧바로 두 창녀의 재판을 통해 온 이스라엘 앞에 증명되었고, 백성들은 왕을 두려워하며 그의 통치를 인정하게 됩니다.</p>
@@ -232,7 +354,7 @@
             </section>
 
             <!-- Card 2: Ephesians 1 -->
-            <section class="chapter-card card-book2">
+            <section class="chapter-card card-book2 tab-content" data-tab="book2">
                 <h3>에베소서 1장: 창세 전의 선택과 구원의 찬미</h3>
                 <h4>상세 개요</h4>
                 <p>사도 바울은 에베소서를 시작하며 하나님을 향한 장엄한 찬송(Doxology)을 쏟아냅니다. 이 찬송은 구원의 계획이 시간과 공간을 초월하여 영원 전부터 시작되었음을 밝힙니다. 성부 하나님은 창세 전에 그리스도 안에서 우리를 선택하셨고, 성자 예수님은 자신의 피로 우리를 구속(죄에서 건져내심)하셨으며, 성령 하나님은 약속의 보증으로 우리를 인치셨습니다. 이 삼위일체 하나님의 사역은 오직 '그의 은혜의 영광을 찬송'하게 하기 위함입니다.</p>
@@ -251,7 +373,7 @@
             </section>
 
             <!-- Card 3: Ezekiel 34 -->
-            <section class="chapter-card card-book3">
+            <section class="chapter-card card-book3 tab-content" data-tab="book3">
                 <h3>에스겔 34장: 거짓 목자와 참된 목자</h3>
                 <h4>상세 개요</h4>
                 <p>하나님께서는 자기 양 떼를 돌보는 대신 자기 배만 채우고 양들을 흩어버린 이스라엘의 지도자들, 즉 '거짓 목자들'을 향해 불같은 심판을 선고하십니다. 그들의 직무유기로 인해 상처받고 길 잃은 양들을 향한 하나님의 긍휼은, 이제 하나님께서 "내가 친히 내 양의 목자가 되겠다"는 놀라운 선언으로 이어집니다. 더 나아가, 하나님은 장차 "내 종 다윗"이라 불리는 한 참된 목자를 세워 자기 백성을 영원한 평화와 풍요로 인도하실 것을 약속하십니다.</p>
@@ -270,7 +392,7 @@
             </section>
 
             <!-- Card 4: Psalms 83-84 -->
-            <section class="chapter-card card-book4">
+            <section class="chapter-card card-book4 tab-content" data-tab="book4">
                 <h3>시편 83-84편: 하나님의 이름을 위한 간구와 임재를 향한 갈망</h3>
                 <h4>상세 개요</h4>
                 <p>오늘의 두 시편은 극적인 대조를 통해 성도의 내면과 외면의 싸움을 보여줍니다. 83편은 이스라엘을 멸절시키려는 적대 세력들의 연합 앞에서, 침묵하시는 것처럼 보이는 하나님께 "잠잠하지 마옵소서"라고 부르짖는 공동체의 절박한 탄원입니다. 반면, 84편은 그 모든 세상의 위협과 불안을 넘어, 오직 하나님의 집에 거하며 그분의 임재를 누리는 것이 최고의 복임을 노래하는 순례자의 뜨거운 사랑 고백입니다.</p>
@@ -291,7 +413,7 @@
             </section>
             
             <!-- Integration Card -->
-            <section class="integration-card">
+            <section class="integration-card tab-content" data-tab="integration">
                 <h3>통합 묵상: 하나님의 집, 하나님의 백성</h3>
                 
                 <h4>관통하는 주제 논증</h4>
@@ -516,6 +638,42 @@
                 audioPlayerBar.classList.remove('show');
             });
             
+            // 탭 네비게이션 기능
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            // 첫 번째 탭과 콘텐츠를 활성화
+            if (tabButtons.length > 0 && tabContents.length > 0) {
+                tabButtons[0].classList.add('active');
+                tabContents[0].classList.add('active');
+            }
+
+            tabButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    // 모든 탭 버튼 비활성화
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    // 모든 콘텐츠 숨기기
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // 클릭된 탭 활성화
+                    button.classList.add('active');
+
+                    // 해당 콘텐츠 표시
+                    const targetTab = button.dataset.target;
+                    const targetContent = document.querySelector(`[data-tab="${targetTab}"]`);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+
+                    // 탭 버튼이 화면에 보이도록 스크롤
+                    button.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                });
+            });
+
             // Load everything
             loadAudioLinks();
             const tag = document.createElement('script');
