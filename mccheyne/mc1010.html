@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10월 10일 - 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
+
+        :root {
+            --font-serif: 'KoPub Batang', serif;
+            --font-sans-serif: 'Pretendard', sans-serif;
+            
+            --color-text: #343a40;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            --color-muted: #868e96;
+
+            --color-book1: #4285F4;
+            --color-book2: #DB4437;
+            --color-book3: #c89200;
+            --color-book4: #0F9D58;
+            --color-integration: #5f6368;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--color-text);
+            background-color: var(--color-background);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+        }
+
+        header, main {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-family: var(--font-sans-serif);
+            font-size: clamp(2.2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin: 0.5em 0;
+            color: #212529;
+        }
+        
+        h3 {
+            font-family: var(--font-sans-serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        h4 {
+            font-family: var(--font-sans-serif);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-top: 0;
+            margin-bottom: 1.5em;
+        }
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .chapter-card, .integration-card {
+            background-color: var(--color-card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 3.5rem;
+            padding: 2rem 2.5rem;
+            border-left: 8px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-card:hover, .integration-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .card-book1 { border-color: var(--color-book1); }
+        .card-book1 h3 { color: var(--color-book1); }
+        .card-book2 { border-color: var(--color-book2); }
+        .card-book2 h3 { color: var(--color-book2); }
+        .card-book3 { border-color: var(--color-book3); }
+        .card-book3 h3 { color: var(--color-book3); }
+        .card-book4 { border-color: var(--color-book4); }
+        .card-book4 h3 { color: var(--color-book4); }
+        .integration-card { border-color: var(--color-integration); }
+        .integration-card h3 { color: var(--color-integration); }
+
+        .btn-group {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--font-sans-serif);
+            padding: 0.6em 1.2em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            color: white;
+        }
+
+        .btn-view { background-color: #343a40; }
+        .btn-listen { background-color: var(--color-integration); }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+        .btn:active {
+            transform: translateY(0);
+            filter: brightness(0.95);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: var(--color-card-bg);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+        
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .modal-close-btn:hover {
+            color: #333;
+        }
+
+        .modal-body {
+             max-height: 70vh;
+             overflow-y: auto;
+             font-size: 18px;
+             line-height: 2;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 100px auto;
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
+
+        .audio-player {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 500px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: bottom 0.3s ease-in-out;
+            z-index: 1001;
+        }
+        .audio-player.show { bottom: 0; }
+        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
+        .audio-player-controls button:hover { color: #bdc3c7; }
+        #youtube-player-container { display: none; }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--color-border);
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <header>
+            <h1>10월 10일</h1>
+            <p>하나님의 말씀과 영광 앞에 선 인간</p>
+        </header>
+
+        <main>
+            <div class="chapter-card card-book1">
+                <h3>열왕기상 13장: 하나님의 사람과 늙은 선지자</h3>
+                <h4>상세 개요</h4>
+                <p>열왕기상 13장은 여로보암이 벧엘의 금송아지 제단에서 분향할 때, 유다에서 온 '하나님의 사람'이 나타나 그 제단을 향해 요시야라는 왕이 태어나 그 위에서 우상 제사장들을 제물로 바칠 것이라고 예언하는 극적인 사건으로 시작됩니다. 예언의 증표로 제단이 갈라지고 재가 쏟아지자, 여로보암이 그를 잡으려 내민 손이 마르고, 왕의 간청으로 하나님의 사람이 기도하자 손이 다시 회복됩니다. 여로보암은 그에게 후대하려 하지만, 하나님의 사람은 "주께서 내게 말씀하시기를 떡도 먹지 말며 물도 마시지 말고 왔던 길로 되돌아가지도 말라"(9절)는 명령에 따라 거절합니다. 그러나 벧엘의 한 늙은 선지자가 천사를 통해 다른 계시를 받았다며 그를 속여 자기 집으로 데려가 떡과 물을 먹게 합니다. 음식을 먹은 후, 하나님의 사람은 돌아가는 길에 사자에게 죽임을 당합니다. 이는 하나님의 말씀을 온전히 순종하지 않은 결과였습니다. 늙은 선지자는 그의 시신을 수습하여 장사 지내며, 그의 예언이 반드시 이루어질 것을 인정합니다.</p>
+                
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>하나님 말씀의 절대성과 온전한 순종:</strong> 이 이야기는 하나님의 말씀이 얼마나 절대적이며, 그 말씀에 대한 순종이 얼마나 중요한지를 비극적으로 보여줍니다. 유다에서 온 하나님의 사람은 처음에는 왕의 회유와 위협 앞에서도 "네 집의 절반을 내게 준다 할지라도 나는... 들어가지 아니하겠노라"(8절)며 단호하게 순종합니다. 그러나 동료 선지자의 '거짓된 계시' 앞에서는 쉽게 무너집니다. 이는 우리의 순종을 위협하는 것이 세상의 핍박뿐만 아니라, 경건의 모양을 가진 종교적인 속임수일 수도 있음을 강력하게 경고합니다. 하나님의 명백한 명령은 다른 어떤 인간적인 권위나 경험, 심지어 다른 '계시'에 의해서도 변경될 수 없습니다. 온전한 순종은 끝까지 순종하는 것입니다.</li>
+                    <li>**여로보암의 길, 돌이키지 않는 완악함:** 하나님의 사람은 불순종으로 인해 즉각적인 심판을 받았지만, 정작 이 모든 사건의 원인 제공자인 여로보암은 손이 회복되는 은혜를 경험하고도 "이 일 후에도 그가 자기의 악한 길에서 떠나 돌이키지 아니하고"(33절)라고 기록됩니다. 그는 하나님의 명백한 경고와 기적을 보고도 자신의 정치적 안위를 위해 세운 우상숭배 시스템을 포기하지 않았습니다. 이는 인간의 마음이 얼마나 완악할 수 있는지를 보여줍니다. 하나님의 은혜와 징계 앞에서도 돌이키지 않는 죄는 결국 그와 그의 집안에 완전한 멸망을 가져오게 됩니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="OT/OT_11_1KI_13.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="1KI_13" data-title="열왕기상 13장">성경 듣기</button>
+                </div>
+            </div>
+
+            <div class="chapter-card card-book2">
+                <h3>빌립보서 4장: 주 안에서 항상 기뻐하라</h3>
+                <h4>상세 개요</h4>
+                <p>빌립보서의 마지막 장인 4장에서 바울은 사랑하는 빌립보 성도들에게 실천적인 권면과 함께 따뜻한 감사의 인사를 전합니다. 그는 먼저 "주 안에 서라"(1절)고 권면한 뒤, 교회 내에서 다툼이 있었던 유오디아와 순두게에게 "주 안에서 같은 마음을 품으라"고 간청합니다. 이어서 그는 모든 그리스도인의 삶의 자세가 어떠해야 하는지를 요약합니다: "주 안에서 항상 기뻐하라... 너희 관용을 모든 사람에게 알게 하라 주께서 가까우시니라." 그는 아무것도 염려하지 말고 오직 모든 일에 기도와 간구로 감사함으로 아뢰면, 하나님의 평강이 우리의 마음과 생각을 지키실 것이라고 약속합니다. 마지막으로 그는 빌립보 교회가 여러 번 선교 헌금을 보내준 것에 대해 깊이 감사하며, 자신은 어떤 형편에든지 자족하기를 배웠고, "내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라"(13절)는 위대한 신앙고백을 남깁니다.</p>
+                
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>그리스도인의 평강의 조건: 기도와 감사:</strong> 바울은 "아무 것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라"(6절)고 말합니다. 염려는 우리의 시선이 문제 자체에 고정될 때 생겨납니다. 바울이 제시하는 해답은 우리의 시선을 문제에서 하나님께로 옮기는 것입니다. '기도와 간구'는 우리의 필요를 하나님께 정직하게 아뢰는 것이며, '감사함으로' 아뢰는 것은 그 문제보다 크신 하나님께서 이미 이루셨고 앞으로 이루실 일들을 신뢰하는 믿음의 표현입니다. 이 믿음의 기도의 결과는 문제 해결 이전에 "모든 지각에 뛰어난 하나님의 평강이 그리스도 예수 안에서 너희 마음과 생각을 지키시리라"(7절)는 것입니다. 참된 평강은 문제가 없는 상태가 아니라, 문제 속에서도 우리를 지키시는 하나님을 신뢰하는 상태입니다.</li>
+                    <li><strong>자족의 비결과 그리스도의 능력:</strong> 바울은 "나는 비천에 처할 줄도 알고 풍부에 처할 줄도 알아 모든 일 곧 배부름과 배고픔과 풍부와 궁핍에도 처할 줄 아는 일체의 비결을 배웠노라"(12절)고 고백합니다. 여기서 '자족'은 금욕주의적인 자기 만족이 아니라, 환경을 초월하여 그리스도 한 분만으로 만족하는 법을 배운 것을 의미합니다. 이 자족은 "내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라"(13절)는 고백으로 이어집니다. 여기서 '모든 것'은 내가 원하는 모든 것을 할 수 있다는 의미가 아니라, 하나님께서 나에게 허락하신 모든 상황(비천이든 풍부든)을 감당하고 그 안에서 하나님의 뜻을 이룰 수 있다는 의미입니다. 이 능력의 근원은 내가 아닌, 내 안에 계신 그리스도이십니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="NT/NT_50_PHP_04.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="PHP_4" data-title="빌립보서 4장">성경 듣기</button>
+                </div>
+            </div>
+
+            <div class="chapter-card card-book3">
+                <h3>에스겔 43장: 여호와의 영광이 성전으로 돌아오다</h3>
+                <h4>상세 개요</h4>
+                <p>에스겔 43장은 새 성전 환상의 절정으로, 이전에 이스라엘의 죄 때문에 성전을 떠나셨던(겔 10-11장) 여호와의 영광이 다시 돌아오는 장엄한 장면을 묘사합니다. 에스겔은 동쪽 문을 통해 들어오는 이스라엘 하나님의 영광을 목격하는데, 그 소리는 많은 물 소리 같고 땅은 그 영광으로 빛났습니다. 그 모습은 그가 이전에 그발 강가와 예루살렘 멸망 시에 보았던 바로 그 영광이었습니다. 에스겔은 그 영광 앞에 엎드립니다. 여호와의 영광이 성전 안으로 들어가 가득하자, 성령이 그를 들어 안뜰로 인도하시고, 그는 성전 안에서 말씀하시는 하나님의 음성을 듣습니다. 하나님께서는 이 성전이 "내 보좌의 처소, 내 발을 두는 처소, 내가 이스라엘 족속 가운데에 영원히 있을 곳이라"(7절)고 선포하십니다. 이어서 하나님께서는 이스라엘이 다시는 우상숭배로 성전을 더럽히지 말 것을 명령하시며, 제단의 규례와 그곳에서 드릴 제사에 대해 자세히 지시하십니다.</p>
+                
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li>**하나님의 영광(카보드)의 귀환: 임마누엘의 회복:** 에스겔서의 가장 큰 비극은 이스라엘의 죄로 인해 여호와의 영광, 즉 '카보드'(כָּבוֹד)가 성전을 떠나는 장면이었습니다. 따라서 새 성전 환상의 클라이맥스는 바로 그 영광이 다시 돌아오는 것입니다. 이는 단순한 건물의 완공이 아니라, 죄로 인해 깨어졌던 하나님과 그의 백성 사이의 관계가 완전히 회복되는 것을 의미합니다. "내가... 영원히 있을 곳이라"는 하나님의 선포는 '임마누엘'(하나님이 우리와 함께 계시다) 약속의 완전한 성취에 대한 소망을 줍니다. 이는 구속사적으로, 말씀이 육신이 되어 우리 가운데 거하시매 우리가 그의 영광을 보니 아버지의 독생자의 영광이었던(요 1:14) 예수 그리스도를 통해 성취되었으며, 새 하늘과 새 땅에서 하나님의 장막이 사람들과 함께 있는(계 21:3) 최종적인 상태를 예표합니다.</li>
+                    <li><strong>회개의 조건으로서의 영광 체험:** 하나님께서는 에스겔에게 성전의 모든 규례를 보여주시며 "이스라엘 족속에게 이 성전을 보여 주어 그들이 자기의 죄악을 부끄러워하고"(10절)라고 말씀하십니다. 이는 참된 회개가 율법적 강요나 죄에 대한 두려움에서 시작되는 것이 아니라, 하나님의 압도적인 영광과 거룩함을 목격하는 데서 비롯됨을 보여줍니다. 이사야가 하나님의 영광을 보고 "화로다 나여 망하게 되었도다"(사 6:5)라고 부르짖었듯이, 하나님의 영광을 체험할 때 우리는 비로소 우리의 죄악이 얼마나 더러운지를 깨닫고 진정한 부끄러움과 회개에 이르게 됩니다. 그러므로 참된 부흥과 회복은 언제나 하나님의 영광의 나타남과 함께 시작됩니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="OT/OT_26_EZE_43.html">본문 보기</button>
+                    <button class="btn btn-listen" data-key="EZE_43" data-title="에스겔 43장">성경 듣기</button>
+                </div>
+            </div>
+
+            <div class="chapter-card card-book4">
+                <h3>시편 95편 & 96편: 창조주와 심판주께 드리는 예배</h3>
+                <h4>상세 개요</h4>
+                <p><b>시편 95편</b>은 예배로의 초대로 시작됩니다. "오라 우리가 여호와께 노래하며 우리의 구원의 반석을 향하여 즐거이 외치자"(1절). 시인은 하나님이 모든 신들보다 크신 왕이시며 땅의 깊은 곳과 산들의 높은 곳, 바다와 뭍을 모두 지으신 창조주이심을 찬양하며, 그분 앞에 엎드려 경배하자고 권면합니다. 그러나 후반부에서 분위기는 경고로 바뀝니다. 시인은 므리바와 맛사에서 하나님을 시험하고 완고하게 행했던 광야 세대의 실패를 상기시키며, "너희는... 너희의 마음을 완고하게 하지 말지어다"(8절)라고 경고합니다. 그들의 불순종은 결국 하나님의 안식에 들어가지 못하는 결과를 낳았습니다.<br><b>시편 96편</b>은 온 땅을 향해 여호와께 "새 노래"로 찬양하라고 명령하는 선교적인 찬양시입니다. 이방의 모든 신들은 헛것이지만 오직 여호와만이 하늘을 지으셨기에, 모든 민족은 영광과 권능을 여호와께 돌려야 합니다. 시인은 예물을 들고 그의 궁정에 들어가 거룩한 옷을 입고 여호와께 예배하라고 촉구합니다. 시는 모든 피조물(하늘, 땅, 바다, 밭, 숲의 나무들)이 장차 의와 진실로 세상을 심판하러 오실 왕 앞에서 즐거워하고 노래할 것을 선포하며 종말론적인 기쁨으로 끝을 맺습니다.</p>
+                
+                <h4>심층 신학적 해설</h4>
+                <ol>
+                    <li><strong>예배의 두 측면: 찬양과 경고 (시 95편):** 시편 95편은 참된 예배에 반드시 포함되어야 할 두 가지 요소를 보여줍니다. 첫째는 창조주요 구원자이신 하나님을 향한 기쁨의 찬양과 경배입니다. 둘째는 그 예배의 자리에서 하나님의 말씀을 듣고 마음을 완고하게 하지 말라는 엄중한 경고입니다. 예배는 단순히 우리의 감정을 표현하는 행위가 아니라, 하나님의 음성을 듣고 순종을 결단하는 자리입니다. 히브리서 3-4장은 이 시편을 인용하여, 오늘날 우리에게도 '하나님의 안식'에 들어갈 약속이 남아있으며, 광야 세대처럼 불순종으로 인해 그 안식에 들어가지 못하는 어리석음을 범하지 말라고 강력하게 경고합니다.</li>
+                    <li><strong>새 노래와 만민의 예배 (시 96편):** '새 노래'는 구약에서 하나님께서 행하신 새로운 구원 행위에 대한 응답으로 부르는 찬양을 의미합니다. 시편 96편은 이 새 노래를 이스라엘만이 아니라 '온 땅'과 '모든 민족'이 함께 부를 것을 명령합니다. 이는 하나님의 구원이 이스라엘의 경계를 넘어 온 세상으로 확장될 것을 예언하는 선교적 비전입니다. 이 비전의 근거는 여호와께서 "땅을 심판하러 임하실 것"(13절)이라는 종말론적 소망입니다. 장차 만물의 왕이신 그리스도께서 다시 오실 때, 모든 민족과 모든 피조물은 그분의 공의로운 통치 앞에 엎드려 경배하게 될 것입니다. 교회는 바로 이 미래의 우주적 예배를 오늘 여기서 미리 맛보고 선포하는 공동체입니다.</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button class="btn btn-view" data-path="OT/OT_19_PSA_095.html">시편 95편 보기</button>
+                    <button class="btn btn-listen" data-key="PSA_95" data-title="시편 95편">시편 95편 듣기</button>
+                    <button class="btn btn-view" data-path="OT/OT_19_PSA_096.html">시편 96편 보기</button>
+                    <button class="btn btn-listen" data-key="PSA_96" data-title="시편 96편">시편 96편 듣기</button>
+                </div>
+            </div>
+
+            <div class="integration-card">
+                <h2>통합 묵상: 하나님 말씀과 영광 앞에 선 인간</h2>
+                <h3>관통하는 주제 논증: 하나님의 계시에 대한 인간의 응답</h3>
+                <p>오늘의 네 본문은 하나님께서 자신을 '말씀'과 '영광'으로 계시하실 때, 인간이 어떻게 응답하는지를 극명하게 보여줍니다. 에스겔 43장은 이 계시의 정점을 보여줍니다. 떠나셨던 하나님의 영광이 새 성전으로 돌아오자 에스겔은 그 앞에 엎드릴 뿐입니다. 이 영광의 귀환은 하나님 나라의 완전한 회복에 대한 소망입니다. 시편 95편과 96편은 이 영광의 하나님께 마땅히 드려야 할 응답, 즉 '예배'를 촉구합니다. 우리는 그분을 창조주와 심판주로 인정하며 찬양하고, 그분의 말씀 앞에서 마음을 완고하게 하지 말아야 합니다. 그러나 인간은 이 계시 앞에서 어떻게 실패하는가? 열왕기상 13장은 하나님의 명백한 말씀을 받았던 '하나님의 사람'조차도, 인간적인 속임수에 넘어가 불순종으로 심판받는 비극을 보여줍니다. 그렇다면 이 연약한 인간이 어떻게 하나님 앞에서 온전한 응답의 삶을 살 수 있는가? 빌립보서 4장은 그 해답을 제시합니다. 그것은 바로 "내게 능력 주시는 자 안에서" 사는 것입니다. 염려 대신 기도로, 불평 대신 감사로, 교만 대신 자족으로 살아가는 삶은 오직 우리 안에 계신 그리스도의 능력을 통해서만 가능합니다. 결국 오늘의 본문들은, 하나님의 영광스러운 계시 앞에서 인간은 스스로의 힘으로는 온전히 순종할 수 없으며, 오직 그리스도 안에서 주어지는 능력과 평강을 통해서만 참된 예배와 순종의 삶을 살아갈 수 있음을 증거합니다.</p>
+
+                <h3>입체적 핵심 단어 연구: 평강 (εἰρήνη, 에이레네)</h3>
+                <p>빌립보서 4장 7절의 "하나님의 평강"(εἰρήνη, 에이레네)은 구약의 히브리어 '샬롬'(שָׁלוֹם)에 깊은 뿌리를 둔 개념입니다. '샬롬'이 단순히 갈등이 없는 상태를 넘어, 온전함, 건강, 번영, 안녕 등 총체적인 복의 상태를 의미하듯이, 신약의 '에이레네' 역시 단순한 마음의 평온함 이상의 의미를 가집니다. 성경적인 평강은 무엇보다 하나님과의 관계 회복에서 비롯됩니다. 우리는 본래 하나님의 진노 아래 있던 자들이었으나, 예수 그리스도의 십자가 피로 하나님과 화평(에이레네)을 이루게 되었습니다(롬 5:1). 바울이 말하는 '하나님의 평강'은 바로 이 객관적인 화목의 관계가 성도의 삶 속에서 주관적으로 경험되는 것입니다. 이 평강은 "모든 지각에 뛰어나"다고 묘사되는데, 이는 인간의 이해나 논리를 초월하는 신적인 평안임을 의미합니다. 세상이 주는 평안은 문제가 해결되어야 찾아오지만, 하나님의 평강은 문제가 여전한 상황 속에서도 "그리스도 예수 안에서 너희 마음과 생각을 지키시리라"고 약속됩니다. 이 평강은 염려를 기도로 바꿀 때 주어지는 하나님의 선물입니다.</p>
+                
+                <h3>심층 상호 참조</h3>
+                <ul>
+                    <li><strong>열왕기상 13:9, 21-22 & 시편 95:7-9:</strong> 열왕기상의 하나님의 사람은 "여호와께서... 떡도 먹지 말고 물도 마시지 말라"는 명백한 말씀을 받았지만, 결국 그 말씀을 어겨 죽임을 당합니다. 이는 시편 95편의 경고가 얼마나 실제적인지를 보여주는 역사적 예시입니다. "오늘 너희는 그의 음성을 듣거든... 너희 조상들이... 나를 시험하고 내가 행한 일을 보고서도 나를 시험하였도다". 두 본문 모두 하나님의 말씀을 듣고도 그 순간에 순종하지 않고 다른 생각이나 유혹에 마음을 여는 것이 얼마나 치명적인 결과를 낳는지를 강력하게 경고합니다.</li>
+                    <li><strong>에스겔 43:2, 7 & 시편 96:10, 13:</strong> 에스겔은 "이스라엘 하나님의 영광이 동쪽에서부터 오는데... 땅은 그 영광으로 말미암아 빛나니"라고 묘사하며, 하나님께서 "내가... 영원히 있을 곳이라"고 선포하시는 것을 듣습니다. 이는 하나님의 왕적 임재와 통치의 회복입니다. 시편 96편은 이 영광의 왕이 오실 때 온 세상이 어떻게 반응해야 하는지를 보여줍니다. "너희는 뭇 나라 가운데에서 이르기를 여호와께서는 다스리시니... 그가 만민을 공평하게 심판하시리라... 그가 임하시되 땅을 심판하러 임하실 것임이라". 에스겔의 환상이 이스라엘 중심의 회복을 보여준다면, 시편은 그 회복이 온 세상을 향한 우주적인 통치의 시작임을 노래하며 그 비전을 확장시킵니다.</li>
+                </ul>
+
+                <h3>적용을 위한 성찰 질문</h3>
+                <ol>
+                    <li>열왕기상의 하나님의 사람은 왕의 회유는 이겼지만, 동료 선지자의 거짓말에는 넘어갔습니다. 나의 신앙적 순종을 방해하는 가장 큰 유혹은 세상의 명백한 죄입니까, 아니면 경건의 모양을 가진 종교적인 타협이나 인간적인 관계입니까?</li>
+                    <li>빌립보서 4장은 "항상 기뻐하라"고 명령합니다. 최근 나에게서 기쁨을 앗아간 가장 큰 '염려'는 무엇이었습니까? 그 염려를 바울의 권면대로 '감사함으로 하나님께 아뢰는' 기도로 바꾸기 위해 오늘 구체적으로 무엇을 할 수 있습니까?</li>
+                    <li>하나님의 영광이 떠났던 성전에 다시 그 영광이 돌아오는 환상은 에스겔에게 큰 소망이었습니다. 나의 마음이라는 성전에 하나님의 임재의 영광이 충만합니까, 아니면 죄나 세상 염려로 인해 그 영광이 가려져 있습니까? 어떻게 그 영광을 회복할 수 있을까요?</li>
+                    <li>시편 95편은 "너희 마음을 완고하게 하지 말라"고 경고합니다. 최근 하나님의 말씀(설교, 성경 읽기 등)을 들을 때, 나의 마음은 부드러운 밭과 같았습니까, 아니면 완고한 길가 밭과 같았습니까? 내 마음을 완고하게 만드는 것은 무엇인지 생각해 봅시다.</li>
+                </ol>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
+        </footer>
+    </div>
+
+    <div id="bible-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <div id="audio-player" class="audio-player">
+        <div class="audio-player-info" id="player-info"></div>
+        <div class="audio-player-controls">
+            <button id="play-pause-btn">▶</button>
+            <button id="close-player-btn">✖</button>
+        </div>
+    </div>
+    <div id="youtube-player-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContainer = document.getElementById('main-container');
+            const bibleModal = document.getElementById('bible-modal');
+            const modalBody = document.getElementById('modal-body-content');
+            const closeModalBtn = document.querySelector('.modal-close-btn');
+            const audioPlayerBar = document.getElementById('audio-player');
+            const playerInfo = document.getElementById('player-info');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const closePlayerBtn = document.getElementById('close-player-btn');
+            
+            let ytPlayer;
+            let audioLinks = new Map();
+            let isPlayerReady = false;
+
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            window.onYouTubeIframeAPIReady = function() {
+                ytPlayer = new YT.Player('youtube-player-container', {
+                    height: '0',
+                    width: '0',
+                    events: {
+                        'onReady': () => { isPlayerReady = true; },
+                        'onStateChange': (event) => {
+                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
+                        }
+                    }
+                });
+            }
+
+            async function loadAudioLinks() {
+                try {
+                    const response = await fetch('../address/mcbible.txt');
+                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
+                    const text = await response.text();
+                    text.split('\n').forEach(line => {
+                        if (line.trim() !== '') {
+                            const parts = line.split(/\s+/);
+                            const fullKey = parts[0];
+                            const url = parts[1];
+                            const keyParts = fullKey.split('_'); 
+                            
+                            if (keyParts.length >= 3) {
+                                const book = keyParts[2];
+                                const chapter = parseInt(keyParts.at(-1), 10);
+                                const shortKey = `${book}_${chapter}`;
+                                audioLinks.set(shortKey, url);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('오디오 링크 로딩 오류:', error);
+                }
+            }
+            
+            function getYouTubeID(url) {
+                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                const match = url.match(regex);
+                return match ? match[1] : null;
+            }
+
+            mainContainer.addEventListener('click', async (e) => {
+                const target = e.target.closest('.btn');
+                if (!target) return;
+
+                if (target.classList.contains('btn-view')) {
+                    const path = target.dataset.path;
+                    bibleModal.style.display = 'block';
+                    modalBody.innerHTML = '<div class="spinner"></div>';
+                    try {
+                        const response = await fetch(`../bible_html/${path}`);
+                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
+                        const html = await response.text();
+                        modalBody.innerHTML = html;
+                    } catch (error) {
+                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
+                    }
+                }
+                
+                if (target.classList.contains('btn-listen')) {
+                    if (!isPlayerReady) {
+                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
+                        return;
+                    }
+                    if (audioLinks.size === 0) {
+                        await loadAudioLinks(); 
+                         if (audioLinks.size === 0) {
+                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
+                            return;
+                        }
+                    }
+                    const key = target.dataset.key;
+                    const title = target.dataset.title;
+                    const url = audioLinks.get(key);
+
+                    if (url) {
+                        const videoId = getYouTubeID(url);
+                        if (videoId) {
+                            ytPlayer.loadVideoById(videoId);
+                            playerInfo.textContent = `재생중: ${title}`;
+                            audioPlayerBar.classList.add('show');
+                        } else {
+                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
+                        }
+                    } else {
+                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
+                    }
+                }
+            });
+
+            function closeModal() {
+                bibleModal.style.display = 'none';
+                modalBody.innerHTML = '';
+            }
+
+            closeModalBtn.addEventListener('click', closeModal);
+            bibleModal.addEventListener('click', (e) => {
+                if (e.target === bibleModal) {
+                    closeModal();
+                }
+            });
+
+            playPauseBtn.addEventListener('click', () => {
+                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
+                const playerState = ytPlayer.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING) {
+                    ytPlayer.pauseVideo();
+                } else {
+                    ytPlayer.playVideo();
+                }
+            });
+
+            closePlayerBtn.addEventListener('click', () => {
+                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
+                    ytPlayer.stopVideo();
+                }
+                audioPlayerBar.classList.remove('show');
+            });
+            
+            loadAudioLinks();
+        });
+    </script>
+</body>
+</html>
