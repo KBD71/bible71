@@ -281,6 +281,252 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* 설정 패널 */
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1100;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .settings-panel.open {
+            right: 0;
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .settings-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .close-settings {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6c757d;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .close-settings:hover {
+            background: #f8f9fa;
+        }
+
+        .setting-group {
+            margin-bottom: 2rem;
+        }
+
+        .setting-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+
+        .font-size-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .font-btn {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .font-btn:hover {
+            background: #e9ecef;
+        }
+
+        .font-btn.active {
+            background: var(--color-card-book1);
+            color: white;
+            border-color: var(--color-card-book1);
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #ccc;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--color-card-book1);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(30px);
+        }
+
+        .settings-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1050;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .settings-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .settings-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1099;
+            display: none;
+        }
+
+        .settings-overlay.show {
+            display: block;
+        }
+
+        /* 다크 모드 */
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .container {
+            background-color: #1a1a1a;
+        }
+
+        .dark-mode .chapter-card,
+        .dark-mode .integration-card {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            border-left-color: inherit;
+        }
+
+        .dark-mode .tab-navigation {
+            background: #2d2d2d;
+            border-bottom-color: #444;
+        }
+
+        .dark-mode .tab-btn {
+            color: #a0a0a0;
+        }
+
+        .dark-mode .tab-btn.active {
+            color: var(--color-card-book1);
+        }
+
+        .dark-mode .tab-btn:hover {
+            background: rgba(66, 133, 244, 0.1);
+        }
+
+        .dark-mode .settings-panel {
+            background: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .settings-button {
+            background: #2d2d2d;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        .dark-mode .font-btn {
+            background: #3a3a3a;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+
+        .dark-mode .font-btn:hover {
+            background: #4a4a4a;
+        }
+
+        .dark-mode .close-settings:hover {
+            background: #3a3a3a;
+        }
+
+        .dark-mode .modal-content {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        .dark-mode footer {
+            background-color: #2d2d2d;
+            color: #a0a0a0;
+        }
+
+        /* 폰트 크기 클래스 */
+        .font-small {
+            font-size: 15px;
+        }
+
+        .font-medium {
+            font-size: 17px;
+        }
+
+        .font-large {
+            font-size: 19px;
+        }
+
+        .font-xlarge {
+            font-size: 21px;
+        }
+
         /* 모바일 최적화 */
         @media (max-width: 768px) {
             .tab-btn {
@@ -291,6 +537,18 @@
 
             .tab-container {
                 padding: 0 0.5rem;
+            }
+
+            .settings-panel {
+                width: 100%;
+                right: -100%;
+            }
+
+            .settings-button {
+                top: 10px;
+                right: 10px;
+                width: 45px;
+                height: 45px;
             }
         }
 
@@ -306,6 +564,51 @@
     </style>
 </head>
 <body>
+    <!-- 설정 버튼 -->
+    <button class="settings-button" id="settings-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+    </button>
+
+    <!-- 설정 오버레이 -->
+    <div class="settings-overlay" id="settings-overlay"></div>
+
+    <!-- 설정 패널 -->
+    <div class="settings-panel" id="settings-panel">
+        <div class="settings-header">
+            <h3 class="settings-title">읽기 설정</h3>
+            <button class="close-settings" id="close-settings">✕</button>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">폰트 크기</label>
+            <div class="font-size-controls">
+                <button class="font-btn" data-size="small">작게</button>
+                <button class="font-btn" data-size="medium">보통</button>
+                <button class="font-btn" data-size="large">크게</button>
+                <button class="font-btn" data-size="xlarge">매우크게</button>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">야간 모드</label>
+            <div class="theme-toggle">
+                <span>🌞 밝게</span>
+                <div class="toggle-switch" id="theme-toggle">
+                    <div class="toggle-slider"></div>
+                </div>
+                <span>🌙 어둡게</span>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">설정 정보</label>
+            <p style="font-size: 0.9rem; color: #6c757d; line-height: 1.5;">설정은 브라우저에 자동으로 저장되며, 다음에 방문했을 때 동일하게 적용됩니다.</p>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <h1>맥체인 성경읽기</h1>
@@ -673,6 +976,96 @@
                     });
                 });
             });
+
+            // 설정 관리
+            const settingsBtn = document.getElementById('settings-btn');
+            const settingsPanel = document.getElementById('settings-panel');
+            const settingsOverlay = document.getElementById('settings-overlay');
+            const closeSettings = document.getElementById('close-settings');
+            const fontButtons = document.querySelectorAll('.font-btn');
+            const themeToggle = document.getElementById('theme-toggle');
+
+            // 설정 저장/로드
+            function saveSettings() {
+                const settings = {
+                    fontSize: document.body.className.match(/font-(\w+)/)?.[1] || 'medium',
+                    darkMode: document.body.classList.contains('dark-mode')
+                };
+                localStorage.setItem('bible-reading-settings', JSON.stringify(settings));
+            }
+
+            function loadSettings() {
+                try {
+                    const saved = localStorage.getItem('bible-reading-settings');
+                    if (saved) {
+                        const settings = JSON.parse(saved);
+
+                        // 폰트 크기 적용
+                        document.body.className = document.body.className.replace(/font-\w+/g, '');
+                        document.body.classList.add(`font-${settings.fontSize}`);
+
+                        // 다크모드 적용
+                        if (settings.darkMode) {
+                            document.body.classList.add('dark-mode');
+                            themeToggle.classList.add('active');
+                        }
+
+                        // 버튼 상태 업데이트
+                        fontButtons.forEach(btn => {
+                            btn.classList.toggle('active', btn.dataset.size === settings.fontSize);
+                        });
+                    }
+                } catch (error) {
+                    console.log('설정 로드 실패:', error);
+                }
+            }
+
+            // 설정 패널 토글
+            function toggleSettings() {
+                const isOpen = settingsPanel.classList.contains('open');
+                settingsPanel.classList.toggle('open', !isOpen);
+                settingsOverlay.classList.toggle('show', !isOpen);
+            }
+
+            // 이벤트 리스너
+            settingsBtn.addEventListener('click', toggleSettings);
+            closeSettings.addEventListener('click', toggleSettings);
+            settingsOverlay.addEventListener('click', toggleSettings);
+
+            // 폰트 크기 조절
+            fontButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const size = button.dataset.size;
+
+                    // 기존 폰트 클래스 제거
+                    document.body.className = document.body.className.replace(/font-\w+/g, '');
+
+                    // 새 폰트 클래스 추가
+                    document.body.classList.add(`font-${size}`);
+
+                    // 버튼 상태 업데이트
+                    fontButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    saveSettings();
+                });
+            });
+
+            // 다크모드 토글
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                themeToggle.classList.toggle('active');
+                saveSettings();
+            });
+
+            // 초기 설정 로드
+            loadSettings();
+
+            // 기본 폰트 크기 설정 (medium)
+            if (!document.body.className.includes('font-')) {
+                document.body.classList.add('font-medium');
+                document.querySelector('[data-size="medium"]')?.classList.add('active');
+            }
 
             // Load everything
             loadAudioLinks();
