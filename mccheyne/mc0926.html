@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9월 26일 - 맥체인 성경읽기 2.0</title>
+    <title>9월 26일 - 맥체인 성경읽기 (최종 수정)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
 
@@ -173,7 +173,7 @@
         
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
 
         .audio-player {
             position: fixed;
@@ -229,7 +229,7 @@
                 </ol>
 
                 <div class="btn-group">
-                    <button class="btn btn-view" data-path="bible_html/OT/OT_09_2SA_22.html">본문 보기</button>
+                    <button class="btn btn-view" data-path="OT/OT_09_2SA_22.html">본문 보기</button>
                     <button class="btn btn-listen" data-key="2SA_22" data-title="사무엘하 22장">성경 듣기</button>
                 </div>
             </div>
@@ -247,7 +247,7 @@
                 </ol>
 
                 <div class="btn-group">
-                    <button class="btn btn-view" data-path="bible_html/NT/NT_11_GAL_02.html">본문 보기</button>
+                    <button class="btn btn-view" data-path="NT/NT_11_GAL_02.html">본문 보기</button>
                     <button class="btn btn-listen" data-key="GAL_2" data-title="갈라디아서 2장">성경 듣기</button>
                 </div>
             </div>
@@ -264,7 +264,7 @@
                 </ol>
 
                 <div class="btn-group">
-                    <button class="btn btn-view" data-path="bible_html/OT/OT_26_EZK_29.html">본문 보기</button>
+                    <button class="btn btn-view" data-path="OT/OT_26_EZK_29.html">본문 보기</button>
                     <button class="btn btn-listen" data-key="EZK_29" data-title="에스겔 29장">성경 듣기</button>
                 </div>
             </div>
@@ -281,7 +281,7 @@
                 </ol>
 
                 <div class="btn-group">
-                    <button class="btn btn-view" data-path="bible_html/OT/OT_19_PSA_78.html">본문 보기</button>
+                    <button class="btn btn-view" data-path="OT/OT_19_PSA_78.html">본문 보기</button>
                     <button class="btn btn-listen" data-key="PSA_78" data-title="시편 78편">성경 듣기</button>
                 </div>
             </div>
@@ -363,17 +363,26 @@
                 });
             }
 
-            // 2. Fetch and parse mcbible.txt
+            // 2. Fetch and parse mcbible.txt with CORRECTED key parsing logic
             async function loadAudioLinks() {
                 try {
-                    const response = await fetch('address/mcbible.txt');
+                    const response = await fetch('../address/mcbible.txt');
                     if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
                     const text = await response.text();
                     text.split('\n').forEach(line => {
                         if (line.trim() !== '') {
-                            const [key, url] = line.split(/\s+/);
-                            if (key && url) {
-                                audioLinks.set(key, url);
+                            const parts = line.split(/\s+/);
+                            const fullKey = parts[0];
+                            const url = parts[1];
+                            const keyParts = fullKey.split('_'); 
+                            
+                            // *** THIS IS THE CRITICAL FIX ***
+                            // Check if the key has at least 3 parts (e.g., [OT, 09, 2SA, 22] or [NT, 11, GAL, 02])
+                            if (keyParts.length >= 3) {
+                                const book = keyParts[2];
+                                const chapter = parseInt(keyParts.at(-1), 10);
+                                const shortKey = `${book}_${chapter}`;
+                                audioLinks.set(shortKey, url);
                             }
                         }
                     });
@@ -399,7 +408,7 @@
                     bibleModal.style.display = 'block';
                     modalBody.innerHTML = '<div class="spinner"></div>';
                     try {
-                        const response = await fetch(path);
+                        const response = await fetch(`../bible_html/${path}`);
                         if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
                         const html = await response.text();
                         modalBody.innerHTML = html;
@@ -415,8 +424,11 @@
                         return;
                     }
                     if (audioLinks.size === 0) {
-                        alert('오디오 목록을 불러오지 못했습니다. 파일을 확인해주세요.');
-                        return;
+                        await loadAudioLinks(); 
+                         if (audioLinks.size === 0) {
+                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
+                            return;
+                        }
                     }
                     const key = target.dataset.key;
                     const title = target.dataset.title;
@@ -432,7 +444,7 @@
                             alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
                         }
                     } else {
-                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다.`);
+                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
                     }
                 }
             });
