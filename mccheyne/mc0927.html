@@ -83,12 +83,7 @@
         .card-content h4 { font-family: var(--font-heading); font-size: 1.1rem; color: #343a40; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
         .card-content p { font-size: 17px; margin-bottom: 1.5em; }
 
-        /* 해설 내 항목 제목 스타일 강화 */
-        .card-content p > strong:first-child, .card-content li > strong:first-child {
-            color: #1a5c9a;
-            font-weight: 700;
-            margin-right: 0.3em;
-        }
+        .card-content p > strong:first-child, .card-content li > strong:first-child { color: #1a5c9a; font-weight: 700; margin-right: 0.3em; }
 
         .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
         .scripture-quote::before { content: " “"; }
@@ -165,7 +160,7 @@
             </nav>
 
             <main>
-                <div id="content-book1" class="tab-content">
+                <div id="content-book1" class="tab-content active">
                     <article class="chapter-card card-book1">
                         <div class="card-content">
                             <h3>사무엘하 23장: 다윗의 마지막 노래와 용사들의 명단</h3>
@@ -325,8 +320,6 @@
                 loadCompletionStatus();
                 updateFloatingNav();
                 updateReadingProgress();
-                const firstContent = document.querySelector('.tab-content.active');
-                if (firstContent) setTimeout(() => firstContent.style.opacity = 1, 100);
             }
 
             function initYouTubeAPI() {
@@ -336,6 +329,7 @@
                 window.onYouTubeIframeAPIReady = () => {
                     ytPlayer = new YT.Player('player-container', {
                         height: '60', width: '300',
+                        playerVars: { 'autoplay': 1, 'controls': 1, 'rel': 0, 'fs': 0 },
                         events: { 'onReady': () => { isPlayerReady = true; } }
                     });
                 };
@@ -348,10 +342,12 @@
                     const text = await response.text();
                     text.split('\n').forEach(line => {
                         if (line.trim()) {
-                            const [longKey, url] = line.split(',');
+                            const parts = line.trim().split(/\s+/);
+                            const longKey = parts[0];
+                            const url = parts[1];
                             if (longKey && url) {
                                 const shortKey = longKey.split('_').slice(-2).join('_');
-                                audioKeyMap.set(shortKey, url.trim());
+                                audioKeyMap.set(shortKey, url);
                             }
                         }
                     });
@@ -395,10 +391,9 @@
                 if (index < 0 || index >= tabs.buttons.length) return;
                 tabs.currentIndex = index;
                 tabs.buttons.forEach(btn => btn.classList.remove('active'));
-                tabs.contents.forEach(content => { content.classList.remove('active'); content.style.opacity = 0; });
+                tabs.contents.forEach(content => { content.classList.remove('active'); });
                 tabs.buttons[index].classList.add('active');
                 tabs.contents[index].classList.add('active');
-                setTimeout(() => tabs.contents[index].style.opacity = 1, 50);
                 window.scrollTo({ top: 0, behavior: 'auto' });
                 updateFloatingNav();
                 setTimeout(updateReadingProgress, 150);
@@ -417,6 +412,9 @@
                 if (url) {
                     const videoId = getYouTubeID(url);
                     if (videoId) {
+                        if (document.getElementById('player-container').style.display === 'none') {
+                            document.getElementById('player-container').style.display = 'block';
+                        }
                         ytPlayer.loadVideoById(videoId);
                         nav.container.classList.add('hidden');
                         audioPlayer.container.classList.add('visible');
