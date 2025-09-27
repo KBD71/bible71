@@ -3,636 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10월 12일 - 맥체인 성경읽기</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
-
-        :root {
-            --font-serif: 'KoPub Batang', serif;
-            --font-sans-serif: 'Pretendard', sans-serif;
-            
-            --color-text: #343a40;
-            --color-background: #f8f9fa;
-            --color-card-bg: #ffffff;
-            --color-border: #dee2e6;
-            --color-muted: #868e96;
-
-            --color-book1: #4285F4;
-            --color-book2: #DB4437;
-            --color-book3: #c89200;
-            --color-book4: #0F9D58;
-            --color-integration: #5f6368;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-serif);
-            font-size: 17px;
-            line-height: 1.8;
-            color: var(--color-text);
-            background-color: var(--color-background);
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1280px;
-        }
-
-        header, main {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-family: var(--font-sans-serif);
-            font-size: clamp(2.2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin: 0.5em 0;
-            color: #212529;
-        }
-        
-        h3 {
-            font-family: var(--font-sans-serif);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        h4 {
-            font-family: var(--font-sans-serif);
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--color-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-top: 0;
-            margin-bottom: 1.5em;
-        }
-        p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .chapter-card, .integration-card {
-            background-color: var(--color-card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 3.5rem;
-            padding: 2rem 2.5rem;
-            border-left: 8px solid;
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-card:hover, .integration-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .card-book1 { border-color: var(--color-book1); }
-        .card-book1 h3 { color: var(--color-book1); }
-        .card-book2 { border-color: var(--color-book2); }
-        .card-book2 h3 { color: var(--color-book2); }
-        .card-book3 { border-color: var(--color-book3); }
-        .card-book3 h3 { color: var(--color-book3); }
-        .card-book4 { border-color: var(--color-book4); }
-        .card-book4 h3 { color: var(--color-book4); }
-        .integration-card { border-color: var(--color-integration); }
-        .integration-card h3 { color: var(--color-integration); }
-
-        .btn-group {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            font-family: var(--font-sans-serif);
-            padding: 0.6em 1.2em;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            color: white;
-        }
-
-        .btn-view { background-color: #343a40; }
-        .btn-listen { background-color: var(--color-integration); }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.15);
-        }
-        .btn:active {
-            transform: translateY(0);
-            filter: brightness(0.95);
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background-color: var(--color-card-bg);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 800px;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-        
-        .modal-close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .modal-close-btn:hover {
-            color: #333;
-        }
-
-        .modal-body {
-             max-height: 70vh;
-             overflow-y: auto;
-             font-size: 18px;
-             line-height: 2;
-        }
-        
-        .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 100px auto;
-        }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
-
-        .audio-player {
-            position: fixed;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 500px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: bottom 0.3s ease-in-out;
-            z-index: 1001;
-        }
-        .audio-player.show { bottom: 0; }
-        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
-        .audio-player-controls button:hover { color: #bdc3c7; }
-        #youtube-player-container { display: none; }
-
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--color-border);
-            color: #6c757d;
-        }
-
-        /* 간단한 탭 네비게이션 */
-        .simple-tabs {
-            position: sticky;
-            top: 0;
-            background: white;
-            border-bottom: 2px solid var(--color-border);
-            z-index: 100;
-            margin-bottom: 2rem;
-            padding: 1rem 0;
-        }
-
-        .tab-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-button {
-            background: none;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-muted);
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            min-width: 120px;
-        }
-
-        .tab-button:hover {
-            background: rgba(66, 133, 244, 0.1);
-            color: var(--color-book1);
-        }
-
-        .tab-button.active {
-            background: var(--color-book1);
-            color: white;
-            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 모바일 최적화 */
-        @media (max-width: 768px) {
-            .tab-buttons {
-                gap: 1rem;
-            }
-
-            .tab-button {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-                min-width: 100px;
-            }
-        }
-    </style>
+    <title>10월 12일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" id="main-container">
-        <header>
-            <h1>10월 12일</h1>
-            <p>하나님의 신실함과 인간의 불신실함</p>
-        </header>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
-        <!-- 간단한 탭 네비게이션 -->
-        <div class="simple-tabs">
-            <div class="tab-buttons">
-                <button class="tab-button active" data-tab="bible">성경 본문</button>
-                <button class="tab-button" data-tab="meditation">묵상</button>
-                <button class="tab-button" data-tab="integration">통합 묵상</button>
-            </div>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>10월 12일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-book1" data-color="book1">열왕기상 15장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">골로새서 2장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">에스겔 45장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">시편 99-101편</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+            </nav>
+
+            <main>
+                <div id="content-book1" class="tab-content active">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>열왕기상 15장: 분열 왕국의 죄악과 작은 개혁</h3>
+                            <h4>상세 개요</h4>
+                            <p>남유다와 북이스라엘의 역사가 교차하며 기록됩니다. 유다에서는 르호보암의 아들 아비얌이 왕이 되어 악을 행하지만, 다윗과의 언약 때문에 명맥을 유지합니다. 그의 아들 아사는 왕이 되어 우상숭배를 타파하고 산당을 제거하는 등 종교개혁을 단행하여 여호와 보시기에 정직하게 행합니다. 그러나 아람 왕의 침공 앞에서는 성전의 금은을 의지하여 위기를 모면하는 실책을 범합니다. 북이스라엘에서는 여로보암의 아들 나답이 악을 행하다가 바아사에게 반역으로 살해당하고, 바아사는 여로보암의 온 집안을 멸절시켜 아히야 선지자의 예언을 성취시킵니다. 그러나 바아사 자신도 여로보암의 죄악된 길을 그대로 따라 걷습니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 다윗 언약의 신실성과 '온전한 마음':</strong> 유다 왕 아비얌이 악했음에도 불구하고 하나님께서 <span class="scripture-quote">다윗을 위하여 예루살렘에서 그의 아들을 세워 뒤를 잇게 하사... 등불을 주셨으니</span>(4절)라는 구절은, 왕국의 유지가 인간의 의로움이 아닌 하나님의 언약적 신실성에 근거함을 보여줍니다. 반면 그의 아들 아사는 <span class="scripture-quote">그의 마음이 일평생 여호와 앞에 온전하였더라</span>(14절)고 평가받습니다. 여기서 '온전함'은 무죄함이 아니라, 분열되지 않고 오직 여호와 한 분만을 향한 마음의 중심을 의미합니다. 이는 하나님께서 우리에게 요구하시는 신앙의 핵심 자세입니다.</p>
+                            <p><strong>2. 개혁의 성공과 한계:</strong> 아사의 종교개혁은 우상을 제거하는 등 매우 과감했지만, 위기의 순간에 하나님 대신 이방 왕과 성전의 재물을 의지하는 한계를 드러냅니다. 이는 인간의 개혁이 얼마나 불완전할 수 있는지를 보여줍니다. 또한 북이스라엘의 바아사는 하나님의 심판의 도구로 사용되어 여로보암의 집을 멸했지만, 정작 자신은 그 죄를 반복합니다. 이는 외부적인 악을 제거하는 것을 넘어, 우리 내면의 죄성을 해결할 수 있는 완전한 개혁자, 예수 그리스도가 왜 필요한지를 역설적으로 증거합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_11_1KI_15.html" data-title="열왕기상 15장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="1KI_15" data-title="열왕기상 15장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>골로새서 2장: 그리스도 안에 모든 보화가 감추어져 있느니라</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 골로새 교인들이 철학과 헛된 속임수, 즉 율법주의(할례, 절기), 천사 숭배, 금욕주의와 같은 인간의 전통과 초등학문에 빠질 것을 경고합니다. 그는 이 모든 것이 그림자일 뿐이며, 실체는 그리스도라고 선포합니다. "그 안에는 신성의 모든 충만이 육체로 거하시고 너희도 그 안에서 충만하여졌으니"라고 말하며, 그리스도의 충족성을 강력하게 변증합니다. 우리는 그리스도와 함께 세례를 통해 장사되고, 그와 함께 다시 살아났으며, 우리를 거스르던 율법 조문을 십자가에 못 박아 무력화시키셨으므로, 더 이상 헛된 규례에 얽매일 필요가 없다고 가르칩니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 그리스도의 충족성(Sufficiency of Christ):</strong> <span class="scripture-quote">그 안에는 신성의 모든 충만이 육체로 거하시고 너희도 그 안에서 충만하여졌으니</span>(9-10절)라는 말씀은 이 장의 핵심입니다. 구원을 위해 그리스도 외에 다른 어떤 것이나 지식, 행위가 필요하다고 가르치는 것은 모두 '헛된 속임수'입니다. 하나님의 모든 지혜와 지식의 보화는 오직 그리스도 한 분 안에 감추어져 있습니다. 따라서 우리의 신앙은 그리스도만으로 충분하며, 그분께 깊이 뿌리를 내리고 세움을 받아야 합니다.</p>
+                            <p><strong>2. 십자가의 승리:</strong> 바울은 십자가의 의미를 놀라운 이미지로 설명합니다. <span class="scripture-quote">우리를 거스르고 불리하게 하는 법조문으로 쓴 증서를 지우시고 제하여 버리사 십자가에 못 박으시고 통치자들과 권세들을 무력화하여 드러내어 구경거리로 삼으시고 십자가로 그들을 이기셨느니라</span>(14-15절). 십자가는 단순히 우리의 죄 값을 치른 장소일 뿐만 아니라, 율법의 정죄와 사탄의 권세를 완전히 패배시킨 승리의 선포 장소입니다. 우리는 더 이상 율법이나 악한 영들의 지배 아래 있지 않고, 승리하신 왕의 백성이 되었습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_51_COL_02.html" data-title="골로새서 2장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="COL_2" data-title="골로새서 2장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>에스겔 45장: 거룩한 땅의 분배와 공의로운 통치</h3>
+                            <h4>상세 개요</h4>
+                            <p>새 이스라엘 공동체가 회복될 때, 땅을 분배하는 방식에 대한 규례가 주어집니다. 가장 먼저, 가장 좋은 땅의 중심부를 '거룩한 예물'로 구별하여 여호와께 드립니다. 이 구별된 땅 안에는 성소가 위치할 제사장들의 구역과 레위인들의 구역, 그리고 성읍의 구역이 포함됩니다. 왕(통치자)의 땅은 이 거룩한 구역의 양옆으로 분배됩니다. 이어서 하나님은 통치자들에게 "포악과 겁탈을 그치고 정의와 공의를 행하여 내 백성에게서 속여 빼앗는 것을 그칠지니라"고 명령하시며, 공정한 저울과 도량형을 사용할 것을 규정하십니다. 마지막으로 백성들이 드릴 예물과 절기(유월절, 초막절)에 드릴 제사에 대한 규례가 주어집니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님 중심의 질서(Theocentric Order):</strong> 땅 분배 방식은 하나님 나라의 가치 체계를 보여줍니다. 가장 중심이 되고 가장 좋은 땅은 성전과 그것을 섬기는 자들을 위해 '먼저' 구별됩니다. 왕의 소유는 이 거룩한 구역을 중심으로 결정됩니다. 이는 국가의 모든 질서와 경제 활동의 중심에 하나님을 향한 예배와 섬김이 있어야 함을 상징적으로 보여줍니다. 세상 나라는 정치와 경제가 중심이지만, 하나님 나라는 예배가 중심입니다.</p>
+                            <p><strong>2. 사회적 공의와 통치자의 의무:</strong> <span class="scripture-quote">너희 통치자들아 너희에게 만족하니라 너희는 포악과 겁탈을 그치고 정의와 공의를 행하라</span>(9절)는 명령은 예배의 거룩함이 반드시 사회적 공의로 이어져야 함을 보여줍니다. 참된 경건은 성전 안에서만 머무는 것이 아니라, 시장에서 '공정한 저울'을 사용하는 삶의 모든 영역으로 확장되어야 합니다. 통치자는 백성을 섬기고 보호할 책임을 위임받은 자이며, 약자를 압제하는 것은 하나님께 대한 도전입니다. 이는 구원받은 백성이 세상 속에서 빛과 소금으로 살아가야 할 윤리적 책임을 강조합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_26_EZE_45.html" data-title="에스겔 45장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_45" data-title="에스겔 45장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>시편 99-101편: 거룩하신 왕을 섬기는 자세</h3>
+                            <h4>상세 개요</h4>
+                            <p>세 편의 시는 모두 거룩하시고 공의로우신 왕 여호와를 어떻게 섬겨야 하는지를 노래합니다. 시편 99편은 그룹 사이에 좌정하신 왕의 위엄을 찬양하며 "그는 거룩하시도다"를 반복합니다. 그는 공평을 사랑하시고 기도에 응답하시는 분이시기에, 백성은 그를 높이고 경배해야 합니다. 시편 100편은 "온 땅이여 여호와께 즐거운 찬송을 부를지어다"라고 초청하며, 기쁨과 감사로 그를 섬기고 예배하라고 노래합니다. 그는 우리의 창조주이시며 목자이시고, 그의 인자하심과 성실하심은 영원합니다. 시편 101편은 왕(다윗으로 추정)의 결단시로, 자신이 완전한 길을 걷고 정직하게 행하며, 악한 자와 교만한 자를 자기 앞에서 끊어버림으로 그의 집과 나라를 거룩하게 보존할 것을 다짐합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 거룩함(Holiness)과 예배:</strong> <span class="scripture-quote">너희는 너희 하나님 여호와를 높이고 그 성산에서 예배할지어다 너희 하나님 여호와는 거룩하심이로다</span>(99:9). 하나님의 '거룩'은 그의 모든 속성을 아우르는 본질적인 성품으로, 죄와 구별되는 절대적인 순결함과 초월성을 의미합니다. 따라서 우리의 예배는 하나님의 이 거룩하심에 대한 경외감에서 시작되어야 합니다. 즐거움과 감사(시 100) 역시 이 경외감을 바탕으로 할 때 참된 예배가 됩니다.</p>
+                            <p><strong>2. 통치자의 자기 성찰과 결단(시편 101편):</strong> 이 시편은 '군주의 거울'이라 불리며, 하나님을 섬기는 지도자의 윤리 강령을 보여줍니다. 왕은 '인자와 정의'를 노래하겠다고 다짐하며, 자신의 개인적인 삶('내 집')에서부터 통치 영역('이 땅')에 이르기까지 악을 용납하지 않겠다는 거룩한 결단을 합니다. <span class="scripture-quote">악을 행하는 자는 내 집 안에 머무르지 못하며 거짓말하는 자는 내 목전에 서지 못하리로다</span>(7절). 이는 하나님의 거룩한 통치를 위임받은 자가 마땅히 가져야 할 자세이며, 참된 왕이신 그리스도의 완전한 통치를 대망하게 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_99.html" data-title="시편 99-101편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_99" data-title="시편 99-101편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>통합 묵상: 그림자를 넘어 실체이신 왕을 섬기는 삶</h3>
+                            <h4>관통하는 주제</h4>
+                            <p>오늘의 본문들은 '참된 왕을 섬기는 삶'이 무엇인지를 '그림자'와 '실체'의 선명한 대조를 통해 보여줍니다. 열왕기상 15장의 아사와 바아사는 불완전한 그림자입니다. 아사는 개혁을 시도했지만 결국 사람을 의지했고, 바아사는 심판의 도구였지만 자신도 죄의 길을 걸었습니다. 에스겔 45편과 시편 99-101편은 이 그림자를 넘어 우리가 섬겨야 할 왕의 나라가 어떤 곳인지를 보여줍니다. 그 나라는 하나님 중심의 질서 위에 서 있고(겔 45), 그 왕은 절대적으로 거룩하시며(시 99), 그를 섬기는 자들은 기쁨과 감사로 나아가며(시 100) 악을 멀리해야 합니다(시 101). 그렇다면 이 모든 그림자와 이상은 어떻게 현실이 됩니까? 골로새서 2장은 마침내 '실체'를 보여줍니다. 실체는 바로 그리스도이십니다. 그는 신성의 모든 충만이 거하시는 분이며, 우리는 그분 안에서 모든 것을 얻었습니다. 인간의 불완전한 개혁(아사), 헛된 규례와 철학은 모두 그림자일 뿐입니다. 우리는 이제 십자가로 승리하신 실체이신 왕, 그리스도 한 분만으로 충만한 삶을 살도록 부름받았습니다.</p>
+                            <h4>핵심 개념 및 상호 참조</h4>
+                            <p><strong>왕의 통치 방식:</strong> 시편 101편에서 다윗 왕은 악을 제거하고 공의를 세움으로 나라를 다스리겠다고 결단합니다. 이는 에스겔 45장에서 하나님께서 통치자에게 요구하신 '정의와 공의'와 일치합니다. 그러나 열왕기상 15장의 왕들은 이 기준에 미치지 못하고 실패합니다. 이 모든 인간 왕들의 불완전한 통치는, 십자가로 모든 악의 권세를 무력화시키시고(골 2:15) 사랑으로 다스리시는 그리스도의 완전한 통치를 대망하게 합니다.</p>
+                            <p><strong>그림자와 실체:</strong> 골로새서 2장은 절기, 음식 규례 등을 '장래 일의 그림자'라고 말하며 <span class="scripture-quote">몸은 그리스도의 것이니라</span>(17절)고 선포합니다. 이 원리는 오늘 본문 전체에 적용될 수 있습니다. 아사의 개혁, 에스겔의 토지 분배 규례, 시편의 왕의 결단 등은 모두 장차 올 하나님 나라의 '그림자'입니다. 우리는 더 이상 그림자에 얽매이지 않고, 실체이신 그리스도께 뿌리를 내리고 그분 안에서 충만함을 누려야 합니다.</p>
+                            <h4>삶으로의 적용</h4>
+                            <ul>
+                                <li><strong>지(知):</strong> 나는 나의 구원과 신앙 성장을 위해 그리스도 외에 다른 어떤 것(특정한 영적 체험, 인간의 가르침, 종교적 행위)이 더 필요하다고 느끼고 있지는 않습니까? 골로새서 2장의 말씀처럼, 그리스도 한 분만으로 '충만'하다는 진리를 온전히 믿고 있습니까?</li>
+                                <li><strong>정(情):</strong> 시편 100편의 저자처럼, 하나님을 섬기는 것을 의무가 아닌 '기쁨'과 '즐거움'으로 여기고 있습니까? 아니면 열왕기상의 왕들처럼, 하나님의 뜻보다 세상의 방법(정치적 동맹, 물질)을 의지할 때 마음의 평안을 느끼지는 않습니까?</li>
+                                <li><strong>의(意):</strong> 시편 101편의 다윗처럼, 오늘 내가 거룩한 왕의 백성으로서 내 삶의 영역(가정, 직장, 온라인 공간)에서 끊어내기로 결단해야 할 '악한 일'과 '거짓말'은 무엇입니까? 또한 에스겔 45장의 명령처럼, 나의 일상적인 경제 활동에서 '공정한 저울'을 실천하기 위해 구체적으로 무엇을 해야 할지 결단합시다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
-
-        <main>
-            <!-- 성경 본문 탭 -->
-            <div class="tab-content active" id="bible">
-            <div class="chapter-card card-book1">
-                <h3>열왕기상 15장: 유다와 이스라엘의 왕들</h3>
-                <h4>상세 개요</h4>
-                <p>열왕기상 15장은 남 유다의 아비얌과 아사, 그리고 북 이스라엘의 나답과 바아사의 통치를 교차하며 보여줍니다. 아비얌은 르호보암의 아들로 3년간 유다를 다스렸으나, 그의 아버지처럼 죄를 행하고 다윗과 같이 하나님 앞에서 온전하지 못했습니다. 그러나 하나님께서는 다윗을 위하여 예루살렘에 등불(왕조)을 이어가게 하십니다. 그의 아들 아사는 41년간 유다를 다스리며 종교 개혁을 단행합니다. 그는 남색하는 자들을 쫓아내고 모든 우상을 없앴으며, 심지어 우상을 만든 태후 마아가를 폐위시키는 등 다윗과 같이 정직하게 행했습니다. 그러나 그는 이스라엘 왕 바아사가 공격해오자, 성전과 왕궁의 은금을 아람 왕에게 보내 도움을 요청하는 불신앙적인 모습을 보이기도 합니다. 북 이스라엘에서는 여로보암의 아들 나답이 왕이 되지만, 2년 만에 그의 신하 바아사에게 반역으로 살해당하고, 바아사는 여로보암의 온 집안을 멸절시켜 선지자 아히야의 예언을 성취시킵니다. 그러나 바아사 자신도 여로보암의 길을 따라 악을 행합니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>다윗의 등불: 하나님의 언약적 신실함:</strong> 아비얌 왕은 "그의 마음이 그의 조상 다윗의 마음과 같지 아니하여 그의 하나님 여호와 앞에 온전하지 못하였으나 그의 하나님 여호와께서 다윗을 위하여 예루살렘에서 그에게 등불을 주셨다"(3-4절)고 기록됩니다. 이는 남 유다 왕조가 유지되는 근거가 왕들의 자격이나 의로움이 아니라, 오직 다윗과 맺으신 하나님의 일방적이고 은혜로운 언약에 있음을 보여주는 강력한 증거입니다. '등불'은 다윗의 왕위가 끊어지지 않고 계속 이어질 것을 상징합니다. 인간 왕들은 계속해서 실패하고 죄를 짓지만, 하나님께서는 당신의 신실하심 때문에 약속을 지켜나가십니다. 이 언약의 빛은 결국 세상의 참된 빛이시며 다윗의 완전한 후손이신 예수 그리스도를 통해 영원히 꺼지지 않는 등불로 성취됩니다.</li>
-                    <li><strong>개혁의 불완전성과 인간의 한계:</strong> 아사 왕은 "다윗 같이... 정직하게 행하여"(11절) 우상을 타파하는 등 담대한 종교 개혁을 이끌었던 선한 왕으로 평가받습니다. 그러나 그조차도 "다만 산당은 없애지 아니하니라"(14절)는 한계를 보였고, 결정적으로 위기의 순간에 하나님이 아닌 아람 왕을 의지하는 불신앙을 보였습니다. 이는 인간의 개혁이 아무리 선하다 할지라도 불완전할 수밖에 없음을 보여줍니다. 참된 개혁은 외부적인 우상을 제거하는 것을 넘어, 위기의 순간에도 오직 하나님만을 신뢰하는 내면의 믿음으로 완성됩니다. 아사의 실패는 우리에게 인간적인 노력만으로는 온전한 신앙에 이를 수 없으며, 모든 순간 하나님의 도우심과 은혜를 구해야 함을 가르칩니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_11_1KI_15.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="1KI_15" data-title="열왕기상 15장">성경 듣기</button>
-                </div>
-            </div>
-
-            <div class="chapter-card card-book2">
-                <h3>골로새서 2장: 그리스도 안에 있는 모든 보화</h3>
-                <h4>상세 개요</h4>
-                <p>골로새서 2장은 골로새 교회를 위협하는 거짓 가르침에 대한 바울의 강력한 경고와 변증을 담고 있습니다. 그는 골로새 성도들이 "사랑 가운데서 연합하여... 하나님의 비밀인 그리스도를 깨닫게 하려 함"(2절)이라고 자신의 간절한 소망을 밝힙니다. 이어서 "그 안에는 지혜와 지식의 모든 보화가 감추어져 있느니라"(3절)고 선포하며, 그리스도 한 분만으로 충분함을 역설합니다. 그는 성도들에게 그리스도 안에 뿌리를 박고 세움을 받아 믿음에 굳게 서라고 권면하며, 세상의 철학과 헛된 속임수, 즉 '사람의 전통과 세상의 초등학문'을 따르지 말라고 경고합니다. 그리스도 안에는 신성의 모든 충만이 육체로 거하시고, 성도들은 그 안에서 충만하여졌습니다. 또한 우리는 손으로 행하지 않은 '그리스도의 할례', 즉 죄의 몸을 벗는 세례를 통해 그리스도와 함께 장사되고 함께 일으키심을 받았습니다. 하나님께서는 우리를 거스르는 법조문을 지우시고 십자가에 못 박으셨으며, 모든 통치자들과 권세들을 무력화하여 십자가로 승리하셨습니다. 그러므로 먹고 마시는 것, 절기, 안식일 같은 율법의 그림자에 얽매이지 말고, 오직 몸의 머리이신 그리스도를 붙들어야 합니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>그리스도의 충만함과 성도의 충만함 (Pleroma):** 바울은 "그 안에는 신성의 모든 충만(πλήρωμα, 플레로마)이 육체로 거하시고 너희도 그 안에서 충만하여졌으니"(9-10절)라고 선언합니다. '플레로마'는 '가득 참, 완전함'을 의미하며, 하나님의 모든 본질과 속성이 남김없이 그리스도 안에 거하심을 뜻합니다. 당시 이단들은 천사 숭배나 신비적인 지식을 통해 점진적으로 신적인 충만에 이를 수 있다고 가르쳤습니다. 그러나 바울은 그리스도 한 분 안에 이미 모든 신적 충만이 있으며, 우리가 믿음으로 그분과 연합할 때 우리 역시 '그 안에서 충만하여진다'고 선포합니다. 구원을 위해 그리스도 외에 다른 어떤 철학이나 신비체험, 율법 준수가 필요하지 않다는 '오직 그리스도'(Solus Christus)의 원리를 강력하게 변증하는 것입니다.</li>
-                    <li>**십자가의 승리:** 바울은 십자가의 의미를 "우리를 거스르고 불리하게 하는 법조문으로 쓴 증서를 지우시고 제하여 버리사 십자가에 못 박으시고 통치자들과 권세들을 무력화하여 드러내어 구경거리로 삼으시고 십자가로 그들을 이기셨느니라"(14-15절)는 놀라운 이미지로 설명합니다. 십자가는 단순히 우리의 죄 값을 치른 소극적 사건이 아니라, 우리를 고소하던 율법의 요구를 폐기하고, 우리를 지배하던 사탄의 권세를 완전히 격파한 적극적인 승리의 사건입니다. 로마의 개선 행진에서 패배한 장군을 끌고 가 구경거리로 삼듯이, 그리스도께서는 십자가를 통해 모든 어둠의 세력을 이기시고 승리를 선포하셨습니다. 그러므로 성도는 더 이상 어떤 영적인 존재나 율법의 규례를 두려워할 필요가 없습니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="NT/NT_51_COL_02.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="COL_2" data-title="골로새서 2장">성경 듣기</button>
-                </div>
-            </div>
-
-            <div class="chapter-card card-book3">
-                <h3>에스겔 45장: 거룩한 땅의 구획과 왕의 분깃</h3>
-                <h4>상세 개요</h4>
-                <p>에스겔 45장은 회복될 이스라엘 땅의 분배에 대한 규례를 다룹니다. 땅을 분배할 때 가장 먼저 "거룩한 땅"을 예물로 드려 구별해야 합니다. 이 거룩한 구역은 세 부분으로 나뉩니다. 첫째, 가장 중심부에는 성소가 위치하며, 이곳은 사독의 자손 제사장들의 몫입니다. 둘째, 그 옆에는 성전에서 수종드는 레위인들의 몫인 성읍이 있습니다. 셋째, 그 옆에는 일반 백성이 거주하는 성읍과 땅이 있습니다. 이 거룩한 구역이 먼저 구별된 후, 그 양옆의 땅이 '왕'(통치자)의 분깃으로 주어집니다. 이어서 통치자들이 지켜야 할 공의의 규례가 제시됩니다. 그들은 더 이상 백성을 압제하지 말고, 공정한 저울과 되와 말을 사용하여 상거래의 정의를 세워야 합니다. 마지막으로, 백성들이 절기에 드릴 제물과 왕이 그 제사를 위해 준비해야 할 분량에 대한 규례가 상세하게 설명됩니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>하나님 중심의 공동체 질서:</strong> 땅 분배의 방식은 회복될 공동체의 가치관과 우선순위를 명확하게 보여줍니다. 가장 좋고 중심이 되는 땅이 먼저 '여호와께 드리는 예물', 즉 거룩한 구역으로 구별됩니다. 이 중심에 성전이 있고, 그 주위에 제사장과 레위인들이 거하며, 그 다음에야 왕과 백성의 땅이 분배됩니다. 이는 하나님의 임재와 예배가 공동체의 모든 삶(정치, 경제, 사회)의 중심이 되어야 한다는 하나님 중심적(Theocentric) 세계관을 공간적으로 구현한 것입니다. 과거 이스라엘이 멸망한 이유는 하나님을 삶의 변두리로 밀어냈기 때문입니다. 회복된 나라는 모든 것의 중심에 하나님을 모시는 나라가 되어야 합니다.</li>
-                    <li>**통치자의 의무: 정의와 공의의 실현:</strong> 새롭게 구획된 땅에서 왕(통치자)에게는 특별한 책임이 주어집니다. "너희 통치자들아 너희는 포악과 겁탈을 그치고 정의와 공의를 행하여 내 백성에게 속여 빼앗는 것을 그칠지니라"(9절). 과거 왕들의 타락이 백성을 압제하고 불의를 행하는 것으로 나타났다면, 회복된 나라의 통치자는 하나님의 공의를 대리하여 실현해야 할 의무가 있습니다. 특히 공정한 도량형을 사용하라는 명령은, 경제 활동의 영역까지도 하나님의 정의가 미쳐야 함을 보여주는 중요한 원리입니다. 이는 하나님의 통치가 단순히 종교적인 영역에만 머무는 것이 아니라, 사회의 모든 구조와 질서 속에서 구체적으로 나타나야 함을 가르칩니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_26_EZE_45.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="EZE_45" data-title="에스겔 45장">성경 듣기</button>
-                </div>
-            </div>
-
-            <div class="chapter-card card-book4">
-                <h3>시편 99편, 100편, 101편: 거룩하신 왕과 그의 백성</h3>
-                <h4>상세 개요</h4>
-                <p><b>시편 99편</b>은 "여호와께서 다스리시니"로 시작하며, 그룹들 사이에 좌정하신 왕의 위엄과 거룩함을 찬양합니다. 그의 통치는 공평과 정의에 기초하며, 시인은 "너희는 여호와 우리 하나님을 높이고 그의 발등상 앞에서 경배할지어다 그는 거룩하시도다"(5절)라고 촉구합니다. 모세와 아론과 사무엘처럼 주께 부르짖었던 지도자들의 기도를 들으시고 응답하셨지만, 동시에 그들의 잘못된 행위는 벌하셨던 하나님을 기억하며, "여호와 우리 하나님은 거룩하시도다"라는 찬양으로 끝맺습니다.<br><b>시편 100편</b>은 감사 찬송시로, 온 땅을 향해 "기쁨으로 여호와를 섬기며 노래하면서 그의 앞에 나아갈지어다"라고 외칩니다. 우리가 그를 예배해야 하는 이유는 그분이 우리의 창조주요 목자이시기 때문입니다. 시인은 "감사함으로 그의 문에 들어가며 찬송함으로 그의 궁정에 들어가서 그에게 감사하며 그의 이름을 송축할지어다"라고 초대하며, 여호와의 선하심과 인자하심, 성실하심이 영원함을 선포합니다.<br><b>시편 101편</b>은 다윗의 시로, 왕으로서 어떻게 완전한 길을 걸을 것인지에 대한 결단을 노래합니다. 그는 인자와 정의를 노래하며, 정직한 마음으로 자기 집을 다스리고, 비천한 것을 눈 앞에 두지 않겠다고 다짐합니다. 그는 악을 행하는 자, 교만한 자, 비방하는 자, 거짓말하는 자를 자기 곁에 두지 않고 끊어버림으로써, 이 땅에서 성실한 자와 함께하고 여호와의 성에서 악을 멸하겠다는 왕의 거룩한 의지를 보여줍니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>하나님의 거룩함과 경배 (시 99편):** 이 시편은 '거룩'이라는 단어를 세 번이나 반복하며(5, 9절) 하나님의 본질적인 속성을 강조합니다. 하나님의 거룩함은 죄와 분리된 도덕적 순결함과, 모든 피조물을 초월하는 그분의 지엄한 위엄을 모두 포함합니다. 그룹 사이에 좌정하신 그의 임재 앞에서 만민은 '떨어야' 하며, 그의 발등상 앞에서 '경배해야' 합니다. 이 시편은 또한 하나님께서 기도에 응답하시는 '용서하시는 하나님'이시면서 동시에 죄를 '보응하시는' 공의의 하나님이심을 함께 보여줍니다. 참된 경배는 하나님의 은혜에 대한 감사와 그의 거룩함에 대한 경외심을 모두 포함해야 합니다.</li>
-                    <li><strong>왕의 자기 정화와 통치의 기초 (시 101편):** 다윗은 이 시에서 왕의 통치가 자기 집, 즉 개인의 삶의 거룩함에서 시작됨을 보여줍니다. "내가 완전한 길을 주목하오리니... 내가 완전한 마음으로 내 집 안에서 행하리이다"(2절). 그는 자신의 주변에서 악을 제거하고 성실한 자를 세우겠다고 결단합니다. 이는 통치자의 개인적인 경건과 도덕성이 공동체 전체의 거룩함에 얼마나 결정적인 영향을 미치는지를 보여줍니다. 이는 궁극적으로 죄가 없으시며 완전한 길을 걸으신 참된 왕 예수 그리스도의 통치를 예표합니다. 그의 나라는 오직 거룩함과 정직함 위에 세워집니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_099.html">시편 99편 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_99" data-title="시편 99편">시편 99편 듣기</button>
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_100.html">시편 100편 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_100" data-title="시편 100편">시편 100편 듣기</button>
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_101.html">시편 101편 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_101" data-title="시편 101편">시편 101편 듣기</button>
-                </div>
-            </div>
-
-            </div>
-
-            <!-- 묵상 탭 -->
-            <div class="tab-content" id="meditation">
-                <div class="chapter-card card-book2">
-                    <h3>오늘의 핵심 묵상</h3>
-                    <h4>신실함을 지키는 자와 실패하는 자</h4>
-                    <p><strong>열왕기상 15장</strong>에서 아사 왕은 대부분 하나님 앞에서 정직하게 행했으나, 위기의 순간에 인간적인 도움을 의지하는 불신을 보여줍니다. 반면 <strong>골로새서 2장</strong>의 그리스도는 모든 신성의 충만이 그 안에 거하시며, 십자가로 완전한 신실함을 보이셨습니다.</p>
-
-                    <h4>참된 공의와 언약의 신실함</h4>
-                    <p><strong>시편 99-101편</strong>이 노래하는 거룩하신 하나님의 통치는 <strong>에스겔 45장</strong>의 하나님 중심의 공동체에서 구체적으로 실현됩니다. 그곳에서는 모든 공의와 정의가 하나님의 주권 아래 정립됩니다.</p>
-
-                    <h4>적용을 위한 질문</h4>
-                    <ol>
-                        <li>나의 신앙 생활에서 그리스도 외에 다른 무엇인가가 더 필요하다고 느끼는 영역은 없습니까?</li>
-                        <li>내 삶의 중심에 하나님이 있습니까, 아니면 다른 무엇인가가 있습니까?</li>
-                        <li>하나님의 공의로운 심판을 기대하며 현재의 불의에 맞서 인내하고 있습니까?</li>
-                    </ol>
-                </div>
-            </div>
-
-            <!-- 통합 묵상 탭 -->
-            <div class="tab-content" id="integration">
-            <div class="integration-card">
-                <h2>통합 묵상: 신실하신 왕과 불신실한 백성</h2>
-                <h3>관통하는 주제 논증: 하나님의 신실함 vs. 인간의 불신실함</h3>
-                <p>오늘의 네 본문은 '하나님의 변치 않는 신실하심'과 그 앞에서 끊임없이 실패하는 '인간의 불신실함'을 극명하게 대조하며, 그럼에도 불구하고 구원을 이루시는 하나님의 은혜를 보여줍니다. 시편 99, 100, 101편은 신실하신 왕 하나님의 모습을 노래합니다. 그분은 거룩하시고, 공의로 다스리시며, 인자와 성실하심이 영원하신 우리의 창조주요 목자이십니다. 다윗은 이 왕을 본받아 자신도 완전한 길을 걷겠다고 결단합니다. 그러나 열왕기상 15장은 이 결단이 인간의 힘만으로는 얼마나 쉽게 무너지는지를 보여줍니다. 다윗의 후손인 아비얌과 아사는 불완전했고, 여로보암의 가문은 완전히 실패합니다. 인간 왕들은 계속해서 불신실했지만, 하나님께서는 "다윗을 위하여" 그 언약을 신실하게 지키십니다. 그렇다면 이 간극은 어떻게 메워지는가? 골로새서 2장은 그 해답을 제시합니다. 하나님께서는 그의 신실하심의 절정으로, 신성의 모든 충만이 거하시는 아들 그리스도를 보내셨습니다. 그분은 십자가를 통해 우리의 모든 불신실함의 빚문서를 지우시고, 우리를 그 안에서 '충만하게' 하셨습니다. 에스겔 45장은 바로 이 그리스도께서 다스리실 하나님 중심의 나라가 얼마나 완전하고 거룩할 것인지를 보여줍니다. 결국 오늘의 본문들은 인간의 실패에도 불구하고, 오직 그리스도 안에 나타난 하나님의 신실하신 은혜만이 우리의 유일한 소망임을 증거합니다.</p>
-
-                <h3>입체적 핵심 단어 연구: 충만 (πλήρωμα, 플레로마)</h3>
-                <p>골로새서 2장 9절의 "그 안에는 신성의 모든 충만(플레로마)이 육체로 거하시고"라는 구절은 기독론의 핵심을 담고 있는 매우 중요한 선언입니다. '플레로마'(πλήρωμα)는 '가득 채움, 완성, 완전함'을 의미하는 단어로, 바울은 이 단어를 사용하여 하나님의 모든 신적인 본질, 능력, 속성이 조금도 빠짐없이 예수 그리스도의 인성 안에 온전히 거하심을 표현합니다. 당시 골로새의 거짓 교사들은 하나님과 물질 세계 사이에 여러 단계의 영적 존재(천사 등)가 있으며, 인간은 금욕주의나 신비적 지식을 통해 점진적으로 이 '플레로마'에 도달해야 한다고 가르쳤습니다. 그러나 바울은 이 모든 중간 단계를 부정하고, '플레로마' 자체가 예수 그리스도라는 한 인격 안에 집중되어 있음을 선포합니다. 더 나아가 10절에서 "너희도 그 안에서 충만하여졌다"고 말함으로써, 우리가 구원을 위해 다른 어떤 것을 더할 필요 없이, 오직 그리스도와 연합하는 것만으로 이 모든 신적인 충만함의 복을 함께 누리게 되었음을 확증합니다. '플레로마'는 '오직 그리스도' 교리의 심장부와 같습니다.</p>
-                
-                <h3>심층 상호 참조</h3>
-                <ul>
-                    <li><strong>열왕기상 15:3-4 & 시편 101:2, 6:</strong> 아비얌 왕은 "그의 마음이 그의 조상 다윗의 마음과 같지 아니하여... 온전하지 못하였으나"라고 평가받습니다. 이는 다윗이 시편 101편에서 "내가 완전한 길을 주목하오리니... 내가 완전한 마음으로 내 집 안에서 행하리이다... 내 눈이 이 땅의 충성된 자를 살펴 나와 함께 살게 하리니"라고 결단했던 그 기준에 미치지 못했음을 보여줍니다. 그러나 하나님께서는 아비얌의 실패에도 불구하고 "다윗을 위하여... 등불을 주셨"습니다. 이는 인간 통치자의 불완전함과, 그럼에도 불구하고 언약을 지키시는 하나님의 신실함을 극명하게 대조합니다.</li>
-                    <li><strong>에스겔 45:9 & 골로새서 2:14-15:</strong> 에스겔은 회복될 나라의 통치자들에게 "너희는 포악과 겁탈을 그치고 정의와 공의를 행하라"고 명령합니다. 이는 하나님의 대리 통치자가 마땅히 실현해야 할 이상입니다. 그러나 인간 통치자들은 계속해서 실패했습니다. 골로새서는 참된 왕이신 그리스도께서 어떻게 이 정의를 이루셨는지를 보여줍니다. 그분은 우리를 억압하던 죄와 율법의 '법조문으로 쓴 증서'를 십자가에 못 박으시고, 우리를 참소하던 악한 '통치자들과 권세들을 무력화하여' 승리하셨습니다. 인간 통치자가 이루지 못한 완전한 정의와 해방을 참된 왕이신 그리스도께서 십자가로 성취하신 것입니다.</li>
-                </ul>
-
-                <h3>적용을 위한 성찰 질문</h3>
-                <ol>
-                    <li>아사 왕은 평생 하나님 앞에서 정직하게 행하려 노력했지만, 인생의 마지막 위기에서 하나님 대신 인간 왕을 의지하는 실수를 범했습니다. 나의 신앙 여정에서, 오랫동안 잘 지켜왔다고 생각했던 믿음이 한순간의 두려움이나 위기 앞에서 무너졌던 경험은 없습니까? 그 경험을 통해 무엇을 배웠습니까?</li>
-                    <li>골로새서는 그리스도 안에 '모든' 지혜와 지식의 보화가 감추어져 있고, 우리는 그분 안에서 '충만'해졌다고 선포합니다. 나는 여전히 나의 구원과 성장을 위해 그리스도 외에 다른 무엇인가(어떤 프로그램, 경험, 지식 등)가 더 필요하다고 느끼고 있지는 않습니까?</li>
-                    <li>에스겔이 본 회복된 나라는 '하나님 중심'으로 설계되었습니다. 나의 삶의 중심에는 무엇이 있습니까? 나의 시간, 재정, 결정의 우선순위를 볼 때, 나는 하나님 중심의 삶을 살고 있습니까, 아니면 자기 중심의 삶을 살고 있습니까?</li>
-                    <li>시편 101편에서 다윗은 자기 주변에서 악을 제거하겠다고 결단했습니다. 나의 삶에 지속적으로 죄의 영향을 미치는 부정적인 관계나 환경은 무엇입니까? 그 영향력에서 벗어나기 위해 다윗과 같은 거룩한 결단이 필요하지는 않습니까?</li>
-                </ol>
-            </div>
-            </div>
-        </main>
-
-        <footer>
-            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
-        </footer>
     </div>
 
-    <div id="bible-modal" class="modal">
+    <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
-            <span class="modal-close-btn">&times;</span>
-            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
+    <div class="floating-nav" id="floating-nav">
+         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-    <div id="audio-player" class="audio-player">
-        <div class="audio-player-info" id="player-info"></div>
-        <div class="audio-player-controls">
-            <button id="play-pause-btn">▶</button>
-            <button id="close-player-btn">✖</button>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                 <button id="close-player-btn" title="닫기">&times;</button>
+            </div>
         </div>
     </div>
-    <div id="youtube-player-container"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainContainer = document.getElementById('main-container');
-            const bibleModal = document.getElementById('bible-modal');
-            const modalBody = document.getElementById('modal-body-content');
-            const closeModalBtn = document.querySelector('.modal-close-btn');
-            const audioPlayerBar = document.getElementById('audio-player');
-            const playerInfo = document.getElementById('player-info');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const closePlayerBtn = document.getElementById('close-player-btn');
-            
-            let ytPlayer;
-            let audioLinks = new Map();
-            let isPlayerReady = false;
-
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-            window.onYouTubeIframeAPIReady = function() {
-                ytPlayer = new YT.Player('youtube-player-container', {
-                    height: '0',
-                    width: '0',
-                    events: {
-                        'onReady': () => { isPlayerReady = true; },
-                        'onStateChange': (event) => {
-                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
-                        }
-                    }
-                });
-            }
-
-            async function loadAudioLinks() {
-                try {
-                    const response = await fetch('../address/mcbible.txt');
-                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
-                    const text = await response.text();
-                    text.split('\n').forEach(line => {
-                        if (line.trim() !== '') {
-                            const parts = line.split(/\s+/);
-                            const fullKey = parts[0];
-                            const url = parts[1];
-                            const keyParts = fullKey.split('_'); 
-                            
-                            if (keyParts.length >= 3) {
-                                const book = keyParts[2];
-                                const chapter = parseInt(keyParts.at(-1), 10);
-                                const shortKey = `${book}_${chapter}`;
-                                audioLinks.set(shortKey, url);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('오디오 링크 로딩 오류:', error);
-                }
-            }
-            
-            function getYouTubeID(url) {
-                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                const match = url.match(regex);
-                return match ? match[1] : null;
-            }
-
-            mainContainer.addEventListener('click', async (e) => {
-                const target = e.target.closest('.btn');
-                if (!target) return;
-
-                if (target.classList.contains('btn-view')) {
-                    const path = target.dataset.path;
-                    bibleModal.style.display = 'block';
-                    modalBody.innerHTML = '<div class="spinner"></div>';
-                    try {
-                        const response = await fetch(`../bible_html/${path}`);
-                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
-                        const html = await response.text();
-                        modalBody.innerHTML = html;
-                    } catch (error) {
-                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
-                    }
-                }
-                
-                if (target.classList.contains('btn-listen')) {
-                    if (!isPlayerReady) {
-                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
-                        return;
-                    }
-                    if (audioLinks.size === 0) {
-                        await loadAudioLinks(); 
-                         if (audioLinks.size === 0) {
-                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
-                            return;
-                        }
-                    }
-                    const key = target.dataset.key;
-                    const title = target.dataset.title;
-                    const url = audioLinks.get(key);
-
-                    if (url) {
-                        const videoId = getYouTubeID(url);
-                        if (videoId) {
-                            ytPlayer.loadVideoById(videoId);
-                            playerInfo.textContent = `재생중: ${title}`;
-                            audioPlayerBar.classList.add('show');
-                        } else {
-                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
-                        }
-                    } else {
-                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
-                    }
-                }
-            });
-
-            function closeModal() {
-                bibleModal.style.display = 'none';
-                modalBody.innerHTML = '';
-            }
-
-            closeModalBtn.addEventListener('click', closeModal);
-            bibleModal.addEventListener('click', (e) => {
-                if (e.target === bibleModal) {
-                    closeModal();
-                }
-            });
-
-            playPauseBtn.addEventListener('click', () => {
-                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
-                const playerState = ytPlayer.getPlayerState();
-                if (playerState === YT.PlayerState.PLAYING) {
-                    ytPlayer.pauseVideo();
-                } else {
-                    ytPlayer.playVideo();
-                }
-            });
-
-            closePlayerBtn.addEventListener('click', () => {
-                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
-                    ytPlayer.stopVideo();
-                }
-                audioPlayerBar.classList.remove('show');
-            });
-            
-            loadAudioLinks();
-
-            // 간단한 탭 기능
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetTab = button.dataset.tab;
-
-                    // 모든 버튼과 콘텐츠 비활성화
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-
-                    // 선택된 버튼과 콘텐츠 활성화
-                    button.classList.add('active');
-                    document.getElementById(targetTab).classList.add('active');
-                });
-            });
-        });
-    </script>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
