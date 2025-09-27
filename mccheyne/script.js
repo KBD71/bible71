@@ -1,33 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 전역 변수 및 객체 ---
-    const audioKeyMap = new Map();
     let ytPlayer, isPlayerReady = false;
+    const audioKeyMap = new Map();
+    let currentTabIndex = 0;
 
     // --- DOM 요소 캐싱 ---
-    const tabs = {
-        buttons: document.querySelectorAll('.tab-btn'),
-        contents: document.querySelectorAll('.tab-content'),
-        currentIndex: 0
-    };
-    const nav = {
-        container: document.getElementById('floating-nav'),
-        prevBtn: document.getElementById('prev-tab'),
-        nextBtn: document.getElementById('next-tab'),
-        info: document.getElementById('current-tab-info')
-    };
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const floatingNav = document.getElementById('floating-nav');
+    const prevTabBtn = document.getElementById('prev-tab');
+    const nextTabBtn = document.getElementById('next-tab');
+    const currentTabInfo = document.getElementById('current-tab-info');
     const progressBar = document.getElementById('reading-progress');
-    const modal = {
-        overlay: document.getElementById('text-modal'),
-        closeBtn: document.getElementById('modal-close'),
-        title: document.getElementById('modal-title'),
-        iframe: document.getElementById('modal-iframe')
-    };
-    const audioPlayer = {
-        container: document.getElementById('audio-player'),
-        info: document.getElementById('player-info'),
-        playPauseBtn: document.getElementById('play-pause-btn'),
-        closeBtn: document.getElementById('close-player-btn')
-    };
+    
+    const modalOverlay = document.getElementById('text-modal');
+    const modalCloseBtn = document.getElementById('modal-close');
+    const modalTitle = document.getElementById('modal-title');
+    const modalIframe = document.getElementById('modal-iframe');
+    
+    const audioPlayerBar = document.getElementById('audio-player');
+    const playerInfo = document.getElementById('player-info');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const closePlayerBtn = document.getElementById('close-player-btn');
 
     // --- 초기화 ---
     function init() {
@@ -91,18 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 이벤트 리스너 설정 ---
     function setupEventListeners() {
-        tabs.buttons.forEach((button, index) => button.addEventListener('click', () => switchTab(index)));
+        tabButtons.forEach((button, index) => button.addEventListener('click', () => switchTab(index)));
         document.querySelectorAll('.view-text-btn').forEach(button => button.addEventListener('click', () => openTextModal(button)));
         document.querySelectorAll('.listen-audio-btn').forEach(button => button.addEventListener('click', () => playAudio(button)));
         
-        modal.closeBtn.addEventListener('click', closeModal);
-        modal.overlay.addEventListener('click', (e) => { if (e.target === modal.overlay) closeModal(); });
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
         
-        audioPlayer.playPauseBtn.addEventListener('click', togglePlayPause);
-        audioPlayer.closeBtn.addEventListener('click', closeAudioPlayer);
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        closePlayerBtn.addEventListener('click', closeAudioPlayer);
 
-        nav.prevBtn.addEventListener('click', () => switchTab(tabs.currentIndex - 1));
-        nav.nextBtn.addEventListener('click', () => switchTab(tabs.currentIndex + 1));
+        prevTabBtn.addEventListener('click', () => switchTab(currentTabIndex - 1));
+        nextTabBtn.addEventListener('click', () => switchTab(currentTabIndex + 1));
         
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
@@ -110,9 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
             checkReadingCompletion();
             const currentScrollY = window.scrollY;
             if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                if (!audioPlayer.container.classList.contains('visible')) nav.container.classList.add('hidden');
+                if (!audioPlayerBar.classList.contains('visible')) floatingNav.classList.add('hidden');
             } else {
-                nav.container.classList.remove('hidden');
+                floatingNav.classList.remove('hidden');
             }
             lastScrollY = currentScrollY < 0 ? 0 : currentScrollY;
         }, { passive: true });
@@ -121,24 +115,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 기능별 함수 ---
     function openTextModal(button) {
-        modal.title.innerText = button.dataset.title;
-        modal.iframe.src = button.dataset.path;
-        modal.overlay.classList.add('visible');
-        document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+        modalTitle.innerText = button.dataset.title;
+        modalIframe.src = button.dataset.path;
+        modalOverlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
-        modal.overlay.classList.remove('visible');
-        document.body.style.overflow = ''; // 배경 스크롤 복원
+        modalOverlay.classList.remove('visible');
+        document.body.style.overflow = '';
     }
 
     function switchTab(index) {
-        if (index < 0 || index >= tabs.buttons.length) return;
-        tabs.currentIndex = index;
-        tabs.buttons.forEach(btn => btn.classList.remove('active'));
-        tabs.contents.forEach(content => { content.classList.remove('active'); });
-        tabs.buttons[index].classList.add('active');
-        tabs.contents[index].classList.add('active');
+        if (index < 0 || index >= tabButtons.length) return;
+        currentTabIndex = index;
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => { content.classList.remove('active'); });
+        tabButtons[index].classList.add('active');
+        tabContents[index].classList.add('active');
         window.scrollTo({ top: 0, behavior: 'auto' });
         updateFloatingNav();
         setTimeout(updateReadingProgress, 150);
@@ -153,9 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const videoId = getYouTubeID(url);
             if (videoId) {
                 ytPlayer.loadVideoById(videoId);
-                audioPlayer.info.textContent = `재생 중: ${title}`;
-                nav.container.classList.add('hidden');
-                audioPlayer.container.classList.add('visible');
+                playerInfo.textContent = `재생 중: ${title}`;
+                floatingNav.classList.add('hidden');
+                audioPlayerBar.classList.add('visible');
             } else { alert('유효한 YouTube 주소가 아닙니다.'); }
         } else { alert('오디오 정보를 찾을 수 없습니다. (Key: ' + key + ')'); }
     }
@@ -171,20 +165,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function onPlayerStateChange(event) {
-        audioPlayer.playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
+        playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
     }
 
     function closeAudioPlayer() {
         if (ytPlayer && typeof ytPlayer.stopVideo === 'function') ytPlayer.stopVideo();
-        audioPlayer.container.classList.remove('visible');
-        nav.container.classList.remove('hidden');
+        audioPlayerBar.classList.remove('visible');
+        floatingNav.classList.remove('hidden');
     }
 
     function updateFloatingNav() {
-        if (!nav.info) return;
-        nav.info.textContent = `${tabs.currentIndex + 1}/${tabs.buttons.length}`;
-        nav.prevBtn.disabled = tabs.currentIndex === 0;
-        nav.nextBtn.disabled = tabs.currentIndex === tabs.buttons.length - 1;
+        if (!currentTabInfo) return;
+        currentTabInfo.textContent = `${currentTabIndex + 1}/${tabButtons.length}`;
+        prevTabBtn.disabled = currentTabIndex === 0;
+        nextTabBtn.disabled = currentTabIndex === tabButtons.length - 1;
     }
 
     function updateReadingProgress() {
@@ -197,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkReadingCompletion() {
         if (parseFloat(progressBar.style.width) >= 95) {
-            const currentTab = tabs.buttons[tabs.currentIndex];
+            const currentTab = tabButtons[currentTabIndex];
             if (currentTab && !currentTab.classList.contains('completed')) {
                 currentTab.classList.add('completed');
                 saveCompletionStatus();
@@ -207,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function saveCompletionStatus() {
         const dateKey = document.querySelector('h1').textContent;
-        const completed = Array.from(tabs.buttons).map((tab, index) => tab.classList.contains('completed') ? index : -1).filter(i => i !== -1);
+        const completed = Array.from(tabButtons).map((tab, index) => tab.classList.contains('completed') ? index : -1).filter(i => i !== -1);
         localStorage.setItem(`completed_${dateKey}`, JSON.stringify(completed));
     }
 
@@ -215,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dateKey = document.querySelector('h1').textContent;
         const completed = JSON.parse(localStorage.getItem(`completed_${dateKey}`) || '[]');
         completed.forEach(index => {
-            if (tabs.buttons[index]) tabs.buttons[index].classList.add('completed');
+            if (tabButtons[index]) tabButtons[index].classList.add('completed');
         });
     }
 
