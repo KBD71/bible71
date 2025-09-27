@@ -70,11 +70,24 @@ def read_existing_links(file_path):
     return existing_dates
 
 def append_new_link(file_path, date, video_url):
-    """새로운 링크를 dcaddr.txt 파일에 추가합니다."""
+    """새로운 링크를 dcaddr.txt 파일의 첫 행에 추가합니다."""
     try:
-        with open(file_path, 'a', encoding='utf-8') as f:
-            f.write(f"{date} {video_url}\n")
-        print(f"새 링크 추가됨: {date} {video_url}")
+        # 파일이 존재할 경우 기존 내용을 먼저 읽어옵니다.
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                original_content = f.read()
+        except FileNotFoundError:
+            original_content = ""
+
+        # 새 내용을 맨 앞에 추가합니다.
+        new_line = f"{date} {video_url}\n"
+        new_content = new_line + original_content
+
+        # 수정된 전체 내용을 파일에 덮어씁니다.
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        
+        print(f"새 링크 추가됨 (첫 행): {date} {video_url}")
         return True
     except Exception as e:
         print(f"파일 쓰기 실패: {e}")
