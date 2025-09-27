@@ -23,9 +23,7 @@
             --integration-color: #5f6368; /* 통합 묵상 */
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: var(--font-main);
@@ -49,413 +47,92 @@
             margin: 0 auto;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
 
-        header h1 {
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        header h4 {
-            font-family: var(--font-heading);
-            font-size: 0.9rem;
-            color: var(--color-grey);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            margin-top: 0;
-        }
-
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 2rem;
-        }
-
-        .tab-btn {
-            font-family: var(--font-heading);
-            padding: 10px 20px;
-            border: 1px solid var(--color-border);
-            border-radius: 25px;
-            background-color: var(--color-card-bg);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            position: relative;
-        }
-
-        .tab-btn:hover {
-            background-color: #e9ecef;
-            transform: translateY(-2px);
-        }
-
-        .tab-btn.active {
-            color: white;
-            border-color: transparent;
-        }
-
+        .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 2rem; }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; }
         .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
         .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
         .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
         .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
         .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+        .tab-btn.completed::before { content: '✓'; position: absolute; top: 5px; right: 5px; background: #28a745; color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
-        .tab-btn.completed::before {
-            content: '✓';
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: #28a745;
-            color: white;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
+        .tab-content { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
+        .tab-content.active { display: block; opacity: 1; }
 
-        .tab-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .tab-content.active {
-            display: block;
-            opacity: 1;
-        }
-
-        .chapter-card, .integration-card {
-            background-color: var(--color-card-bg);
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border-left: 8px solid;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-card:hover, .integration-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        .chapter-card:hover, .integration-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
         .card-book1 { border-color: var(--book1-color); }
         .card-book2 { border-color: var(--book2-color); }
         .card-book3 { border-color: var(--book3-color); }
         .card-book4 { border-color: var(--book4-color); }
         .integration-card { border-color: var(--integration-color); }
 
-        .card-content {
-            padding: 2rem;
-        }
-
-        .card-content h3 {
-            font-family: var(--font-heading);
-            font-size: 1.8rem;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-        }
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
         .card-book1 h3 { color: var(--book1-color); }
         .card-book2 h3 { color: var(--book2-color); }
         .card-book3 h3 { color: var(--book3-color); }
         .card-book4 h3 { color: var(--book4-color); }
         .integration-card h3 { color: var(--integration-color); }
-        
-        .card-content h4 {
-            font-family: var(--font-heading);
-            font-size: 1.1rem;
-            color: #343a40;
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.1rem; color: #343a40; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        .card-content p { font-size: 17px; margin-bottom: 1.5em; }
+
+        /* 해설 내 항목 제목 스타일 강화 */
+        .card-content p > strong:first-child, .card-content li > strong:first-child {
+            color: #1a5c9a;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid #dee2e6;
-            padding-bottom: 0.5rem;
-            margin-top: 2.5rem;
-            margin-bottom: 1.5rem;
+            margin-right: 0.3em;
         }
 
-        .card-content p {
-            font-size: 17px;
-            margin-bottom: 1.5em;
-        }
-        
-        .scripture-quote {
-            font-style: italic;
-            font-weight: 600;
-            color: #005A9C;
-        }
-        .scripture-quote::before {
-            content: " “";
-        }
-        .scripture-quote::after {
-            content: "” ";
-        }
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
 
-        .card-content ul {
-            padding-left: 20px;
-            font-size: 17px;
-        }
+        .card-content ul { padding-left: 20px; font-size: 17px; }
+        .card-content li { margin-bottom: 1em; }
 
-        .card-content li {
-            margin-bottom: 1em;
-        }
-        
-        .card-content strong {
-            font-weight: 700;
-            color: #212529;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            font-family: var(--font-heading);
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover, .btn-secondary:hover {
-            transform: translateY(-2px);
-        }
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn:hover { transform: translateY(-2px); }
         .btn-primary { background-color: #495057; color: white; }
         .btn-primary:hover { background-color: #212529; }
         .btn-secondary { background-color: #e9ecef; color: #495057; }
         .btn-secondary:hover { background-color: #ced4da; }
 
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1050;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; max-height: 80vh; display: flex; flex-direction: column; transform: scale(0.95); transition: transform 0.3s ease; }
+        .modal-overlay.visible .modal-content { transform: scale(1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; margin-bottom: 10px; }
+        .modal-header h2 { font-family: var(--font-heading); margin: 0; }
+        .modal-close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--color-grey); transition: color 0.2s; }
+        .modal-close-btn:hover { color: var(--color-text); }
+        .modal-body { flex-grow: 1; overflow-y: auto; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
 
-        .modal-overlay.visible {
-            opacity: 1;
-            visibility: visible;
-        }
+        .audio-player { position: fixed; bottom: -100px; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 10px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1001; display: flex; justify-content: center; align-items: center; transition: bottom 0.4s ease-in-out; }
+        .audio-player.visible { bottom: 0; }
+        .audio-player-controls { position: relative; display: flex; align-items: center; }
+        .audio-close-btn { position: absolute; right: -35px; top: 50%; transform: translateY(-50%); background: #e9ecef; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 14px; font-weight: bold; color: #868e96; display: flex; align-items: center; justify-content: center; line-height: 1; padding-bottom: 2px; }
+        .audio-close-btn:hover { background: #ced4da; color: #495057; }
+        #player-container { display: none; }
 
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 800px;
-            height: 80%;
-            max-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-        }
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 1001; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4285F4, #DB4437, #F4B400, #0F9D58); width: 0%; transition: width 0.1s linear; }
         
-        .modal-overlay.visible .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-
-        .modal-header h2 {
-            font-family: var(--font-heading);
-            margin: 0;
-        }
-        
-        .modal-close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--color-grey);
-            transition: color 0.2s;
-        }
-        .modal-close-btn:hover {
-            color: var(--color-text);
-        }
-
-        .modal-body {
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        .modal-body iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .audio-player {
-            position: fixed;
-            bottom: -100px;
-            left: 0;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 10px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 1001;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: bottom 0.4s ease-in-out;
-        }
-
-        .audio-player.visible {
-            bottom: 0;
-        }
-
-        .audio-player-controls {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        
-        .audio-close-btn {
-            position: absolute;
-            right: -35px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #e9ecef;
-            border: none;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            color: #868e96;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-            padding-bottom: 2px;
-        }
-        .audio-close-btn:hover {
-            background: #ced4da;
-            color: #495057;
-        }
-
-        #player {
-            display: none;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--color-border);
-            color: var(--color-grey);
-            font-size: 0.9rem;
-        }
-
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: rgba(0,0,0,0.1);
-            z-index: 1001;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #4285F4, #DB4437, #F4B400, #0F9D58);
-            width: 0%;
-            transition: width 0.1s linear;
-        }
-        
-        .floating-nav {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 8px 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            z-index: 1000;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .floating-nav.hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-        }
-
-        .nav-btn {
-            width: 36px;
-            height: 36px;
-            border: none;
-            border-radius: 50%;
-            background: #f8f9fa;
-            color: #495057;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 14px;
-        }
-
-        .nav-btn:hover {
-            background: #e9ecef;
-            transform: scale(1.1);
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            background: #f8f9fa;
-        }
-
-        .nav-info {
-            margin: 0 4px;
-            font-size: 12px;
-            color: #6c757d;
-            font-weight: 600;
-            min-width: 30px;
-            text-align: center;
-            font-family: var(--font-heading);
-        }
+        .floating-nav { position: fixed; bottom: 20px; right: 20px; display: flex; align-items: center; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; transition: all 0.3s ease; }
+        .floating-nav.hidden { opacity: 0; transform: translateY(20px); pointer-events: none; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; font-size: 14px; }
+        .nav-btn:hover { background: #e9ecef; transform: scale(1.1); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; background: #f8f9fa; }
+        .nav-info { margin: 0 4px; font-size: 12px; color: #6c757d; font-weight: 600; min-width: 30px; text-align: center; font-family: var(--font-heading); }
 
         @media (max-width: 768px) {
             header h1 { font-size: 2rem; }
@@ -464,24 +141,13 @@
             .card-content { padding: 1.5rem; }
             .card-content h3 { font-size: 1.5rem; }
             .button-group { flex-direction: column; }
-            
-            .floating-nav {
-                right: 15px;
-                padding: 6px 10px;
-            }
-
-            .nav-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 12px;
-            }
+            .floating-nav { right: 15px; padding: 6px 10px; }
+            .nav-btn { width: 32px; height: 32px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
-    <div class="progress-container">
-        <div class="progress-bar" id="reading-progress"></div>
-    </div>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
     <div class="container">
         <div class="content-wrapper">
@@ -505,99 +171,82 @@
                             <h3>사무엘하 23장: 다윗의 마지막 노래와 용사들의 명단</h3>
                             <h4>상세 개요</h4>
                             <p>사무엘하 23장은 두 부분으로 명확하게 나뉩니다. 첫째는 다윗의 마지막 유언적 시(1-7절)이며, 둘째는 그의 통치 기간 동안 혁혁한 공을 세운 용사들의 명단(8-39절)입니다. 다윗의 노래는 자신의 통치를 회고하며 하나님의 언약적 신실하심과 의로운 통치자의 이상을 노래합니다. 이는 장차 오실 메시아에 대한 예언적 성격을 띱니다. 용사들의 명단은 '세 용사'와 '삼십인 용사'로 구분되며, 그들의 구체적인 무용담을 통해 하나님의 구원 역사가 신실한 사람들의 희생과 헌신을 통해 이루어짐을 보여줍니다.</p>
-                            
                             <h4>심층 신학적 해설</h4>
-                            <p><strong>1. 다윗 언약과 메시아 왕:</strong> 다윗은 마지막 말에서 <span class="scripture-quote">사람을 공의로 다스리는 자, 하나님을 경외함으로 다스리는 자</span>(3절)에 대해 노래합니다. 이는 자신의 통치에 대한 이상이자, 궁극적으로는 자신의 후손으로 오실 완전한 왕, 예수 그리스도를 가리킵니다. 그는 자신의 집이 하나님 앞에서 불완전함을 인정하면서도, <span class="scripture-quote">하나님이 나와 더불어 영원한 언약을 세우사 만사에 구비하고 견고하게 하셨으니</span>(5절)라며 하나님의 주권적 약속에 대한 확고한 믿음을 고백합니다. 이 언약은 인간의 실패에도 불구하고 반드시 성취될 하나님의 구원 계획이며, 그 정점은 그리스도이십니다.</p>
-                            <p><strong>2. 하나님의 주권적 구원 역사:</strong> 용사들의 이야기는 단순한 인간 영웅담이 아닙니다. 성경은 그들의 승리 배후에 계신 하나님을 명확히 드러냅니다. 엘르아살이 홀로 블레셋을 물리쳤을 때, 성경은 <span class="scripture-quote">여호와께서 크게 이기게 하셨음이라</span>(10절)라고 기록합니다. 삼마가 녹두나무 밭을 지켜냈을 때도 <span class="scripture-quote">여호와께서 큰 구원을 이루시니라</span>(12절)라고 선포합니다. 이는 모든 승리와 구원이 인간의 힘이 아닌 하나님의 주권적인 능력과 개입으로 말미암는다는 개혁주의 신학의 핵심을 보여줍니다.</p>
-                            <p><strong>3. 희생적 충성과 왕의 응답:</strong> 세 용사가 목숨을 걸고 베들레헴 성문 곁 우물물을 길어온 사건(13-17절)은 왕에 대한 그들의 희생적인 충성을 극적으로 보여줍니다. 다윗은 그 물을 마시지 않고 <span class="scripture-quote">이는 목숨을 걸고 갔던 사람들의 피가 아니니이까</span>(17절)라며 여호와께 부어 드립니다. 이는 부하들의 희생의 가치를 깊이 인식하고, 그 영광을 자신이 아닌 하나님께 돌리는 경건한 왕의 모습을 보여줍니다. 이는 자신의 생명을 내어주신 그리스도와, 그분을 위해 기꺼이 자신의 삶을 드리는 성도의 관계를 아름답게 예표합니다.</p>
-
+                            <p><strong>1. 다윗 언약과 메시아 왕:</strong>다윗은 마지막 말에서 <span class="scripture-quote">사람을 공의로 다스리는 자, 하나님을 경외함으로 다스리는 자</span>(3절)에 대해 노래합니다. 이는 자신의 통치에 대한 이상이자, 궁극적으로는 자신의 후손으로 오실 완전한 왕, 예수 그리스도를 가리킵니다. 그는 자신의 집이 하나님 앞에서 불완전함을 인정하면서도, <span class="scripture-quote">하나님이 나와 더불어 영원한 언약을 세우사 만사에 구비하고 견고하게 하셨으니</span>(5절)라며 하나님의 주권적 약속에 대한 확고한 믿음을 고백합니다. 이 언약은 인간의 실패에도 불구하고 반드시 성취될 하나님의 구원 계획이며, 그 정점은 그리스도이십니다.</p>
+                            <p><strong>2. 하나님의 주권적 구원 역사:</strong>용사들의 이야기는 단순한 인간 영웅담이 아닙니다. 성경은 그들의 승리 배후에 계신 하나님을 명확히 드러냅니다. 엘르아살이 홀로 블레셋을 물리쳤을 때, 성경은 <span class="scripture-quote">여호와께서 크게 이기게 하셨음이라</span>(10절)라고 기록합니다. 삼마가 녹두나무 밭을 지켜냈을 때도 <span class="scripture-quote">여호와께서 큰 구원을 이루시니라</span>(12절)라고 선포합니다. 이는 모든 승리와 구원이 인간의 힘이 아닌 하나님의 주권적인 능력과 개입으로 말미암는다는 개혁주의 신학의 핵심을 보여줍니다.</p>
+                            <p><strong>3. 희생적 충성과 왕의 응답:</strong>세 용사가 목숨을 걸고 베들레헴 성문 곁 우물물을 길어온 사건(13-17절)은 왕에 대한 그들의 희생적인 충성을 극적으로 보여줍니다. 다윗은 그 물을 마시지 않고 <span class="scripture-quote">이는 목숨을 걸고 갔던 사람들의 피가 아니니이까</span>(17절)라며 여호와께 부어 드립니다. 이는 부하들의 희생의 가치를 깊이 인식하고, 그 영광을 자신이 아닌 하나님께 돌리는 경건한 왕의 모습을 보여줍니다. 이는 자신의 생명을 내어주신 그리스도와, 그분을 위해 기꺼이 자신의 삶을 드리는 성도의 관계를 아름답게 예표합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_10_2SA_23.html" data-title="사무엘하 23장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn" data-key="2SA_23">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="2SA_23" data-title="사무엘하 23장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
                 </div>
-
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
-                        <div class="card-content">
+                         <div class="card-content">
                             <h3>갈라디아서 3장: 오직 믿음으로 말미암는 의</h3>
                             <h4>상세 개요</h4>
                             <p>갈라디아서 3장은 '오직 믿음으로'라는 종교개혁의 핵심 원리를 가장 강력하게 논증하는 장입니다. 바울은 율법의 행위로 의롭게 되려 하는 갈라디아 교인들의 어리석음을 책망하며 논증을 시작합니다. 그는 아브라함이 행위가 아닌 믿음으로 의롭다 하심을 받았다는 구약의 증거(6절)를 제시하며, 믿음의 후손만이 진정한 아브라함의 자손임을 선언합니다. 나아가 율법은 복이 아닌 저주를 가져오며, 그리스도께서 십자가에서 친히 저주가 되심으로 우리를 속량하셨다고 선포합니다. 율법의 역할은 우리를 그리스도께로 인도하는 '초등교사'(몽학선생)였을 뿐이며, 이제 믿음 안에서 우리는 모두 하나님의 자녀가 되었음을 역설합니다.</p>
-                            
                             <h4>심층 신학적 해설</h4>
-                            <p><strong>1. 이신칭의(Justification by Faith Alone):</strong> 바울은 <span class="scripture-quote">너희가 성령을 받은 것이 율법의 행위로냐 혹은 듣고 믿음으로냐</span>(2절)라는 수사학적 질문으로 핵심을 찌릅니다. 구원의 시작인 성령을 받는 것조차 행위와 무관하다면, 구원의 전 과정 역시 마찬가지입니다. 그는 <span class="scripture-quote">아브라함이 하나님을 믿으매 그것을 그에게 의로 정하셨다</span>(6절)는 창세기 15장 6절을 인용하여, 율법이 주어지기 전부터 구원의 원리는 오직 믿음이었음을 확증합니다. 율법을 지킴으로써가 아닌, 그리스도를 믿음으로써 하나님과의 올바른 관계(의)가 회복된다는 것은 개혁주의 구원론의 심장입니다.</p>
-                            <p><strong>2. 그리스도의 대속적 형벌(Penal Substitutionary Atonement):</strong> 율법의 기능은 의를 주는 것이 아니라, 오히려 <span class="scripture-quote">무릇 율법 행위에 속한 자들은 저주 아래에 있나니</span>(10절)라고 선언하는 것입니다. 율법의 모든 조항을 항상 지키지 못하는 모든 인간은 저주 아래 놓입니다. 이 절망적인 상황에 대한 유일한 해결책은 <span class="scripture-quote">그리스도께서 우리를 위하여 저주를 받은 바 되사 율법의 저주에서 우리를 속량하셨으니</span>(13절)라는 복음입니다. 그리스도께서 십자가에서 우리가 받아야 할 하나님의 진노와 형벌(저주)을 대신 받으심으로, 하나님의 공의는 만족되었고 우리는 해방되었습니다.</p>
-                            <p><strong>3. 율법의 목적과 기능:</strong> 그렇다면 율법은 왜 주어졌는가? 바울은 율법이 "범법하므로 더하여진 것"이며, 약속하신 자손(그리스도)이 오시기까지 우리를 가두고 지키는 '초등교사'(24절)의 역할을 했다고 설명합니다. 율법은 거울처럼 우리의 죄를 비추어 우리 스스로는 구원받을 수 없는 죄인임을 깨닫게 하고, 우리를 유일한 구원자이신 그리스도께로 인도하는 역할을 합니다. 그러나 믿음이 온 후로는 우리는 더 이상 초등교사 아래 있지 않습니다.</p>
-                            <p><strong>4. 그리스도와의 연합:</strong> 믿음의 궁극적인 결과는 그리스도와의 연합입니다. <span class="scripture-quote">너희가 다 믿음으로 말미암아 그리스도 예수 안에서 하나님의 아들이 되었으니 누구든지 그리스도와 합하기 위하여 세례를 받은 자는 그리스도로 옷 입었느니라</span>(26-27절). 이 연합 안에서 유대인이나 헬라인, 종이나 자유인, 남자나 여자의 차별은 무의미해집니다. 모든 신자는 그리스도 안에서 하나이며, 약속을 따라 유업을 이을 진정한 아브라함의 자손이 됩니다.</p>
-
+                            <p><strong>1. 이신칭의(Justification by Faith Alone):</strong>바울은 <span class="scripture-quote">너희가 성령을 받은 것이 율법의 행위로냐 혹은 듣고 믿음으로냐</span>(2절)라는 수사학적 질문으로 핵심을 찌릅니다. 구원의 시작인 성령을 받는 것조차 행위와 무관하다면, 구원의 전 과정 역시 마찬가지입니다. 그는 <span class="scripture-quote">아브라함이 하나님을 믿으매 그것을 그에게 의로 정하셨다</span>(6절)는 창세기 15장 6절을 인용하여, 율법이 주어지기 전부터 구원의 원리는 오직 믿음이었음을 확증합니다. 율법을 지킴으로써가 아닌, 그리스도를 믿음으로써 하나님과의 올바른 관계(의)가 회복된다는 것은 개혁주의 구원론의 심장입니다.</p>
+                            <p><strong>2. 그리스도의 대속적 형벌(Penal Substitutionary Atonement):</strong>율법의 기능은 의를 주는 것이 아니라, 오히려 <span class="scripture-quote">무릇 율법 행위에 속한 자들은 저주 아래에 있나니</span>(10절)라고 선언하는 것입니다. 율법의 모든 조항을 항상 지키지 못하는 모든 인간은 저주 아래 놓입니다. 이 절망적인 상황에 대한 유일한 해결책은 <span class="scripture-quote">그리스도께서 우리를 위하여 저주를 받은 바 되사 율법의 저주에서 우리를 속량하셨으니</span>(13절)라는 복음입니다. 그리스도께서 십자가에서 우리가 받아야 할 하나님의 진노와 형벌(저주)을 대신 받으심으로, 하나님의 공의는 만족되었고 우리는 해방되었습니다.</p>
+                            <p><strong>3. 율법의 목적과 기능:</strong>그렇다면 율법은 왜 주어졌는가? 바울은 율법이 "범법하므로 더하여진 것"이며, 약속하신 자손(그리스도)이 오시기까지 우리를 가두고 지키는 '초등교사'(24절)의 역할을 했다고 설명합니다. 율법은 거울처럼 우리의 죄를 비추어 우리 스스로는 구원받을 수 없는 죄인임을 깨닫게 하고, 우리를 유일한 구원자이신 그리스도께로 인도하는 역할을 합니다. 그러나 믿음이 온 후로는 우리는 더 이상 초등교사 아래 있지 않습니다.</p>
+                            <p><strong>4. 그리스도와의 연합:</strong>믿음의 궁극적인 결과는 그리스도와의 연합입니다. <span class="scripture-quote">너희가 다 믿음으로 말미암아 그리스도 예수 안에서 하나님의 아들이 되었으니 누구든지 그리스도와 합하기 위하여 세례를 받은 자는 그리스도로 옷 입었느니라</span>(26-27절). 이 연합 안에서 유대인이나 헬라인, 종이나 자유인, 남자나 여자의 차별은 무의미해집니다. 모든 신자는 그리스도 안에서 하나이며, 약속을 따라 유업을 이을 진정한 아브라함의 자손이 됩니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_48_GAL_03.html" data-title="갈라디아서 3장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn" data-key="GAL_3">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GAL_3" data-title="갈라디아서 3장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
                 </div>
-
-                <div id="content-book3" class="tab-content">
+                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
                             <h3>에스겔 30장: 애굽을 향한 여호와의 날</h3>
                             <h4>상세 개요</h4>
                             <p>에스겔 30장은 애굽과 그의 동맹국들에 대한 하나님의 심판을 선포하는 예언입니다. '여호와의 날'(3절)이라는 주제가 중심을 이루며, 이 날이 애굽에게는 파괴와 절망의 날이 될 것을 생생하게 묘사합니다. 하나님은 바벨론 왕 느부갓네살을 심판의 도구로 사용하여 애굽의 교만을 꺾고, 그들의 신들과 우상들을 파괴하며, 땅을 황폐하게 하실 것을 선언하십니다. 특히 바로의 '두 팔'을 꺾으신다는 이미지를 통해 애굽의 군사적, 정치적 힘이 완전히 무력화될 것을 강조합니다. 이 모든 심판의 목적은 애굽으로 하여금 "내가 여호와인 줄을 알게 하려 함이라"(26절)는 것입니다.</p>
-
                             <h4>심층 신학적 해설</h4>
-                            <p><strong>1. 열방을 향한 하나님의 주권:</strong> 이 예언은 이스라엘의 하나님 여호와께서 단지 한 민족의 신이 아니라, 온 열방의 역사를 주관하시는 만유의 주재이심을 분명히 합니다. 하나님은 바벨론을 들어 애굽을 심판하는 도구로 사용하십니다. <span class="scripture-quote">내가 바벨론 왕의 팔은 견고하게 하고 바로의 팔은 떨어뜨리리니</span>(25절). 제국들의 흥망성쇠가 인간의 정치나 군사력에 달린 것이 아니라, 전적으로 하나님의 주권적인 계획과 작정 안에 있음을 보여줍니다. 세상의 모든 권세는 하나님의 통치 아래 있습니다.</p>
-                            <p><strong>2. 교만에 대한 심판:</strong> 애굽은 나일강의 풍요와 강력한 군사력을 바탕으로 스스로를 신처럼 여기는 교만에 빠져 있었습니다. 그러나 하나님은 그들의 교만을 꺾으실 것을 선언하십니다. 하나님은 인간이나 국가의 교만을 가장 싫어하시며, 스스로 높아지려는 모든 시도를 반드시 꺾으십니다. 이 심판은 하나님의 영광을 도둑질하는 모든 세력에 대한 하나님의 공의로운 응답입니다.</p>
-                            <p><strong>3. 여호와를 아는 지식:</strong> 심판의 목적은 단순한 파괴가 아니라, 하나님의 자기 계시입니다. <span class="scripture-quote">그들이 내가 여호와인 줄 알리라</span>는 후렴구가 반복(8, 19, 25, 26절)되는 것은 이를 강조합니다. 애굽은 자신들의 신들이 무력하고, 자신들의 힘이 헛되며, 오직 이스라엘의 하나님만이 참된 주권자이심을 고통스러운 역사를 통해 배우게 될 것입니다. 하나님의 심판은 그분의 거룩하심과 능력을 온 세상에 드러내는 통로가 됩니다.</p>
-                            
+                            <p><strong>1. 열방을 향한 하나님의 주권:</strong>이 예언은 이스라엘의 하나님 여호와께서 단지 한 민족의 신이 아니라, 온 열방의 역사를 주관하시는 만유의 주재이심을 분명히 합니다. 하나님은 바벨론을 들어 애굽을 심판하는 도구로 사용하십니다. <span class="scripture-quote">내가 바벨론 왕의 팔은 견고하게 하고 바로의 팔은 떨어뜨리리니</span>(25절). 제국들의 흥망성쇠가 인간의 정치나 군사력에 달린 것이 아니라, 전적으로 하나님의 주권적인 계획과 작정 안에 있음을 보여줍니다. 세상의 모든 권세는 하나님의 통치 아래 있습니다.</p>
+                            <p><strong>2. 교만에 대한 심판:</strong>애굽은 나일강의 풍요와 강력한 군사력을 바탕으로 스스로를 신처럼 여기는 교만에 빠져 있었습니다. 그러나 하나님은 그들의 교만을 꺾으실 것을 선언하십니다. 하나님은 인간이나 국가의 교만을 가장 싫어하시며, 스스로 높아지려는 모든 시도를 반드시 꺾으십니다. 이 심판은 하나님의 영광을 도둑질하는 모든 세력에 대한 하나님의 공의로운 응답입니다.</p>
+                            <p><strong>3. 여호와를 아는 지식:</strong>심판의 목적은 단순한 파괴가 아니라, 하나님의 자기 계시입니다. <span class="scripture-quote">그들이 내가 여호와인 줄 알리라</span>는 후렴구가 반복(8, 19, 25, 26절)되는 것은 이를 강조합니다. 애굽은 자신들의 신들이 무력하고, 자신들의 힘이 헛되며, 오직 이스라엘의 하나님만이 참된 주권자이심을 고통스러운 역사를 통해 배우게 될 것입니다. 하나님의 심판은 그분의 거룩하심과 능력을 온 세상에 드러내는 통로가 됩니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_26_EZE_30.html" data-title="에스겔 30장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_30">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_30" data-title="에스겔 30장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
                 </div>
-
-                <div id="content-book4" class="tab-content">
+                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
                             <h3>시편 78:38-72: 배역한 백성과 신실하신 목자</h3>
                             <h4>상세 개요</h4>
                             <p>이 시편의 후반부는 이스라엘의 광야 생활과 가나안 정착 이후의 배역, 그리고 그에 대한 하나님의 신실하신 반응을 그리고 있습니다. 시인은 이스라엘이 끊임없이 하나님을 시험하고, 그들의 마음은 거짓되었으며, 언약에 성실하지 않았다고 고발합니다(36-37, 40-41, 56-58절). 그럼에도 불구하고 하나님은 긍휼을 베푸시어 그들을 진멸하지 않으셨습니다(38-39절). 그러나 그들의 우상숭배가 극에 달했을 때, 하나님은 실로의 성소를 버리시고 언약궤를 빼앗기는 징계를 내리십니다. 이 절망 속에서 하나님은 주권적인 선택으로 에브라임을 버리고 유다와 시온산을 택하시며, 목동 다윗을 왕으로 세워 '성실한 마음'과 '공교한 손'으로 백성을 기르게 하시는 소망으로 시를 마무리합니다.</p>
-                            
                             <h4>심층 신학적 해설</h4>
-                            <p><strong>1. 인간의 전적 부패와 하나님의 긍휼:</strong> 본문은 인간의 죄성(전적 부패)을 적나라하게 보여줍니다. 이스라엘의 회개는 종종 피상적이었고, <span class="scripture-quote">그들의 마음이 정함이 없으며 그의 언약에 성실하지 아니하였음이로다</span>(37절). 이처럼 소망 없는 죄인들을 향한 하나님의 반응은 <span class="scripture-quote">오직 하나님은 긍휼이 풍성하시므로 그들의 죄악을 덮어 주시어 멸망시키지 아니하시고</span>(38절)라는 것입니다. 하나님의 용서는 인간의 자격 때문이 아니라, 전적으로 그분의 긍휼과 자비라는 속성에 근거합니다. 이는 우리가 은혜로만 구원받는다는 진리를 뒷받침합니다.</p>
-                            <p><strong>2. 하나님의 주권적 선택(Sovereign Election):</strong> 이스라엘의 실패는 결국 하나님의 새로운 선택으로 이어집니다. 하나님은 북이스라엘의 중심 지파였던 <span class="scripture-quote">요셉의 장막을 버리시며 에브라임 지파를 택하지 아니하시고 오직 유다 지파와 그가 사랑하시는 시온 산을 택하셨다</span>(67-68절)고 선포합니다. 이 선택은 인간의 공로나 자격에 근거한 것이 아닌, 오직 하나님의 기쁘신 뜻에 따른 주권적 행위입니다. 이 선택의 정점은 <span class="scripture-quote">그의 종 다윗을 택하시되... 그의 백성인 야곱, 그의 소유인 이스라엘을 기르게 하셨더니</span>(70-71절)라는 다윗의 선택입니다.</p>
-                            <p><strong>3. 목자이신 왕, 그리스도의 예표:</strong> 다윗은 양 떼를 따르던 목동에서 이스라엘의 목자로 부름받았습니다. 그는 <span class="scripture-quote">자기 마음의 완전함(성실함)으로 기르고 그의 손의 능숙함(공교함)으로 그들을 지도하였도다</span>(72절)라고 묘사됩니다. 다윗은 불완전했지만, 장차 오실 참된 목자이신 왕, 예수 그리스도의 그림자였습니다. 예수님은 완전한 성실과 능력으로 자기 백성을 인도하시고, 그들을 위해 목숨까지 내어주시는 선한 목자이십니다(요 10:11). 이스라엘의 실패 역사 속에서 하나님은 다윗을 통해 결국 그리스도를 향한 구원의 길을 예비하셨습니다.</p>
-
+                            <p><strong>1. 인간의 전적 부패와 하나님의 긍휼:</strong>본문은 인간의 죄성(전적 부패)을 적나라하게 보여줍니다. 이스라엘의 회개는 종종 피상적이었고, <span class="scripture-quote">그들의 마음이 정함이 없으며 그의 언약에 성실하지 아니하였음이로다</span>(37절). 이처럼 소망 없는 죄인들을 향한 하나님의 반응은 <span class="scripture-quote">오직 하나님은 긍휼이 풍성하시므로 그들의 죄악을 덮어 주시어 멸망시키지 아니하시고</span>(38절)라는 것입니다. 하나님의 용서는 인간의 자격 때문이 아니라, 전적으로 그분의 긍휼과 자비라는 속성에 근거합니다. 이는 우리가 은혜로만 구원받는다는 진리를 뒷받침합니다.</p>
+                            <p><strong>2. 하나님의 주권적 선택(Sovereign Election):</strong>이스라엘의 실패는 결국 하나님의 새로운 선택으로 이어집니다. 하나님은 북이스라엘의 중심 지파였던 <span class="scripture-quote">요셉의 장막을 버리시며 에브라임 지파를 택하지 아니하시고 오직 유다 지파와 그가 사랑하시는 시온 산을 택하셨다</span>(67-68절)고 선포합니다. 이 선택은 인간의 공로나 자격에 근거한 것이 아닌, 오직 하나님의 기쁘신 뜻에 따른 주권적 행위입니다. 이 선택의 정점은 <span class="scripture-quote">그의 종 다윗을 택하시되... 그의 백성인 야곱, 그의 소유인 이스라엘을 기르게 하셨더니</span>(70-71절)라는 다윗의 선택입니다.</p>
+                            <p><strong>3. 목자이신 왕, 그리스도의 예표:</strong>다윗은 양 떼를 따르던 목동에서 이스라엘의 목자로 부름받았습니다. 그는 <span class="scripture-quote">자기 마음의 완전함(성실함)으로 기르고 그의 손의 능숙함(공교함)으로 그들을 지도하였도다</span>(72절)라고 묘사됩니다. 다윗은 불완전했지만, 장차 오실 참된 목자이신 왕, 예수 그리스도의 그림자였습니다. 예수님은 완전한 성실과 능력으로 자기 백성을 인도하시고, 그들을 위해 목숨까지 내어주시는 선한 목자이십니다(요 10:11). 이스라엘의 실패 역사 속에서 하나님은 다윗을 통해 결국 그리스도를 향한 구원의 길을 예비하셨습니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_78.html" data-title="시편 78편">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_78">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_78" data-title="시편 78편">성경 듣기</button>
                             </div>
                         </div>
                     </article>
                 </div>
-                
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
                             <h3>9월 27일 통합 묵상</h3>
-                            
                             <h4>관통하는 주제: 언약적 신실함과 인간의 실패</h4>
                             <p>오늘의 네 본문은 '인간의 실패'와 '하나님의 언약적 신실하심'이라는 두 축이 어떻게 구속사를 이끌어가는지 입체적으로 조명합니다. <strong>사무엘하 23장</strong>에서 다윗은 자신의 집이 불완전함에도 불구하고 하나님께서 세우신 '영원한 언약'을 굳게 붙들며 생을 마감합니다. <strong>시편 78편</strong>은 이스라엘의 끊임없는 배역과 우상숭배라는 실패의 역사를 고발하면서도, 그들을 끝까지 포기하지 않으시고 결국 유다와 다윗을 선택하시는 하나님의 신실하심을 노래합니다. <strong>갈라디아서 3장</strong>은 율법을 지켜 의에 이르려는 인간의 모든 노력이 실패로 귀결될 수밖에 없음을 논증하며, 오직 믿음을 통해 주어지는 하나님의 언약적 의(義)와 약속의 성취를 선포합니다. 마지막으로 <strong>에스겔 30장</strong>은 세상 권력의 정점인 애굽의 교만한 실패와 멸망을 통해, 인간의 힘이 아닌 오직 하나님의 주권적 계획과 말씀만이 영원히 섬을 보여줍니다. 이처럼 모든 본문은 인간의 연약함과 죄악된 실패를 배경으로, 그럼에도 불구하고 자신의 약속을 신실하게 이루어 가시는 하나님의 주권적인 은혜와 영광을 증언하고 있습니다.</p>
-
-                            <h4>입체적 핵심 단어 연구: 언약 (Covenant, בְּרִית, διαθήκη)</h4>
-                            <p>오늘 본문에서 '언약'은 하나님의 구원 계획을 이끌어가는 핵심적인 개념으로 작용합니다.
-                                <ul>
-                                    <li><strong>사무엘하 23:5:</strong> <span class="scripture-quote">하나님이 나와 더불어 영원한 언약을 세우사...</span> 여기서 언약은 다윗 개인과 그의 왕조에 대한 하나님의 주권적이고 무조건적인 약속입니다. 이는 다윗의 자격이 아닌 하나님의 신실함에 기초하며, 장차 오실 메시아를 통해 성취될 구원의 확실성을 보증합니다.</li>
-                                    <li><strong>갈라디아서 3:17:</strong> <span class="scripture-quote">하나님께서 미리 정하신 언약을... 율법이 폐기하지 못하고...</span> 여기서 언약은 아브라함에게 주신 '약속'과 동일시됩니다. 이 약속(언약)은 율법보다 선행하며, 행위가 아닌 믿음으로 의롭게 되는 구원의 원리를 담고 있습니다. 율법은 이 언약을 무효화할 수 없습니다.</li>
-                                    <li><strong>시편 78편:</strong> '언약'이라는 단어가 직접 등장하지는 않지만, 시 전체가 시내산 언약 관계 속에서 이스라엘의 불순종과 하나님의 신실하심을 다룹니다. 언약 백성은 실패했지만, 하나님은 언약을 기억하시고 긍휼을 베푸시며 새로운 선택을 통해 언약을 이어가십니다.</li>
-                                    <li><strong>에스겔 30장:</strong> 이방 국가를 향한 심판이지만, 이 또한 온 세상을 다스리시는 창조주 하나님의 언약적 통치의 발현입니다. 하나님의 통치권은 이스라엘에게만 국한되지 않습니다.</li>
-                                </ul>
-                            </p>
-
+                            <h4>입체적 핵심 단어 연구: 언약 (Covenant, בְּ리ת, διαθήκη)</h4>
+                            <ul>
+                                <li><strong>사무엘하 23:5:</strong><span class="scripture-quote">하나님이 나와 더불어 영원한 언약을 세우사...</span> 여기서 언약은 다윗 개인과 그의 왕조에 대한 하나님의 주권적이고 무조건적인 약속입니다. 이는 다윗의 자격이 아닌 하나님의 신실함에 기초하며, 장차 오실 메시아를 통해 성취될 구원의 확실성을 보증합니다.</li>
+                                <li><strong>갈라디아서 3:17:</strong><span class="scripture-quote">하나님께서 미리 정하신 언약을... 율법이 폐기하지 못하고...</span> 여기서 언약은 아브라함에게 주신 '약속'과 동일시됩니다. 이 약속(언약)은 율법보다 선행하며, 행위가 아닌 믿음으로 의롭게 되는 구원의 원리를 담고 있습니다. 율법은 이 언약을 무효화할 수 없습니다.</li>
+                                <li><strong>시편 78편:</strong>'언약'이라는 단어가 직접 등장하지는 않지만, 시 전체가 시내산 언약 관계 속에서 이스라엘의 불순종과 하나님의 신실하심을 다룹니다. 언약 백성은 실패했지만, 하나님은 언약을 기억하시고 긍휼을 베푸시며 새로운 선택을 통해 언약을 이어가십니다.</li>
+                                <li><strong>에스겔 30장:</strong>이방 국가를 향한 심판이지만, 이 또한 온 세상을 다스리시는 창조주 하나님의 언약적 통치의 발현입니다. 하나님의 통치권은 이스라엘에게만 국한되지 않습니다.</li>
+                            </ul>
                             <h4>심층 상호 참조</h4>
                             <ul>
                                 <li><strong>`사무엘하 23:5` (다윗의 영원한 언약) &harr; `히브리서 13:20` (영원한 언약의 피):</strong> 다윗이 받았던 영원한 언약의 실체는 예수 그리스도의 피로 세워진 더 좋은 새 언약임이 드러납니다. 다윗의 언약은 그림자였고, 그리스도의 새 언약은 실체입니다.</li>
@@ -605,7 +254,6 @@
                                 <li><strong>`시편 78:70-72` (목자 다윗을 택하심) &harr; `요한복음 10:11` (선한 목자이신 예수님):</strong> 다윗은 불완전한 목자였으나, 자신의 양들을 위해 목숨을 버리신 참되고 선한 목자이신 예수 그리스도를 예표하는 중요한 인물입니다. 하나님의 선택은 궁극적으로 그리스도를 향하고 있습니다.</li>
                                 <li><strong>`에스겔 30:3` (애굽에 임할 여호와의 날) &harr; `요엘 2:31` (크고 두려운 여호와의 날):</strong> 한 국가에 대한 역사적 심판의 날은, 모든 인류를 향한 마지막 심판의 날인 '여호와의 날'에 대한 예표이자 경고가 됩니다.</li>
                             </ul>
-
                             <h4>적용을 위한 성찰 질문</h4>
                             <ol>
                                 <li>다윗은 자신의 집안이 하나님 앞에서 불완전함을 알았지만, 하나님의 '영원한 언약' 때문에 소망을 가졌습니다(삼하 23:5). 나의 삶의 불완전함과 반복되는 실패에도 불구하고, 그리스도 안에서 맺어진 새 언약이 오늘 나에게 어떤 구체적인 소망과 위로를 줍니까?</li>
@@ -618,36 +266,26 @@
                 </div>
             </main>
             
-            <footer>
-                <p>&copy; 2025 MacCheyne 4.0. All Rights Reserved.</p>
-                <p>Generated by a Reformed Theology-based AI Assistant.</p>
-            </footer>
+            <footer><p>&copy; 2025 MacCheyne 4.0. All Rights Reserved.</p></footer>
         </div>
     </div>
 
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title"></h2>
-                <button class="modal-close-btn" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="modal-iframe" src=""></iframe>
-            </div>
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
     
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info">
-            <span class="current-tab" id="current-tab-info">1/5</span>
-        </div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
 
     <div class="audio-player" id="audio-player-container">
         <div class="audio-player-controls">
-            <div id="player"></div>
+            <div id="player-container"></div>
             <button class="audio-close-btn" id="audio-close-btn">&times;</button>
         </div>
     </div>
@@ -655,100 +293,98 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const audioKeyMap = new Map();
-            let isPlayerReady = false;
-            let player;
+            let ytPlayer, isPlayerReady = false;
 
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-            let currentTabIndex = 0;
-
-            const floatingNav = document.getElementById('floating-nav');
-            const prevBtn = document.getElementById('prev-tab');
-            const nextBtn = document.getElementById('next-tab');
-            const currentTabInfo = document.getElementById('current-tab-info');
-
+            const tabs = {
+                buttons: document.querySelectorAll('.tab-btn'),
+                contents: document.querySelectorAll('.tab-content'),
+                currentIndex: 0
+            };
+            const nav = {
+                container: document.getElementById('floating-nav'),
+                prevBtn: document.getElementById('prev-tab'),
+                nextBtn: document.getElementById('next-tab'),
+                info: document.getElementById('current-tab-info')
+            };
             const progressBar = document.getElementById('reading-progress');
-            
-            const modal = document.getElementById('text-modal');
-            const modalCloseBtn = document.getElementById('modal-close');
-            const viewTextBtns = document.querySelectorAll('.view-text-btn');
+            const modal = {
+                overlay: document.getElementById('text-modal'),
+                closeBtn: document.getElementById('modal-close'),
+                title: document.getElementById('modal-title'),
+                iframe: document.getElementById('modal-iframe')
+            };
+            const audioPlayer = {
+                container: document.getElementById('audio-player-container'),
+                closeBtn: document.getElementById('audio-close-btn')
+            };
 
-            const audioPlayerContainer = document.getElementById('audio-player-container');
-            const audioCloseBtn = document.getElementById('audio-close-btn');
-
-            function initialize() {
+            function init() {
+                initYouTubeAPI();
                 loadAudioKeys();
                 setupEventListeners();
                 loadCompletionStatus();
                 updateFloatingNav();
                 updateReadingProgress();
-                
                 const firstContent = document.querySelector('.tab-content.active');
-                if(firstContent) {
-                    setTimeout(() => firstContent.style.opacity = 1, 100);
-                }
+                if (firstContent) setTimeout(() => firstContent.style.opacity = 1, 100);
+            }
+
+            function initYouTubeAPI() {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                document.head.appendChild(tag);
+                window.onYouTubeIframeAPIReady = () => {
+                    ytPlayer = new YT.Player('player-container', {
+                        height: '60', width: '300',
+                        events: { 'onReady': () => { isPlayerReady = true; } }
+                    });
+                };
             }
 
             async function loadAudioKeys() {
                 try {
-                    // Path updated to absolute URL
                     const response = await fetch('https://kbd71.github.io/bible71/address/mcbible.txt');
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     const text = await response.text();
                     text.split('\n').forEach(line => {
-                        if (line.trim() !== '') {
-                            const [longKey, videoId] = line.split(',');
-                            if (longKey && videoId) {
+                        if (line.trim()) {
+                            const [longKey, url] = line.split(',');
+                            if (longKey && url) {
                                 const shortKey = longKey.split('_').slice(-2).join('_');
-                                audioKeyMap.set(shortKey, videoId.trim());
+                                audioKeyMap.set(shortKey, url.trim());
                             }
                         }
                     });
                 } catch (error) {
-                    console.error("mcbible.txt 파일을 로드하는 데 실패했습니다. 경로와 파일 상태를 확인해주세요.", error);
+                    console.error("mcbible.txt 로드 실패:", error);
                 }
             }
 
+            function getYouTubeID(url) {
+                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                const match = url.match(regex);
+                return match ? match[1] : null;
+            }
+
             function setupEventListeners() {
-                tabButtons.forEach((button, index) => {
-                    button.addEventListener('click', () => switchTab(index));
-                });
-
-                viewTextBtns.forEach(button => {
-                    button.addEventListener('click', () => openTextModal(button));
-                });
-
-                document.querySelectorAll('.listen-audio-btn').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const key = button.getAttribute('data-key');
-                        playAudio(key);
-                    });
-                });
-
-                modalCloseBtn.addEventListener('click', () => modal.classList.remove('visible'));
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) modal.classList.remove('visible');
-                });
-                
-                audioCloseBtn.addEventListener('click', closeAudioPlayer);
-
-                prevBtn.addEventListener('click', () => switchTab(currentTabIndex - 1));
-                nextBtn.addEventListener('click', () => switchTab(currentTabIndex + 1));
+                tabs.buttons.forEach((button, index) => button.addEventListener('click', () => switchTab(index)));
+                document.querySelectorAll('.view-text-btn').forEach(button => button.addEventListener('click', () => openTextModal(button)));
+                document.querySelectorAll('.listen-audio-btn').forEach(button => button.addEventListener('click', () => playAudio(button)));
+                modal.closeBtn.addEventListener('click', () => modal.overlay.classList.remove('visible'));
+                modal.overlay.addEventListener('click', (e) => { if (e.target === modal.overlay) modal.overlay.classList.remove('visible'); });
+                audioPlayer.closeBtn.addEventListener('click', closeAudioPlayer);
+                nav.prevBtn.addEventListener('click', () => switchTab(tabs.currentIndex - 1));
+                nav.nextBtn.addEventListener('click', () => switchTab(tabs.currentIndex + 1));
                 
                 let lastScrollY = window.scrollY;
                 window.addEventListener('scroll', () => {
                     updateReadingProgress();
                     checkReadingCompletion();
-
                     const currentScrollY = window.scrollY;
                     if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                        if (!audioPlayerContainer.classList.contains('visible')) {
-                            floatingNav.classList.add('hidden');
-                        }
+                        if (!audioPlayer.container.classList.contains('visible')) nav.container.classList.add('hidden');
                     } else {
-                        floatingNav.classList.remove('hidden');
+                        nav.container.classList.remove('hidden');
                     }
                     lastScrollY = currentScrollY < 0 ? 0 : currentScrollY;
                 }, { passive: true });
@@ -756,89 +392,61 @@
             }
 
             function switchTab(index) {
-                if (index < 0 || index >= tabButtons.length) return;
-
-                currentTabIndex = index;
-
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                    content.style.opacity = 0;
-                });
-
-                const newTab = tabButtons[index];
-                const newContent = tabContents[index];
-
-                newTab.classList.add('active');
-                newContent.classList.add('active');
-                
-                setTimeout(() => newContent.style.opacity = 1, 50);
-
+                if (index < 0 || index >= tabs.buttons.length) return;
+                tabs.currentIndex = index;
+                tabs.buttons.forEach(btn => btn.classList.remove('active'));
+                tabs.contents.forEach(content => { content.classList.remove('active'); content.style.opacity = 0; });
+                tabs.buttons[index].classList.add('active');
+                tabs.contents[index].classList.add('active');
+                setTimeout(() => tabs.contents[index].style.opacity = 1, 50);
                 window.scrollTo({ top: 0, behavior: 'auto' });
-                
                 updateFloatingNav();
                 setTimeout(updateReadingProgress, 150);
             }
 
             function openTextModal(button) {
-                const path = button.getAttribute('data-path');
-                const title = button.getAttribute('data-title');
-                document.getElementById('modal-title').innerText = title;
-                document.getElementById('modal-iframe').src = path;
-                modal.classList.add('visible');
+                modal.title.innerText = button.dataset.title;
+                modal.iframe.src = button.dataset.path;
+                modal.overlay.classList.add('visible');
             }
 
-            function playAudio(key) {
-                const videoId = audioKeyMap.get(key);
-                if (videoId) {
-                    floatingNav.classList.add('hidden');
-                    audioPlayerContainer.classList.add('visible');
-                    if (isPlayerReady && player) {
-                        player.loadVideoById(videoId);
-                    } else {
-                        setupYouTubePlayer(videoId);
-                    }
-                } else {
-                    alert('오디오 정보를 찾을 수 없습니다. mcbible.txt 파일에 해당 키가 있는지 확인해주세요.');
-                }
+            function playAudio(button) {
+                if (!isPlayerReady) { alert('오디오 플레이어가 아직 준비되지 않았습니다.'); return; }
+                const key = button.dataset.key;
+                const url = audioKeyMap.get(key);
+                if (url) {
+                    const videoId = getYouTubeID(url);
+                    if (videoId) {
+                        ytPlayer.loadVideoById(videoId);
+                        nav.container.classList.add('hidden');
+                        audioPlayer.container.classList.add('visible');
+                    } else { alert('유효한 YouTube 주소가 아닙니다.'); }
+                } else { alert('오디오 정보를 찾을 수 없습니다. (Key: ' + key + ')'); }
             }
-            
+
             function closeAudioPlayer() {
-                if (player && typeof player.stopVideo === 'function') {
-                    player.stopVideo();
-                }
-                audioPlayerContainer.classList.remove('visible');
-                floatingNav.classList.remove('hidden');
+                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') ytPlayer.stopVideo();
+                audioPlayer.container.classList.remove('visible');
+                nav.container.classList.remove('hidden');
             }
-            
+
             function updateFloatingNav() {
-                currentTabInfo.textContent = `${currentTabIndex + 1}/${tabButtons.length}`;
-                prevBtn.disabled = currentTabIndex === 0;
-                nextBtn.disabled = currentTabIndex === tabButtons.length - 1;
+                nav.info.textContent = `${tabs.currentIndex + 1}/${tabs.buttons.length}`;
+                nav.prevBtn.disabled = tabs.currentIndex === 0;
+                nav.nextBtn.disabled = tabs.currentIndex === tabs.buttons.length - 1;
             }
 
             function updateReadingProgress() {
                 const activeContent = document.querySelector('.tab-content.active');
                 if (!activeContent) return;
-
-                const contentHeight = activeContent.scrollHeight;
-                const viewportHeight = window.innerHeight;
-                const scrollableHeight = contentHeight - viewportHeight;
-                const scrollTop = window.scrollY;
-                
-                let progress = 0;
-                if (scrollableHeight > 0) {
-                    progress = (scrollTop / scrollableHeight) * 100;
-                } else {
-                    progress = scrollTop > 0 ? 100 : 0;
-                }
-                
+                const scrollableHeight = activeContent.scrollHeight - window.innerHeight;
+                const progress = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
                 progressBar.style.width = Math.min(100, progress) + '%';
             }
 
             function checkReadingCompletion() {
                 if (parseFloat(progressBar.style.width) >= 95) {
-                    const currentTab = tabButtons[currentTabIndex];
+                    const currentTab = tabs.buttons[tabs.currentIndex];
                     if (currentTab && !currentTab.classList.contains('completed')) {
                         currentTab.classList.add('completed');
                         saveCompletionStatus();
@@ -848,58 +456,19 @@
 
             function saveCompletionStatus() {
                 const dateKey = document.querySelector('h1').textContent;
-                const completedTabs = [];
-                tabButtons.forEach((tab, index) => {
-                    if (tab.classList.contains('completed')) {
-                        completedTabs.push(index);
-                    }
-                });
-                localStorage.setItem(`completed_${dateKey}`, JSON.stringify(completedTabs));
+                const completed = Array.from(tabs.buttons).map((tab, index) => tab.classList.contains('completed') ? index : -1).filter(i => i !== -1);
+                localStorage.setItem(`completed_${dateKey}`, JSON.stringify(completed));
             }
 
             function loadCompletionStatus() {
                 const dateKey = document.querySelector('h1').textContent;
-                const completedTabs = JSON.parse(localStorage.getItem(`completed_${dateKey}`) || '[]');
-                completedTabs.forEach(index => {
-                    if (tabButtons[index]) {
-                        tabButtons[index].classList.add('completed');
-                    }
+                const completed = JSON.parse(localStorage.getItem(`completed_${dateKey}`) || '[]');
+                completed.forEach(index => {
+                    if (tabs.buttons[index]) tabs.buttons[index].classList.add('completed');
                 });
             }
 
-            function setupYouTubePlayer(initialVideoId) {
-                if (window.YT && window.YT.Player) {
-                    createPlayer(initialVideoId);
-                } else {
-                    const tag = document.createElement('script');
-                    tag.src = "https://www.youtube.com/iframe_api";
-                    const firstScriptTag = document.getElementsByTagName('script')[0];
-                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-                    window.onYouTubeIframeAPIReady = () => createPlayer(initialVideoId);
-                }
-            }
-            
-            function createPlayer(videoId) {
-                if(player) {
-                    player.loadVideoById(videoId);
-                    return;
-                }
-                player = new YT.Player('player', {
-                    height: '60',
-                    width: '300',
-                    videoId: videoId,
-                    playerVars: { 'autoplay': 1, 'controls': 1, 'rel': 0, 'fs': 0 },
-                    events: { 'onReady': onPlayerReady }
-                });
-            }
-            
-            function onPlayerReady(event) {
-                isPlayerReady = true;
-                event.target.playVideo();
-                document.getElementById('player').style.display = 'block';
-            }
-
-            initialize();
+            init();
         });
     </script>
 </body>
