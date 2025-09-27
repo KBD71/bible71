@@ -9,11 +9,11 @@
     --color-card-bg: #ffffff;
     --color-border: #dee2e6;
     
-    --book1-color: #4285F4; /* 사무엘하 */
-    --book2-color: #DB4437; /* 갈라디아서 */
-    --book3-color: #c89200; /* 에스겔 */
-    --book4-color: #0F9D58; /* 시편 */
-    --integration-color: #5f6368; /* 통합 묵상 */
+    --book1-color: #4285F4;
+    --book2-color: #DB4437;
+    --book3-color: #c89200;
+    --book4-color: #0F9D58;
+    --integration-color: #5f6368;
 }
 
 html { scroll-behavior: smooth; }
@@ -29,25 +29,28 @@ body {
     justify-content: center;
 }
 
-.container {
-    width: 100%;
-    max-width: 1280px;
-    padding: 2rem 1rem;
-}
-
-.content-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-}
+.container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+.content-wrapper { max-width: 800px; margin: 0 auto; }
 
 header { text-align: center; margin-bottom: 3rem; }
 header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
 header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
 
-.tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 2rem; }
+.tabs { 
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    position: sticky;
+    top: 4px; /* Progress bar height */
+    background: rgba(248, 249, 250, 0.95);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    padding: 10px;
+    margin: 0 -10px 2rem -10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
 .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
 .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
-.tab-btn.active { color: white; border-color: transparent; }
+.tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
 .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
 .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
 .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
@@ -57,32 +60,24 @@ header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--co
 
 .tab-content { display: none; }
 .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
 .chapter-card:hover, .integration-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-.card-book1 { border-color: var(--book1-color); }
-.card-book2 { border-color: var(--book2-color); }
-.card-book3 { border-color: var(--book3-color); }
-.card-book4 { border-color: var(--book4-color); }
-.integration-card { border-color: var(--integration-color); }
+.card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+.card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+.card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+.card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+.integration-card { border-color: var(--integration-color); } .integration-card h3 { color: var(--integration-color); }
 
 .card-content { padding: 2rem; }
 .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
-.card-book1 h3 { color: var(--book1-color); }
-.card-book2 h3 { color: var(--book2-color); }
-.card-book3 h3 { color: var(--book3-color); }
-.card-book4 h3 { color: var(--book4-color); }
-.integration-card h3 { color: var(--integration-color); }
 .card-content h4 { font-family: var(--font-heading); font-size: 1.1rem; color: #343a40; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
 .card-content p { font-size: 17px; margin-bottom: 1.5em; }
-
 .card-content p > strong:first-child, .card-content li > strong:first-child { color: #1a5c9a; font-weight: 700; margin-right: 0.3em; }
-
 .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
 .scripture-quote::before { content: " “"; }
 .scripture-quote::after { content: "” "; }
-
 .card-content ul { padding-left: 20px; font-size: 17px; }
 .card-content li { margin-bottom: 1em; }
 
@@ -126,8 +121,9 @@ footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px 
 .nav-info { margin: 0 4px; font-size: 12px; color: #6c757d; font-weight: 600; min-width: 30px; text-align: center; font-family: var(--font-heading); }
 
 @media (max-width: 768px) {
+    body { padding: 1rem; }
     header h1 { font-size: 2rem; }
-    .tabs { gap: 5px; }
+    .tabs { margin: 0 -10px 1.5rem -10px; }
     .tab-btn { padding: 8px 15px; font-size: 0.9rem; }
     .card-content { padding: 1.5rem; }
     .card-content h3 { font-size: 1.5rem; }
