@@ -3,510 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9월 29일 - 맥체인 성경읽기</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
-
-        :root {
-            --font-serif: 'KoPub Batang', serif;
-            --font-sans-serif: 'Pretendard', sans-serif;
-            
-            --color-text: #343a40;
-            --color-background: #f8f9fa;
-            --color-card-bg: #ffffff;
-            --color-border: #dee2e6;
-            --color-muted: #868e96;
-
-            --color-book1: #4285F4;
-            --color-book2: #DB4437;
-            --color-book3: #c89200;
-            --color-book4: #0F9D58;
-            --color-integration: #5f6368;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-serif);
-            font-size: 17px;
-            line-height: 1.8;
-            color: var(--color-text);
-            background-color: var(--color-background);
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1280px;
-        }
-
-        header, main {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-family: var(--font-sans-serif);
-            font-size: clamp(2.2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin: 0.5em 0;
-            color: #212529;
-        }
-        
-        h3 {
-            font-family: var(--font-sans-serif);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        h4 {
-            font-family: var(--font-sans-serif);
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--color-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-top: 0;
-            margin-bottom: 1.5em;
-        }
-        p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .chapter-card, .integration-card {
-            background-color: var(--color-card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 3.5rem;
-            padding: 2rem 2.5rem;
-            border-left: 8px solid;
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-card:hover, .integration-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .card-book1 { border-color: var(--color-book1); }
-        .card-book1 h3 { color: var(--color-book1); }
-        .card-book2 { border-color: var(--color-book2); }
-        .card-book2 h3 { color: var(--color-book2); }
-        .card-book3 { border-color: var(--color-book3); }
-        .card-book3 h3 { color: var(--color-book3); }
-        .card-book4 { border-color: var(--color-book4); }
-        .card-book4 h3 { color: var(--color-book4); }
-        .integration-card { border-color: var(--color-integration); }
-        .integration-card h3 { color: var(--color-integration); }
-
-        .btn-group {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            font-family: var(--font-sans-serif);
-            padding: 0.6em 1.2em;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            color: white;
-        }
-
-        .btn-view { background-color: #343a40; }
-        .btn-listen { background-color: var(--color-integration); }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.15);
-        }
-        .btn:active {
-            transform: translateY(0);
-            filter: brightness(0.95);
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background-color: var(--color-card-bg);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 800px;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-        
-        .modal-close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .modal-close-btn:hover {
-            color: #333;
-        }
-
-        .modal-body {
-             max-height: 70vh;
-             overflow-y: auto;
-             font-size: 18px;
-             line-height: 2;
-        }
-        
-        .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 100px auto;
-        }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
-
-        .audio-player {
-            position: fixed;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 500px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: bottom 0.3s ease-in-out;
-            z-index: 1001;
-        }
-        .audio-player.show { bottom: 0; }
-        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
-        .audio-player-controls button:hover { color: #bdc3c7; }
-        #youtube-player-container { display: none; }
-
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--color-border);
-            color: #6c757d;
-        }
-    </style>
+    <title>9월 29일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" id="main-container">
-        <header>
-            <h1>9월 29일</h1>
-            <p>하나님의 나라와 백성의 참된 모습</p>
-        </header>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
-        <main>
-            <div class="chapter-card card-book1">
-                <h3>열왕기상 1장: 다윗 왕국의 계승 투쟁</h3>
-                <h4>상세 개요</h4>
-                <p>열왕기상 1장은 늙고 쇠약해진 다윗의 통치 말기, 그의 아들들 사이에서 벌어지는 치열한 왕위 계승 투쟁을 그립니다. 넷째 아들 아도니야는 다윗의 허락 없이 스스로를 왕으로 선포하며 세력을 규합합니다. 그는 군사령관 요압과 제사장 아비아달 등 기존 권력층의 지지를 얻어 잔치를 벌입니다. 이 소식을 들은 선지자 나단은 다윗의 아내 밧세바와 공모하여, 과거 하나님께서 솔로몬에게 왕위를 약속하셨음을 다윗에게 상기시킵니다. 이에 다윗은 자신의 뜻이 솔로몬에게 있음을 공식적으로 천명하고, 제사장 사독과 선지자 나단 등을 통해 솔로몬에게 기름을 부어 왕으로 즉위시킵니다. 기혼 시냇가에서 울려 퍼진 솔로몬의 즉위 소식에 아도니야의 세력은 흩어지고, 아도니야 자신은 제단 뿔을 잡고 목숨을 구걸하게 됩니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>인간의 야망과 하나님의 주권적 선택:</strong> 아도니야의 왕위 찬탈 시도는 인간적인 계산과 야망이 하나님의 계획을 거스를 수 없음을 명백히 보여줍니다. 그는 스스로 높아져 "내가 왕이 되리라"(5절)고 선언하며, 군사력(요압)과 종교적 권위(아비아달)를 자신의 편으로 끌어들입니다. 그러나 하나님의 나라는 인간의 세력 다툼이나 자격으로 세워지는 것이 아닙니다. 다윗은 "내 하나님 여호와께서 전에 내게 맹세하여 이르시기를 네 아들 솔로몬이 반드시 나를 이어 왕이 되리라 하셨으니"(30절)라고 말하며, 왕위 계승이 자신의 뜻이 아닌 하나님의 주권적인 약속과 선택에 근거함을 분명히 합니다. 이는 하나님의 나라가 인간의 노력이 아닌 하나님의 은혜로운 선택으로 말미암는다는 구속사의 핵심 원리를 보여줍니다.</li>
-                    <li><strong>참된 왕의 기름 부음:</strong> 솔로몬의 즉위 과정에서 '기름 부음'은 매우 중요한 상징적 행위입니다. 그는 "제사장 사독이 성막 가운데에서 기름 담은 뿔을 가져다가 솔로몬에게 기름을 부으니"(39절) 왕으로 공인됩니다. 구약에서 기름 부음은 하나님의 영이 임재하여 특정 직무(왕, 제사장, 선지자)를 수행할 능력과 권위를 부여하는 것을 의미합니다. 아도니야가 인간적인 잔치로 세력을 과시한 것과 달리, 솔로몬은 하나님의 집(성막)에서 나온 거룩한 기름으로 구별됩니다. 이는 장차 오실 진정한 기름 부음 받은 자, 즉 '메시아'(그리스도)를 예표합니다. 예수 그리스도는 인간의 지지로 왕이 되신 것이 아니라, 하늘로부터 성령으로 기름 부음 받으신 만왕의 왕이십니다.</li>
-                </ol>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>9월 29일</h1>
+            </header>
 
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_11_1KI_01.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="1KI_1" data-title="열왕기상 1장">성경 듣기</button>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-book1" data-color="book1">열왕기상 1장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">갈라디아서 5장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">에스겔 32장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">시편 80편</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+            </nav>
+
+            <main>
+                <div id="content-book1" class="tab-content active">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>열왕기상 1장: 쇠퇴하는 왕과 새로운 왕의 기름 부음</h3>
+                            <h4>상세 개요</h4>
+                            <p>다윗 왕이 늙고 쇠약해진 틈을 타, 그의 넷째 아들 아도니야가 스스로 왕이 되려 합니다. 그는 군대장관 요압과 제사장 아비아달 등 유력 인사들을 포섭하여 잔치를 열고 왕위 계승을 기정사실화합니다. 이 소식을 들은 선지자 나단과 다윗의 아내 밧세바는 다윗에게 나아가 하나님께서 솔로몬을 후계자로 약속하셨음을 상기시킵니다. 이에 다윗은 즉시 제사장 사독과 선지자 나단을 보내 솔로몬에게 기름을 부어 왕으로 공포하게 하고, 이로써 아도니야의 계획은 무산됩니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 인간적 야망과 하나님의 주권적 선택:</strong> 아도니야의 왕위 찬탈 시도는 인간적인 계략과 세력 규합을 통해 하나님의 뜻을 거스르려는 시도의 전형을 보여줍니다. 그러나 성경은 <span class="scripture-quote">왕위는 내 아우의 것이 되었음은 여호와께로 말미암았음이니라</span>(왕상 2:15)고 기록하며, 왕권의 향방이 인간의 손이 아닌 하나님의 주권적인 선택에 달려있음을 명확히 합니다. 이는 세상의 모든 권세가 궁극적으로 하나님의 통치 아래 있음을 보여주는 개혁주의적 통찰입니다.</p>
+                            <p><strong>2. 다윗 언약의 계승과 메시아 예표:</strong> 다윗이 솔로몬을 왕으로 세우는 과정은 단순히 정치적 권력 이양이 아니라, 하나님께서 다윗과 맺으신 언약(삼하 7장)의 신실한 성취 과정입니다. 다윗의 왕위가 끊어지지 않고 약속된 아들을 통해 이어지는 것은, 장차 다윗의 위를 영원히 견고하게 하실 참된 왕, 예수 그리스도에 대한 구속사적 예표입니다. 솔로몬의 기름 부음은 만왕의 왕으로 오실 메시아의 대관식을 미리 보여주는 그림자와 같습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_11_1KI_01.html" data-title="열왕기상 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="1KI_1" data-title="열왕기상 1장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book2">
-                <h3>갈라디아서 5장: 성령을 따라 행하는 자유</h3>
-                <h4>상세 개요</h4>
-                <p>갈라디아서 5장은 그리스도께서 우리에게 주신 '자유'의 진정한 의미를 설명합니다. 이 자유는 율법의 멍에에서 벗어난 자유이며, 다시는 종의 신분으로 돌아가서는 안 될 귀한 것입니다. 바울은 할례를 비롯한 율법의 행위로 의로워지려는 시도는 그리스도를 무익하게 만들고 은혜에서 끊어지는 결과를 낳는다고 강력하게 경고합니다. 그리스도 예수 안에서는 할례나 무할례가 효력이 없으며, 오직 "사랑으로써 역사하는 믿음"(6절)만이 중요합니다. 그러나 이 자유는 육체의 욕망을 따라 사는 방종이 아닙니다. 오히려 "사랑으로 서로 종 노릇 하라"(13절)고 권면하며, 진정한 자유는 성령을 따라 행함으로써 육체의 소욕을 이기고 사랑의 열매를 맺는 삶임을 역설합니다. 바울은 육체의 일(음행, 우상숭배, 분쟁 등)과 성령의 아홉 가지 열매(사랑, 희락, 화평 등)를 선명하게 대조하며, 그리스도께 속한 사람은 정욕과 탐심을 십자가에 못 박고 성령과 함께 행하는 사람이라고 정의합니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>자유의 역설: 사랑으로 종 노릇 함:</strong> 복음 안에서의 자유는 '무엇으로부터의 자유'(freedom from)일 뿐만 아니라 '무엇을 위한 자유'(freedom for)입니다. 우리는 율법의 정죄와 두려움으로부터 자유롭게 되었지만, 그 목적은 자기 마음대로 살기 위함이 아니라, 이제 자발적인 사랑으로 하나님과 이웃을 섬기기 위함입니다. "너희가 자유를 위하여 부르심을 입었으나 그러나 그 자유로 육체의 기회를 삼지 말고 오직 사랑으로 서로 종 노릇 하라"(13절)는 말씀은 이 자유의 역설적인 본질을 보여줍니다. 율법 아래서는 의무와 두려움 때문에 마지못해 섬겼다면, 성령 안에서는 기쁨과 사랑으로 즐거이 섬기는 '사랑의 종'이 되는 것입니다. 이것이 율법의 모든 요구를 완성하는 길이기도 합니다.</li>
-                    <li><strong>성령과 육체의 싸움, 그리고 성화의 삶:</strong> 바울은 그리스도인의 내면에 "육체의 소욕은 성령을 거스르고 성령은 육체를 거스르나니 이 둘이 서로 대적함으로 너희가 원하는 것을 하지 못하게 하려 함이니라"(17절)는 영적 전쟁이 계속되고 있음을 분명히 합니다. 칭의를 통해 우리의 신분은 변했지만, 우리 안에 남아있는 죄의 본성(육체)은 여전히 활동합니다. 이 전쟁에서 승리하는 유일한 길은 "성령을 따라 행하는 것"(16절)입니다. 이는 단순히 인간적인 노력이나 금욕주의가 아니라, 내 안에 내주하시는 성령의 인도하심과 능력에 의지하여 살아가는 것을 의미합니다. 이 삶의 자연스러운 결과가 바로 '성령의 열매'이며, 이는 인간의 노력으로 만들어내는 것이 아니라 성령께서 우리를 통해 맺으시는 인격의 변화입니다. 이것이 바로 개혁주의 성화론의 핵심입니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="NT/NT_48_GAL_05.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="GAL_5" data-title="갈라디아서 5장">성경 듣기</button>
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>갈라디아서 5장: 성령을 따르는 삶과 자유의 열매</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 그리스도께서 우리를 자유롭게 하려고 자유를 주셨으니, 다시는 율법주의의 멍에를 메지 말라고 강력히 권면합니다. 참된 자유는 방종이 아니라 '사랑으로 서로 종 노릇 하는 것'입니다. 그는 육체의 소욕과 성령의 소욕이 서로 거스르는 내적 싸움을 설명하며, 성도가 따라야 할 길은 오직 성령을 따르는 삶임을 역설합니다. 이 삶의 결과로 나타나는 것이 바로 사랑, 희락, 화평 등 '성령의 아홉 가지 열매'입니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 복음 안에서의 참된 자유(Christian Liberty):</strong> 바울이 말하는 자유는 율법의 정죄와 저주로부터의 해방입니다. 그러나 이 자유는 죄를 지을 자유가 아닙니다. <span class="scripture-quote">자유로 육체의 기회를 삼지 말고 오직 사랑으로 서로 종 노릇 하라</span>(13절)는 말씀처럼, 이 자유는 율법의 강제가 아닌, 성령 안에서 자발적인 사랑으로 하나님과 이웃을 섬기는 새로운 삶의 원리입니다. 이는 율법의 요구를 폐기하는 것이 아니라, 사랑이라는 더 높은 차원에서 완성하는 것입니다.</p>
+                            <p><strong>2. 성화의 동력, 성령의 열매:</strong> 성도의 삶은 육체의 소욕과 성령의 소욕 사이의 끊임없는 영적 전쟁터입니다. 이 싸움에서 승리하는 길은 우리의 의지적 노력에만 있지 않고, <span class="scripture-quote">성령을 따라 행하는 것</span>(16절)에 있습니다. '성령의 열매'는 인간이 만들어내는 덕목이 아니라, 성령께서 우리 안에 내주하시며 그분의 성품을 맺어가시는 결과물입니다. 이는 성화(Sanctification)가 전적으로 성령 하나님의 사역임을 보여주는 중요한 교리입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_48_GAL_05.html" data-title="갈라디아서 5장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GAL_5" data-title="갈라디아서 5장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book3">
-                <h3>에스겔 32장: 애굽 왕을 위한 애가</h3>
-                <h4>상세 개요</h4>
-                <p>에스겔 32장은 애굽 왕 바로의 몰락을 애도하는 두 편의 슬픈 노래(애가)로 구성되어 있습니다. 첫 번째 애가(1-16절)에서 바로는 자신을 강들 가운데의 '젊은 사자'나 '바다의 큰 악어'로 여기며 교만했지만, 이제는 하나님께서 던지신 그물에 걸려 뭍으로 끌려 나와 온갖 짐승의 먹이가 되는 비참한 신세가 될 것이라고 노래합니다. 그의 몰락은 해와 달과 별들이 빛을 잃고 온 땅이 흑암에 덮이는 우주적인 재앙으로 묘사됩니다. 두 번째 애가(17-32절)는 바로와 그의 모든 군대가 죽임을 당하여 '구덩이(스올)'로 내려갈 것을 노래합니다. 그곳에는 이미 멸망한 앗수르, 엘람, 메섹과 두발, 에돔, 시돈 등 과거에 세상을 두렵게 했던 모든 교만한 나라들이 할례 받지 못한 채 죽은 자들과 함께 누워 있습니다. 바로와 그의 군대 역시 그들 가운데 한 자리를 차지하게 될 것이며, 이는 세상 권력의 허무한 종말을 보여주는 장엄한 장례식 노래입니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>우주적 심판과 창조 질서의 역전:</strong> 바로의 몰락을 묘사하며 "내가 너를 대적할 때에 해를 구름으로 가리며 달이 빛을 내지 못하게 할 것이며 하늘의 모든 밝은 빛을 내가 네 위에서 어둡게 하여 어둠을 네 땅에 베풀리로다"(7-8절)라고 선포합니다. 이는 단순한 시적 과장이 아니라, 창조 질서의 역전을 의미하는 신학적 표현입니다. 하나님께서 창조 시에 빛과 어둠을 나누시고 질서를 세우셨다면, 심판은 그 질서가 다시 혼돈(카오스)으로 돌아가는 것을 의미합니다. 바로가 스스로를 창조주처럼 여겼던 교만에 대한 가장 적절한 심판입니다. 이는 구속사적으로 주님이 다시 오시는 최종 심판의 날에 있을 우주적 격변을 예표합니다.</li>
-                    <li><strong>죽음의 평등과 세상 권력의 허무:</strong> 두 번째 애가는 죽음의 영역인 '구덩이'(스올)를 배경으로 펼쳐집니다. 이 땅에서 막강한 권세를 떨치며 세상을 두렵게 했던 앗수르, 엘람 등 모든 열강들이 그곳에서는 아무런 힘도 없는 시신으로 누워 있습니다. 한때 경쟁하고 다투던 교만한 왕들이 이제는 '할례 받지 못하고 칼에 맞아 죽은 자들'이라는 동일한 운명 공동체로 함께 누워 있습니다. "바로가 그들을 보고 그의 모든 군대로 말미암아 위로를 받으리로다"(31절)는 표현은 지독한 반어법으로, 그의 위로가 결국 자신과 같이 멸망한 자들을 보며 느끼는 동병상련일 뿐임을 조롱하는 것입니다. 이는 세상의 모든 부귀와 권력이 죽음 앞에서는 한낱 허무한 것임을 강력하게 보여줍니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_26_EZE_32.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="EZE_32" data-title="에스겔 32장">성경 듣기</button>
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>에스겔 32장: 애굽 왕 바로를 위한 애가</h3>
+                            <h4>상세 개요</h4>
+                            <p>에스겔은 강대국 애굽과 그 교만한 왕 바로의 처참한 종말을 애가(슬픈 노래)의 형식으로 예언합니다. 바로는 스스로를 강의 큰 악어, 열국의 젊은 사자에 비유하며 위세를 떨쳤지만, 하나님께서는 그를 그물로 잡아 끌어내어 들짐승과 공중의 새의 먹이가 되게 하실 것입니다. 그의 몰락은 열방을 놀라게 할 것이며, 그는 할례받지 못하고 칼에 맞아 죽은 자들과 함께 구덩이(스올) 깊은 곳으로 내려가게 될 것이라고 선포됩니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 창조 질서를 거스르는 교만의 심판:</strong> 바로는 <span class="scripture-quote">이 강은 내 것이라 내가 나를 위하여 만들었다</span>(2절)고 말하며, 피조물의 위치를 넘어 창조주의 자리를 넘보는 극도의 교만을 드러냅니다. 이는 에덴의 뱀이 가졌던 교만의 속성과 같습니다. 하나님은 이처럼 교만하여 창조 질서를 어지럽히는 세력을 반드시 심판하십니다. 애굽의 멸망은 하나님의 주권에 대항하는 모든 인간적 교만이 결국 비참한 파멸에 이를 것임을 보여주는 엄중한 경고입니다.</p>
+                            <p><strong>2. 죽음과 스올의 실재:</strong> 본문은 애굽뿐만 아니라 앗수르, 엘람, 메섹과 두발 등 이미 멸망한 강대국들이 스올(음부)에 내려가 있음을 생생하게 묘사합니다. 이는 죽음이 끝이 아니며, 하나님의 심판 이후에 오는 형벌의 장소가 실재함을 보여줍니다. 세상에서 아무리 큰 권세를 누렸을지라도, 하나님 앞에서는 모두가 한낱 피조물로서 심판대 앞에 서게 될 것입니다. 이는 현세의 권력이 아닌 영원한 하나님의 나라를 소망해야 할 이유를 가르쳐줍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_26_EZE_32.html" data-title="에스겔 32장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_32" data-title="에스겔 32장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book4">
-                <h3>시편 80편: 목자에게 구원을 호소하는 기도</h3>
-                <h4>상세 개요</h4>
-                <p>시편 80편은 아삽의 시로, 국가적인 재난 상황 속에서 이스라엘의 회복을 위해 하나님께 간절히 부르짖는 공동체의 기도입니다. 시인은 "요셉을 양 떼 같이 인도하시는 이스라엘의 목자여"(1절)라고 부르며 하나님의 도우심을 구합니다. 그들은 과거에 하나님께서 애굽에서 가져온 '포도나무'였으나, 이제는 담이 허물어져 지나가는 모든 이들에게 따먹히고 멧돼지와 들짐승들에게 짓밟히는 비참한 신세가 되었음을 탄식합니다. 이 시는 "만군의 하나님이여 우리를 돌이켜 주시고 주의 얼굴빛을 우리에게 비추소서 우리가 구원을 얻으리이다"(3, 7, 19절)라는 후렴구가 세 번 반복되며 기도의 간절함을 더합니다. 시인은 이 모든 재앙이 하나님의 진노의 결과임을 인정하며, "주의 오른쪽에 있는 자 곧 주를 위하여 힘있게 하신 인자"(17절)를 통해 구원해 주실 것을 호소하며 기도를 마칩니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>이스라엘의 목자이신 하나님:</strong> 시편은 하나님을 '이스라엘의 목자'로 부르며 시작합니다. 이는 하나님께서 당신의 백성을 인도하시고, 보호하시며, 먹이시는 언약의 하나님이심을 상기시키는 중요한 호칭입니다. 야곱의 생애를 인도하셨던 목자(창 48:15)이시며, 출애굽 과정에서 양 떼처럼 백성을 이끄셨던 목자이십니다. 시인은 이 언약적 관계에 근거하여, 현재 흩어지고 고통받는 양 떼를 돌아보아 달라고 호소합니다. 이는 구속사적으로 "나는 선한 목자라"(요 10:11)고 선언하신 예수 그리스도를 통해 궁극적으로 성취됩니다. 선한 목자이신 예수님은 자기 양들을 위해 목숨을 버리심으로 우리를 죄와 사망의 위협에서 구원하십니다.</li>
-                    <li><strong>하나님의 얼굴빛과 구원:</strong> "주의 얼굴빛을 우리에게 비추소서 우리가 구원을 얻으리이다"라는 후렴구는 구원의 본질이 무엇인지를 깊이 보여줍니다. 구원은 단순히 어려운 상황을 해결하는 것을 넘어, 하나님과의 깨어진 관계가 회복되고, 하나님의 은혜로운 임재(얼굴빛)를 다시 경험하는 것입니다. 제사장의 축복문(민 6:25)에도 나타나듯이, '주의 얼굴빛을 비추는 것'은 하나님의 은혜, 인정, 평강을 의미합니다. 죄는 하나님과 우리 사이를 가로막아 그 얼굴을 가리게 만들지만, 회개를 통해 하나님께로 돌아갈 때 우리는 다시 그분의 은혜의 얼굴빛 아래 거할 수 있습니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_80.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_80" data-title="시편 80편">성경 듣기</button>
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>시편 80편: 포도나무의 회복을 위한 탄원</h3>
+                            <h4>상세 개요</h4>
+                            <p>아삽의 시인 시편 80편은 국가적인 재난 상황에서 드리는 공동체의 탄식 기도입니다. 시인은 과거에 하나님께서 이스라엘을 '애굽에서 가져온 포도나무'처럼 가나안 땅에 심으시고 번성하게 하셨던 역사를 회상합니다. 그러나 이제 그 포도나무의 울타리가 허물어져 짐승들에게 짓밟히는 비참한 현실을 고통스럽게 호소합니다. 시인은 <span class="scripture-quote">만군의 하나님 여호와여 우리를 돌이켜 주시고 주의 얼굴의 광채를 우리에게 비추소서 우리가 구원을 얻으리이다</span>(19절)라는 후렴구를 반복하며, 오직 하나님의 얼굴빛을 구하는 간절한 회복의 기도를 드립니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 언약 백성의 정체성과 하나님의 통치:</strong> 이스라엘을 '포도나무'에 비유하는 것은 구약에서 흔히 나타나는 언약 백성의 상징입니다(사 5장). 이 나무를 심고 가꾸시는 분은 하나님이시며, 나무의 흥망성쇠는 전적으로 하나님의 손에 달려있습니다. 현재의 고통은 하나님의 부재, 즉 <span class="scripture-quote">주의 얼굴을 숨기시는 것</span>에서 비롯되었음을 시인은 정확히 인식합니다. 따라서 회복의 유일한 길은 우리의 노력이 아닌, 하나님께서 친히 우리를 '돌이켜 주시는 것'입니다.</p>
+                            <p><strong>2. 참 포도나무이신 그리스도:</strong> 시편 기자는 '주의 오른쪽에 있는 자, 곧 주를 위하여 힘있게 하신 인자'(17절)를 통해 구원이 임하기를 간구합니다. 이는 궁극적으로 참 포도나무이시며(요 15:1), 하나님의 권능의 오른편에 앉아계신 예수 그리스도를 통해 성취될 소망을 예표합니다. 우리는 그리스도라는 참 포도나무에 접붙임 된 가지로서, 그분을 통해서만 생명을 얻고 열매를 맺으며 하나님의 진노에서 구원을 얻을 수 있습니다. 교회의 회복은 오직 머리되신 그리스도께 돌아갈 때 가능합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_80.html" data-title="시편 80편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_80" data-title="시편 80편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>통합 묵상: 두 개의 왕국, 두 개의 통치 원리</h3>
+                            <h4>관통하는 주제</h4>
+                            <p>오늘의 본문들은 하나님의 주권적 통치와 인간의 야망이 세운 통치가 어떻게 다른 길을 가는지를 극명하게 보여줍니다. 에스겔 32장은 스스로 신이 되려 했던 애굽 왕의 교만이 어떻게 비참한 파멸로 끝나는지 보여주며 세상 왕국의 결말을 폭로합니다. 열왕기상 1장은 이와 대조적으로, 인간의 계략(아도니야)이 아닌 하나님의 신실한 약속을 따라 세워지는 하나님 나라의 왕(솔로몬)을 보여줍니다. 그렇다면 이 하나님 나라의 백성은 어떤 원리로 살아가는가? 갈라디아서 5장은 그 통치 원리가 율법의 강제가 아닌, 성령 안에서 누리는 '자유'와 '사랑의 섬김'임을 선포합니다. 마지막으로 시편 80편은 이 모든 은혜에도 불구하고 죄로 인해 무너진 언약 백성이 다시 회복될 유일한 길이, 오직 '주의 얼굴 빛'을 구하며 하나님의 통치에 다시 순복하는 것임을 가르쳐줍니다.</p>
+                            <h4>핵심 개념 및 상호 참조</h4>
+                            <p><strong>왕과 포도나무의 비유:</strong> 시편 80편의 '포도나무' 이스라엘은 하나님의 특별한 소유인 언약 공동체를 상징합니다. 이 포도나무를 다스리는 목자요 왕은 하나님이십니다. 그러나 이스라엘은 세상의 왕(겔 32장의 바로)을 의지하다가 울타리가 허물어지는 심판을 받습니다. 진정한 회복은 하나님의 약속으로 세워진 왕(왕상 1장의 솔로몬)의 계보를 통해 오실 참 포도나무이신 예수 그리스도(요 15:1)께 접붙임 될 때 가능합니다. 그분 안에 거할 때, 우리는 비로소 성령의 열매(갈 5:22-23)를 맺는 참된 그의 백성이 됩니다.</p>
+                            <p><strong>육체의 소욕과 인간의 야망:</strong> 갈라디아서 5장의 '육체의 일'은 단순히 개인의 도덕적 타락을 넘어, 하나님을 대적하는 모든 인간적 시도를 포함합니다. 아도니야의 왕위 찬탈(왕상 1)과 바로의 교만(겔 32)은 바로 이 '육체의 소욕'이 정치적, 국가적 차원으로 발현된 모습입니다. 이 모든 것은 결국 스스로 왕이 되려는 죄성에서 비롯되며, 그 마지막은 사망과 심판입니다.</p>
+                            <h4>삶으로의 적용</h4>
+                            <ul>
+                                <li><strong>지(知):</strong> 내 삶의 왕좌에는 누가 앉아 있습니까? 나의 계획과 야망(아도니야, 바로)입니까, 아니면 하나님의 주권적인 약속과 말씀입니까? 오늘 말씀을 통해 세상 나라와 하나님 나라의 통치 원리가 어떻게 다른지 명확히 인식하고, 나는 어느 나라의 백성으로 살아갈 것인지 결단합시다.</li>
+                                <li><strong>정(情):</strong> 하나님의 부재로 인해 황폐해진 포도나무의 심정(시 80)으로 고통스러워하고 있지는 않습니까? 다시 한번 '주의 얼굴 광채'를 구하며, 성령 안에서 주시는 참된 자유와 사랑의 기쁨(갈 5)을 회복하기를 간절히 사모합시다.</li>
+                                <li><strong>의(意):</strong> 성령을 따라 행하기 위해 오늘 내가 버려야 할 '육체의 일'은 무엇입니까? 또한 '사랑으로 서로 종 노릇'하는 삶을 실천하기 위해 구체적으로 누구를, 어떻게 섬기겠습니까? 나의 시간과 재능을 하나님의 나라를 세우는 일에 의지적으로 사용하기로 결단합시다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
 
-            <div class="integration-card">
-                <h2>통합 묵상: 세상 나라와 하나님 나라의 대조</h2>
-                <h3>관통하는 주제 논증: 인간의 힘에 의한 나라 vs 성령을 따르는 백성</h3>
-                <p>오늘의 네 본문은 '세상의 나라'와 '하나님의 나라'가 어떻게 세워지고 유지되는지에 대한 근본적인 차이를 극명하게 보여줍니다. 열왕기상 1장과 에스겔 32장은 세상 나라의 모습을 그립니다. 아도니야는 군사력과 종교 권력을 동원한 인간적인 책략으로 왕국을 세우려 하고, 바로(와 열강들)는 막강한 힘으로 교만해졌다가 허무하게 죽음의 구덩이로 떨어집니다. 이들의 나라는 인간의 야망, 힘의 논리, 그리고 교만 위에 세워졌기에 결국 분열하거나 심판받습니다. 시편 80편은 이렇게 세상의 힘에 짓밟혀 무너진 하나님의 백성(포도나무)의 처절한 현실을 보여주며, 오직 '이스라엘의 목자'이신 하나님의 개입만이 유일한 소망임을 부르짖습니다. 그렇다면 진정한 하나님의 나라는 어떻게 이루어지는가? 갈라디아서 5장은 그 해답을 제시합니다. 하나님의 나라는 율법의 멍에나 인간의 노력으로 세워지는 것이 아니라, 그리스도께서 주신 자유 안에서 "성령을 따라 행하는" 백성들을 통해 이루어집니다. 이들은 "사랑으로 서로 종 노릇"하며 '성령의 열매'를 맺음으로써 세상 나라와는 전혀 다른 원리, 즉 사랑과 섬김, 거룩함으로 하나님의 통치를 드러내는 참된 하나님 나라의 백성입니다.</p>
-
-                <h3>입체적 핵심 단어 연구: 자유 (ἐλευθερία, 엘류테리아)</h3>
-                <p>갈라디아서 5장 1절의 "그리스도께서 우리를 자유롭게 하려고 자유를 주셨으니"에 나오는 헬라어 '엘류테리아'(ἐλευθερία)는 단순한 정치적, 사회적 해방을 넘어선 깊은 신학적 의미를 담고 있습니다. 고대 그리스-로마 세계에서 자유는 노예가 아닌 시민으로서의 신분을 의미했습니다. 바울은 이 개념을 영적으로 적용하여, 그리스도인이란 죄와 율법과 죽음의 노예 상태에서 해방되어 하나님의 자녀라는 새로운 시민권을 얻은 존재임을 선포합니다. 이 자유는 율법의 조항들을 지켜야 한다는 강박과 정죄의 두려움으로부터의 자유를 의미합니다. 그러나 바울은 이 자유가 자기 마음대로 사는 '방종'으로 이어질 위험을 즉시 경고합니다. 진정한 '엘류테리아'는 "육체의 기회"를 삼는 것이 아니라, 오히려 우리를 자유케 하신 그리스도를 본받아 "사랑으로 서로 종 노릇"하는 데서 그 절정을 이룹니다. 즉, 복음 안에서의 자유는 '섬길 수 있는 자유'입니다. 이는 성령 안에서만 가능하며, 성령의 열매를 맺는 삶을 통해 구체적으로 표현됩니다. 그러므로 그리스도인의 자유는 끝이 아니라, 사랑의 삶을 향한 새로운 시작입니다.</p>
-                
-                <h3>심층 상호 참조</h3>
-                <ul>
-                    <li><strong>열왕기상 1:5 & 갈라디아서 5:19-21:</strong> 아도니야는 "스스로 높여 이르기를 내가 왕이 되리라"고 선언하고, 요압과 아비아달 등과 연합하여 잔치를 벌입니다. 그의 행동은 갈라디아서에서 말하는 '육체의 일'의 전형적인 모습, 즉 "분쟁과 시기와 분냄과 당 짓는 것과 분열함"을 보여줍니다. 인간적인 야망과 세력 다툼으로 세워지는 세상 나라는 결국 분열과 다툼을 낳을 수밖에 없습니다. 이는 성령의 열매인 '화평'과 '오래 참음'과는 정반대의 모습입니다.</li>
-                    <li><strong>시편 80:1, 17 & 갈라디아서 5:16, 25:</strong> 시편 기자는 "이스라엘의 목자여... 우리를 돌이켜 주소서"라고 간구하며, "주의 오른쪽에 있는 자 곧 주를 위하여 힘있게 하신 인자"를 통해 구원해 달라고 호소합니다. 이는 외부로부터 오는 하나님의 주권적인 구원과 리더십에 대한 갈망입니다. 갈라디아서는 이 구원이 어떻게 우리 안에서 실제가 되는지를 보여줍니다. 이제 우리는 "성령으로 살면 또한 성령으로 행할지니", 즉 내주하시는 성령의 인도하심을 따라 살아감으로써 참된 회복과 구원의 삶을 살게 됩니다. 외부의 목자이신 하나님께서 이제 성령을 통해 우리 내부의 인도자가 되시는 것입니다.</li>
-                </ul>
-
-                <h3>적용을 위한 성찰 질문</h3>
-                <ol>
-                    <li>아도니야는 자신의 힘과 인맥을 의지하여 왕이 되려고 했습니다. 내 삶에서 하나님의 뜻이나 약속을 기다리기보다, 나의 계획과 노력으로 무언가를 성취하려고 조급하게 행동하는 영역은 없습니까?</li>
-                    <li>갈라디아서 5장은 '사랑으로써 역사하는 믿음'이 가장 중요하다고 말합니다. 당신의 신앙생활은 율법적인 의무감과 형식에 치우쳐 있습니까, 아니면 이웃을 향한 구체적인 사랑의 섬김과 실천으로 나타나고 있습니까?</li>
-                    <li>에스겔에 묘사된 교만한 열강들의 최후는 세상 권력의 허무함을 보여줍니다. 당신이 의지하고 안정감을 느끼는 세상적인 것들(지위, 재산, 평판)이 영원하지 않음을 묵상할 때, 당신의 삶의 우선순위는 어떻게 재조정되어야 할까요?</li>
-                    <li>시편 80편의 백성들처럼, 당신의 삶이나 공동체가 '담이 허물어진 포도원'처럼 황폐하고 무력하게 느껴질 때가 있습니까? 그때 당신은 문제 해결을 위해 다른 대상을 찾습니까, 아니면 "이스라엘의 목자여, 주의 얼굴빛을 비추소서"라고 하나님께 먼저 부르짖습니까?</li>
-                </ol>
-            </div>
-        </main>
-
-        <footer>
-            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
-        </footer>
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
     </div>
 
-    <div id="bible-modal" class="modal">
+    <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
-            <span class="modal-close-btn">&times;</span>
-            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
+    <div class="floating-nav" id="floating-nav">
+         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-    <div id="audio-player" class="audio-player">
-        <div class="audio-player-info" id="player-info"></div>
-        <div class="audio-player-controls">
-            <button id="play-pause-btn">▶</button>
-            <button id="close-player-btn">✖</button>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                 <button id="close-player-btn" title="닫기">&times;</button>
+            </div>
         </div>
     </div>
-    <div id="youtube-player-container"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainContainer = document.getElementById('main-container');
-            const bibleModal = document.getElementById('bible-modal');
-            const modalBody = document.getElementById('modal-body-content');
-            const closeModalBtn = document.querySelector('.modal-close-btn');
-            const audioPlayerBar = document.getElementById('audio-player');
-            const playerInfo = document.getElementById('player-info');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const closePlayerBtn = document.getElementById('close-player-btn');
-            
-            let ytPlayer;
-            let audioLinks = new Map();
-            let isPlayerReady = false;
-
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-            window.onYouTubeIframeAPIReady = function() {
-                ytPlayer = new YT.Player('youtube-player-container', {
-                    height: '0',
-                    width: '0',
-                    events: {
-                        'onReady': () => { isPlayerReady = true; },
-                        'onStateChange': (event) => {
-                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
-                        }
-                    }
-                });
-            }
-
-            async function loadAudioLinks() {
-                try {
-                    const response = await fetch('../address/mcbible.txt');
-                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
-                    const text = await response.text();
-                    text.split('\n').forEach(line => {
-                        if (line.trim() !== '') {
-                            const parts = line.split(/\s+/);
-                            const fullKey = parts[0];
-                            const url = parts[1];
-                            const keyParts = fullKey.split('_'); 
-                            
-                            if (keyParts.length >= 3) {
-                                const book = keyParts[2];
-                                const chapter = parseInt(keyParts.at(-1), 10);
-                                const shortKey = `${book}_${chapter}`;
-                                audioLinks.set(shortKey, url);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('오디오 링크 로딩 오류:', error);
-                }
-            }
-            
-            function getYouTubeID(url) {
-                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                const match = url.match(regex);
-                return match ? match[1] : null;
-            }
-
-            mainContainer.addEventListener('click', async (e) => {
-                const target = e.target.closest('.btn');
-                if (!target) return;
-
-                if (target.classList.contains('btn-view')) {
-                    const path = target.dataset.path;
-                    bibleModal.style.display = 'block';
-                    modalBody.innerHTML = '<div class="spinner"></div>';
-                    try {
-                        const response = await fetch(`../bible_html/${path}`);
-                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
-                        const html = await response.text();
-                        modalBody.innerHTML = html;
-                    } catch (error) {
-                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
-                    }
-                }
-                
-                if (target.classList.contains('btn-listen')) {
-                    if (!isPlayerReady) {
-                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
-                        return;
-                    }
-                    if (audioLinks.size === 0) {
-                        await loadAudioLinks(); 
-                         if (audioLinks.size === 0) {
-                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
-                            return;
-                        }
-                    }
-                    const key = target.dataset.key;
-                    const title = target.dataset.title;
-                    const url = audioLinks.get(key);
-
-                    if (url) {
-                        const videoId = getYouTubeID(url);
-                        if (videoId) {
-                            ytPlayer.loadVideoById(videoId);
-                            playerInfo.textContent = `재생중: ${title}`;
-                            audioPlayerBar.classList.add('show');
-                        } else {
-                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
-                        }
-                    } else {
-                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
-                    }
-                }
-            });
-
-            function closeModal() {
-                bibleModal.style.display = 'none';
-                modalBody.innerHTML = '';
-            }
-
-            closeModalBtn.addEventListener('click', closeModal);
-            bibleModal.addEventListener('click', (e) => {
-                if (e.target === bibleModal) {
-                    closeModal();
-                }
-            });
-
-            playPauseBtn.addEventListener('click', () => {
-                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
-                const playerState = ytPlayer.getPlayerState();
-                if (playerState === YT.PlayerState.PLAYING) {
-                    ytPlayer.pauseVideo();
-                } else {
-                    ytPlayer.playVideo();
-                }
-            });
-
-            closePlayerBtn.addEventListener('click', () => {
-                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
-                    ytPlayer.stopVideo();
-                }
-                audioPlayerBar.classList.remove('show');
-            });
-            
-            loadAudioLinks();
-        });
-    </script>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
