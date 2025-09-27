@@ -240,6 +240,75 @@
             border-top: 1px solid var(--color-border);
             color: #6c757d;
         }
+
+        /* 간단한 탭 네비게이션 */
+        .simple-tabs {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid var(--color-border);
+            z-index: 100;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-muted);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .tab-button:hover {
+            background: rgba(66, 133, 244, 0.1);
+            color: var(--color-book1);
+        }
+
+        .tab-button.active {
+            background: var(--color-book1);
+            color: white;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .tab-buttons {
+                gap: 1rem;
+            }
+
+            .tab-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -249,7 +318,18 @@
             <p>지혜의 추구와 교회의 연합</p>
         </header>
 
+        <!-- 간단한 탭 네비게이션 -->
+        <div class="simple-tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="bible">성경 본문</button>
+                <button class="tab-button" data-tab="meditation">묵상</button>
+                <button class="tab-button" data-tab="integration">통합 묵상</button>
+            </div>
+        </div>
+
         <main>
+            <!-- 성경 본문 탭 -->
+            <div class="tab-content active" id="bible">
             <div class="chapter-card card-book1">
                 <h3>열왕기상 10장: 스바 여왕의 방문과 솔로몬의 부귀</h3>
                 <h4>상세 개요</h4>
@@ -318,6 +398,29 @@
                 </div>
             </div>
 
+            </div>
+
+            <!-- 묵상 탭 -->
+            <div class="tab-content" id="meditation">
+                <div class="chapter-card card-book2">
+                    <h3>오늘의 핵심 묵상</h3>
+                    <h4>하나님의 지혜 vs 세상의 지혜</h4>
+                    <p><strong>열왕기상 10장</strong>에서 스바 여왕이 솔로몬의 지혜를 보고 감탄한 것처럼, 하나님께서 주시는 지혜는 세상 사람들도 인정할 수밖에 없는 탁월함이 있습니다. 그러나 <strong>빌립보서 1장</strong>이 보여주듯, 참된 지혜는 단순히 지식이 아니라 '사랑 안에서' 분별하는 능력입니다.</p>
+
+                    <h4>고난 중에도 변치 않는 소망</h4>
+                    <p><strong>에스겔 40장</strong>의 새 성전 환상은 절망적인 현실 속에서도 하나님의 미래에 대한 약속이 확실함을 보여줍니다. <strong>시편 91편</strong>이 약속하는 보호하심은 고난이 없다는 뜻이 아니라, 고난 중에도 하나님이 함께하심을 의미합니다.</p>
+
+                    <h4>적용을 위한 질문</h4>
+                    <ol>
+                        <li>나는 결정을 내릴 때 세상의 기준(성공, 인정, 안전)을 먼저 고려합니까, 아니면 하나님의 뜻을 구합니까?</li>
+                        <li>현재 겪고 있는 어려움 속에서도 하나님의 선하신 계획을 신뢰하고 있습니까?</li>
+                        <li>나의 삶이 다른 사람들에게 하나님의 지혜를 보여주는 증거가 되고 있습니까?</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 통합 묵상 탭 -->
+            <div class="tab-content" id="integration">
             <div class="integration-card">
                 <h2>통합 묵상: 하나님의 집, 그 영광과 성도의 삶</h2>
                 <h3>관통하는 주제 논증: 하나님의 임재 안에 거하는 삶의 모습</h3>
@@ -506,6 +609,24 @@
             });
             
             loadAudioLinks();
+
+            // 간단한 탭 기능
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+
+                    // 모든 버튼과 콘텐츠 비활성화
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // 선택된 버튼과 콘텐츠 활성화
+                    button.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
         });
     </script>
 </body>

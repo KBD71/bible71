@@ -240,6 +240,75 @@
             border-top: 1px solid var(--color-border);
             color: #6c757d;
         }
+
+        /* 간단한 탭 네비게이션 */
+        .simple-tabs {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid var(--color-border);
+            z-index: 100;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-muted);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .tab-button:hover {
+            background: rgba(66, 133, 244, 0.1);
+            color: var(--color-book1);
+        }
+
+        .tab-button.active {
+            background: var(--color-book1);
+            color: white;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .tab-buttons {
+                gap: 1rem;
+            }
+
+            .tab-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -249,7 +318,18 @@
             <p>참된 예배와 거짓 예배, 그리고 그리스도인의 표지</p>
         </header>
 
+        <!-- 간단한 탭 네비게이션 -->
+        <div class="simple-tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="bible">성경 본문</button>
+                <button class="tab-button" data-tab="meditation">묵상</button>
+                <button class="tab-button" data-tab="integration">통합 묵상</button>
+            </div>
+        </div>
+
         <main>
+            <!-- 성경 본문 탭 -->
+            <div class="tab-content active" id="bible">
             <div class="chapter-card card-book1">
                 <h3>열왕기상 12장: 이스라엘 왕국의 분열</h3>
                 <h4>상세 개요</h4>
@@ -318,6 +398,29 @@
                 </div>
             </div>
 
+            </div>
+
+            <!-- 묵상 탭 -->
+            <div class="tab-content" id="meditation">
+                <div class="chapter-card card-book2">
+                    <h3>오늘의 핵심 묵상</h3>
+                    <h4>무엇을 자랑하며 의지하는가?</h4>
+                    <p><strong>열왕기상 12장</strong>의 여로보암은 정치적 안정을 의지하여 거짓 예배를 만들었고, <strong>빌립보서 3장</strong>의 유대주의자들은 자신의 종교적 업적을 자랑했습니다. 그러나 바울은 이 모든 것을 '배설물'로 여기고 오직 그리스도를 자랑했습니다.</p>
+
+                    <h4>거룩과 속됨의 구별</h4>
+                    <p><strong>에스겔 42장</strong>의 성전은 "거룩한 것과 속된 것을 구별하는" 담으로 둘러싸여 있습니다. 이는 하나님의 백성이 세상과 구별되어야 함을 보여줍니다. <strong>시편 94편</strong>은 이 구별된 백성이 세상의 불의 속에서도 하나님만을 의지하고 살아가는 모습을 보여줍니다.</p>
+
+                    <h4>적용을 위한 질문</h4>
+                    <ol>
+                        <li>나는 하나님보다 나의 안정이나 편의를 더 중요하게 여기고 있지는 않습니까?</li>
+                        <li>나의 가장 큰 자랑거리는 무엇입니까? 그것이 그리스도입니까, 아니면 다른 것입니까?</li>
+                        <li>나의 삶이 세상과 구별되는 거룩함을 드러내고 있습니까?</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 통합 묵상 탭 -->
+            <div class="tab-content" id="integration">
             <div class="integration-card">
                 <h2>통합 묵상: 참된 예배와 거짓 예배, 그리고 신자의 표지</h2>
                 <h3>관통하는 주제 논증: 무엇을 의지하며, 어떻게 구별되는가?</h3>
@@ -339,6 +442,7 @@
                     <li>에스겔 성전의 담은 '거룩'과 '속됨'을 구별했습니다. 오늘날 나의 삶에서 세상의 가치관과 구별되어야 할 영역은 무엇이라고 생각합니까? (예: 시간 사용, 물질관, 인간관계 등) 어떻게 그 영역에서 거룩함을 지켜나갈 수 있을까요?</li>
                     <li>시편 94편의 시인처럼, 세상의 불의와 악인들의 번성을 보며 하나님의 공의에 대해 질문하고 답답함을 느낀 적이 있습니까? 그럴 때, 하나님의 심판을 신뢰하며 인내하기 위해 나에게 필요한 것은 무엇일까요?</li>
                 </ol>
+            </div>
             </div>
         </main>
 
@@ -506,6 +610,24 @@
             });
             
             loadAudioLinks();
+
+            // 간단한 탭 기능
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+
+                    // 모든 버튼과 콘텐츠 비활성화
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // 선택된 버튼과 콘텐츠 활성화
+                    button.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
         });
     </script>
 </body>

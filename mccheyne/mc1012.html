@@ -240,6 +240,75 @@
             border-top: 1px solid var(--color-border);
             color: #6c757d;
         }
+
+        /* 간단한 탭 네비게이션 */
+        .simple-tabs {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid var(--color-border);
+            z-index: 100;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-muted);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .tab-button:hover {
+            background: rgba(66, 133, 244, 0.1);
+            color: var(--color-book1);
+        }
+
+        .tab-button.active {
+            background: var(--color-book1);
+            color: white;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .tab-buttons {
+                gap: 1rem;
+            }
+
+            .tab-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -249,7 +318,18 @@
             <p>하나님의 신실함과 인간의 불신실함</p>
         </header>
 
+        <!-- 간단한 탭 네비게이션 -->
+        <div class="simple-tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="bible">성경 본문</button>
+                <button class="tab-button" data-tab="meditation">묵상</button>
+                <button class="tab-button" data-tab="integration">통합 묵상</button>
+            </div>
+        </div>
+
         <main>
+            <!-- 성경 본문 탭 -->
+            <div class="tab-content active" id="bible">
             <div class="chapter-card card-book1">
                 <h3>열왕기상 15장: 유다와 이스라엘의 왕들</h3>
                 <h4>상세 개요</h4>
@@ -322,6 +402,29 @@
                 </div>
             </div>
 
+            </div>
+
+            <!-- 묵상 탭 -->
+            <div class="tab-content" id="meditation">
+                <div class="chapter-card card-book2">
+                    <h3>오늘의 핵심 묵상</h3>
+                    <h4>신실함을 지키는 자와 실패하는 자</h4>
+                    <p><strong>열왕기상 15장</strong>에서 아사 왕은 대부분 하나님 앞에서 정직하게 행했으나, 위기의 순간에 인간적인 도움을 의지하는 불신을 보여줍니다. 반면 <strong>골로새서 2장</strong>의 그리스도는 모든 신성의 충만이 그 안에 거하시며, 십자가로 완전한 신실함을 보이셨습니다.</p>
+
+                    <h4>참된 공의와 언약의 신실함</h4>
+                    <p><strong>시편 99-101편</strong>이 노래하는 거룩하신 하나님의 통치는 <strong>에스겔 45장</strong>의 하나님 중심의 공동체에서 구체적으로 실현됩니다. 그곳에서는 모든 공의와 정의가 하나님의 주권 아래 정립됩니다.</p>
+
+                    <h4>적용을 위한 질문</h4>
+                    <ol>
+                        <li>나의 신앙 생활에서 그리스도 외에 다른 무엇인가가 더 필요하다고 느끼는 영역은 없습니까?</li>
+                        <li>내 삶의 중심에 하나님이 있습니까, 아니면 다른 무엇인가가 있습니까?</li>
+                        <li>하나님의 공의로운 심판을 기대하며 현재의 불의에 맞서 인내하고 있습니까?</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 통합 묵상 탭 -->
+            <div class="tab-content" id="integration">
             <div class="integration-card">
                 <h2>통합 묵상: 신실하신 왕과 불신실한 백성</h2>
                 <h3>관통하는 주제 논증: 하나님의 신실함 vs. 인간의 불신실함</h3>
@@ -343,6 +446,7 @@
                     <li>에스겔이 본 회복된 나라는 '하나님 중심'으로 설계되었습니다. 나의 삶의 중심에는 무엇이 있습니까? 나의 시간, 재정, 결정의 우선순위를 볼 때, 나는 하나님 중심의 삶을 살고 있습니까, 아니면 자기 중심의 삶을 살고 있습니까?</li>
                     <li>시편 101편에서 다윗은 자기 주변에서 악을 제거하겠다고 결단했습니다. 나의 삶에 지속적으로 죄의 영향을 미치는 부정적인 관계나 환경은 무엇입니까? 그 영향력에서 벗어나기 위해 다윗과 같은 거룩한 결단이 필요하지는 않습니까?</li>
                 </ol>
+            </div>
             </div>
         </main>
 
@@ -510,6 +614,24 @@
             });
             
             loadAudioLinks();
+
+            // 간단한 탭 기능
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+
+                    // 모든 버튼과 콘텐츠 비활성화
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // 선택된 버튼과 콘텐츠 활성화
+                    button.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
         });
     </script>
 </body>

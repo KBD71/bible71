@@ -240,6 +240,75 @@
             border-top: 1px solid var(--color-border);
             color: #6c757d;
         }
+
+        /* 간단한 탭 네비게이션 */
+        .simple-tabs {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid var(--color-border);
+            z-index: 100;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-muted);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .tab-button:hover {
+            background: rgba(66, 133, 244, 0.1);
+            color: var(--color-book1);
+        }
+
+        .tab-button.active {
+            background: var(--color-book1);
+            color: white;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .tab-buttons {
+                gap: 1rem;
+            }
+
+            .tab-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -249,7 +318,18 @@
             <p>왕의 타락과 그리스도의 겸손</p>
         </header>
 
+        <!-- 간단한 탭 네비게이션 -->
+        <div class="simple-tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="bible">성경 본문</button>
+                <button class="tab-button" data-tab="meditation">묵상</button>
+                <button class="tab-button" data-tab="integration">통합 묵상</button>
+            </div>
+        </div>
+
         <main>
+            <!-- 성경 본문 탭 -->
+            <div class="tab-content active" id="bible">
             <div class="chapter-card card-book1">
                 <h3>열왕기상 11장: 솔로몬의 타락과 왕국의 분열 예고</h3>
                 <h4>상세 개요</h4>
@@ -320,6 +400,29 @@
                 </div>
             </div>
 
+            </div>
+
+            <!-- 묵상 탭 -->
+            <div class="tab-content" id="meditation">
+                <div class="chapter-card card-book2">
+                    <h3>오늘의 핵심 묵상</h3>
+                    <h4>참된 왕의 길과 거짓 왕의 길</h4>
+                    <p><strong>열왕기상 11장</strong>에서 솔로몬의 타락은 자신의 마음을 지키지 못했기 때문입니다. 반면 <strong>빌립보서 2장</strong>의 그리스도는 완전한 순종의 마음으로 자기를 낮추셨습니다. 이는 진정한 지도자의 길이 자기 높임이 아닌 자기 비움임을 보여줍니다.</p>
+
+                    <h4>영원한 왕의 통치와 거룩한 성전</h4>
+                    <p><strong>시편 92-93편</strong>이 노래하는 여호와의 영원한 통치는 <strong>에스겔 41장</strong>의 새 성전에서 구체적으로 실현됩니다. 하나님의 완전한 질서와 거룩함이 회복될 그 처소에서, 우리는 참된 평안과 예배를 드릴 수 있습니다.</p>
+
+                    <h4>적용을 위한 질문</h4>
+                    <ol>
+                        <li>나의 마음이 하나님 한 분께로만 향하고 있습니까, 아니면 여러 우상들로 나뉘어져 있습니까?</li>
+                        <li>어려운 상황에서도 자기를 낮추고 섬기는 그리스도의 마음을 실천하고 있습니까?</li>
+                        <li>하나님의 영원한 통치를 신뢰하며 현재의 혼란 속에서도 평안을 누리고 있습니까?</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 통합 묵상 탭 -->
+            <div class="tab-content" id="integration">
             <div class="integration-card">
                 <h2>통합 묵상: 왕의 타락과 참된 왕의 겸손</h2>
                 <h3>관통하는 주제 논증: 자기 높임의 길 vs 자기 비움의 길</h3>
@@ -341,6 +444,7 @@
                     <li>에스겔이 본 성전은 완벽한 대칭과 질서를 이루고 있었습니다. 나의 신앙생활은 하나님의 질서와 거룩함을 반영하고 있습니까, 아니면 나의 기분과 상황에 따라 흔들리는 무질서한 모습입니까?</li>
                     <li>시편 93편은 세상이 아무리 혼란스러워 보여도 "여호와께서 다스리시니"라고 선포합니다. 현재 나를 불안하게 하고 흔드는 '큰 파도'와 같은 문제는 무엇입니까? 그 문제보다 더 크신 하나님의 주권적인 통치를 신뢰하기 위해 오늘 무엇을 결단해야 할까요?</li>
                 </ol>
+            </div>
             </div>
         </main>
 
@@ -508,6 +612,24 @@
             });
             
             loadAudioLinks();
+
+            // 간단한 탭 기능
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+
+                    // 모든 버튼과 콘텐츠 비활성화
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // 선택된 버튼과 콘텐츠 활성화
+                    button.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
         });
     </script>
 </body>

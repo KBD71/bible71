@@ -240,6 +240,75 @@
             border-top: 1px solid var(--color-border);
             color: #6c757d;
         }
+
+        /* 간단한 탭 네비게이션 */
+        .simple-tabs {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid var(--color-border);
+            z-index: 100;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-muted);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .tab-button:hover {
+            background: rgba(66, 133, 244, 0.1);
+            color: var(--color-book1);
+        }
+
+        .tab-button.active {
+            background: var(--color-book1);
+            color: white;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .tab-buttons {
+                gap: 1rem;
+            }
+
+            .tab-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -249,7 +318,18 @@
             <p>만물의 으뜸이신 그리스도와 그의 거룩한 나라</p>
         </header>
 
+        <!-- 간단한 탭 네비게이션 -->
+        <div class="simple-tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="bible">성경 본문</button>
+                <button class="tab-button" data-tab="meditation">묵상</button>
+                <button class="tab-button" data-tab="integration">통합 묵상</button>
+            </div>
+        </div>
+
         <main>
+            <!-- 성경 본문 탭 -->
+            <div class="tab-content active" id="bible">
             <div class="chapter-card card-book1">
                 <h3>열왕기상 14장: 여로보암과 르호보암의 죄와 심판</h3>
                 <h4>상세 개요</h4>
@@ -320,6 +400,29 @@
                 </div>
             </div>
 
+            </div>
+
+            <!-- 묵상 탭 -->
+            <div class="tab-content" id="meditation">
+                <div class="chapter-card card-book2">
+                    <h3>오늘의 핵심 묵상</h3>
+                    <h4>신실함과 불신실함의 대조</h4>
+                    <p><strong>열왕기상 14장</strong>의 여로보암과 르호보암은 모두 하나님을 떠나 우상을 섬김으로써 나라에 분열과 심판을 가져왔습니다. 반면 <strong>골로새서 1장</strong>의 그리스도는 만물의 으뜸이시며 모든 것을 자기 안에서 통일시키시는 참된 왕이십니다.</p>
+
+                    <h4>거룩한 구별과 하나님 중심의 질서</h4>
+                    <p><strong>에스겔 44장</strong>에서 사독의 자손들이 신실함으로 인해 특별한 섬김의 직분을 받은 것처럼, <strong>시편 97-98편</strong>은 하나님의 공의로운 통치를 기뻐하며 찬양하는 백성의 모습을 보여줍니다.</p>
+
+                    <h4>적용을 위한 질문</h4>
+                    <ol>
+                        <li>나는 어려운 상황에서 하나님이 아닌 다른 것(사람, 제도, 물질)에 의지하려는 유혹을 받고 있지는 않습니까?</li>
+                        <li>만물의 으뜸이신 그리스도께서 내 삶의 모든 영역에서 실제로 주권을 행사하고 계시는가?</li>
+                        <li>하나님과 세상을 구별하여 거룩한 삶을 살아가는 구체적인 모습은 무엇입니까?</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 통합 묵상 탭 -->
+            <div class="tab-content" id="integration">
             <div class="integration-card">
                 <h2>통합 묵상: 만물의 으뜸이신 왕과 그의 거룩한 나라</h2>
                 <h3>관통하는 주제 논증: 참된 왕을 섬기는 백성의 구별된 삶</h3>
@@ -341,6 +444,7 @@
                     <li>에스겔 44장은 하나님을 섬기는 자에게 더 높은 수준의 거룩함과 구별됨을 요구합니다. '왕 같은 제사장'으로 부름받은 오늘날의 성도로서, 나는 세상 사람들과 구별되는 거룩한 삶의 모습을 어떻게 보여줄 수 있을까요?</li>
                     <li>시편 97편과 98편은 하나님의 공의로운 심판을 기쁨과 찬양의 이유로 노래합니다. 나는 세상의 불의와 악을 볼 때 분노와 절망에 빠집니까, 아니면 마침내 모든 것을 바로잡으실 왕의 심판을 소망하며 기뻐하고 있습니까?</li>
                 </ol>
+            </div>
             </div>
         </main>
 
@@ -508,6 +612,24 @@
             });
             
             loadAudioLinks();
+
+            // 간단한 탭 기능
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+
+                    // 모든 버튼과 콘텐츠 비활성화
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // 선택된 버튼과 콘텐츠 활성화
+                    button.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
         });
     </script>
 </body>
