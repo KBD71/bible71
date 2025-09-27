@@ -118,12 +118,45 @@ document.addEventListener('DOMContentLoaded', () => {
         modalTitle.innerText = button.dataset.title;
         modalIframe.src = button.dataset.path;
         modalOverlay.classList.add('visible');
-        document.documentElement.style.overflow = 'hidden'; // 수정된 부분
+
+        // 모바일에서 스크롤 문제 방지를 위한 개선된 방법
+        if (window.innerWidth <= 768) {
+            // 모바일에서는 body만 고정하고 position 조정
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${window.scrollY}px`;
+            document.body.style.width = '100%';
+        } else {
+            // 데스크톱에서는 기존 방식 유지
+            document.documentElement.style.overflow = 'hidden';
+        }
+
+        // iframe 로딩 완료 후 터치 이벤트 활성화
+        modalIframe.onload = () => {
+            if (window.innerWidth <= 768) {
+                modalIframe.style.pointerEvents = 'auto';
+                modalIframe.style.touchAction = 'auto';
+            }
+        };
     }
 
     function closeModal() {
         modalOverlay.classList.remove('visible');
-        document.documentElement.style.overflow = ''; // 수정된 부분
+
+        // 모바일에서 스크롤 위치 복원
+        if (window.innerWidth <= 768) {
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        } else {
+            document.documentElement.style.overflow = '';
+        }
+
+        // iframe 초기화
+        modalIframe.onload = null;
+        modalIframe.src = 'about:blank';
+        setTimeout(() => modalIframe.src = '', 100);
     }
 
     function switchTab(index) {
