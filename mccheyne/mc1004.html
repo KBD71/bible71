@@ -3,666 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10월 4일 맥체인 성경읽기 (내용 보강)</title>
-    <style>
-        :root {
-            --book1-color: #4285F4;
-            --book2-color: #DB4437;
-            --book3-color: #F4B400;
-            --book4-color: #0F9D58;
-            --integration-color: #808080;
-            --text-color: #212529;
-            --bg-color: #f8f9fa;
-            --card-bg-color: #ffffff;
-            --border-color: #dee2e6;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            line-height: 1.8;
-            font-size: 17px;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0 0 120px 0; /* Add padding to bottom to avoid overlap with player */
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            max-width: 1280px;
-            width: 100%;
-            padding: 2rem;
-            box-sizing: border-box;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 700;
-            margin: 0;
-        }
-        
-        h1 span {
-            font-size: 1.2rem;
-            color: #6c757d;
-            display: block;
-            margin-top: 0.5rem;
-            font-weight: 400;
-        }
-
-        h2 {
-            font-size: clamp(1.8rem, 4vw, 2.2rem);
-            font-weight: 600;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.5rem;
-            margin-top: 3rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .card-book1 h3 { color: var(--book1-color); }
-        .card-book2 h3 { color: var(--book2-color); }
-        .card-book3 h3 { color: var(--book3-color); }
-        .card-book4 h3 { color: var(--book4-color); }
-        .integration-card h3 { color: var(--integration-color); }
-
-        p {
-            margin-bottom: 1.5rem;
-        }
-        
-        ul {
-            padding-left: 20px;
-        }
-        
-        li {
-            margin-bottom: 1rem;
-        }
-
-        .chapter-card, .integration-card {
-            background-color: var(--card-bg-color);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 2.5rem;
-            padding: 2rem 2.5rem;
-            border-left: 8px solid;
-            overflow: hidden;
-        }
-
-        .card-book1 { border-color: var(--book1-color); }
-        .card-book2 { border-color: var(--book2-color); }
-        .card-book3 { border-color: var(--book3-color); }
-        .card-book4 { border-color: var(--book4-color); }
-        .integration-card { border-color: var(--integration-color); }
-
-        .card-title {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .card-title svg {
-            width: 40px;
-            height: 40px;
-            flex-shrink: 0;
-        }
-        
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-        }
-
-        button {
-            background-color: var(--text-color);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        
-        button.listen-button {
-            background-color: transparent;
-            border: 2px solid currentColor;
-            color: var(--text-color);
-        }
-
-        .card-book1 .listen-button { color: var(--book1-color); }
-        .card-book2 .listen-button { color: var(--book2-color); }
-        .card-book3 .listen-button { color: var(--book3-color); }
-        .card-book4 .listen-button { color: var(--book4-color); }
-
-
-        button:hover {
-            background-color: #000;
-            color: white; /* Make text white on hover for all buttons */
-            transform: translateY(-2px);
-        }
-        
-        blockquote {
-            border-left: 4px solid var(--border-color);
-            padding-left: 1rem;
-            margin: 1.5rem 0;
-            color: #6c757d;
-            font-style: italic;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-color);
-            color: #6c757d;
-        }
-
-        /* Modal Styles */
-        .modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 1rem;
-            box-sizing: border-box;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .modal-header, .sticky-player-header {
-             display: flex;
-             justify-content: space-between;
-             align-items: center;
-             padding-bottom: 1rem;
-             margin-bottom: 1rem;
-        }
-
-        .modal-header {
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .modal-title, .player-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .close-button {
-            font-size: 2rem;
-            font-weight: bold;
-            line-height: 1;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-        
-        .modal-body {
-            font-size: 16px;
-        }
-        
-        /* Sticky Audio Player */
-        #sticky-audio-player {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #343a40;
-            color: white;
-            z-index: 1001;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
-            transform: translateY(100%);
-            transition: transform 0.3s ease-in-out;
-            padding: 1rem 2rem;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        #sticky-audio-player.active {
-            transform: translateY(0);
-        }
-
-        .player-info {
-             display: flex;
-             align-items: center;
-             gap: 1.5rem;
-        }
-        
-        .player-title {
-            font-size: 1.2rem;
-        }
-        
-        .player-controls button {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
-        
-        .player-controls button svg {
-            width: 28px;
-            height: 28px;
-        }
-        
-        .player-close-button {
-            font-size: 1.5rem;
-            opacity: 0.7;
-        }
-        .player-close-button:hover {
-            opacity: 1;
-        }
-
-        #youtube-player {
-            display: none;
-        }
-
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>10월 4일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
     <div class="container">
-        <header>
-            <h1>10월 4일
-                <span>맥체인 성경읽기</span>
-            </h1>
-        </header>
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>10월 4일</h1>
+            </header>
 
-        <main>
-            <!-- Card 1: 1 Kings 7 -->
-            <section class="chapter-card card-book1">
-                <div class="card-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="var(--book1-color)" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                    <div>
-                        <h2>열왕기상 7장</h2>
-                        <p>솔로몬의 궁전과 성전 기물 제작</p>
-                    </div>
-                </div>
-                <h3>개요</h3>
-                <p>열왕기상 7장은 성전 건축(6장)에 이어, 13년에 걸쳐 지어진 솔로몬 자신의 왕궁 건축과 성전에서 사용될 거룩한 기물들의 제작 과정을 상세히 기록합니다. 특히 히람이 만든 두 놋기둥 '야긴'과 '보아스', 그리고 거대한 '놋바다'는 하나님의 영광과 언약의 견고함을 상징적으로 보여주는 중요한 요소입니다.</p>
-                <h3>신학적 해설</h3>
-                <p><strong>하나님의 집과 왕의 집:</strong> 성전 건축이 7년, 왕궁 건축이 13년이 걸렸다는 사실은 인간의 영광이 아닌 하나님의 영광을 우선했던 솔로몬의 신앙을 보여줍니다. 이는 하나님의 나라와 그의 의를 먼저 구할 때 모든 것을 더하시는 원리를 가르칩니다. 그러나 동시에 그의 궁전이 성전보다 더 오랜 기간에 걸쳐 지어졌다는 점에서, 장차 드러날 인간 왕국의 한계와 쇠퇴를 암시하기도 합니다.</p>
-                <p><strong>야긴과 보아스 (언약의 두 기둥):</strong> 성전 입구에 세워진 두 기둥 '야긴'(그가 세우실 것이다)과 '보아스'(그에게 능력이 있다)는, 이 성전과 이스라엘이라는 언약 공동체가 인간의 힘이 아닌 오직 하나님의 능력과 신실하심 위에 세워졌음을 선포하는 기념비입니다. 이 두 기둥은 궁극적으로 자신의 몸을 성전 삼아 교회를 세우시고, 능력으로 붙드시는 예수 그리스도를 예표합니다.</p>
-                <h3>성경 본문 및 듣기</h3>
-                <div class="button-group">
-                    <button onclick="openBibleModal('../bible_html/OT/OT_11_1KI_07.html', '열왕기상 7장')">본문 보기</button>
-                    <button class="listen-button" onclick="playAudio('1KI_7', '열왕기상 7장')">성경 듣기</button>
-                </div>
-            </section>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-book1" data-color="book1">열왕기상 7장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">에베소서 4장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">에스겔 37장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">시편 87-88편</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+            </nav>
 
-            <!-- Card 2: Ephesians 4 -->
-            <section class="chapter-card card-book2">
-                 <div class="card-title">
-                     <svg xmlns="http://www.w.org/2000/svg" fill="var(--book2-color)" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                    <div>
-                        <h2>에베소서 4장</h2>
-                        <p>성령이 하나 되게 하신 것</p>
-                    </div>
+            <main>
+                <div id="content-book1" class="tab-content active">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>열왕기상 7장: 솔로몬의 궁전과 성전 기물 제작</h3>
+                            <h4>상세 개요</h4>
+                            <p>본문은 솔로몬이 13년에 걸쳐 자신의 궁전("레바논 나무 궁")을 건축한 내용과, 이어서 성전의 핵심 기물들을 제작하는 과정을 상세히 기록합니다. 그는 두로의 유능한 놋쇠 기술자 히람을 초빙하여, 성전 입구에 세울 거대한 두 놋기둥 '야긴'과 '보아스'를 만들게 합니다. 또한 제사장들의 정결 예식을 위한 거대한 '놋바다'와 열 개의 '놋받침', '물두멍' 등 각종 놋기물과 금으로 만든 제단과 등잔대 등 성전 내부의 기구들을 정교하게 제작합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 집과 인간의 집:</strong> 성전 건축에 7년, 자신의 궁전 건축에 13년이 걸린 것은 인간적인 연약함과 자기 영광을 추구할 수 있는 가능성을 보여줍니다. 그럼에도 불구하고 그의 궁전 역시 하나님이 주신 지혜로 백성을 다스리는 공적 통치의 중심지라는 의미를 지닙니다. 그러나 이 순서는 우리 삶의 우선순위가 어디에 있어야 하는지를 돌아보게 합니다.</p>
+                            <p><strong>2. 야긴과 보아스, 신앙의 선포:</strong> 성전의 두 기둥 이름, <span class="scripture-quote">야긴("그가 세우신다")</span>과 <span class="scripture-quote">보아스("그에게 능력이 있다")</span>는 성전의 주인이 인간 왕이 아닌 하나님이심을 선포하는 건축적 신앙고백입니다. 이스라엘이라는 나라와 그 예배 공동체의 안정과 힘의 근원이 오직 여호와 하나님께 있음을 모든 들어오는 자들에게 각인시키는 역할을 합니다. 이는 우리의 신앙 또한 우리의 노력이 아닌 하나님의 주권적인 세우심과 능력에 달려있음을 상기시킵니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_11_1KI_07.html" data-title="열왕기상 7장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="1KI_7" data-title="열왕기상 7장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-                <h3>개요</h3>
-                <p>에베소서 4장은 교리적인 전반부에서 실천적인 후반부로 넘어가는 전환점입니다. 바울은 부르심에 합당한 삶을 살 것을 권면하며, 그 핵심으로 '성령이 하나 되게 하신 것을 힘써 지키는 것'을 제시합니다. 교회는 그리스도의 몸으로서, 다양한 은사를 통해 유기적으로 성장하며 옛 사람을 벗고 새 사람을 입어야 합니다.</p>
-                <h3>신학적 해설</h3>
-                <p><strong>하나 됨의 기초 (삼위일체 하나님):</strong> 바울이 강조하는 교회의 하나 됨은 인간적인 노력이 아닌 삼위일체 하나님의 하나 되심에 근거합니다. '몸도 하나요, 성령도 한 분이시니... 주도 한 분이시요, 믿음도 하나요, 세례도 하나요, 하나님도 한 분'이시라는 고백은 교회의 연합이 신적인 실재임을 선언합니다. 우리의 사명은 이 연합을 만들어내는 것이 아니라, 이미 주어진 연합을 겸손과 온유, 그리고 평안의 매는 줄로 지켜내는 것입니다.</p>
-                <p><strong>은사와 교회의 성장:</strong> 그리스도께서는 승천하시면서 교회에 다양한 은사를 주셨습니다. 사도, 선지자, 복음 전하는 자, 목사와 교사의 직분은 성도를 온전하게 하여 봉사의 일을 하게 하며 그리스도의 몸을 세우기 위함입니다. 이는 교회의 성장이 특정 개인의 탁월함이 아닌, 각 지체가 자신의 은사를 따라 유기적으로 연결되고 섬길 때 이루어짐을 명확히 합니다.</p>
-                <h3>성경 본문 및 듣기</h3>
-                <div class="button-group">
-                    <button onclick="openBibleModal('../bible_html/NT/NT_49_EPH_04.html', '에베소서 4장')">본문 보기</button>
-                    <button class="listen-button" onclick="playAudio('EPH_4', '에베소서 4장')">성경 듣기</button>
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>에베소서 4장: 부르심에 합당한 삶, 교회 안에서의 하나 됨</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 성도들에게 "부르심을 받은 일에 합당하게 행하라"고 강력히 권면하며, 교회의 하나 됨을 지킬 것을 촉구합니다. 그는 '몸도 하나요, 성령도 한 분이시며, 주도 한 분, 믿음도 하나, 세례도 하나, 하나님도 한 분'이심을 강조하며 통일성의 신학적 기초를 제시합니다. 이 통일성 안에서, 그리스도는 교회를 세우기 위해 각 지체에게 사도, 선지자, 복음 전하는 자, 목사와 교사 등 다양한 은사를 주셨습니다. 그러므로 성도는 옛 사람의 욕심을 따르는 구습을 버리고, 오직 하나님의 형상을 따라 지으심을 받은 '새 사람'을 입어 공동체 안에서 진실하고 거룩한 삶을 살아야 합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 교회의 통일성과 다양성:</strong> 본문은 교회의 본질이 삼위일체 하나님의 단일성에 기초한 '통일성'에 있음을 보여줍니다. 그러나 이 통일성은 획일성이 아닙니다. <span class="scripture-quote">우리 각 사람에게 그리스도의 선물의 분량대로 은혜를 주셨나니</span>(7절)라는 말씀처럼, 각 지체는 서로 다른 은사를 받아 다양성을 이룹니다. 이 다양성은 서로 경쟁하는 것이 아니라, <span class="scripture-quote">그리스도의 몸을 세우려 하심이라</span>(12절)는 하나의 목표를 위해 서로를 섬기는 유기적 관계 속에서 조화를 이룹니다.</p>
+                            <p><strong>2. 옛 사람과 새 사람, 성화의 원리:</strong> 성화는 단순히 악한 행동을 멈추는 소극적 과정이 아니라, <span class="scripture-quote">옛 사람을 벗어 버리고... 새 사람을 입으라</span>(22, 24절)는 적극적인 변화의 과정입니다. '옛 사람'은 아담 안에서 물려받은 부패한 본성을, '새 사람'은 그리스도 안에서 하나님의 형상을 따라 재창조된 새로운 본질을 의미합니다. 이 영적 의복을 갈아입는 것은 우리의 심령이 새롭게 되어 하나님의 성품인 의와 진리의 거룩함을 삶으로 살아내는 것을 포함합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_49_EPH_04.html" data-title="에베소서 4장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EPH_4" data-title="에베소서 4장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </section>
-            
-            <!-- Card 3: Ezekiel 37 -->
-            <section class="chapter-card card-book3">
-                <div class="card-title">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="var(--book3-color)" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                    <div>
-                        <h2>에스겔 37장</h2>
-                        <p>마른 뼈들의 환상</p>
-                    </div>
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>에스겔 37장: 마른 뼈 골짜기의 환상과 두 막대기의 연합</h3>
+                            <h4>상세 개요</h4>
+                            <p>하나님은 에스겔 선지자를 영으로 이끌어 마른 뼈들이 가득한 골짜기로 데려가십니다. "이 뼈들이 능히 살 수 있겠느냐"는 질문에 에스겔은 주께서 아신다고 답합니다. 하나님의 명령에 따라 에스겔이 말씀을 대언하자, 뼈들이 움직여 서로 연결되고 살과 가죽이 덮이며, 생기를 향해 대언하자 그들이 살아나 '심히 큰 군대'를 이룹니다. 이는 소망을 잃은 이스라엘의 회복에 대한 환상입니다. 이어서, 유다와 요셉(에브라임)을 상징하는 두 막대기를 하나로 합치는 상징 행위를 통해, 분열된 이스라엘이 장차 '한 목자', 즉 다윗의 후손으로 오실 메시아 아래에서 영원히 한 나라를 이룰 것을 예언하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 주권적 중생 사역:</strong> 마른 뼈 환상은 인간의 전적인 무능력과 부패, 그리고 구원에 있어서 하나님의 절대 주권을 가장 극적으로 보여주는 장면입니다. 뼈들이 스스로 살아날 수 없듯이, 영적으로 죽은 인간은 스스로를 구원할 수 없습니다. 소생은 오직 <span class="scripture-quote">말씀의 대언</span>(선포된 복음)과 <span class="scripture-quote">생기의 역사</span>(성령의 사역)라는 두 가지 방편을 통해 이루어지는 하나님의 전적인 창조 사역, 즉 '중생'입니다.</p>
+                            <p><strong>2. 교회의 통일 예표:</strong> 남북으로 분열된 이스라엘을 상징하는 두 막대기가 하나로 연합되는 것은, 단지 정치적 통일을 넘어선 구속사적 의미를 지닙니다. 이는 장차 오실 참된 왕 예수 그리스도 안에서 유대인과 이방인이라는 오랜 적대 관계의 두 집단이 하나의 새 사람, 즉 '교회'로 연합될 것에 대한 위대한 예표입니다. 교회의 하나 됨은 인간의 노력이 아닌, 오직 하나님의 언약과 능력으로만 성취됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_26_EZE_37.html" data-title="에스겔 37장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_37" data-title="에스겔 37장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-                <h3>개요</h3>
-                <p>에스겔 37장은 성경에서 가장 극적인 환상 중 하나인 '마른 뼈 골짜기' 환상을 담고 있습니다. 소망 없이 흩어진 이스라엘을 상징하는 마른 뼈들이 하나님의 말씀과 생기로 말미암아 살아나 거대한 군대를 이루는 모습과, 유다와 이스라엘을 상징하는 두 막대기가 하나가 되는 환상을 통해 이스라엘의 회복과 통일을 예언합니다.</p>
-                <h3>신학적 해설</h3>
-                <p><strong>전적인 무능과 하나님의 주권적 능력:</strong> 골짜기에 가득한 '심히 마른 뼈들'은 영적으로 완전히 죽어 스스로는 아무것도 할 수 없는 인간의 전적 부패 상태를 보여줍니다. "이 뼈들이 능히 살 수 있겠느냐"는 질문에 에스겔은 "주 여호와여 주께서 아시나이다"라고 답하며, 구원은 전적으로 하나님의 주권에 달려있음을 고백합니다. 이 환상은 인간의 공로가 아닌, 오직 하나님의 능력으로 말미암는 중생의 진리를 강력하게 증거합니다.</p>
-                <p><strong>말씀과 성령 (중생의 두 요소):</strong> 뼈들이 살아나는 과정은 두 단계로 이루어집니다. 첫째는 '말씀의 대언'으로, 뼈들이 서로 연결되고 힘줄이 생기고 살이 오릅니다. 둘째는 '생기를 향한 대언'으로, 하나님의 영이 들어가자 그들이 비로소 살아 일어섭니다. 이는 말씀 선포와 성령의 내적 역사가 함께 작용하여 영혼을 살리는 중생의 원리를 보여주는 그림입니다.</p>
-                <h3>성경 본문 및 듣기</h3>
-                <div class="button-group">
-                    <button onclick="openBibleModal('../bible_html/OT/OT_26_EZE_37.html', '에스겔 37장')">본문 보기</button>
-                    <button class="listen-button" onclick="playAudio('EZE_37', '에스겔 37장')">성경 듣기</button>
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>시편 87-88편: 시온의 영광과 가장 어두운 탄식</h3>
+                            <h4>상세 개요</h4>
+                            <p>두 시편은 극명한 대조를 이룹니다. 시편 87편은 하나님의 도성 '시온'의 영광을 노래하는 찬양시입니다. 애굽(라합), 바벨론, 블레셋 같은 이방 나라들조차 시온에서 태어난 자로 여김 받을 것이며, 모든 민족이 구원의 근원이신 하나님을 시온에서 찬양하게 될 것이라는 우주적 비전을 제시합니다. 반면, 시편 88편은 시편 전체에서 유일하게 소망의 빛 없이 깊은 어둠 속에서 끝나는 개인 탄식시입니다. 시인은 질병과 고독, 하나님의 극심한 진노 아래 신음하며 죽음의 문턱에서 부르짖지만, 그의 기도는 응답 없는 흑암 속에 남겨진 채 끝납니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 우주적 교회로서의 시온:</strong> 시편 87편의 시온은 단순히 지리적인 예루살렘을 넘어, 모든 민족과 열방이 하나님의 백성으로 등록되고 구원의 기쁨을 누리게 될 '하나님 나라', 즉 '우주적 교회'를 예표합니다. <span class="scripture-quote">이 사람, 저 사람이 거기서 났다고 말하리니</span>(5절)라는 선포는 구원이 혈통적 유대주의를 넘어, 하나님의 주권적인 부르심과 은혜로 모든 족속에게 확장될 것을 보여주는 놀라운 통찰입니다.</p>
+                            <p><strong>2. 십자가 위의 그리스도의 고난:</strong> 시편 88편의 끝없는 절망과 부르짖음은 그 어떤 인간의 고통보다도, 겟세마네 동산과 십자가 위에서 하나님의 완전한 진노와 유기를 한 몸에 받으셨던 예수 그리스도의 고난을 가장 깊이 예표합니다. <span class="scripture-quote">주께서 나를 깊은 웅덩이와 어둡고 음침한 곳에 두셨사오며</span>(6절)라는 절규는 "나의 하나님, 나의 하나님, 어찌하여 나를 버리셨나이까"라는 예수님의 외침과 공명합니다. 이 시편은 우리의 구원이 얼마나 엄청난 대가를 치르고 이루어졌는지를 침묵으로 증거합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_87.html" data-title="시편 87-88편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_87" data-title="시편 87-88편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </section>
-            
-            <!-- Card 4: Psalms 87-88 -->
-            <section class="chapter-card card-book4">
-                <div class="card-title">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="var(--book4-color)" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                    <div>
-                        <h2>시편 87-88편</h2>
-                        <p>시온의 영광과 극심한 고통의 탄식</p>
-                    </div>
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>통합 묵상: 절망의 골짜기에서 세워지는 하나님의 집</h3>
+                            <h4>관통하는 주제</h4>
+                            <p>오늘의 본문들은 '인간의 절대적 절망'과 그 폐허 위에 '하나님의 집을 세우시는 주권적인 은혜'라는 거대한 주제를 중심으로 펼쳐집니다. 에스겔 37장의 '마른 뼈 골짜기'와 시편 88편의 '흑암의 탄식'은 소망이 완전히 끊어진 인간의 실존을 상징합니다. 그러나 하나님은 바로 이 죽음의 자리에서 말씀과 성령으로 생명의 군대를 일으키시고(겔 37), 분열된 막대기들을 연합시켜 당신의 백성을 재창조하십니다. 이 재창조된 백성이 바로 '하나님의 집'입니다. 에베소서 4장은 이 집이 다양한 은사를 가진 지체들이 유기적으로 연합하여 '그리스도의 몸'으로 세워져 가는 교회임을 신학적으로 설명합니다. 열왕기상 7장은 이 하나님의 집(성전)이 얼마나 영광스럽고 질서 있게 지어져야 하는지를 가시적으로 보여주며, 시편 87편은 이 영광스러운 집(시온)에 마침내 모든 열방이 참여하게 될 것이라는 최종적인 비전을 노래합니다. 절망은 끝이 아니라, 하나님의 건설이 시작되는 출발점입니다.</p>
+                            <h4>핵심 개념 및 상호 참조</h4>
+                            <p><strong>건축과 연합:</strong> 열왕기상 7장의 물리적인 성전 '건축'과 에스겔 37장의 두 막대기 '연합'은 에베소서 4장의 '그리스도의 몸을 세우는 것'과 동일한 영적 실체를 가리킵니다. 마른 뼈들이 서로 연결되어 몸을 이루듯, 다양한 은사를 가진 성도들은 그리스도라는 모퉁잇돌을 중심으로 연합하여 살아있는 성전으로 함께 지어져 갑니다. 이 집의 안정과 힘은 '야긴과 보아스', 즉 오직 하나님의 능력에 근거합니다.</p>
+                            <p><strong>죽음과 부활의 경험:</strong> 시편 88편의 시인은 영적인 죽음의 고통을 처절하게 경험합니다. 이는 에스겔 37장의 마른 뼈와 같이, 우리 모두가 그리스도 밖에서 경험하는 실존입니다. 그러나 바로 이 절망의 자리에서 하나님의 말씀과 생기가 임할 때, 우리는 '심히 큰 군대'로 살아나는 부활을 경험합니다. 바울이 말하는 '옛 사람을 벗고 새 사람을 입는 것'(엡 4장)은 바로 이 죽음과 부활의 원리가 우리 삶에 매일 적용되는 것입니다.</p>
+                            <h4>삶으로의 적용</h4>
+                            <ul>
+                                <li><strong>지(知):</strong> 나의 구원과 신앙 공동체의 생명이 나의 노력이 아닌, 마른 뼈를 살리시는 하나님의 주권적인 말씀과 성령의 능력에 전적으로 달려있음을 인정합니까? 내가 받은 은사가 나를 위한 것이 아니라 교회의 연합과 건축을 위한 것임을 알고 있습니까?</li>
+                                <li><strong>정(情):</strong> 때로 시편 88편과 같은 영적 침체와 절망에 빠질 때, 그 고통 속에서 나를 위해 십자가의 저주를 감당하신 그리스도를 묵상하며 위로를 얻고 있습니까? 또한 시편 87편의 비전처럼, 나와 다른 배경의 사람들이 함께 하나님의 집을 이루는 것에 대한 기쁨과 감격이 있습니까?</li>
+                                <li><strong>의(意):</strong> '하나님의 몸'을 세우기 위해, 이번 한 주간 내가 받은 은사를 사용하여 구체적으로 섬길 수 있는 지체는 누구입니까? '옛 사람'의 습관인 거짓, 분냄, 도둑질, 더러운 말을 버리고 '새 사람'의 모습인 진실, 친절, 구제, 덕을 세우는 말을 실천하기로 결단합시다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-                <h3>개요</h3>
-                <p>시편 87편과 88편은 극명한 대조를 이룹니다. 87편은 하나님의 도성 시온의 영광과 그곳에서 태어날 열방을 노래하는 환희에 찬 시인 반면, 88편은 시편 전체에서 가장 어둡고 고통스러운 탄식 시로, 한 줄기 빛도 없이 오직 흑암 속에서 부르짖는 기도로 끝을 맺습니다. 이 두 시는 함께 읽을 때 성도의 삶에 내재된 영광의 소망과 고통의 현실을 동시에 보여줍니다.</p>
-                <h3>신학적 해설</h3>
-                <p><strong>시온의 영광과 교회의 보편성 (시편 87편):</strong> 87편은 하나님께서 거하시는 시온을 모든 산보다 사랑하신다고 선포합니다. 놀라운 점은 애굽(라합), 바벨론, 블레셋, 구스 등 이스라엘의 적대국 출신들조차 "이 사람이 거기서 났다"고 말하게 될 것이라는 예언입니다. 이는 혈통적 이스라엘을 넘어, 예수 그리스도를 통해 세워질 신약 교회의 보편성을 예표합니다. 교회는 만민이 하나님의 백성으로 다시 태어나는 영적 출생지입니다.</p>
-                <p><strong>십자가의 어둠을 예표하는 탄식 (시편 88편):</strong> 88편은 "흑암만이 나의 벗"이라는 처절한 절규로 끝나는 유일한 탄식 시입니다. 이는 죄로 인한 하나님의 진노와 분리됨의 고통을 극적으로 표현합니다. 이 시는 궁극적으로 온 인류의 죄를 짊어지시고 십자가 위에서 "엘리 엘리 라마 사박다니"라 외치시며 아버지로부터의 완전한 분리를 경험하신 예수 그리스도의 고통을 가장 깊이 예표하는 시편으로 이해할 수 있습니다.</p>
-                <h3>성경 본문 및 듣기</h3>
-                <div class="button-group">
-                    <button onclick="openBibleModal('../bible_html/OT/OT_19_PSA_87.html', '시편 87편')">시편 87편 보기</button>
-                    <button class="listen-button" onclick="playAudio('PSA_87', '시편 87편')">시편 87편 듣기</button>
-                    <button onclick="openBibleModal('../bible_html/OT/OT_19_PSA_88.html', '시편 88편')">시편 88편 보기</button>
-                    <button class="listen-button" onclick="playAudio('PSA_88', '시편 88편')">시편 88편 듣기</button>
-                </div>
-            </section>
-            
-             <!-- Integration Card -->
-            <section class="integration-card">
-                <h2>통합적 묵상</h2>
-                <h3>관통하는 주제: 하나님의 집, 그리스도의 몸 된 교회의 설립과 성장</h3>
-                <p>오늘의 본문들은 하나님의 백성이 거하는 '하나님의 집'이라는 주제를 중심으로 유기적으로 연결됩니다. 열왕기상은 가시적인 성전의 건축을, 에스겔은 영적으로 죽은 백성이 살아나 하나님의 처소가 되는 과정을, 시편 87편은 그 처소가 온 열방을 포함할 것을, 에베소서는 이 모든 것의 실체인 교회가 그리스도의 몸으로서 어떻게 세워지고 성장하는지를 보여줍니다.</p>
-                
-                <h3>핵심 단어 연구: ἕνωσις (헤노시스, Unity) - 에베소서 4:3</h3>
-                <p>그리스어 '헤노시스'는 단순히 외적인 연합이나 조직적인 통일이 아닌, '하나로 만듦', '결합'이라는 의미를 가진 유기체적 하나 됨을 의미합니다. 바울은 이 단어를 사용하여 교회의 연합이 인간의 노력으로 만들어내는 결과물이 아니라, 성령께서 이미 그리스도 안에서 이루어 놓으신 신적 실재임을 강조합니다. 성도들의 역할은 이 하나 됨을 '만드는 것'이 아니라, 평안의 매는 줄로 힘써 '지키는 것'(τηρεῖν, 테레인)입니다.</p>
-                
-                <h3>본문 간 상호 참조</h3>
-                <ul>
-                    <li><strong>성전과 교회 (왕상 7장 & 엡 4장):</strong> 솔로몬이 지은 화려한 성전은 눈에 보이는 하나님의 집이었지만, 에베소서는 그리스도의 몸 된 교회가 바로 성령이 거하시는 참된 성전임을 보여줍니다 (엡 2:21-22 참조). 성전의 두 기둥 '야긴'(그가 세우실 것이다)과 '보아스'(그에게 능력이 있다)는, 오직 하나님만이 그의 능력을 통해 교회를 세우시고 견고하게 하신다는 진리를 예표합니다.</li>
-                    <li><strong>죽음에서의 부활과 연합 (겔 37장 & 엡 4장):</strong> 에스겔 골짜기의 마른 뼈들이 살아나 큰 군대를 이루는 것은 영적으로 죽었던 죄인들이 그리스도 안에서 성령으로 거듭나는 것(중생)을 보여주는 강력한 환상입니다. 이렇게 살아난 백성들이 '한 목자' 아래 연합하는 모습은, 에베소서에서 성령이 '하나 되게 하신 것'을 힘써 지키라는 명령과 직접적으로 연결됩니다.</li>
-                    <li><strong>시온과 우주적 교회 (시 87편 & 엡 4장):</strong> 시편 87편에서 열방의 백성들이 시온에서 태어났다고 고백하는 모습은, 에베소서 4장이 말하는 '한 몸'과 '한 하나님' 아래 모든 족속이 하나가 되는 우주적 교회의 영광스러운 비전을 구약의 언어로 노래한 것입니다.</li>
-                </ul>
+            </main>
 
-                <h3>묵상을 위한 질문</h3>
-                <ol>
-                    <li>에스겔의 마른 뼈 환상처럼, 내 삶에서 하나님의 말씀과 성령의 능력으로 새롭게 살아나야 할 영적 불모지는 어디입니까? 나의 힘으로는 불가능하다고 포기한 영역에 어떻게 하나님의 주권적 능력을 의지하여 기도하시겠습니까?</li>
-                    <li>에베소서 4장이 강조하는 '하나 됨'을 위해 나는 교회 공동체 안에서 나의 은사를 어떻게 사용하고 있으며, '옛 사람'의 모습(분노, 거짓말, 비방 등)을 '새 사람'으로 변화시키기 위해 구체적으로 어떤 노력을 하고 있습니까?</li>
-                    <li>시편 88편의 기자처럼 소망이 보이지 않는 깊은 고난 속에 있을 때, "흑암만이 나의 벗"이라 느끼면서도 기도를 멈추지 않았던 그의 믿음을 어떻게 본받을 수 있을까요? 그 고통이 그리스도의 십자가 고난에 동참하는 길임을 신뢰할 수 있습니까?</li>
-                </ol>
-            </section>
-        </main>
-        
-        <footer>
-            <p>&copy; 2025 KBD 맥체인 성경읽기 프로젝트</p>
-        </footer>
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
     </div>
     
-    <!-- Sticky Audio Player -->
-    <div id="sticky-audio-player">
-        <div class="player-info">
-            <div class="player-controls">
-                <button id="player-play-pause-button" onclick="togglePlayPause()">
-                     <svg id="player-play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                     <svg id="player-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                </button>
-            </div>
-            <h3 class="player-title" id="player-title-text">재생할 오디오를 선택하세요.</h3>
-        </div>
-        <button class="close-button player-close-button" onclick="closePlayer()">&times;</button>
+    <div class="floating-nav" id="floating-nav">
+         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
-    <div id="youtube-player"></div>
 
-    <!-- Bible Modal -->
-    <div class="modal-backdrop" id="bible-modal" onclick="closeModalOnClick(event)">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modal-title-text"></h2>
-                <button class="close-button" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body" id="modal-body-content">
-                <p>본문을 불러오는 중입니다...</p>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                 <button id="close-player-btn" title="닫기">&times;</button>
             </div>
         </div>
     </div>
-
-    <script>
-        // --- YouTube IFrame Player API ---
-        let player;
-        let isPlaying = false;
-        const dailyAudioLinks = {}; // Object to store audio links for the day
-
-        /**
-         * Extracts YouTube video ID from various URL formats.
-         */
-        function extractVideoIdFromUrl(url) {
-            if (!url) return null;
-            let videoId = null;
-            try {
-                const urlObject = new URL(url);
-                if (urlObject.hostname === 'youtu.be') {
-                    videoId = urlObject.pathname.slice(1);
-                } else if (urlObject.hostname.includes('youtube.com')) {
-                    videoId = urlObject.searchParams.get('v');
-                }
-                return videoId ? videoId.split('&')[0] : null;
-            } catch (e) {
-                console.error("Could not parse URL:", url, e);
-                return null;
-            }
-        }
-
-        /**
-         * Fetches audio data file and populates the dailyAudioLinks object.
-         * Assumes a file format like: OT_01_GEN_01 url
-         */
-        async function loadDailyAudioLinks() {
-            try {
-                const response = await fetch('../address/mcbible.txt');
-                if (!response.ok) throw new Error('Audio address file could not be loaded.');
-                
-                const textData = await response.text();
-                const lines = textData.split('\n');
-
-                lines.forEach(line => {
-                    const trimmedLine = line.trim();
-                    if (!trimmedLine) return;
-
-                    const parts = trimmedLine.split(/\s+/);
-                    if (parts.length >= 2) {
-                        const fullKey = parts[0]; // e.g., OT_11_1KI_07
-                        const url = parts[1];
-                        
-                        const keyParts = fullKey.split('_');
-                        if (keyParts.length === 4) {
-                            const bookAbbr = keyParts[2]; // e.g., 1KI
-                            const chapter = parseInt(keyParts[3], 10); // e.g., 7
-                            const simpleKey = `${bookAbbr}_${chapter}`; // e.g., 1KI_7
-
-                            const videoId = extractVideoIdFromUrl(url);
-                            if (videoId) {
-                                dailyAudioLinks[simpleKey] = videoId;
-                            }
-                        }
-                    }
-                });
-            } catch (error) {
-                console.error("Failed to load audio links:", error);
-                // Disable all listen buttons if the file fails to load
-                document.querySelectorAll('.listen-button').forEach(button => {
-                    button.disabled = true;
-                    button.style.opacity = '0.5';
-                    button.style.cursor = 'not-allowed';
-                    button.title = '오디오 링크 파일을 불러올 수 없습니다.';
-                });
-            }
-        }
-
-
-        /**
-         * Main function to play audio for a specific chapter
-         */
-        function playAudio(chapterKey, title) {
-            const videoId = dailyAudioLinks[chapterKey];
-            if (!videoId) {
-                alert(`'${title}'에 대한 오디오 자료를 찾을 수 없습니다.`);
-                return;
-            }
-            
-            document.getElementById('player-title-text').textContent = title;
-            document.getElementById('sticky-audio-player').classList.add('active');
-
-            // If player is not ready, it will be handled by the API callback
-            // If it is ready, load the video.
-            if (player && typeof player.loadVideoById === 'function') {
-                player.loadVideoById(videoId);
-            } else {
-                // This case handles if a play button is clicked before API is ready.
-                // We can store the request and play it when ready.
-                window.pendingPlay = { videoId: videoId };
-            }
-        }
-
-        /**
-         * YouTube API callback
-         */
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
-                playerVars: { 'playsinline': 1 },
-                events: { 
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange 
-                }
-            });
-        }
-        
-        function onPlayerReady(event) {
-            // If a video was requested before the player was ready, play it now.
-            if (window.pendingPlay) {
-                event.target.loadVideoById(window.pendingPlay.videoId);
-                delete window.pendingPlay;
-            }
-        }
-
-        function onPlayerStateChange(event) {
-            // Autoplay when a new video is loaded
-            if (event.data === YT.PlayerState.UNSTARTED) {
-                event.target.playVideo();
-            }
-            isPlaying = (event.data == YT.PlayerState.PLAYING);
-            updatePlayPauseIcon();
-        }
-
-        function togglePlayPause() {
-            if (!player || typeof player.getPlayerState !== 'function') return;
-            isPlaying ? player.pauseVideo() : player.playVideo();
-        }
-        
-        function updatePlayPauseIcon() {
-            const playIcon = document.getElementById('player-play-icon');
-            const pauseIcon = document.getElementById('player-pause-icon');
-            if(playIcon && pauseIcon) {
-                playIcon.style.display = isPlaying ? 'none' : 'block';
-                pauseIcon.style.display = isPlaying ? 'block' : 'none';
-            }
-        }
-
-        function closePlayer() {
-            if (player && typeof player.stopVideo === 'function') {
-                player.stopVideo();
-            }
-            document.getElementById('sticky-audio-player').classList.remove('active');
-        }
-
-        // --- Bible Modal Logic ---
-        const modal = document.getElementById('bible-modal');
-        const modalTitle = document.getElementById('modal-title-text');
-        const modalBody = document.getElementById('modal-body-content');
-
-        function openBibleModal(filePath, title) {
-            modalTitle.textContent = title;
-            modalBody.innerHTML = '<p>본문을 불러오는 중입니다...</p>';
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            
-            fetch(filePath)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('네트워크 오류 또는 파일을 찾을 수 없습니다.');
-                    }
-                    return response.text();
-                })
-                .then(html => {
-                    // This is a placeholder for the actual bible content injection
-                    const contentDiv = document.createElement('div');
-                    contentDiv.innerHTML = html;
-                    modalBody.innerHTML = ''; // Clear loading message
-                    // To prevent issues, we will append child nodes from the fetched html's body
-                    // This is safer than just using innerHTML with complex documents
-                    const fetchedBody = contentDiv.querySelector('body');
-                    if (fetchedBody) {
-                         while (fetchedBody.firstChild) {
-                             modalBody.appendChild(fetchedBody.firstChild);
-                         }
-                    } else {
-                        modalBody.innerHTML = html; // Fallback
-                    }
-                })
-                .catch(error => {
-                    modalBody.innerHTML = `<p style="color:red;">본문을 불러오는 데 실패했습니다. 파일 경로를 확인해주세요: ${filePath}</p><p>오류: ${error.message}</p>`;
-                });
-        }
-        
-        function closeModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-
-        function closeModalOnClick(event) {
-            if (event.target === modal) {
-                 closeModal();
-            }
-        }
-
-        // --- Script Initialization ---
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        
-        // Load audio links when the page loads
-        document.addEventListener('DOMContentLoaded', loadDailyAudioLinks);
-    </script>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
-
