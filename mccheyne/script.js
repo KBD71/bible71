@@ -118,12 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
         modalTitle.innerText = button.dataset.title;
         modalIframe.src = button.dataset.path;
         modalOverlay.classList.add('visible');
-        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden'; // 수정된 부분
     }
 
     function closeModal() {
         modalOverlay.classList.remove('visible');
-        document.body.style.overflow = '';
+        document.documentElement.style.overflow = ''; // 수정된 부분
     }
 
     function switchTab(index) {
