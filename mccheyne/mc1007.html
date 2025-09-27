@@ -3,631 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10월 7일 - 맥체인 성경읽기</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
-
-        :root {
-            --font-serif: 'KoPub Batang', serif;
-            --font-sans-serif: 'Pretendard', sans-serif;
-            
-            --color-text: #343a40;
-            --color-background: #f8f9fa;
-            --color-card-bg: #ffffff;
-            --color-border: #dee2e6;
-            --color-muted: #868e96;
-
-            --color-book1: #4285F4;
-            --color-book2: #DB4437;
-            --color-book3: #c89200;
-            --color-book4: #0F9D58;
-            --color-integration: #5f6368;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-serif);
-            font-size: 17px;
-            line-height: 1.8;
-            color: var(--color-text);
-            background-color: var(--color-background);
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1280px;
-        }
-
-        header, main {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-family: var(--font-sans-serif);
-            font-size: clamp(2.2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin: 0.5em 0;
-            color: #212529;
-        }
-        
-        h3 {
-            font-family: var(--font-sans-serif);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        h4 {
-            font-family: var(--font-sans-serif);
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--color-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-top: 0;
-            margin-bottom: 1.5em;
-        }
-        p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .chapter-card, .integration-card {
-            background-color: var(--color-card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 3.5rem;
-            padding: 2rem 2.5rem;
-            border-left: 8px solid;
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-card:hover, .integration-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .card-book1 { border-color: var(--color-book1); }
-        .card-book1 h3 { color: var(--color-book1); }
-        .card-book2 { border-color: var(--color-book2); }
-        .card-book2 h3 { color: var(--color-book2); }
-        .card-book3 { border-color: var(--color-book3); }
-        .card-book3 h3 { color: var(--color-book3); }
-        .card-book4 { border-color: var(--color-book4); }
-        .card-book4 h3 { color: var(--color-book4); }
-        .integration-card { border-color: var(--color-integration); }
-        .integration-card h3 { color: var(--color-integration); }
-
-        .btn-group {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            font-family: var(--font-sans-serif);
-            padding: 0.6em 1.2em;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            color: white;
-        }
-
-        .btn-view { background-color: #343a40; }
-        .btn-listen { background-color: var(--color-integration); }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.15);
-        }
-        .btn:active {
-            transform: translateY(0);
-            filter: brightness(0.95);
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background-color: var(--color-card-bg);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 800px;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-        
-        .modal-close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .modal-close-btn:hover {
-            color: #333;
-        }
-
-        .modal-body {
-             max-height: 70vh;
-             overflow-y: auto;
-             font-size: 18px;
-             line-height: 2;
-        }
-        
-        .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 100px auto;
-        }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
-
-        .audio-player {
-            position: fixed;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 500px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: bottom 0.3s ease-in-out;
-            z-index: 1001;
-        }
-        .audio-player.show { bottom: 0; }
-        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
-        .audio-player-controls button:hover { color: #bdc3c7; }
-        #youtube-player-container { display: none; }
-
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--color-border);
-            color: #6c757d;
-        }
-
-        /* 간단한 탭 네비게이션 */
-        .simple-tabs {
-            position: sticky;
-            top: 0;
-            background: white;
-            border-bottom: 2px solid var(--color-border);
-            z-index: 100;
-            margin-bottom: 2rem;
-            padding: 1rem 0;
-        }
-
-        .tab-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-button {
-            background: none;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-muted);
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            min-width: 120px;
-        }
-
-        .tab-button:hover {
-            background: rgba(66, 133, 244, 0.1);
-            color: var(--color-book1);
-        }
-
-        .tab-button.active {
-            background: var(--color-book1);
-            color: white;
-            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 모바일 최적화 */
-        @media (max-width: 768px) {
-            .tab-buttons {
-                gap: 1rem;
-            }
-
-            .tab-button {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-                min-width: 100px;
-            }
-        }
-    </style>
+    <title>10월 7일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" id="main-container">
-        <header>
-            <h1>10월 7일</h1>
-            <p>지혜의 추구와 교회의 연합</p>
-        </header>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
-        <!-- 간단한 탭 네비게이션 -->
-        <div class="simple-tabs">
-            <div class="tab-buttons">
-                <button class="tab-button active" data-tab="bible">성경 본문</button>
-                <button class="tab-button" data-tab="meditation">묵상</button>
-                <button class="tab-button" data-tab="integration">통합 묵상</button>
-            </div>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>10월 7일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-book1" data-color="book1">열왕기상 10장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">빌립보서 1장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">에스겔 40장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">시편 91편</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+            </nav>
+
+            <main>
+                <div id="content-book1" class="tab-content active">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>열왕기상 10장: 스바 여왕의 방문과 솔로몬의 영광</h3>
+                            <h4>상세 개요</h4>
+                            <p>솔로몬의 지혜와 명성이 온 세상에 퍼지자, 남방 스바의 여왕이 그를 시험하고 확인하기 위해 예물을 가지고 방문합니다. 그녀는 솔로몬의 지혜로운 대답과 그의 궁전, 신하들의 모습, 풍성한 식탁, 그리고 성전에 올라가는 낭실을 보고 크게 감동하여 "당신의 지혜와 복이 내가 들은 소문보다 더하도다"라고 고백하며 하나님을 찬양합니다. 이 장은 또한 솔로몬의 부가 최고조에 달했음을 보여줍니다. 오빌의 금, 백단목, 보석이 들어오고, 방패와 보좌를 금으로 만들었으며, 은이 돌처럼 흔할 정도로 이스라엘은 전무후무한 물질적 번영을 누립니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 이방 세계를 향한 지혜의 증거:</strong> 스바 여왕의 방문은 단순한 외교 사절 이상의 의미를 가집니다. 이는 하나님께서 이스라엘에게 주신 지혜와 복이 이방 세계에 빛을 비추어 그들로 하여금 여호와를 찬양하게 하는 '선교적' 역할을 감당하고 있음을 보여줍니다. 여왕이 <span class="scripture-quote">여호와께서 왕을 세워 공평과 정의를 행하게 하심이로다</span>(9절)라고 고백할 때, 솔로몬의 지혜가 궁극적으로 하나님의 영광을 드러내는 통로가 되었음을 알 수 있습니다. 이는 교회가 세상 속에서 지혜로운 삶을 통해 하나님의 살아계심을 증거해야 할 사명과 연결됩니다.</p>
+                            <p><strong>2. 솔로몬보다 더 큰 이:</strong> 예수님께서는 <span class="scripture-quote">남방 여왕이 일어나 이 세대 사람을 정죄하리니 이는 그가 솔로몬의 지혜로운 말을 들으려고 땅 끝에서 왔음이거니와 솔로몬보다 더 큰 이가 여기 있느니라</span>(마 12:42)고 말씀하셨습니다. 스바 여왕은 참된 지혜를 찾아 먼 길을 마다하지 않았습니다. 이는 우리에게 불완전한 솔로몬의 지혜가 아닌, 지혜의 근원이시며 실체이신 예수 그리스도를 구하고 경배하는 것이 얼마나 마땅한지를 가르쳐줍니다. 솔로몬의 영광은 잠시였지만, 그리스도의 영광은 영원합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_11_1KI_10.html" data-title="열왕기상 10장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="1KI_10" data-title="열왕기상 10장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>빌립보서 1장: 나의 매임이 복음의 진보가 되었으니</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 감옥에 갇힌 상황에서도 빌립보 교인들을 향한 감사와 기쁨의 인사로 편지를 시작합니다. 그는 자신의 투옥이 오히려 시위대 안에 복음이 전파되는 계기가 되었고, 다른 형제들에게는 복음을 전할 담대함을 주었다고 고백합니다. 어떤 동기로 전하든지 '전파되는 것은 그리스도'이기 때문에 그는 기뻐한다고 말합니다. 더 나아가 바울은 자신의 삶과 죽음의 소망을 밝히며, 죽는 것은 그리스도와 함께 있는 것이기에 더 좋지만, 사는 것은 교인들의 유익과 믿음의 진보를 위한 것이라고 말합니다. 그는 이 양자택일의 상황 속에서 "내게 사는 것이 그리스도니 죽는 것도 유익함이라"는 위대한 신앙고백을 합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 고난을 통한 하나님의 주권적 섭리:</strong> 바울은 자신의 '매임'이라는 최악의 상황을 복음 전파의 가장 효과적인 수단으로 바꾸시는 하나님의 주권적 섭리를 찬양합니다. <span class="scripture-quote">나의 당한 일이 도리어 복음 전파에 진전이 된 줄을...</span>(12절)이라는 고백은, 인간적인 관점의 실패가 하나님의 관점에서는 위대한 승리가 될 수 있음을 보여줍니다. 이는 성도의 고난이 결코 무의미하지 않으며, 하나님의 영광을 드러내고 그의 나라를 확장하는 데 사용된다는 개혁주의적 고난관의 핵심입니다.</p>
+                            <p><strong>2. 그리스도 중심적 삶(Christocentrism):</strong> <span class="scripture-quote">이는 내게 사는 것이 그리스도니 죽는 것도 유익함이라</span>(21절)는 바울의 고백은 그리스도 중심적 신앙의 정수를 보여줍니다. 바울에게 삶의 목적과 내용, 이유와 동기는 오직 그리스도 한 분이었습니다. 따라서 죽음은 더 이상 두려운 종말이 아니라, 그토록 사랑하는 그리스도와 온전히 함께하는 '유익'이 됩니다. 삶과 죽음의 경계를 초월한 이 자유와 기쁨은, 오직 자신의 삶의 주권을 온전히 그리스도께 내어드린 자만이 누릴 수 있는 복입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_50_PHI_01.html" data-title="빌립보서 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PHI_1" data-title="빌립보서 1장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>에스겔 40장: 새 성전의 환상 - 동쪽 문을 향하여</h3>
+                            <h4>상세 개요</h4>
+                            <p>예루살렘 성이 함락된 지 14년째 되던 해, 하나님의 권능이 에스겔에게 임하여 그를 이스라엘 땅의 매우 높은 산으로 데려갑니다. 그곳에서 그는 놋같이 빛나는 사람(천사)을 만나고, 그로부터 앞으로 보게 될 '새 성전'의 모든 규격을 정확히 측량하라는 명령을 받습니다. 본문은 이 천사가 삼줄과 장대를 가지고 성전의 바깥 담부터 시작하여, 동쪽을 향한 바깥 문, 바깥 뜰, 그리고 북쪽과 남쪽 바깥 문들의 구조와 크기를 매우 상세하고 정밀하게 측량하는 모습을 기록합니다. 이 모든 것을 보고 들은 대로 이스라엘 족속에게 전하라는 사명을 받습니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 질서와 거룩함의 회복:</strong> 포로 생활 중인 백성에게 주어진 이 새 성전 환상은 단순한 건축 설계도가 아닙니다. 이는 죄로 인해 무너졌던 하나님의 임재와 질서, 그리고 거룩함이 완벽하고 영광스럽게 회복될 것이라는 강력한 소망의 메시지입니다. 모든 것을 '측량'하는 행위는 하나님의 계획이 결코 모호하거나 불확실하지 않고, 정확하고 신실하게 성취될 것임을 보여줍니다. 문의 방들과 현관 등 복잡한 구조는 하나님의 거룩하심에 접근하기 위한 질서와 구별됨이 필요함을 상징합니다.</p>
+                            <p><strong>2. 문자적 해석을 넘어서:</strong> 이 성전은 역사 속에서 문자 그대로 건축된 적이 없습니다. 따라서 이 환상은 단순히 솔로몬 성전의 재건을 넘어, 장차 오실 메시아 시대에 세워질 영적인 하나님 나라와 교회를 예표하는 상징적, 종말론적 비전으로 이해해야 합니다. <span class="scripture-quote">인자야 내가 네게 보이는 그것을 눈으로 보고 귀로 들으며 네 마음으로 생각할지어다</span>(4절)라는 명령은, 이 환상이 단순히 보는 것을 넘어 그 영적인 의미를 깊이 묵상해야 함을 암시합니다. 이 성전의 완전한 실체는 새 하늘과 새 땅에 임할 '새 예루살렘'(계 21장)에서 최종적으로 성취될 것입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_26_EZE_40.html" data-title="에스겔 40장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_40" data-title="에스겔 40장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>시편 91편: 지존자의 은밀한 곳에 거주하는 자의 안전</h3>
+                            <h4>상세 개요</h4>
+                            <p>이 시편은 하나님을 피난처와 요새로 삼는 자에게 주어지는 절대적인 안전과 보호를 노래하는 지혜시입니다. 시인은 "지존자의 은밀한 곳에 거주하며 전능자의 그늘 아래에 사는 자"는 사냥꾼의 올무와 심한 전염병에서 건짐을 받을 것이라고 선포합니다. 그는 밤의 공포와 낮의 화살, 흑암 속의 전염병과 재앙을 두려워하지 않을 것이며, 천 명과 만 명이 엎드러져도 그 재앙이 가까이하지 못할 것이라고 확신합니다. 시편은 하나님 자신의 음성으로 마무리되며, 그를 사랑하고 아는 자를 "내가 그를 건지고 높이며, 장수하게 하고 나의 구원을 보이리라"고 약속하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 피난처이신 하나님과 믿음의 조건:</strong> 이 시편이 약속하는 놀라운 보호는 모든 사람에게 무조건적으로 주어지는 것이 아닙니다. 그것은 <span class="scripture-quote">지존자의 은밀한 곳에 거주하며</span>(1절), <span class="scripture-quote">여호와를 너의 거처로 삼으며</span>(9절), <span class="scripture-quote">그가 나를 사랑한즉... 그가 내 이름을 안즉</span>(14절)과 같이, 하나님과의 인격적이고 지속적인 신뢰 관계 속에 있는 자에게 주어지는 언약적 축복입니다. 사탄은 광야에서 이 말씀을 인용하여 예수님을 시험했지만(마 4:6), 예수님은 말씀을 왜곡하지 않고 하나님을 신뢰함으로 승리하셨습니다. 이 시편은 믿음의 선포이지, 하나님을 시험하는 주문이 아닙니다.</p>
+                            <p><strong>2. 고난의 면제가 아닌, 고난 속에서의 보호:</strong> 이 시편의 약속은 성도가 삶에서 어떠한 고난도 겪지 않을 것이라는 의미가 아닙니다. 오히려 수많은 재앙과 위험(올무, 전염병, 화살 등)이 실재함을 전제합니다. 여기서의 보호는 고난의 완전한 면제가 아니라, 그 모든 위협 속에서도 하나님께서 궁극적으로 우리를 지키시고 구원하신다는 '궁극적 안전'에 대한 확신입니다. <span class="scripture-quote">그가 너와 함께하리라</span>(15절, 의역)는 약속이야말로 모든 두려움을 이기는 가장 큰 위로입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_91.html" data-title="시편 91편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_91" data-title="시편 91편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>통합 묵상: 영광의 처소와 그것을 사모하는 삶</h3>
+                            <h4>관통하는 주제</h4>
+                            <p>오늘의 네 본문은 '하나님의 영광스러운 처소'와 '그곳에 거하기를 소망하는 성도의 삶'이라는 주제를 중심으로 아름답게 연결됩니다. 에스겔 40장은 포로 된 백성에게 장차 회복될 '새 성전'의 완벽하고 영광스러운 모습을 환상으로 보여주며, 하나님의 임재가 회복될 것이라는 궁극적인 소망을 제시합니다. 시편 91편은 바로 이 하나님의 임재, 즉 '지존자의 은밀한 곳'에 거하는 것이 이 땅의 모든 위험으로부터 우리를 지키는 유일한 피난처임을 노래합니다. 그렇다면 이 땅에서 그 영광스러운 처소를 향한 소망을 가지고 살아가는 성도의 삶은 어떠해야 합니까? 열왕기상 10장은 솔로몬의 지혜와 영광을 통해 세상(스바 여왕)이 하나님의 영광을 보게 했던 것처럼, 우리의 삶이 하나님 나라의 영광을 증거하는 통로가 되어야 함을 보여줍니다. 그리고 빌립보서 1장은 이 모든 것을 종합하고 완성합니다. 바울은 감옥이라는 최악의 상황 속에서도 '내게 사는 것이 그리스도'라고 고백하며, 그리스도와 함께하는 것(죽음)을 더 좋은 것으로 여길 만큼 그 영광스러운 처소를 사모합니다. 그의 삶 자체가 움직이는 성전이 되어, 어떤 상황에서도 복음의 영광을 드러내고 있습니다.</p>
+                            <h4>핵심 개념 및 상호 참조</h4>
+                            <p><strong>하나님의 처소(Dwelling Place):</strong> 에스겔의 '새 성전'과 시편 91편의 '지존자의 은밀한 곳'은 하나님이 임재하시는 영광스러운 처소를 상징합니다. 솔로몬의 성전(왕상 10)은 이 처소의 가시적인 모형이었습니다. 이 모든 구약의 그림자는 빌립보서 1장에서 바울이 그토록 사모했던 '그리스도와 함께 있는 것'이라는 인격적인 실체로 귀결됩니다. 우리의 참된 처소는 건물이 아니라 주님 자신입니다.</p>
+                            <p><strong>지혜와 고난의 역설:</strong> 솔로몬의 '지혜'는 세상의 영광을 이끌어냈지만(왕상 10), 바울의 '고난'은 복음의 진보와 하늘의 영광을 이끌어냈습니다(빌 1). 세상은 솔로몬의 지혜를 흠모하지만, 하나님 나라의 참된 지혜와 능력은 종종 바울의 고난과 같은 역설적인 방식으로 드러납니다. 스바 여왕은 솔로몬의 지혜를 보러 왔지만, 우리는 바울처럼 '솔로몬보다 더 큰 이'이신 그리스도의 십자가 지혜를 증거하도록 부름받았습니다.</p>
+                            <h4>삶으로의 적용</h4>
+                            <ul>
+                                <li><strong>지(知):</strong> 나의 궁극적인 안전과 피난처가 나의 건강, 재정, 능력이 아니라 오직 '전능자의 그늘' 아래 거하는 것임을 진정으로 믿고 있습니까? 또한 나의 삶의 목적이 이 땅의 부귀영화(솔로몬)가 아니라, 어떤 상황에서든 그리스도를 존귀하게 하는 것(바울)에 있음을 알고 있습니까?</li>
+                                <li><strong>정(情):</strong> 나는 바울처럼 '그리스도와 함께 있고 싶은' 하늘의 처소를 향한 거룩한 갈망을 가지고 있습니까? 아니면 시편 91편의 약속을 붙들고 세상의 위협 앞에서 두려움 대신 평안과 담대함을 누리고 있습니까?</li>
+                                <li><strong>의(意):</strong> '지존자의 은밀한 곳'에 거하기 위해, 오늘 하루 의지적으로 하나님과 교제하는 시간을 어떻게 확보하겠습니까? 또한 나의 삶의 어떤 영역(가정, 직장)에서 솔로몬의 지혜와 바울의 인내를 드러냄으로, 주변 사람들에게 하나님의 살아계심을 증거하겠습니까?</li>
+                            </ul>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
-
-        <main>
-            <!-- 성경 본문 탭 -->
-            <div class="tab-content active" id="bible">
-            <div class="chapter-card card-book1">
-                <h3>열왕기상 10장: 스바 여왕의 방문과 솔로몬의 부귀</h3>
-                <h4>상세 개요</h4>
-                <p>열왕기상 10장은 솔로몬의 지혜와 부귀영화가 절정에 달했음을 보여줍니다. 남방의 스바 여왕이 솔로몬의 명성을 듣고 어려운 문제로 그를 시험하고자 예루살렘을 방문합니다. 그녀는 솔로몬의 지혜로운 대답과, 그가 이룬 궁궐의 웅장함, 식탁의 풍성함, 신하들의 질서 있는 모습, 그리고 성전에 올라가는 낭무 계단을 보고 크게 감동하여 "당신의 지혜와 복이 내가 들은 소문보다 더하도다"(7절)라고 찬탄합니다. 그녀는 솔로몬에게 지혜를 주신 하나님을 송축하며 많은 예물을 바칩니다. 이 장은 또한 솔로몬이 오빌에서 금을 들여오고, 상아로 큰 보좌를 만들며, 사용하는 모든 그릇을 금으로 만드는 등 그의 막대한 부와 국제 무역의 규모를 상세히 묘사하며, 그의 지혜와 재산이 천하 모든 왕보다 뛰어났음을 기록합니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>하나님의 지혜의 나타남과 열방의 반응:</strong> 스바 여왕의 방문은 단순한 외교 사절의 방문 이상의 의미를 가집니다. 이는 하나님께서 솔로몬에게 부어주신 지혜의 빛이 이방 땅 끝까지 비추어, 열방이 그 지혜를 찾아 나아오는 모습을 보여줍니다. 그녀는 "내가 와서 친히 본즉... 당신의 지혜와 복이 내가 들은 소문보다 더하도다"(7절)라고 고백하며, 결국 "당신의 하나님 여호와를 송축할지로다"(9절)라며 하나님께 영광을 돌립니다. 이는 하나님께서 이스라엘을 통해 열방을 축복하시려는 아브라함 언약의 성취 단면이며, 장차 "솔로몬보다 더 큰 이"(마 12:42)이신 예수 그리스도를 통해 참 지혜이신 복음이 온 세상에 전파되고 열방이 주께로 돌아올 것을 예표합니다.</li>
-                    <li><strong>부와 영광의 위험성 (잠재적 타락의 그림자):</strong> 본문은 솔로몬의 부귀를 극찬하지만, 동시에 그의 잠재적 타락의 씨앗을 암시합니다. 신명기 17장 16-17절은 왕이 말을 많이 두지 말고, 아내를 많이 두어 마음이 미혹되게 하지 말며, 자기를 위하여 은금을 많이 쌓지 말라고 경고합니다. 그러나 10장 후반부는 솔로몬이 엄청난 양의 금을 모으고(14절), 많은 병거와 마병을 사들였음(26절)을 상세히 기록합니다. 이 막대한 부와 군사력은 훗날 그가 수많은 이방 여인을 아내로 맞이하고, 그들의 우상을 숭배하며 타락하는 배경이 됩니다(왕상 11장). 이는 하나님께서 주신 축복일지라도, 그것을 다스리는 마음이 하나님을 떠날 때 오히려 가장 큰 유혹과 타락의 도구가 될 수 있음을 보여주는 엄중한 경고입니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_11_1KI_10.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="1KI_10" data-title="열왕기상 10장">성경 듣기</button>
-                </div>
-            </div>
-
-            <div class="chapter-card card-book2">
-                <h3>빌립보서 1장: 복음 안에서의 기쁨과 연합</h3>
-                <h4>상세 개요</h4>
-                <p>빌립보서 1장은 감옥에 갇힌 사도 바울이 빌립보 교회를 향한 깊은 사랑과 감사를 표현하는 편지입니다. 그는 빌립보 성도들이 복음을 위한 일에 첫날부터 참여한 것을 감사하며, 그들 안에 착한 일을 시작하신 하나님께서 그리스도의 날까지 이루실 것을 확신합니다. 바울은 자신이 갇힌 것이 오히려 복음 전파에 진전을 가져왔다고 고백합니다. 시위대 안과 다른 모든 사람에게 자신이 그리스도 안에서 매인 것이 알려졌고, 많은 형제들이 그의 매임을 보고 더욱 담대하게 하나님의 말씀을 전하게 되었기 때문입니다. 어떤 이들은 투기와 분쟁으로, 어떤 이들은 착한 뜻으로 그리스도를 전파하지만, 바울은 "어떠한 방도로 하든지 전파되는 것은 그리스도니 이로써 나는 기뻐하고 또한 기뻐하리라"(18절)고 말합니다. 그는 자신의 삶과 죽음이 모두 그리스도를 존귀하게 하는 것이 소원임을 밝히며, 성도들에게는 복음에 합당하게 생활하고, 한마음으로 서서 복음의 신앙을 위해 협력하라고 권면합니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>상황을 초월하는 그리스도 중심의 기쁨:</strong> 빌립보서는 '기쁨'이라는 단어가 반복적으로 등장하는 '기쁨의 서신'입니다. 그러나 이 기쁨은 좋은 환경이나 조건에서 오는 감정이 아닙니다. 바울은 감옥이라는 최악의 상황 속에서도 기뻐하며, 그 기쁨의 근원이 오직 '그리스도' 자신임을 보여줍니다. 복음이 전파되는 것(18절), 그리고 자신의 삶과 죽음을 통해 그리스도가 존귀하게 되는 것(20절)이 그의 유일한 기쁨의 원천입니다. 이는 성도의 참된 기쁨이 환경에 좌우되는 것이 아니라, 어떤 상황 속에서도 우리 안에 계시고 우리를 통해 일하시는 그리스도와의 관계에 뿌리내리고 있음을 강력하게 증거합니다.</li>
-                    <li><strong>복음을 위한 고난의 연합 (코이노니아):</strong> 바울은 빌립보 성도들에게 "너희에게도 그와 같은 싸움이 있으니"(30절)라고 말하며, 그들이 바울 자신의 고난에 동참하고 있음을 상기시킵니다. 여기서 '복음을 위한 일에 참여함'(5절)을 의미하는 헬라어 '코이노니아'(κοινωνία)는 단순한 재정적 후원을 넘어, 복음을 위해 함께 기도하고, 함께 싸우며, 함께 고난받는 영적 연합을 의미합니다. 교회는 복음이라는 공동의 목표를 위해 한마음 한뜻으로 협력하며(27절), 그리스도를 위하여 받는 고난까지도 은혜로 여기는(29절) 운명 공동체입니다. 이는 교회의 본질이 안락한 사교 모임이 아니라, 세상 속에서 복음을 위해 함께 싸우는 전투하는 군대임을 보여줍니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="NT/NT_50_PHI_01.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="PHI_1" data-title="빌립보서 1장">성경 듣기</button>
-                </div>
-            </div>
-
-            <div class="chapter-card card-book3">
-                <h3>에스겔 40장: 새 성전의 환상 (외부 구조)</h3>
-                <h4>상세 개요</h4>
-                <p>에스겔 40장은 예루살렘 멸망 후 14년째 되던 해, 에스겔이 환상 가운데 이스라엘 땅의 매우 높은 산으로 이끌려가 새 성전의 모습을 보는 것으로 시작됩니다. 놋같이 빛나는 한 사람이 측량하는 장대를 가지고 나타나, 에스겔에게 자신이 보여주는 성전의 모든 구조와 규격을 마음과 눈으로 자세히 보고 이스라엘 족속에게 전하라고 명령합니다. 이 장은 새 성전의 외부 구조에 대한 상세한 측량 기록에 집중합니다. 안내자는 성전의 담, 동쪽 바깥 문, 바깥 뜰, 북쪽과 남쪽 바깥 문, 그리고 안뜰로 들어가는 문들(남쪽, 동쪽, 북쪽)의 구조, 크기, 문간방, 현관 등을 차례로 측량합니다. 모든 측량은 극도로 정밀하고 대칭적으로 이루어지며, 이는 새 성전의 완전함과 거룩한 질서를 강조합니다. 이 환상은 포로 생활로 절망에 빠진 이스라엘 백성에게 장차 회복될 하나님의 영광과 임재에 대한 구체적인 소망을 심어주는 메시지입니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>하나님의 질서와 거룩함의 회복:</strong> 이전 성전이 이스라엘의 죄로 인해 더럽혀지고 파괴되었다면, 에스겔이 본 새 성전의 환상은 하나님의 완벽한 질서와 거룩함이 어떻게 회복될 것인지를 보여줍니다. 복잡하고 상세한 측량 기록은 그 자체로 메시지입니다. 하나님의 나라는 인간의 생각처럼 무질서하고 혼란스러운 곳이 아니라, 모든 것이 하나님의 완벽한 설계와 규격에 따라 이루어지는 질서의 공간입니다. 특히 바깥뜰과 안뜰, 성소와 지성소로 나아갈수록 점점 더 거룩함이 심화되는 구조는, 거룩하신 하나님께 나아가는 데 있어 구별됨과 정결함이 필수적임을 시각적으로 가르쳐 줍니다.</li>
-                    <li><strong>문자적 성취인가, 상징적 계시인가?:</strong> 에스겔 성전의 해석은 다양합니다. 어떤 이들은 천년왕국 시대에 문자적으로 재건될 성전으로 보기도 하지만, 개혁주의 신학을 포함한 많은 해석은 이를 상징적으로 이해합니다. 이 성전은 역사적으로 스룹바벨 성전이나 헤롯 성전과 일치하지 않으며, 신약의 가르침과 조화시키기 어렵기 때문입니다. 오히려 이 환상은 구약의 성전 제도를 사용하여, 장차 그리스도를 통해 세워질 새 언약 공동체, 즉 교회의 영적인 실재와 영광을 예표하는 것으로 이해하는 것이 더 타당합니다. 교회의 질서, 거룩함, 그리고 그 안에서 이루어지는 참된 예배의 모습을 구약 백성이 이해할 수 있는 그림 언어로 보여준 것입니다. 궁극적으로 이 환상은 새 하늘과 새 땅에 임할 '새 예루살렘'(계 21장)의 영광을 미리 보여주는 종말론적 계시입니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_26_EZE_40.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="EZE_40" data-title="에스겔 40장">성경 듣기</button>
-                </div>
-            </div>
-
-            <div class="chapter-card card-book4">
-                <h3>시편 91편: 전능자의 그늘 아래 있는 자의 안전</h3>
-                <h4>상세 개요</h4>
-                <p>시편 91편은 지존자의 은밀한 곳에 거주하며 전능자의 그늘 아래에 사는 자가 누리는 절대적인 안전과 보호를 노래하는 지혜와 신뢰의 시입니다. 시인은 "그는 너를 새 사냥꾼의 올무에서와 심한 전염병에서 건지실 것임이로다"(3절)라고 선포하며, 하나님의 보호가 마치 어미 새가 날개로 덮음 같이 완전하고 포근할 것임을 노래합니다. 밤에 찾아오는 공포, 낮에 날아드는 화살, 어두울 때 퍼지는 전염병, 밝을 때 닥쳐오는 재앙 등 어떤 위험도 그를 해치지 못할 것입니다. 천 명과 만 명이 그의 곁에서 엎드러지는 재앙 속에서도, 그는 오직 악인들의 보응을 목격할 뿐 안전할 것입니다. 하나님께서는 그를 위하여 천사들을 명령하여 그의 모든 길에서 지키게 하실 것이며, 사자와 독사를 밟으며 모든 위험을 이기게 하실 것입니다. 시편은 하나님 자신의 직접적인 약속으로 마무리됩니다. "그가 나를 사랑한즉 내가 그를 건지리라... 그가 내게 간구하리니 내가 그에게 응답하리라... 내가 그를 영화롭게 하리라... 나의 구원을 그에게 보이리라"(14-16절).</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>거주함으로 말미암는 보호:</strong> 이 시편이 약속하는 보호는 일시적인 방문객이 아닌, "지존자의 은밀한 곳에 거주하며... 사는 자"(1절)에게 주어지는 것입니다. '거주한다'는 것은 하나님을 일시적인 피난처로 삼는 것이 아니라, 삶의 모든 순간 그분과의 친밀한 교제 안에 머무르며 그분을 자신의 유일한 안식처로 삼는 것을 의미합니다. 이처럼 하나님과의 지속적이고 인격적인 관계가 모든 보호의 전제 조건입니다. 이는 신약에서 "내 안에 거하라 나도 너희 안에 거하리라"(요 15:4)고 말씀하신 예수님의 가르침과 일맥상통합니다. 그리스도와의 연합 안에 거하는 자만이 세상의 어떤 위협으로부터도 참된 안전을 누릴 수 있습니다.</li>
-                    <li><strong>사탄의 시험과 그리스도의 승리:</strong> 이 시편은 사탄이 광야에서 예수님을 시험할 때 인용했던 말씀으로 유명합니다. 사탄은 "그가 너를 위하여 그의 천사들을 명령하사 네 모든 길에서 너를 지키게 하심이라"(11-12절)는 구절을 인용하여, 예수님이 성전 꼭대기에서 뛰어내려 자신의 신성을 증명하라고 유혹했습니다(마 4:6). 사탄은 하나님의 말씀을 왜곡하여 하나님을 시험하는 도구로 사용하려 했습니다. 그러나 예수님께서는 "주 너의 하나님을 시험하지 말라"는 다른 말씀으로 물리치셨습니다. 이는 시편 91편의 약속이 하나님의 뜻을 떠나 자신의 욕망을 위해 하나님을 시험하는 자에게 주어지는 것이 아니라, 하나님의 길을 걷는 자에게 주어지는 신실한 보호의 약속임을 보여줍니다. 궁극적으로 이 시편의 모든 약속은 시험을 이기시고 죽음의 권세를 깨뜨리신 예수 그리스도 안에서 온전히 성취되었습니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_091.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_91" data-title="시편 91편">성경 듣기</button>
-                </div>
-            </div>
-
-            </div>
-
-            <!-- 묵상 탭 -->
-            <div class="tab-content" id="meditation">
-                <div class="chapter-card card-book2">
-                    <h3>오늘의 핵심 묵상</h3>
-                    <h4>하나님의 지혜 vs 세상의 지혜</h4>
-                    <p><strong>열왕기상 10장</strong>에서 스바 여왕이 솔로몬의 지혜를 보고 감탄한 것처럼, 하나님께서 주시는 지혜는 세상 사람들도 인정할 수밖에 없는 탁월함이 있습니다. 그러나 <strong>빌립보서 1장</strong>이 보여주듯, 참된 지혜는 단순히 지식이 아니라 '사랑 안에서' 분별하는 능력입니다.</p>
-
-                    <h4>고난 중에도 변치 않는 소망</h4>
-                    <p><strong>에스겔 40장</strong>의 새 성전 환상은 절망적인 현실 속에서도 하나님의 미래에 대한 약속이 확실함을 보여줍니다. <strong>시편 91편</strong>이 약속하는 보호하심은 고난이 없다는 뜻이 아니라, 고난 중에도 하나님이 함께하심을 의미합니다.</p>
-
-                    <h4>적용을 위한 질문</h4>
-                    <ol>
-                        <li>나는 결정을 내릴 때 세상의 기준(성공, 인정, 안전)을 먼저 고려합니까, 아니면 하나님의 뜻을 구합니까?</li>
-                        <li>현재 겪고 있는 어려움 속에서도 하나님의 선하신 계획을 신뢰하고 있습니까?</li>
-                        <li>나의 삶이 다른 사람들에게 하나님의 지혜를 보여주는 증거가 되고 있습니까?</li>
-                    </ol>
-                </div>
-            </div>
-
-            <!-- 통합 묵상 탭 -->
-            <div class="tab-content" id="integration">
-            <div class="integration-card">
-                <h2>통합 묵상: 하나님의 집, 그 영광과 성도의 삶</h2>
-                <h3>관통하는 주제 논증: 하나님의 임재 안에 거하는 삶의 모습</h3>
-                <p>오늘의 네 본문은 '하나님의 임재 안에 거하는 삶'이 어떤 모습인지를 다양한 각도에서 입체적으로 보여줍니다. 에스겔 40장은 하나님의 임재가 임할 '새 성전'의 완벽한 질서와 거룩함을 환상으로 보여주며, 하나님의 집의 이상적인 모습을 제시합니다. 시편 91편은 이 하나님의 임재, 즉 "지존자의 은밀한 곳"에 거주하는 자가 누리는 완전한 보호와 평안이 어떠한지를 노래합니다. 그렇다면 이 하나님의 집에 거하는 자는 구체적으로 어떻게 살아야 하는가? 빌립보서 1장은 그 삶이 역설적으로 감옥과 같은 고난 속에서도 복음이 전파되는 것을 기뻐하며, 한마음으로 복음을 위해 협력하는 '연합의 삶'임을 보여줍니다. 열왕기상 10장은 이 삶의 외적인 영광과 축복이 어떠한지를 솔로몬의 부귀를 통해 보여주지만, 동시에 그 영광이 하나님을 떠날 때 가장 큰 위험이 될 수 있음을 암시합니다. 결국 오늘의 본문들은, 하나님의 완벽한 집(성전)의 비전을 품고, 그 임재 안에서 절대적인 평안을 누리며, 고난 속에서도 복음을 위해 연합하고, 하나님이 주신 축복을 지혜롭게 다스리는 것이 바로 하나님의 백성의 삶임을 종합적으로 가르쳐 줍니다.</p>
-
-                <h3>입체적 핵심 단어 연구: 기쁨 (χαρά, 카라)</h3>
-                <p>빌립보서 1장 18절에서 바울이 "나는 기뻐하고 또한 기뻐하리라"고 말할 때 사용한 헬라어 '카라'(χαρά)는 단순한 행복감이나 즐거움(happiness)과는 구별되는 깊은 신학적 의미를 가집니다. 세상의 행복이 긍정적인 상황이나 환경에 의존하는 일시적인 감정이라면, 성경적인 '카라'는 상황을 초월하여 하나님 자신과 그분의 구원 사역에 뿌리를 둔 영적인 상태입니다. 바울은 지금 쇠사슬에 매여 감옥에 갇혀있고, 심지어 어떤 이들은 그를 괴롭게 할 목적으로 복음을 전하고 있습니다. 그러나 그의 기쁨은 흔들리지 않습니다. 왜냐하면 그의 기쁨의 근원은 자신의 안위나 명예가 아니라, 어떤 방식으로든 "전파되는 것은 그리스도"라는 사실 그 자체에 있기 때문입니다. 이 '카라'는 성령의 열매 중 하나이며(갈 5:22), 우리를 향한 하나님의 선하신 뜻이 어떤 상황 속에서도 이루어지고 있음을 신뢰할 때 주어지는 선물입니다. 이는 고난 속에서도 "항상 기뻐하라"(살전 5:16)는 명령이 어떻게 가능한지를 보여주는 복음의 능력입니다.</p>
-                
-                <h3>심층 상호 참조</h3>
-                <ul>
-                    <li><strong>열왕기상 10:9 & 빌립보서 1:20-21:</strong> 스바 여왕은 솔로몬의 지혜를 보고 "당신의 하나님 여호와를 송축할지로다"라며 하나님께 영광을 돌립니다. 이는 하나님께서 주신 지혜와 복이 어떻게 이방인에게 하나님을 증거하는 통로가 되는지를 보여줍니다. 바울은 이 원리를 자신의 삶에 궁극적으로 적용합니다. "나의 간절한 기대와 소망을 따라... 살든지 죽든지 내 몸에서 그리스도가 존귀하게 되게 하려 하나니 이는 내게 사는 것이 그리스도니 죽는 것도 유익함이라". 솔로몬의 부귀가 하나님의 영광을 드러냈듯이, 바울은 자신의 삶과 죽음 전체가 오직 그리스도를 존귀하게 하는 도구가 되기를 소망합니다. 성도의 삶의 목적은 자신의 영광이 아닌, 하나님의 영광을 드러내는 것입니다.</li>
-                    <li><strong>에스겔 40:4 & 빌립보서 1:27:</strong> 에스겔에게 나타난 인물은 "너는 내가 네게 보이는 그것을 다 눈으로 보고 귀로 들으며 네 마음으로 생각할지어다... 너는 본 것을 다 이스라엘 족속에게 전할지어다"라고 명령합니다. 이는 하나님의 계시를 정확하게 받고 전달해야 할 사명을 강조합니다. 바울 또한 빌립보 성도들에게 "오직 너희는 그리스도의 복음에 합당하게 생활하라... 한마음으로 서서 한 뜻으로 복음의 신앙을 위하여 협력하는 것"을 듣기 원한다고 말합니다. 두 본문 모두 하나님의 백성이 받은 계시(성전의 환상, 복음)를 개인적으로 간직하는 것을 넘어, 그것을 공동체 전체가 함께 지키고 전하며 그 말씀에 합당하게 살아내야 할 공동체적 사명이 있음을 보여줍니다.</li>
-                </ul>
-
-                <h3>적용을 위한 성찰 질문</h3>
-                <ol>
-                    <li>스바 여왕은 솔로몬의 지혜를 보고 하나님을 찬양했습니다. 사람들은 나의 삶의 모습(말, 지혜, 성실함)을 통해 하나님을 발견하고 그분께 영광을 돌립니까, 아니면 오히려 나의 모습 때문에 하나님의 이름이 가려지고 있지는 않습니까?</li>
-                    <li>바울은 감옥 속에서도 복음이 전파되는 것만으로 기뻐했습니다. 나는 나의 편안함이나 성공보다 하나님의 나라와 복음이 확장되는 것을 더 큰 기쁨으로 여기고 있습니까? 나의 기쁨의 주된 원천은 무엇입니까?</li>
-                    <li>에스겔이 본 새 성전은 완벽한 질서와 거룩함의 공간이었습니다. 나의 내면이라는 성전, 그리고 내가 속한 교회 공동체는 얼마나 하나님의 거룩한 질서를 반영하고 있습니까? 무질서하고 세속적인 부분이 있다면 무엇일까요?</li>
-                    <li>시편 91편은 하나님 안에 '거주하는' 자에게 완전한 보호를 약속합니다. 나는 하나님을 어려운 일이 생길 때만 찾는 일시적인 피난처로 여기고 있습니까, 아니면 매일의 삶 속에서 그분과의 친밀한 교제 안에 머무르려고 힘쓰고 있습니까?</li>
-                </ol>
-            </div>
-        </main>
-
-        <footer>
-            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
-        </footer>
     </div>
 
-    <div id="bible-modal" class="modal">
+    <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
-            <span class="modal-close-btn">&times;</span>
-            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
+    <div class="floating-nav" id="floating-nav">
+         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-    <div id="audio-player" class="audio-player">
-        <div class="audio-player-info" id="player-info"></div>
-        <div class="audio-player-controls">
-            <button id="play-pause-btn">▶</button>
-            <button id="close-player-btn">✖</button>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                 <button id="close-player-btn" title="닫기">&times;</button>
+            </div>
         </div>
     </div>
-    <div id="youtube-player-container"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainContainer = document.getElementById('main-container');
-            const bibleModal = document.getElementById('bible-modal');
-            const modalBody = document.getElementById('modal-body-content');
-            const closeModalBtn = document.querySelector('.modal-close-btn');
-            const audioPlayerBar = document.getElementById('audio-player');
-            const playerInfo = document.getElementById('player-info');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const closePlayerBtn = document.getElementById('close-player-btn');
-            
-            let ytPlayer;
-            let audioLinks = new Map();
-            let isPlayerReady = false;
-
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-            window.onYouTubeIframeAPIReady = function() {
-                ytPlayer = new YT.Player('youtube-player-container', {
-                    height: '0',
-                    width: '0',
-                    events: {
-                        'onReady': () => { isPlayerReady = true; },
-                        'onStateChange': (event) => {
-                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
-                        }
-                    }
-                });
-            }
-
-            async function loadAudioLinks() {
-                try {
-                    const response = await fetch('../address/mcbible.txt');
-                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
-                    const text = await response.text();
-                    text.split('\n').forEach(line => {
-                        if (line.trim() !== '') {
-                            const parts = line.split(/\s+/);
-                            const fullKey = parts[0];
-                            const url = parts[1];
-                            const keyParts = fullKey.split('_'); 
-                            
-                            if (keyParts.length >= 3) {
-                                const book = keyParts[2];
-                                const chapter = parseInt(keyParts.at(-1), 10);
-                                const shortKey = `${book}_${chapter}`;
-                                audioLinks.set(shortKey, url);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('오디오 링크 로딩 오류:', error);
-                }
-            }
-            
-            function getYouTubeID(url) {
-                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                const match = url.match(regex);
-                return match ? match[1] : null;
-            }
-
-            mainContainer.addEventListener('click', async (e) => {
-                const target = e.target.closest('.btn');
-                if (!target) return;
-
-                if (target.classList.contains('btn-view')) {
-                    const path = target.dataset.path;
-                    bibleModal.style.display = 'block';
-                    modalBody.innerHTML = '<div class="spinner"></div>';
-                    try {
-                        const response = await fetch(`../bible_html/${path}`);
-                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
-                        const html = await response.text();
-                        modalBody.innerHTML = html;
-                    } catch (error) {
-                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
-                    }
-                }
-                
-                if (target.classList.contains('btn-listen')) {
-                    if (!isPlayerReady) {
-                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
-                        return;
-                    }
-                    if (audioLinks.size === 0) {
-                        await loadAudioLinks(); 
-                         if (audioLinks.size === 0) {
-                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
-                            return;
-                        }
-                    }
-                    const key = target.dataset.key;
-                    const title = target.dataset.title;
-                    const url = audioLinks.get(key);
-
-                    if (url) {
-                        const videoId = getYouTubeID(url);
-                        if (videoId) {
-                            ytPlayer.loadVideoById(videoId);
-                            playerInfo.textContent = `재생중: ${title}`;
-                            audioPlayerBar.classList.add('show');
-                        } else {
-                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
-                        }
-                    } else {
-                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
-                    }
-                }
-            });
-
-            function closeModal() {
-                bibleModal.style.display = 'none';
-                modalBody.innerHTML = '';
-            }
-
-            closeModalBtn.addEventListener('click', closeModal);
-            bibleModal.addEventListener('click', (e) => {
-                if (e.target === bibleModal) {
-                    closeModal();
-                }
-            });
-
-            playPauseBtn.addEventListener('click', () => {
-                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
-                const playerState = ytPlayer.getPlayerState();
-                if (playerState === YT.PlayerState.PLAYING) {
-                    ytPlayer.pauseVideo();
-                } else {
-                    ytPlayer.playVideo();
-                }
-            });
-
-            closePlayerBtn.addEventListener('click', () => {
-                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
-                    ytPlayer.stopVideo();
-                }
-                audioPlayerBar.classList.remove('show');
-            });
-            
-            loadAudioLinks();
-
-            // 간단한 탭 기능
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetTab = button.dataset.tab;
-
-                    // 모든 버튼과 콘텐츠 비활성화
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-
-                    // 선택된 버튼과 콘텐츠 활성화
-                    button.classList.add('active');
-                    document.getElementById(targetTab).classList.add('active');
-                });
-            });
-        });
-    </script>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
