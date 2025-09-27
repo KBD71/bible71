@@ -3,512 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9월 30일 - 맥체인 성경읽기</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
-
-        :root {
-            --font-serif: 'KoPub Batang', serif;
-            --font-sans-serif: 'Pretendard', sans-serif;
-            
-            --color-text: #343a40;
-            --color-background: #f8f9fa;
-            --color-card-bg: #ffffff;
-            --color-border: #dee2e6;
-            --color-muted: #868e96;
-
-            --color-book1: #4285F4;
-            --color-book2: #DB4437;
-            --color-book3: #c89200;
-            --color-book4: #0F9D58;
-            --color-integration: #5f6368;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-serif);
-            font-size: 17px;
-            line-height: 1.8;
-            color: var(--color-text);
-            background-color: var(--color-background);
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1280px;
-        }
-
-        header, main {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-family: var(--font-sans-serif);
-            font-size: clamp(2.2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin: 0.5em 0;
-            color: #212529;
-        }
-        
-        h3 {
-            font-family: var(--font-sans-serif);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        h4 {
-            font-family: var(--font-sans-serif);
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--color-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-top: 0;
-            margin-bottom: 1.5em;
-        }
-        p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .chapter-card, .integration-card {
-            background-color: var(--color-card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 3.5rem;
-            padding: 2rem 2.5rem;
-            border-left: 8px solid;
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-card:hover, .integration-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .card-book1 { border-color: var(--color-book1); }
-        .card-book1 h3 { color: var(--color-book1); }
-        .card-book2 { border-color: var(--color-book2); }
-        .card-book2 h3 { color: var(--color-book2); }
-        .card-book3 { border-color: var(--color-book3); }
-        .card-book3 h3 { color: var(--color-book3); }
-        .card-book4 { border-color: var(--color-book4); }
-        .card-book4 h3 { color: var(--color-book4); }
-        .integration-card { border-color: var(--color-integration); }
-        .integration-card h3 { color: var(--color-integration); }
-
-        .btn-group {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            font-family: var(--font-sans-serif);
-            padding: 0.6em 1.2em;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            color: white;
-        }
-
-        .btn-view { background-color: #343a40; }
-        .btn-listen { background-color: var(--color-integration); }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.15);
-        }
-        .btn:active {
-            transform: translateY(0);
-            filter: brightness(0.95);
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background-color: var(--color-card-bg);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 800px;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-        
-        .modal-close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .modal-close-btn:hover {
-            color: #333;
-        }
-
-        .modal-body {
-             max-height: 70vh;
-             overflow-y: auto;
-             font-size: 18px;
-             line-height: 2;
-        }
-        
-        .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 100px auto;
-        }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
-
-        .audio-player {
-            position: fixed;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 500px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: bottom 0.3s ease-in-out;
-            z-index: 1001;
-        }
-        .audio-player.show { bottom: 0; }
-        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
-        .audio-player-controls button:hover { color: #bdc3c7; }
-        #youtube-player-container { display: none; }
-
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--color-border);
-            color: #6c757d;
-        }
-    </style>
+    <title>9월 30일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" id="main-container">
-        <header>
-            <h1>9월 30일</h1>
-            <p>하나님의 공동체 안에서의 책임과 정의</p>
-        </header>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
-        <main>
-            <div class="chapter-card card-book1">
-                <h3>열왕기상 2장: 솔로몬 왕국의 공고화</h3>
-                <h4>상세 개요</h4>
-                <p>열왕기상 2장은 다윗의 유언과 솔로몬의 왕권 초기 숙청 작업을 다룹니다. 다윗은 솔로몬에게 하나님의 말씀을 지키라는 신앙적 유언과 함께, 요압과 시므이 등 과거의 정적들을 처리하라는 정치적 유언을 남깁니다. 다윗이 죽은 후, 아도니야는 밧세바를 통해 다윗의 후궁이었던 아비삭을 아내로 달라고 요청하는데, 이는 왕위에 대한 미련을 드러낸 행동으로 간주되어 솔로몬에게 처형당합니다. 이어서 솔로몬은 아도니야를 지지했던 제사장 아비아달을 파면하고, 다윗의 군대를 배신하고 무고한 피를 흘렸던 요압을 처형합니다. 마지막으로, 과거 다윗을 저주했던 시므이를 예루살렘에 가두었다가 그가 명령을 어기자 처형합니다. 이러한 숙청 작업을 통해 "솔로몬의 손에 나라가 견고하여"(46절)졌다고 기록됩니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>하나님의 공의와 왕의 책임:</strong> 솔로몬의 초기 통치는 피의 숙청으로 시작되어 불편하게 느껴질 수 있습니다. 그러나 이는 단순한 권력 다툼을 넘어, 하나님의 공의를 실현하는 왕의 책임을 보여줍니다. 다윗은 요압에 대해 "그가... 아브넬과 아마사의 피를 흘려... 내 허리에 띤 띠와 내 발에 신은 신에 묻혔으니"(5절)라고 말하며 그의 죄를 지적합니다. 솔로몬의 숙청은 과거에 쌓인 죄악의 고리를 끊고, 하나님의 공의로운 통치가 실현되는 나라의 기초를 세우는 과정입니다. 이는 하나님의 나라가 죄를 용납하지 않으며, 정의와 공의 위에 세워져야 함을 보여주는 것입니다.</li>
-                    <li><strong>언약의 성취와 인간적 수단:</strong> 솔로몬의 왕권이 견고해지는 과정은 다윗에게 약속하신 하나님의 언약이 성취되는 과정입니다. 그러나 그 과정에는 인간적인 정치적 결단과 폭력적인 수단이 동원됩니다. 이는 하나님의 거룩한 뜻이 죄악된 인간 역사 속에서 어떻게 이루어지는지에 대한 복잡성을 보여줍니다. 하나님은 인간의 행위를 통해서도 당신의 주권적인 계획을 이루어 가시지만, 그 과정에서 드러나는 인간의 죄와 폭력까지 정당화하시지는 않습니다. 구속사는 이처럼 하나님의 신실하심과 인간의 연약함 및 죄악이 교차하며 전개됩니다.</li>
-                </ol>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>9월 30일</h1>
+            </header>
 
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_11_1KI_02.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="1KI_2" data-title="열왕기상 2장">성경 듣기</button>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-book1" data-color="book1">열왕기상 2장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">갈라디아서 6장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">에스겔 33장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">시편 81-82편</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+            </nav>
+
+            <main>
+                <div id="content-book1" class="tab-content active">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>열왕기상 2장: 다윗의 유언과 솔로몬 왕국의 공고화</h3>
+                            <h4>상세 개요</h4>
+                            <p>다윗은 임종을 앞두고 아들 솔로몬에게 하나님의 길을 따를 것을 명령하는 신앙적 유언과 함께, 요압과 시므이 등 왕국에 위협이 될 인물들을 제거하라는 정치적 유언을 남깁니다. 다윗이 죽고 왕위에 오른 솔로몬은 지혜롭게 이 유언을 실행합니다. 왕위를 넘본 아도니야를 처형하고, 제사장 아비아달을 파면하며, 군대장관 요압과 다윗을 저주했던 시므이를 차례로 숙청함으로써 왕권을 공고히 하고 나라의 안정을 이룹니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 언약적 순종과 공의의 실행:</strong> 다윗의 첫 번째 유언은 <span class="scripture-quote">네 하나님 여호와의 명령을 지켜 그 길로 행하라</span>(3절)는 언약적 순종의 요구입니다. 이는 다윗 왕조의 번영이 인간의 지혜나 힘이 아닌, 오직 하나님의 말씀에 대한 순종에 달려있음을 보여줍니다. 이어지는 정치적 숙청은 단순한 보복이 아니라, 하나님의 공의를 세우고 거룩한 왕국에서 죄의 뿌리를 제거하는 과정으로 이해해야 합니다. 이는 장차 오실 그리스도께서 그의 나라를 세우실 때 모든 불의를 심판하실 것을 예표하는 불완전한 그림자입니다.</p>
+                            <p><strong>2. 제사장 직분의 정화:</strong> 솔로몬이 엘리 가문의 마지막 제사장이었던 아비아달을 파면한 것은, 사무엘상 2장에서 예언된 <span class="scripture-quote">엘리의 집에 대하여 하신 말씀을 응하게 하려 함</span>(27절)이었습니다. 이는 인간의 역사가 우연의 연속이 아니라, 하나님의 주권적인 말씀의 성취 과정임을 보여줍니다. 타락한 제사장 가문이 폐위되고 사독이 그 자리를 잇는 것은, 하나님 나라의 질서가 인간의 혈통이나 지위가 아닌 하나님의 거룩한 선택에 의해 재편됨을 보여주는 중요한 사건입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_11_1KI_02.html" data-title="열왕기상 2장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="1KI_2" data-title="열왕기상 2장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book2">
-                <h3>갈라디아서 6장: 성령의 법을 성취하는 삶</h3>
-                <h4>상세 개요</h4>
-                <p>갈라디아서의 마지막 장인 6장에서 바울은 복음 안에서 자유를 얻은 성도들이 어떻게 살아야 하는지에 대한 구체적인 권면을 제시합니다. 그는 범죄한 형제를 온유함으로 바로잡고, 서로의 짐을 져 줌으로써 '그리스도의 법'을 성취하라고 말합니다. 또한, 각자는 자기의 짐(책임)을 져야 한다는 개인적 책임도 강조합니다. 바울은 '심고 거두는 법칙'을 영적인 영역에 적용하여, 육체를 위하여 심는 자는 썩어질 것을 거두고 성령을 위하여 심는 자는 영생을 거둘 것이라고 말합니다. 그는 선을 행하되 낙심하지 말 것을 격려하며, 특히 믿음의 가정들에게 더욱 힘쓰라고 권면합니다. 마지막으로 바울은 자신의 손으로 직접 큰 글씨로 쓴다며, 율법주의자들의 위선을 지적하고 자신은 오직 '예수 그리스도의 십자가' 외에는 결코 자랑할 것이 없음을 선포하며 끝을 맺습니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>그리스도의 법과 짐을 지는 공동체:</strong> 바울은 "너희가 서로 짐을 지라 그리하여 그리스도의 법을 성취하라"(2절)고 권면합니다. 여기서 '그리스도의 법'은 율법의 조문이 아니라, "네 이웃을 네 자신과 같이 사랑하라"(갈 5:14)는 사랑의 법입니다. 공동체 안에서 넘어진 형제의 무거운 짐(βάρος, baros)을 함께 져주는 것은 이 사랑의 법을 실천하는 최고의 방법입니다. 그러나 동시에 "각각 자기의 짐을 질 것이라"(5절)고 말하며 개인의 책임(φορτίον, phortion)도 강조합니다. 이는 교회가 무조건적인 용납과 개인의 성실한 책임이라는 두 기둥 위에 세워져야 함을 보여주는 균형 잡힌 가르침입니다.</li>
-                    <li><strong>십자가 중심의 신앙:</strong> 바울은 자신의 모든 사역과 신앙의 핵심을 "내게는 우리 주 예수 그리스도의 십자가 외에 결코 자랑할 것이 없으니"(14절)라는 고백으로 요약합니다. 율법주의자들은 육체의 모양(할례)을 자랑했지만, 바울에게 자랑거리는 오직 십자가뿐입니다. 십자가는 세상에 대하여 내가 죽고, 세상이 나에 대하여 죽는 근본적인 단절을 의미합니다. 십자가를 통해 옛사람은 죽고, "새로 지으심을 받는 것"(15절)만이 중요하게 됩니다. 이는 구원과 성화의 모든 근거가 인간의 행위나 자랑이 아닌, 오직 그리스도의 십자가 은혜에 있음을 선포하는 복음의 정수입니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="NT/NT_48_GAL_06.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="GAL_6" data-title="갈라디아서 6장">성경 듣기</button>
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>갈라디아서 6장: 심고 거두는 법칙과 십자가의 자랑</h3>
+                            <h4>상세 개요</h4>
+                            <p>갈라디아서의 마지막 장에서 바울은 복음 안에서 살아가는 성도의 실천적인 삶의 지침을 제시합니다. 그는 '서로 짐을 지라'고 권면하며 이것이 곧 그리스도의 법을 성취하는 것이라고 말합니다. 또한 '무엇으로 심든지 그대로 거둔다'는 영적 원리를 상기시키며, 육체를 위해 심지 말고 성령을 위하여 심으라고 촉구합니다. 마지막으로 바울은 자신의 유일한 자랑은 율법의 행위나 할례가 아닌, 오직 '우리 주 예수 그리스도의 십자가'뿐임을 선포하며 편지를 맺습니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 그리스도의 법과 성도의 교제:</strong> '서로 짐을 지라'는 명령은 이신칭의의 교리가 결코 개인주의나 방임으로 흐르지 않음을 보여줍니다. 구원받은 성도는 유기적인 공동체, 즉 그리스도의 몸을 이루어 서로의 연약함을 돌보고 함께 세워져 갈 책임이 있습니다. 이것이 바로 <span class="scripture-quote">그리스도의 법을 성취하는 것</span>(2절)입니다. 율법의 조문이 아닌, 사랑과 희생이라는 그리스도의 통치 원리가 교회를 다스리는 새로운 법이 되는 것입니다.</p>
+                            <p><strong>2. 십자가 중심의 신학과 새로운 피조물:</strong> 바울은 율법주의자들이 자랑하는 할례와 자신의 몸에 있는 '예수의 흔적'(핍박의 상처)을 대조하며, 참된 신앙의 핵심을 드러냅니다. <span class="scripture-quote">내게는 우리 주 예수 그리스도의 십자가 외에 결코 자랑할 것이 없으니</span>(14절)라는 고백은 개혁주의 신학의 정수입니다. 십자가는 죄인인 내가 죽고 그리스도께서 사시는 연합의 장소이며, 세상에 대하여 내가 죽고 세상이 나에 대하여 죽는 분리의 기준점입니다. 십자가를 통해 우리는 할례나 무할례가 아닌, '새로 지으심을 받은' 존재, 즉 새로운 피조물이 됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_48_GAL_06.html" data-title="갈라디아서 6장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GAL_6" data-title="갈라디아서 6장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book3">
-                <h3>에스겔 33장: 파수꾼의 책임</h3>
-                <h4>상세 개요</h4>
-                <p>에스겔 33장은 에스겔 선지자의 사명을 '파수꾼'으로 재확인하며, 예루살렘 멸망 이후 이스라엘의 회복을 향한 전환점이 되는 중요한 장입니다. 하나님께서는 에스겔을 이스라엘 족속의 파수꾼으로 세우시고, 그에게 칼이 임함을 보고 경고해야 할 책임을 부여하십니다. 만약 파수꾼이 경고하지 않아 악인이 죽으면, 그 피 값을 파수꾼에게서 찾을 것이지만, 경고했는데도 듣지 않고 죽으면 그 책임은 악인 자신에게 있습니다. 이 파수꾼의 비유를 통해 하나님은 개인의 책임과 회개의 중요성을 강조하십니다. 백성들이 조상들의 죄 때문에 함께 벌을 받는다는 운명론적 생각에 대해, 하나님은 "나는 악인이 죽는 것을 기뻐하지 아니하고 악인이 그의 길에서 돌이켜 떠나 사는 것을 기뻐하노라"(11절)고 선포하시며, 각 사람이 자기의 행위대로 심판받을 것을 분명히 하십니다. 장의 마지막에는 예루살렘이 함락되었다는 소식이 전해지고, 그제야 에스겔의 입이 열려 다시 예언하기 시작합니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>개인의 책임과 회개의 가능성:</strong> 포로기 이스라엘 백성은 "아버지가 신 포도를 먹었으므로 아들의 이가 시다"는 속담처럼, 조상의 죄 때문에 자신들이 고통받는다는 집단적 절망감에 빠져 있었습니다. 이에 대해 에스겔 33장은 하나님의 공의로운 심판이 철저히 개인에게 적용됨을 선포합니다. "그 아들은 자기의 죄악으로 말미암아 죽으리라"(18절, 문맥상 의미). 이는 운명론을 타파하고, 각 사람에게 회개하고 살 수 있는 길을 열어주는 소망의 메시지입니다. 하나님은 과거의 의로움에 안주하는 의인이나 과거의 죄에 절망하는 악인 모두를 현재의 선택으로 심판하십니다. 이는 하나님의 심판이 기계적인 것이 아니라, 언제나 회개하고 돌아올 기회를 주시는 인격적인 관계에 기초함을 보여줍니다.</li>
-                    <li><strong>교회와 성도의 파수꾼 사명:</strong> 파수꾼의 사명은 에스겔 개인에게만 주어진 것이 아니라, 신약의 교회와 모든 성도에게 확장 적용됩니다. 우리는 이 세상에 대하여 하나님의 심판과 구원의 복음을 선포해야 할 파수꾼으로 부름받았습니다. "네 입의 말을 듣고 나를 대신하여 그들을 깨우치라"(7절)는 명령은 오늘날 우리에게도 유효합니다. 이 사명에는 엄중한 책임이 따릅니다. 우리가 복음을 전하지 않는다면, 잃어버린 영혼에 대한 책임을 하나님께서 우리에게 물으실 수 있습니다. 이는 우리가 안일함에서 벗어나, 주변의 영혼들을 향한 긴박하고 사랑이 담긴 책임감을 가져야 함을 일깨웁니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_26_EZE_33.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="EZE_33" data-title="에스겔 33장">성경 듣기</button>
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>에스겔 33장: 파수꾼의 사명과 회개를 촉구하시는 하나님</h3>
+                            <h4>상세 개요</h4>
+                            <p>하나님은 에스겔을 이스라엘 족속의 '파수꾼'으로 다시 한번 임명하십니다. 파수꾼의 사명은 칼이 임함을 보고 나팔을 불어 백성에게 경고하는 것입니다. 만약 경고하지 않아 사람이 죽으면 그 피 값을 파수꾼에게 찾을 것이지만, 경고했음에도 듣지 않고 죽으면 책임은 그 자신에게 돌아갑니다. 이 비유를 통해 하나님은 악인이라도 돌이켜 회개하고 살기를 원하시는 당신의 본심을 드러내십니다. 마침내 예루살렘의 함락 소식이 전해지자, 에스겔의 예언이 성취되었음이 증명되고 그의 입이 열리게 됩니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 개인의 책임과 하나님의 공의:</strong> 파수꾼의 비유는 구원과 심판에 있어 각 개인의 책임이 얼마나 중요한지를 강조합니다. <span class="scripture-quote">아들은 아버지의 죄악을 담당하지 아니할 것이요 아버지는 아들의 죄악을 담당하지 아니하리니</span>(20절)라는 말씀처럼, 하나님의 심판은 연대적이면서도 철저히 개인적입니다. 이는 운명론이나 환경 탓으로 자신의 죄를 변명할 수 없으며, 모든 인간이 자신의 선택에 대해 하나님 앞에 서게 될 것임을 보여주는 준엄한 선포입니다.</p>
+                            <p><strong>2. 심판 속에서도 드러나는 하나님의 긍휼:</strong> 이 장의 핵심은 심판의 경고를 넘어, 그 경고를 통해 백성을 살리려는 하나님의 열심입니다. <span class="scripture-quote">나는 악인이 죽는 것을 기뻐하지 아니하고 악인이 그의 길에서 돌이켜 떠나 사는 것을 기뻐하노라</span>(11절)는 말씀은 하나님의 성품의 핵심을 보여줍니다. 하나님은 공의로우시기에 죄를 반드시 심판하시지만, 그 본심은 긍휼과 사랑이십니다. 따라서 회개는 심판을 피하기 위한 수단일 뿐만 아니라, 사랑의 아버지께로 돌아가는 유일한 길입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_26_EZE_33.html" data-title="에스겔 33장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_33" data-title="에스겔 33장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book4">
-                <h3>시편 81편 & 82편: 하나님의 부르심과 재판</h3>
-                <h4>상세 개요</h4>
-                <p><b>시편 81편</b>은 절기에 하나님을 찬양하라는 즐거운 초대로 시작합니다. 악기를 연주하며 애굽의 노역에서 해방시키신 구원의 하나님을 기념하라고 촉구합니다. 그러나 시의 분위기는 하나님의 직접적인 말씀으로 전환됩니다. 하나님께서는 광야에서 그들이 하나님을 시험했던 사건을 회상하시며 "내 백성이 내 소리를 듣지 아니하며 이스라엘이 나를 원하지 아니하였도다"(11절)라고 탄식하십니다. 만약 그들이 하나님의 길을 따랐더라면, 하나님께서 그들의 원수를 물리치시고 가장 좋은 것으로 먹이셨을 것이라는 안타까움을 표현하며, 순종에 따르는 복을 약속하십니다.<br><b>시편 82편</b>은 하나님의 회의에서 벌어지는 재판의 장면을 보여줍니다. 하나님께서는 '신들'(세상의 통치자들, 재판관들)을 불공정한 재판과 가난하고 약한 자들을 돌보지 않은 죄로 엄중하게 책망하십니다. "너희는 신들이며 다 지존자의 아들들이라 하였으나 너희는 사람들처럼 죽으며 고관의 하나같이 넘어지리로다"(6-7절)라고 선언하시며, 그들의 신적 권위가 유한함을 밝히십니다. 시는 "하나님이여 일어나사 세상을 심판하소서 모든 나라가 주의 소유이기 때문이니이다"(8절)라는 기도로 끝납니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>순종에 대한 갈망과 하나님의 마음 (시 81편):</strong> 이 시편은 하나님의 마음을 엿볼 수 있는 특별한 창을 제공합니다. 하나님은 당신의 백성이 불순종의 길을 갈 때 단순히 진노하시는 분이 아니라, 그들이 순종을 통해 누릴 수 있었던 복을 놓치는 것을 보며 안타까워하고 탄식하시는 분입니다. "내 백성아 내 말을 들으라... 너희가 내 길을 따랐더라면!"(8, 13절)이라는 구절에는 언약 백성을 향한 하나님의 깊은 사랑과 열정이 담겨 있습니다. 이는 하나님과 우리의 관계가 차가운 율법적 관계가 아니라, 순종을 통해 깊은 교제와 풍성한 복을 누리기를 원하시는 인격적인 관계임을 보여줍니다.</li>
-                    <li><strong>하나님의 대리 통치자와 참된 정의 (시 82편):</strong> 하나님께서는 이 땅의 통치자들과 재판관들을 '신들' 또는 '지존자의 아들들'이라고 부르시며, 그들에게 당신의 통치권을 위임하셨음을 보여줍니다. 그들의 가장 중요한 책임은 "가난한 자와 고아를 위하여 판단하며 곤란한 자와 빈궁한 자에게 공의를 베푸는"(3절) 것이었습니다. 그러나 그들은 이 책임을 저버렸습니다. 이 시는 하나님의 정의가 사회적 약자를 보호하는 데 있음을 분명히 하며, 이 땅의 모든 권력이 하나님의 위임을 받은 것이므로 반드시 그분 앞에서 책임을 져야 함을 선포합니다. 예수님께서는 요한복음 10장 34절에서 이 시편을 인용하시어, 자신을 '하나님의 아들'이라 칭하는 것의 정당성을 변호하셨습니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_81.html">시편 81편 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_81" data-title="시편 81편">시편 81편 듣기</button>
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_82.html">시편 82편 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_82" data-title="시편 82편">시편 82편 듣기</button>
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>시편 81-82편: 하나님의 초청과 불의한 재판관들에 대한 경고</h3>
+                            <h4>상세 개요</h4>
+                            <p>시편 81편은 절기를 맞아 하나님을 찬양하라는 기쁜 초청으로 시작하지만, 이내 순종하지 않는 백성을 향한 하나님의 안타까운 탄식으로 전환됩니다. 하나님은 과거의 구원 역사를 상기시키며 "네 입을 크게 열라 내가 채우리라"고 약속하시지만, 백성은 듣기를 거부했습니다. 시편 82편은 장면을 바꾸어, 하나님께서 '신들의 모임'(세상의 통치자들과 재판관들) 가운데 서셔서 그들의 불의한 재판을 엄중하게 꾸짖으시는 모습을 보여줍니다. 그들이 가난한 자와 약한 자를 억압하기에, 하나님께서는 친히 일어나 세상을 심판하실 것을 선포하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 언약적 관계와 순종의 복:</strong> 시편 81편은 출애굽 사건에 근거하여 <span class="scripture-quote">나는 너를 애굽 땅에서 인도하여 낸 여호와 네 하나님이니</span>(10절)라고 선포하며, 하나님과 이스라엘의 언약 관계를 상기시킵니다. 이 관계 안에서 순종은 복의 통로이지만, 불순종은 하나님의 탄식과 징계를 가져옵니다. 이는 구원이 하나님의 주권적 은혜로 시작되지만, 구원받은 백성의 삶은 순종의 열매로 나타나야 함을 보여주는 중요한 원리입니다.</p>
+                            <p><strong>2. 하나님의 대리 통치자와 최종 심판자:</strong> 시편 82편의 '신들'은 신적인 존재가 아니라, 하나님의 권위를 위임받아 공의를 실현해야 할 세상의 통치자들을 가리킵니다. 그들은 '지존자의 아들들'이라 불릴 만큼 높은 지위를 가졌지만, 그 책임을 망각하고 불의를 행함으로 하나님의 심판을 자초합니다. <span class="scripture-quote">하나님이여 일어나사 세상을 심판하소서</span>(8절)라는 기도는, 세상의 모든 불완전한 통치가 끝나고 오직 만왕의 왕이신 그리스도만이 참된 공의를 세우실 것에 대한 소망을 담고 있습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_81.html" data-title="시편 81-82편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_81" data-title="시편 81-82편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>통합 묵상: 하나님 나라의 질서와 백성의 책임</h3>
+                            <h4>관통하는 주제</h4>
+                            <p>오늘의 네 본문은 '하나님 나라의 질서'와 그 안에서 살아가는 '백성의 책임'이라는 두 축을 중심으로 연결됩니다. 시편 81-82편은 하나님 나라의 기본 질서가 '순종'과 '공의'임을 선포합니다. 하나님은 순종하는 자에게 복을 약속하시고(시 81), 위임받은 통치자들에게 공의를 요구하십니다(시 82). 에스겔 33장은 이 질서를 선포하고 경고해야 할 '파수꾼의 책임'을 강조하며, 각 개인이 회개를 통해 이 질서에 반응해야 함을 보여줍니다. 열왕기상 2장은 이 땅에 세워지는 하나님 나라(다윗 왕국)가 어떻게 죄를 제거하고 공의를 세움으로써 그 질서를 공고히 하는지를 보여주는 역사적 사례입니다. 마지막으로 갈라디아서 6장은 이 모든 구약의 원리가 십자가 안에서 어떻게 새로운 차원으로 성취되는지를 보여줍니다. 새 언약 백성의 책임은 '서로 짐을 지고', '성령을 위해 심으며', 오직 '십자가만 자랑'하는 삶을 통해 하나님 나라의 질서를 살아내는 것입니다.</p>
+                            <h4>핵심 개념 및 상호 참조</h4>
+                            <p><strong>공의의 실행자:</strong> 시편 82편의 불의한 재판관들은 하나님의 공의를 실현해야 할 책임을 저버렸습니다. 열왕기상 2장의 솔로몬은 이 땅의 왕으로서 불완전하게나마 그 공의를 실행하는 책임을 감당합니다. 이 두 모습은 우리에게 완전하고 참된 공의의 실행자이신 예수 그리스도를 바라보게 합니다. 그분은 불의한 재판관들을 심판하실 것이며, 십자가를 통해 하나님의 공의와 사랑을 동시에 만족시키셨습니다.</p>
+                            <p><strong>경고와 순종의 관계:</strong> 에스겔 33장의 '파수꾼의 경고'와 시편 81편의 '하나님의 탄식'은 깊이 연결됩니다. 하나님은 파수꾼을 통해 끊임없이 "돌이키라"고 경고하시지만, 백성들은 듣기를 거부하여 결국 하나님의 탄식을 자아냅니다. 갈라디아서 6장의 '심고 거두는 법칙'은 이 경고와 순종의 결과를 영적인 원리로 설명합니다. 성령을 위해 심는 자(순종)는 영생을 거두고, 육체를 위해 심는 자(불순종)는 썩어질 것을 거둡니다.</p>
+                            <h4>삶으로의 적용</h4>
+                            <ul>
+                                <li><strong>지(知):</strong> 나는 하나님께서 내 삶의 모든 영역에서 공의와 순종을 요구하시는 질서의 하나님이심을 인정합니까? 나의 신앙생활이 단순히 개인적인 위로나 축복에 머물지 않고, 공동체의 짐을 함께 지고 하나님의 공의를 세워가는 책임있는 삶으로 나아가야 함을 깨닫고 있습니까?</li>
+                                <li><strong>정(情):</strong> 나의 불순종을 향한 하나님의 안타까운 탄식(시 81)과, 악인이라도 회개하고 돌아오기를 바라시는 그분의 애끓는 마음(겔 33)이 느껴집니다. 나의 죄에 대해 마음을 찢으며 애통하고, 나를 구원하신 십자가의 은혜 외에는 자랑할 것이 없다는 바울의 고백(갈 6)에 진심으로 동참합시다.</li>
+                                <li><strong>의(意):</strong> 오늘 나는 영적인 파수꾼으로서 누구에게 하나님의 경고와 사랑의 복음을 전해야 합니까? 또한 '그리스도의 법'을 성취하기 위해 내가 구체적으로 져야 할 형제의 짐은 무엇입니까? '성령을 위하여 심는' 구체적인 순종의 씨앗을 오늘 심기로 결단합시다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
 
-            <div class="integration-card">
-                <h2>통합 묵상: 하나님의 공동체 안에서의 책임과 정의</h2>
-                <h3>관통하는 주제 논증: 하나님 나라 백성의 책임과 의무</h3>
-                <p>오늘의 네 본문은 '하나님의 공동체 안에서 각 지체가 마땅히 져야 할 책임과 정의'라는 주제를 다각적으로 조명합니다. 에스겔 33장은 선지자 개인의 책임을 '파수꾼'의 이미지로 극명하게 보여줍니다. 그는 공동체를 향해 하나님의 경고를 충실히 선포해야 할 엄중한 책임을 가집니다. 갈라디아서 6장은 이 책임을 신약의 교회 공동체 전체로 확장합니다. 성도들은 서로의 무거운 짐을 함께 져주고, 넘어진 자를 온유함으로 바로잡으며, 각자 자신에게 맡겨진 책임을 성실히 감당해야 합니다. 시편 81편과 82편은 이 책임의 대상을 이스라엘 백성과 그 지도자들에게로 향하게 합니다. 백성은 하나님의 말씀에 귀 기울여 순종해야 할 책임이 있으며, 지도자들은 약한 자를 돌보고 공의를 실현해야 할 책임이 있습니다. 마지막으로 열왕기상 2장은 이 모든 책임이 집약된 왕의 역할을 보여줍니다. 솔로몬은 선왕의 유지를 받들어 나라의 죄악을 심판하고 공의를 세움으로써 왕으로서의 책임을 수행합니다. 이처럼 오늘의 본문들은 선지자, 성도, 백성, 지도자, 왕 등 하나님 나라의 모든 구성원이 각자의 위치에서 거룩한 책임을 다할 때, 비로소 그 공동체가 하나님의 정의와 평강을 누리게 됨을 강력하게 증거합니다.</p>
-
-                <h3>입체적 핵심 단어 연구: 짐 (βάρος, 바рос vs. φορτίον, 포르티온)</h3>
-                <p>갈라디아서 6장은 '짐'이라는 단어를 두 가지 다른 헬라어 단어로 사용하여 공동체적 책임과 개인적 책임의 절묘한 균형을 가르칩니다. 2절의 "너희가 서로 짐을 지라"에서 '짐'은 '바рос'(βάρος)입니다. 이는 감당하기 힘든 무게, 짓누르는 압박감을 의미하는 단어로, 죄의 문제나 극심한 고난과 같이 혼자서는 감당할 수 없는 무거운 짐을 가리킵니다. 공동체는 이러한 형제의 '바рос'를 함께 져 줌으로써 그리스도의 사랑의 법을 성취해야 합니다. 반면 5절의 "각각 자기의 짐을 질 것이라"에서 '짐'은 '포르티온'(φορτίον)입니다. 이는 군인의 배낭처럼 각자가 마땅히 짊어져야 할 개인의 책임 분량을 의미합니다. 여기에는 자신의 신앙생활, 가정에서의 의무, 직장에서의 성실함 등이 포함됩니다. '포르티온'은 남에게 떠넘길 수 없는 각자의 몫입니다. 이 두 단어의 구분은 성숙한 신앙 공동체가 형제의 무거운 짐은 사랑으로 함께 나누되, 각자의 책임은 스스로 성실하게 감당하는 공동체임을 아름답게 보여줍니다.</p>
-                
-                <h3>심층 상호 참조</h3>
-                <ul>
-                    <li><strong>에스겔 33:11 & 갈라디아서 6:7-8:</strong> 에스겔에서 하나님은 "악인이 그의 길에서 돌이켜 떠나 사는 것을 기뻐하노라"고 하시며 개인의 회개와 선택을 촉구하십니다. 이는 갈라디아서의 "사람이 무엇으로 심든지 그대로 거두리라. 자기의 육체를 위하여 심는 자는... 썩어질 것을 거두고 성령을 위하여 심는 자는... 영생을 거두리라"는 원리와 깊이 연결됩니다. 두 본문 모두 개인의 선택과 행위가 영원한 생명 또는 죽음이라는 결과를 낳는다는 개인 책임의 원리를 강조하며, 회개하고 성령을 따라 사는 삶으로 우리를 강력하게 초청합니다.</li>
-                    <li><strong>시편 82:2-4 & 열왕기상 2:5-6:</strong> 시편 82편은 재판관들이 "불공평한 판단을 하며... 가난한 자와 궁핍한 자를 구원"하지 않는다고 책망하며 하나님의 정의를 요구합니다. 열왕기상 2장에서 다윗은 솔로몬에게 요압의 죄, 즉 "내게 행한 일 곧... 아브넬과 아마사에게 행한 일을 네가 알거니와... 그의 백발이 평안히 스올에 내려가지 못하게 하라"고 명령합니다. 이는 시편에서 요구된 정의의 실현을 보여주는 한 예시입니다. 왕은 하나님의 대리 통치자로서, 공동체 내의 불의를 바로잡고 하나님의 공의를 세워야 할 궁극적인 책임을 가집니다.</li>
-                </ul>
-
-                <h3>적용을 위한 성찰 질문</h3>
-                <ol>
-                    <li>에스겔처럼, 나는 내 주변의 믿지 않는 이웃이나 신앙적으로 방황하는 형제들에게 복음의 경고와 소망을 전해야 할 '파수꾼'으로서의 책임을 감당하고 있습니까? 침묵함으로 그들의 영적 위험을 방관하고 있지는 않습니까?</li>
-                    <li>갈라디아서의 가르침에 비추어 볼 때, 나는 공동체 안에서 형제의 무거운 짐(바ros)을 함께 져주는 일과 나 자신의 책임(포르티온)을 성실히 감당하는 일 사이에서 균형을 잘 잡고 있습니까? 어느 한쪽으로 치우쳐 있지는 않습니까?</li>
-                    <li>시편 81편에서 하나님은 이스라엘이 당신의 목소리를 듣지 않는 것을 탄식하셨습니다. 최근 나의 삶에서 하나님의 말씀에 귀 기울이기보다, 세상의 소리나 내 안의 욕심에 더 귀를 기울이고 있지는 않았는지 돌아봅시다.</li>
-                    <li>솔로몬은 왕으로서 나라의 정의를 세우는 힘든 결정을 내려야 했습니다. 나의 가정, 직장, 교회 등 내가 속한 공동체에서, 나는 불의를 외면하고 있습니까, 아니면 하나님의 공의를 세우기 위해 어렵더라도 마땅히 해야 할 말과 행동을 하고 있습니까?</li>
-                </ol>
-            </div>
-        </main>
-
-        <footer>
-            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
-        </footer>
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
     </div>
 
-    <div id="bible-modal" class="modal">
+    <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
-            <span class="modal-close-btn">&times;</span>
-            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
+    <div class="floating-nav" id="floating-nav">
+         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-    <div id="audio-player" class="audio-player">
-        <div class="audio-player-info" id="player-info"></div>
-        <div class="audio-player-controls">
-            <button id="play-pause-btn">▶</button>
-            <button id="close-player-btn">✖</button>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                 <button id="close-player-btn" title="닫기">&times;</button>
+            </div>
         </div>
     </div>
-    <div id="youtube-player-container"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainContainer = document.getElementById('main-container');
-            const bibleModal = document.getElementById('bible-modal');
-            const modalBody = document.getElementById('modal-body-content');
-            const closeModalBtn = document.querySelector('.modal-close-btn');
-            const audioPlayerBar = document.getElementById('audio-player');
-            const playerInfo = document.getElementById('player-info');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const closePlayerBtn = document.getElementById('close-player-btn');
-            
-            let ytPlayer;
-            let audioLinks = new Map();
-            let isPlayerReady = false;
-
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-            window.onYouTubeIframeAPIReady = function() {
-                ytPlayer = new YT.Player('youtube-player-container', {
-                    height: '0',
-                    width: '0',
-                    events: {
-                        'onReady': () => { isPlayerReady = true; },
-                        'onStateChange': (event) => {
-                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
-                        }
-                    }
-                });
-            }
-
-            async function loadAudioLinks() {
-                try {
-                    const response = await fetch('../address/mcbible.txt');
-                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
-                    const text = await response.text();
-                    text.split('\n').forEach(line => {
-                        if (line.trim() !== '') {
-                            const parts = line.split(/\s+/);
-                            const fullKey = parts[0];
-                            const url = parts[1];
-                            const keyParts = fullKey.split('_'); 
-                            
-                            if (keyParts.length >= 3) {
-                                const book = keyParts[2];
-                                const chapter = parseInt(keyParts.at(-1), 10);
-                                const shortKey = `${book}_${chapter}`;
-                                audioLinks.set(shortKey, url);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('오디오 링크 로딩 오류:', error);
-                }
-            }
-            
-            function getYouTubeID(url) {
-                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                const match = url.match(regex);
-                return match ? match[1] : null;
-            }
-
-            mainContainer.addEventListener('click', async (e) => {
-                const target = e.target.closest('.btn');
-                if (!target) return;
-
-                if (target.classList.contains('btn-view')) {
-                    const path = target.dataset.path;
-                    bibleModal.style.display = 'block';
-                    modalBody.innerHTML = '<div class="spinner"></div>';
-                    try {
-                        const response = await fetch(`../bible_html/${path}`);
-                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
-                        const html = await response.text();
-                        modalBody.innerHTML = html;
-                    } catch (error) {
-                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
-                    }
-                }
-                
-                if (target.classList.contains('btn-listen')) {
-                    if (!isPlayerReady) {
-                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
-                        return;
-                    }
-                    if (audioLinks.size === 0) {
-                        await loadAudioLinks(); 
-                         if (audioLinks.size === 0) {
-                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
-                            return;
-                        }
-                    }
-                    const key = target.dataset.key;
-                    const title = target.dataset.title;
-                    const url = audioLinks.get(key);
-
-                    if (url) {
-                        const videoId = getYouTubeID(url);
-                        if (videoId) {
-                            ytPlayer.loadVideoById(videoId);
-                            playerInfo.textContent = `재생중: ${title}`;
-                            audioPlayerBar.classList.add('show');
-                        } else {
-                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
-                        }
-                    } else {
-                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
-                    }
-                }
-            });
-
-            function closeModal() {
-                bibleModal.style.display = 'none';
-                modalBody.innerHTML = '';
-            }
-
-            closeModalBtn.addEventListener('click', closeModal);
-            bibleModal.addEventListener('click', (e) => {
-                if (e.target === bibleModal) {
-                    closeModal();
-                }
-            });
-
-            playPauseBtn.addEventListener('click', () => {
-                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
-                const playerState = ytPlayer.getPlayerState();
-                if (playerState === YT.PlayerState.PLAYING) {
-                    ytPlayer.pauseVideo();
-                } else {
-                    ytPlayer.playVideo();
-                }
-            });
-
-            closePlayerBtn.addEventListener('click', () => {
-                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
-                    ytPlayer.stopVideo();
-                }
-                audioPlayerBar.classList.remove('show');
-            });
-            
-            loadAudioLinks();
-        });
-    </script>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
