@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const keyParts = longKey.split('_');
                         if (keyParts.length >= 3) {
                             const book = keyParts[2];
-                            const chapter = parseInt(keyParts.at(-1), 10); // 숫자로 변환
+                            const chapter = parseInt(keyParts.at(-1), 10);
                             const shortKey = `${book}_${chapter}`;
                             audioKeyMap.set(shortKey, url);
                         }
@@ -94,8 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
         tabs.buttons.forEach((button, index) => button.addEventListener('click', () => switchTab(index)));
         document.querySelectorAll('.view-text-btn').forEach(button => button.addEventListener('click', () => openTextModal(button)));
         document.querySelectorAll('.listen-audio-btn').forEach(button => button.addEventListener('click', () => playAudio(button)));
-        modal.closeBtn.addEventListener('click', () => modal.overlay.classList.remove('visible'));
-        modal.overlay.addEventListener('click', (e) => { if (e.target === modal.overlay) modal.overlay.classList.remove('visible'); });
+        
+        modal.closeBtn.addEventListener('click', closeModal);
+        modal.overlay.addEventListener('click', (e) => { if (e.target === modal.overlay) closeModal(); });
         
         audioPlayer.playPauseBtn.addEventListener('click', togglePlayPause);
         audioPlayer.closeBtn.addEventListener('click', closeAudioPlayer);
@@ -119,6 +120,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 기능별 함수 ---
+    function openTextModal(button) {
+        modal.title.innerText = button.dataset.title;
+        modal.iframe.src = button.dataset.path;
+        modal.overlay.classList.add('visible');
+        document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+    }
+
+    function closeModal() {
+        modal.overlay.classList.remove('visible');
+        document.body.style.overflow = ''; // 배경 스크롤 복원
+    }
+
     function switchTab(index) {
         if (index < 0 || index >= tabs.buttons.length) return;
         tabs.currentIndex = index;
@@ -129,12 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'auto' });
         updateFloatingNav();
         setTimeout(updateReadingProgress, 150);
-    }
-
-    function openTextModal(button) {
-        modal.title.innerText = button.dataset.title;
-        modal.iframe.src = button.dataset.path;
-        modal.overlay.classList.add('visible');
     }
 
     function playAudio(button) {
