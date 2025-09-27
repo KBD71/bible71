@@ -3,634 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10월 8일 - 맥체인 성경읽기</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
-
-        :root {
-            --font-serif: 'KoPub Batang', serif;
-            --font-sans-serif: 'Pretendard', sans-serif;
-            
-            --color-text: #343a40;
-            --color-background: #f8f9fa;
-            --color-card-bg: #ffffff;
-            --color-border: #dee2e6;
-            --color-muted: #868e96;
-
-            --color-book1: #4285F4;
-            --color-book2: #DB4437;
-            --color-book3: #c89200;
-            --color-book4: #0F9D58;
-            --color-integration: #5f6368;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-serif);
-            font-size: 17px;
-            line-height: 1.8;
-            color: var(--color-text);
-            background-color: var(--color-background);
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1280px;
-        }
-
-        header, main {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-family: var(--font-sans-serif);
-            font-size: clamp(2.2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin: 0.5em 0;
-            color: #212529;
-        }
-        
-        h3 {
-            font-family: var(--font-sans-serif);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        h4 {
-            font-family: var(--font-sans-serif);
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--color-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-top: 0;
-            margin-bottom: 1.5em;
-        }
-        p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .chapter-card, .integration-card {
-            background-color: var(--color-card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 3.5rem;
-            padding: 2rem 2.5rem;
-            border-left: 8px solid;
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-card:hover, .integration-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .card-book1 { border-color: var(--color-book1); }
-        .card-book1 h3 { color: var(--color-book1); }
-        .card-book2 { border-color: var(--color-book2); }
-        .card-book2 h3 { color: var(--color-book2); }
-        .card-book3 { border-color: var(--color-book3); }
-        .card-book3 h3 { color: var(--color-book3); }
-        .card-book4 { border-color: var(--color-book4); }
-        .card-book4 h3 { color: var(--color-book4); }
-        .integration-card { border-color: var(--color-integration); }
-        .integration-card h3 { color: var(--color-integration); }
-
-        .btn-group {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            font-family: var(--font-sans-serif);
-            padding: 0.6em 1.2em;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            color: white;
-        }
-
-        .btn-view { background-color: #343a40; }
-        .btn-listen { background-color: var(--color-integration); }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.15);
-        }
-        .btn:active {
-            transform: translateY(0);
-            filter: brightness(0.95);
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background-color: var(--color-card-bg);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 800px;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-        
-        .modal-close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .modal-close-btn:hover {
-            color: #333;
-        }
-
-        .modal-body {
-             max-height: 70vh;
-             overflow-y: auto;
-             font-size: 18px;
-             line-height: 2;
-        }
-        
-        .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 100px auto;
-        }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
-
-        .audio-player {
-            position: fixed;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 500px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: bottom 0.3s ease-in-out;
-            z-index: 1001;
-        }
-        .audio-player.show { bottom: 0; }
-        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
-        .audio-player-controls button:hover { color: #bdc3c7; }
-        #youtube-player-container { display: none; }
-
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--color-border);
-            color: #6c757d;
-        }
-
-        /* 간단한 탭 네비게이션 */
-        .simple-tabs {
-            position: sticky;
-            top: 0;
-            background: white;
-            border-bottom: 2px solid var(--color-border);
-            z-index: 100;
-            margin-bottom: 2rem;
-            padding: 1rem 0;
-        }
-
-        .tab-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-button {
-            background: none;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-muted);
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            min-width: 120px;
-        }
-
-        .tab-button:hover {
-            background: rgba(66, 133, 244, 0.1);
-            color: var(--color-book1);
-        }
-
-        .tab-button.active {
-            background: var(--color-book1);
-            color: white;
-            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 모바일 최적화 */
-        @media (max-width: 768px) {
-            .tab-buttons {
-                gap: 1rem;
-            }
-
-            .tab-button {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-                min-width: 100px;
-            }
-        }
-    </style>
+    <title>10월 8일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" id="main-container">
-        <header>
-            <h1>10월 8일</h1>
-            <p>왕의 타락과 그리스도의 겸손</p>
-        </header>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
-        <!-- 간단한 탭 네비게이션 -->
-        <div class="simple-tabs">
-            <div class="tab-buttons">
-                <button class="tab-button active" data-tab="bible">성경 본문</button>
-                <button class="tab-button" data-tab="meditation">묵상</button>
-                <button class="tab-button" data-tab="integration">통합 묵상</button>
-            </div>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>10월 8일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-book1" data-color="book1">열왕기상 11장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">빌립보서 2장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">에스겔 41장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">시편 92-93편</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+            </nav>
+
+            <main>
+                <div id="content-book1" class="tab-content active">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>열왕기상 11장: 지혜의 왕, 우상숭배로 타락하다</h3>
+                            <h4>상세 개요</h4>
+                            <p>이스라엘 역사상 가장 지혜롭고 부유했던 솔로몬 왕의 통치가 비극적인 종말로 치닫는 과정을 기록합니다. 솔로몬은 수많은 이방 여인을 아내와 첩으로 맞이했고, 노년에 이르러 그 여인들의 유혹에 넘어가 그들의 우상(아스다롯, 밀곰, 그모스, 몰렉 등)을 섬기는 산당을 짓고 함께 경배합니다. 이에 진노하신 하나님께서는 다윗과의 언약 때문에 솔로몬 시대에는 나라를 보존하시되, 그의 아들 대에 나라가 둘로 찢어질 것이라고 선포하십니다. 이 예언의 징조로 에돔 사람 하닷과 다메섹의 르손, 그리고 솔로몬의 신하 여로보암이 대적으로 일어나기 시작합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 인간의 전적 타락과 지혜의 한계:</strong> 솔로몬의 타락은 인간의 지혜가 얼마나 허무한지를 극명하게 보여줍니다. 하나님께 직접 지혜를 받았던 그조차도 정욕과 교만에 넘어져 우상숭배의 죄를 범했습니다. 이는 인간의 본성이 얼마나 깊이 부패했는지를 보여주는 '전적 타락' 교리의 명백한 증거입니다. <span class="scripture-quote">솔로몬이 마음을 돌려 이스라엘의 하나님 여호와를 떠나므로 여호와께서 그에게 진노하시니라</span>(9절). 구원은 인간의 지혜나 의지에 있지 않고, 오직 하나님의 주권적인 은혜와 붙드심에만 달려있음을 가르쳐줍니다.</p>
+                            <p><strong>2. 언약의 신실성과 공의의 심판:</strong> 하나님은 솔로몬의 죄에도 불구하고 <span class="scripture-quote">오직 내가 이 나라를 다 빼앗지 아니하고 내 종 다윗과 내가 택한 예루살렘을 위하여 한 지파를 네 아들에게 주리라</span>(13절)고 말씀하십니다. 이는 인간의 불순종에도 불구하고 당신의 '다윗 언약'을 신실하게 지키시는 하나님의 모습을 보여줍니다. 동시에 죄에 대해서는 나라를 분열시키는 것으로 반드시 심판하시는 하나님의 공의 또한 드러납니다. 은혜와 공의가 함께 가는 것, 이것이 하나님 통치의 핵심 원리이며, 이 원리는 십자가에서 가장 완전하게 성취되었습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_11_1KI_11.html" data-title="열왕기상 11장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="1KI_11" data-title="열왕기상 11장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>빌립보서 2장: 그리스도의 마음을 품으라 (케노시스 찬송)</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 빌립보 교회 성도들에게 겸손과 연합을 촉구하며, 그 최고의 모본으로 예수 그리스도의 자기를 비우심(케노시스)을 제시합니다. 5-11절의 '그리스도 찬송'은 이 장의 핵심으로, 근본 하나님의 본체이신 그분께서 스스로 종의 형체를 가져 사람이 되시고, 죽기까지 복종하심으로 십자가에 달리신 낮아지심의 길을 노래합니다. 이 순종의 결과로 하나님께서는 그를 지극히 높여 모든 이름 위에 뛰어난 이름을 주시고, 모든 존재가 그 앞에 무릎 꿇고 그를 '주'라 시인하게 하셨습니다. 바울은 이 마음을 품고 두렵고 떨림으로 구원을 이루며, 빛의 자녀로서 하나님을 기쁘시게 하는 삶을 살라고 권면합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 기독론의 핵심, 성육신과 자기 비하:</strong> <span class="scripture-quote">그는 근본 하나님의 본체시나 하나님과 동등됨을 취할 것으로 여기지 아니하시고 오히려 자기를 비워 종의 형체를 가지사 사람들과 같이 되셨고</span>(6-7절)라는 구절은 성육신 교리의 정수입니다. '자기를 비웠다'는 것은 신성을 버렸다는 의미가 아니라, 신성으로서 마땅히 누리실 영광과 권리를 스스로 제한하시고 인간의 비천한 모습으로 낮아지셨음을 의미합니다. 이 자발적인 겸손과 자기희생이야말로 하나님 나라의 통치 원리이며, 세상의 힘의 논리와 정반대되는 기독교 윤리의 심장입니다.</p>
+                            <p><strong>2. 낮아짐과 높아짐의 원리:</strong> 그리스도의 자기 비하(Humiliation)는 필연적으로 그의 높아지심(Exaltation)으로 이어집니다. 십자가의 순종은 부활과 승천, 그리고 만유의 주로 높임 받으시는 영광의 서곡이었습니다. <span class="scripture-quote">이러므로 하나님이 그를 지극히 높여...</span>(9절). 이는 성도의 삶에도 동일하게 적용되는 원리입니다. 우리가 그리스도를 따라 스스로를 낮추고 섬길 때, 하나님께서는 때가 되면 우리를 높이시고 영광스럽게 하실 것입니다. 참된 영광은 자기를 높이는 데 있지 않고, 그리스도를 본받아 자기를 낮추는 데 있습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_50_PHI_02.html" data-title="빌립보서 2장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PHI_2" data-title="빌립보서 2장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>에스겔 41장: 새 성전의 성소와 지성소</h3>
+                            <h4>상세 개요</h4>
+                            <p>에스겔 40장에 이어, 천사는 계속해서 새 성전의 내부를 측량합니다. 이번 장에서는 성전의 핵심 공간인 '성소'와 '지성소'의 크기와 구조를 상세하게 설명합니다. 성소의 벽은 온통 널판으로 덮여 있고, 그 위에는 두 얼굴을 가진 '그룹'과 '종려나무' 형상이 번갈아 새겨져 있습니다. 나무로 만든 제단이 성소 앞에 놓여 있고, 지성소로 들어가는 문과 성소 문에는 그룹과 종려나무가 새겨져 있습니다. 성전 벽과 문들은 모두 정교하고 질서정연하게 만들어졌습니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 에덴의 회복을 상징하는 성전:</strong> 성전 내부에 가득한 <span class="scripture-quote">그룹들과 종려나무</span>(18절) 장식은 매우 중요한 신학적 의미를 갖습니다. 그룹은 죄지은 인간이 들어갈 수 없도록 에덴 동산을 지키던 존재였고(창 3:24), 종려나무는 생명과 풍요를 상징합니다. 이제 성전 안에서 이 둘이 함께 새겨져 있다는 것은, 성전이 바로 하나님과의 관계가 회복되고 생명을 다시 누리게 되는 '회복된 에덴'임을 상징합니다. 이는 장차 그리스도를 통해 우리가 잃어버렸던 낙원을 회복하게 될 것을 보여주는 소망의 그림입니다.</p>
+                            <p><strong>2. 거룩함의 구별:</strong> 성소와 지성소, 그리고 그 사이의 공간들이 엄격하게 측량되고 구별되는 것은 하나님의 절대적인 거룩하심을 강조합니다. 죄인인 인간은 아무렇게나 하나님께 나아갈 수 없으며, 반드시 하나님께서 정하신 질서와 방법을 따라야 합니다. 성소 앞에 놓인 '나무 제단'을 천사가 <span class="scripture-quote">이는 여호와의 앞의 상이라</span>(22절)고 말한 것은, 하나님과의 교제가 희생 제사를 통한 중보 없이는 불가능함을 암시합니다. 이 모든 구별과 제사는 참된 대제사장이시며 희생제물이신 그리스도를 통해 단번에 완성되었습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_26_EZE_41.html" data-title="에스겔 41장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_41" data-title="에스겔 41장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>시편 92-93편: 창조주 하나님의 통치와 안식의 기쁨</h3>
+                            <h4>상세 개요</h4>
+                            <p>두 시편은 모두 여호와의 왕 되심과 그의 통치를 찬양합니다. 시편 92편은 "안식일에 부르는 노래"라는 표제처럼, 하나님의 일(창조와 구원)을 묵상하며 아침에는 주의 인자하심을, 밤에는 주의 성실하심을 찬양하는 것이 얼마나 선한 일인지를 노래합니다. 악인은 풀처럼 잠시 번성하는 듯 보이나 결국 영원히 멸망할 것이며, 의인은 종려나무와 백향목처럼 늙어서도 번성하며 여호와의 정직하심을 선포할 것입니다. 시편 93편은 "여호와께서 다스리시니"라는 장엄한 선포로 시작하며, 혼돈의 물결(큰 물 소리)보다 더 위대하신 하나님의 권능과 영원하고 견고한 그의 보좌를 찬양합니다. 주의 집, 즉 성전의 거룩함이 영원할 것을 노래하며 마칩니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 창조 신앙과 안식:</strong> 시편 92편은 안식일의 참된 의미가 하나님의 창조와 섭리를 묵상하며 기뻐하는 데 있음을 보여줍니다. <span class="scripture-quote">여호와여 주께서 행하신 일로 나를 기쁘게 하셨으니 주의 손이 행하신 일로 말미암아 내가 높이 외치리이다</span>(4절). 악인의 번성과 의인의 고난이라는 현실의 혼란 속에서도, 창조주 하나님의 궁극적인 선하심과 공의로운 통치를 신뢰할 때 우리는 참된 안식을 누릴 수 있습니다. 이 안식은 신약에서 그리스도께서 주시는 영혼의 참된 쉼으로 완성됩니다.</p>
+                            <p><strong>2. 혼돈을 다스리시는 왕, 여호와:</strong> 시편 93편은 고대 근동의 창조 신화에서 혼돈의 상징으로 나타나는 '바다'와 '큰 물'의 이미지를 사용합니다. 그러나 세상의 신화와 달리, 여호와 하나님은 그 어떤 혼돈의 세력보다 압도적으로 강하시며, 이미 태초부터 흔들리지 않는 보좌에 앉아 모든 것을 다스리시는 왕이십니다. <span class="scripture-quote">여호와께서 다스리시니 스스로 권위를 입으셨도다</span>(1절). 이 선포는 세상의 모든 불안과 혼란 속에서도 성도가 누릴 수 있는 궁극적인 평안과 안정의 근거가 됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_92.html" data-title="시편 92-93편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_92" data-title="시편 92-93편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>통합 묵상: 두 왕, 두 집, 두 마음</h3>
+                            <h4>관통하는 주제</h4>
+                            <p>오늘의 본문들은 '참된 왕'과 '참된 성전'이 무엇인지를 두 가지 길의 선명한 대조를 통해 보여줍니다. 시편 92-93편은 "여호와께서 다스리시니"라고 선포하며, 모든 혼돈을 잠재우고 의인을 번성케 하시는 창조주 하나님이야말로 유일하고 참된 왕이심을 노래합니다. 빌립보서 2장은 이 왕이 어떻게 우리에게 오셨는지를 보여줍니다. 그분은 스스로를 비우고 죽기까지 낮아지심으로 만유의 주(主)가 되신 예수 그리스도이십니다. 반면, 열왕기상 11장은 하나님이 주신 지혜를 가지고도 우상 앞에 무릎 꿇고 나라를 분열로 이끈 솔로몬의 실패를 통해, 이 땅의 왕이 얼마나 불완전한지를 폭로합니다. 또한 에스겔 41장은 죄로 인해 무너진 하나님의 집(성전)이 장차 '회복된 에덴'의 모습으로 얼마나 영광스럽게 재건될 것인지를 환상으로 보여줍니다. 결국 우리는 질문 앞에 섭니다. 솔로몬처럼 분열된 마음으로 멸망의 길을 갈 것인가, 아니면 그리스도처럼 겸손한 마음으로 하나님 나라의 영원한 집에 거할 것인가?</p>
+                            <h4>핵심 개념 및 상호 참조</h4>
+                            <p><strong>왕권의 대조:</strong> 시편 93편의 '권위의 옷을 입으신 여호와'와 빌립보서 2장의 '종의 형체를 가지신 그리스도'는 역설적으로 연결됩니다. 그리스도의 낮아지심은 그가 곧 만물을 다스리시는 여호와이심을 증명하는 가장 강력한 행위였습니다. 이 참된 왕의 모습은 자기 지혜를 믿다가 우상에게 마음을 빼앗긴 솔로몬 왕(왕상 11)의 모습과 극명하게 대조됩니다.</p>
+                            <p><strong>성전의 모형과 실체:</strong> 에스겔 41장의 '새 성전' 환상은 그룹과 종려나무를 통해 하나님과의 교제가 회복된 '에덴'을 상징합니다. 이는 시편 93편에서 노래하는 '영원히 거룩한 주의 집'에 대한 소망의 구체적인 그림입니다. 이 모든 모형과 그림자는 참 성전이신 예수 그리스도 안에서 성취되었으며, 우리는 그분을 통해 회복된 에덴, 즉 하나님과의 교제 안으로 들어가는 안식을 누리게 됩니다(시 92).</p>
+                            <h4>삶으로의 적용</h4>
+                            <ul>
+                                <li><strong>지(知):</strong> 나는 내 삶의 혼돈과 어려움 속에서도, 여전히 하나님께서 보좌에 앉아 모든 것을 다스리고 계심을(시 93) 신뢰하고 있습니까? 또한 나의 구원과 신앙생활의 모본이 솔로몬의 지혜가 아닌, 그리스도의 자기 비움과 겸손(빌 2)에 있음을 분명히 알고 있습니까?</li>
+                                <li><strong>정(情):</strong> 솔로몬처럼 내 마음을 하나님에게서 멀어지게 하는 이방 여인, 즉 세상의 우상(돈, 명예, 쾌락 등)은 무엇입니까? 그것들 앞에서 내 마음이 분열되는 것을 애통해하며, 오직 그리스도 한 분만을 주로 시인하는 기쁨을 회복하기를 갈망합시다.</li>
+                                <li><strong>의(意):</strong> 그리스도의 마음을 품기 위해, 오늘 내가 구체적으로 나를 비우고 다른 사람을 나보다 낫게 여기며 섬겨야 할 영역은 어디입니까? 또한 시편 92편의 의인처럼, 늙어서도 풍성한 삶의 열매를 맺기 위해 오늘 내가 심어야 할 말씀과 기도의 씨앗은 무엇인지 결단하고 실천합시다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
-
-        <main>
-            <!-- 성경 본문 탭 -->
-            <div class="tab-content active" id="bible">
-            <div class="chapter-card card-book1">
-                <h3>열왕기상 11장: 솔로몬의 타락과 왕국의 분열 예고</h3>
-                <h4>상세 개요</h4>
-                <p>열왕기상 11장은 솔로몬의 영광스러운 통치가 어떻게 비극적으로 끝나는지를 보여줍니다. 솔로몬은 바로의 딸 외에 수많은 이방 여인들을 사랑하여 후궁과 첩으로 삼았고, 그 수가 천 명에 달했습니다. 늙었을 때 이 여인들이 그의 마음을 돌려 다른 신들을 따르게 하자, 그는 시돈 사람의 여신 아스다롯과 암몬 사람의 가증한 밀곰을 따랐습니다. 심지어 예루살렘 앞 산에 그모스와 몰록을 위한 산당을 짓는 등, 그의 아버지 다윗과 달리 여호와 앞에서 온전하게 행하지 않았습니다. 이에 하나님께서 진노하사, 이 나라를 반드시 빼앗아 그의 신하에게 줄 것이라고 선언하십니다. 다만 다윗을 위하여 솔로몬의 생전에는 이 일을 행하지 않으시고, 나라 전체를 빼앗지는 않고 한 지파를 그의 아들에게 주겠다고 말씀하십니다. 이후 하나님께서는 에돔 사람 하닷과 다메섹의 르손, 그리고 그의 신하인 느밧의 아들 여로보암을 대적으로 일으키시며 왕국의 분열이 임박했음을 보여줍니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>타락의 점진성과 마음의 문제:</strong> 솔로몬의 타락은 하루아침에 이루어진 것이 아닙니다. 그것은 "솔로몬이 바로의 딸 외에 또 이방의 많은 여인을 사랑하였으니"(1절)라는 구절에서 시작됩니다. 하나님께서 금하신 이방 여인과의 결혼은 단순한 개인의 애정 문제가 아니라, 언약 백성의 거룩함을 파괴하는 심각한 죄였습니다. 이 작은 불순종이 씨앗이 되어, "그의 여인들이 그의 마음을 돌려"(4절) 우상숭배라는 끔찍한 열매를 맺게 됩니다. 이는 타락이 외부적인 행위 이전에 '마음'의 문제임을 명확히 보여줍니다. 그의 마음이 하나님에게서 떠나 여인들에게로 향했을 때, 그의 신앙은 뿌리째 흔들렸습니다. 가장 지혜로웠던 왕조차도 마음을 지키지 못했을 때 어떻게 무너질 수 있는지를 보여주는 비극적인 교훈입니다.</li>
-                    <li><strong>하나님의 언약적 신실함 속의 공의로운 심판:</strong> 하나님께서는 솔로몬의 죄에 진노하시지만, 그를 즉각적으로 폐위하거나 나라 전체를 빼앗지는 않으십니다. "오직 내가 내 종 다윗과... 예루살렘을 위하여 한 지파를 네 아들에게 주리라"(13, 32절). 이는 하나님의 심판 속에서도 다윗과 맺으신 언약을 신실하게 지키시는 하나님의 성품을 보여줍니다. 그러나 동시에, 죄에 대해서는 반드시 징계하심으로써 당신의 공의를 드러내십니다. 이처럼 하나님의 통치 안에서 은혜와 공의는 항상 함께 갑니다. 솔로몬 왕국의 분열은 인간의 죄에 대한 하나님의 공의로운 심판인 동시에, 남은 유다 지파를 통해 다윗 언약을 이어가시려는 하나님의 신실하신 은혜의 증표이기도 합니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_11_1KI_11.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="1KI_11" data-title="열왕기상 11장">성경 듣기</button>
-                </div>
-            </div>
-
-            <div class="chapter-card card-book2">
-                <h3>빌립보서 2장: 그리스도의 마음을 품으라</h3>
-                <h4>상세 개요</h4>
-                <p>빌립보서 2장은 교회의 연합을 위한 바울의 간절한 권면과 그 핵심 원리를 제시합니다. 그는 빌립보 성도들에게 "마음을 같이하여 같은 사랑을 가지고 뜻을 합하며 한마음을 품어"(2절) 자신의 기쁨을 충만하게 해달라고 호소합니다. 이 연합을 이루는 구체적인 방법은 "오직 겸손한 마음으로 각각 자기보다 남을 낫게 여기고 각각 자기 일을 돌볼뿐더러 또한 각각 다른 사람들의 일을 돌보아"(3-4절) 주는 것입니다. 이 겸손의 궁극적인 모본으로 바울은 '그리스도의 노래'(6-11절)로 알려진 장엄한 찬송을 제시합니다. 근본 하나님의 본체이신 그리스도께서 자기를 비워 종의 형체를 가지시고, 죽기까지 복종하심으로 낮아지셨고, 이로 인해 하나님께서 그를 지극히 높여 모든 이름 위에 뛰어난 이름을 주셨다는 내용입니다. 바울은 이 그리스도의 마음을 품고, 두렵고 떨림으로 구원을 이루며, 모든 일을 원망과 시비가 없이 하여 세상에서 빛들로 나타내라고 권면합니다. 이어서 자신의 신실한 동역자인 디모데와 에바브로디도를 추천하며 문안합니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>자기 비움(케노시스)과 높아지심(고양):</strong> 6-11절의 '그리스도 찬송'은 기독론의 핵심을 담고 있습니다. "그는 근본 하나님의 본체시나 하나님과 동등됨을 취할 것으로 여기지 아니하시고 오히려 자기를 비워(ἐκένωσεν, 에케노센) 종의 형체를 가지사..."(6-7절). '자기를 비웠다'는 것은 신성을 버렸다는 의미가 아니라, 신성으로서 마땅히 누릴 영광과 권리를 스스로 포기하고 인간의 비천한 모습으로 낮아지셨음을 의미합니다. 이 자기 낮춤(비하)의 절정은 십자가의 죽음이었습니다. 이 완전한 순종과 겸손 때문에 "하나님이 그를 지극히 높여"(9절) 모든 피조물이 그 앞에 무릎 꿇게 하셨습니다(고양). 이는 낮아지는 자가 높아진다는 하나님 나라의 역설적인 원리를 가장 완벽하게 보여주는 사건이며, 성도가 따라야 할 유일한 삶의 모델입니다.</li>
-                    <li><strong>구원의 성취(성화)와 하나님의 주권:</strong> 바울은 "항상 복종하여 두렵고 떨림으로 너희 구원을 이루라"(12절)고 명령합니다. 이는 행위 구원을 가르치는 것이 아닙니다. 바로 다음 구절에서 그 이유를 "너희 안에서 행하시는 이는 하나님이시니 자기의 기쁘신 뜻을 위하여 너희에게 소원을 두고 행하게 하시나니"(13절)라고 설명합니다. 이는 개혁주의 성화론의 핵심 원리인 '하나님의 주권과 인간의 책임'의 완벽한 조화를 보여줍니다. 구원을 '이루는' 책임은 우리에게 있지만, 그 구원을 이룰 수 있는 소원과 능력 자체를 주시는 분은 우리 안에서 일하시는 하나님이십니다. 그러므로 우리의 성화는 전적인 하나님의 은혜에 의지하면서 동시에 치열한 순종의 노력을 다해야 하는 신비로운 과정입니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="NT/NT_50_PHI_02.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="PHI_2" data-title="빌립보서 2장">성경 듣기</button>
-                </div>
-            </div>
-
-            <div class="chapter-card card-book3">
-                <h3>에스겔 41장: 새 성전의 성소와 지성소</h3>
-                <h4>상세 개요</h4>
-                <p>에스겔 41장은 40장에 이어, 환상 속의 안내자가 새 성전의 내부 구조를 측량하는 모습을 상세히 기록합니다. 이 장의 초점은 성전의 핵심 공간인 성소(성전)와 지성소입니다. 안내자는 먼저 성소의 현관과 벽 두께, 내부 너비 등을 측량합니다. 성소 안으로 들어가 지성소의 너비와 길이를 측량하는데, 그곳은 길이와 너비가 각각 스무 규빗인 정사각형 모양입니다. 안내자는 에스겔에게 "이는 지성소니라"(4절)고 알려줍니다. 이어서 성전 벽과 그 주위를 둘러싼 3층 구조의 골방들, 그리고 성전과 지성소의 내부 장식에 대한 설명이 이어집니다. 성전 안벽과 문에는 나무로 만든 그룹들과 종려나무 형상이 교대로 새겨져 있습니다. 성소 앞에는 나무로 만든 제단(향단)이 놓여 있습니다. 이 모든 상세한 묘사는 새 성전의 거룩함과 영광, 그리고 그곳에서 드려질 예배의 질서를 보여줍니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>그룹과 종려나무: 에덴의 회복과 생명에의 접근:</strong> 성전 내벽을 가득 채운 그룹(Cherubim)과 종려나무 장식은 중요한 신학적 의미를 가집니다. 그룹은 에덴 동산의 입구를 지키며 죄인이 생명나무에 접근하는 것을 막았던 존재입니다(창 3:24). 종려나무는 생명과 승리를 상징합니다. 이제 새 성전 안에서 그룹과 종려나무가 함께 장식되어 있다는 것은, 이 성전을 통해 하나님께서 에덴의 교제를 회복시키시고, 죄인들이 다시금 생명에 나아갈 수 있는 길을 열어주실 것을 상징합니다. 이는 구약의 성전이 단순한 건물이 아니라, 장차 그리스도의 십자가 사역을 통해 이루어질 하나님과의 완전한 화목과 생명의 회복을 예표하는 그림 언어임을 보여줍니다.</li>
-                    <li><strong>점진적으로 심화되는 거룩함:</strong> 바깥뜰에서 안뜰로, 그리고 성소에서 지성소로 들어가는 구조는 하나님의 거룩함이 얼마나 지엄한지를 공간적으로 보여줍니다. 특히 길이와 너비와 높이가 같은 정육면체 모양의 지성소는 하나님의 완전한 임재를 상징하는 공간입니다. 이처럼 구별된 공간 구조는 죄인인 인간이 거룩하신 하나님께 나아가기 위해서는 반드시 정결케 되는 과정이 필요함을 가르칩니다. 구약 시대에는 오직 대제사장만이 일 년에 한 번 들어갈 수 있었던 이 지성소의 휘장은, 예수 그리스도께서 십자가에서 죽으실 때 위로부터 아래로 찢어졌습니다(마 27:51). 이는 그리스도의 피를 의지하는 모든 믿는 자가 이제 담대히 하나님의 보좌 앞에 직접 나아갈 수 있게 되었음을 선포하는 위대한 사건입니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_26_EZE_41.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="EZE_41" data-title="에스겔 41장">성경 듣기</button>
-                </div>
-            </div>
-
-            <div class="chapter-card card-book4">
-                <h3>시편 92편 & 93편: 하나님의 통치와 성실하심 찬양</h3>
-                <h4>상세 개요</h4>
-                <p><b>시편 92편</b>은 안식일의 찬송시로, 아침에는 주의 인자하심을, 밤마다 주의 성실하심을 선포하는 것이 얼마나 선한 일인지를 노래합니다. 시인은 악인이 풀 같이 번성하고 주를 대적하는 자들이 흩어지는 것을 보며, 의인은 종려나무 같이 번성하고 레바논의 백향목 같이 성장할 것이라고 노래합니다. 그는 여호와의 집에 심긴 의인이 늙어서도 여전히 결실하며 진액이 풍족하고 빛이 청청할 것이라고 선포하며, "여호와는 나의 반석이시라 그에게는 불의가 없도다"라고 찬양합니다.<br><b>시편 93편</b>은 "여호와께서 다스리시니"(The LORD reigns)라는 장엄한 선포로 시작하는 '여호와의 즉위 시'입니다. 하나님은 능력과 존엄의 옷을 입으셨으며, 세계를 견고히 세우셨기에 흔들리지 않습니다. 큰 물 소리와 바다의 큰 파도보다 더 위대하신 하나님의 통치는 영원부터 견고히 서 있습니다. 시는 "여호와여 주의 증거들이 매우 확실하고 거룩함이 주의 집에 합당하니 여호와는 영원무궁하시리이다"라는 고백으로 하나님의 영원한 통치와 거룩함을 찬양하며 끝을 맺습니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>창조와 구속에 나타난 하나님의 통치 (시 93편):</strong> "여호와께서 다스리시니"라는 선언은 시편의 핵심적인 신앙고백입니다. 하나님의 통치는 두 가지 차원에서 나타납니다. 첫째는 창조주로서의 통치입니다. "세계도 견고히 서서 흔들리지 아니하는도다"(1절). 혼돈을 상징하는 거대한 파도와 물 소리보다 더 위대하신 하나님께서 창조 세계를 질서 있게 다스리고 계십니다. 둘째는 구속주로서의 통치입니다. "주의 증거들이 매우 확실하고"(5절). 여기서 '증거들'은 율법과 언약의 말씀을 의미하며, 하나님께서 당신의 백성을 말씀으로 다스리시고 인도하심을 보여줍니다. 이 시편은 자연 세계와 언약 공동체 모두가 하나님의 주권적인 통치 아래 있음을 선포하며, 성도에게 세상의 혼돈 속에서도 흔들리지 않는 견고한 신앙의 기초를 제공합니다.</li>
-                    <li><strong>의인과 악인의 궁극적 운명 (시 92편):</strong> 안식일의 시편인 92편은 하나님의 창조와 구원 사역을 한 주간 묵상한 후, 그분의 공의로운 통치에 대한 확신을 노래합니다. 세상에서는 악인이 풀처럼 잠시 번성하는 것처럼 보이지만, 그들의 결국은 '영원히 멸망하는 것'(7절)입니다. 반면, 여호와의 집에 뿌리내린 의인은 종려나무와 백향목처럼 시간이 갈수록 더욱 견고해지고 풍성한 열매를 맺습니다. "늙어도 여전히 결실하며"(14절). 이는 현재의 상황으로 모든 것을 판단하는 어리석음을 경계하고, 하나님의 공의로운 심판과 성실하신 보상을 신뢰하며 인내하는 믿음이 참된 지혜임을 가르칩니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_092.html">시편 92편 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_92" data-title="시편 92편">시편 92편 듣기</button>
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_093.html">시편 93편 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_93" data-title="시편 93편">시편 93편 듣기</button>
-                </div>
-            </div>
-
-            </div>
-
-            <!-- 묵상 탭 -->
-            <div class="tab-content" id="meditation">
-                <div class="chapter-card card-book2">
-                    <h3>오늘의 핵심 묵상</h3>
-                    <h4>참된 왕의 길과 거짓 왕의 길</h4>
-                    <p><strong>열왕기상 11장</strong>에서 솔로몬의 타락은 자신의 마음을 지키지 못했기 때문입니다. 반면 <strong>빌립보서 2장</strong>의 그리스도는 완전한 순종의 마음으로 자기를 낮추셨습니다. 이는 진정한 지도자의 길이 자기 높임이 아닌 자기 비움임을 보여줍니다.</p>
-
-                    <h4>영원한 왕의 통치와 거룩한 성전</h4>
-                    <p><strong>시편 92-93편</strong>이 노래하는 여호와의 영원한 통치는 <strong>에스겔 41장</strong>의 새 성전에서 구체적으로 실현됩니다. 하나님의 완전한 질서와 거룩함이 회복될 그 처소에서, 우리는 참된 평안과 예배를 드릴 수 있습니다.</p>
-
-                    <h4>적용을 위한 질문</h4>
-                    <ol>
-                        <li>나의 마음이 하나님 한 분께로만 향하고 있습니까, 아니면 여러 우상들로 나뉘어져 있습니까?</li>
-                        <li>어려운 상황에서도 자기를 낮추고 섬기는 그리스도의 마음을 실천하고 있습니까?</li>
-                        <li>하나님의 영원한 통치를 신뢰하며 현재의 혼란 속에서도 평안을 누리고 있습니까?</li>
-                    </ol>
-                </div>
-            </div>
-
-            <!-- 통합 묵상 탭 -->
-            <div class="tab-content" id="integration">
-            <div class="integration-card">
-                <h2>통합 묵상: 왕의 타락과 참된 왕의 겸손</h2>
-                <h3>관통하는 주제 논증: 자기 높임의 길 vs 자기 비움의 길</h3>
-                <p>오늘의 네 본문은 '왕의 길'이라는 주제를 중심으로 극명한 대조를 이룹니다. 열왕기상 11장은 인간 왕의 길을 보여줍니다. 하나님의 지혜와 축복을 받았던 솔로몬은 결국 자신의 마음을 지키지 못하고, 수많은 아내를 통해 자기 왕국의 영광을 높이려다 우상숭배에 빠져 하나님을 떠나는 '자기 높임의 길'을 걷습니다. 그 결과는 하나님의 진노와 왕국의 분열이라는 비참한 심판입니다. 시편 92편과 93편은 이와 대조적으로 "여호와께서 다스리시니"라고 선포하며, 흔들리지 않는 영원한 왕이신 하나님의 통치를 노래합니다. 세상 왕들이 교만으로 스러져갈 때, 오직 하나님의 나라만이 영원히 견고합니다. 그렇다면 이 영원한 하나님의 나라에 속하는 왕의 길은 무엇인가? 빌립보서 2장은 그 유일한 길을 '참된 왕'이신 예수 그리스도를 통해 보여줍니다. 그분은 근본 하나님의 본체시나 스스로를 높이지 않으시고, 오히려 '자기를 비워' 종의 모습으로 죽기까지 낮아지시는 '자기 비움의 길'을 걸으셨습니다. 이 길의 끝은 멸망이 아니라, 하나님께서 그를 모든 이름 위에 높이시는 영광이었습니다. 마지막으로 에스겔 41장은 이 참된 왕이 다스리실 거룩한 성전의 모습을 보여주며, 그의 나라의 영광을 예표합니다. 결국 오늘의 본문들은 솔로몬으로 대표되는 인간 왕의 자기 높임은 실패로 끝나지만, 그리스도의 자기 비움의 길이야말로 참된 영광에 이르는 유일한 길임을 강력하게 증거합니다.</p>
-
-                <h3>입체적 핵심 단어 연구: 마음 (לֵבָב, 레바브)</h3>
-                <p>열왕기상 11장 4절, "솔로몬의 마음이 그의 아버지 다윗의 마음과 같지 아니하여 그의 하나님 여호와 앞에 온전하지 못하였으니"에서 사용된 히브리어 '레바브'(לֵבָב)는 단순히 감정을 의미하는 단어가 아닙니다. 구약성경에서 '마음'(레브 또는 레바브)은 인간 존재의 가장 깊은 중심부로서, 지성, 감정, 의지, 양심을 모두 포괄하는 인격의 좌소입니다. 생각하고(지성), 느끼고(감정), 결단하는(의지) 모든 활동이 바로 이 '마음'에서 비롯됩니다. 솔로몬의 타락의 근본 원인은 그의 마음이 '온전하지 못했다'는 데 있습니다. 그의 마음이 하나님 한 분에게로 온전히 향하지 않고, 여러 이방 여인들과 그들의 신들에게로 '나누어졌기' 때문입니다. "그의 여인들이 왕의 마음을 돌렸다"는 표현은 그의 의지적 결단과 지성적 판단의 중심이 하나님에게서 떠났음을 의미합니다. 이는 신앙이 단순히 외부적인 종교 행위의 문제가 아니라, 우리 존재의 중심인 마음을 누구에게, 무엇에게 온전히 드리는가의 문제임을 보여주는 중요한 통찰입니다. 새 언약의 핵심이 '새 마음'을 주시는 것인 이유도 바로 여기에 있습니다.</p>
-                
-                <h3>심층 상호 참조</h3>
-                <ul>
-                    <li><strong>열왕기상 11:4, 9 & 빌립보서 2:5-8:</strong> 솔로몬은 "그의 마음을 돌려 이스라엘의 하나님 여호와를 떠나므로 여호와께서 그에게 진노하시니라"고 기록됩니다. 그는 자기 영광과 쾌락을 위해 하나님을 떠나는 '자기 높임'의 길을 택했습니다. 이와 정반대의 길을 빌립보서는 보여줍니다. "너희 안에 이 마음을 품으라 곧 그리스도 예수의 마음이니 그는... 오히려 자기를 비워 종의 형체를 가지사... 자기를 낮추시고 죽기까지 복종하셨으니". 솔로몬이 마음을 돌려 하나님을 떠났지만, 그리스도께서는 마음을 정하여 하나님께 죽기까지 복종하셨습니다. 인류 최고의 지혜를 가졌던 왕의 실패와, 참된 왕이신 그리스도의 완전한 순종이 극명하게 대조를 이룹니다.</li>
-                    <li><strong>시편 93:1, 5 & 에스겔 41:4:</strong> 시편 93편은 "여호와께서 다스리시니... 거룩함이 주의 집에 합당하니"라고 선포하며 하나님의 통치와 거룩함을 연결합니다. 에스겔 41장은 이 하나님의 거룩함이 어떻게 공간적으로 구현되는지를 보여줍니다. 성전의 가장 깊은 곳, 지성소를 측량한 후 안내자는 "이는 지성소니라"고 말합니다. '지극히 거룩한 곳'이라는 의미의 이 공간은 하나님의 통치가 임하는 중심이며, 그분의 절대적인 거룩함을 상징합니다. 시편의 선포가 에스겔의 환상 속에서 구체적인 그림으로 나타나는 것입니다.</li>
-                </ul>
-
-                <h3>적용을 위한 성찰 질문</h3>
-                <ol>
-                    <li>솔로몬은 하나님의 큰 축복을 받았음에도 불구하고, 마음이 나뉘어 하나님을 떠났습니다. 내 삶에서 나의 마음을 하나님에게서 멀어지게 하고, 세상의 다른 것들을 사랑하게 만드는 '이방 여인'과 같은 존재는 무엇입니까? (성공, 인정, 쾌락 등)</li>
-                    <li>빌립보서 2장은 '자기보다 남을 낫게 여기는' 그리스도의 겸손한 마음을 품으라고 권면합니다. 최근 내가 속한 공동체(가정, 교회, 직장)에서 나의 이익이나 주장을 내세우기 위해 다른 사람과 다투거나 불편한 관계를 만든 적은 없습니까? 어떻게 그리스도의 마음으로 그 관계를 회복할 수 있을까요?</li>
-                    <li>에스겔이 본 성전은 완벽한 대칭과 질서를 이루고 있었습니다. 나의 신앙생활은 하나님의 질서와 거룩함을 반영하고 있습니까, 아니면 나의 기분과 상황에 따라 흔들리는 무질서한 모습입니까?</li>
-                    <li>시편 93편은 세상이 아무리 혼란스러워 보여도 "여호와께서 다스리시니"라고 선포합니다. 현재 나를 불안하게 하고 흔드는 '큰 파도'와 같은 문제는 무엇입니까? 그 문제보다 더 크신 하나님의 주권적인 통치를 신뢰하기 위해 오늘 무엇을 결단해야 할까요?</li>
-                </ol>
-            </div>
-            </div>
-        </main>
-
-        <footer>
-            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
-        </footer>
     </div>
 
-    <div id="bible-modal" class="modal">
+    <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
-            <span class="modal-close-btn">&times;</span>
-            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
+    <div class="floating-nav" id="floating-nav">
+         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-    <div id="audio-player" class="audio-player">
-        <div class="audio-player-info" id="player-info"></div>
-        <div class="audio-player-controls">
-            <button id="play-pause-btn">▶</button>
-            <button id="close-player-btn">✖</button>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                 <button id="close-player-btn" title="닫기">&times;</button>
+            </div>
         </div>
     </div>
-    <div id="youtube-player-container"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainContainer = document.getElementById('main-container');
-            const bibleModal = document.getElementById('bible-modal');
-            const modalBody = document.getElementById('modal-body-content');
-            const closeModalBtn = document.querySelector('.modal-close-btn');
-            const audioPlayerBar = document.getElementById('audio-player');
-            const playerInfo = document.getElementById('player-info');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const closePlayerBtn = document.getElementById('close-player-btn');
-            
-            let ytPlayer;
-            let audioLinks = new Map();
-            let isPlayerReady = false;
-
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-            window.onYouTubeIframeAPIReady = function() {
-                ytPlayer = new YT.Player('youtube-player-container', {
-                    height: '0',
-                    width: '0',
-                    events: {
-                        'onReady': () => { isPlayerReady = true; },
-                        'onStateChange': (event) => {
-                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
-                        }
-                    }
-                });
-            }
-
-            async function loadAudioLinks() {
-                try {
-                    const response = await fetch('../address/mcbible.txt');
-                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
-                    const text = await response.text();
-                    text.split('\n').forEach(line => {
-                        if (line.trim() !== '') {
-                            const parts = line.split(/\s+/);
-                            const fullKey = parts[0];
-                            const url = parts[1];
-                            const keyParts = fullKey.split('_'); 
-                            
-                            if (keyParts.length >= 3) {
-                                const book = keyParts[2];
-                                const chapter = parseInt(keyParts.at(-1), 10);
-                                const shortKey = `${book}_${chapter}`;
-                                audioLinks.set(shortKey, url);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('오디오 링크 로딩 오류:', error);
-                }
-            }
-            
-            function getYouTubeID(url) {
-                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                const match = url.match(regex);
-                return match ? match[1] : null;
-            }
-
-            mainContainer.addEventListener('click', async (e) => {
-                const target = e.target.closest('.btn');
-                if (!target) return;
-
-                if (target.classList.contains('btn-view')) {
-                    const path = target.dataset.path;
-                    bibleModal.style.display = 'block';
-                    modalBody.innerHTML = '<div class="spinner"></div>';
-                    try {
-                        const response = await fetch(`../bible_html/${path}`);
-                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
-                        const html = await response.text();
-                        modalBody.innerHTML = html;
-                    } catch (error) {
-                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
-                    }
-                }
-                
-                if (target.classList.contains('btn-listen')) {
-                    if (!isPlayerReady) {
-                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
-                        return;
-                    }
-                    if (audioLinks.size === 0) {
-                        await loadAudioLinks(); 
-                         if (audioLinks.size === 0) {
-                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
-                            return;
-                        }
-                    }
-                    const key = target.dataset.key;
-                    const title = target.dataset.title;
-                    const url = audioLinks.get(key);
-
-                    if (url) {
-                        const videoId = getYouTubeID(url);
-                        if (videoId) {
-                            ytPlayer.loadVideoById(videoId);
-                            playerInfo.textContent = `재생중: ${title}`;
-                            audioPlayerBar.classList.add('show');
-                        } else {
-                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
-                        }
-                    } else {
-                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
-                    }
-                }
-            });
-
-            function closeModal() {
-                bibleModal.style.display = 'none';
-                modalBody.innerHTML = '';
-            }
-
-            closeModalBtn.addEventListener('click', closeModal);
-            bibleModal.addEventListener('click', (e) => {
-                if (e.target === bibleModal) {
-                    closeModal();
-                }
-            });
-
-            playPauseBtn.addEventListener('click', () => {
-                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
-                const playerState = ytPlayer.getPlayerState();
-                if (playerState === YT.PlayerState.PLAYING) {
-                    ytPlayer.pauseVideo();
-                } else {
-                    ytPlayer.playVideo();
-                }
-            });
-
-            closePlayerBtn.addEventListener('click', () => {
-                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
-                    ytPlayer.stopVideo();
-                }
-                audioPlayerBar.classList.remove('show');
-            });
-            
-            loadAudioLinks();
-
-            // 간단한 탭 기능
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetTab = button.dataset.tab;
-
-                    // 모든 버튼과 콘텐츠 비활성화
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-
-                    // 선택된 버튼과 콘텐츠 활성화
-                    button.classList.add('active');
-                    document.getElementById(targetTab).classList.add('active');
-                });
-            });
-        });
-    </script>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
