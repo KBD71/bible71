@@ -3,510 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10월 6일 - 맥체인 성경읽기</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
-
-        :root {
-            --font-serif: 'KoPub Batang', serif;
-            --font-sans-serif: 'Pretendard', sans-serif;
-            
-            --color-text: #343a40;
-            --color-background: #f8f9fa;
-            --color-card-bg: #ffffff;
-            --color-border: #dee2e6;
-            --color-muted: #868e96;
-
-            --color-book1: #4285F4;
-            --color-book2: #DB4437;
-            --color-book3: #c89200;
-            --color-book4: #0F9D58;
-            --color-integration: #5f6368;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-serif);
-            font-size: 17px;
-            line-height: 1.8;
-            color: var(--color-text);
-            background-color: var(--color-background);
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1280px;
-        }
-
-        header, main {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-family: var(--font-sans-serif);
-            font-size: clamp(2.2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin: 0.5em 0;
-            color: #212529;
-        }
-        
-        h3 {
-            font-family: var(--font-sans-serif);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        h4 {
-            font-family: var(--font-sans-serif);
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--color-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-top: 0;
-            margin-bottom: 1.5em;
-        }
-        p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .chapter-card, .integration-card {
-            background-color: var(--color-card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 3.5rem;
-            padding: 2rem 2.5rem;
-            border-left: 8px solid;
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-card:hover, .integration-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .card-book1 { border-color: var(--color-book1); }
-        .card-book1 h3 { color: var(--color-book1); }
-        .card-book2 { border-color: var(--color-book2); }
-        .card-book2 h3 { color: var(--color-book2); }
-        .card-book3 { border-color: var(--color-book3); }
-        .card-book3 h3 { color: var(--color-book3); }
-        .card-book4 { border-color: var(--color-book4); }
-        .card-book4 h3 { color: var(--color-book4); }
-        .integration-card { border-color: var(--color-integration); }
-        .integration-card h3 { color: var(--color-integration); }
-
-        .btn-group {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            font-family: var(--font-sans-serif);
-            padding: 0.6em 1.2em;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            color: white;
-        }
-
-        .btn-view { background-color: #343a40; }
-        .btn-listen { background-color: var(--color-integration); }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.15);
-        }
-        .btn:active {
-            transform: translateY(0);
-            filter: brightness(0.95);
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background-color: var(--color-card-bg);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 800px;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-        
-        .modal-close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .modal-close-btn:hover {
-            color: #333;
-        }
-
-        .modal-body {
-             max-height: 70vh;
-             overflow-y: auto;
-             font-size: 18px;
-             line-height: 2;
-        }
-        
-        .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 100px auto;
-        }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
-
-        .audio-player {
-            position: fixed;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 500px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: bottom 0.3s ease-in-out;
-            z-index: 1001;
-        }
-        .audio-player.show { bottom: 0; }
-        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
-        .audio-player-controls button:hover { color: #bdc3c7; }
-        #youtube-player-container { display: none; }
-
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--color-border);
-            color: #6c757d;
-        }
-    </style>
+    <title>10월 6일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" id="main-container">
-        <header>
-            <h1>10월 6일</h1>
-            <p>언약 백성의 순종과 영적 전쟁</p>
-        </header>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
-        <main>
-            <div class="chapter-card card-book1">
-                <h3>열왕기상 9장: 솔로몬에게 다시 나타나신 하나님</h3>
-                <h4>상세 개요</h4>
-                <p>열왕기상 9장은 솔로몬의 통치가 절정에 이르렀을 때, 하나님께서 그에게 두 번째로 나타나셔서 언약적 약속과 경고를 주시는 장면을 기록합니다. 하나님께서는 솔로몬이 건축한 성전을 거룩하게 구별하여 당신의 이름을 영원히 그곳에 두겠다고 약속하십니다. 이어서 솔로몬이 그의 아버지 다윗과 같이 하나님 앞에서 온전한 마음으로 행하고 모든 명령에 순종하면, 다윗에게 약속하신 대로 그의 왕위가 영원히 견고할 것이라고 재확인하십니다. 그러나 만약 솔로몬과 그의 자손이 하나님을 떠나 다른 신을 섬기면, 그들을 약속의 땅에서 끊어버리고 성전마저 던져버려 모든 민족의 속담거리와 이야기거리가 되게 하실 것이라는 엄중한 경고를 덧붙이십니다. 이후 본문은 솔로몬의 다양한 건축 사업, 히람과의 교역, 강제 노역 동원, 정기적인 제사 등 그의 부강했던 통치의 단면들을 보여줍니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>조건부 언약과 순종의 중요성:</strong> 하나님께서 솔로몬에게 주신 약속은 명백한 조건부 성격을 띱니다. 다윗 언약의 영원성은 보장되었지만, 그 언약의 복을 '누리는' 것은 각 세대의 순종에 달려있음을 보여줍니다. "네가 만일 네 아버지 다윗이 행함 같이 마음을 온전히 하고 바르게 하여..."(4절)라는 조건절은 언약 백성의 책임과 순종이 얼마나 중요한지를 강조합니다. 이는 '행위 언약'으로의 회귀가 아니라, '은혜 언약' 안에서 마땅히 나타나야 할 삶의 방식을 가르치는 것입니다. 이스라엘의 이후 역사는 이 경고가 얼마나 실제적이었는지를 비극적으로 증명하며, 오직 완전한 순종을 이루신 예수 그리스도 안에서만 이 언약이 온전히 성취될 수 있음을 보여줍니다.</li>
-                    <li><strong>성전의 의미와 우상숭배의 위험:</strong> 하나님께서는 "내가... 이 성전을 거룩하게 구별하여"(3절)라고 말씀하시지만, 동시에 "이 성전이라도 내 앞에서 던져 버리리니"(7절)라고 경고하십니다. 이는 성전 건물이 그 자체로 마법적인 힘을 가진 부적이 아님을 명확히 합니다. 성전의 거룩함은 그곳에 임재하시는 하나님의 거룩함과, 그곳에서 드려지는 예배의 신실함에 달려있습니다. 백성이 하나님을 버리고 우상을 숭배할 때, 성전은 더 이상 하나님의 집이 아니라 빈 껍데기가 되며, 심판의 대상이 될 뿐입니다. 이는 건물이 아닌 하나님과의 살아있는 관계가 신앙의 본질임을 강력하게 가르칩니다.</li>
-                </ol>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>10월 6일</h1>
+            </header>
 
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_11_1KI_09.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="1KI_9" data-title="열왕기상 9장">성경 듣기</button>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-book1" data-color="book1">열왕기상 9장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">에베소서 6장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">에스겔 39장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">시편 90편</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+            </nav>
+
+            <main>
+                <div id="content-book1" class="tab-content active">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>열왕기상 9장: 조건부 언약과 솔로몬 왕국의 그림자</h3>
+                            <h4>상세 개요</h4>
+                            <p>성전과 왕궁 건축을 마친 솔로몬에게 하나님께서 두 번째로 나타나십니다. 하나님은 다윗에게 하신 언약을 재확인하시지만, 만일 솔로몬과 그의 자손이 하나님을 떠나 다른 신을 섬기면 이 성전이라도 내던져 버리고 이스라엘을 약속의 땅에서 끊어버리실 것이라는 엄중한 경고를 덧붙이십니다. 이후 본문은 솔로몬이 남은 건축 사업을 위해 가나안 족속을 노예로 삼아 강제 노동을 시키고, 히람 왕에게 땅을 할양하며, 해상 무역을 통해 막대한 부를 축적하는 등 그의 통치 이면의 모습들을 기록합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 언약의 조건성과 하나님의 공의:</strong> 하나님께서 솔로몬에게 주신 말씀은 '만일'(if)이라는 조건절을 통해 언약의 양면성을 보여줍니다. 순종에는 영원한 왕위의 복이 따르지만, 불순종에는 파멸의 심판이 따릅니다. 이는 구원이 은혜로 주어지지만, 구원받은 백성의 삶에는 반드시 순종의 책임이 뒤따름을 보여주는 원리입니다. <span class="scripture-quote">내가 이 성전을 향하여 비웃으며... 여호와께서 무슨 까닭으로 이 땅과 이 성전에 이같이 행하셨는고</span>(8절)라는 경고는, 하나님의 공의가 언약 백성이라도 예외 없이 적용됨을 보여주는 준엄한 선포입니다.</p>
+                            <p><strong>2. 왕국의 영광과 그 이면의 한계:</strong> 솔로몬의 부귀영화는 하나님의 축복이었지만, 그 이면에는 이방 민족에 대한 강제 노역과 정치적 거래라는 어두운 그림자가 있었습니다. 이는 인간이 세우는 그 어떤 나라도 완전할 수 없으며, 죄의 문제가 해결되지 않은 채 외적인 영광만을 추구할 때 나타나는 필연적인 한계를 보여줍니다. 솔로몬의 왕국은 장차 오실 그리스도의 완전한 통치를 예표하는 동시에, 왜 우리가 이 땅의 왕국이 아닌 흠 없는 하나님 나라를 소망해야 하는지를 역설적으로 가르쳐줍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_11_1KI_09.html" data-title="열왕기상 9장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="1KI_9" data-title="열왕기상 9장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book2">
-                <h3>에베소서 6장: 하나님의 전신갑주와 영적 싸움</h3>
-                <h4>상세 개요</h4>
-                <p>에베소서의 마지막 장인 6장은 성도의 실제적인 삶에 대한 권면으로 시작하여, 영적 전쟁에 대한 장엄한 선포로 끝을 맺습니다. 바울은 먼저 자녀와 부모, 종과 상전의 관계 속에서 그리스도인으로서 어떻게 행해야 하는지를 가르칩니다. 이 모든 관계의 기초는 주님을 향한 경외심과 성실함입니다. 이어서 바울은 성도의 삶이 눈에 보이는 혈과 육의 싸움이 아니라, "통치자들과 권세들과 이 어둠의 세상 주관자들과 하늘에 있는 악의 영들을 상대함이라"(12절)는 영적 전쟁임을 선포합니다. 이 강력한 원수와 싸워 이기기 위해, 바울은 성도들에게 "하나님의 전신갑주를 입으라"고 명령합니다. 그는 진리의 허리띠, 의의 호심경, 평안의 복음의 신, 믿음의 방패, 구원의 투구, 성령의 검(하나님의 말씀) 등 로마 군인의 완전 무장을 비유로 들어 각 영적 무기의 의미를 설명합니다. 이 모든 싸움은 항상 성령 안에서 깨어 기도함으로써 수행되어야 한다고 강조하며 문안 인사로 편지를 마칩니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>그리스도인의 이중 전선(二重戰線): 일상과 영적 전쟁:</strong> 에베소서 6장은 가정과 직장이라는 '일상의 전선'과 악한 영들과의 '영적 전선'이 분리되어 있지 않음을 보여줍니다. 자녀가 부모에게 순종하고, 종이 상전에게 성실히 섬기는 일상적인 순종이 곧 영적 전쟁의 현장입니다. 우리의 싸움은 수도원이나 특별한 종교 의식 가운데서만 벌어지는 것이 아니라, 매일의 삶 속에서 하나님의 말씀에 순종하며 거룩함을 지켜내는 것을 통해 이루어집니다. 일상의 거룩함을 지켜내지 못하는 자는 보이지 않는 영적 전쟁에서도 승리할 수 없습니다.</li>
-                    <li><strong>수동적이면서 능동적인 영적 무장:</strong> "하나님의 전신갑주"의 각 부분은 우리의 노력으로 만들어내는 것이 아니라, 하나님께서 주시는 것임을 주목해야 합니다. 진리, 의, 평안, 믿음, 구원은 모두 그리스도 안에서 우리에게 주어진 선물입니다. 우리는 이것들을 '입고', '띠고', '붙이고' '가지는' 수동적인 자세를 취합니다. 이는 영적 전쟁의 승리가 우리의 힘이 아닌, 하나님께서 이미 이루신 그리스도의 승리에 근거함을 보여줍니다. 그러나 유일한 공격 무기인 '성령의 검' 곧 하나님의 말씀을 '가지라'고 명령하며, 또한 '항상 성령 안에서 기도하라'고 촉구함으로써 우리의 능동적인 참여와 훈련이 필수적임을 동시에 가르칩니다. 이처럼 성도의 영적 전쟁은 하나님의 주권적인 은혜와 인간의 책임적인 순종이 함께 가는 것입니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="NT/NT_49_EPH_06.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="EPH_6" data-title="에베소서 6장">성경 듣기</button>
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>에베소서 6장: 하나님의 전신갑주를 입으라</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 편지의 마지막 부분에서 성도의 실제적인 삶의 관계(자녀와 부모, 종과 상전)에 대한 권면을 마무리하고, 성도의 삶이 영적 전쟁임을 선포합니다. 우리의 싸움은 혈과 육이 아닌, 하늘에 있는 악한 영들을 상대하는 것입니다. 이 싸움에서 승리하기 위해, 바울은 '하나님의 전신갑주'를 입으라고 명령합니다. 진리의 허리띠, 의의 호심경, 평안의 복음의 신, 믿음의 방패, 구원의 투구, 성령의 검 곧 하나님의 말씀을 취하고, 항상 성령 안에서 깨어 기도하기를 힘쓰라고 권면합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 성도의 삶으로서의 영적 전쟁:</strong> 바울은 그리스도인의 삶을 평화로운 소풍이 아닌 치열한 전쟁터로 묘사합니다. 이 싸움의 대적은 눈에 보이는 사람이 아니라, <span class="scripture-quote">통치자들과 권세들과 이 어둠의 세상 주관자들과 하늘에 있는 악의 영들</span>(12절)입니다. 이 사실을 인식하지 못하면 우리는 문제의 원인을 엉뚱한 사람에게 돌리거나, 우리 자신의 힘으로 싸우려다 패배하게 됩니다. 승리의 첫걸음은 우리의 싸움이 영적인 것임을 아는 것입니다.</p>
+                            <p><strong>2. 그리스도로 옷 입는 삶(전신갑주):</strong> '하나님의 전신갑주'의 각 부분은 추상적인 덕목이 아니라, 모두 예수 그리스도의 성품과 사역을 가리킵니다. 진리이신 그리스도, 우리의 의가 되시는 그리스도, 화평이신 그리스도, 우리 믿음의 대상이신 그리스도, 우리의 구원이신 그리스도, 그리고 그분이 주시는 성령의 검(말씀). 따라서 전신갑주를 입는다는 것은 매일 매순간 그리스도를 의지하고, 그분의 성품으로 옷 입으며, 그분의 말씀으로 무장하는 것을 의미합니다. 우리의 힘이 아닌 '주 안에서와 그 힘의 능력으로'(10절) 싸울 때만 승리할 수 있습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_49_EPH_06.html" data-title="에베소서 6장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EPH_6" data-title="에베소서 6장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book3">
-                <h3>에스겔 39장: 곡의 패망과 이스라엘의 회복</h3>
-                <h4>상세 개요</h4>
-                <p>에스겔 39장은 38장에 이어 곡의 완전한 패망과 그 이후에 있을 이스라엘의 영광스러운 회복을 상세하게 묘사합니다. 하나님께서는 이스라엘 산 위에 엎드러진 곡과 그의 군대를 새와 들짐승의 먹이로 내어주실 것입니다. 그들의 무기를 태우는 데 7년이 걸리고, 그 시체를 매장하는 데 7달이 걸릴 정도로 그들의 패배는 완전하고 압도적일 것입니다. 이 사건을 통해 이스라엘은 물론 모든 민족이 "내가 여호와 그들의 하나님인 줄을 알게 될 것"(22, 28절)입니다. 하나님께서는 이 사건이 과거 이스라엘이 포로로 잡혀갔던 이유가 하나님이 무능해서가 아니라 그들의 죄 때문이었음을 밝히는 계기가 될 것이라고 설명하십니다. 이제 하나님께서는 그들을 다시 고국 땅으로 모으시고, 그들 위에 "다시는 내 얼굴을 가리지 아니하리니 이는 내가 내 영을 이스라엘 족속에게 부었음이라"(29절)는 영원한 회복의 약속을 주십니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>하나님의 이름의 거룩함 회복:</strong> 곡의 심판과 이스라엘의 회복을 관통하는 핵심 주제는 '하나님의 거룩한 이름'입니다. "내가 내 큰 이름을 위하여 질투하여... 내 거룩한 이름을 내 백성 이스라엘 가운데에 알게 하여 다시는 내 거룩한 이름이 더럽혀지지 아니하게 하리니"(7, 25절). 과거 이스라엘의 실패는 열방 가운데 하나님의 이름을 더럽히는 결과를 낳았습니다. 그러나 이제 하나님께서 친히 개입하셔서 대적을 심판하시고 백성을 회복시키심으로써, 당신의 이름이 얼마나 거룩하고 능력이 있는지를 만방에 증명하십니다. 구원의 궁극적인 목적은 인간의 행복을 넘어, 더럽혀진 하나님의 영광과 이름이 온전히 회복되는 것임을 보여줍니다.</li>
-                    <li><strong>성령 부으심과 영원한 회복:</strong> 이 장의 마지막은 "내가 내 영을 이스라엘 족속에게 부었음이라"(29절)는 놀라운 약속으로 끝을 맺습니다. 이는 단순히 포로 귀환을 넘어선, 완전하고 영적인 회복, 즉 새 언약의 성취를 가리킵니다. 과거 이스라엘이 실패하고 하나님께서 그들에게 얼굴을 가리셨던 이유는 그들의 마음이 완악했기 때문입니다. 그러나 이제 하나님께서 당신의 영, 즉 성령을 그들 안에 부어주심으로 내적인 변화를 일으키시고, 다시는 하나님을 떠나지 않도록 하시겠다는 것입니다. 이는 에스겔 36장의 '새 영'의 약속과 연결되며, 오순절 성령강림을 통해 교회 시대에 성취되었습니다. 성령의 내주하심은 하나님께서 다시는 우리를 떠나지 않으시겠다는 영원한 회복의 보증입니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_26_EZE_39.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="EZE_39" data-title="에스겔 39장">성경 듣기</button>
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>에스겔 39장: 곡의 패망과 이스라엘의 회복</h3>
+                            <h4>상세 개요</h4>
+                            <p>38장에 이어, 하나님은 곡의 군대가 이스라엘 산 위에서 완전히 패망할 것을 상세히 묘사합니다. 그들의 시체는 새와 들짐승의 먹이가 될 것이며, 이스라엘 백성은 7개월 동안 그들을 장사하고 7년 동안 그들의 무기를 땔감으로 사용할 것입니다. 이 압도적인 심판의 목적은 이스라엘이 더 이상 부끄러움을 당하지 않고, 모든 민족이 이스라엘의 포로 생활이 그들의 죄 때문이었으며 그들을 구원하시는 분이 여호와 하나님이심을 알게 하려는 것입니다. 하나님은 마침내 긍휼을 베푸셔서 흩어진 백성을 다시 모으고, 그들 위에 '내 영'을 부어주실 것을 약속하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 거룩한 이름을 위한 심판:</strong> 곡에 대한 심판은 단순히 이스라엘을 보호하는 차원을 넘어섭니다. 그 핵심 목적은 <span class="scripture-quote">내가 내 큰 이름을 나타내어 여러 나라 사람의 눈에 나를 알게 하여 내가 여호와인 줄을 그들이 알게 하려 함이라</span>(7절)입니다. 세상의 악한 세력은 하나님의 이름을 더럽히지만, 하나님은 바로 그들의 교만과 패망을 통해 역설적으로 당신의 거룩함과 영광을 온 세상에 드러내십니다. 역사의 모든 과정은 하나님의 자기 계시를 향해 나아갑니다.</p>
+                            <p><strong>2. 죄의 문제 해명과 성령의 약속:</strong> 하나님은 이 사건을 통해 이스라엘이 겪은 고난의 이유를 명확히 설명하십니다. 그것은 하나님이 약해서가 아니라, '그들의 죄악 때문'(23절)이었습니다. 이처럼 과거의 죄 문제를 정직하게 직면하고 하나님의 공의를 인정한 후에야, 진정한 회복이 시작됩니다. 회복의 정점은 <span class="scripture-quote">내가 다시는 내 얼굴을 그들에게 가리지 아니하리니 이는 내가 내 영을 이스라엘 족속에게 부었음이라</span>(29절)는 약속입니다. 이는 오순절 성령 강림 사건을 통해 성취될 새 언약의 영광을 예표합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_26_EZE_39.html" data-title="에스겔 39장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_39" data-title="에스겔 39장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book4">
-                <h3>시편 90편: 영원하신 하나님과 유한한 인생</h3>
-                <h4>상세 개요</h4>
-                <p>시편 90편은 "하나님의 사람 모세의 기도"라는 표제어가 붙은 유일한 시편으로, 창조주 하나님의 영원하심과 죄 아래 있는 인간의 유한함을 깊이 성찰하는 지혜시입니다. 모세는 "주여 주는 대대에 우리의 거처가 되셨나이다"(1절)라고 고백하며, 산이 생기기 전부터 영원까지 하나님이심을 찬양합니다. 이 영원하신 하나님 앞에서 인간은 티끌과 같고, 잠깐 자는 것 같으며, 아침에 돋는 풀과 같이 덧없는 존재입니다. 인간의 삶이 이토록 짧고 고통스러운 이유는 바로 "주의 노여움", 즉 죄에 대한 하나님의 진노 때문임을 모세는 정직하게 고백합니다. 그는 "우리의 모든 날이 주의 분노 중에 지나가며 우리의 평생이 순식간에 다하였나이다"(9절). 이 깊은 인생무상 속에서 모세는 절망에 머무르지 않고, "우리에게 우리 날 계수함을 가르치사 지혜로운 마음을 얻게 하소서"(12절)라고 기도합니다. 그는 남은 날 동안 주의 영광과 은총을 경험하며, 우리의 손으로 하는 수고를 견고하게 해주시기를 간구하며 기도를 마칩니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>하나님의 진노와 죄의 실상:</strong> 이 시편은 인간의 고통과 죽음의 근본 원인이 노화나 자연 현상이 아니라 '하나님의 진노', 즉 죄의 결과임을 분명히 밝힙니다. "우리가 주의 노여움에 소멸되며 주의 분내심에 놀라나이다 주께서 우리의 죄악을 주의 앞에 놓으시며"(7-8절). 모세는 인생의 허무함을 하나님의 거룩한 진노와 연결시킴으로써, 죄의 문제를 피상적으로 다루지 않고 그 심각성을 정면으로 마주합니다. 이는 개혁주의 죄론의 핵심과 맞닿아 있으며, 인간의 비참함에 대한 깊은 인식 없이는 하나님의 은혜를 온전히 깨달을 수 없음을 보여줍니다.</li>
-                    <li><strong>지혜의 본질: 유한함의 자각과 영원의 소망:</strong> 모세가 구하는 지혜는 세상적인 성공의 비결이 아니라, "우리 날 계수함을 아는 것"(12절)입니다. 자신의 유한함을 깨닫는 것이 지혜의 시작입니다. 인생의 짧음과 허무함을 깊이 인식할 때, 비로소 우리는 헛된 것을 좇는 삶을 멈추고 영원하신 하나님을 우리의 유일한 거처로 삼게 됩니다. 이 기도는 "우리를 긍휼히 여기사 우리로 하여금 주의 인자하심으로 아침에 만족하게 하사"(14절, 히브리어 직역) 우리 평생에 기뻐하고 즐거워하게 해달라는 소망으로 이어집니다. 이는 유한한 인생 속에서 영원하신 하나님의 은혜(인자하심, 헤세드)를 맛보는 것만이 참된 만족과 기쁨의 근원임을 가르치는 심오한 지혜입니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_090.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_90" data-title="시편 90편">성경 듣기</button>
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>시편 90편: 영원하신 하나님과 유한한 인생</h3>
+                            <h4>상세 개요</h4>
+                            <p>하나님의 사람 모세의 기도로 알려진 이 시편은 하나님의 영원하심과 인간의 유한함을 극적으로 대조합니다. 하나님은 창세 전부터 영원까지 동일하신 우리의 거처이시지만, 인간은 진노 아래 있는 티끌과 같고 잠깐 있다 사라지는 풀과 같습니다. 인생의 짧음과 고통은 우리의 죄 때문임을 고백하며, 모세는 "우리에게 우리 날 계수함을 가르치사 지혜로운 마음을 얻게 하소서"라고 간구합니다. 그는 남은 날 동안 하나님의 영광을 보고 그분의 은혜로 견고하게 세워지기를 기도하며 시를 마칩니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 시간의 주관자와 피조물로서의 인간:</strong> <span class="scripture-quote">주께서 보시기에는 천 년이 지나간 어제 같으며 밤의 한 순간 같을 뿐임이니이다</span>(4절)라는 고백은 시간에 대한 하나님의 초월성을 보여줍니다. 반면, 인간은 신속히 날아가는 70년, 80년의 유한한 시간 속에 갇혀 살아갑니다. 이 근본적인 차이를 인식하는 것이 지혜의 시작입니다. 인생의 허무함을 깨달을 때, 비로소 우리는 영원하신 하나님을 의지하게 됩니다.</p>
+                            <p><strong>2. 죄, 진노, 그리고 지혜:</strong> 모세는 인생의 수고와 슬픔의 원인이 하나님의 진노, 곧 우리의 죄 때문임을 정직하게 직면합니다. <span class="scripture-quote">누가 주의 노여움의 능력을 알며 누가 주의 진노의 두려움을 알리이까</span>(11절). 이 두려운 현실 앞에서 참된 지혜는 '우리의 날을 계수하는 것'입니다. 이는 단순히 시간을 계산하는 것이 아니라, 유한한 시간을 영원하신 하나님의 관점에서 바라보고, 죄를 회개하며, 남은 시간을 낭비하지 않고 하나님의 뜻대로 살아가려는 거룩한 열망을 의미합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_90.html" data-title="시편 90편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_90" data-title="시편 90편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>통합 묵상: 유한한 인생, 영원한 전쟁, 견고한 나라</h3>
+                            <h4>관통하는 주제</h4>
+                            <p>오늘의 본문들은 '영원하신 하나님'과 '유한하고 죄된 인간'이라는 거대한 대조 속에서, 성도가 어떻게 이 땅에서 하나님 나라를 살아가야 하는지를 입체적으로 보여줍니다. 시편 90편은 모든 논의의 대전제를 제시합니다: 하나님은 영원하시고 우리는 잠깐 있다 사라지는 티끌과 같으며, 우리의 짧은 인생은 죄로 인해 하나님의 진노 아래 있습니다. 열왕기상 9장은 이 진리를 역사 속에서 보여줍니다. 솔로몬의 영광스러운 왕국조차도 인간의 불순종으로 인해 한순간에 무너질 수 있는 유한하고 조건적인 나라였습니다. 이처럼 연약한 우리가 살아가는 세상은 에스겔 39편이 보여주듯, 하나님의 백성을 삼키려는 거대한 악의 세력(곡)이 존재하는 치열한 전쟁터입니다. 그렇다면 이처럼 유한하고 연약한 우리가, 적대적인 세상 속에서 어떻게 영원하신 하나님의 백성으로 살아갈 수 있습니까? 에베소서 6장은 유일한 해답을 제시합니다. 그것은 우리의 힘이 아닌, '하나님의 전신갑주'를 입고 영적 전쟁을 수행하는 것입니다. 우리의 유한함을 인정하고, 영원하신 하나님의 능력과 말씀으로 무장할 때, 비로소 우리는 견고히 서서 승리할 수 있습니다.</p>
+                            <h4>핵심 개념 및 상호 참조</h4>
+                            <p><strong>견고함(Establishment)의 근거:</strong> 시편 90편은 "우리 손이 행한 일을 우리를 위하여 견고하게 하소서"(17절)라는 기도로 끝납니다. 그러나 열왕기상 9장은 인간의 순종에 근거한 견고함이 얼마나 위태로운지를 보여줍니다. 에스겔 39장은 우리의 견고함이 우리를 대적하는 세상을 심판하시는 하나님의 능력에 있음을 보여줍니다. 이 모든 것을 종합하여 에베소서 6장은 우리의 참된 견고함이 '주 안에서와 그 힘의 능력으로 강건하여지는 것'이며, 하나님의 전신갑주를 입고 '마귀의 간계를 능히 대적하기 위함'이라고 결론 내립니다.</p>
+                            <p><strong>인식의 전환:</strong> 시편 90편은 '우리 날 계수함'을 통해 인생의 유한함을 깨닫는 지혜를 구합니다. 에베소서 6장은 우리의 싸움이 '혈과 육이 아님'을 깨닫는 영적 통찰력을 요구합니다. 이 두 가지 인식이 결합될 때, 우리는 유한한 시간 속에서 눈에 보이는 문제와 씨름하는 대신, 영원하신 하나님을 의지하며 보이지 않는 영적 전쟁에 집중하게 됩니다.</p>
+                            <h4>삶으로의 적용</h4>
+                            <ul>
+                                <li><strong>지(知):</strong> 나는 시편 90편의 고백처럼 나의 인생이 얼마나 짧고 유한한지를 매일 인식하며 살아가고 있습니까? 또한 나의 일상적인 갈등과 어려움 배후에 영적인 싸움이 있음을 인정하고, 나의 힘이 아닌 하나님의 능력으로 싸워야 함을 알고 있습니까?</li>
+                                <li><strong>정(情):</strong> 인생의 허무함과 죄의 무게로 인해 탄식하고 있습니까? 그럴 때, 나를 위해 영원한 승리를 이루시고 완전한 무기를 공급해주시는 그리스도로 인해 감사와 담대함을 느끼고 있습니까?</li>
+                                <li><strong>의(意):</strong> 오늘 하루, 내 삶의 구체적인 영역(가정, 직장, 관계)에서 맞서 싸워야 할 '악한 영들'의 전략은 무엇이라고 생각합니까? 그 싸움을 위해 오늘 내가 특별히 붙들고 입어야 할 '하나님의 전신갑주'의 부분(진리, 의, 복음, 믿음, 구원, 말씀)은 무엇인지 정하고 기도로 무장하기로 결단합시다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
 
-            <div class="integration-card">
-                <h2>통합 묵상: 언약 백성의 여정과 최후 승리</h2>
-                <h3>관통하는 주제 논증: 유한한 인생, 언약적 순종, 그리고 영원한 승리</h3>
-                <p>오늘의 네 본문은 영원하신 하나님 앞에서 유한한 인생을 살아가는 언약 백성의 여정을 장엄하게 그려냅니다. 시편 90편은 이 여정의 출발점을 제시합니다. 모세의 기도를 통해 우리는 죄 아래서 잠깐 있다 사라지는 풀과 같은 존재임을 깨닫고, 우리의 유한한 날을 계수하는 지혜를 구하게 됩니다. 이 유한한 인생을 어떻게 살아야 하는가? 열왕기상 9장은 하나님께서 솔로몬에게 주신 언약적 약속과 경고를 통해 그 답을 제시합니다. 그것은 바로 '순종'입니다. 언약 백성은 하나님의 말씀에 순종함으로써 그분과의 관계를 유지하고 약속의 복을 누립니다. 그러나 에베소서 6장은 이 순종의 여정이 결코 평탄치 않으며, 하늘에 있는 악한 영들과의 치열한 '영적 전쟁'임을 밝힙니다. 이 전쟁에서 승리하기 위해 우리는 하나님의 전신갑주를 입고 깨어 기도해야 합니다. 그렇다면 이 치열한 전쟁의 끝은 무엇인가? 에스겔 39장은 그 영광스러운 결말을 보여줍니다. 역사의 마지막에 모든 악의 세력(곡)은 하나님의 주권적인 능력 앞에 완전히 패망하고, 하나님의 백성은 성령의 부으심을 통해 영원히 회복될 것입니다. 이처럼 오늘의 본문들은 인생의 유한함에 대한 자각에서 시작하여, 순종의 여정과 영적 전쟁을 거쳐, 마침내 하나님의 최종적인 승리와 영원한 회복에 이르는 구속사의 장대한 파노라마를 보여줍니다.</p>
-
-                <h3>입체적 핵심 단어 연구: 전신갑주 (πανοπλία, 파노플리아)</h3>
-                <p>에베소서 6장 11절과 13절에 나오는 '전신갑주'(πανοπλία, 파노플리아)는 '모든, 전체'를 의미하는 '판'(pan)과 '무기, 갑옷'을 의미하는 '호플론'(hoplon)의 합성어입니다. 문자 그대로 '완전 무장' 또는 '모든 무기 세트'를 의미하며, 로마의 중무장 보병이 갖추는 머리부터 발끝까지의 모든 장비를 가리킵니다. 바울이 이 단어를 사용한 것은 영적 전쟁이 매우 치열하여 어느 한 부분도 무방비 상태로 남겨두어서는 안 된다는 것을 강조하기 위함입니다. 진리의 허리띠부터 성령의 검까지, 이 여섯 가지 무기 중 어느 하나라도 빠지면 적의 공격에 치명적인 약점을 노출하게 됩니다. 중요한 것은 이 '파노플리아'가 '하나님의' 전신갑주라는 점입니다. 우리의 힘이나 지혜, 의지로 싸우는 것이 아니라, 하나님께서 공급하시는 능력과 은혜의 방편들을 입음으로써만 싸울 수 있습니다. 믿음, 의, 구원 등은 모두 하나님께로부터 오는 선물입니다. 그러므로 이 전신갑주를 입는다는 것은, 나의 능력을 의지하던 자세를 버리고, 매 순간 그리스도 안에서 하나님이 주시는 힘과 자원으로 살아가기로 결단하는 믿음의 행위입니다.</p>
-                
-                <h3>심층 상호 참조</h3>
-                <ul>
-                    <li><strong>열왕기상 9:6-7 & 에스겔 39:23-24:</strong> 열왕기상에서 하나님은 솔로몬에게 "만일 너희나 너희의 자손이 아주 돌아서서... 다른 신을 섬겨 그것을 경배하면 내가... 이 성전이라도 내 앞에서 던져 버리리니"라고 경고하십니다. 에스겔 39장은 이 경고가 역사 속에서 실제로 성취되었음을 확인시켜 줍니다. "뭇 민족은 이스라엘 족속이 그 죄악으로 말미암아 사로잡혀 갔던 줄을 알지라 그들이 내게 범죄하였으므로 내 얼굴을 그들에게 가리고..." 두 본문은 이스라엘의 멸망과 포로 생활이 하나님의 무능력 때문이 아니라, 명백히 언약 파기에 대한 하나님의 공의로운 심판이었음을 일관되게 증거합니다.</li>
-                    <li><strong>시편 90:12 & 에베소서 5:15-16:</strong> 시편 90편에서 모세는 "우리에게 우리 날 계수함을 가르치사 지혜로운 마음을 얻게 하소서"라고 기도합니다. 이는 인생의 유한함을 깨닫고 시간을 소중히 사용하게 해달라는 간구입니다. 에베소서 5장에서 바울은 이 기도가 신약 성도에게 어떻게 적용되는지를 보여줍니다. "그런즉 너희가 어떻게 행할지를 자세히 주의하여 지혜 없는 자 같이 하지 말고 오직 지혜 있는 자 같이 하여 세월을 아끼라 때가 악하니라". 두 본문 모두 시간을 낭비하지 않고 하나님의 뜻을 따라 살아가는 것이 참된 지혜임을 가르칩니다.</li>
-                </ul>
-
-                <h3>적용을 위한 성찰 질문</h3>
-                <ol>
-                    <li>하나님께서는 솔로몬에게 순종에 따르는 복과 불순종에 따르는 심판을 명확히 보여주셨습니다. 나는 하나님의 말씀을 '하면 좋고 안 해도 그만'인 참고사항 정도로 여기고 있습니까, 아니면 나의 영원한 운명을 결정하는 언약의 말씀으로 진지하게 대하고 있습니까?</li>
-                    <li>에베소서 6장의 영적 무기들(진리, 의, 복음, 믿음, 구원, 말씀)을 점검해 볼 때, 현재 나의 영적 무장 상태에서 가장 약한 부분은 무엇이라고 생각합니까? 그 부분을 강화하기 위해 구체적으로 무엇을 결단해야 할까요?</li>
-                    <li>에스겔 39장은 하나님의 최종 승리를 보여주며 우리에게 큰 위로를 줍니다. 그러나 그 승리가 오기까지 우리는 영적 싸움을 싸워야 합니다. 나는 마지막 승리에 대한 소망 때문에 현재의 영적 싸움을 소홀히 하고 있지는 않습니까, 아니면 그 소망 때문에 더욱 담대하게 싸우고 있습니까?</li>
-                    <li>시편 90편의 기도처럼, "나의 날을 계수하는 지혜"를 가지고 오늘 하루를 살고 있습니까? 내가 오늘 시간을 사용하는 방식을 보면, 나는 영원하신 하나님을 나의 거처로 삼는 사람입니까, 아니면 덧없는 세상의 것들을 좇는 사람입니까?</li>
-                </ol>
-            </div>
-        </main>
-
-        <footer>
-            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
-        </footer>
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
     </div>
 
-    <div id="bible-modal" class="modal">
+    <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
-            <span class="modal-close-btn">&times;</span>
-            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
+    <div class="floating-nav" id="floating-nav">
+         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-    <div id="audio-player" class="audio-player">
-        <div class="audio-player-info" id="player-info"></div>
-        <div class="audio-player-controls">
-            <button id="play-pause-btn">▶</button>
-            <button id="close-player-btn">✖</button>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                 <button id="close-player-btn" title="닫기">&times;</button>
+            </div>
         </div>
     </div>
-    <div id="youtube-player-container"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainContainer = document.getElementById('main-container');
-            const bibleModal = document.getElementById('bible-modal');
-            const modalBody = document.getElementById('modal-body-content');
-            const closeModalBtn = document.querySelector('.modal-close-btn');
-            const audioPlayerBar = document.getElementById('audio-player');
-            const playerInfo = document.getElementById('player-info');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const closePlayerBtn = document.getElementById('close-player-btn');
-            
-            let ytPlayer;
-            let audioLinks = new Map();
-            let isPlayerReady = false;
-
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-            window.onYouTubeIframeAPIReady = function() {
-                ytPlayer = new YT.Player('youtube-player-container', {
-                    height: '0',
-                    width: '0',
-                    events: {
-                        'onReady': () => { isPlayerReady = true; },
-                        'onStateChange': (event) => {
-                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
-                        }
-                    }
-                });
-            }
-
-            async function loadAudioLinks() {
-                try {
-                    const response = await fetch('../address/mcbible.txt');
-                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
-                    const text = await response.text();
-                    text.split('\n').forEach(line => {
-                        if (line.trim() !== '') {
-                            const parts = line.split(/\s+/);
-                            const fullKey = parts[0];
-                            const url = parts[1];
-                            const keyParts = fullKey.split('_'); 
-                            
-                            if (keyParts.length >= 3) {
-                                const book = keyParts[2];
-                                const chapter = parseInt(keyParts.at(-1), 10);
-                                const shortKey = `${book}_${chapter}`;
-                                audioLinks.set(shortKey, url);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('오디오 링크 로딩 오류:', error);
-                }
-            }
-            
-            function getYouTubeID(url) {
-                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                const match = url.match(regex);
-                return match ? match[1] : null;
-            }
-
-            mainContainer.addEventListener('click', async (e) => {
-                const target = e.target.closest('.btn');
-                if (!target) return;
-
-                if (target.classList.contains('btn-view')) {
-                    const path = target.dataset.path;
-                    bibleModal.style.display = 'block';
-                    modalBody.innerHTML = '<div class="spinner"></div>';
-                    try {
-                        const response = await fetch(`../bible_html/${path}`);
-                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
-                        const html = await response.text();
-                        modalBody.innerHTML = html;
-                    } catch (error) {
-                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
-                    }
-                }
-                
-                if (target.classList.contains('btn-listen')) {
-                    if (!isPlayerReady) {
-                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
-                        return;
-                    }
-                    if (audioLinks.size === 0) {
-                        await loadAudioLinks(); 
-                         if (audioLinks.size === 0) {
-                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
-                            return;
-                        }
-                    }
-                    const key = target.dataset.key;
-                    const title = target.dataset.title;
-                    const url = audioLinks.get(key);
-
-                    if (url) {
-                        const videoId = getYouTubeID(url);
-                        if (videoId) {
-                            ytPlayer.loadVideoById(videoId);
-                            playerInfo.textContent = `재생중: ${title}`;
-                            audioPlayerBar.classList.add('show');
-                        } else {
-                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
-                        }
-                    } else {
-                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
-                    }
-                }
-            });
-
-            function closeModal() {
-                bibleModal.style.display = 'none';
-                modalBody.innerHTML = '';
-            }
-
-            closeModalBtn.addEventListener('click', closeModal);
-            bibleModal.addEventListener('click', (e) => {
-                if (e.target === bibleModal) {
-                    closeModal();
-                }
-            });
-
-            playPauseBtn.addEventListener('click', () => {
-                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
-                const playerState = ytPlayer.getPlayerState();
-                if (playerState === YT.PlayerState.PLAYING) {
-                    ytPlayer.pauseVideo();
-                } else {
-                    ytPlayer.playVideo();
-                }
-            });
-
-            closePlayerBtn.addEventListener('click', () => {
-                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
-                    ytPlayer.stopVideo();
-                }
-                audioPlayerBar.classList.remove('show');
-            });
-            
-            loadAudioLinks();
-        });
-    </script>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
