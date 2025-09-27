@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 전역 변수 및 객체 ---
     const audioKeyMap = new Map();
     let ytPlayer, isPlayerReady = false;
 
+    // --- DOM 요소 캐싱 ---
     const tabs = {
         buttons: document.querySelectorAll('.tab-btn'),
         contents: document.querySelectorAll('.tab-content'),
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         closeBtn: document.getElementById('close-player-btn')
     };
 
+    // --- 초기화 ---
     function init() {
         initYouTubeAPI();
         loadAudioKeys();
@@ -36,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateReadingProgress();
     }
 
+    // --- YouTube API 관련 ---
     function initYouTubeAPI() {
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
@@ -52,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    // --- 데이터 로딩 및 파싱 ---
     async function loadAudioKeys() {
         try {
             const response = await fetch('https://kbd71.github.io/bible71/address/mcbible.txt');
@@ -66,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const keyParts = longKey.split('_');
                         if (keyParts.length >= 3) {
                             const book = keyParts[2];
-                            const chapter = parseInt(keyParts.at(-1), 10);
+                            const chapter = parseInt(keyParts.at(-1), 10); // 숫자로 변환
                             const shortKey = `${book}_${chapter}`;
                             audioKeyMap.set(shortKey, url);
                         }
@@ -84,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return match ? match[1] : null;
     }
 
+    // --- 이벤트 리스너 설정 ---
     function setupEventListeners() {
         tabs.buttons.forEach((button, index) => button.addEventListener('click', () => switchTab(index)));
         document.querySelectorAll('.view-text-btn').forEach(button => button.addEventListener('click', () => openTextModal(button)));
@@ -112,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', updateReadingProgress);
     }
 
+    // --- 기능별 함수 ---
     function switchTab(index) {
         if (index < 0 || index >= tabs.buttons.length) return;
         tabs.currentIndex = index;
@@ -167,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateFloatingNav() {
+        if (!nav.info) return;
         nav.info.textContent = `${tabs.currentIndex + 1}/${tabs.buttons.length}`;
         nav.prevBtn.disabled = tabs.currentIndex === 0;
         nav.nextBtn.disabled = tabs.currentIndex === tabs.buttons.length - 1;
