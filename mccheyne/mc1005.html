@@ -3,510 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10월 5일 - 맥체인 성경읽기</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;700&display=swap');
-
-        :root {
-            --font-serif: 'KoPub Batang', serif;
-            --font-sans-serif: 'Pretendard', sans-serif;
-            
-            --color-text: #343a40;
-            --color-background: #f8f9fa;
-            --color-card-bg: #ffffff;
-            --color-border: #dee2e6;
-            --color-muted: #868e96;
-
-            --color-book1: #4285F4;
-            --color-book2: #DB4437;
-            --color-book3: #c89200;
-            --color-book4: #0F9D58;
-            --color-integration: #5f6368;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-serif);
-            font-size: 17px;
-            line-height: 1.8;
-            color: var(--color-text);
-            background-color: var(--color-background);
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1280px;
-        }
-
-        header, main {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-family: var(--font-sans-serif);
-            font-size: clamp(2.2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin: 0.5em 0;
-            color: #212529;
-        }
-        
-        h3 {
-            font-family: var(--font-sans-serif);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        h4 {
-            font-family: var(--font-sans-serif);
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--color-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-top: 0;
-            margin-bottom: 1.5em;
-        }
-        p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .chapter-card, .integration-card {
-            background-color: var(--color-card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 3.5rem;
-            padding: 2rem 2.5rem;
-            border-left: 8px solid;
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-card:hover, .integration-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .card-book1 { border-color: var(--color-book1); }
-        .card-book1 h3 { color: var(--color-book1); }
-        .card-book2 { border-color: var(--color-book2); }
-        .card-book2 h3 { color: var(--color-book2); }
-        .card-book3 { border-color: var(--color-book3); }
-        .card-book3 h3 { color: var(--color-book3); }
-        .card-book4 { border-color: var(--color-book4); }
-        .card-book4 h3 { color: var(--color-book4); }
-        .integration-card { border-color: var(--color-integration); }
-        .integration-card h3 { color: var(--color-integration); }
-
-        .btn-group {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            font-family: var(--font-sans-serif);
-            padding: 0.6em 1.2em;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            color: white;
-        }
-
-        .btn-view { background-color: #343a40; }
-        .btn-listen { background-color: var(--color-integration); }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.15);
-        }
-        .btn:active {
-            transform: translateY(0);
-            filter: brightness(0.95);
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background-color: var(--color-card-bg);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 800px;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-        
-        .modal-close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .modal-close-btn:hover {
-            color: #333;
-        }
-
-        .modal-body {
-             max-height: 70vh;
-             overflow-y: auto;
-             font-size: 18px;
-             line-height: 2;
-        }
-        
-        .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 100px auto;
-        }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { translateY(0); opacity: 1; } }
-
-        .audio-player {
-            position: fixed;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 500px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: bottom 0.3s ease-in-out;
-            z-index: 1001;
-        }
-        .audio-player.show { bottom: 0; }
-        .audio-player-info { font-family: var(--font-sans-serif); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 15px; }
-        .audio-player-controls button:hover { color: #bdc3c7; }
-        #youtube-player-container { display: none; }
-
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--color-border);
-            color: #6c757d;
-        }
-    </style>
+    <title>10월 5일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" id="main-container">
-        <header>
-            <h1>10월 5일</h1>
-            <p>언약의 영광과 교회의 거룩함</p>
-        </header>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
-        <main>
-            <div class="chapter-card card-book1">
-                <h3>열왕기상 8장: 솔로몬의 성전 봉헌 기도</h3>
-                <h4>상세 개요</h4>
-                <p>열왕기상 8장은 솔로몬 성전 건축의 클라이맥스로, 언약궤를 지성소에 안치하고 하나님께 성전을 봉헌하는 장엄한 장면을 담고 있습니다. 언약궤가 안치되자 여호와의 영광이 구름 가운데 성전에 가득하여 제사장들이 능히 서서 섬기지 못할 정도였습니다. 이어서 솔로몬은 이스라엘 온 회중 앞에 서서 하나님을 찬양하며, 다윗에게 하신 언약이 성취되었음을 선포합니다. 그의 봉헌 기도는 성전의 역할에 대한 깊은 신학적 이해를 보여줍니다. 그는 하나님이 하늘에도 다 용납될 수 없는 광대하신 분임을 인정하면서도, 이 성전을 향하여 기도할 때 들어달라고 간구합니다. 이 기도는 이스라엘 백성이 범죄하고 징계받아 전쟁에서 패하거나, 기근과 재앙을 당하거나, 이방 땅에 포로로 잡혀갔을 때라도, 이 성전을 향하여 회개하며 기도하면 용서하시고 회복시켜 주실 것을 간구하는 내용으로 구성됩니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>초월하시며 내재하시는 하나님:</strong> 솔로몬은 "하나님이 참으로 땅에 거하시리이까 하늘과 하늘들의 하늘이라도 주를 용납하지 못하겠거든 하물며 내가 건축한 이 성전이오리이까"(27절)라고 고백하며 하나님의 무한한 초월성을 인정합니다. 이는 성전이 하나님을 가두는 장소가 아님을 명확히 하는 중요한 신학적 선언입니다. 그럼에도 불구하고 그는 "주의 눈이 주야로 이 성전을 향하여... 보시오며"(29절)라고 기도하며, 하나님께서 특별한 방식으로 이 성전에 임재(내재)하시고 언약 백성의 기도를 들으시는 분임을 믿습니다. 이 초월과 내재의 긴장은 하나님께서 온 우주의 주권자이시면서 동시에 언약을 통해 자기 백성 가운데 거하기를 기뻐하시는 인격적인 분이심을 보여줍니다.</li>
-                    <li><strong>성전, 회복과 용서의 중심지:</strong> 솔로몬의 기도는 성전이 단순히 제사 드리는 장소를 넘어, 이스라엘의 모든 실패와 좌절 속에서 하나님과의 관계를 회복하는 중심지임을 보여줍니다. 그는 일곱 가지 다른 위기 상황(범죄, 패전, 기근, 전염병, 포로 등)을 열거하며, 어떤 절망적인 상황 속에서도 "이 성전을 향하여" 기도하면 하나님께서 들으시고 "사하여 주옵소서"(30, 34, 36, 39, 50절)라고 반복해서 간구합니다. 이는 성전이 가리키는 궁극적 실체이신 예수 그리스도를 예표합니다. 이제 우리는 유형의 건물이 아닌, 우리의 대제사장이신 예수 그리스도의 이름을 의지하여 나아갈 때 언제든지 죄 사함과 회복의 은혜를 누릴 수 있습니다.</li>
-                </ol>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>10월 5일</h1>
+            </header>
 
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_11_1KI_08.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="1KI_8" data-title="열왕기상 8장">성경 듣기</button>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-book1" data-color="book1">열왕기상 8장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">에베소서 5장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">에스겔 38장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">시편 89편</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+            </nav>
+
+            <main>
+                <div id="content-book1" class="tab-content active">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>열왕기상 8장: 성전 봉헌식과 솔로몬의 기도</h3>
+                            <h4>상세 개요</h4>
+                            <p>성전 건축을 마친 솔로몬은 이스라엘의 모든 장로와 지도자들을 모아 언약궤를 지성소로 옮기는 성대한 봉헌식을 거행합니다. 언약궤가 안치되자 여호와의 영광이 구름의 형태로 성전에 가득 임재합니다. 이에 솔로몬은 하나님을 찬양하고 이스라엘 백성을 축복한 뒤, 하늘을 향해 손을 펴고 위대한 중보 기도를 드립니다. 그는 이 성전을 향해 기도하는 백성의 모든 간구, 특히 죄를 짓고 징계를 받아 이방에 포로로 잡혀갔을 때라도 이곳을 향해 회개하면 용서하고 회복시켜 주실 것을 간구합니다. 봉헌식은 온 백성이 함께 드리는 화목제와 큰 잔치로 마무리됩니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 초월성과 내재성:</strong> 솔로몬의 기도는 하나님의 속성에 대한 깊은 신학적 이해를 보여줍니다. 그는 <span class="scripture-quote">하나님이 참으로 땅에 거하시리이까 하늘과 하늘들의 하늘이라도 주를 용납하지 못하겠거든 하물며 내가 건축한 이 성전이오리이까</span>(27절)라고 고백하며 하나님의 무한한 초월성을 인정합니다. 동시에, 바로 그 하나님께서 이 성전에 당신의 '이름'을 두시고 백성들의 기도를 들으심으로 그들 가운데 거하시는 '내재성'을 믿고 간구합니다. 성전은 무소부재하신 하나님이 언약 백성을 만나기 위해 특별히 정하신 은혜의 장소입니다.</p>
+                            <p><strong>2. 성전과 중보기도:</strong> 솔로몬은 왕으로서 백성과 하나님 사이의 중보자 역할을 감당합니다. 그의 기도는 일곱 가지 상황(죄, 패배, 기근, 전염병, 이방인의 기도, 전쟁, 포로생활)을 구체적으로 언급하며, 어떤 절망적인 상황 속에서도 이 '성전을 향하여' 기도하면 하나님께서 들으시고 용서해 주실 것을 간구합니다. 이는 장차 오실 우리의 영원한 대제사장이요 중보자이신 예수 그리스도를 예표합니다. 이제 우리는 건물이 아닌, 참 성전이신 그리스도의 이름을 의지하여 하나님께 나아갑니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_11_1KI_08.html" data-title="열왕기상 8장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="1KI_8" data-title="열왕기상 8장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book2">
-                <h3>에베소서 5장: 빛의 자녀들처럼 행하라</h3>
-                <h4>상세 개요</h4>
-                <p>에베소서 5장은 하나님의 사랑받는 자녀로서 어떻게 살아야 하는지에 대한 구체적인 윤리 강령을 제시합니다. 바울은 "사랑을 받은 자녀 같이 너희는 하나님을 본받는 자가 되고"(1절)라고 권면하며, 그리스도께서 우리를 위해 자신을 희생 제물로 내어주신 것처럼 사랑으로 행하라고 말합니다. 그는 음행, 온갖 더러운 것, 탐욕과 같은 어둠의 일들은 성도의 삶에서 마땅히 사라져야 함을 강조하며, 과거에는 어둠이었으나 이제는 주 안에서 '빛'이 되었으니 "빛의 자녀들처럼 행하라"(8절)고 촉구합니다. 빛의 열매는 모든 착함과 의로움과 진실함에 있습니다. 바울은 성령의 충만함을 받을 것을 명령하며, 시와 찬송과 신령한 노래들로 서로 화답하고 범사에 감사하며 그리스도를 경외함으로 피차 복종하라고 가르칩니다. 마지막으로 이 '피차 복종'의 원리를 남편과 아내의 관계에 적용하여, 그리스도와 교회의 신비로운 연합을 모델로 한 거룩한 가정 질서를 설명합니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>모방에서 관계로 (하나님을 본받는 삶):</strong> 바울은 성도의 윤리적 삶의 기초가 단순한 계명 준수가 아니라 하나님과의 '자녀' 관계에 있음을 분명히 합니다. "하나님을 본받는 자가 되라"(1절)는 명령은 율법적인 모방을 넘어선, 사랑받는 자녀가 아버지를 자연스럽게 닮아가고자 하는 인격적인 관계에서 비롯됩니다. 그 본받음의 최고 모범은 "그리스도께서 너희를 사랑하신 것 같이"(2절) 자신을 희생하는 사랑입니다. 이처럼 기독교 윤리는 '무엇을 해야 하는가'라는 규칙 목록이 아니라, '나는 누구인가'(하나님의 자녀)라는 정체성과 '그리스도께서 무엇을 하셨는가'라는 복음에 대한 감사에서 출발합니다.</li>
-                    <li><strong>그리스도와 교회의 신비 (가정 질서의 원형):</strong> 바울은 남편과 아내의 관계를 설명하며 "이 비밀이 크도다 나는 그리스도와 교회에 대하여 말하노라"(32절)고 선언합니다. 이는 부부 관계가 단순히 사회적 계약이 아니라, 그리스도의 희생적인 사랑(남편의 역할)과 교회의 거룩한 순종(아내의 역할)이라는 위대한 신비를 반영하는 창조 질서임을 보여줍니다. 남편의 아내 사랑의 기준은 그리스도께서 교회를 위해 자신을 내어주심과 같아야 하며, 아내의 복종은 교회가 그리스도께 하듯 해야 합니다. 이는 가부장적 권위주의나 세속적 평등주의를 넘어서는, 상호 존중과 희생에 기초한 거룩한 연합을 가르칩니다. 개혁주의 신학은 결혼을 하나님의 언약 관계를 반영하는 신성한 제도로 이해합니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="NT/NT_49_EPH_05.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="EPH_5" data-title="에베소서 5장">성경 듣기</button>
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>에베소서 5장: 빛의 자녀처럼 행하며 그리스도와 교회를 본받으라</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 성도들에게 "사랑을 받는 자녀 같이 너희는 하나님을 본받는 자가 되라"고 권면하며, 이전의 어둠의 일을 버리고 '빛의 자녀들처럼' 행하라고 촉구합니다. 빛의 열매는 모든 착함과 의로움과 진실함에 있습니다. 그는 '세월을 아끼라'고 말하며, 성령의 충만함을 받아 시와 찬송과 신령한 노래로 서로 화답하며 하나님을 찬양하는 삶을 살 것을 명령합니다. 마지막으로, 이 모든 원리를 부부 관계에 적용하여, 남편은 그리스도께서 교회를 사랑하시고 자신을 주심 같이 아내를 사랑하고, 아내는 교회가 그리스도께 하듯 남편에게 복종하라고 가르칩니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 빛의 자녀로서의 윤리:</strong> 성도의 윤리는 단순히 '하라/하지 말라'는 율법 목록이 아니라, 정체성의 변화에서 비롯됩니다. <span class="scripture-quote">너희가 전에는 어둠이더니 이제는 주 안에서 빛이라</span>(8절)는 선언은 우리의 존재 자체가 바뀌었음을 의미합니다. 따라서 빛의 열매를 맺는 것은 율법적 의무가 아니라 새로운 본성의 자연스러운 발현입니다. 성령 충만은 이러한 삶을 살아갈 수 있게 하는 동력이며, 감사의 찬양이 넘치는 예배 공동체를 통해 더욱 풍성해집니다.</p>
+                            <p><strong>2. 그리스도와 교회의 신비(결혼):</strong> 바울은 결혼 제도를 설명하며 <span class="scripture-quote">이 비밀이 크도다 나는 그리스도와 교회에 대하여 말하노라</span>(32절)고 밝힙니다. 이는 결혼이 단순히 두 남녀의 결합을 넘어, 그리스도(신랑)와 교회(신부)의 연합이라는 위대한 신비를 보여주기 위해 하나님께서 제정하신 '모형'임을 의미합니다. 남편의 자기희생적인 사랑은 교회를 위해 자신을 내어주신 그리스도의 사랑을 반영해야 하며, 아내의 존경을 담은 순종은 그리스도를 머리로 인정하는 교회의 모습을 반영해야 합니다. 결혼의 목적은 개인의 행복을 넘어, 복음의 진리를 증거하는 데 있습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_49_EPH_05.html" data-title="에베소서 5장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EPH_5" data-title="에베소서 5장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book3">
-                <h3>에스겔 38장: 곡과의 최후 전쟁</h3>
-                <h4>상세 개요</h4>
-                <p>에스겔 38장은 종말론적인 성격이 강한 예언으로, 마지막 때에 하나님의 백성을 대적하여 일어날 거대한 세력 '곡'에 대한 심판을 다룹니다. '마곡 땅에 있는 로스와 메섹과 두발 왕'인 곡은 수많은 동맹국을 이끌고, 평안히 거주하는 이스라엘을 침략하여 재물을 약탈하려 합니다. 그의 침략은 갑작스럽고 압도적인 것처럼 보입니다. 그러나 이 모든 일은 하나님의 주권적인 계획 아래에서 일어납니다. 하나님께서는 "내가 네 아가리를 꿰고 너를 돌이켜... 끌어내고"(4절)라고 말씀하시며, 곡의 침략조차도 당신의 목적을 이루기 위한 도구임을 밝히십니다. 그 목적은 이스라엘의 산 위에서 곡의 군대를 완전히 심판하심으로써, "내가 많은 민족의 눈에 내 거룩함을 나타내어 내가 여호와인 줄을 그들이 알게 하려 함이라"(23절)는 것입니다. 하나님은 큰 지진과 전염병, 폭우와 불과 유황으로 그들을 심판하시어 당신의 영광을 온 세상에 드러내실 것입니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>역사의 주관자이신 하나님의 주권:</strong> 곡의 침략은 인간적인 관점에서는 하나님의 백성에게 닥친 최대의 위기처럼 보이지만, 에스겔의 예언은 그 배후에 계신 하나님의 보이지 않는 손을 드러냅니다. 하나님께서는 악한 세력인 곡을 격동시키시고(4절), 그를 심판의 장소로 이끄시며(16절), 마침내 그를 완전히 멸하십니다. 이는 세상의 악한 세력들이 아무리 강대해 보여도 결국 하나님의 주권적인 통제 아래 있으며, 그들의 활동조차도 하나님의 거룩한 뜻과 영광을 드러내는 데 사용될 뿐임을 보여주는 장엄한 신학입니다. 이 예언은 역사의 혼돈 속에서 불안해하는 성도들에게, 하나님께서 모든 것을 합력하여 선을 이루시며 최종 승리를 쟁취하실 것이라는 강력한 위로와 소망을 줍니다.</li>
-                    <li><strong>하나님의 거룩함과 자기 계시:</strong> 이 종말론적 전쟁의 궁극적인 목적은 이스라엘의 구원 자체를 넘어, 하나님의 '거룩한 이름'이 온 세상에 알려지는 것입니다. 하나님께서는 "이같이 내가 여러 나라의 눈에 내 위대함과 내 거룩함을 나타내어 나를 알게 하리니 내가 여호와인 줄을 그들이 알리라"(23절)고 반복해서 선포하십니다. 곡에 대한 심판은 하나님이 어떤 분이신지를 만방에 보여주는 자기 계시의 사건입니다. 하나님은 죄와 악을 결코 용납하지 않으시는 거룩한 분이시며, 당신의 백성을 끝까지 보호하시는 신실한 분이시며, 모든 대적을 물리치시는 전능한 분이십니다. 이는 구속사의 최종 목표가 단순히 인간의 구원이 아니라, 하나님의 영광이 온전히 드러나는 것임을 보여줍니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_26_EZE_38.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="EZE_38" data-title="에스겔 38장">성경 듣기</button>
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>에스겔 38장: 곡을 향한 예언과 하나님의 거룩하심</h3>
+                            <h4>상세 개요</h4>
+                            <p>하나님은 에스겔에게 북방 먼 땅 마곡의 왕 '곡'에 대한 예언을 선포하게 하십니다. 말년에 평안히 거하는 이스라엘을 치기 위해 곡이 수많은 동맹국과 함께 거대한 군대를 이끌고 구름같이 쳐들어올 것입니다. 그들의 동기는 이스라엘의 재물을 약탈하기 위함입니다. 그러나 하나님께서는 바로 이 악한 계획을 통해 당신의 목적을 이루실 것입니다. 하나님은 큰 지진과 전염병, 불과 유황으로 곡의 군대를 심판하심으로써, 이방 민족들 앞에서 당신의 위대함과 거룩함을 드러내시고 <span class="scripture-quote">내가 여호와인 줄을 그들이 알게 하리라</span>(23절)고 선포하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 역사의 주관자이신 하나님:</strong> 본문은 세상 역사의 모든 사건 배후에 계신 하나님의 절대 주권을 보여줍니다. 곡은 스스로의 탐욕에 이끌려 이스라엘을 침공하는 것처럼 보이지만, 하나님께서는 <span class="scripture-quote">내가 너를 돌이켜 갈고리로 네 아가리를 꿰고... 너를 끌어내리라</span>(4절)고 말씀하시며, 곡의 악한 의도조차 당신의 더 큰 계획을 이루는 도구로 사용하심을 보여줍니다. 이는 '하나님의 주권적 작정' 교리의 한 단면으로, 악의 활동마저도 하나님의 통제 아래 있음을 나타냅니다.</p>
+                            <p><strong>2. 종말론적 심판의 예표:</strong> 곡과 마곡의 전쟁은 역사적으로 특정 사건을 가리키기보다는, 종말의 때에 하나님의 백성을 대적하여 일어날 최후의 악한 세력을 상징하는 것으로 해석됩니다(계 20:8 참조). 이 전쟁의 목적은 이스라엘의 멸망이 아니라, 오히려 그들을 대적하는 세력에 대한 하나님의 압도적인 심판을 통해 당신의 거룩한 이름의 영광을 온 세상에 드러내는 것입니다. 교회는 세상의 어떤 위협 앞에서도 두려워할 필요가 없습니다. 역사의 마지막 승리는 이미 하나님의 것입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_26_EZE_38.html" data-title="에스겔 38장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZE_38" data-title="에스겔 38장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-
-            <div class="chapter-card card-book4">
-                <h3>시편 89편: 다윗 언약에 대한 탄식과 신뢰</h3>
-                <h4>상세 개요</h4>
-                <p>시편 89편은 에단 사람 에스라인의 마스길로, 전반부와 후반부의 분위기가 극적으로 대조되는 시편입니다. 전반부(1-37절)는 하나님의 인자하심(헤세드)과 성실하심을 찬양하며, 특히 다윗과 맺으신 영원한 언약을 상세하게 노래합니다. 하나님께서는 다윗의 왕위가 영원할 것이며, 그의 후손이 범죄할지라도 "나의 인자함을 그에게서 다 거두지는 아니하며 나의 성실함도 폐하지 아니할 것"(33절)이라고 굳게 약속하셨습니다. 그러나 후반부(38-52절)는 갑작스러운 탄식으로 전환됩니다. 시인은 현재 왕이 대적에게 패배하고 왕관이 땅에 던져지는 등 언약이 완전히 파기된 것처럼 보이는 비참한 현실을 하나님 앞에 토로합니다. "주께서 어찌하여 주의 기름 부음 받은 자에게 노하셨나이까"(38절). 그는 하나님의 이전 약속과 현재의 고통스러운 현실 사이의 괴리감 속에서 "주의 성실하심이 어디 있나이까"(49절)라고 부르짖으며, 하나님의 언약적 신실함에 다시 한번 호소하며 시를 마칩니다.</p>
-                
-                <h4>심층 신학적 해설</h4>
-                <ol>
-                    <li><strong>하나님의 언약적 신실함 (헤세드):</strong> 이 시편의 중심축은 하나님의 언약적 사랑과 신실함을 의미하는 히브리어 '헤세드'(חסד)입니다. 시인은 "여호와의 인자하심을 영원히 노래하며"(1절)라고 시작하며, 다윗 언약의 근거가 인간의 자격이 아닌, 바로 이 변치 않는 하나님의 '헤세드'에 있음을 찬양합니다. 다윗의 후손이 범죄하여 징계를 받을지라도, 하나님께서는 언약 자체를 파기하지 않으실 것이라는 약속(30-37절)은 하나님의 은혜의 무조건성을 보여줍니다. 이는 죄와 실패에도 불구하고 우리를 끝까지 붙드시는 하나님의 신실하심에 대한 강력한 신뢰의 근거가 됩니다.</li>
-                    <li><strong>고난 속에서의 정직한 질문과 믿음:</strong> 시인은 하나님의 약속과 눈앞의 현실이 충돌할 때, 자신의 감정과 의문을 숨기지 않고 하나님께 정직하게 쏟아놓습니다. "주여 주의 노하심이 언제까지나 불붙듯 하시겠나이까"(46절). 이러한 탄식은 불신앙의 표현이 아니라, 오히려 하나님의 언약을 굳게 믿기에 "어째서 이 약속이 지금 내 삶에 이루어지지 않습니까?"라고 부르짖는 처절한 믿음의 몸부림입니다. 이 시편은 우리에게 고난 속에서 하나님께 정직하게 질문하고 씨름하는 것이 신앙의 일부임을 가르쳐 줍니다. 이 탄식은 결국 다윗의 완전한 후손이신 예수 그리스도를 통해 궁극적인 응답을 받게 됩니다. 십자가는 언약이 파기된 것처럼 보이는 가장 큰 절망의 자리였지만, 부활을 통해 하나님은 당신의 언약에 가장 신실하신 분임이 영원히 증명되었습니다.</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button class="btn btn-view" data-path="OT/OT_19_PSA_089.html">본문 보기</button>
-                    <button class="btn btn-listen" data-key="PSA_89" data-title="시편 89편">성경 듣기</button>
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>시편 89편: 다윗 언약의 신실함과 현재의 고난</h3>
+                            <h4>상세 개요</h4>
+                            <p>에단이 쓴 이 시편은 두 부분으로 극명하게 나뉩니다. 전반부(1-37절)는 하나님의 인자하심(헤세드)과 성실하심을 찬양하며, 특히 다윗과 맺으신 영원한 언약을 상세하게 회고합니다. 하나님께서는 다윗의 후손이 죄를 범하면 채찍으로 징계하시겠지만, 당신의 인자하심을 거두지 않고 그 왕위를 영원히 견고하게 하시겠다고 약속하셨습니다. 그러나 후반부(38-52절)는 이 약속과 너무나 다른 현재의 참담한 현실을 향한 고통스러운 탄식으로 전환됩니다. 주는 어찌하여 주의 기름 부음 받은 왕을 버리시고 그의 왕관을 땅에 던지셨냐고 부르짖으며, 언약의 신실한 이행을 간절히 촉구하며 시편을 마칩니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 언약적 신실성(헤세드):</strong> 시편의 전반부는 하나님의 핵심 성품인 '헤세드'(인자, 언약적 사랑, 변함없는 사랑)에 대한 위대한 찬양입니다. 하나님께서 다윗과 맺으신 언약은 다윗의 자격 때문이 아니라, 오직 하나님의 신실하심에 기초합니다. <span class="scripture-quote">그러나 나의 인자함을 그에게서 다 거두지는 아니하며 나의 성실함도 폐하지 아니하며</span>(33절)라는 약속은, 인간의 실패에도 불구하고 당신의 구원 계획을 끝까지 이루시는 하나님의 주권적 은혜의 본질을 보여줍니다.</p>
+                            <p><strong>2. 언약과 현실 사이의 고통, 그리고 메시아 대망:</strong> 시편의 후반부는 신앙인이 겪는 가장 큰 고뇌, 즉 '하나님의 약속'과 '눈에 보이는 현실' 사이의 괴리를 보여줍니다. 다윗 왕조는 무너졌고, 왕은 수치를 당했습니다. 이처럼 언약이 파기된 것처럼 보이는 절망 속에서, 시인의 기도는 역설적으로 이 땅의 불완전한 왕이 아닌, 영원하고 실패하지 않을 참된 다윗의 후손, 즉 메시아를 향한 갈망으로 이어집니다. 이 시편의 질문에 대한 최종적인 응답은 십자가에서 죽으시고 부활하심으로 영원한 왕권을 성취하신 예수 그리스도이십니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_89.html" data-title="시편 89편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_89" data-title="시편 89편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>통합 묵상: 언약의 집과 그 대적들의 운명</h3>
+                            <h4>관통하는 주제</h4>
+                            <p>오늘의 네 본문은 '하나님의 언약 공동체'가 어떻게 세워지고, 어떤 위협에 직면하며, 궁극적으로 어떻게 승리하는지를 보여주는 하나의 거대한 파노라마와 같습니다. 시편 89편은 이 이야기의 기초가 되는 '다윗 언약'의 신실함과, 그 언약이 깨어진 것처럼 보이는 현실의 고통을 함께 보여주며 근본적인 질문을 던집니다. 열왕기상 8장은 이 언약의 가시적 중심지인 성전을 봉헌하며, 죄로 인해 흩어질지라도 이 '언약의 집'을 향해 기도하면 회복될 것이라는 소망을 붙듭니다. 그러나 이 언약 공동체는 항상 외부의 위협에 직면합니다. 에스겔 38장은 종말의 때에 교회를 삼키려 하는 세상의 거대한 연합 세력(곡)의 침공과, 그들을 향한 하나님의 주권적인 심판을 예언합니다. 이 모든 구약의 그림과 예언은 마침내 에베소서 5장에서 그 실체가 드러납니다. 참된 언약 공동체는 그리스도께서 자신을 내어주심으로 세우신 '교회'이며, 이 교회는 세상의 어둠 속에서 '빛의 자녀'로 살아가며 그리스도와의 신비로운 연합(결혼)을 통해 궁극적인 승리를 보장받은 공동체입니다.</p>
+                            <h4>핵심 개념 및 상호 참조</h4>
+                            <p><strong>언약의 집: 성전에서 교회로:</strong> 열왕기상 8장의 유형적 '성전'은 하나님과 백성 사이의 언약 관계의 중심입니다. 죄를 지었을 때조차 이곳은 회복을 위한 기도의 구심점이 됩니다. 이 성전의 개념은 에베소서 5장에서 그리스도와 연합한 신부, 즉 '교회'로 발전합니다. 이제 우리는 건물이 아닌, 그리스도의 몸 된 교회를 통해 하나님과 교제하며, 어떤 죄와 환난 속에서도 중보자이신 그리스도를 통해 용서와 회복을 경험합니다.</p>
+                            <p><strong>언약의 왕과 그 대적:</strong> 시편 89편의 '기름 부음 받은 왕'(다윗의 후손)은 교회의 머리이신 그리스도를 예표합니다. 이 왕의 통치는 에스겔 38장의 '곡'으로 상징되는 세상의 악한 세력으로부터 끊임없는 도전을 받습니다. 그러나 시편 기자의 탄식과 달리, 에스겔의 예언은 하나님께서 친히 그 대적을 심판하시고 당신의 영광을 드러내실 것을 확증합니다. 이 영적 전쟁 속에서 교회는 남편이신 그리스도의 자기희생적인 사랑과 보호 아래 안전하게 거합니다(엡 5장).</p>
+                            <h4>삶으로의 적용</h4>
+                            <ul>
+                                <li><strong>지(知):</strong> 내가 속한 교회가 단순히 사람들의 모임이 아니라, 그리스도께서 피로 값 주고 사신 그분의 신부이며, 세상의 어떤 세력도 궁극적으로 무너뜨릴 수 없는 하나님의 언약 공동체임을 믿습니까?</li>
+                                <li><strong>정(情):</strong> 시편 89편의 기자처럼, 하나님의 약속과 고통스러운 현실 사이의 괴리감 때문에 탄식하고 있지는 않습니까? 그럴 때, 나를 위해 모든 것을 내어주신 그리스도의 변함없는 사랑(엡 5장)을 묵상하며 소망을 회복하고 있습니까?</li>
+                                <li><strong>의(意):</strong> '빛의 자녀'로서, 오늘 내가 속한 가정과 직장에서 어둠의 일(음행, 탐심, 거짓 등)을 어떻게 거부하고 빛의 열매(착함, 의로움, 진실함)를 구체적으로 드러내겠습니까? 솔로몬처럼, 나 자신과 공동체의 죄를 위해 하나님 앞에 엎드려 중보하는 기도의 시간을 갖기로 결단합시다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
 
-            <div class="integration-card">
-                <h2>통합 묵상: 언약의 집, 그 영광과 거룩과 최후 승리</h2>
-                <h3>관통하는 주제 논증: 하나님의 언약 공동체의 정체성과 운명</h3>
-                <p>오늘의 네 본문은 '하나님의 언약 공동체', 즉 하나님의 집(성전, 교회)이 어떤 정체성을 가지며, 어떤 삶을 살아야 하고, 궁극적으로 어떤 운명을 맞이하게 될 것인지를 장대하게 펼쳐 보입니다. 열왕기상 8장은 유형의 성전 봉헌을 통해 하나님의 영광스러운 임재가 거하는 '언약의 집'이 어떻게 시작되었는지를 보여줍니다. 이 집은 죄를 용서받고 관계를 회복하는 중심지입니다. 에베소서 5장은 이 '집'의 개념을 신약의 교회로 확장하여, 이제는 성도들 자신이 "빛의 자녀들"로서 거룩하고 사랑이 넘치는 공동체를 이루어야 할 '살아있는 성전'임을 가르칩니다. 시편 89편은 이 언약 공동체가 현실 속에서 겪는 고난과 역설을 보여줍니다. 하나님의 영원한 언약 약속에도 불구하고, 공동체는 때로 언약이 파기된 것처럼 보이는 처절한 고통을 겪지만, 바로 그 언약에 근거하여 다시 하나님께 부르짖습니다. 마지막으로 에스겔 38장은 이 언약 공동체의 최종적인 운명을 보여줍니다. 세상의 모든 악한 세력(곡)이 연합하여 교회를 대적할지라도, 하나님께서는 주권적인 능력으로 그들을 심판하시고 당신의 교회를 영원히 보호하시며, 그 최후 승리를 통해 당신의 영광을 온 세상에 드러내실 것입니다. 이처럼 오늘의 본문들은 하나님의 집의 시작, 현재적 과제, 현실적 고난, 그리고 영광스러운 미래를 보여주는 하나의 거대한 파노라마입니다.</p>
-
-                <h3>입체적 핵심 단어 연구: 헤세드 (חסד, Chesed)</h3>
-                <p>시편 89편의 핵심 주제인 히브리어 '헤세드'(חסד)는 단순히 '인자, 사랑, 자비' 등으로 번역하기에는 너무나 풍성한 의미를 담고 있는 단어입니다. '헤세드'의 가장 깊은 의미는 '언약에 기초한 변치 않는 충성스러운 사랑'입니다. 이는 상대방의 자격이나 행동에 따라 변하는 감정적인 사랑이 아니라, 자신이 맺은 언약 때문에 어떤 상황에서도 결코 변개하거나 철회하지 않는 끈질기고 신실한 사랑을 의미합니다. 시편 89편의 시인이 다윗의 후손들이 범죄하여 징계를 받는 절망적인 상황 속에서도 하나님께 호소할 수 있었던 유일한 근거가 바로 이 '헤세드'였습니다. 하나님께서 다윗과 맺으신 언약 때문에, 그들을 완전히 버리지 않으실 것이라는 믿음입니다. 이 '헤세드'의 최고 정점은 예수 그리스도의 십자가에서 나타났습니다. 우리가 아직 죄인 되었을 때에, 하나님께서는 우리와 맺은 언약을 기억하시고 독생자를 내어주심으로 자신의 충성스러운 사랑을 확증하셨습니다(롬 5:8). 그러므로 성도가 어떤 실패와 좌절 속에서도 소망을 잃지 않을 수 있는 이유는 바로 이 영원하고 무조건적인 하나님의 '헤세드' 때문입니다.</p>
-                
-                <h3>심층 상호 참조</h3>
-                <ul>
-                    <li><strong>열왕기상 8:30 & 시편 89:30-33:</strong> 솔로몬은 "주의 백성 이스라엘이... 주께 기도하거든... 들으시고 사하여 주옵소서"라고 간구하며, 백성의 범죄에도 불구하고 용서해 주실 것을 기도합니다. 시편 89편은 이 기도에 대한 하나님의 언약적 보증을 보여줍니다. "만일 그의 자손이 내 법을 버리며... 내 율례를 지키지 아니하면 내가... 그들의 죄악을 채찍으로 다스릴지라도 나의 인자함(헤세드)을 그에게서 다 거두지는 아니하며 나의 성실함도 폐하지 아니하리라". 솔로몬의 간구는 인간의 회개에 초점이 맞춰져 있다면, 시편의 약속은 하나님의 변치 않는 신실하심에 근거하여 그 기도가 어떻게 응답될 수 있는지를 보여줍니다.</li>
-                    <li><strong>에베소서 5:8, 25-27 & 에스겔 38:23:</strong> 에베소서에서 바울은 교회를 향해 "너희가 전에는 어둠이더니 이제는 주 안에서 빛이라 빛의 자녀들처럼 행하라"고 권면하며, 그리스도께서 교회를 "물로 씻어 말씀으로 깨끗하게 하사 거룩하게 하시고... 티나 주름 잡힌 것이 없이 거룩하고 흠이 없게 하려 하심이라"고 말합니다. 즉, 교회의 정체성은 '거룩함'입니다. 에스겔 38장에서 하나님께서 곡을 심판하시는 궁극적인 이유 또한 당신의 '거룩함'을 드러내기 위함입니다. "내가 여러 나라의 눈에 내 위대함과 내 거룩함을 나타내어 나를 알게 하리니". 두 본문은 하나님의 백성의 거룩함과 하나님의 거룩한 이름이 깊이 연결되어 있음을 보여줍니다. 교회가 거룩함을 드러낼 때 하나님의 영광이 나타나며, 하나님께서는 당신의 거룩함을 지키시기 위해 교회를 대적하는 모든 악을 심판하십니다.</li>
-                </ul>
-
-                <h3>적용을 위한 성찰 질문</h3>
-                <ol>
-                    <li>솔로몬은 하나님의 영광이 가득한 성전 앞에서도 "하늘들의 하늘이라도 주를 용납하지 못하겠거든"이라며 겸손히 고백했습니다. 나는 나의 신앙생활이나 예배 가운데, 하나님의 무한하신 광대함을 인정하며 경외함으로 나아가고 있습니까, 아니면 하나님을 나의 경험이나 이해 속에 가두려 하고 있습니까?</li>
-                    <li>에베소서 5장은 "빛의 자녀들처럼 행하라"고 명령합니다. 최근 나의 말과 행동, 생각 속에서 과거 어둠의 습관이 여전히 남아있는 부분은 무엇입니까? 빛의 열매인 '착함과 의로움과 진실함'을 내 삶 속에서 구체적으로 어떻게 맺을 수 있을까요?</li>
-                    <li>에스겔 38장의 '곡'처럼, 당신의 삶이나 신앙을 위협하는 거대하고 압도적인 문제(세력)는 무엇입니까? 그 문제 앞에서 두려워하고 있습니까, 아니면 그 문제조차도 하나님의 주권 아래 있으며 그분의 영광을 드러내는 도구가 될 수 있음을 믿고 있습니까?</li>
-                    <li>시편 89편의 시인처럼, 하나님의 약속과 고통스러운 현실 사이의 괴리감 때문에 하나님께 탄식하며 부르짖었던 경험이 있습니까? 그 고난의 경험을 통해 하나님의 변치 않는 언약적 사랑(헤세드)을 어떻게 더 깊이 신뢰하게 되었습니까?</li>
-                </ol>
-            </div>
-        </main>
-
-        <footer>
-            <p>© 2025 KBD 맥체인 성경읽기 프로젝트</p>
-        </footer>
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
     </div>
 
-    <div id="bible-modal" class="modal">
+    <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
-            <span class="modal-close-btn">&times;</span>
-            <div class="modal-body" id="modal-body-content"><div class="spinner"></div></div>
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
+    <div class="floating-nav" id="floating-nav">
+         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-    <div id="audio-player" class="audio-player">
-        <div class="audio-player-info" id="player-info"></div>
-        <div class="audio-player-controls">
-            <button id="play-pause-btn">▶</button>
-            <button id="close-player-btn">✖</button>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                 <button id="close-player-btn" title="닫기">&times;</button>
+            </div>
         </div>
     </div>
-    <div id="youtube-player-container"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainContainer = document.getElementById('main-container');
-            const bibleModal = document.getElementById('bible-modal');
-            const modalBody = document.getElementById('modal-body-content');
-            const closeModalBtn = document.querySelector('.modal-close-btn');
-            const audioPlayerBar = document.getElementById('audio-player');
-            const playerInfo = document.getElementById('player-info');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const closePlayerBtn = document.getElementById('close-player-btn');
-            
-            let ytPlayer;
-            let audioLinks = new Map();
-            let isPlayerReady = false;
-
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-            window.onYouTubeIframeAPIReady = function() {
-                ytPlayer = new YT.Player('youtube-player-container', {
-                    height: '0',
-                    width: '0',
-                    events: {
-                        'onReady': () => { isPlayerReady = true; },
-                        'onStateChange': (event) => {
-                            playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
-                        }
-                    }
-                });
-            }
-
-            async function loadAudioLinks() {
-                try {
-                    const response = await fetch('../address/mcbible.txt');
-                    if (!response.ok) throw new Error('오디오 목록 파일을 불러올 수 없습니다.');
-                    const text = await response.text();
-                    text.split('\n').forEach(line => {
-                        if (line.trim() !== '') {
-                            const parts = line.split(/\s+/);
-                            const fullKey = parts[0];
-                            const url = parts[1];
-                            const keyParts = fullKey.split('_'); 
-                            
-                            if (keyParts.length >= 3) {
-                                const book = keyParts[2];
-                                const chapter = parseInt(keyParts.at(-1), 10);
-                                const shortKey = `${book}_${chapter}`;
-                                audioLinks.set(shortKey, url);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('오디오 링크 로딩 오류:', error);
-                }
-            }
-            
-            function getYouTubeID(url) {
-                const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                const match = url.match(regex);
-                return match ? match[1] : null;
-            }
-
-            mainContainer.addEventListener('click', async (e) => {
-                const target = e.target.closest('.btn');
-                if (!target) return;
-
-                if (target.classList.contains('btn-view')) {
-                    const path = target.dataset.path;
-                    bibleModal.style.display = 'block';
-                    modalBody.innerHTML = '<div class="spinner"></div>';
-                    try {
-                        const response = await fetch(`../bible_html/${path}`);
-                        if (!response.ok) throw new Error(`HTTP 오류! 상태: ${response.status}`);
-                        const html = await response.text();
-                        modalBody.innerHTML = html;
-                    } catch (error) {
-                        modalBody.innerHTML = `<p>본문을 불러오는 데 실패했습니다: ${error.message}</p>`;
-                    }
-                }
-                
-                if (target.classList.contains('btn-listen')) {
-                    if (!isPlayerReady) {
-                        alert('오디오 플레이어가 아직 준비되지 않았습니다.');
-                        return;
-                    }
-                    if (audioLinks.size === 0) {
-                        await loadAudioLinks(); 
-                         if (audioLinks.size === 0) {
-                            alert('오디오 목록을 불러오지 못했습니다. 파일 경로와 서버 상태를 확인해주세요.');
-                            return;
-                        }
-                    }
-                    const key = target.dataset.key;
-                    const title = target.dataset.title;
-                    const url = audioLinks.get(key);
-
-                    if (url) {
-                        const videoId = getYouTubeID(url);
-                        if (videoId) {
-                            ytPlayer.loadVideoById(videoId);
-                            playerInfo.textContent = `재생중: ${title}`;
-                            audioPlayerBar.classList.add('show');
-                        } else {
-                            alert(`'${title}'의 YouTube 영상 ID를 추출할 수 없습니다.`);
-                        }
-                    } else {
-                        alert(`'${title}'에 해당하는 오디오를 찾을 수 없습니다. (Key: ${key})`);
-                    }
-                }
-            });
-
-            function closeModal() {
-                bibleModal.style.display = 'none';
-                modalBody.innerHTML = '';
-            }
-
-            closeModalBtn.addEventListener('click', closeModal);
-            bibleModal.addEventListener('click', (e) => {
-                if (e.target === bibleModal) {
-                    closeModal();
-                }
-            });
-
-            playPauseBtn.addEventListener('click', () => {
-                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
-                const playerState = ytPlayer.getPlayerState();
-                if (playerState === YT.PlayerState.PLAYING) {
-                    ytPlayer.pauseVideo();
-                } else {
-                    ytPlayer.playVideo();
-                }
-            });
-
-            closePlayerBtn.addEventListener('click', () => {
-                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
-                    ytPlayer.stopVideo();
-                }
-                audioPlayerBar.classList.remove('show');
-            });
-            
-            loadAudioLinks();
-        });
-    </script>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
