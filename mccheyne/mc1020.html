@@ -3,215 +3,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>맥체인 성경읽기 - 10월 20일</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>10월 20일 맥체인 성경읽기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .progress-container {
+            background-color: #e9ecef;
+            border-radius: 10px;
+            height: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, #28a745, #20c997);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-weight: 500;
+            margin: 0.25rem;
+        }
+        .tab-btn.active {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .tab-btn[data-color="book1"].active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .tab-btn[data-color="book2"].active { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .tab-btn[data-color="book3"].active { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .tab-btn[data-color="book4"].active { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .content-area {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .button-group {
+            margin: 1.5rem 0;
+        }
+        .btn {
+            margin: 0.25rem;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .reflection-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-left: 4px solid #007bff;
+        }
+        .verse-highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #17a2b8;
+        }
+        .prayer-point {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+        .historical-context {
+            background-color: #e8f5e8;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #28a745;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-4">
-        <h1 class="text-center mb-4">맥체인 성경읽기</h1>
-        <h2 class="text-center mb-4">10월 20일</h2>
-
-        <!-- Progress Bar -->
-        <div class="progress mb-4">
-            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="header text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">10월 20일 맥체인 성경읽기</h1>
+            <p class="lead">하나님의 말씀으로 하루를 시작하세요</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="reading-progress"></div>
+            </div>
         </div>
+    </div>
 
-        <!-- Tab Navigation -->
-        <ul class="nav nav-tabs" id="readingTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="morning1-tab" data-bs-toggle="tab" data-bs-target="#morning1" type="button" role="tab">아침1</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="morning2-tab" data-bs-toggle="tab" data-bs-target="#morning2" type="button" role="tab">아침2</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="evening1-tab" data-bs-toggle="tab" data-bs-target="#evening1" type="button" role="tab">저녁1</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="evening2-tab" data-bs-toggle="tab" data-bs-target="#evening2" type="button" role="tab">저녁2</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="integration-tab" data-bs-toggle="tab" data-bs-target="#integration" type="button" role="tab">통합</button>
-            </li>
-        </ul>
+    <div class="container">
+        <nav class="tabs">
+            <button class="tab-btn active" data-target="content-book1" data-color="book1">열왕기하 1장</button>
+            <button class="tab-btn" data-target="content-book2" data-color="book2">데살로니가후서 1장</button>
+            <button class="tab-btn" data-target="content-book3" data-color="book3">다니엘 5장</button>
+            <button class="tab-btn" data-target="content-book4" data-color="book4">시편 110편</button>
+        </nav>
 
-        <!-- Tab Content -->
-        <div class="tab-content mt-3" id="readingTabsContent">
-            <!-- 아침 1독 -->
-            <div class="tab-pane fade show active" id="morning1" role="tabpanel">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">열왕기하 1장</h5>
-                        <div>
-                            <button class="btn btn-primary btn-sm view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_12_2KI_01.html" data-title="열왕기하 1장">본문 보기</button>
-                            <button class="btn btn-secondary btn-sm listen-audio-btn" data-key="2KI_01" data-title="열왕기하 1장">성경 듣기</button>
-                        </div>
+        <div class="content-area">
+            <!-- 열왕기하 1장 -->
+            <div id="content-book1" class="content-section active">
+                <h2 class="text-primary mb-4">📖 열왕기하 1장 - 엘리야의 권세와 아하시야의 심판</h2>
+
+                <div class="button-group">
+                    <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_12_2KI_001.html" data-title="열왕기하 1장">본문 보기</button>
+                    <button class="btn btn-secondary listen-audio-btn" data-key="2KI_001" data-title="열왕기하 1장">성경 듣기</button>
+                </div>
+
+                <div class="verse-highlight">
+                    <strong>핵심 구절:</strong> "그러므로 여호와의 말씀이 네가 올라간 침상에서 내려오지 못하고 반드시 죽으리라 하셨다 하니 왕이 과연 죽었더라" (열왕기하 1:17)
+                </div>
+
+                <div class="historical-context">
+                    <h5>📚 역사적 배경</h5>
+                    <p>아합의 아들 아하시야가 이스라엘 왕이 되었으나, 그는 아버지와 같은 길을 걸으며 바알을 섬겼습니다. 우연한 사고로 다락에서 떨어진 아하시야는 자신의 생사를 하나님께 묻지 않고 이방신 바알세붑에게 물었습니다.</p>
+                </div>
+
+                <h5>🔍 말씀 묵상</h5>
+                <p><strong>1. 잘못된 의지처 (1-8절)</strong></p>
+                <ul>
+                    <li>아하시야가 다락에서 떨어져 다친 사건은 하나님의 섭리 가운데 일어난 일이었습니다</li>
+                    <li>그러나 그는 참 하나님께 구하지 않고 에그론의 바알세붑에게 물으려 했습니다</li>
+                    <li>이는 하나님을 무시하고 이방신을 의지하는 죄악이었습니다</li>
+                </ul>
+
+                <p><strong>2. 하나님의 사자 엘리야 (9-16절)</strong></p>
+                <ul>
+                    <li>엘리야는 하나님의 명령에 따라 아하시야의 사자들을 가로막았습니다</li>
+                    <li>아하시야가 보낸 오십부장들의 죽음은 하나님의 권세를 나타내는 사건이었습니다</li>
+                    <li>세 번째 오십부장의 겸손한 태도는 하나님 앞에서의 올바른 자세를 보여줍니다</li>
+                </ul>
+
+                <p><strong>3. 심판의 성취 (17-18절)</strong></p>
+                <ul>
+                    <li>엘리야가 전한 하나님의 말씀대로 아하시야는 죽었습니다</li>
+                    <li>이는 하나님의 말씀이 반드시 성취됨을 보여주는 사건입니다</li>
+                    <li>하나님을 무시하고 이방신을 의지하는 죄의 결과를 명확히 드러냅니다</li>
+                </ul>
+
+                <div class="reflection-section">
+                    <h5>💭 오늘의 적용</h5>
+                    <div class="prayer-point">
+                        <strong>회개할 점:</strong> 어려운 일이 있을 때 하나님보다 세상의 방법을 먼저 찾지 않았는지 돌아보며 회개합니다.
                     </div>
-                    <div class="card-body">
-                        <h6>아하시야의 우상숭배와 엘리야의 하나님</h6>
-                        <p>아합의 아들 아하시야가 이스라엘 왕이 되었지만, 아버지의 악한 길을 그대로 걸었습니다. 그가 다락에서 떨어져 병들게 되자, 블레셋의 우상인 바알세붑에게 병의 회복 여부를 물으려고 사자들을 보냅니다. 이는 이스라엘의 왕으로서 있을 수 없는 배교 행위였습니다.</p>
-
-                        <p>하나님께서는 엘리야를 보내어 사자들을 가로막고 준엄한 메시지를 전하게 하십니다. "이스라엘에 하나님이 없어서 너희가 에그론의 바알세붑에게 물으러 가느냐"는 질책과 함께 아하시야가 반드시 죽을 것이라고 선언합니다. 이는 우상숭배에 대한 하나님의 진노를 보여줍니다.</p>
-
-                        <p>아하시야가 엘리야를 잡아오라고 보낸 오십부장과 군사들에게 엘리야는 "내가 하나님의 사람이면 하늘에서 불이 내려와서 너와 너의 오십 명을 사를지로다"라고 말하며, 실제로 하늘에서 불이 내려와 그들을 삼킵니다. 이 일이 두 번 반복된 후, 세 번째 오십부장은 엘리야 앞에 무릎을 꿇고 생명을 구걸합니다.</p>
-
-                        <p>엘리야는 하나님의 명령에 따라 왕을 직접 만나 심판의 메시지를 전하고, 결국 아하시야는 하나님의 말씀대로 죽게 됩니다. 아들이 없어 동생 여호람이 왕위를 계승하게 됩니다.</p>
-
-                        <p><strong>묵상:</strong> 하나님을 버리고 우상을 찾는 것은 큰 죄악입니다. 하나님의 사람에 대한 존경과 하나님의 말씀에 대한 순종이 필요합니다.</p>
+                    <div class="prayer-point">
+                        <strong>감사할 점:</strong> 우리의 진정한 도움과 치료자는 오직 하나님이심을 깨닫고 감사합니다.
+                    </div>
+                    <div class="prayer-point">
+                        <strong>결단할 점:</strong> 모든 문제와 어려움을 오직 하나님께만 의지하며 구하겠습니다.
                     </div>
                 </div>
             </div>
 
-            <!-- 아침 2독 -->
-            <div class="tab-pane fade" id="morning2" role="tabpanel">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">데살로니가후서 1장</h5>
-                        <div>
-                            <button class="btn btn-primary btn-sm view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_14_2TH_01.html" data-title="데살로니가후서 1장">본문 보기</button>
-                            <button class="btn btn-secondary btn-sm listen-audio-btn" data-key="2TH_01" data-title="데살로니가후서 1장">성경 듣기</button>
-                        </div>
+            <!-- 데살로니가후서 1장 -->
+            <div id="content-book2" class="content-section">
+                <h2 class="text-danger mb-4">✉️ 데살로니가후서 1장 - 환난 중의 위로와 주의 재림</h2>
+
+                <div class="button-group">
+                    <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_14_2TH_001.html" data-title="데살로니가후서 1장">본문 보기</button>
+                    <button class="btn btn-secondary listen-audio-btn" data-key="2TH_001" data-title="데살로니가후서 1장">성경 듣기</button>
+                </div>
+
+                <div class="verse-highlight">
+                    <strong>핵심 구절:</strong> "너희로 하여금 하나님의 나라에 합당한 자로 여김을 받게 하려 함이니 그 나라를 위하여 너희가 또한 고난을 받느니라" (데살로니가후서 1:5)
+                </div>
+
+                <div class="historical-context">
+                    <h5>📚 역사적 배경</h5>
+                    <p>바울이 데살로니가 교회에 보낸 두 번째 편지로, 첫 번째 편지 후 얼마 지나지 않아 기록되었습니다. 교회는 여전히 박해받고 있었고, 그리스도의 재림에 대한 오해들이 있었습니다.</p>
+                </div>
+
+                <h5>🔍 말씀 묵상</h5>
+                <p><strong>1. 감사와 칭찬 (1-4절)</strong></p>
+                <ul>
+                    <li>바울은 데살로니가 교회의 믿음의 성장과 사랑의 풍성함을 인해 감사했습니다</li>
+                    <li>환난과 박해 중에도 인내하는 그들의 모습을 자랑했습니다</li>
+                    <li>참된 신앙은 어려움 중에도 계속 성장하며 열매를 맺습니다</li>
+                </ul>
+
+                <p><strong>2. 하나님의 공의로운 심판 (5-10절)</strong></p>
+                <ul>
+                    <li>현재의 고난은 하나님 나라에 합당한 자가 되기 위한 과정입니다</li>
+                    <li>하나님께서는 성도들을 괴롭히는 자들에게 환난으로 갚으실 것입니다</li>
+                    <li>그리스도의 재림 시에 완전한 정의가 실현될 것입니다</li>
+                </ul>
+
+                <p><strong>3. 기도의 내용 (11-12절)</strong></p>
+                <ul>
+                    <li>바울은 그들이 부르심에 합당한 자가 되기를 기도했습니다</li>
+                    <li>선한 뜻을 이루고 믿음의 역사를 완성하기를 원했습니다</li>
+                    <li>이 모든 것이 그리스도의 영광을 위함임을 강조했습니다</li>
+                </ul>
+
+                <div class="reflection-section">
+                    <h5>💭 오늘의 적용</h5>
+                    <div class="prayer-point">
+                        <strong>회개할 점:</strong> 어려움 속에서 하나님의 선하신 뜻을 의심하고 원망했던 마음을 회개합니다.
                     </div>
-                    <div class="card-body">
-                        <h6>환난 중의 믿음과 하나님의 공의로운 심판</h6>
-                        <p>바울은 데살로니가 성도들의 믿음이 더욱 자라고 서로 사랑하는 마음이 풍성해짐을 기뻐하며 하나님께 감사합니다. 특히 그들이 받는 모든 박해와 환난 중에서도 참고 견디는 믿음에 대해 하나님의 여러 교회에서 자랑한다고 고백합니다. 이는 진정한 신앙의 성숙함을 보여주는 증거입니다.</p>
-
-                        <p>이러한 인내는 "하나님의 공의로운 심판의 표징"이라고 설명합니다. 성도들이 당하는 환난은 그들로 하여금 하나님 나라에 합당한 자가 되게 하는 과정이며, 동시에 그들을 괴롭히는 자들에 대한 하나님의 심판을 예고하는 것입니다. 하나님은 공의로우시므로 환난 당하는 자에게는 안식을, 환난 주는 자에게는 보응을 주실 것입니다.</p>
-
-                        <p>특히 주 예수께서 "그의 능력의 천사들과 함께 하늘로부터 나타나실 때" 일어날 공의로운 심판을 상세히 묘사합니다. 하나님을 모르는 자들과 복음에 복종하지 않는 자들은 "주의 얼굴과 그의 힘의 영광을 떠나 영원한 멸망의 형벌"을 받게 될 것입니다.</p>
-
-                        <p>바울은 이러한 소망 가운데서 성도들을 위해 항상 기도하기를 그치지 않습니다. 하나님께서 그들을 부르심에 합당한 자로 여기시고, 모든 선한 뜻을 이루시며 믿음의 역사를 능력으로 완성하시기를 간구합니다.</p>
-
-                        <p><strong>묵상:</strong> 현재의 고난은 미래의 영광을 위한 과정입니다. 하나님의 공의로운 심판을 믿으며 인내로 신앙의 길을 걸어가야 합니다.</p>
+                    <div class="prayer-point">
+                        <strong>감사할 점:</strong> 고난을 통해 우리를 성숙하게 하시는 하나님의 사랑에 감사합니다.
+                    </div>
+                    <div class="prayer-point">
+                        <strong>결단할 점:</strong> 어떤 환난 중에도 믿음으로 인내하며 하나님 나라에 합당한 자로 살겠습니다.
                     </div>
                 </div>
             </div>
 
-            <!-- 저녁 1독 -->
-            <div class="tab-pane fade" id="evening1" role="tabpanel">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">다니엘 5장</h5>
-                        <div>
-                            <button class="btn btn-primary btn-sm view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_27_DAN_05.html" data-title="다니엘 5장">본문 보기</button>
-                            <button class="btn btn-secondary btn-sm listen-audio-btn" data-key="DAN_05" data-title="다니엘 5장">성경 듣기</button>
-                        </div>
+            <!-- 다니엘 5장 -->
+            <div id="content-book3" class="content-section">
+                <h2 class="text-info mb-4">👑 다니엘 5장 - 벨사살의 연회와 바벨론의 멸망</h2>
+
+                <div class="button-group">
+                    <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_27_DAN_005.html" data-title="다니엘 5장">본문 보기</button>
+                    <button class="btn btn-secondary listen-audio-btn" data-key="DAN_005" data-title="다니엘 5장">성경 듣기</button>
+                </div>
+
+                <div class="verse-highlight">
+                    <strong>핵심 구절:</strong> "왕이 마음을 높이며 뜻을 완악하게 하여 교만을 행하므로 그 왕위에서 쫓겨나고 그의 영광을 빼앗겼으며" (다니엘 5:20)
+                </div>
+
+                <div class="historical-context">
+                    <h5>📚 역사적 배경</h5>
+                    <p>벨사살이 바벨론의 섭정으로 다스리던 시기, 페르시아군이 바벨론을 포위하고 있었습니다. 이러한 위기 상황에서도 벨사살은 교만하게 연회를 베풀며 하나님을 모독했습니다.</p>
+                </div>
+
+                <h5>🔍 말씀 묵상</h5>
+                <p><strong>1. 벨사살의 교만한 연회 (1-4절)</strong></p>
+                <ul>
+                    <li>벨사살은 천 명의 귀족들과 함께 큰 잔치를 베풀었습니다</li>
+                    <li>술에 취한 그는 예루살렘 성전에서 탈취한 금은 그릇들을 가져와 사용했습니다</li>
+                    <li>이는 하나님을 직접적으로 모독하는 극도의 교만한 행위였습니다</li>
+                </ul>
+
+                <p><strong>2. 하나님의 경고 (5-12절)</strong></p>
+                <ul>
+                    <li>사람의 손가락이 나타나 벽에 글씨를 썼습니다</li>
+                    <li>벨사살과 모든 참석자들이 두려워했지만 아무도 그 뜻을 해석할 수 없었습니다</li>
+                    <li>왕후의 권고로 다니엘이 부름을 받게 되었습니다</li>
+                </ul>
+
+                <p><strong>3. 다니엘의 해석과 심판 (13-31절)</strong></p>
+                <ul>
+                    <li>다니엘은 벨사살의 교만과 하나님을 모독한 죄를 지적했습니다</li>
+                    <li>"메네 메네 데겔 우바르신"의 해석: 하나님이 왕국을 세어서 끝내시고, 저울에 달아서 부족함을 드러내시며, 나라를 나누어 메대와 페르시아에 주신다는 뜻</li>
+                    <li>그 날 밤 벨사살이 죽고 바벨론이 멸망했습니다</li>
+                </ul>
+
+                <div class="reflection-section">
+                    <h5>💭 오늘의 적용</h5>
+                    <div class="prayer-point">
+                        <strong>회개할 점:</strong> 하나님의 은혜를 당연하게 여기며 교만했던 마음을 회개합니다.
                     </div>
-                    <div class="card-body">
-                        <h6>벨사살의 교만과 바벨론 왕국의 멸망</h6>
-                        <p>벨사살 왕이 천 명의 귀족들과 함께 큰 잔치를 베풀며 술을 마십니다. 술에 취한 왕은 아버지 느부갓네살이 예루살렘 성전에서 가져온 금, 은 기구들을 가져다가 술을 마시며 바벨론의 신들을 찬양합니다. 이는 하나님을 모독하는 극도의 오만한 행위였습니다.</p>
-
-                        <p>바로 그때 사람의 손가락이 나타나 왕궁 벽에 글자를 씁니다. "메네 메네 데겔 우바르신"이라는 신비한 글씨를 보고 왕은 놀라 떨며 박사들을 불러 해석을 요구하지만 아무도 해석하지 못합니다. 이때 왕후가 다니엘을 추천하며 그의 뛰어난 지혜와 하나님의 영이 그에게 있음을 증언합니다.</p>
-
-                        <p>다니엘은 왕 앞에서 담대하게 하나님의 메시지를 전합니다. 먼저 느부갓네살이 교만으로 인해 심판받았지만 겸손히 하나님을 인정했던 것과 대조하여, 벨사살이 이를 알면서도 하나님을 높이지 않고 오히려 모독했음을 지적합니다. "메네"는 하나님이 왕의 나라의 날수를 세어 끝내신다는 뜻이고, "데겔"은 왕이 저울에 달려 부족함이 보인다는 뜻이며, "베레스"는 왕의 나라가 나뉘어 메대와 바사에게 준다는 뜻입니다.</p>
-
-                        <p>그 날 밤 벨사살이 죽임을 당하고 메대 사람 다리오가 나라를 얻게 됩니다. 하나님의 말씀은 즉시 성취되었고, 바벨론 제국은 역사 속으로 사라지게 됩니다.</p>
-
-                        <p><strong>묵상:</strong> 하나님을 모독하는 교만은 반드시 심판받습니다. 과거의 교훈을 무시하고 하나님을 대적하는 자의 결말을 봅니다.</p>
+                    <div class="prayer-point">
+                        <strong>감사할 점:</strong> 우리의 생명과 호흡을 주관하시는 하나님께 감사합니다.
+                    </div>
+                    <div class="prayer-point">
+                        <strong>결단할 점:</strong> 언제나 하나님을 경외하며 겸손한 마음으로 살겠습니다.
                     </div>
                 </div>
             </div>
 
-            <!-- 저녁 2독 -->
-            <div class="tab-pane fade" id="evening2" role="tabpanel">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">시편 110-111편</h5>
-                        <div>
-                            <button class="btn btn-primary btn-sm view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_110.html" data-title="시편 110편">본문 보기</button>
-                            <button class="btn btn-secondary btn-sm listen-audio-btn" data-key="PSA_110" data-title="시편 110편">성경 듣기</button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h6>왕이신 메시아와 하나님의 완전한 역사</h6>
+            <!-- 시편 110편 -->
+            <div id="content-book4" class="content-section">
+                <h2 class="text-success mb-4">🎵 시편 110편 - 메시야 왕의 승리와 통치</h2>
 
-                        <p><strong>시편 110편: 메시아의 왕권과 제사장직</strong></p>
-                        <p>이 시편은 신약에서 가장 많이 인용되는 메시아 시편입니다. "여호와께서 내 주에게 말씀하시기를 내가 네 원수들을 네 발등상이 되게 하기까지 너는 내 우편에 앉아 있으라 하셨도다"(1절)는 말씀은 예수 그리스도의 승천과 하나님 우편에 앉으심을 예언합니다.</p>
-
-                        <p>여호와께서 시온에서 메시아의 권능의 규를 내미실 것이며, 그의 백성이 즐거이 헌신할 것이라고 예언합니다. 특히 "네가 새벽 이슬 같은 청년들을 거느리리로다"는 말씀은 메시아 왕국의 생명력과 활력을 보여줍니다.</p>
-
-                        <p>또한 "여호와는 맹세하고 변하지 아니하시리라 이르시기를 너는 멜기세덱의 서열을 따라 영원한 제사장이라 하셨도다"(4절)는 말씀은 그리스도의 대제사장직을 예언하는 중요한 구절입니다. 이는 히브리서에서 상세히 해석됩니다.</p>
-
-                        <p><strong>시편 111편: 하나님의 완전한 행사</strong></p>
-                        <p>"할렐루야 내가 정직한 자의 회와 공회에서 전심으로 여호와께 감사하리로다"(1절)로 시작하는 이 시편은 하나님의 행사들의 완전함을 찬양합니다. 하나님의 행사는 "크고 그의 기뻐하는 모든 자들이 연구하는 바"라고 표현됩니다.</p>
-
-                        <p>하나님의 행사는 존귀하고 엄위하며, 그의 의가 영원히 서 있습니다. 특히 "그가 그의 기이한 일들을 기억하게 하셨으니 여호와는 은혜로우시고 자비하시도다"(4절)는 하나님의 성품을 잘 드러냅니다.</p>
-
-                        <p>시편은 "여호와를 경외함이 지혜의 근본이라"(10절)는 유명한 말씀으로 마무리되며, 하나님의 계명을 행하는 자들에게는 좋은 지각이 있고 그의 찬송이 영원히 서 있을 것이라고 약속합니다.</p>
-
-                        <p><strong>묵상:</strong> 메시아 예수 그리스도의 왕권과 제사장직을 통해 우리는 구원을 얻었습니다. 하나님의 완전한 행사를 연구하고 찬양하는 것이 성도의 특권입니다.</p>
-                    </div>
+                <div class="button-group">
+                    <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_110.html" data-title="시편 110편">본문 보기</button>
+                    <button class="btn btn-secondary listen-audio-btn" data-key="PSA_110" data-title="시편 110편">성경 듣기</button>
                 </div>
-            </div>
 
-            <!-- 통합 카드 -->
-            <div class="tab-pane fade" id="integration" role="tabpanel">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0">10월 20일 통합 묵상</h5>
+                <div class="verse-highlight">
+                    <strong>핵심 구절:</strong> "여호와께서 내 주에게 말씀하시기를 내가 네 원수들로 네 발등상이 되게 하기까지 너는 내 우편에 앉아 있으라 하셨도다" (시편 110:1)
+                </div>
+
+                <div class="historical-context">
+                    <h5>📚 역사적 배경</h5>
+                    <p>다윗의 시로, 메시야에 대한 예언을 담고 있습니다. 이 시편은 신약에서 예수 그리스도를 증거하는 중요한 구절로 자주 인용됩니다. 왕의 즉위식이나 승리 후의 찬양에서 사용되었을 것으로 추정됩니다.</p>
+                </div>
+
+                <h5>🔍 말씀 묵상</h5>
+                <p><strong>1. 메시야의 승리 (1-3절)</strong></p>
+                <ul>
+                    <li>하나님께서 메시야를 우편에 앉게 하시며 최고의 권세를 주셨습니다</li>
+                    <li>모든 원수들이 발등상이 될 때까지 기다리라는 명령입니다</li>
+                    <li>백성들이 자원하여 메시야를 따르며 거룩한 옷으로 단장할 것입니다</li>
+                </ul>
+
+                <p><strong>2. 영원한 제사장 (4절)</strong></p>
+                <ul>
+                    <li>하나님께서 맹세하시며 변하지 않으실 것을 선언하셨습니다</li>
+                    <li>메시야는 멜기세덱의 서열을 따르는 영원한 제사장이 될 것입니다</li>
+                    <li>이는 예수 그리스도의 제사장직을 예언하는 중요한 구절입니다</li>
+                </ul>
+
+                <p><strong>3. 심판의 날 (5-7절)</strong></p>
+                <ul>
+                    <li>주께서 하나님의 우편에서 열방을 심판하실 것입니다</li>
+                    <li>시체로 골짜기를 채우시며 여러 나라의 머리를 치실 것입니다</li>
+                    <li>길가의 시냇물을 마시며 머리를 드시는 것은 승리와 새 힘을 얻음을 의미합니다</li>
+                </ul>
+
+                <div class="reflection-section">
+                    <h5>💭 오늘의 적용</h5>
+                    <div class="prayer-point">
+                        <strong>회개할 점:</strong> 메시야 되신 예수님의 권세를 인정하지 않고 내 뜻대로 살려 했던 교만을 회개합니다.
                     </div>
-                    <div class="card-body">
-                        <h6>하나님의 주권과 공의로운 심판</h6>
-
-                        <p><strong>1. 우상숭배의 결말</strong></p>
-                        <p>열왕기하 1장의 아하시야와 다니엘 5장의 벨사살은 모두 우상숭배와 하나님 모독의 죄로 심판받았습니다. 아하시야는 이스라엘에 하나님이 계시면서도 바알세붑에게 묻고자 했고, 벨사살은 성전 기구로 술을 마시며 바벨론 신들을 찬양했습니다. 이는 하나님을 향한 직접적인 도전이었고, 즉각적인 심판을 받았습니다.</p>
-
-                        <p><strong>2. 하나님의 사람에 대한 존경</strong></p>
-                        <p>엘리야에게 하늘에서 불이 내려와 군사들을 삼킨 사건과 다니엘이 벨사살 왕 앞에서 담대히 하나님의 뜻을 전한 것은 하나님의 사람들이 가진 권위를 보여줍니다. 세상의 권력자들도 하나님의 사람 앞에서는 겸손해야 하며, 하나님의 말씀에 순종해야 합니다.</p>
-
-                        <p><strong>3. 환난 중의 신앙과 소망</strong></p>
-                        <p>데살로니가후서 1장은 박해받는 성도들에게 큰 위로를 줍니다. 현재의 환난은 하나님 나라에 합당한 자가 되기 위한 과정이며, 하나님의 공의로운 심판이 반드시 있을 것이라는 확신을 제공합니다. 이는 오늘날 고난당하는 모든 성도들에게도 동일한 소망을 줍니다.</p>
-
-                        <p><strong>4. 메시아의 완전한 구원</strong></p>
-                        <p>시편 110편은 예수 그리스도의 왕권과 제사장직을 예언하며, 완전한 구원의 근거를 제시합니다. 그리스도는 왕으로서 모든 원수를 정복하시고, 대제사장으로서 영원한 속죄를 이루셨습니다. 이는 신약의 성취와 직결되는 중요한 예언입니다.</p>
-
-                        <p><strong>5. 하나님의 완전한 행사</strong></p>
-                        <p>시편 111편이 찬양하는 하나님의 행사들의 완전함은 오늘의 모든 사건들을 관통하는 주제입니다. 아하시야와 벨사살에 대한 심판, 성도들에 대한 보호와 위로, 메시아를 통한 구원 등은 모두 하나님의 완전한 계획의 일부입니다.</p>
-
-                        <p><strong>6. 지혜의 근본</strong></p>
-                        <p>"여호와를 경외함이 지혜의 근본"이라는 말씀은 오늘의 모든 본문을 요약합니다. 아하시야와 벨사살은 하나님을 경외하지 않았기에 어리석은 선택을 했고 멸망했습니다. 반면 엘리야와 다니엘은 하나님을 경외했기에 지혜롭게 행동했고 하나님의 능력을 경험했습니다.</p>
-
-                        <p><strong>적용:</strong> 우상숭배를 멀리하고 오직 하나님만을 경외하며, 현재의 고난을 통해 더욱 성숙한 신앙으로 나아가야 합니다. 또한 하나님의 완전한 행사를 연구하고 찬양하며, 메시아 예수 그리스도 안에서 완전한 구원을 누려야 합니다.</p>
+                    <div class="prayer-point">
+                        <strong>감사할 점:</strong> 영원한 대제사장 되신 예수님을 통해 하나님께 나아갈 수 있음에 감사합니다.
+                    </div>
+                    <div class="prayer-point">
+                        <strong>결단할 점:</strong> 모든 권세의 주인이신 예수님께 순종하며 그분의 통치를 기뻐하며 살겠습니다.
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal for Text Display -->
-    <div class="modal fade" id="textModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="textModalTitle">성경 본문</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" id="textModalBody">
-                    <!-- 본문 내용이 여기에 로드됩니다 -->
-                </div>
-            </div>
-        </div>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 탭 기능
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const contentSections = document.querySelectorAll('.content-section');
+        const progressBar = document.getElementById('reading-progress');
+        let readProgress = 0;
 
-    <!-- Modal for Audio Player -->
-    <div class="modal fade" id="audioModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="audioModalTitle">성경 듣기</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="audioPlayer">
-                        <!-- 오디오 플레이어가 여기에 로드됩니다 -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        tabBtns.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                // 모든 탭과 컨텐츠 비활성화
+                tabBtns.forEach(tab => tab.classList.remove('active'));
+                contentSections.forEach(content => content.classList.remove('active'));
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+                // 선택된 탭과 컨텐츠 활성화
+                btn.classList.add('active');
+                const targetId = btn.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+
+                // 진행률 업데이트
+                readProgress = Math.max(readProgress, (index + 1) * 25);
+                progressBar.style.width = readProgress + '%';
+            });
+        });
+
+        // 본문 보기 기능
+        document.querySelectorAll('.view-text-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const path = this.getAttribute('data-path');
+                const title = this.getAttribute('data-title');
+
+                const popup = window.open(path, 'bibleText', 'width=900,height=700,scrollbars=yes,resizable=yes');
+                if (popup) {
+                    popup.document.title = title;
+                } else {
+                    alert('팝업이 차단되었습니다. 팝업 차단을 해제해주세요.');
+                }
+            });
+        });
+
+        // 성경 듣기 기능
+        document.querySelectorAll('.listen-audio-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const key = this.getAttribute('data-key');
+                const title = this.getAttribute('data-title');
+
+                const audioUrl = `https://kbd71.github.io/bible71/audio/${key}.mp3`;
+                const popup = window.open('', 'audioPlayer', 'width=400,height=300');
+
+                popup.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>${title} - 성경 듣기</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 20px; text-align: center; }
+                            audio { width: 100%; margin-top: 20px; }
+                        </style>
+                    </head>
+                    <body>
+                        <h3>${title}</h3>
+                        <audio controls autoplay>
+                            <source src="${audioUrl}" type="audio/mpeg">
+                            오디오를 지원하지 않는 브라우저입니다.
+                        </audio>
+                        <p><small>* 자동재생이 되지 않을 경우 재생 버튼을 클릭해주세요.</small></p>
+                    </body>
+                    </html>
+                `);
+            });
+        });
+
+        // 읽기 완료 체크
+        let completedSections = new Set();
+
+        // 각 탭 클릭시 읽기 완료 처리
+        tabBtns.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                setTimeout(() => {
+                    completedSections.add(index);
+                    updateProgress();
+                }, 2000); // 2초 후 읽기 완료로 간주
+            });
+        });
+
+        function updateProgress() {
+            const progress = (completedSections.size / tabBtns.length) * 100;
+            progressBar.style.width = progress + '%';
+
+            if (completedSections.size === tabBtns.length) {
+                showCompletionMessage();
+            }
+        }
+
+        function showCompletionMessage() {
+            const message = document.createElement('div');
+            message.className = 'alert alert-success mt-3';
+            message.innerHTML = `
+                <h5>🎉 오늘의 성경읽기를 완료했습니다!</h5>
+                <p>하나님의 말씀이 여러분의 하루를 인도하시기를 기도합니다.</p>
+            `;
+            document.querySelector('.container').appendChild(message);
+        }
+    </script>
 </body>
 </html>
