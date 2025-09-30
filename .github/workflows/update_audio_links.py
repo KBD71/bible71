@@ -13,7 +13,7 @@ def get_playlist_videos(playlist_id, api_key):
     """YouTube API를 사용해 플레이리스트의 영상 목록을 가져옵니다."""
     base_url = "https://www.googleapis.com/youtube/v3/playlistItems"
     params = {
-        'part': 'snippet',
+        'part': 'snippet,contentDetails',  # contentDetails도 함께 요청
         'playlistId': playlist_id,
         'key': api_key,
         'maxResults': 50,  # 최근 50개 영상
@@ -123,7 +123,21 @@ def main():
     for item in playlist_data.get('items', []):
         snippet = item['snippet']
         title = snippet['title']
-        video_id = snippet['resourceId']['videoId']
+
+        # YouTube API playlistItems에서 videoId를 가져오는 방법
+        # snippet.resourceId.videoId를 사용하되, 없으면 contentDetails.videoId 시도
+        video_id = None
+        if 'resourceId' in snippet and 'videoId' in snippet['resourceId']:
+            video_id = snippet['resourceId']['videoId']
+        elif 'contentDetails' in item and 'videoId' in item['contentDetails']:
+            video_id = item['contentDetails']['videoId']
+
+        if not video_id:
+            print(f"비디오 ID를 찾을 수 없음: {title}")
+            print(f"Debug - snippet keys: {snippet.keys()}")
+            print(f"Debug - item keys: {item.keys()}")
+            continue
+
         video_url = f"https://youtu.be/{video_id}"
 
         # 제목에서 날짜 추출
