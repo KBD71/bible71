@@ -27,18 +27,19 @@
 <body class="bg-gray-100 text-gray-900 leading-relaxed antialiased">
     <div class="container mx-auto p-6 md:p-10">
         <header class="bg-gradient-to-r from-teal-500 to-emerald-600 text-white rounded-lg shadow-xl p-8 mb-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">아사의 종교 개혁과 하나님의 평안</h1>
-            <p class="text-xl md:text-2xl font-semibold mb-2">[대하14:2-15] 매일성경본문 - 김병훈 목사(2025.10.1 새벽기도회)</p>
-            <p class="text-lg md:text-xl font-medium">설교자: 김병훈 목사</p>
-            <p class="text-md md:text-lg">설교 날짜: 2025년 10월 1일</p>
-            <h2 class="text-2xl md:text-3xl font-bold mt-6 mb-3">핵심 주제: 온전한 믿음의 개혁과 하나님 의지를 통한 평안의 유지</h2>
-            <p class="text-md md:text-lg">아사 왕의 종교 개혁과 군사적 대비, 그리고 구스 침략 시 오직 하나님만을 의지한 기도를 통해, 하나님의 평안이 믿음과 순종 속에서 주어지며, 이를 지키기 위한 인간의 성실한 노력 또한 중요하다는 것을 깨닫습니다.</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-3">아사의 종교 개혁과 하나님의 평안</h1>
+            <p class="text-lg md:text-xl font-medium mb-6">역대하 14:2-15 | 김병훈 목사 | 2025년 10월 1일</p>
+            
+            <div class="bg-black bg-opacity-20 rounded-lg p-4 max-w-4xl mx-auto">
+                <h2 class="text-2xl md:text-3xl font-bold mb-2">핵심 주제</h2>
+                <p class="text-md md:text-lg">온전한 믿음의 개혁과 하나님 의지를 통한 평안의 유지: 아사 왕의 종교 개혁과 군사적 대비, 그리고 구스 침략 시 오직 하나님만을 의지한 기도를 통해, 하나님의 평안이 믿음과 순종 속에서 주어지며, 이를 지키기 위한 인간의 성실한 노력 또한 중요하다는 것을 깨닫습니다.</p>
+            </div>
         </header>
 
         <section class="bg-white rounded-lg shadow-md p-6 mb-8 text-center">
             <button id="play-sermon-button" class="bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 px-6 rounded-full inline-flex items-center transition duration-300 ease-in-out">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                <span>설교 듣기</span>
+                <svg id="button-icon" class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                <span id="button-text">설교 듣기</span>
             </button>
             <div id="player" class="player-hidden"></div>
         </section>
@@ -138,10 +139,17 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        var videoId = '0vBIp8I_BaQ'; // YouTube Video ID
+        var videoId = '0vBIp8I_BaQ';
         var playButton = document.getElementById('play-sermon-button');
-        var buttonIcon = playButton.querySelector('svg');
-        var buttonText = playButton.querySelector('span');
+        var buttonIcon = document.getElementById('button-icon');
+        var buttonText = document.getElementById('button-text');
+
+        // SVG Paths for different states
+        const ICONS = {
+            PLAY: '<path d="M8 5v14l11-7z"></path>',
+            PAUSE: '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>',
+            REPLAY: '<path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"></path>'
+        };
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
@@ -156,19 +164,19 @@
         }
 
         function onPlayerReady(event) {
-            // Player is ready, but remains hidden.
+            // Player is ready
         }
 
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.PLAYING) {
-                buttonIcon.innerHTML = '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>';
-                buttonText.textContent = '❚❚ 일시정지';
+                buttonIcon.innerHTML = ICONS.PAUSE;
+                buttonText.textContent = '일시정지';
             } else if (event.data == YT.PlayerState.PAUSED) {
-                buttonIcon.innerHTML = '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>';
-                buttonText.textContent = '▶ 다시 듣기';
+                buttonIcon.innerHTML = ICONS.PLAY;
+                buttonText.textContent = '다시 듣기';
             } else if (event.data == YT.PlayerState.ENDED) {
-                buttonIcon.innerHTML = '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>';
-                buttonText.textContent = '▶ 설교 듣기'; // Reset to initial state
+                buttonIcon.innerHTML = ICONS.REPLAY;
+                buttonText.textContent = '처음부터 듣기';
             }
         }
 
