@@ -105,66 +105,61 @@
     </div>
 
     <script>
-        // YouTube IFrame Player API 비동기 로드
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
         let player;
-        let isPlaying = false;
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const errorMessageDiv = document.getElementById('errorMessage');
-        const playerUiDiv = document.getElementById('player-ui');
+        const playPauseButton = document.getElementById('play-pause-button');
+        const playerUi = document.getElementById('player-ui');
+        const errorMessageDiv = document.getElementById('error-message');
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
+            fetchAudioAddressAndCreatePlayer();
         }
-        
-        async function fetchAudioAddress() {
+
+        async function fetchAudioAddressAndCreatePlayer() {
+            const today = '1020'; // For generating the static page for Oct 18th
+            let todayLine;
+
             try {
                 const response = await fetch('../address/dcaddr.txt');
                 if (!response.ok) {
-                    throw new Error('주소 파일을 불러오는 데 실패했습니다.');
+                    throw new Error('오류: 오디오 주소 파일을 불러오는 데 실패했습니다.');
                 }
                 const text = await response.text();
                 const lines = text.split('\n');
+                todayLine = lines.find(line => line.trim().startsWith(today));
+
+                if (!todayLine) {
+                    displayError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
+                    return;
+                }
                 
-                const now = new Date();
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const day = String(now.getDate()).padStart(2, '0');
-                const mmdd = month + day;
+                const url = todayLine.substring(today.length).trim();
+                const videoId = parseYouTubeVideoId(url);
 
-                const todayLine = lines.find(line => line.trim().startsWith(mmdd));
-
-                if (todayLine) {
-                    const url = todayLine.substring(4).trim();
-                    const videoIdMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/);
-                    if (videoIdMatch && videoIdMatch[1]) {
-                        initializePlayer(videoIdMatch[1]);
-                    } else {
-                        throw new Error('유효하지 않은 YouTube 주소 형식입니다.');
-                    }
-                } else {
-                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
+                if (!videoId) {
+                    throw new Error('오류: 발견된 주소가 유효한 YouTube 주소가 아닙니다.');
                 }
 
+                createPlayer(videoId);
+
             } catch (error) {
-                console.error('Error fetching or parsing address file:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+                console.error('Audio Player Error:', error);
+                displayError(error.message);
             }
         }
 
-        function initializePlayer(videoId) {
+        function parseYouTubeVideoId(url) {
+            if (!url) return null;
+            const regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regExp);
+            return (match && match[1]) ? match[1] : null;
+        }
+
+        function createPlayer(videoId) {
             player = new YT.Player('player', {
-                height: '100%',
-                width: '100%',
+                height: '0',
+                width: '0',
                 videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                    'rel': 0
-                },
+                playerVars: { 'playsinline': 1 },
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
@@ -173,43 +168,44 @@
         }
         
         function onPlayerReady(event) {
-            playPauseBtn.disabled = false;
-            playPauseBtn.textContent = '재생';
+            playPauseButton.disabled = false;
+            playPauseButton.innerHTML = '▶&nbsp;재생';
+            playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
+            playPauseButton.addEventListener('click', togglePlayPause);
         }
-
+        
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                playPauseBtn.textContent = '재생';
-                player.seekTo(0);
-                player.pauseVideo();
+            const isPlaying = (event.data === YT.PlayerState.PLAYING);
+            if (isPlaying) {
+                playPauseButton.innerHTML = '⏸️&nbsp;일시정지';
+                playPauseButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                playPauseButton.innerHTML = '▶&nbsp;재생';
+                playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
             }
         }
         
         function togglePlayPause() {
-            if (!player) return;
-
-            if (isPlaying) {
-                player.pauseVideo();
-                isPlaying = false;
-                playPauseBtn.textContent = '재생';
-            } else {
-                player.playVideo();
-                isPlaying = true;
-                playPauseBtn.textContent = '일시정지';
+            if (player && typeof player.getPlayerState === 'function') {
+                const playerState = player.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
             }
         }
-        
-        function showError(message) {
-            playerUiDiv.classList.add('hidden');
+
+        function displayError(message) {
+            playerUi.classList.add('hidden');
             errorMessageDiv.textContent = message;
             errorMessageDiv.classList.remove('hidden');
-            playPauseBtn.disabled = true; // Keep it disabled on error
-            playPauseBtn.textContent = '오류';
         }
 
-        playPauseBtn.addEventListener('click', togglePlayPause);
-
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     </script>
 </body>
 </html>
