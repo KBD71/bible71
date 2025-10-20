@@ -118,113 +118,107 @@
     </div>
 
     <script>
-        var player;
-        var videoId = null;
-        var playerReady = false;
-
-        // YouTube IFrame Player API 비동기 로드
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        let player;
+        const playPauseButton = document.getElementById('play-pause-button');
+        const playerUi = document.getElementById('player-ui');
+        const errorMessageDiv = document.getElementById('error-message');
 
         function onYouTubeIframeAPIReady() {
-            if (videoId) {
-                createPlayer();
+            fetchAudioAddressAndCreatePlayer();
+        }
+
+        async function fetchAudioAddressAndCreatePlayer() {
+            const today = '1019'; // For generating the static page for Oct 18th
+            let todayLine;
+
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오류: 오디오 주소 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                todayLine = lines.find(line => line.trim().startsWith(today));
+
+                if (!todayLine) {
+                    displayError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
+                    return;
+                }
+                
+                const url = todayLine.substring(today.length).trim();
+                const videoId = parseYouTubeVideoId(url);
+
+                if (!videoId) {
+                    throw new Error('오류: 발견된 주소가 유효한 YouTube 주소가 아닙니다.');
+                }
+
+                createPlayer(videoId);
+
+            } catch (error) {
+                console.error('Audio Player Error:', error);
+                displayError(error.message);
             }
         }
 
-        function createPlayer() {
+        function parseYouTubeVideoId(url) {
+            if (!url) return null;
+            const regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regExp);
+            return (match && match[1]) ? match[1] : null;
+        }
+
+        function createPlayer(videoId) {
             player = new YT.Player('player', {
                 height: '0',
                 width: '0',
                 videoId: videoId,
-                playerVars: {
-                    'playsinline': 1
-                },
+                playerVars: { 'playsinline': 1 },
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
                 }
             });
         }
-
+        
         function onPlayerReady(event) {
-            playerReady = true;
-            const button = document.getElementById('play-pause-button');
-            button.disabled = false;
-            button.textContent = '재생';
-            button.setAttribute('aria-label', '교리 오디오 재생');
+            playPauseButton.disabled = false;
+            playPauseButton.innerHTML = '▶&nbsp;재생';
+            playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
+            playPauseButton.addEventListener('click', togglePlayPause);
         }
-
+        
         function onPlayerStateChange(event) {
-            const button = document.getElementById('play-pause-button');
-            if (event.data == YT.PlayerState.PLAYING) {
-                button.textContent = '일시정지';
-                button.setAttribute('aria-label', '교리 오디오 일시정지');
+            const isPlaying = (event.data === YT.PlayerState.PLAYING);
+            if (isPlaying) {
+                playPauseButton.innerHTML = '⏸️&nbsp;일시정지';
+                playPauseButton.setAttribute('aria-label', '교리 오디오 일시정지');
             } else {
-                button.textContent = '재생';
-                button.setAttribute('aria-label', '교리 오디오 재생');
+                playPauseButton.innerHTML = '▶&nbsp;재생';
+                playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
             }
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const button = document.getElementById('play-pause-button');
-            const errorDiv = document.getElementById('player-error');
-            
-            const today = new Date();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            const dateString = "1019"; // 고정된 날짜
-
-            fetch('../address/dcaddr.txt')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('네트워크 응답이 올바르지 않습니다.');
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    const lines = text.split('\n');
-                    const urlLine = lines.find(line => line.startsWith(dateString + ','));
-
-                    if (!urlLine) {
-                        throw new Error('NoURL');
-                    }
-
-                    const url = urlLine.split(',')[1];
-                    const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = url.match(regex);
-                    
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        if (typeof YT !== 'undefined' && YT.Player) {
-                           createPlayer();
-                        }
-                    } else {
-                        throw new Error('유효하지 않은 YouTube 주소입니다.');
-                    }
-                })
-                .catch(error => {
-                    button.classList.add('hidden');
-                    errorDiv.classList.remove('hidden');
-                    if (error.message === 'NoURL') {
-                        errorDiv.textContent = '오늘의 AI요약 음성은 아직 업로드 전입니다.';
-                    } else {
-                        errorDiv.textContent = '오디오 정보를 불러오는 중 오류가 발생했습니다.';
-                    }
-                });
-
-            button.addEventListener('click', function() {
-                if (!playerReady) return;
+        
+        function togglePlayPause() {
+            if (player && typeof player.getPlayerState === 'function') {
                 const playerState = player.getPlayerState();
-                if (playerState == YT.PlayerState.PLAYING) {
+                if (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING) {
                     player.pauseVideo();
                 } else {
                     player.playVideo();
                 }
-            });
-        });
+            }
+        }
+
+        function displayError(message) {
+            playerUi.classList.add('hidden');
+            errorMessageDiv.textContent = message;
+            errorMessageDiv.classList.remove('hidden');
+        }
+
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     </script>
 </body>
 </html>
