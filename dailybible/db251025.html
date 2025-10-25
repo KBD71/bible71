@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설교 요약: 은혜 뒤의 교만, 회개 뒤의 자비</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Tailwind CSS JIT 엔진이 동적으로 클래스를 인식하도록 기본 스타일을 정의합니다. */
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        }
+        .card-icon {
+            width: 2.5rem; /* w-10 */
+            height: 2.5rem; /* h-10 */
+            flex-shrink: 0;
+        }
+        .keyword {
+            font-weight: 700; /* font-bold */
+            color: #c026d3; /* text-fuchsia-600 */
+            background-color: #fdf4ff; /* bg-fuchsia-50 */
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        /* 오디오 플레이어 버튼 스타일 */
+        .audio-player-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1.25rem;
+            font-weight: 600; /* font-semibold */
+            background-color: #1f2937; /* bg-gray-800 */
+            color: white;
+            border-radius: 0.375rem; /* rounded-md */
+            transition: background-color 0.2s;
+            cursor: pointer;
+            border: 1px solid #374151; /* border-gray-700 */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        }
+        .audio-player-button:hover {
+            background-color: #374151; /* bg-gray-700 */
+        }
+        .audio-player-button svg,
+        .audio-player-button .icon-text {
+            font-size: 1.25rem; /* text-xl */
+            margin-right: 0.5rem; /* mr-2 */
+            line-height: 1;
+        }
+        /* 성경 본문 섹션 스타일 */
+        .scripture-text-section {
+            background-color: #f9fafb; /* bg-gray-50 */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1.5rem; /* p-6 */
+            margin-top: 1.5rem; /* mt-6 */
+        }
+        .scripture-text-section h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            color: #1f2937; /* text-gray-800 */
+            margin-bottom: 1rem; /* mb-4 */
+            border-bottom: 2px solid #d1d5db; /* border-b-2 border-gray-300 */
+            padding-bottom: 0.5rem; /* pb-2 */
+        }
+        .scripture-text-section p {
+            font-size: 1.125rem; /* text-lg */
+            line-height: 1.75; /* leading-relaxed */
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .scripture-text-section p strong {
+            font-weight: 700; /* font-bold */
+            color: #111827; /* text-gray-900 */
+            margin-right: 0.5rem; /* mr-2 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 leading-relaxed">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        
+        <header class="mb-8 p-6 bg-white rounded-lg shadow-md">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                은혜 뒤의 교만, 회개 뒤의 자비
+            </h1>
+            <p class="text-lg text-gray-600">
+                역대하 32:24-33 | 김대근 목사 | 2025년 10월 24일
+            </p>
+            
+            <div class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg">
+                <h2 class="text-xl font-bold text-amber-800 mb-1">핵심 주제</h2>
+                <p class="text-lg text-amber-700 leading-relaxed">
+                    히스기야의 삶을 통해 보듯, 인간은 큰 은혜 뒤에도 교만해지기 쉬운 연약한 존재이나, 하나님은 뉘우치는 자에게 진노를 거두시고 자비를 베푸시며, 이 모든 심판은 궁극적으로 그리스도의 십자가에서 성취되었습니다.
+                </p>
+            </div>
+        </header>
+
+        <section class="mb-8">
+            <button id="audio-toggle-button" class="audio-player-button w-full md:w-auto">
+                <span class="icon-text">▶</span>
+                <span id="button-text">설교 듣기</span>
+            </button>
+            
+            <div id="player" style="position: absolute; top: -9999px; left: -9999px;"></div>
+
+            <div class="scripture-text-section">
+                <h3>설교 본문: 역대하 32장 24-33절</h3>
+                <p><strong>24</strong> 그 때에 히스기야가 병들어 죽게 되었으므로 여호와께 기도하매 여호와께서 그에게 대답하시고 또 이적을 보이셨으나</p>
+                <p><strong>25</strong> 히스기야가 마음이 교만하여 그 받은 은혜를 보답하지 아니하므로 진노가 그와 유다와 예루살렘에 내리게 되었더니</p>
+                <p><strong>26</strong> 히스기야가 마음의 교만함을 뉘우치고 예루살렘 주민들도 그와 같이 하였으므로 여호와의 진노가 히스기야의 생전에는 그들에게 내리지 아니하니라</p>
+                <p><strong>27</strong> 히스기야의 부와 영광이 지극한지라 이에 은금과 보석과 향품과 방패와 온갖 보배로운 그릇들을 위하여 창고를 세우며</p>
+                <p><strong>28</strong> 곡식과 새 포도주와 기름의 산물을 위하여 창고를 세우며 온갖 짐승의 외양간을 세우며 양 떼의 우리를 만들며</p>
+                <p><strong>29</strong> 양 떼와 많은 소 떼를 위하여 성읍들을 세웠으니 이는 하나님이 그에게 재산을 심히 많이 주셨음이며</p>
+                <p><strong>30</strong> 이 히스기야가 또 기혼의 윗샘물을 막아 그 아래로부터 다윗 성 서쪽으로 곧게 끌어들였으니 히스기야가 그의 모든 일에 형통하였더라</p>
+                <p><strong>31</strong> 그러나 바벨론 방백들이 히스기야에게 사신을 보내어 그 땅에서 나타난 이적을 물을 때에 하나님이 히스기야를 떠나시고 그의 심중에 있는 것을 다 알고자 하사 시험하셨더라</p>
+                <p><strong>32</strong> 히스기야의 남은 사적과 그의 모든 선한 일은 아모스의 아들 선지자 이사야의 묵시책과 유다와 이스라엘 열왕기에 기록되니라</p>
+                <p><strong>33</strong> 히스기야가 그의 조상들과 함께 누우매 온 유다와 예루살렘 주민이 그를 다윗 자손의 묘실 중 높은 곳에 장사하여 그의 죽음에 경의를 표하였더라 그의 아들 므낫세가 대신하여 왕이 되니라</p>
+            </div>
+        </section>
+
+        <main class="grid grid-cols-1 gap-6">
+
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-orange-500">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">인생의 위기와 하나님의 자비</h2>
+                </div>
+                <p class="mb-4">
+                    설교는 히스기야의 일생에서 중요한 두 가지 사건, 즉 '죽을 병에서의 고침'과 '바벨론 사신 접대'를 중심으로 전개됩니다. 39세의 히스기야는 후사도 없고, 앗수르의 위협이 가중되는 상황에서 갑자기 죽을 병에 걸렸습니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li><strong>인생의 불확실성:</strong> 병이나 사고, 죽음은 예고 없이 찾아옵니다. 보장된 인생은 없으며, 이는 우리가 한없이 약하고 덧없는 존재임을 기억하게 합니다. 우리는 영원하신 하나님 안에서만 존재 의미를 발견할 수 있습니다.</li>
+                    <li><strong>하나님의 자비:</strong> 하나님께서는 이사야를 통해 "네가 죽을 것이라"고 미리 말씀하셨습니다. 이는 절망 속의 히스기야의 시선을 <span class="keyword">더욱더 하나님께로 향하게 하시려는 자비</span>였습니다.</li>
+                    <li><strong>믿음의 기도:</strong> 히스기야는 살게도 하시고 죽게도 하시는 분이 하나님이심을 깨닫고 통곡하며 기도했습니다. 하나님은 그의 기도를 들으시고 생명을 15년 연장해 주셨습니다.</li>
+                </ul>
+            </div>
+
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V21M4.5 3v5.625A5.625 5.625 0 0010.125 14.25h3.75c3.09 0 5.625-2.535 5.625-5.625V3M4.5 3h15" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">신학적 교훈: 하나님의 주권과 기도의 신비</h2>
+                </div>
+                <p class="mb-4">
+                    하나님의 뜻이 불변한다면, 우리의 기도가 무슨 의미가 있는가 하는 질문이 제기될 수 있습니다. 히스기야의 이야기는 이에 대한 답을 줍니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li><strong>하나님의 계획:</strong> 히스기야의 생명이 연장된 것은 하나님의 뜻이 '바뀐' 것이 아닙니다. 오히려 하나님께서는 <span class="keyword">처음부터 히스기야의 눈물과 간구, 회개까지도 미리 정하신 계획의 일부</span>로 포함하셨습니다.</li>
+                    <li><strong>기도의 역할:</strong> 기도는 하나님의 뜻을 바꾸는 행위가 아니라, <span class="keyword">하나님의 뜻을 이루는 통로</span>입니다. 하나님께서는 뜻하신 것을 주시되, 우리가 그것을 '구하게 하심으로써' 주십니다.</li>
+                    <li><strong>신자의 특권:</strong> 그러므로 기도는 하나님의 주권에 도전하는 것이 아니라, 하나님의 뜻에 동참하는 행위이며 믿음의 가장 확실한 열매입니다. 하나님과 언어로 소통하며 가장 깊은 생각을 아뢸 수 있는 것은 신자의 무엇과도 견줄 수 없는 특권입니다.</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-rose-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-rose-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">은혜 뒤의 교만: 바벨론 사신단의 시험</h2>
+                </div>
+                <p class="mb-4">
+                    생명 연장과 더불어 엄청난 부와 영광, 형통의 복을 받은 히스기야에게 안타깝게도 교만이 찾아왔습니다. 그는 모든 것이 하나님의 은혜임을 잊었습니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li><strong>하나님의 시험:</strong> 바벨론 방백들이 '해 그림자가 물러간 이적'에 대해 물으러 왔을 때, 하나님은 히스기야를 잠시 떠나셨습니다. 이는 <span class="keyword">"그의 심중에 있는 것을 다 알고자 하사 시험"</span>(31절)하신 것입니다.</li>
+                    <li><strong>교만의 본질:</strong> 히스기야는 이 기회에 하나님의 영광을 드러내지 않고, 자신의 왕궁과 나라 안의 모든 것, 즉 자신의 부와 군사력을 자랑하며 보였습니다.</li>
+                    <li><strong>죄의 심각성:</strong> 성경에서 교만은 하나님을 떠나 자신을 중심으로 높이는 태도, 곧 <span class="keyword">죄의 본질적 방향성</span>을 의미합니다. (잠 16:18) 히스기야는 하나님께 돌려야 할 영광을 자신이 취했습니다.</li>
+                </ul>
+            </div>
+
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-emerald-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-emerald-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">회개와 하나님의 자비</h2>
+                </div>
+                <p class="mb-4">
+                    히스기야의 교만으로 인해 하나님께서는 이사야를 통해 바벨론 침략(유다의 멸망)을 예언하셨고, 진노가 유다와 예루살렘에 내리게 되었습니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li><strong>뉘우침의 은혜:</strong> 놀랍게도 하나님은 히스기야를 버리지 않으셨습니다. 사람은 스스로 뉘우치지 못하지만, 성령께서 일하셔서 히스기야와 예루살렘 주민 전체에게 <span class="keyword">회개하는 마음(뉘우침)</span>을 주셨습니다.</li>
+                    <li><strong>진노의 유보:</strong> 그들이 교만함을 뉘우치자(26절), 하나님께서는 은혜를 베푸셔서 "여호와의 진노가 히스기야의 생전에는 그들에게 내리지 아니하니라"고 하시며 심판을 연기하셨습니다.</li>
+                    <li><strong>하나님의 성품:</strong> 하나님께서는 심판을 선언하셨지만, <span class="keyword">회개하며 돌아온 자에게 자비를 베푸시는 분</span>이십니다. 날마다 넘어지는 자들에게 날마다 손을 내밀어 생명과 소망을 주십니다.</li>
+                </ul>
+            </div>
+
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-gray-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">우리의 연약함과 그리스도의 십자가</h2>
+                </div>
+                <p class="mb-4">
+                    히스기야의 굴곡 많은 인생은 우리의 모습을 보여줍니다. 경건한 신자라 할지라도 받은 복을 당연하게 여기고, 지혜와 건강, 심지어 신앙의 열매까지 자신의 공로처럼 여기며 쉽게 교만에 빠집니다.
+                </p>
+                <p class="mb-4">
+                    하나님께서 히스기야를 시험하신 이유는 "내 자신의 경건과 신실함은 약하니, 넌 오직 나의 자비를 바라보며 살아야 한다"는 것을 가르치시기 위함이었습니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li><strong>궁극적 진노의 성취:</strong> 히스기야 시대에 유보되었던 하나님의 진노는 후대에 이루어졌지만, 보다 본질적으로 그 모든 죄에 대한 진노는 <span class="keyword">그리스도의 십자가에서 완전히 성취되었습니다.</span></li>
+                    <li><strong>십자가의 이중성:</strong> 십자가에서 하나님의 공의로운 진노는 완전히 드러났고, 동시에 회개하는 자를 향한 하나님의 자비가 가장 찬란하게 빛났습니다.</li>
+                    <li><strong>우리의 고백:</strong> 우리의 궁극적인 문제인 죄와 죽음에 대한 답은 <span class="keyword">그리스도 안에서 베푸시는 영원한 의와 생명</span>뿐입니다. 그러므로 우리는 교만과 자기 자랑이 아닌, 날마다 새롭게 하시는 하나님의 자비를 기억하며 겸손히 감사와 증언의 삶을 살아야 합니다.</li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // 1. YouTube Iframe API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var videoId = 'W-1P9VtkSA0'; // 설교 영상 ID
+        var playerButton = document.getElementById('audio-toggle-button');
+        var buttonText = document.getElementById('button-text');
+        var buttonIcon = playerButton.querySelector('.icon-text');
+
+        // 2. API 준비 완료 시 플레이어 생성
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0', // 보이지 않도록 설정
+                width: '0', // 보이지 않도록 설정
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 3. 플레이어 상태 변경 시 버튼 텍스트/아이콘 업데이트
+        function onPlayerStateChange(event) {
+            var state = event.data;
+            if (state === YT.PlayerState.PLAYING) {
+                buttonIcon.textContent = '❚❚';
+                buttonText.textContent = '일시정지';
+            } else if (state === YT.PlayerState.PAUSED) {
+                buttonIcon.textContent = '▶';
+                buttonText.textContent = '다시 듣기';
+            } else if (state === YT.PlayerState.ENDED) {
+                buttonIcon.textContent = '↻';
+                buttonText.textContent = '처음부터 듣기';
+            } else if (state === YT.PlayerState.CUED || state === YT.PlayerState.UNSTARTED) {
+                // 초기 로드 상태 (또는 종료 후 되감기 상태)
+                buttonIcon.textContent = '▶';
+                buttonText.textContent = '설교 듣기';
+            }
+        }
+
+        // 4. 버튼 클릭 이벤트 리스너
+        playerButton.addEventListener('click', function() {
+            if (player && typeof player.getPlayerState === 'function') {
+                var currentState = player.getPlayerState();
+                if (currentState === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    // PAUSED, ENDED, UNSTARTED, CUED 상태 모두 재생
+                    player.playVideo();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
