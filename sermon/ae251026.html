@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설교 요약: 거룩한 공교회 - 보이는 교회와 보이지 않는 교회</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Tailwind CSS JIT 엔진이 동적으로 클래스를 인식하도록 기본 스타일을 정의합니다. */
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        }
+        .card-icon {
+            width: 2.5rem; /* w-10 */
+            height: 2.5rem; /* h-10 */
+            flex-shrink: 0;
+        }
+        .keyword {
+            font-weight: 700; /* font-bold */
+            color: #c026d3; /* text-fuchsia-600 */
+            background-color: #fdf4ff; /* bg-fuchsia-50 */
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        /* 오디오 플레이어 버튼 스타일 */
+        .audio-player-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1.25rem;
+            font-weight: 600; /* font-semibold */
+            background-color: #1f2937; /* bg-gray-800 */
+            color: white;
+            border-radius: 0.375rem; /* rounded-md */
+            transition: background-color 0.2s;
+            cursor: pointer;
+            border: 1px solid #374151; /* border-gray-700 */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        }
+        .audio-player-button:hover {
+            background-color: #374151; /* bg-gray-700 */
+        }
+        .audio-player-button svg,
+        .audio-player-button .icon-text {
+            font-size: 1.25rem; /* text-xl */
+            margin-right: 0.5rem; /* mr-2 */
+            line-height: 1;
+        }
+        /* 성경 본문 섹션 스타일 (강해 본문이 아닌 '주제' 본문으로) */
+        .scripture-text-section {
+            background-color: #f9fafb; /* bg-gray-50 */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1.5rem; /* p-6 */
+            margin-top: 1.5rem; /* mt-6 */
+        }
+        .scripture-text-section h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            color: #1f2937; /* text-gray-800 */
+            margin-bottom: 1rem; /* mb-4 */
+            border-bottom: 2px solid #d1d5db; /* border-b-2 border-gray-300 */
+            padding-bottom: 0.5rem; /* pb-2 */
+        }
+        .scripture-text-section p {
+            font-size: 1.125rem; /* text-lg */
+            line-height: 1.75; /* leading-relaxed */
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 leading-relaxed">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        
+        <header class="mb-8 p-6 bg-white rounded-lg shadow-md">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                거룩한 공교회: 보이는 교회와 보이지 않는 교회
+            </h1>
+            <p class="text-lg text-gray-600">
+                사도신경 (기독교 강요 초판 22단락) | 김병훈 목사 | 2025년 10월 26일
+            </p>
+            
+            <div class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg">
+                <h2 class="text-xl font-bold text-amber-800 mb-1">핵심 주제</h2>
+                <p class="text-lg text-amber-700 leading-relaxed">
+                    '거룩한 공교회'란 하나님의 영원한 선택을 받은 자들의 총수인 <span class="keyword">보이지 않는 교회</span>와, 이 땅에서 신앙을 고백하는 자들의 공동체인 <span class="keyword">보이는 교회</span>라는 두 측면을 가진 '하나의' 교회이며, 우리는 이 보이는 교회를 통해 구원의 여정을 이루어 갑니다.
+                </p>
+            </div>
+        </header>
+
+        <section class="mb-8">
+            <button id="audio-toggle-button" class="audio-player-button w-full md:w-auto">
+                <span class="icon-text">▶</span>
+                <span id="button-text">강의 듣기</span>
+            </button>
+            
+            <div id="player" style="position: absolute; top: -9999px; left: -9999px;"></div>
+
+            <div class="scripture-text-section">
+                <h3>강의 주제 본문: 사도신경 (Apostles' Creed)</h3>
+                <p>전능하사 천지를 만드신 하나님 아버지를 내가 믿사오며,</p>
+                <p>그 외아들 우리 주 예수 그리스도를 믿사오니,</p>
+                <p>이는 성령으로 잉태하사 동정녀 마리아에게 나시고,</p>
+                <p>본디오 빌라도에게 고난을 받으사, 십자가에 못 박혀 죽으시고,</p>
+                <p>장사한 지 사흘 만에 죽은 자 가운데서 다시 살아나시며,</p>
+                <p>하늘에 오르사, 전능하신 하나님 우편에 앉아 계시다가,</p>
+                <p>저리로서 산 자와 죽은 자를 심판하러 오시리라.</p>
+                <p>성령을 믿사오며,</p>
+                <p><strong class="text-blue-700">거룩한 공교회(公教會)와,</strong> 성도가 서로 교통하는 것과,</p>
+                <p>죄를 사하여 주시는 것과,</p>
+                <p>몸이 다시 사는 것과,</p>
+                <p>영원히 사는 것을 믿사옵나이다. 아멘.</p>
+            </div>
+        </section>
+
+        <main class="grid grid-cols-1 gap-6">
+
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A11.978 11.978 0 0112 13.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 003 12c0 .778.099 1.533.284 2.253m0 0A11.978 11.978 0 0012 13.5c2.998 0 5.74 1.1 7.843 2.918" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">'거룩한 공교회'의 첫 번째 의미: 보이지 않는 교회</h2>
+                </div>
+                <p class="mb-4">
+                    사도신경에서 "거룩한 공교회(보편 교회)를 믿는다"고 고백할 때, 그 일차적 대상은 <span class="keyword">보이지 않는 교회(비가시적 교회)</span>입니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li>이 교회는 <span class="keyword">하나님의 선택받은 자의 전체 수(總數)</span>로 구성됩니다.</li>
+                    <li>여기에는 과거에 죽은 성도, 현재 살아있는 성도, 그리고 미래에 태어날 성도까지, 모든 시대와 민족을 초월하여 하나님께서 택하신 모든 이들이 포함됩니다.</li>
+                    <li>이 교회는 우리의 가시성을 초월해 있기에 '비가시적'이라 부르며, 오직 하나님만이 그 구성원을 아십니다.</li>
+                    <li>우리 주 그리스도께서 이 모든 이들의 머리가 되시며, 이들은 그리스도 안에서 한 몸을 이룹니다. 이것이 우리가 '믿음'으로 고백하는 교회의 본질입니다.</li>
+                </ul>
+            </div>
+
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-blue-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 18.75v-13.5m16.5 13.5v-13.5m-16.5 0h16.5m-16.5 0H3.75m16.5 0H20.25m-16.5 0h16.5M3.75 6.75h16.5M3.75 11.25h16.5M3.75 15h16.5" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18M3 21h18" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">'거룩한 공교회'의 두 번째 의미: 보이는 교회와 그 표지</h2>
+                </div>
+                <p class="mb-4">
+                    교회에는 또 다른 측면인 <span class="keyword">보이는 교회(가시적 교회)</span>가 있습니다. 이는 이 땅의 역사 속에서 실제로 존재하며 우리 눈으로 볼 수 있는 교회 공동체입니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li>보이는 교회의 구성원은 하나님의 '선택'이 아닌, 각자의 <span class="keyword">'신앙 고백'</span>을 기초로 이루어집니다.</li>
+                    <li>이 교회 역시 시공간을 초월하여 항상 존재하기에 '보편적'입니다.</li>
+                    <li>우리가 이 교회를 '교회'로 인식할 수 있는 이유는 '교회의 표지(Marks)'가 있기 때문입니다.
+                        <ul class="list-['–'] list-inside ml-4 space-y-1">
+                            <li>올바른 <span class="keyword">말씀의 선포</span></li>
+                            <li>올바른 <span class="keyword">성례의 집행</span> (세례와 성찬)</li>
+                            <li>올바른 <span class="keyword">권징의 시행</span> (교리의 순수성과 거룩성을 지키는 것)</li>
+                        </ul>
+                    </li>
+                    <li>이 모든 표지는 <span class="keyword">예배 공동체</span> 안에서 구현됩니다. 예배가 없다면 다른 표지들도 존재할 수 없습니다.</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V21M4.5 3v5.625A5.625 5.625 0 0010.125 14.25h3.75c3.09 0 5.625-2.535 5.625-5.625V3M4.5 3h15" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">두 교회의 관계와 불일치</h2>
+                </div>
+                <p class="mb-4">
+                    이상적으로는 '보이는 교회'의 구성원과 '보이지 않는 교회'의 구성원이 일치해야 하지만, 이 땅에서는 필연적으로 불일치가 발생합니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li><strong>보이지 않는 교회 O, 보이는 교회 X:</strong> 하나님의 택함을 받았으나(비가시적 교회 회원), 아직 복음을 듣지 못했거나, 믿음을 고백하기 전이거나, 교회가 없는 지역에 있거나, 임종 직전에 믿는 등(가시적 교회 비회원)의 경우가 있습니다. 이들이 바로 <span class="keyword">전도의 대상</span>입니다.</li>
+                    <li><strong>보이지 않는 교회 X, 보이는 교회 O:</strong> 믿음이 없음에도 불구하고, 형식적, 의식적으로 신앙을 고백하고 교회에 속한(가시적 교회 회원) 사람들이 있습니다. 이들은 참된 구원에 합당한 열매가 없으며(비가시적 교회 비회원), 훗날 <span class="keyword">배도(背道)하여 교회를 떠나거나</span> 비방하는 자가 되기도 합니다.</li>
+                </ul>
+            </div>
+
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-rose-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-rose-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">신앙 판단의 기준: '완전성'이 아닌 '진정성'</h2>
+                </div>
+                <p class="mb-4">
+                    보이는 교회의 한계(알곡과 가라지가 섞여 있음)로 인해, 우리는 신앙의 '참됨'을 판단할 때 '완전성'이나 '성숙도'를 기준으로 삼는 오류를 범해서는 안 됩니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li>참된 믿음은 있으나 <span class="keyword">구원의 확신이 약한</span> 성도가 있을 수 있습니다. 이는 죄의 잔재와 싸우는 <span class="keyword">성화(聖化)의 과정</span> 속에 있는 자연스러운 모습입니다.</li>
+                    <li>구원받는 믿음의 핵심은 <span class="keyword">'진정성(Genuineness)'</span>이지, '완전성(Perfection)'이 아닙니다. 연약한 믿음도 정직한 믿음일 수 있습니다.</li>
+                    <li>교회가 기대하는 높은 수준의 '완전성'을 기준으로 타인의 믿음을 판단하려 했던 재세례파(Anabaptists)와 같은 시각은 매우 위험합니다.</li>
+                    <li>이는 갓 태어난 믿음의 씨를 율법적 기준으로 억누르고, 연약한 심령에 타격을 주어 성장을 가로막을 수 있습니다. 목회는 양을 살피는 것이어야 합니다.</li>
+                </ul>
+            </div>
+
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">하나의 교회: 영혼과 몸의 비유</h2>
+                </div>
+                <p class="mb-4">
+                    '보이는 교회'와 '보이지 않는 교회'는 두 개의 다른 교회가 아니라, <span class="keyword">하나의 교회의 두 가지 측면</span>입니다. 17세기 정통 신학자들은 이를 '영혼'과 '몸'에 비유했습니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li><strong>보이지 않는 교회 = 영혼 (Soul):</strong> 교회의 본질이며 원형입니다.</li>
+                    <li><strong>보이는 교회 = 몸 (Body):</strong> 영혼이 거하며 자신을 드러내는 통로입니다.</li>
+                </ul>
+                <p class="mb-4">
+                    '그리스도는 머리요, 교회는 몸'이라는 비유는 <span class="keyword">보이지 않는 교회(택함 받은 자)</span>에 원형적으로, 완벽하게 해당합니다. 몸에 이질적인 것이 붙을 수 없기 때문입니다.
+                </p>
+                <p class="leading-relaxed">
+                    그럼에도 불구하고 이 비유를 '보이는 교회'에도 적용하는 이유는, 하나님께서 이 <span class="keyword">보이는 교회를 통해서만</span> 자신의 택하신 백성을 불러 모으고 구원 역사를 이루시는 '통상적인 방편'으로 삼으셨기 때문입니다.
+                </p>
+            </div>
+
+            <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-gray-600">
+                <div class="flex items-center mb-4">
+                    <svg class="card-icon mr-3 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18V7.875c0-.621.504-1.125 1.125-1.125H6.75" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">교회의 '거룩성'과 '통일성'의 근거</h2>
+                </div>
+                <p class="mb-4">
+                    교회는 '하나'이며 '거룩'합니다. 이 역시 두 교회의 측면에서 이해해야 합니다.
+                </p>
+                <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                    <li><strong>통일성(Unity):</strong> 교회는 본질적으로 하나입니다. 교파적 차이가 있어도, 모든 택한 자는 <span class="keyword">한 믿음, 한 소망, 한 사랑</span> 안에서 성령을 통해 그리스도라는 한 머리에 붙어있습니다.</li>
+                    <li><strong>거룩성(Holiness):</strong> '보이지 않는 교회'는 그리스도 안에서 온전하므로 그 자체로 거룩합니다.</li>
+                    <li>그렇다면 흠이 많은 '보이는 교회'는 왜 거룩하다고 부릅니까? 이는 <span class="keyword">교회 자체 때문이 아니라, 교회의 머리이신 그리스도 때문</span>입니다.</li>
+                    <li>우리가 여전히 죄인이지만 '성도(聖徒, 거룩한 무리)'라고 부름 받는 것과 같습니다. 교회는 그리스도로 말미암아 거룩한 교회라고 칭함을 받으며, 그분 안에서 거룩해져 가기 때문입니다.</li>
+                    <li>결론적으로, 보이는 교회는 비록 연약하고 흠이 많아 보일지라도, 하나님이 택하신 백성을 부르시는 유일한 방편이므로 <span class="keyword">너무나 소중한 공동체이며</span> 우리는 교회를 사랑해야 합니다.</li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // 1. YouTube Iframe API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var videoId = 'IUjbcm9Z-E0'; // 설교 영상 ID
+        var playerButton = document.getElementById('audio-toggle-button');
+        var buttonText = document.getElementById('button-text');
+        var buttonIcon = playerButton.querySelector('.icon-text');
+
+        // 2. API 준비 완료 시 플레이어 생성
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0', // 보이지 않도록 설정
+                width: '0', // 보이지 않도록 설정
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 3. 플레이어 상태 변경 시 버튼 텍스트/아이콘 업데이트
+        function onPlayerStateChange(event) {
+            var state = event.data;
+            if (state === YT.PlayerState.PLAYING) {
+                buttonIcon.textContent = '❚❚';
+                buttonText.textContent = '일시정지';
+            } else if (state === YT.PlayerState.PAUSED) {
+                buttonIcon.textContent = '▶';
+                buttonText.textContent = '다시 듣기';
+            } else if (state === YT.PlayerState.ENDED) {
+                buttonIcon.textContent = '↻';
+                buttonText.textContent = '처음부터 듣기';
+            } else if (state === YT.PlayerState.CUED || state === YT.PlayerState.UNSTARTED) {
+                // 초기 로드 상태 (또는 종료 후 되감기 상태)
+                buttonIcon.textContent = '▶';
+                buttonText.textContent = '강의 듣기';
+            }
+        }
+
+        // 4. 버튼 클릭 이벤트 리스너
+        playerButton.addEventListener('click', function() {
+            if (player && typeof player.getPlayerState === 'function') {
+                var currentState = player.getPlayerState();
+                if (currentState === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    // PAUSED, ENDED, UNSTARTED, CUED 상태 모두 재생
+                    player.playVideo();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
