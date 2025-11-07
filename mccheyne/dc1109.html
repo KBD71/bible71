@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날마다 읽는 교리 - 11월 9일</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            word-break: keep-all;
+            background-color: #f3f4f6; /* Tailwind gray-100 */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* lg */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* lg */
+            margin-bottom: 1.5rem; /* 6 */
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #4a5568; /* Tailwind gray-700 */
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem; /* xl */
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .card-body {
+            padding: 1.5rem;
+            line-height: 1.75;
+        }
+        .card-body h3 {
+            font-size: 1.125rem; /* lg */
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937; /* gray-800 */
+        }
+        .card-body p {
+            margin-bottom: 1rem;
+            color: #374151; /* gray-700 */
+        }
+        .card-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151; /* gray-700 */
+        }
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        .card-body .question {
+            font-weight: 600;
+            color: #111827; /* gray-900 */
+        }
+        .card-body .answer {
+            color: #374151; /* gray-700 */
+        }
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: #f9fafb; /* gray-50 */
+            border-top: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .audio-button:disabled {
+            background-color: #e5e7eb; /* gray-200 */
+            color: #9ca3af; /* gray-400 */
+            cursor: not-allowed;
+        }
+        .audio-button.play {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+        }
+        .audio-button.play:hover {
+            background-color: #1d4ed8; /* blue-700 */
+        }
+        .audio-button.pause {
+            background-color: #f87171; /* red-400 */
+            color: white;
+        }
+        .audio-button.pause:hover {
+            background-color: #ef4444; /* red-500 */
+        }
+        .audio-error {
+            color: #dc2626; /* red-600 */
+            font-weight: 500;
+            text-align: center;
+        }
+        #player-container {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            left: -100px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.875rem; /* sm */
+            color: #6b7280; /* gray-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">11월 9일</h1>
+            <p class="text-xl text-gray-600 mt-2">성례의 의미</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    소요리문답 92문
+                </div>
+                <div class="card-body">
+                    <div class="question-answer">
+                        <p class="question">문92. 성례란 무엇습니까?</p>
+                        <p class="answer">답. 성례란 그리스도께서 제정하신 거룩한 규례입니다. 이 규례는 감각할 수 있는 표지에 의해서 그리스도와 새 언약의 유익을 신자들에게 표하고, 인치고, 적용합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    대요리문답 162문
+                </div>
+                <div class="card-body">
+                    <div class="question-answer">
+                        <p class="question">문162. 성례란 무엇입니까?</p>
+                        <p class="answer">답. 성례는 그리스도께서 자신의 교회에 제정하신 거룩한 규례입니다. 이 규례는 은혜언약 안에 있는 자들에게 중보의 유익을 표하고 인치고 적용하기 위한 것이며 이들의 믿음과 다른 모든 은혜를 강화하고 증진하기 위한 것이며, 이들이 순종하게 하고, 이들 상호 간에 사랑과 교제를 증거하고 소중히 여기도록 하는 것이며, 이들을 은혜언약 밖에 있는 자들과 구별하기 위한 것입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    교리 해설
+                </div>
+                <div class="card-body">
+                    <p>오늘 읽는 소요리문답 92항과 대요리문답 162항은 성례에 대해 교훈합니다. 대요리문답 162항이 소요리문답 92항의 내용을 포함하고 있으므로, 대요리문답을 중심으로 살펴보겠습니다.</p>
+                    <p>대요리문답 162항은 성례의 의미에 대해 여섯 가지로 정리합니다:
+                        <ol class="list-decimal list-inside my-4">
+                            <li>그리스도께서 교회에 제정하신 거룩한 규례라는 점</li>
+                            <li>은혜 언약 안의 자들에게 중보의 유익을 표하고 인치며 적용하는 것</li>
+                            <li>믿음과 모든 은혜를 강화하고 증진하는 것</li>
+                            <li>성도들을 순종하게 하는 것</li>
+                            <li>성도 상호 간의 사랑과 교제를 증거하고 소중히 여기게 하는 것</li>
+                            <li>은혜 언약 밖의 자들과 구별하는 것</li>
+                        </ol>
+                    오늘은 이 중 첫째, 둘째, 그리고 다섯째 항목을 중심으로 살펴보겠습니다.
+                    </p>
+
+                    <h3>1. 그리스도께서 제정하신 거룩한 규례</h3>
+                    <p>성례는 사람이 편의를 위해 고안한 의식이 아니라, <strong class="text-blue-600">교회의 머리이신 그리스도께서 친히 명하시고 제정하신 것</strong>입니다. 그렇기에 성례는 그리스도께서 특별히 구별하여 제정하신 '거룩한' 규례입니다. 또한 성례는 "자신의 교회에 제정하신" 규례이므로, 개인이나 사적인 모임에서 임의로 행할 수 없습니다. 예를 들어 선교 단체 수련회나 가족 모임, 기독교 학교 동아리 등에서 성찬을 집례하는 것은 합당하지 않습니다.</p>
+
+                    <h3>2. 표하고(Signify), 인치고(Seal), 적용/제시함(Apply/Exhibit)</h3>
+                    <p>성례는 단순한 기념물에 그치지 않고, 그리스도의 중보의 유익을 전달하는 <strong class="text-blue-600">'은혜의 방편'</strong>입니다. 대요리문답은 이와 관련하여 '표하다'(signify), '인치다'(seal), '적용/제시하다'(apply/exhibit)라는 세 가지 기능을 제시합니다.</p>
+                    <ul>
+                        <li>
+                            <strong class="text-blue-600">표(Sign)</strong>: 성례는 가시적인 표지를 통해 보이지 않는 영적 실체를 가리킵니다.
+                            <ul>
+                                <li><strong>세례</strong>: 물과 물로 씻거나 뿌리는 행위가 '표'입니다. 이 표가 가리키는 '표지되는 것'(res signata)은 그리스도의 피와 성령에 의한 죄 씻음, 그리고 그리스도와의 연합을 통한 새 생명입니다.</li>
+                                <li><strong>성찬</strong>: 빵과 포도주, 그리고 먹고 마시는 행위가 '표'입니다. 이 표가 가리키는 것은 그리스도의 몸과 피입니다.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong class="text-blue-600">인(Seal)</strong>: '인'은 도장을 찍어 보증하거나 확증하는 것을 의미합니다. 성례는 단순한 표지에 머무르지 않고, 그 표가 가리키는 내용이 참되다는 것을 보증하고 확증합니다.
+                            <ul>
+                                <li><strong>세례</strong>: 세례는 죄 씻음과 새 생명에 대한 하나님의 <strong class="text-blue-600">약속이 참되다는 것을 보증하고 확증</strong>(인치는 것)합니다.</li>
+                                <li><strong>성찬</strong>: 성찬은 그리스도와의 연합을 통해 주어지는 은혜가 참으로 신자에게 주어진다는 하나님의 <strong class="text-blue-600">약속을 보증하고 확증</strong>(인치는 것)합니다.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>성례가 이처럼 '표'인 동시에 '인'이 될 수 있는 이유는, <strong class="text-blue-600">그것을 제정하신 분이 바로 하나님, 곧 그리스도이시기 때문</strong>입니다. 아브라함의 할례가 단순한 표가 아니라 '믿음으로 된 의를 인친 것'(롬 4:11)이었던 것처럼, 그리스도께서 친히 "이것은 내 몸이라", "이것은... 언약의 피라"(마 26:26-28)고 말씀하시며 제정하셨기에, 성례는 그 자체가 가리키는 바의 참됨을 보증하는 '인'이 됩니다.</p>
+
+                    <h3>3. 사랑과 교제를 증거하고 소중히 함</h3>
+                    <p>성례는 오직 하나님의 언약 백성, 즉 교회 공동체에만 주어진 특권입니다.</p>
+                    <ul>
+                        <li><strong>세례</strong>는 교회 밖의 사람이 신앙고백을 통해 교회 공동체 안으로 받아들여지고, 그리스도 안의 형제임을 선포하는 의미를 갖습니다.</li>
+                        <li><strong>성찬</strong>은 이미 교회에 속한 자들이 함께 빵과 포도주를 나누며, 그리스도의 한 몸에 연합되어 있음을 고백하는 규례입니다.</li>
+                    </ul>
+                    <p>그러므로 성례는 본질적으로 공동체적 성격을 지닙니다. 성례에 참여하는 것은 <strong class="text-blue-600">개인주의적 행위가 아니라, 전체 공동체의 일원으로서 참여</strong>하는 것입니다. 성례는 그리스도와 신자의 연합을 근거로 하여, 성도 상호 간의 연합으로 이어지게 하며, 서로 사랑하고 교제해야 함을 증거하고 요구합니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    AI요약 듣기
+                </div>
+                <div class="audio-player-container" id="audio-player-ui">
+                    <div id="player-container"></div>
+                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="button-text">로딩 중...</span>
+                    </button>
+                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    적용 질문
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="question">1. 왜 성례는 개인이나 사적인 모임에서 임의로 행할 수 없고 오직 교회 안에서 시행되어야 합니까? 그렇다면 여러분은 성례를 교회의 머리이신 그리스도께서 친히 제정하신 규례로 존중하며, 단순한 행사가 아니라 교회의 거룩한 은혜의 방편으로 받고 있습니까?</span></li>
+                        <li><span class="question">2. 세례와 성찬이 단순한 표로서만이 아니라 동시에 하나님의 언약 약속을 보증하는 인이라고 할 수 있는 이유는 무엇입니까? 그렇다면 여러분은 세례와 성찬을 받을 때 하나님께서 그리스도 안에서 주신 약속이 참되다는 사실을 확증해 주신다는 것을 신뢰하며 살아가고 있습니까?</span></li>
+                        <li><span class="question">3. 왜 성례는 하나님의 언약 백성들 사이에서만 행해지는 규례이며, 교회 공동체에 속한 자들의 특권이라고 할 수 있습니까? 그렇다면 여러분은 성례에 참여할 때 그것이 단순히 개인의 신앙 행위가 아니라, 하나님께서 교회를 언약 공동체로 세우신 은혜의 표징임을 기억하며, 교회의 지체로서 서로에게 속한 자로 살고 있습니까?</span></li>
+                        <li><span class="question">4. 성례가 성도 상호 간의 사랑과 교제를 증거하고 소중히 여기도록 하는 규례라고 할 때, 이것은 성례가 본질적으로 공동체적인 은혜의 방편임을 어떻게 보여줍니까? 그렇다면 여러분은 성례에 참여할 때 단순히 개인적으로 은혜를 받는 것에 그치지 않고, 함께 그리스도께 속한 형제로서 서로를 사랑하고 교제하며 세워가고 있습니까?</span></li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+
+    </div>
+
+    <script>
+        let player;
+        let videoId = null;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        const audioButton = document.getElementById('audio-button');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const errorContainer = document.getElementById('audio-error');
+        const playerUi = document.getElementById('audio-player-ui');
+
+        // 1. YouTube API 로드
+        function loadYouTubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // 2. API 콜백 함수
+        function onYouTubeIframeAPIReady() {
+            fetchAudioAddress();
+        }
+
+        // 3. 오디오 주소 fetch 및 파싱
+        async function fetchAudioAddress() {
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                const today = getFormattedDate();
+                const todayLine = lines.find(line => line.startsWith(today));
+
+                if (todayLine) {
+                    // 비디오 ID 추출 (URL 전체에서 ID만 정확히 파싱)
+                    // 정규식: (v=... 또는 youtu.be/...) 다음에 오는 비디오 ID (특수문자 포함)
+                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                    const match = todayLine.match(regex);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        initializePlayer();
+                    } else {
+                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
+                    }
+                } else {
+                    // 오늘 날짜의 주소가 없는 경우
+                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
+                }
+            } catch (error) {
+                console.error('Error fetching audio address:', error);
+                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 4. 오늘 날짜 포맷 (MMDD)
+        function getFormattedDate() {
+            const now = new Date();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            // return `${month}${day}`;
+            return '1109'; // 요청된 날짜로 고정
+        }
+
+        // 5. 플레이어 초기화
+        function initializePlayer() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 6. 플레이어 준비 완료
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            audioButton.disabled = false;
+            buttonText.textContent = 'AI요약 듣기';
+            audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            audioButton.addEventListener('click', togglePlayPause);
+        }
+
+        // 7. 플레이어 상태 변경
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonUI(true);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonUI(false);
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.seekTo(0); // 끝나면 처음으로 되감기
+                }
+            }
+        }
+
+        // 8. 재생/일시정지 토글
+        function togglePlayPause() {
+            if (!isPlayerReady) return;
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        // 9. 버튼 UI 업데이트
+        function updateButtonUI(playing) {
+            if (playing) {
+                audioButton.classList.remove('play');
+                audioButton.classList.add('pause');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+                buttonText.textContent = '일시정지';
+                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                audioButton.classList.remove('pause');
+                audioButton.classList.add('play');
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = 'AI요약 듣기';
+                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            }
+        }
+
+        // 10. 오류 처리
+        function showError(message) {
+            // 기존 UI 숨기기
+            const button = document.getElementById('audio-button');
+            if (button) {
+                button.style.display = 'none';
+            }
+            
+            // 오류 메시지 표시
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        // API 로드 시작
+        loadYouTubeAPI();
+    </script>
+
+</body>
+</html>
