@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날마다 읽는 교리 - 11월 15일</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            word-break: keep-all;
+            background-color: #f3f4f6; /* Tailwind gray-100 */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* lg */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* lg */
+            margin-bottom: 1.5rem; /* 6 */
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #4a5568; /* Tailwind gray-700 */
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem; /* xl */
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .card-body {
+            padding: 1.5rem;
+            line-height: 1.75;
+        }
+        .card-body h3 {
+            font-size: 1.125rem; /* lg */
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937; /* gray-800 */
+        }
+        .card-body p {
+            margin-bottom: 1rem;
+            color: #374151; /* gray-700 */
+        }
+        .card-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151; /* gray-700 */
+        }
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        .card-body .question {
+            font-weight: 600;
+            color: #111827; /* gray-900 */
+        }
+        .card-body .answer {
+            color: #374151; /* gray-700 */
+        }
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: #f9fafb; /* gray-50 */
+            border-top: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .audio-button:disabled {
+            background-color: #e5e7eb; /* gray-200 */
+            color: #9ca3af; /* gray-400 */
+            cursor: not-allowed;
+        }
+        .audio-button.play {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+        }
+        .audio-button.play:hover {
+            background-color: #1d4ed8; /* blue-700 */
+        }
+        .audio-button.pause {
+            background-color: #f87171; /* red-400 */
+            color: white;
+        }
+        .audio-button.pause:hover {
+            background-color: #ef4444; /* red-500 */
+        }
+        .audio-error {
+            color: #dc2626; /* red-600 */
+            font-weight: 500;
+            text-align: center;
+        }
+        #player-container {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            left: -100px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.875rem; /* sm */
+            color: #6b7280; /* gray-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">11월 15일</h1>
+            <p class="text-xl text-gray-600 mt-2">그리스도께서 제정하신 두 성례의 합법적 시행자</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    AI요약 듣기
+                </div>
+                <div class="audio-player-container" id="audio-player-ui">
+                    <div id="player-container"></div>
+                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="button-text">로딩 중...</span>
+                    </button>
+                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    신앙고백서 27.4
+                </div>
+                <div class="card-body">
+                    <p class="answer">복음에는 그리스도 우리 주님께서 명령으로 제정하신 오직 두 가지 성례가 있을 뿐이니, 곧 세례와 성찬이다. 이 둘 가운데 어느 것도 합법하게 임직받은 말씀 사역자 외에는 누구에 의해서도 시행되어서는 안 된다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    교리 해설
+                </div>
+                <div class="card-body">
+                    <p>오늘 읽는 신앙고백서 27.4은 두 가지 내용을 다룹니다. 하나는 성례의 수가 오직 두 가지, 곧 세례와 성찬뿐이라는 점이며, 다른 하나는 성례의 집례자가 어떠한 자격을 갖추어야 하는가에 대한 교훈입니다.</p>
+
+                    <h3>1. 명령으로 제정된 두 가지 성례</h3>
+                    <p>성례의 수(세례와 성찬)에 관한 내용은 어제 살펴보았습니다. 오늘 본문에서 특별히 주목할 표현은 <strong class="text-blue-600">"명령으로 제정하신"(ordained)</strong>이라는 구절입니다. 다른 신앙 문서에서는 보통 'instituted'(시작, 기원)라는 단어를 쓰지만, 여기서는 'ordained'를 사용합니다.</p>
+                    <p>이 단어는 단순한 시작이 아니라, <strong class="text-blue-600">그리스도께서 중보자의 권위로 "명령"하여 제정하셨다</strong>는 의미를 강조합니다. 또한 'ordained'는 '임직하다'라는 뜻도 가지는데, 이는 성례가 '권위 있는 명령으로 제정되었고(ordained)', 동시에 '합법적으로 임직된(ordained)' 집례자에 의해 집행되어야 한다는 사실을 자연스럽게 연결해 줍니다.</p>
+
+                    <h3>2. 합법적으로 임직받은 말씀 사역자</h3>
+                    <p>그리스도께서 권위로 명령하여 제정하신 성례는, 반드시 <strong class="text-blue-600">"합법적으로 임직받은 말씀 사역자"</strong>에 의해 시행되어야 합니다. "합법적으로"라는 말은 교회의 정당한 질서와 절차에 따라 세움을 받았음을 의미하며, 스스로 임직을 주장하는 행위는 인정될 수 없습니다.</p>
+                    <p>성례의 집례자가 반드시 <strong class="text-blue-600">"말씀 사역자"</strong>여야 하는 이유는 두 가지입니다.</p>
+                    <ul>
+                        <li>
+                            <strong>첫째, 성례는 말씀 선포와 분리될 수 없기 때문입니다.</strong>
+                            성례는 그리스도의 구속 사역을 보여주고, 제시하며, 전달하는 은혜의 수단입니다. 이 구속 사역은 말씀을 통해 선포되므로, 성례는 <strong class="text-blue-600">"보이는 말씀"(visible Word)</strong>이라 불립니다. 말씀과 분리된 성례는 신비적·주술적 효과를 추구하는 잘못된 형태로 변질되거나, 의미가 불분명한 단순한 기념 행위로 전락하기 쉽습니다. 말씀 사역자는 말씀을 선포하고, 성도들이 그 말씀을 눈으로 보고 경험하는 성례에 믿음으로 참여하도록 인도합니다.
+                        </li>
+                        <li>
+                            <strong>둘째, 성례는 "제정의 말씀"에 따라 시행되어야 하기 때문입니다.</strong>
+                            성례의 효력은 "성령 하나님의 역사하심과 제정의 말씀"에 의존합니다. 이 '제정의 말씀' (세례: 마 28:19 / 성찬: 고전 11:24-25)에는 성례 시행의 <strong class="text-blue-600">명령</strong>과 은혜의 <strong class="text-blue-600">약속</strong>이 담겨 있습니다. 집례자가 이 제정의 말씀을 낭독하고 선포할 때, 그 행위는 그리스도의 명령에 따른 거룩한 사역이 되며, 성령의 역사와 함께 성례는 구원의 효력을 지닌 은혜의 통로가 됩니다.
+                        </li>
+                    </ul>
+                    <p>이러한 원리 때문에 성례는 반드시 말씀의 사역자에 의해 집례되어야 한다는 점이 확고히 세워집니다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    적용 질문
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="question">1. 성례가 "명령으로 제정되었다"라는 표현이 단순히 제도가 시작되었다는 뜻이 아니라, 권위 있는 명령을 의미한다면, 그리스도께서 중보자의 권위로 성례를 제정하셨다는 사실은 성례의 성격에 어떤 차이를 만들어 줍니까? 여러분은 성례를 단순한 예식이나 교회의 전통으로 여기지 않고, 그리스도의 권위 아래에서 순종함으로 참여하고 있습니까?</span></li>
+                        <li><span class="question">2. 신앙고백서가 instituted 대신 ordained라는 단어를 사용한 이유는 무엇입니까? 그 단어가 성례의 제정과 집례자의 임직을 함께 연결한다는 점에서 어떤 신학적 통찰을 보여줍니까? 여러분은 성례가 그리스도의 명령에 따라 권위적으로 제정되고, 또한 합법적으로 임직된 자에 의해 집례된다는 사실을 존중하며, 교회의 질서 안에서 성례에 참여하고 있습니까?</span></li>
+                        <li><span class="question">3. "합법적으로 임직받은 말씀 사역자 외에는 누구에 의해서도 시행되어서는 안 된다"라는 교훈이 왜 중요한가요? 말씀 선포와 분리된 성례가 왜 위험한가요? 여러분은 말씀과 성례가 분리될 때 생길 수 있는 신비주의적 혹은 주술적 왜곡을 경계하며, 말씀 안에서 성례를 이해하고 있습니까?</span></li>
+                        <li><span class="question">4. 성례의 효력이 성령의 역사와 "제정의 말씀"에 의존한다고 할 때, 성례를 집례하는 자가 말씀을 낭독하고 선포하는 일이 왜 본질적으로 중요한가요? 여러분은 세례와 성찬의 제정의 말씀(마 28:19; 고전 11:24-25)에 담긴 그리스도의 명령과 약속을 기억하며, 성례를 받을 때마다 그분의 말씀과 성령의 역사 안에서 은혜를 받는다는 확신을 가지고 있습니까?</span></li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+
+    </div>
+
+    <script>
+        let player;
+        let videoId = null;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        const audioButton = document.getElementById('audio-button');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const errorContainer = document.getElementById('audio-error');
+        const playerUi = document.getElementById('audio-player-ui');
+
+        // 1. YouTube API 로드
+        function loadYouTubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // 2. API 콜백 함수
+        function onYouTubeIframeAPIReady() {
+            fetchAudioAddress();
+        }
+
+        // 3. 오디오 주소 fetch 및 파싱
+        async function fetchAudioAddress() {
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                const today = getFormattedDate();
+                const todayLine = lines.find(line => line.startsWith(today));
+
+                if (todayLine) {
+                    // 비디오 ID 추출 (URL 전체에서 ID만 정확히 파싱)
+                    // 정규식: (v=... 또는 youtu.be/...) 다음에 오는 비디오 ID (특수문자 포함)
+                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                    const match = todayLine.match(regex);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        initializePlayer();
+                    } else {
+                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
+                    }
+                } else {
+                    // 오늘 날짜의 주소가 없는 경우
+                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
+                }
+            } catch (error) {
+                console.error('Error fetching audio address:', error);
+                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 4. 오늘 날짜 포맷 (MMDD)
+        function getFormattedDate() {
+            const now = new Date();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            // return `${month}${day}`;
+            return '1115'; // 요청된 날짜로 고정
+        }
+
+        // 5. 플레이어 초기화
+        function initializePlayer() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 6. 플레이어 준비 완료
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            audioButton.disabled = false;
+            buttonText.textContent = 'AI요약 듣기';
+            audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            audioButton.addEventListener('click', togglePlayPause);
+        }
+
+        // 7. 플레이어 상태 변경
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonUI(true);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonUI(false);
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.seekTo(0); // 끝나면 처음으로 되감기
+                }
+            }
+        }
+
+        // 8. 재생/일시정지 토글
+        function togglePlayPause() {
+            if (!isPlayerReady) return;
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        // 9. 버튼 UI 업데이트
+        function updateButtonUI(playing) {
+            if (playing) {
+                audioButton.classList.remove('play');
+                audioButton.classList.add('pause');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+                buttonText.textContent = '일시정지';
+                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                audioButton.classList.remove('pause');
+                audioButton.classList.add('play');
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = 'AI요약 듣기';
+                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            }
+        }
+
+        // 10. 오류 처리
+        function showError(message) {
+            // 기존 UI 숨기기
+            const button = document.getElementById('audio-button');
+            if (button) {
+                button.style.display = 'none';
+            }
+            
+            // 오류 메시지 표시
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        // API 로드 시작
+        loadYouTubeAPI();
+    </script>
+
+</body>
+</html>
