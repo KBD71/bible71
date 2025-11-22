@@ -26,8 +26,9 @@ def get_video_target_date(upload_date_str, video_title=""):
     
     Rules:
     1. Video title contains '금요기도회' -> Next day (Saturday)
-    2. Saturday video (not 금요기도회) -> Next day (Sunday)
-    3. Others -> Same day
+    2. Friday upload (for Saturday morning service) -> +2 days (Sunday)
+    3. Saturday video (not 금요기도회) -> Next day (Sunday)
+    4. Others -> Same day
     """
     # Parse upload date (YYYYMMDD)
     date_obj = datetime.datetime.strptime(upload_date_str, "%Y%m%d")
@@ -39,7 +40,12 @@ def get_video_target_date(upload_date_str, video_title=""):
     if is_friday_prayer:
         target_date = date_obj + datetime.timedelta(days=1)
         print(f"Rule applied: 금요기도회 video -> Target next day ({target_date.strftime('%Y%m%d')})")
-    elif weekday == 5: # Saturday
+    elif weekday == 4:  # Friday upload (for Saturday morning)
+        # Friday night uploads are for Saturday morning service
+        # Saturday videos -> Sunday file
+        target_date = date_obj + datetime.timedelta(days=2)
+        print(f"Rule applied: Friday upload (Saturday service) -> Target Sunday ({target_date.strftime('%Y%m%d')})")
+    elif weekday == 5: # Saturday upload
         target_date = date_obj + datetime.timedelta(days=1)
         print(f"Rule applied: Saturday video -> Target Sunday ({target_date.strftime('%Y%m%d')})")
     else:
@@ -219,11 +225,11 @@ def main():
         data = json.loads(result.stdout)
         entries = data.get('entries', [])
         
-        # Check last few entries (e.g., last 5) to handle edge cases
+        # Check first few entries (playlist is in reverse chronological order - newest first)
         target_video = None
         
-        # Iterate backwards from latest
-        for entry in reversed(entries[-5:]): 
+        # Check first 5 videos
+        for entry in entries[:5]: 
             video_id = entry.get('id')
             video_url = f"https://www.youtube.com/watch?v={video_id}"
             
