@@ -182,13 +182,15 @@ def main():
         setup_gemini()
         
         # 1. Determine "Today" (Target Date for the file we want to create/update)
-        today = datetime.datetime.now().strftime("%Y%m%d")
-        weekday = datetime.datetime.now().weekday() # Mon=0, ..., Sat=5, Sun=6
+        KST = datetime.timezone(datetime.timedelta(hours=9))
+        now_kst = datetime.datetime.now(KST)
+        today = now_kst.strftime("%Y%m%d")
+        weekday = now_kst.weekday() # Mon=0, ..., Sat=5, Sun=6
         
         # On Saturday, we create Sunday's file (because Saturday videos -> Sunday date)
         # On other days, we create today's file
         if weekday == 5:  # Saturday
-            target_date_obj = datetime.datetime.now() + datetime.timedelta(days=1)
+            target_date_obj = now_kst + datetime.timedelta(days=1)
             target_date = target_date_obj.strftime("%Y%m%d")
             print(f"Today is Saturday. Will create/update file for tomorrow (Sunday): {target_date}")
         else:
@@ -197,19 +199,16 @@ def main():
         filename = f"db{target_date[2:]}.html"
         filepath = os.path.join(OUTPUT_DIR, filename)
         
-        # 2. Check/Create Placeholder
+        # 2. Check/Create Placeholder for the "Standard" Target Date
         if check_and_create_placeholder(filepath):
             print(f"Created placeholder for {target_date}. Waiting for video...")
             
-        # 3. If file exists but is NOT a placeholder, we are done.
-        if not is_placeholder(filepath):
-            print(f"File {filename} already exists and is not a placeholder. Skipping.")
-            return
+        # 3. Video-Driven Generation
+        # Instead of looking for a video that matches "today's target", 
+        # we check recent videos and see if ANY of them map to a date that needs generation.
+        # This handles cases like "Friday Prayer" (uploaded Fri -> target Sat) which were missed by the strict date check.
 
-        print(f"Checking for video matching target date: {target_date}...")
-        
-        # 4. Find matching video
-        # We need to look at recent videos and see if any of them map to our target_date
+        print(f"Checking recent videos for any pending work...")
         
         cmd = [
             "yt-dlp",
@@ -225,8 +224,8 @@ def main():
         data = json.loads(result.stdout)
         entries = data.get('entries', [])
         
-        # Check first few entries (playlist is in reverse chronological order - newest first)
         target_video = None
+        final_target_date = None
         
         # Check first 5 videos
         for entry in entries[:5]: 
@@ -242,19 +241,30 @@ def main():
             upload_date = info.get('upload_date')
             title = info.get('title')
             
-            calculated_target = get_video_target_date(upload_date, title)
+            # Calculate which date this video belongs to
+            vid_target_date = get_video_target_date(upload_date, title)
+            vid_filename = f"db{vid_target_date[2:]}.html"
+            vid_filepath = os.path.join(OUTPUT_DIR, vid_filename)
             
-            print(f"  Checking video: {title[:50]}... (upload: {upload_date}) -> target: {calculated_target}")
+            print(f"  Checking video: {title[:30]}... -> Target: {vid_target_date} ({vid_filename})")
             
-            if calculated_target == target_date:
+            # Check if we need to generate this file
+            # We generate if:
+            # 1. File does not exist
+            # 2. File exists but is a placeholder
+            if is_placeholder(vid_filepath) or not os.path.exists(vid_filepath):
+                print(f"    -> Needs generation! (Missing or Placeholder)")
                 target_video = info
+                final_target_date = vid_target_date
                 break
+            else:
+                print(f"    -> Already exists and finished. Skipping.")
         
         if not target_video:
-            print(f"No video found that targets date {target_date}.")
+            print("No pending videos found to process.")
             return
 
-        print(f"Found matching video: {target_video.get('title')}")
+        print(f"Found video to process: {target_video.get('title')} for date {final_target_date}")
         
         # 5. Generate and Overwrite
         video_id = target_video['id']
@@ -265,7 +275,7 @@ def main():
         
         try:
             html_content = generate_html(audio_path, video_id)
-            saved_path = save_html(html_content, target_date) # Save using target_date
+            saved_path = save_html(html_content, final_target_date) # Save using calculated target date
             git_push(saved_path)
         finally:
             if os.path.exists(audio_path):
