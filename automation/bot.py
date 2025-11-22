@@ -175,28 +175,35 @@ def main():
     try:
         setup_gemini()
         
-        # 1. Determine "Today" (Target Date)
-        # Assuming script runs in KST or user's local time
+        # 1. Determine "Today" (Target Date for the file we want to create/update)
         today = datetime.datetime.now().strftime("%Y%m%d")
-        filename = f"db{today[2:]}.html"
+        weekday = datetime.datetime.now().weekday() # Mon=0, ..., Sat=5, Sun=6
+        
+        # On Saturday, we create Sunday's file (because Saturday videos -> Sunday date)
+        # On other days, we create today's file
+        if weekday == 5:  # Saturday
+            target_date_obj = datetime.datetime.now() + datetime.timedelta(days=1)
+            target_date = target_date_obj.strftime("%Y%m%d")
+            print(f"Today is Saturday. Will create/update file for tomorrow (Sunday): {target_date}")
+        else:
+            target_date = today
+            
+        filename = f"db{target_date[2:]}.html"
         filepath = os.path.join(OUTPUT_DIR, filename)
         
         # 2. Check/Create Placeholder
         if check_and_create_placeholder(filepath):
-            print(f"Created placeholder for {today}. Waiting for video...")
-            # We can optionally continue to check if video is ALREADY available (e.g. running late)
-            # But usually at 4am it won't be there. 
-            # Let's proceed to check just in case.
+            print(f"Created placeholder for {target_date}. Waiting for video...")
             
         # 3. If file exists but is NOT a placeholder, we are done.
         if not is_placeholder(filepath):
             print(f"File {filename} already exists and is not a placeholder. Skipping.")
             return
 
-        print(f"Checking for video matching target date: {today}...")
+        print(f"Checking for video matching target date: {target_date}...")
         
         # 4. Find matching video
-        # We need to look at recent videos and see if any of them map to 'today'
+        # We need to look at recent videos and see if any of them map to our target_date
         
         cmd = [
             "yt-dlp",
@@ -212,13 +219,11 @@ def main():
         data = json.loads(result.stdout)
         entries = data.get('entries', [])
         
-        # Check last few entries (e.g., last 3) to handle edge cases
-        # Since we need detailed info (timestamp) for the rules, we must fetch details for candidates.
-        
+        # Check last few entries (e.g., last 5) to handle edge cases
         target_video = None
         
         # Iterate backwards from latest
-        for entry in reversed(entries[-3:]): 
+        for entry in reversed(entries[-5:]): 
             video_id = entry.get('id')
             video_url = f"https://www.youtube.com/watch?v={video_id}"
             
@@ -233,12 +238,14 @@ def main():
             
             calculated_target = get_video_target_date(upload_date, title)
             
-            if calculated_target == today:
+            print(f"  Checking video: {title[:50]}... (upload: {upload_date}) -> target: {calculated_target}")
+            
+            if calculated_target == target_date:
                 target_video = info
                 break
         
         if not target_video:
-            print(f"No video found that targets date {today}.")
+            print(f"No video found that targets date {target_date}.")
             return
 
         print(f"Found matching video: {target_video.get('title')}")
@@ -252,7 +259,7 @@ def main():
         
         try:
             html_content = generate_html(audio_path, video_id)
-            saved_path = save_html(html_content, today) # Save using 'today' (target date)
+            saved_path = save_html(html_content, target_date) # Save using target_date
             git_push(saved_path)
         finally:
             if os.path.exists(audio_path):

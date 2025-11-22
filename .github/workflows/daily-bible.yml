@@ -2,11 +2,14 @@ name: Daily Bible Automation
 
 on:
   schedule:
-    # 매일 오전 4시 (KST 기준, UTC로는 전날 19시)
-    - cron: '0 19 * * *'
+    # 매일 오전 4시 (KST 기준, UTC로는 전날 19시) - 일요일 제외
+    - cron: '0 19 * * 1-6'
     # 월-금 오전 7-12시 매시간 (UTC 22-3시)
     - cron: '0 22-23 * * 0-4'
     - cron: '0 0-3 * * 1-5'
+    # 토요일 오전 7-12시 (UTC 금요일 22-23시, 토요일 0-3시)
+    - cron: '0 22-23 * * 5'
+    - cron: '0 0-3 * * 6'
   workflow_dispatch: # 수동 실행 가능
 
 jobs:
