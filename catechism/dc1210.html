@@ -3,171 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 10일</title>
+    <title>12월 10일: 121/ 10일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 10일</h1>
-            <p class="text-xl text-gray-600 mt-2">121/ 10일</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">121/ 10일</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 10일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    대요리문답 175
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">대요리문답 175</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">대요리문답 175: 175. 주의만찬을받은후에그리스도인이행할의무는 무엇입니까? 답. 주의 만찬을 받은 후에 그리스도인은 주의 만 찬에서 어떻게 행하였으며. 어떤 결과가 있었는지 신중 히 생각해야 합니다.1) 만일 소생함과 위로를 받았으면 하나님을 찬송하고전 은혜의 지속을 간구하며,3) 이 은 혜에서 다시 떨어지지 않도록 주의하고,4) 서원한 것을 시행하며,5) 성찬에 자주 참여하도록 힘써야만 합니다.6) 그러나 당장 아무런 유익을 얻지 못했다면, 자신이 이 성례를 어떻게 준비했고 어떤 태도로 입했는지 더 면밀 하게 돌아봐야 합니다? 만일 이들이 이 두 가지에서 하 나님 앞과 자신의 양심에 비추어 떳떳하다면, 적절한 ‘</p>
+                <div class="catechism-body">
+                    <p>대요리문답 175: 175. 주의만찬을받은후에그리스도인이행할의무는 무엇입니까? 답. 주의 만찬을 받은 후에 그리스도인은 주의 만 찬에서 어떻게 행하였으며. 어떤 결과가 있었는지 신중 히 생각해야 합니다.1) 만일 소생함과 위로를 받았으면 하나님을 찬송하고전 은혜의 지속을 간구하며,3) 이 은 혜에서 다시 떨어지지 않도록 주의하고,4) 서원한 것을 시행하며,5) 성찬에 자주 참여하도록 힘써야만 합니다.6) 그러나 당장 아무런 유익을 얻지 못했다면, 자신이 이 성례를 어떻게 준비했고 어떤 태도로 입했는지 더 면밀 하게 돌아봐야 합니다? 만일 이들이 이 두 가지에서 하 나님 앞과 자신의 양심에 비추어 떳떳하다면, 적절한 ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>오늘 읽는 대요리문답 175항은 성찬식에 참여한 후, 성찬을 통해 받은 은 
 혜를 지속적으로 유지해야 할 성도의 의무를 교훈합니다. 만일 아무런 유 
 익을 얻지 못했다면, 자신의 성찬 참여 태도가 어떠했는지를 살피고 더욱 
 부지런히 성찬에 참여해야 하며, 은혜의 때를 기다리며 성찬의 은혜를 간 
 구해야 함을 가르칩니다. 본 문답의 교훈은 크게 네 가지 내용으로 살펴볼 
-수있습니다. 
-(1) “주의 만찬을 받은 후에 그리스도인은 주의 만찬에서 어떻게 행하였으 
-며, 어떤 결과가 있었는지 신중히 생각해야 합니다”: 성찬은 단순히 참여하 
+수있습니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 1</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">주의 만찬을 받은 후에 그리스도인은 주의 만찬에서 어떻게 행하였으 
+며, 어떤 결과가 있었는지 신중히 생각해야 합니다</strong>: 성찬은 단순히 참여하 
 는 것으로 그 목적과 요구를 이루는 외적인 의식이 아닙니다. 성찬은 성례 
 전적 연합을 통해, 빵과 포도주가 표지하는 그리스도의 몸과 피를 믿음으 
 로 먹고 마시는 은혜를 받는 영적 양식입니다. 이것은 하늘로부터 내리시는 
@@ -185,161 +142,357 @@
 성찬 후의 자기 점검에 대한 교훈이 필요한 이유는, 성찬이 한 번의 행위로 
 끝나는 것이 아니기 때문입니다. 그리스도께서는 성찬 규례를 제정하실 때, 
 성도로 하여금 지속적으로 행함으로써 그리스도의 중보의 유익을 새기고, 
-영적 양식을 받아 주님과의 ...</p>
+영적 양식을 받아 주님과의 연합을 새롭게 인식하며 강화되기를 바라셨습 
+니다. 이러한 성찬의 성격을 고려할 때, 성찬은 단회적인 것이 아닙니다. 예 
+배 때마다 시행하거나, 최소한 년에 네 차례 이상은 행하여 성찬 제정의 
+의도가 실현되도록 해야 합니다. 이번 성찬에서 자신이 어떻게 행하였고 어 
+떤 유익을 누렸는지를 살펴, 다음 성찬에서는 그 유익이 자신의 믿음과 삶 
+에 더 많이, 더 깊이, 더 풍성하게 미치도록 해야 합니다. 이를 위해 성실하 
+게 의적인 참여를 할 뿐 아니라 신중한 내적 점검을 지속해야 합니다. </p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">성찬은 단순히 참여하는 의식이 아니라 신자가 그리스도의 은혜에 참</span></li>
-<li><span class="question">예하는 거룩한 수단입니다. 여러분은 성찬 후에 자신이 어떤 마음으로 참</span></li>
-<li><span class="question">여했는지를 돌아보며, 그 자리를 통해 하나님께서 주신 은혜를 어떻게 감사</span></li>
-<li><span class="question">하고 지켜가고 있습니까?</span></li>
-<li><span class="question">성찬을 통해 위로와 영적 소생을 경험한 신자는 그 은혜가 오래 지속</span></li>
-<li><span class="question">되도록 힘써야 합니다. 여러분은 하나님께 받은 은혜를 찬송과 감사로 표현</span></li>
-
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p>“만일 소생함과 위로를 받았으면 하나님을 찬송하고, 은혜의 지속을 간 
+구하며, 이 은혜에서 다시 떨어지지 않도록 주의하고, 서원한 것을 시행하 
+며, 성찬에 자주 참여하도록 힘써야만 합니다."： 자기를 점겁한 결과, 성찬에 
+서 유익을 얻은 경우와 그렇지 못한 경우의 두 가지를 확인하게 됩니다. 이 
+가운데 유익을 얻은 경우는 아래에서, 그렇지 못한 경우는 다음 (3) 항목에 
+서 각각 살펴보겠습니다. 
+먼저, 만일 영적인 각성과 함께 소생함과 위로의 유익을 얻었다면, 이는 성 
+령 하나님의 은혜로 말미암아 성찬의 성례전적 연합을 통해 영적 양식을 
+믿음으로 먹고 마셨으며, 그리스도와의 연합이 새롭게 되었음을 의미합니 
+다. 대요리문답은 이러한 은혜를 받은 성도가 마땅히 행해야 할 다섯 가지 
+경건의 실천 사항을 제시합니다. </p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">하나님을 찬송하는 일입니다</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>. 자신이 받은 모든 유익이 하나님께서 
+베푸신 은혜로 말미암은 것임을 알고 감사해야 합니다. 성도는 성찬이 표지 
+하는 영적 실체, 곧 그리스도의 구속 사역에 감사하며, 성찬에 참여하여 그 
+영적 유익을 누리게 된 일이 하나님의 은혜임을 인정하고 찬송해야 합니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">이러한 은혜가 지속되기를 간구해야 합니다</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>. 성찬의 은혜를 실제로 
+누린 사람은 다음 성찬에서도 계속해서 은혜의 유익을 얻기를 바라는 신 
+앙의 의지와 소망을 품게 됩니다. 이러한 간구는 성찬의 유익을 참으로 경 
+험한 자에게서 자연스럽고 필연적으로 나타나는 열매입니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">성찬에서 받은 은혜에서 다시 떨어지지 않도록 주의해야 합니다</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>. 성 
+찬의 유익을 경험한 후, 그 열매가 믿음의 전보로 이어지기를 기대하지만, 
+실제로는 영적 나태함이나 죄의 유혹에 넘어갈 위험이 있습니다. 그러므로 
+성도는 항상 영적으로 깨어 있어야 하며, 이 땅에서 죄와 싸우는 지속적인 
+영적 투쟁 속에 었음을 기억해야 합니다. 성찬에서 큰 은혜를 경험했다고 
+하더라도, 그때 받은 영적 충만함에 안주하여 교만이나 태만에 빠질 위험 
+이 있음을 유의해야 합니다. 하나님의 말씀을 겸손히 듣고 자신을 살피며, 
+기도로 하나님의 도우심을 구하는 경건의 훈련을 게을리한다면, 성찬을 통 
+해 강화된 은혜의 유익을 잃게 될 것입니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">서원을 실천하는 일입니다</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>. 성찬을 받으면서 자신이 행한 회개와 헌신 
+의 서원을 성실히 이행해야 합니다. 성찬 중에 새롭게 결단한 약속들을 실 
+제 삶에서 실천할 때, 성찬의 유익이 지속되고 은혜에서 멀어지지 않게 됩 
+니다. 성찬의 은혜는 결심으로 끝나는 것이 아니라, 그 결심이 행함으로 이 
+어질 때 더욱 견고히 보존됩니다. 
+다섯째, 성찬에 자주 참여하는 일입니다. 성찬 참여는 그리스도께서 <strong class="text-blue-600">이를 
+행하여 나를 기념하라</strong>(눅 22:19; 고전 1: 24-25)고 명하신 신자의 의무입 
+니다. 그러므로 성찬은 자주 시행되어야 하며, 성도는 그때마다 기꺼이 참 
+여하기에 힘써야 합니다. 성찬을 제정하신 그리스도의 뜻에 순종하는 일은 
+마땅한 의무이며, 성찬을 통해 약속하신 영적 양식을 먹는 일은 영적 생 
+명을 받은 자에게 필수적인 일입니다. 이는 결코 가끔 행하는 임의적 행위 
+가 아닙니다. 또한 성찬에 참여함으로써 성도는 혼자가 아니라 언약 공동체 
+인 교회의 다론 지체들과 함께 연합을 누리며, 서로 한 몸을 이루는 교회 
+의 기쁨을 경험합니다. 이러한 사랑과 교제의 기쁨은 성찬을 통해서만 누 
+릴 수 있습니다. 그러므로 교회는 성찬 예식을 자주 시행해야 하며, 성도는 
+그 은혜의 자리에 빠지지 않고 참여해야 합니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 7</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">그러나 당장 아무런 유익을 얻지 못했다면, 자신이 이 성례를 어떻게 
+준비했고 어떤 태도로 임했는지 더 면밀하게 돌아봐야 합니다</strong>: 그런데 이 
+와 달리, 성찬을 통해 이번에는 영적 소생함이나 위로와 같은 유익을 누리 
+지 못했다면 어떻게 해야 할까요? 대요리문답은 이러한 경우에 성찬의 효 
+과를 의심하거나, 자신의 믿음을 확신하지 못하여 스스로 낙심하는 일이 
+없어야 한다고 교훈합니다. 성찬의 효과는 하나님께서 약속하신 은혜입니 
+다. 그러므로 그 약속을 의심할 이유가 없습니다. 이 경우 대요리문답이 권 
+고하는 바는, (1) 성찬 참여를 위한 준비와 (2) 성찬 중의 태도에 관한 점검 
+입니다. 
+먼저, 성찬을 준비하는 과정에 대한 점검을 위해서는 12월 일에 살핀 대요리문답 171항을 참고하는 것이 도움이 됩니다. 인용하면 다음과 같습니다. 
+<strong class="text-blue-600">먼저 자신이 그리스도 안에 있는지에 대하여, 자신의 죄와 부족함에 대하 
+여, 지식과 믿음과 회개, 그리고 하나님과 형제들을 향한 사랑, 모든 사람을 
+향한 자비, 자기에게 잘못한 사람에 대한 용서가 진실하고 충분한지에 대 
+하여, 또한 그리스도를 따르고자 하는 갈망과 새로운 순종에 대하여 자신 
+을 살핌으로써 준비해야 합니다. 그리고 진지하게 묵상하고 열심히 기도하 
+여 이러한 은혜들을 새롭게 실천함으로써 준비해야 합니다.</strong> 이상의 내용에 
+대한 자세한 해설은 12월 일의 주석을 참조하시기 바랍니다. 
+다음으로, 성찬 중의 태도와 관련하여 점검해야 할 사항은 어제 살핀 대요리문답 174항의 교훈을 참고할 수 있습니다. 그 요점은 네 가지로 정리됩니 
+다. 첫째, 거룩한 경의심과 집중력으로 성찬이 시행되는 동안 하나님을 바 
+라보았는가룰 살핍니다. 둘째, 성례의 요소들과 행동을 주의 깊게 살피며, 
+주의 몸을 분별하고 그분의 죽음과 고난을 사랑과 애정으로 묵상하였는가 
+를 살핍니다. 셋째, 자기 성찰과 회개, 믿음의 갈망, 감사의 표현이 있었는지 
+를 살핍니다. 곧, 죄를 슬퍼하고, 그리스도께 주리고 목말라 하며, 믿음으로 
+그리스도를 받아 먹고, 그분의 충만에서 받으며, 그분의 공로를 의지하고, 
+그분의 사랑을 기뻐하며, 그분의 은혜에 감사하였는가를 돌아봅니다. 넷째, 
+하나님과의 언약과 성도들에 대한 사랑을 새롭게 하는 일에 힘썼는가를 살 
+핍니다. 대요리문답은 이러한 점검을 통해 자신의 내적인 상태를 살피고, 
+성찬에 참여함에 있어 합당한 믿음과 지식으로 임했는지를 확인해야 한다 
+고 교훈합니다. 자세한 내용은 어제 살핀 해설 부분을 다시 참고하시기 바 
+랍니다. </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 8</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>"만일 이들이 이 두 가지에서 하나님 앞과 자신의 양심에 비추어 떳떳 
+하다면, 적절한 때에 그 열매가 나타날 것을 기다려야 합니다. 만일 이들이 
+어느 편에서든지 실패했음을 깨달았으면, 스스로 낮추고 다음에는 더 많은 
+주의와 부지런함으로 성찬에 참여해야 합니다”: 자신을 살펴보았으나, 성례 
+에 대한 준비나 참여 태도에 특별한 문제가 없음에도 영적인 각성이나 일 
+깨옴 위로를 느끼지 못했다면 어떻게 해야 할까요? 
+먼저, 자신의 태도에 문제가 있는지 여부는 <strong class="text-blue-600">하나님 앞과 자신의 양심</strong>에 
+비추어 판단해야 합니다. 이때 양심에 따라 판단한다는 것은 단순히 주관 
+적이거나 감정적인 자기 확신을 의미하지 않습니다. 오히려 성경의 교훈에 
+비추어 자신을 정직하게 살피는 일을 뜻합니다. 구체적으로 세 가지 기준이 
+있습니다. 첫째, 성경의 교훈에 비추어 합당한지를 살피는 일입니다. 둘째, 
+양심이 말씀에 비추어 죄를 회개하고 그리스도의 구속의 은혜를 의지하고 
+있는지를 정직하게 점검하는 일입니다. 셋째, 자신의 부족함에도 불구하고, 
+복음의 은혜 안에서 하나님께서 자신을 받아 주신다는 사실을 믿고, 성령 
+의 평안과 위로를 누리는지를 확인하는 일입니다. 이 세 가지 점 중 어느 
+하나라도 완전하지 않다고 느낀다 하더라도, 그로 인해 자신을 정죄해서는 
+12월. 29 장. 주의 만찬(성 찬) 309 
+안 됩니다. 점검의 핵심은 ‘완전성’이 아니라 양심의 정직성에 있습니다. 
+다음으로 양심 앞에서 떳떳하다면 이제 필요한 것은 “기다림·입니다. 성령 
+께서 반드시 영적인 열매를 맺게 하실 것이기 때문입니다. 성령 하나님께서 
+성찬 가운데 역사하심을 믿으며, 이미 말씀을 통해 주신 은혜를 더욱 굳건 
+히 붙잡고, 성찬을 통해 더해질 은혜를 인내하며 기다려야 합니다. 
+반대로, 만일 성찬 전의 준비나 참여 태도에 분명한 부족함이 있었다면, 이 
+제 해야 할 일은 자신을 겸손히 낮추는 것입니다. 이 말은 자신을 과도하게 
+비하하라는 뜻이 아니라, 오히려 다음과 같은 태도를 의미합니다. 첫째, 성 
+찬의 규례나 성령의 주권적 사역에 대해 불평하거나 의문을 제기하지 않는 
+일, 둘째, 성찬의 유익을 받는 것도 전적으로 하나님의 은혜임을 인정하는 
+일, 셋째, 하나님께서 가장 적절한 때에 은혜를 맛보게 하실 것임을 신뢰하 
+며기다리는일입니다. 
+그리고 겸손히 낮추면서, 더욱 주의 깊고 부지런하게 성찬에 참여하는 일 
+을 계속해야 합니다. 성찬의 은혜를 누리지 못했다는 이유로 성찬을 멀리 
+해서는 안 됩니다. 성찬은 반복적으로 시행되는 은혜의 수단이기에, 이번에 
+유익을 얻지 못했다 하더라도, 그것을 오히려 다음 성찬에서 더 전실하게 
+은혜를 사모하며 참여하도록 이끄는 동기로 삼아야 합니다. 
+‘</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>성찬은 단순히 참여하는 의식이 아니라 신자가 그리스도의 은혜에 참</li>
+<li>예하는 거룩한 수단입니다. 여러분은 성찬 후에 자신이 어떤 마음으로 참</li>
+<li>여했는지를 돌아보며, 그 자리를 통해 하나님께서 주신 은혜를 어떻게 감사</li>
+<li>하고 지켜가고 있습니까?</li>
+<li>성찬을 통해 위로와 영적 소생을 경험한 신자는 그 은혜가 오래 지속</li>
+<li>되도록 힘써야 합니다. 여러분은 하나님께 받은 은혜를 찬송과 감사로 표현</li>
+<li>하며, 그 은혜가 식지 않도록 말씀과 기도로 지켜가고 있습니까?</li>
+<li>때로는 성찬에서 즉각적인 감동이나 유익을 느끼지 못할 때도 있습니</li>
+<li>다. 여러분은 그런 순간에도 낙심하지 않고, 자신의 준비와 태도를 점검하며,</li>
+<li>하나님의 약속이 여전히 신실하게 역사하고 있음을 신뢰하고 있습니까?</li>
+<li>성찬의 은혜를 당장 느끼지 못할 때도 하나님께서는 합당한 때에 열매</li>
+<li>를 주십니다. 여러분은 성령께서 일하심을 믿고 겸손히 기다리며, 더욱 주</li>
+<li>의 깊고 부지런하게 다음 성찬을 준비하고 있습니까?</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1210';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1210';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

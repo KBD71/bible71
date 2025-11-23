@@ -3,163 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 7일</title>
+    <title>12월 7일: 주의 만찬에 합당한준비가되어</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 7일</h1>
-            <p class="text-xl text-gray-600 mt-2">주의 만찬에 합당한준비가되어</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">주의 만찬에 합당한준비가되어</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 7일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    대요리문답 172
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">대요리문답 172</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">대요리문답 172: 172. 자신이 그리스도 안에 있는지 혹은 주의 만찬에 합당한준비가되어 있는지를의십하는사람도주 의 만찬에 참여할 수 있습니까? 답. 자신이 그리스도 안에 있는지 혹은 주의 만찬 에 합당한 준비가 되어 있는지를 의심하는 사람은, 비 록 아직 확신이 없을지라도? 그리스도 안에서 참된 권 리를 가질 수 있습니다. 만약 자신의 자격 없음에 대해 서 매우 염려하여? 그리스도 안에서 발견되고리 악에서 떠나기를 간절히 원한다면4) 그는 하나님 보시기에 권리 가 있는 것입니다. 이 경우에 (연약하고 의심하는 그리 스도인조차도 도움받을 수 있도록 약속이 주어졌으며 또한 그런 목적으로도 성례가 제정되었기 때문에)전 그 대요리문답 172: ‘</p>
+                <div class="catechism-body">
+                    <p>대요리문답 172: 172. 자신이 그리스도 안에 있는지 혹은 주의 만찬에 합당한준비가되어 있는지를의십하는사람도주 의 만찬에 참여할 수 있습니까? 답. 자신이 그리스도 안에 있는지 혹은 주의 만찬 에 합당한 준비가 되어 있는지를 의심하는 사람은, 비 록 아직 확신이 없을지라도? 그리스도 안에서 참된 권 리를 가질 수 있습니다. 만약 자신의 자격 없음에 대해 서 매우 염려하여? 그리스도 안에서 발견되고리 악에서 떠나기를 간절히 원한다면4) 그는 하나님 보시기에 권리 가 있는 것입니다. 이 경우에 (연약하고 의심하는 그리 스도인조차도 도움받을 수 있도록 약속이 주어졌으며 또한 그런 목적으로도 성례가 제정되었기 때문에)전 그 대요리문답 172: ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>오늘 읽은 대요리문답 172항은 어제 살핀 171 항의 논의를 자연스럽게 이어 
 받야 그로부터 필연적으로 제기되는 질문에 대한 답을 제시합니다. 171항 
 은 성찬에 참여하는 자가 합당하게 참여하기 위해 갖추어야 할 준비를 교 
@@ -173,8 +119,19 @@
 리로 초대합니다. 이 문답은 확신이 약하다는 사실이 성찬 참여의 부적격 
 함을 의미하지 않으며, 오히려 성찬을 통해 그 믿음과 확신이 더욱 강화될 
 수 있다는 점을 교훈합니다. 이제 우리는 172항의 내용을 세 부분으로 나 
-누어살펴보겠습니다. 
-(1) “자신이 그리스도 안에 있는지 혹은 주의 만찬에 합당한 준비가 되어 
+누어살펴보겠습니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 1</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>“자신이 그리스도 안에 있는지 혹은 주의 만찬에 합당한 준비가 되어 
 있는지를 의심하는 사람은, 비록 아직 확신이 없을지라도, 그리스도 안에서 
 참된 권리를 가질 수 있습니다"： 어제 살핀 대요리문답 171항에 비추어 볼 
 때, 자신이 과연 그리스도 안에 있는지 혹은 주의 만찬에 참여할 만한 합 
@@ -183,161 +140,264 @@
 가지고 있음을 밝힙니다. 이 문답은 구원의 확신(assurance of salvation) 
 과 구원의 소유(possess on of salvation) 룰 명확히 구별합니다. 비록 주관 
 적으로 구원의 확신을 갖지 못한다 할지라도, 그러한 확신의 결여가 곧 구 
-...</p>
+원의 결여룰 의미하지는 않습니다. 구원의 확신이란 자신이 그리스도와 연 
+합하여 구원을 실제로 받았다는 객관적 사실을 주관적으로 인식하고 누리 
+는 일이며, 구원의 소유는 그 객관적 실재를 의미합니다. 그러나 주관적인 
+확신의 부재가 객관적인 구원의 소유를 부정하지는 않습니다. 그리스도와 
+의 연합 속에서, 신자는 그리스도와 그분의 모든 구속의 유익을 이미 법적 
+으로 소유하고 있으며, 그 사실은 일시적 의심이나 연약한 확신으로 인해 
+결코 소멸되지 않습니다. 이러한 관계의 원리는 자신이 성찬의 준비를 충분 
+히 하였는지에 대해 의심하는 경우에도 동일하게 적용됩니다. 자신의 믿음 
+과 회개, 사랑이 충분한지에 대한 의심은 불신앙에서 비롯되는 것이 아니 
+라 오히려 참된 신앙에서 나오는 경건한 자기 성찰의 표현일 수 있습니다. 
+그러므로 이러한 신자는 성찬의 자리에서 물러나기보댜 오히려 은혜의 수 
+단을 통해 확신을 새롭게 하고 믿음을 강화하도록 교회의 위로와 격려를 
+받아야합니다. </p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">대요리문답 172항이 171 항과 어떤 관계 속에서 제시되는지를 설명해</span></li>
-<li><span class="question">보십시오. 확신이 부족한 신자도 성찬에 참여할 수 있다고 가르치는 이 문</span></li>
-<li><span class="question">답의 목적은 무엇입니까? 여러분은 성찬을 준비하는 과정에서 자신의 부</span></li>
-<li><span class="question">족함을 인식할 때 낙심하기보다, 주님께서 연약한 신자를 위하여 성찬을</span></li>
-<li><span class="question">제정하셨음을 기억하며, 그 자리를 피하지 않고 주님의 초대에 옹답하는</span></li>
-<li><span class="question">겸손한 믿음을 지니기를 원하십니까?</span></li>
-
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">만약 자신의 자격 없음에 대해서 매우 염려하여, 그리스도 안에서 발 
+견되고 악에서 떠나기를 간절히 원한다면, 그는 하나님 보시기에 권리가 있 
+는 것입니다”: 그런데 확신하지 못하는 이유가 성숙한 자기 성찰이 아니라 
+불신앙에서 비롯된 것은 아닌지를 무엇으로 알 수 있을까요? 이는 하나님 
+께서 보시는 객관적 평가; 곧 하나님의 시선에서 판단되는 신자의 내적 상 
+태를 통해 분별할 수 있습니다. 오늘의 대요리문답은 <strong class="text-blue-600">하나님 보시기에</strong> 그 
+리스도 안에서 그리스도와 그분의 구속의 유익을 소유한 자로 간주될 수 
+있는 세 가지 경우를 제시합니다. 첫째는, 성찬에 참여하기를 원하는 자가 
+자신에게 그리스도와 그분의 구속의 유익을 누릴 자격이 부족하다는 사실 
+을 인식하고, 그 결핍으로 인해 합당하게 마음의 영향을 받고 있는 경우입 
+니다. 이것은 단순히 감정적 불안이나 두려움을 말하는 것이 아니라, 자신 
+의 부족함으로 인해 하나님 앞에서 애통하는 경건한 슬픔을 의미합니다. 
+이러한 슬픔온 성령의 내적 사역으로 말미암아 일어나는 것이며, 오히려 구 
+원의 은혜가 그 안에서 역사하고 있다는 중거입니다. 둘째는, 그리스도 안 
+에서 발견되기를 진정으로 바라는 경우입니다. 진정한 소원으로 자신이 그 
+리스도 안에 있기를 간절히 바라는 마음은, 하나님 보시기에 이미 그리스 
+도와의 언약적 관계를 가진 자로 인정될 만한 중거입니다. ＂진정으로” 바라 
+는 신자는 그리스도 안에 있기를 갈망하며, 사도 바울의 고백처럼 “그를 얻 
+고 그 안에서 발견되려 함</strong>(빌 3:8-9) 이라는 소원을 품습니다. 또한 바울이 
+빌립보서 1:20 이하에서 "살든지 죽든지 그리스도가 존귀하게 되기를 바란 
+마라고 고백한 것처럼, 그리스도와 함께 있기를 바라는 이 갈망은 참된 믿 
+음의 표지입니다. 셋째는, 죄악에서 떠나기를 간절히 바라는 경우입니다. 그 
+리스도 안에 있기를 바라는 진실한 갈망은 필연적으로 죄로부터의 결별을 
+향한 의지를 동반합니다. 그리스도를 사랑하는 마음은 죄를 미워하는 마 
+음과 분리될 수 없기 때문입니다. 비록 신자가 연약하여 평생 동안 죄의 잔 
+존 세력으로 인해 넘어질지라도, 그 죄의 상태를 사랑하거나 그 안에 머물 
+지 않고, 끊임없이 돌이키려는 진실한 마음을 가진다면, 하나님께서는 그를 
+그리스도 안에 있는 자로 인정하시며 주의 만찬에 참여할 수 있는 합당한 
+권리를 가진 자로 보십니다. </p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 3</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">이 경우에 (연약하고 의심하는 그리스도인조차도 도움받을 수 있도록 
+약속이 주어졌으며 또한 그런 목적으로도 성례가 제정되었기 때문에), 그 
+는 자신의 불신앙을 애통해 하고 자신의 의심을 해결하려고 노력해야 하며 
+그렇게 함으로 신앙을 더욱 강화하기 위하여 주의 만찬에 참여할 수 있을 
+뿐 아니라, 반드시 참여해야 합니다</strong>: 대요리문답 172항의 이 구절은 연약 
+한 성도를 향한 강력한 위로의 목회적 권면을 제시합니다. 연약하고 의심하 
+는 그리스도인도 여전히 그리스도 안에 있을 수 있으며, 주의 만찬에 합당 
+한 준비를 한 자로 인정받을 수 있습니다. 자신이 자격 없다고 염려하면서 
+도 그리스도 안에서 발견되기를 간절히 바라고, 죄에서 떠나기를 소망하는 
+신자는 비록 믿음이 연약하더라도 성찬의 은혜를 받을 수 있습니다. 성찬 
+은 바로 이러한 신자를 믿음 안에서 세우고 도우시기 위하여 주어진 은혜 
+의 수단이기 때문입니다. 성례룰 제정하신 그리스도의 목적은 연약한 믿음 
+을 더욱 굳게 세우고, 혼들리는 신앙을 강건하게 하는 데 있습니다. 그러므 
+로 자신이 성찬을 받기에 합당하지 않다는 이유로 성찬을 피하는 일은 오 
+히려 성찬에 나아가야 할 더 큰 이유를 스스로 외면하는 것입니다. 신자는 
+이러한 사실을 깊이 유념하며, 하나님께서 맺으신 언약의 약속을 신뢰하고, 
+불신앙이라는 죄의 혼적과 싸워가면서 의심을 극복해야 합니다. 그리고 자 
+신의 믿음이 부족함을 애통해하면서, 그 믿음을 굳게 세우기 위하여 성찬 
+에 참여할 뿐 아니라, 더욱 적극적으로 그렇게 해야 합니다. 여기서 대요리문답은 신자가 단지 성찬의 식탁에 <strong class="text-blue-600">을 수 있다”라는 가능성을 말하는 데 
+그치지 않고, </strong>반드시 와서” 참여해야 하는 의무를 명합니다. 그리스도께서 
+은혜를 베푸시기 위하여 친히 제정하신 성례를 거절하거나 기피하는 것은 
+그 자체로 찰못된 행위이며, 궁극적으로는 그리스도의 은혜를 받으며 그분 
+의 뜻을 따라 살아가도록 부르신 하나님의 명령에 불순종하는 일입니다. 
+‘</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>대요리문답 172항이 171 항과 어떤 관계 속에서 제시되는지를 설명해</li>
+<li>보십시오. 확신이 부족한 신자도 성찬에 참여할 수 있다고 가르치는 이 문</li>
+<li>답의 목적은 무엇입니까? 여러분은 성찬을 준비하는 과정에서 자신의 부</li>
+<li>족함을 인식할 때 낙심하기보다, 주님께서 연약한 신자를 위하여 성찬을</li>
+<li>제정하셨음을 기억하며, 그 자리를 피하지 않고 주님의 초대에 옹답하는</li>
+<li>겸손한 믿음을 지니기를 원하십니까?</li>
+<li>구원의 확신(assurance) 과 구원의 소유(possess on)를 구별하는 것은</li>
+<li>왜 중요한 교리적 구분입니까? 확신이 결여되었다는 사실이 반드시 구원의</li>
+<li>결여를 의미하지 않는다는 점을 어떻게 이해해야 합니까? 여러분은 확신이</li>
+<li>약한 순간에도 그리스도 안에서 구원의 실재가 결코 혼들리지 않음을 신</li>
+<li>뢰하며, 의심 가운데서도 주님께 속한 자로서 은혜의 자리를 떠나지 않기</li>
+<li>를소망하십니까?</li>
+<li>하나님께서 보시는 관점에서, 성찬에 합당한 자로 여겨지는 세 가지 표</li>
+<li>지는 무엇입니까? 이 표지들이 단순한 감정이나 의지가 아니라 성령의 역</li>
+<li>사로 나타난다는 사실을 어떻게 설명할 수 있습니까? 여러분은 자신의 마</li>
+<li>음속에서 일어나는 애통 그리스도를 향한 갈망, 죄를 미워하는 의지가 성</li>
+<li>령의 열매임을 인정하고, 이러한 내적 표지가 있을 때마다 하나님께서 여러</li>
+<li>분을 그리스도 안에 있는 자로 보신다는 사실을 믿음으로 확신하십니까?</li>
+<li>대요리문답 172항은 연약하고 의심하는 신자에게 성찬에 참여할 "허</li>
+<li>락“만을 말합니까, 아니면 ”의무"까지 말합니까? 성찬을 피하는 태도가 왜</li>
+<li>불순종의 행위가 될 수 있습니까? 여러분은 자신이 연약하다는 이유로 성</li>
+<li>찬을 회피하지 않고, 오히려 주님의 은혜의 식탁으로 나아가 믿음을 새롭</li>
+<li>게 하며, 그리스도의 명령에 순종함으로 자신의 신앙을 더욱 굳건히 세워</li>
+<li>가기를결단하십니까?</li>
+<li>12월. 29 장. 주의 만찬(성찬) 287</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1207';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1207';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

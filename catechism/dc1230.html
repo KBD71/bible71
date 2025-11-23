@@ -3,340 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 30일</title>
+    <title>12월 30일: 121/ 30일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 30일</h1>
-            <p class="text-xl text-gray-600 mt-2">121/ 30일</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">121/ 30일</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 30일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    신앙고백서 33.2
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">신앙고백서 33.2</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">신앙고백서 하나님께서 이날을 정하신 목적은 선택된 자들의 영원 33.2 한 구원에서 자신의 긍휼의 영광올 나타내시고, 사악하 고 불순종하는 유기된 자들의 정죄에서 자신의 공의의 영광을 나타내시는 것이다. 그때 의인들은 영원한 생명 에 들어가 주님의 임재로부터 나오는 충만한 기쁨과 새 롭게 됨을 받을 것이다. 그러나 하나님을 알지 못하며 여H= 그리스도의 복음에 순종하지 않은 악인들은 영원 한 고통 속에 던져지고, 주님의 임재와 그분의 능력의 영광을 떠나 영원한 멸망의 형벌을 받을 것이다.1) 1) 마 25:31-46; 롬 2:5-6: 9:22-23: 마 25:21: 행 3:19; 살후 1:7-10. ‘</p>
+                <div class="catechism-body">
+                    <p>신앙고백서 하나님께서 이날을 정하신 목적은 선택된 자들의 영원 33.2 한 구원에서 자신의 긍휼의 영광올 나타내시고, 사악하 고 불순종하는 유기된 자들의 정죄에서 자신의 공의의 영광을 나타내시는 것이다. 그때 의인들은 영원한 생명 에 들어가 주님의 임재로부터 나오는 충만한 기쁨과 새 롭게 됨을 받을 것이다. 그러나 하나님을 알지 못하며 여H= 그리스도의 복음에 순종하지 않은 악인들은 영원 한 고통 속에 던져지고, 주님의 임재와 그분의 능력의 영광을 떠나 영원한 멸망의 형벌을 받을 것이다.1) 1) 마 25:31-46; 롬 2:5-6: 9:22-23: 마 25:21: 행 3:19; 살후 1:7-10. ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>오늘 읽는 웨스트민스터 신앙고백서 33.2은 최후 심판의 목적이 무엇이며, 
 그날 하나님께서 택자 안에서 어떤 방식으로 자신의 긍휼의 영광을 드러 
 내시는가를 교리적으로 진술합니다. 본 절은 ”긍휼의 영광”(the glory of 
 His mercy)과 ”의인의 영원한 생명 "(everlasting life of the righteous)을 중 
 심으로 전개되며, 하나님의 선택에서 시작된 구속의 계획이 종말의 영화로 
-완성된다는 사실을 가르칩니다. 
-(1) “하나님께서 이날을 정하신 목적은 선택된 자들의 영원한 구원에서 자 
+완성된다는 사실을 가르칩니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 1</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">하나님께서 이날을 정하신 목적은 선택된 자들의 영원한 구원에서 자 
 신의 긍휼의 영광을 나타내시고 … 그때 의인들은 영원한 생명에 들어가 
-주님의 임재로부터 나오는 충만한 기쁨과 새롭게 됨을 받을 것이다”: 신앙고백서는 :하나님께서 이날을 정하신 목적은 …“이라고 선언하면서, 최후 
+주님의 임재로부터 나오는 충만한 기쁨과 새롭게 됨을 받을 것이다</strong>: 신앙고백서는 :하나님께서 이날을 정하신 목적은 …<strong class="text-blue-600">이라고 선언하면서, 최후 
 심판이 단순히 죄와 행위를 판결하는 재판의 날이 아니라 하나님의 언약 
 적 영광이 완전하게 드러나는 날임을 밝힙니다. 이 영광은 두 가지로 드러 
 납니다. 하나는 택자 안에서 나타나는 긍휼의 영광이며, 다른 하나는 불신 
 자에게 나타나는 공의의 영광입니다. 
 하나님의 긍휼은 창세 전의 선택의 계획 속에서 이미 시작되었습니다. “세 
-상이 창조되기 전 그리스도 안에서 우리를 택하사”(엡 1:4) 하신 하나님의 
+상이 창조되기 전 그리스도 안에서 우리를 택하사</strong>(엡 1:4) 하신 하나님의 
 선택은 인간의 공로나 의지에서 비롯된 것이 아니라 전적으로 하나님의 자 
 유롭고 선하신 궁휼의 의지에 근거합니다. 이 선택은 언약 안에서 구속으 
-로 실현되고, 성화와 영화로 완성됩니다. 그러므로 “이날을 정하신 목적“이 
+로 실현되고, 성화와 영화로 완성됩니다. 그러므로 <strong class="text-blue-600">이날을 정하신 목적“이 
 란 선택으로 시작된 궁휼의 역사가 최후 심판의 날에 완전한 영광으로 드 
 러나는 것을 의미합니다. 하나님은 긍휼히 여기실 자들을 선택하셨을 때, 
 단지 불쌍히 여기시는 감정에 머무르지 않으시고, 언약적 궁휼의 행위로 
 구속을 실행하셨습니다. 그분은 아들을 보내어 죄인을 대신하여 순종하고 
-죽게 하셨으며(롬 5:8; 딛 3:4-5), 그리스도의 순종과 의를 택자에게...</p>
+죽게 하셨으며(롬 5:8; 딛 3:4-5), 그리스도의 순종과 의를 택자에게 전가하 
+심으로 의롭다 하셨습니다. 더 나아가 하나님은 의롭다 하신 자를 거룩하 
+게 하시고, 성령으로 보존하시며, 마침내 영화롭게 하십니다(롬 s:30). 이처 
+럼 의인의 구원 전 과정은 긍휼로 시작되어 긍휼로 유지되며, 긍휼로 완성 
+되는 역사입니다. 그러므로 긍휼은 단순한 감정이 아니라, 하나님의 언약적 
+성품의 역사적 표현입니다(출 34:6-7). 그분은 자비와 은혜가 풍성하신 하 
+나님으로서(엠 2:4), 택하신 백성을 끝까지 버리지 않으시고 언약을 완성하 
+십니다. 또한 최후 심판의 주체이신 그리스도(요 5:22) 는 자신의 피로 값 주 
+고 사신 백성을 영화롭게 하심으로, 구속의 긍휼을 완성하십니다. 
+신앙고백서는 “그때 의인들은 영원한 생명에 들어가 주님의 임재로부터 나 
+오는 충만한 기쁨과 새롭게 됨을 받을 것이다</strong>라고 선언합니다. 이것은 긍 
+휼의 목적이 종말에 완성되는 순간을 묘사합니다. 그날 하나님은 택하신 
+자들을 영화롭게 하시어 죄의 모든 혼적과 저주로부터 완전히 해방시키십 
+니다(롬 8:21; 계 22:3)_ 그들은 부활의 몸을 입고(고전 15:42-44), 사망과 
+슬픔이 사라진 새 하늘과 새 땅(계 21:4) 에서 하나님과 영원히 교제합니다. 
+그리스도 안에서 성도는 지복직관(beatific vision)의 복을 누립니다. 곧 하 
+나님을 직접 보고(요일 3:2), 하나님의 임재 안에서 영광을 나누는 언약적 
+교제를 경험합니다. 그러나 이는 피조물이 하나님의 본질에 참여하는 것 
+이 아니라. 그리스도 안에서 완전한 인식과 사랑으로 하나님을 아는 참되 
+고 충만한 교제입니다. 새 하늘과 새 땅은 아브라함에게 약속된 <strong class="text-blue-600">영원한 기 
+업</strong>(히 11:10) 의 성취이며, 하나님이 자기 백성과 함께 거하시는 임마누엘 
+언약의 완전한 성취입니다(계 21:3). 영화의 목적은 인간의 행복에 있지 않 
+12일. 33장. 최후의 십판 451 
+고, 오히려 하나님의 영광이 모든 피조물 안에 충만하게 되는 데 있습니다 
+(합 2:14). 
+이 모든 구원의 결말은 곧 임마누엘의 복, 죽 <strong class="text-blue-600">하나님이 자기 백성과 함께 
+거하신다</strong>는 약속의 완전한 성취입니다. 창세기에서 타락으로 인해 하나님 
+과 분리된 인간이, 언약적 은혜를 따라 새 창조 안에서 다시 하나님과 함께 
+거하게 되는 것 - 이것이 긍휼의 역사가 지향하는 최종 목표입니다. 
+이 임마누엘의 복은 성부의 예정, 성자의 구속, 성령의 내주라는 삼위 하나 
+님의 구속사적 사역이 완전하게 통합되는 순간입니다. 첫 아담 안에서 잃 
+은 교제가 둘째 아담 안에서 회복되고, 사망이 들어온 곳에 생명이 넘치게 
+됩니다(롬 5:18-21; 고전 15:22). 그리스도 안에서 모든 창조가 새로워지고 
+(고후 5:17), 하나님과 화목하게 됩니다(골 1:20). 최후 심판은 이 화목의 완 
+성을 선포하는 자리이며, 하나님의 긍휼이 온전히 빛나는 종말론적 성취의 
+순간입니다. </p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">최후 심판의 날은 하나님께서 세상의 모든 일을 공의로 판단하시며, 동</span></li>
-<li><span class="question">시에 택하신 자 안에서 자신의 긍휼의 영광을 나타내시는 날이라고 합니</span></li>
-<li><span class="question">다. 이 두 가지, 곧 긍휼과 공의는 서로 다른 속성이 아니라 한 분 하나님의</span></li>
-<li><span class="question">거룩하심의 두 빛이라고 할 때, 그것이 어떤 의미를 갖는다고 생각합니까?</span></li>
-<li><span class="question">여러분은 이러한 하나님의 거룩하심을 믿는 신앙이 오늘 우리의 예배와 삶</span></li>
-<li><span class="question">에서 어떤 태도와 마음을 낳아야 한다고 생각합니까? 우리가 심판주 앞에</span></li>
-
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">사악하고 불순종하는 유기된 자들의 정죄에서 자신의 공의의 영광을 
+나타내시는 것이다 … 그러나 하나님을 알지 못하며 예수 그리스도의 복음 
+에 순종하지 않은 악인들은 영원한 고통 속에 던져지고, 주님의 임재와 그 
+분의 능력의 영광을 떠나 영원한 멸망의 형벌을 받을 것이다</strong>: 이 구절은 
+유기된 자 안에서는 공의의 영광을 드러내신다고 진술합니다. 이것은 하나 
+님의 성품이 앞서 말한 궁휼의 영광과 지금 여기서 긍휼의 영광이라는 두 
+가지 상반된 방향으로 나뉜다는 뜻이 아닙니다. 하나님의 하나 된 거룩하 
+심이 긍휼과 공의를 통해 각각 다른 방식으로 드러난다는 의미입니다. 궁 
+휼의 영광은 택자의 구원 안에서, 공의의 영광은 악인의 정죄 안에서 나타 
+납니다. 하나님의 공의는 그분의 거룩하신 뜻 앞에서 어떤 죄와 불의가 그 
+앞에서 숨을 수 없음을 뜻합니다(롬 2:5-8). 따라서 최후 심판은 하나님의 
+영광의 이중적 완성, 죽 긍휼의 영광과 공의의 영광이 동시에 빛나는 날입 
+니다. 
+신앙고백서는 하나님께서 <strong class="text-blue-600">사악하고 불순종하는 유기된 자들(reproba e)</strong>을 
+정죄하심으로 자신의 공의를 나타내신다고 말합니다. 유기 (reprobation)는 
+하나님께서 일부를 구원에서 제외하시기로 작정하신 주권적 결정이지만(롬 
+9:18-22), 그들의 정죄는 하나님의 불의가 아니라 인간의 자의적 불순종과 
+죄에 근거합니다(롬 1:18—21). 구원과 유기의 작정은 대칭이 아닙니다. 구원 
+은 은혜의 적극적 사역이지만, 유기는 죄인을 그 죄 가운데 내버려두시는 
+하나님의 소극적 사역입니다. 
+<strong class="text-blue-600">하나님을 알지 못하며 복음에 순종하지 않은 악인들“이란 단순히 무지한 
+자가 아니라, 계시의 빛을 거부한 자들을 뜻합니다(요 3:19-20). 그들은 자 
+연계시와 특별계시 모두에 대하여 스스로 어둠을 택했습니다. 그 결과 “그 
+들은 주의 임재와 그분의 영광을 떠나 영원한 멸망의 형벌을 받는다</strong>라고 
+합니다. 여기서 ‘주의 임재를 떠난다’는 것은 하나님이 악인으로부터 분리 
+하신다는 존재론적 분리를 의미하지 않습니다. <strong class="text-blue-600">주의 임재와 그분의 영광 
+을 떠난다</strong>(살후 1:9) 라는 말은 이들이 하나님의 임재를 더 이상 은혜로 경 
+험하지 못하며, 하나님의 은혜의 빛을 전혀 받을 수 없는 영원한 어둠에 놓 
+이게 됨을 뜻합니다(유 13절). 악인은 여전히 심판하시는 하나님의 임재 아 
+래에 있으며(시 139:7-12), 그 임재는 사랑이 아닌 진노로 나타납니다. 그러 
+기 때문에 악인이 받는 형벌은 존재의 소멸이 아니라, 끝없는 의식적 고통 
+(conscious orment)의 지속입니다(마 25:46; 계 14:11). 악인들은 영원히 
+하나님을 미워하면서도 그분의 진노의 불길 속에서 존재를 지속합니다. 이 
+것이 공의의 영광이 드러나는 방식입니다. 
+오늘 읽는 신앙고백서 33 .2은 하나님께서 최후 심판을 정하신 목적이 <strong class="text-blue-600">긍 
+휼과 공의의 영광을 나타내기 위함</strong>임을 분명히 합니다. 긍홀의 영광은 선 
+택된 자들의 구원 안에서, 공의의 영광은 유기된 자들의 정죄 안에서 드러 
+납니다. 하나님께서는 최후 심판의 날에 하나님의 공의는 악인을 심판하고, 
+긍휼은 선택받은 자에게 주신 은혜를 완성합니다. 그리고 온 교회는 하나 
+님의 긍휼과 공의의 영광을 찬양하게 될 것입니다. 
+‘</p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>최후 심판의 날은 하나님께서 세상의 모든 일을 공의로 판단하시며, 동</li>
+<li>시에 택하신 자 안에서 자신의 긍휼의 영광을 나타내시는 날이라고 합니</li>
+<li>다. 이 두 가지, 곧 긍휼과 공의는 서로 다른 속성이 아니라 한 분 하나님의</li>
+<li>거룩하심의 두 빛이라고 할 때, 그것이 어떤 의미를 갖는다고 생각합니까?</li>
+<li>여러분은 이러한 하나님의 거룩하심을 믿는 신앙이 오늘 우리의 예배와 삶</li>
+<li>에서 어떤 태도와 마음을 낳아야 한다고 생각합니까? 우리가 심판주 앞에</li>
+<li>설 자로서 경외와 감사로 예배하며, 은혜로 구원받은 자로서 거룩과 순종</li>
+<li>올추구하고있습니까?</li>
+<li>최후 심판의 날 악인은 “주의 임재와 능력의 영광을 떠나 영원한 멸망</li>
+<li>의 형벌을 받는다·라고 합니다. 여기서 그 형벌은 존재의 소멸이 아니라 하</li>
+<li>나님의 은혜로운 임재가 거두어진 가운데 남게 되는 영원한 의식적 고통입</li>
+<li>니다. 이 교리를 어떻게 이해합니까? 여러분은 이 심판의 교리가 단순한 두</li>
+<li>려움이 아니라 오늘의 신앙과 사명에 어떤 각성을 주어야 한다고 생각합니</li>
+<li>까? 우리가 이 영원한 형벌의 현실을 진지하게 믿는다면, 죄를 가볍게 여기</li>
+<li>지 않고 거룩함을 힘쓰며, 동시에 복음을 전할 자로서 잃어버린 영혼을 긍</li>
+<li>휼히 여기는 마음으로 살아가야 하지 않겠습니까?</li>
+<li>신앙고백서가 말하는 ”의인들이 주님의 임재로부터 나오는 충만한 기</li>
+<li>쁨과 새롭게 됨을 받는다”는 것은 단순한 평안이 아니라 하나님을 직접 보</li>
+<li>고 교제하는 영화의 복을 가리킵니다. 이것은 피조물이 하나님의 본질에</li>
+<li>참여하지 않으면서도 하나님을 완전하게 알고 사랑하는 지복직관의 복입니</li>
+<li>다. 여러분은 이 복된 소망이 오늘의 예배와 신앙의 방향을 어떻게 바꾸어</li>
+<li>야 한다고 생각합니까? 우리는 하나님을 뵈올 그날을 바라보며 지금의 예</li>
+<li>배 속에서도 하나님의 임재를 더 깊이 사모하고, 자기 만족이 아닌 하나님</li>
+<li>의 영광을 기뻐하는 삶으로 나아가고 있습니까?</li>
+<li>하나님께서 선택하신 자를 구속하시고, 성화시키시며, 마침내 영화롭</li>
+<li>게 하시는 언약적 계획이 최후 심판의 날에 완전하게 드러난다고 할 때, 이</li>
+<li>교리는 구원의 확실성과 하나님의 신실하심을 어떻게 보여줍니까? 여러분</li>
+<li>은 이 진리가 오늘의 믿음 생활에 어떤 힘이 되어야 한다고 생각합니까? 우</li>
+<li>리는 하나님께서 끝까지 이루실 영화의 목적을 바라보며 혼들리지 않는 소</li>
+<li>망으로 인내하고, 현재의 경건훈련 속에서 그 완성을 미리 누리는 삶을 살</li>
+<li>고있습니까?</li>
+<li>12월. 33장 최후의십판 455</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1230';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1230';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

@@ -3,166 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 17일</title>
+    <title>12월 17일: /12:</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 17일</h1>
-            <p class="text-xl text-gray-600 mt-2">/12:</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">/12:</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 17일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    신앙고백서 31.1
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">신앙고백서 31.1</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">신앙고백서 31.1 더 나은 교회 정치와 건덕을 위하여, 일반적으로 대회 또는 공의회라고 불리는 교회 회의가 있어야 한다.1) 1) 행 15:2, 4, 6. ‘</p>
+                <div class="catechism-body">
+                    <p>신앙고백서 31.1 더 나은 교회 정치와 건덕을 위하여, 일반적으로 대회 또는 공의회라고 불리는 교회 회의가 있어야 한다.1) 1) 행 15:2, 4, 6. ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>오늘 읽는 웨스트민스터 신앙고백서 1.1은 일반적으로 대회(synod) 또는 
-공의회(councils)라고 불리는 교회 회의 (assemblies) 에 대하여 설명합니다. 
-(1) “일반적으로 대회 또는 공의회라고 불리는 교회 회의가"： 보이는 교회는 
+공의회(councils)라고 불리는 교회 회의 (assemblies) 에 대하여 설명합니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 1</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">일반적으로 대회 또는 공의회라고 불리는 교회 회의가<strong class="text-blue-600">： 보이는 교회는 
 참된 신앙을 고백하는 모든 사람과, 그들의 유아세례를 받은 자녀들로 구 
 성됩니다. 이러한 보이는 교회는 지상에 존재하는 모든 지역 교회의 총체를 
 포함합니다. 오늘 살펴보는 대회와 공의회는 이 보이는 교회 안에 존재하 
@@ -176,168 +133,271 @@
 로 인한 교회의 영적 혼란을 방지하고, 행정상의 문제를 바로잡는 둥의 일 
 을 수행합니다. 죽, 교회의 정치와 행정 전반을 주관하고 결정하는 기관입 
 니다. 장로교회에는 노회(presbyt ry)와 총회(general assembly)가 있으며, 
-이 회의체들이 바로 신앙고백서가 말하는 “대회 (synods)”의 형태로 존재 
-합니다. 그리고 전 세계 교회들의 연합된 치리적 성격을 띤 회의를 “공의회 
-(councils)”라 부릅니다. 
+이 회의체들이 바로 신앙고백서가 말하는 “대회 (synods)</strong>의 형태로 존재 
+합니다. 그리고 전 세계 교회들의 연합된 치리적 성격을 띤 회의를 <strong class="text-blue-600">공의회 
+(councils)</strong>라 부릅니다. 
 12 일. 31 장. 대회와공의회 357 
 이러한 대회 형태의 공의회는 신약교회가 처음 모습을 드러냈을 때부터 존 
 재했습니다. 그 대표적인 예가 바로 예루살렘 공의회(행 15 장)입니다. 당시 
-교회는 “이방인 신자들도 율법을 지켜야 하는가?”라는 쟁점으로 큰 혼란을 
-겪고 있었습니다. 이에...</p>
+교회는 <strong class="text-blue-600">이방인 신자들도 율법을 지켜야 하는가?</strong>라는 쟁점으로 큰 혼란을 
+겪고 있었습니다. 이에 사도들과 장로들이 예루살렘에 모여 회의를 열었고, 
+성경의 원리를 따라 신중히 논의한 후, 교회 전체에 공포할 결정을 내렸습 
+니다. 이 예루살렘 대회는 공교회적 협의체의 첫 번째 모범으로서, 훗날 모 
+든 교회 회의의 근거가 되었습니다. 따라서 대회나 공의회는 단순히 행정적 
+업무를 협조하는 회의체가 아닙니다. 그것은 그리스도의 몸인 교회가 교리 
+적 일치와 권징의 일치를 이루어 가도록 돕는 치리 기관입니다. 개별 교회 
+의 상위 기관으로서 존재하는 대회와 공의회는 지역 교회의 자율성을 억압 
+하거나 방해하는 기관이 아닙니다. 오히려 그리스도의 통치 아래서 지역 교 
+회가 안전하고 질서 있게 유지되도록 보호하는 은혜로운 교회 질서의 구조 
+입니다. 
+역사적으로 </strong>공의회 ”(council s) 의 대표적인 사례로는, 삼위일체론과 기독론, 
+원죄론 둥을 바르게 확립한 초대교회의 여러 공의회를 들 수 있습니다. 예 
+를 들어 니케아 공의회(325), 콘스탄티노폴 차 공의회 (381), 카르타고 공 
+의회(418), 에베소 공의회 (431), 칼케돈 공의회(451) 둥이 있습니다. 또한 개 
+혁신학적 교회론에 따라 교회를 바르게 세우기 위해 세계 각국의 대표들이 
+모였던 도르트 총회 (1618 1619)도 신앙고백서가 말하는 <strong class="text-blue-600">공의회 </strong>(council) 
+의 성격을 지닌 대표적인 사례입니다. </p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">대회와 공의회가 교회의 치리 기관으로서 존재한다는 것은 무엇올 의</span></li>
-<li><span class="question">미합니까? 그리스도께서 교회의 머리로서 세우신 이 회의들이 단순한 행</span></li>
-<li><span class="question">정 기구가 아니라 교리와 권징을 통해 교회를 보호하고 질서를 세우는 기</span></li>
-<li><span class="question">관임을 이해할 때, 여러분은 교회의 질서 속에 순종하며 그리스도의 통치</span></li>
-<li><span class="question">룰신뢰하고있습니까?</span></li>
-<li><span class="question">웨스트민스터 신앙고백서가 대회와 공의회가 ”있어야 한다”라고 진술</span></li>
-
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">더 나은 교회 정치와 건덕을 위하여 ••• 있어야 한다”: 오늘 읽는 웨스 
+트민스터 신앙고백서 1.l은 대회(synod) 와 공의회 (councils) 가 <strong class="text-blue-600">있어야 
+한다</strong>(ou t to be) 라고 진술합니다. 이는 교회의 머리이신 그리스도께서 
+교회의 모든 일이 질서 있고 통일성 있게 행해지도록 명하셨기 때문입니다 
+(고전 14:40). 만일 지역 교회들이 단지 개별적으로만 존재하고, 어떠한 연 
+합체를 구성하지 않거나 이미 세워진 연합체에 속하지 않는다면, 각 교회 
+가 자기 소견에 따라 독립적으로 행하게 될 것입니다. 그렇게 되면 그리스 
+도의 몸인 보편 교회는 필연적으로 정치적 무질서, 교리적 혼란, 권징의 의 
+미 상실, 그리고 분열과 갈둥의 위험에 노출될 수밖에 없습니다. 이러한 혼 
+란을 방지하고 개교회를 보호하기 위하여, 신앙고백서는 대회(synod) 형태 
+의 교회 회의가 반드시 <strong class="text-blue-600">있어야 한다</strong>(ought to be)라고 가르칩니다. 이러한 
+교회 회의들은 단순한 협의체가 아니라, 질서를 통하여 그리스도의 보편적 
+왕국의 통치를 충실히 반영하고 실현하는 필수적인 조직입니다. 따라서 이 
+것은 <strong class="text-blue-600">있어도 되고 없어도 되는 선택적 제도“가 아니라, 반드시 “있어야 하 
+는 필수적이며 당위적인 정치 질서</strong>입니다. 
+이러한 점에서 대회와 공의회는 개별 교회의 자율성을 억압하거나 제한하 
+는 기관이 아닙니다. 오히려 그것들은 개 교회를 보호하고, 그리스도의 통 
+치 아래 질서 있게 세워지도록 돕는 은혜로운 정치 질서입니다. 신앙고백서 
+는 이를 통해 대회와 공의회가 교회를 다스리는 가장 높은 상위 기관으로 
+서, 그리스도의 권위를 위임받은 기관임을 보여줍니다. 대회와 공의회와 같 
+은 교회 회의는 .더 나은 교회 정치</strong>와 <strong class="text-blue-600">더 나은 건덕 (edification)”을 위한 
+것입니다. 여기서 </strong>더 나온”(better) 이라는 표현은 단순한 비교가 아니라, 
+교회 정치와 교회의 건덕을 도모하는 데 있어 가장 적합하고 성경적인 기 
+준을의미합니다. 
+<strong class="text-blue-600">더 나은 교회 정치</strong>란 곧 장로교적 교회 정치를 뜻합니다. 신앙고백서 제 </p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 3</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>1은 이 표현을 통해, 회중주의 (con re tional sm)보다 장로교 정치 
+가 교회 전체의 선을 위한 최적의 정치 제도임을 가르칩니다. 신앙고백서 
+가 말하는 <strong class="text-blue-600">대회</strong>(synod)는 구체적으로 노회(presbyt ry)와 총회(general 
+assembly)의 상위 치리 기관을 가리킵니다. 회중주의는 개 교회의 독립성 
+울 강조하여, 치리의 최종적 권위를 개교회의 당회나 협의회에만 두고, 그 
+밖의 상위 치리 기관의 권위를 인정하지 않습니다. 설령 여러 개교회가 협 
+의체를 구성하더라도, 그것은 단지 자문적 성격에 머무를 뿐이며, 실제적인 
+12월. 31 장. 대회와공의회 359 
+치리권을 행사하지 않습니다. 이에 반해 신앙고백서는 전체 교회의 질서와 
+연합을 위해, 개교회를 다스리는 상위 기관의 권위가 필수적임을 분명히 선 
+언합니다. 따라서 <strong class="text-blue-600">있어야 한다</strong>(o ght to be) 라는 표현은 단순한 행정적 
+제안이 아니라 교회의 본질적 질서를 가리키는 신학적 당위 명제입니다. 
+또한 신앙고백서는 대회와 공의회와 갇은 교회 회의의 필요성을 설명하면 
+서, <strong class="text-blue-600">더 나온 건덕"을 언급합니다. 여기서 “건덕 </strong>(edification)이란 교회를 진 
+리와 사랑 가운데 더욱 견고하게 세워가는 모든 것을 뜻합니다. 예를 들어 
+진리를 중진하고 보호하는 일에 있어서, 대회와 공의회는 전국 또는 세계의 
+교회 지도자들이 모여 올바른 교리를 정립하고 이를 선언하는 권위 있는 
+기관입니다. 이러한 선언은 신앙의 표준을 세움으로써, 각 개교회가 이단의 
+오류와 영적 혼란에 빠지지 않도록 보호하며, 진리 위에 굳게 서게 합니다. 
+또한 사랑의 실천, 곧 구제와 선교와 갇은 공동의 사역에서도 대회와 공의 
+회는 개교회보다 훨씬 더 큰 규모의 사역을 감당할 수 있습니다. 대회는 여 
+러 교회의 협력을 이끌어내고, 각 교회가 사랑과 선행으로 건덕을 세우도 
+록 격려하고 인도합니다. 
+요컨대, 보편 교회 (cath lic church)는 그 안에 세워진 대회와 공의회와 갇 
+은 치리 기관들을 통하여 진리 안에서 사랑을 실천하며, 거룩하고 질서 있 
+는 교회 공동체로 세워져 갑니다. 이러한 목적과 필요에 따라 개교회를 다 
+스리는 대회와 공의회와 같은 교회 회의는 반드시 있어야 하는 것입니다. 
+‘</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>대회와 공의회가 교회의 치리 기관으로서 존재한다는 것은 무엇올 의</li>
+<li>미합니까? 그리스도께서 교회의 머리로서 세우신 이 회의들이 단순한 행</li>
+<li>정 기구가 아니라 교리와 권징을 통해 교회를 보호하고 질서를 세우는 기</li>
+<li>관임을 이해할 때, 여러분은 교회의 질서 속에 순종하며 그리스도의 통치</li>
+<li>룰신뢰하고있습니까?</li>
+<li>웨스트민스터 신앙고백서가 대회와 공의회가 ”있어야 한다”라고 진술</li>
+<li>하는 이유는 무엇입니까? 교회의 모든 일이 질서 있고 통일성 있게 이루어</li>
+<li>져야 한다는 그리스도의 명령을 따라, 교회가 독립적 무질서가 아니라 연합</li>
+<li>과 일치 속에서 보호받아야 함을 기억할 때, 여러분은 교회의 연합된 질서</li>
+<li>와 상회의 지도에 대해 감사와 신뢰의 마음으로 참여하고 있습니까?</li>
+<li>"더 나은 교회 정치"란 무엇을 의미하며, 왜 장로교 정치가 그 기준에</li>
+<li>해당합니까? 신앙고백서가 회중주의의 자율성을 넘어서 교회 전체의 선을</li>
+<li>위한 공교회적 질서를 강조할 때, 여러분은 교회의 권세가 사람에게서가 아</li>
+<li>니라 그리스도의 통치에서 비롯됨을 믿고, 그 질서 안에서 협력하며 섬기</li>
+<li>고있습니까?</li>
+<li>신앙고백서가 말하는 "더 나은 건덕"은 교회를 진리와 사랑 가운데 더</li>
+<li>욱 견고하게 세워가는 것을 의미합니다. 대회와 공의회를 통해 교리가 바로</li>
+<li>세워지고, 이단으로부터 보호받으며, 사랑의 사역이 확장된다는 사실을 이</li>
+<li>해할 때, 여러분은 교회의 건덕을 위해 자신이 속한 공동체 안에서 전리를</li>
+<li>수호하고 사랑을 실천하기 위해 헌신하고 있습니까?</li>
+<li>12월. 31 장. 대회와공의회 361</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1217';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1217';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

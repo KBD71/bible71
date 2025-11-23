@@ -3,171 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 18일</title>
+    <title>12월 18일: 121/ 18일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 18일</h1>
-            <p class="text-xl text-gray-600 mt-2">121/ 18일</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">121/ 18일</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 18일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    신앙고백서 31.2
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">신앙고백서 31.2</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">신앙고백서 31.2 국가 통치자가 신앙 문제에 대해 상의하고 조언올 구하 기 위하여 목사들과 다른 적합한 사람들로 구성된 대 회를 합법하게 소집할 수 있다? 그러나 만약 국가 통치 자가 교회에 대한 공공연한 대적자라면, 그리스도의 목 사들도 자신들의 직무의 권한을 가지고 자체적으로 회 의를 열어 모일 수 있으며, 또는 교회들로부터 받은 위 임에 근거하여 다른 적합한 사람들과 함께 모일 수 있 다.乃 1) 사 49:23; 딤전 2:1-2; 대하 19:8-11; 29-30; 마 2:4-5; 잠 11:14. 2) 행 15:2, 4, 22-23, 25. ‘</p>
+                <div class="catechism-body">
+                    <p>신앙고백서 31.2 국가 통치자가 신앙 문제에 대해 상의하고 조언올 구하 기 위하여 목사들과 다른 적합한 사람들로 구성된 대 회를 합법하게 소집할 수 있다? 그러나 만약 국가 통치 자가 교회에 대한 공공연한 대적자라면, 그리스도의 목 사들도 자신들의 직무의 권한을 가지고 자체적으로 회 의를 열어 모일 수 있으며, 또는 교회들로부터 받은 위 임에 근거하여 다른 적합한 사람들과 함께 모일 수 있 다.乃 1) 사 49:23; 딤전 2:1-2; 대하 19:8-11; 29-30; 마 2:4-5; 잠 11:14. 2) 행 15:2, 4, 22-23, 25. ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>오늘 읽는 웨스트민스터 신앙고백서 1. 은 국가 통치자가 대회와 같은 
 교회 회의를 소집할 수 있는 권한이 있음을 진술합니다. 또한 국가 통치자 
 가 교회를 대적하는 자라면, 그리스도의 목사들이 자체적으로 회의를 소 
 집할 수 있음을 밝힙니다. 이러한 내용은 17세기 영국의 역사적 상황을 배 
 경으로 합니다. 그런데 미국 장로교회는 1788년에 이 절을 완전히 삭제하 
 였습니다. 그러므로 1647년 신앙고백서 원판과 1788년 미국 수정판 사이에 
-어떠한 신학적 이해의 차이가 있는지를 살펴볼 필요가 있습니다. 
-(1) 먼저 1647년판 신앙고백서 1.2을 살펴봅니다. 신앙고백서는 세속 국 
+어떠한 신학적 이해의 차이가 있는지를 살펴볼 필요가 있습니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">먼저 1647년판 신앙고백서 1.2을 살펴봅니다</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>. 신앙고백서는 세속 국 
 가 통치자가 "합법적으로” 목사와 적합한 여러 사람들로 구성된 교회 회의 
 룰 소집할 수 있다고 명시합니다. 이러한 회의는 신앙 문제에 대해 상의하 
 고 조언을 구하기 위한 목적을 지닙니다. 이러한 진술만 보면 1647년판 신앙고백서가 마치 에라스투스주의 (Erastianism)를 옹호하는 듯 보일 수 있 
@@ -182,161 +139,271 @@
 승인을 받지 않고도 교회 회의를 소집할 수 있음을 명확히 밝힙니다. 죽 교 
 회가 국가로부터 박해를 받아 자유롭게 사역을 감당할 수 없을 경우 그리 
 스도의 사역자들은 본질적 권한(essential auth rity)에 따라 회의를 가질 
-수 있습니다. 교리와 성례의 질서는 오직 교회에 속한 고유 권한입니다. 더...</p>
+수 있습니다. 교리와 성례의 질서는 오직 교회에 속한 고유 권한입니다. 더 
+나아가 신앙고백서 30.1은 교회 정치가 주 예수 그리스도께서 교회의 왕 
+이자 머리로서 세우신 질서임을 밝히며, 이 권세를 국가 통치자가 아니라 
+교회 직원들에게 맡기셨다고 선언합니다. 
+이어 신앙고백서 30.2은 천국의 열쇠가 교회 직원들에게만 위임되었음을 
+분명히 하며, 이 열쇠를 통해 죄를 사하거나 남기는 권세가 교회의 직분자 
+들에게만 있음을 가르칩니다. 이는 본질적으로 에라스투스주의를 배격하 
+는 진술입니다. 따라서 신앙고백서 1. 온 국가 통치자가 교회 회의를 소집 
+할 수 있음을 인정하지만, 그 권한에 명확한 제한을 둡니다. 국가 통치자가 
+교회 회의를 소집할 때는 <strong class="text-blue-600">신앙 문제에 대하여 상의하고 조언을 구하기 위 
+한 목적</strong>이어야 하며, 신앙 문제에 대해 결정하거나 교회를 통제하는 권한 
+은없습니다. 
+또한 신앙고백서 23.3은 국가 통치자가 말씀과 성례의 시행 혹은 천국 열 
+쇠의 권세를 행사할 권한이 전혀 없음을 밝힙니다. 다만 국가는 교회의 일 
+치와 평화, 진리의 온전한 보존, 이단의 억제, 예배와 권징의 부패 방지와 개 
+혁, 그리고 하나님의 규례의 적절한 시행을 위하여 <strong class="text-blue-600">조치를 취하여야 할</strong>(to 
+take order) 의무를 가진다고 진술합니다. 죽 국가 통치자는 교회의 영적 
+사무에 직접 간섭해서는 안 되지만, 교회의 외적 질서가 선히 유지되도록 
+하여 국가의 공적 선(public ood) 을 도모할 세속적 조치를 취해야 합니 
+다. 이러한 목적을 위해 필요하다면, 국가 통치자는 교회 회의를 소집하거 
+나 참석할 수 있으며, 그 결의가 하나님의 뜻에 부합하도록 조치를 취할 책 
+임을집니다. 
+이처럼 신앙고백서가 규정하는 국가 통치자의 의무와 권한은 에라스투스 
+주의를 그대로 반영하지 않습니다. 웨스트민스터 신앙고백서의 교회정치 
+이해는 철저히 장로교적 원리에 서 있으며, 다만 교회의 보호와 외적 질서 
+의 유지와 관련해 국가의 섭리적 역할을 인정한다는 점에서 에라스투스적 
+혼적이 남아 있다고 말할 수 있겠습니다. 
+12월. 31 장. 대회와공의회 365</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">왜 1647년 판 신앙고백서는 국가 통치자에게 교회 회의를 소집할 권한</span></li>
-<li><span class="question">올 인정했습니까? 그 권한에는 어떤 제한이 따릅니까? 여러분은 교회의 회</span></li>
-<li><span class="question">의와 권징의 권세가 세속 권력에서가 아니라 그리스도의 위임에서 비롯된</span></li>
-<li><span class="question">것임을 믿으며, 교회의 모든 질서를 말씀과 주님의 통치 아래 세우고자 합</span></li>
-<li><span class="question">니까?</span></li>
-<li><span class="question">웨스트민스터 신앙고백서는 어떤 이유로 에라스투스주의를 거부합니</span></li>
-
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p>반면, 미국 장로교회의 1788년 수정판은 1.2항을 완전히 삭제하였습 
+니다. 또한 20.4에서 이단이나 신성모독을 행한 자가 교회의 징계뿐 아니라 
+국가 통치자의 권세에 의해 소환되고 처벌될 수 있다는 내용을 삭제하고, 
+교회의 권징에 의해서만 처리되도록 수정했습니다. 그리고 23장 절에 
+서는 교회의 평화와 진리의 보존, 이단의 억제, 예배의 개혁 둥을 위해 국가 
+가 조치룰 취해야 한다는 의무를 삭제하고, 대신 국가가 모든 교파에 대한 
+편애 없이 교회의 자유로운 활동을 보장할 책임만을 남겼습니다. 
+1788년 수정판의 신학적 의도는 명확합니다. 교회의 왕이시며 머리이신 주 
+예수 그리스도께서 교회의 통치를 국가 통치자에게가 아니라 교회 직원들 
+에게 맡기셨다는 30.1의 원리와, 천국의 열쇠가 교회 직원들에게만 주어졌 
+다는 30.2의 교리를 교회의 영적 내적 영역뿐 아니라 외적 영역까지도 포괄 
+적으로 적용한 것입니다. 따라서 국가 통치자가 교회 회의를 소집하거나 이 
+단을 억제하는 일은 교회의 고유한 권한을 침탈하는 행위이며, 천국 열쇠 
+의 권세를 세속화하는 것으로 판단되었습니다. 
+역사적으로 보면, 웨스트민스터 총회는 영국 의회의 권한 아래 소집되었고, 
+총회가 작성한 문서는 의회의 숭인을 통해 효력을 가졌습니다. 이러한 맥락 
+에서 웨스트민스터 신앙고백서는 에라스투스주의를 배격하면서도, 당시 영 
+국 국교회 체제 안에서 국가 통치자가 외적 질서를 보장하고 교회 회의를 
+소집할 권한을 인정하는 절충적 진술을 한 것으로 이해할 수 있습니다. 반 
+면 미국 장로교회는 1776년 독립선언 이후, 17세기 영국의 국가교회 체제 
+를 부정하고 정교분리의 원칙을 확립하였습니다. 미국은 다양한 교파와 종 
+교를 가진 이민자들로 구성된 사회였기 때문에, 국가 통치자가 특정 종파 
+를 대표하거나 이단을 억제할 권한을 행사할 수 없었습니다. 따라서 교회 
+의 자유를 보장하고 종교 간 평등을 유지하기 위해, 교회와 국가를 완전히 
+분리하는 방향을 택하게 되었습니다. 
+이러한 역사적 • 신학적 배경을 고려할 때, 오늘 읽는 신앙고백서 1. 의 의 
+미를 이해하는 것은 단순히 교회 정치의 형식 문제를 넘어서, 국가와 교회 
+에 대한 근본적 신학 이해의 차이를 드러냅니다. 1647년 판의 관점에서 국 
+가는 교회를 보호하는 외적 수단으로서 하나님의 섭리 안에 세워진 기관 
+입니다. 국가와 교회는 모두 하나님께로부터 위임된 질서 속에서 서로 다론 
+목적과 범위를 지닌 기관이지만, 그리스도의 주권 아래에서 협력해야 한다 
+는 점에서 분리되되 대립되지 않습니다. 그러나 역사 속에서는 국가가 이러 
+한 한계를 넘어 교회의 영적 영역에 간섭하고, 때로는 공의회를 소집하거나 
+교리 문제에 개입하는 에라스투스적 폐단이 발생했습니다. 
+이에 반해 1788년 미국 수정판은 교회와 국가를 일반은총과 특별은총의 
+두 영역으로 구분하여, 각각의 고유한 책임을 강조했습니다. 국가는 시민사 
+회의 질서와 정의를 유지하는 일반은총의 사명을 담당하고, 교회는 구속의 
+복음을 전파하는 특별은총의 사역을 수행합니다. 이러한 구분은 자유교회 
+(Free Church) 원리를 구현하려는 긍정적 의도를 지니지만, 동시에 국가가 
+교회의 선한 사역을 외적으로 보호하거나 지원할 의무마저 부정하는 해석 
+으로 기울 위험도 내포합니다. 따라서 교회는 이단 억제룰 법적으로 강제 
+할 것을 국가에 요청할 수 없으며, 오직 영적 수단을 통해 이단을 경계하고 
+대적해야합니다. 
+결국 우리는 국가를 교회의 보호자(guardian)로 보아야 하는갸 아니면 종 
+교적 자유를 평등하게 보장하는 중립적 관리자(adm ra or) 로 보아야 
+하는가의 관점 차이에 직면하게 됩니다. 이상적으로는 1647년 판이 제시하 
+는 신정론적 이상, 곧 국가가 교회를 보호하는 책임을 지는 것이 하나님의 
+통치 질서에 부합하지만, 현실적으로는 1788년 판이 제시하는 국가와 교회 
+의 상호 독립 원칙, 곧 자유교회적 질서 (Free Church polity)가 다종교 사 
+회 속에서 교회의 자유를 보전하는 데 더 큰 타당성을 갖습니다. 
+결론적으로, 현재 우리는 1788년 미국 수정판의 이해를 따르는 현실 속에 
+살고 있습니다. 그러나 1647년 판 1. 을 함께 읽으며, 하나님께서 세우신 
+12월. 31 장. 대회와공의회 367 
+기관인 국가가 본래 교회의 외적 평안과 복음 진리의 보전을 위해 섭리적 
+으로 봉사할 책임이 있다는 원리를 살펴보는 것은 여전히 유익합니다. 이는 
+국가가 교회의 영적 사역에 간섭해야 한다는 뜻이 아니라, 국가 또한 그리 
+스도의 보편적 주권 아래에서 진리의 확산과 교회의 선한 사역을 보호해야 
+할 도덕적 의무가 있음을 일깨워 주기 위함입니다. 
+‘</p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>왜 1647년 판 신앙고백서는 국가 통치자에게 교회 회의를 소집할 권한</li>
+<li>올 인정했습니까? 그 권한에는 어떤 제한이 따릅니까? 여러분은 교회의 회</li>
+<li>의와 권징의 권세가 세속 권력에서가 아니라 그리스도의 위임에서 비롯된</li>
+<li>것임을 믿으며, 교회의 모든 질서를 말씀과 주님의 통치 아래 세우고자 합</li>
+<li>니까?</li>
+<li>웨스트민스터 신앙고백서는 어떤 이유로 에라스투스주의를 거부합니</li>
+<li>까? 교회의 통치 권한은 어떤 점에서 국가의 간섭과 구별됩니까? 여러분은</li>
+<li>교회가 세속 권력의 승인이나 간섭 없이, 오직 그리스도의 권세 아래 말씀</li>
+<li>과 성례, 권징을 바르게 시행해야 함을 확신하며, 교회의 권위를 하나님의</li>
+<li>말씀 안에서 존중하고 있습니까?</li>
+<li>왜 1788년 미국 장로교회는 신앙고백서 1. 을 삭제하고 국가의 역할</li>
+<li>올 교회의 자유 보장으로 한정했습니까? 이 변화는 교회와 국가의 관계를</li>
+<li>어떻게 새롭게 규정합니까? 여러분은 오늘날 교회가 세속 권력의 도움 없이</li>
+<li>도 복음의 진리를 수호해야 함을 깨닫고, 세상의 압력과 불의한 권세 앞에</li>
+<li>서도 말씀의 능력으로 교회를 지키려는 믿음을 붙들고 있습니까?</li>
+<li>1647년 판과 1788년 판은 교회와 국가의 관계를 각각 어떻게 이해합</li>
+<li>니까? 오늘날 널리 알려진 견해는 어느 쪽 입장에 가깝다고 생각하십니까?</li>
+<li>오늘날에도 1647년 판을 읽는 것이 필요한 이유는 무엇입니까? 여러분은</li>
+<li>국가와 교회가 각자의 영역에서 그리스도의 주권 아래 섭리적으로 공존해</li>
+<li>야 함을 인정하며, 시민으로서 국가를 위해 기도하고, 동시에 교회의 순결</li>
+<li>과 복음의 사역을 위해 헌신하고 있습니까?</li>
+<li>12일. 31 장. 대회와공의회 369</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1218';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1218';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

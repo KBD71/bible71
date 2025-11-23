@@ -3,334 +3,443 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 15일</title>
+    <title>12월 15일: 9.i。</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 15일</h1>
-            <p class="text-xl text-gray-600 mt-2">9.i。</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">9.i。</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 15일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    신앙고백서 30.3
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">신앙고백서 30.3</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">신앙고백서 30.3 교회 권징이 필요한 목적은 죄를 범한 형제들을 교정하 여 얻기 위함이며, 다른 사람들이 유사한 죄를 범하지 않도록 하기 위함이고, 누룩이 온 덩어리에 퍼지지 않 도록 제거하기 위함이며, 그리스도의 명예와 복음에 대 한 거룩한 고백을 지키기 위함이다. 그리고 확실히 드러 난 완고한 범죄자들에게 하나님의 언약과 그 인장들이 모독을 받도록 내버려둘 경우 교회에 마땅히 임하게 될 하나님의 진노를 면하기 위함이다.1) 1) 고전 5:1-13; 딤전 5:20; 마 7:6; 딤전 1:20; 고전 11 :27-34; 유 23절 ‘</p>
+                <div class="catechism-body">
+                    <p>신앙고백서 30.3 교회 권징이 필요한 목적은 죄를 범한 형제들을 교정하 여 얻기 위함이며, 다른 사람들이 유사한 죄를 범하지 않도록 하기 위함이고, 누룩이 온 덩어리에 퍼지지 않 도록 제거하기 위함이며, 그리스도의 명예와 복음에 대 한 거룩한 고백을 지키기 위함이다. 그리고 확실히 드러 난 완고한 범죄자들에게 하나님의 언약과 그 인장들이 모독을 받도록 내버려둘 경우 교회에 마땅히 임하게 될 하나님의 진노를 면하기 위함이다.1) 1) 고전 5:1-13; 딤전 5:20; 마 7:6; 딤전 1:20; 고전 11 :27-34; 유 23절 ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>오늘 읽는 웨스트민스터 신앙고백서 30.3은 교회 권징의 의도와 목표에 
 대해 진술합니다. 이는 권징이 단순히 처벌 그 자체를 목적으로 하는 것이 
 아님을 분명히 밝힙니다. 권징은 죄를 범한 형제 개인만을 위한 것이 아니 
 라, 교회 전체를 위한 일이며, 동시에 그리스도의 명예를 보전하기 위한 일 
-입니다. 본 절은 권징의 필요성과 목적을 다섯 가지로 제시합니다. 
-(1) “교회 권징이 필요한 목적은 죄를 범한 형제들을 교정하여 얻기 위함이 
-며"： 권징의 가장 중요한 목적은 죄를 범한 형제를 회복하는 데 있습니다. 
+입니다. 본 절은 권징의 필요성과 목적을 다섯 가지로 제시합니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 1</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">교회 권징이 필요한 목적은 죄를 범한 형제들을 교정하여 얻기 위함이 
+며<strong class="text-blue-600">： 권징의 가장 중요한 목적은 죄를 범한 형제를 회복하는 데 있습니다. 
 권정은 단순히 형벌을 주려는 것이 아니라, 그 형제를 다시 얻기 위한 사랑 
 의 수단입니다. 징계는 형제가 자신의 죄를 깨닫고 회개하도록 하며, 죄의 
 상태에서 돌이켜 그리스도와의 교제 속으로 복귀하게 하는 효과적인 수단 
-입니다. 여기서 “교정하여 "(reclaiming)는 형제가 죄를 자각하고 회개하게 
+입니다. 여기서 “교정하여 </strong>(reclaiming)는 형제가 죄를 자각하고 회개하게 
 되어 영적으로 본래의 상태로 돌아오는 내면적 변화를 의미하며, “얻기 위 
 함"(gaining)은 교회 공동체 안에서의 교제와 회원 자격의 관계적 회복을 
 뜻합니다. 따라서 권징은 본질적으로 목회적 사랑의 행위입니다. 사도 바울 
 은 고린도교회 안에서 매우 심각한 죄를 짓고도 회개하지 않는 자에 대하 
-여 “사탄에게 내어 주라”(고전 5:5)고 명령하며, 교회 공동체로부터 세상 곧 
+여 “사탄에게 내어 주라</strong>(고전 5:5)고 명령하며, 교회 공동체로부터 세상 곧 
 사탄의 권세 아래에 내보낼 것을 지시합니다. 그러나 그는 그 목적이 단순 
 한 징벌에 있지 않고、 “그의 육신은 멸하고 영온 주 예수의 날에 구원을 받 
 게 하려 함.（고전 5:5) 이라고 밝힙니다. 이는 권징의 참된 의도가 죄인을 께 
 닫게 하고 회개로 인도하여 구원에 이르게 하는 데 있음을 분명히 보여 줍 
 니다. 따라서 권징은 단순히 공의로운 형벌의 시행이 아니라 죄인을 돌이켜 
-구원의 자리로 회복시키려는 목회적 사랑과 영적 양육의 수단입니다. 
-(2) “다른 사람들이 유사한 죄를 범하지 않도록 하기 위함이고"： 죄는 ...</p>
+구원의 자리로 회복시키려는 목회적 사랑과 영적 양육의 수단입니다. </p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">적용 질문이 제공되지 않았습니다.</span></li>
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p>“다른 사람들이 유사한 죄를 범하지 않도록 하기 위함이고"： 죄는 전염 
+성이 매우 높습니다. 죄인이 회개하지도 않은 채 교회 안에 그대로 남아 있 
+고, 이에 대한 권징이 시행되지 않으면, 다른 신자들이 그 죄를 모방할 위험 
+이 커집니다. 따라서 권징은 죄의 확산을 예방하고 교훈적 경고를 주기 위 
+한 수단입니다. 교인들은 권징을 통해 죄의 심각성을 깨닫고, 동일한 죄를 
+범하지 않도록 경계하게 됩니다. 그러므로 권징은 교회 공동체 전체를 위한 
+예방적 기능을 수행합니다. </p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 3</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">누룩이 온 덩어리에 퍼지지 않도록 제거하기 위함이며</strong>: 이 구절은 사 
+도 바울이 말을 옮긴 것입니다. <strong class="text-blue-600">너희가 자랑하는 것이 옳지 아니하도다 적 
+은 누룩이 온 덩어리에 퍼지는 것을 알지 못하느냐 너희는 누룩 없는 자인 
+데 새 덩어리가 되기 위하여 묵은 누룩을 내버리라 우리의 유월절 양 곧 
+그리스도께서 희생되셨느니라</strong>(고전 s:6-7) 사도 바울은 교회 공동체의 거 
+룩함을 보존하기 위해, 죄의 본질을 누룩에 비유하며 경고합니다. 죄를 방 
+치하면 누룩이 온 덩어리에 퍼지듯이 교회의 영적 순결을 빠르게 오염시킬 
+수 있기 때문입니다. 그는 이에 "묵은 누룩을 내버리라”(고전 5:7)고 명령하 
+며, 죄의 확산을 막아 교회를 새 덩어리로 보존할 것을 요구합니다. 그러므 
+로 권징은 죄의 전염성과 파괴력을 고려하여, 회개하지 않는 자를 공적으 
+로 징계함으로써 공동체를 보호하는 교회적 의무이자 거룩을 지키는 책임 
+있는행위입니다. </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 4</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">그리스도의 명예와 복음에 대한 거룩한 고백을 지키기 위함이다</strong>: 권 
+징은 곧 그리스도의 왕권과 명예를 수호하는 사역입니다. 그리스도께서 말 
+씀으로 교회를 다스리시며, 교회는 그분의 몸으로서 그리스도를 세상 가운 
+데 드러냅니다. 그러므로 교회가 복음을 자랑하고 그 교훈에 순종함으로써 
+복음의 거룩한 고백을 지켜야 합니다. 이것은 은혜 언약 안에서 용서받은 
+교인으로서 하나님께 뜻에 따라 살고자 하는 거룩한 고백을 지키는 일입니 
+다. 이러한 일의 순종을 통해서 교회는 그리스도를 공개적으로 나타내 보입 
+니다. 그러나 교회 안에서 죄가 방치될 경우 성경이 경고하듯 <strong class="text-blue-600">하나님의 이 
+름이 너회로 말미암아 이방인 중에서 모독을 받</strong>(롬 2:24)는 일이 일어납니 
+12일. 30장. 교회 권칭 345 
+다. 따라서 권징은 단순한 교회 행정 절차가 아니라, 복음의 명예를 지키는 
+영적 행위입니다. 교회의 직원들은 그리스도의 권위를 대행하는 자로서, 복 
+음의 거룩한 고백과 은혜의 열매가 교회 안에 유지되도록 힘써야 합니다. </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 5</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">그리고 확실히 드러난 완고한 범죄자들에게 하나님의 언약과 그 인장 
+들이 모독을 받도록 내버려둘 경우 교회에 마땅히 임하게 될 하나님의 진 
+노를 면하기 위함이다</strong>: 권징이 시행되어야 할 필요성은 결코 개인적인 차 
+원에만 국한되지 않습니다. 죄를 고의적으로 행하고 그것이 공개적으로 드 
+러났음에도 회개하지 않는 완고한 자들을 방치한다면, 교회 구성원들 가운 
+데 유사한 죄가 반복되어 나타나고, 교회 공동체는 죄로 오염되며, 그리스 
+도의 명예가 훼손되고 복음에 대한 진정한 고백이 모독을 받게 됩니다. 그 
+결과 복음에 합당한 거룩한 열매가 드러나지 않게 된다면, 이는 하나님의 
+언약과 그 인(印), 곧 하나님의 은혜 언약을 가시적으로 표지하고 인치는 
+세례와 성찬의 규례를 심히 더럽히는 일이 됩니다. 이러한 일에 대하여 권 
+징을 시행하지 않는다면, 하나님께서 교회를 향해 진노를 내리실 수 있음 
+을 두려운 마음으로 명심해야 합니다. 그러므로 교회 정치를 위임받은 교 
+회 직원들 곧 목사와 장로들은 하나님의 진노로부터 교회 공동체를 보호 
+하기 위하여 권징을 반드시 실행해야 할 의무를 지니고 있음을 깊이 유념 
+해야합니다. 
+‘ 적용잘문 </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 6</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>교회의 권징은 왜 단순한 형벌이 아니라 죄인을 회개로 이끌어 구원으 
+로 회복시키는 목회적 사랑의 수단이라 할 수 있습니까? 여러분은 하나님 
+의 교회 안에서 징계가 있을 때 그것을 비난하거나 두려워하기보댜 그 안 
+에 담긴 하나님의 사랑과 구원의 의도를 깨닫고 회개의 자리로 나아가고 
+있습니까? </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 7</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>권징은 어떻게 교회 공동체 안에서 죄의 확산을 막고 다른 신자들이 
+동일한 죄에 빠지지 않도록 경고하는 예방적 역할을 합니까? 여러분은 교 
+회의 권징을 통해 죄의 무서움을 배우고, 그리스도 안에서 거룩한 삶을 지 
+켜 가려는 경건한 두려움과 순종의 마음을 품고 있습니까? </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 8</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>사도 바울은 왜 교회의 죄를 누룩에 비유하며, "묵은 누룩을 내버리라” 
+고 명령하였습니까? 그리고 권징은 어떻게 그리스도의 명예와 복음의 거룩 
+한 고백을 지키는 수단이 됩니까? 여러분은 교회가 복음의 거룩함을 드러 
+내는 공동체로 서기 위해, 자신의 삶 속에서도 죄의 누룩을 내어버리고 거 
+룩을 지키는 일에 헌신하고 있습니까? </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 9</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>신앙고백서는 왜 공개적이고 완고한 죄인을 방치하는 일이 교회의 오 
+염과 하나님의 진노를 불러오는 일이라고 경고합니까? 또한 교회 직분자들 
+은 어떤 책임을 가지고 권징을 시행해야 합니까? 여러분은 교회의 거룩과 
+복음의 명예를 지키기 위해 권징이 필요할 때, 그것을 회피하거나 방관하지 
+않고 하나님의 뜻에 순종하여 교회를 보호하려는 마음으로 서 있습니까? 
+12월• 30장. 교회권징 347</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1215';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1215';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

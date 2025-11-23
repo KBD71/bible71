@@ -3,226 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 11월 11일</title>
+    <title>11월 11일: 익과 줄거움올 뒤로 하고 주님의 교회를 위한 사역에 헌신하고자 하는 각</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6; /* Tailwind gray-100 */
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
-            border-radius: 0.75rem; /* lg */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* lg */
-            margin-bottom: 1.5rem; /* 6 */
-            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568; /* Tailwind gray-700 */
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem; /* xl */
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb; /* gray-200 */
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem; /* lg */
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937; /* gray-800 */
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151; /* gray-700 */
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151; /* gray-700 */
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827; /* gray-900 */
-        }
-        .card-body .answer {
-            color: #374151; /* gray-700 */
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb; /* gray-50 */
-            border-top: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb; /* gray-200 */
-            color: #9ca3af; /* gray-400 */
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb; /* blue-600 */
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8; /* blue-700 */
-        }
-        .audio-button.pause {
-            background-color: #f87171; /* red-400 */
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444; /* red-500 */
-        }
-        .audio-error {
-            color: #dc2626; /* red-600 */
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem; /* sm */
-            color: #6b7280; /* gray-500 */
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">11월 11일</h1>
-            <p class="text-xl text-gray-600 mt-2">성례의 표지와 실체의 성례전적 연합</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">익과 줄거움올 뒤로 하고 주님의 교회를 위한 사역에 헌신하고자 하는 각</h1>
+            <p class="text-lg md:text-xl text-gray-500">11월 11일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    대요리문답 163문
-                </div>
-                <div class="card-body">
-                    <div class="question-answer">
-                        <p class="question">문163. 성례를 구성하는 부분들은 무엇입니까?</p>
-                        <p class="answer">답. 성례를 구성하는 부분들은 두 가지입니다. 첫째는 그리스도께서 친히 명령하신 바에 따라 사용하는 외적이고 감각적인 표지이며, 둘째는 이것으로 표하는 내적이고 영적인 은혜입니다.</p>
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     </div>
+                    <h2 class="card-title">대요리문답 158</h2>
                 </div>
-            </div>
-
-            <div class="card">
+                <div class="catechism-body">
+                    <p>항은 설교가 모든 신자가 자유롭게 할 수 있는 일이 아니라, 하나님께서 부르신 자만이 맡아야 하는 공적 직무라고 말합니까? 여러분은 설교가 단순한 가르침이나 권면이 아니라 하나님께서 제정하신 예배의 규례이며, 그분이 세우신 질서에 따라 드려져야 함을 인정하며 설교 를듣고있습니까? 2. 설교자가 되기 위해 "충분한 은사”가 필요하다고 할 때, 그것은 어떤 은사와 자질올 의미합니까? 여러분은 설교자가 단순히 말재주나 대중적 영향력이 아니라 성령께서 주시는 은사와 영적 자질로 교회를 목양해야 한 다는 사실을 기억하며, 참된 은사가 있는 설교자를 분별하고 존중하고 있 습니까? 3. 왜 설교자는 교회의 공적 권위에 의해 공식적으로 인허를 받아야 합니 까? 여러분은 오늘날 유튜브나 SNS와 같은 매체에서 스스로 설교자라 주 장하는 이들이 많다는 사실을 기억하면서, 공적으로 인준받은 참된 설교 자의 말씀에 귀를 기울이고 있습니까? 4. 설교 직무에는 외적 부르심뿐 아니라 내적 부르심도 필요하다고 할 때, 내적 부르심은 어떤 특징올 지니고 있습니까? 여러분은 설교자가 단순히 직업을 택한 사람이 아니라, 그리스도의 복음을 전하려는 성령의 불타는 열망과 사명을 지닌 자임을 기억하며, 그러한 설교자를 통해 말씀하시는 하나님께 순종하고 있습니까? .~-一-_-` I ,/.11:일\\\ O 하나님의 말씀의 설교지에게 요구하는의무 ‘ 대요리문답 159 대요리문답 159: 159. 설교하도록 부름을 받은 사람은 하나님의 말씀을 어떻게 설교해야 합니까? 달 말씀 사역에 수고하도록 부름을 받은 사람은 바른 교훈을 설교하되 1) 때를 얻든지 못 얻든지 2) 부지 런히,3) 사람의 지혜의 권하는 말로 하지 아니하고 성령 의 나타남과 능력으로4 단순하게? 하나님의 모든 경륜 을 알 수 있도록° 충실하게,1) 듣는 사람들의 필요와 이 해 능력에 맞도록8) 지혜롭게,” 하나님과“ 그분의 백성 의 영혼에 대한") 뜨거운 사랑을 품고 열정적으로프 하 나님의 영광과때 백성의 회심으 건덕,1 5) 구원을16) 목표로 삼아 진실하게 1) 설교해야 합니다. ‘</p>
+                </div>
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    신앙고백서 27.2
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">각 성례에는 표지와 표지가 가리키는 실체 사이에 영적 관계 또는 성례전적 연합이 있다. 이로 말미암아 어느 한 쪽의 이름과 효력이 다른 한 쪽에게 돌려지게 된다.</p>
+                <div class="space-y-4 text-gray-600">
+                    <p>오늘 읽는 대요리문답 159항은 설교의 직무를 맡도록 부름 받은 사람이 이 
+고귀한 직무를 어떻게 수행해야 하는지를 교훈합니다. 이는 곧 “설교란 무 
+엇인가”라는 질문과 깊이 연결됩니다. 대요리문답이 이 주제를 다루는 본 
+질적인 이유는, 설교를 통한 말씀 선포가 하나님 나라를 세워 가는 일에 
+참으로 중요하기 때문입니다. 동시에 역사적 상황을 살펴보면, 로마 가톨릭 
+의 미사가 하나님의 말씀을 중심에 두지 않고 성례 중심의 의식주의로 변 
+질되어, 말씀을 선포하고 듣는 일이 극도로 약화되어 있었습니다. 이는 말 
+씀 선포를 통해 주시는 하나님의 은혜를 가로막는 심각한 왜곡이었습니다. 
+또한, 아무나 나서서 성경을 불건전하게 해석하고, 하나님의 말씀을 왜곡하 
+는 일을 막아야 할 필요도 있었습니다. 이러한 맥락 속에서 대요리문답은, 
+먼저 158항에서 설교자는 반드시 합법적인 부르심을 받아야 함을 교훈했 
+고, 이어서 159항에서는 설교 직무가 어떠한 방식으로 수행되어야 하는지 
+룰 명확히 진술합니다. 이에 우리는 여덟 가지 항목으로 나누어 그 내용을 
+살펴보겠습니다.</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    교리 해설
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 1</h2>
                 </div>
-                <div class="card-body">
-                    <p>오늘 우리가 읽는 대요리문답 163항과 신앙고백서 27.2은 성례가 두 가지 부분으로 구성되어 있다는 사실을 분명히 진술합니다. 대요리문답은 그 두 부분이 무엇인지를 설명하고, 신앙고백서는 그 두 부분이 서로 어떤 관계에 있는지를 밝힙니다.</p>
-
-                    <h3>1. 성례의 두 가지 구성 부분</h3>
-                    <p>성례는 이중적인 구성을 가지고 있습니다. 하나는 <strong class="text-blue-600">표(sign)</strong>이며, 다른 하나는 <strong class="text-blue-600">은혜의 실체(reality of grace)</strong>입니다.</p>
-                    <ul>
-                        <li>
-                            <strong class="text-blue-600">첫째, 외적이고 감각적인 표지</strong>: 성례는 눈으로 볼 수 있는 가시적 표지를 포함합니다. 세례는 물(혹은 물로 씻거나 뿌리는 행위)을, 성찬은 빵과 포도주(그리고 그것을 먹고 마시는 행위)를 표로 가집니다. 이는 성례에 참여하는 이가 감각적으로 인식할 수 있는 물질적인 요소입니다.
-                        </li>
-                        <li>
-                            <strong class="text-blue-600">둘째, 내적이고 영적인 은혜</strong>: 이 물질적 표가 가리키는 영적 실체입니다. 이는 그리스도와의 연합, 그리고 이 연합으로 인해 주어지는 죄 사함, 의롭다 하심, 새 생명, 십자가의 대속, 그리스도와의 영적 교통 등 중보의 모든 유익을 포함합니다. 이 내적인 부분은 표와 달리 눈으로 보거나 입으로 먹을 수 없으며, <strong class="text-blue-600">오직 믿음으로 보고, 믿음으로 먹고 마십니다.</strong>
-                        </li>
-                    </ul>
-                    <p>신자는 성례의 표를 믿음으로 받을 때라야, 그 표를 통하여 나타내시는 은혜를 실제로 받고 누릴 수 있습니다.</p>
-
-                    <h3>2. 성례전적 연합 (Sacramental Union)</h3>
-                    <p>그렇다면 어떻게 감각적이며 외적인 물질인 표를 통해 영적이며 내적인 실체를 받을 수 있을까요? 그 이유는 표와 표지된 실체 사이에 특별한 관계, 즉 <strong class="text-blue-600">"성례전적 연합"(sacramental union)</strong>이 존재하기 때문입니다.</p>
-                    <p>성례전적 연합이란, 그리스도께서 친히 제정하신 표(표지)와 그것이 가리키는 영적 실체 사이에 존재하는 언약적이고 영적인 결합 관계를 말합니다. 이 연합으로 인해, 세례의 '물'과 '그리스도의 피'는 본질적으로 구별되지만(distinctio), 성례가 시행될 때 이 둘은 분리되거나 단절되어 있지 않습니다(sine separatione).</p>
-                    <p>이러한 연합의 특성 때문에, 성경은 표와 실체의 이름을 교환하여 사용합니다. 이를 <strong class="text-blue-600">"이름의 상호전용"(intermutatio nominum)</strong>이라고 합니다.
-                    <ul>
-                        <li>그리스도께서는 빵을 들어 "이것은 내 몸이라"(마 26:26) 하셨고, 포도주를 가리켜 "이것은 나의 피, 곧 언약의 피라"(마 26:28)고 말씀하셨습니다.</li>
-                        <li>바울 또한 "우리가 떼는 빵은 그리스도의 몸에 참여함이 아니냐"(고전 10:16)라고 말합니다.</li>
-                    </ul>
-                    <p>또한 이러한 연합으로 인해, 표지의 효력이 실체에 있음에도 불구하고, 마치 표지(물)가 죄를 씻는 것처럼 표현되기도 합니다. 실제로는 물이 아니라 그리스도의 피가 죄를 씻지만, 세례의 행위가 죄 씻음을 상징하기에 이처럼 표현하는 것입니다.</p>
-                    <p>이러한 개혁파의 '성례전적 연합' 설명은, 표와 실체를 동일시하는 로마 가톨릭의 <strong class="text-blue-600">화체설(transubstantiation)</strong>을 명확히 배격합니다. 화체설은 빵과 포도주가 그리스도의 몸과 피로 '실체적으로' 변한다고 주장합니다. 그러나 신앙고백서는 표와 실체는 결코 동일한 실체가 아니라, 하나님께서 제정하신 언약 안에서 서로 연합된 채로 '구별되어' 있는 관계임을 분명히 합니다.</p>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">말씀 사역에 수고하도록 부름을 받은 사람은</strong>： 설교자는 하나님의 말 
+씀을 공적으로 선포하고 가르치는 직무를 맡습니다. 따라서 설교자는 이 
+직무를 올바르게 수행하기 위해 말씀을 연구하고, 이를 강설하며, 실천으 
+로 적용하도록 교훈하는 수고를 감당해야 합니다. 설교자가 이러한 수고 
+를 올바르게 행할 때, 설교 사역은 11월 일에 살펴본 대요리문답 155 항에 
+서 말한 바와 같이 성령 하나님의 은혜가 임하는 방편으로 사용됩니다. 곧 
+성령 하나님께서 말씀을 통해 베푸시는 은혜는 다음과 같이 진술되었습니 
+다. “죄인들의 마음을 밝히시고, 죄책을 드러내시며, 겸손하게 하시고, 이들 
+을 자신에게서 끌어내 그리스도에게로 나아가게 하시며, 그리스도의 형상 
+을 본받게 하시고, 그분의 뜻에 복종하게 하시며, 유혹과 부패에 빠지지 않 
+11 일. 27A장. 말씀과성례 75</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    적용 질문
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">1. 성례가 "외적인 표와 내적인 은혜의 실체"라는 두 부분으로 구성되어 있다는 것은 단순한 상징 이상의 의미를 가지는데, 여러분은 세례나 성찬의 표를 받을 때 단지 외적 행위로만 여기지 않고, 그 안에서 실제로 자신에게 확증하시는 하나님의 은혜와 그리스도와의 연합을 믿음으로 경험하고 있습니까?</span></li>
-                        <li><span class="question">2. 하나님께서 감각적으로 인식할 수 있는 물질(물, 빵, 포도주)을 사용하여 영적 실체를 깨닫게 하신 이유는 우리의 약한 믿음을 붙들기 위함인데, 여러분은 성례를 받을 때 눈에 보이는 표를 통해 하나님께서 실제로 자신의 약속을 눈앞에 드러내어 보이신다는 사실을 깊이 묵상하며 감사하고 있습니까?</span></li>
-                        <li><span class="question">3. 신앙고백서가 말하는 "성례적 연합'은 표와 실체가 구별되지만 분리되지 않은 관계를 뜻하는데, 여러분은 성례를 받을 때 외적인 표에만 집중하거나 반대로 영적 의미만 강조하여 표를 경시하지는 않습니까? 하나님께서 정하신 언약적 질서 안에서 이 둘을 함께 존중하며 성례에 임하고 있습니까?</span></li>
-                        <li><span class="question">4. 성례의 표와 실체가 분리되지 않고 연합되어 있기 때문에 성경은 "이것은 내 몸이라" 혹은 "이것은 나의 피라"라고 말씀하시지만, 실제로는 물질이 변하는 것이 아니라 언약적으로 결합된 관계를 드러냅니다. 여러분은 성찬에 참여할 때 빵과 잔을 단순한 기념으로만 받지 않고, 그리스도의 실제적 은혜가 성령을 통해 자신에게 전달되는 신비를 믿음으로 받아 누리고 있습니까?</span></li>
-                    </ul>
-                </div>
-            </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>왜 대요리문답 158항은 설교가 모든 신자가 자유롭게 할 수 있는 일이</li>
+<li>아니라, 하나님께서 부르신 자만이 맡아야 하는 공적 직무라고 말합니까?</li>
+<li>여러분은 설교가 단순한 가르침이나 권면이 아니라 하나님께서 제정하신</li>
+<li>예배의 규례이며, 그분이 세우신 질서에 따라 드려져야 함을 인정하며 설교</li>
+<li>를듣고있습니까?</li>
+<li>설교자가 되기 위해 "충분한 은사”가 필요하다고 할 때, 그것은 어떤</li>
+<li>은사와 자질올 의미합니까? 여러분은 설교자가 단순히 말재주나 대중적</li>
+<li>영향력이 아니라 성령께서 주시는 은사와 영적 자질로 교회를 목양해야 한</li>
+<li>다는 사실을 기억하며, 참된 은사가 있는 설교자를 분별하고 존중하고 있</li>
+<li>습니까?</li>
+<li>왜 설교자는 교회의 공적 권위에 의해 공식적으로 인허를 받아야 합니</li>
+<li>까? 여러분은 오늘날 유튜브나 SNS와 같은 매체에서 스스로 설교자라 주</li>
+<li>장하는 이들이 많다는 사실을 기억하면서, 공적으로 인준받은 참된 설교</li>
+<li>자의 말씀에 귀를 기울이고 있습니까?</li>
+<li>설교 직무에는 외적 부르심뿐 아니라 내적 부르심도 필요하다고 할 때,</li>
+<li>내적 부르심은 어떤 특징올 지니고 있습니까? 여러분은 설교자가 단순히</li>
+<li>직업을 택한 사람이 아니라, 그리스도의 복음을 전하려는 성령의 불타는</li>
+<li>열망과 사명을 지닌 자임을 기억하며, 그러한 설교자를 통해 말씀하시는</li>
+<li>하나님께 순종하고 있습니까?</li>
+<li>.~-一-_-`</li>
+<li>I ,/.11:일\\\ O</li>
+<li>하나님의 말씀의 설교지에게</li>
+<li>요구하는의무</li>
+<li>‘ 대요리문답 159</li>
+<li>대요리문답</li>
+<li>159:</li>
+<li>설교하도록 부름을 받은 사람은 하나님의 말씀을</li>
+<li>어떻게 설교해야 합니까?</li>
+<li>달 말씀 사역에 수고하도록 부름을 받은 사람은</li>
+<li>바른 교훈을 설교하되 1) 때를 얻든지 못 얻든지 2) 부지</li>
+<li>런히,3) 사람의 지혜의 권하는 말로 하지 아니하고 성령</li>
+<li>의 나타남과 능력으로4 단순하게? 하나님의 모든 경륜</li>
+<li>을 알 수 있도록° 충실하게,1) 듣는 사람들의 필요와 이</li>
+<li>해 능력에 맞도록8) 지혜롭게,” 하나님과“ 그분의 백성</li>
+<li>의 영혼에 대한") 뜨거운 사랑을 품고 열정적으로프 하</li>
+<li>나님의 영광과때 백성의 회심으 건덕,1 5) 구원을16) 목표로</li>
+<li>삼아 진실하게 1) 설교해야 합니다.</li>
+<li>‘ 말씀요절</li>
+<li>1) 딛 2:1, 8.</li>
+<li>2) 딤후 4:2.</li>
+<li>3) 행 18:25.</li>
+<li>4) 고전 2:4.</li>
+<li>5) 고전 14:19.</li>
+<li>6) 행 20:27.</li>
+<li>7) 렘 23:28; 고전 4:1-2.</li>
+<li>8) 고전 3:2; 히 5:12-14; 눅 12:42.</li>
+<li>9) 골 1 :28; 딤후 2:15.</li>
+<li>10) 고후 5:13-14; 빌 1:15-17.</li>
+<li>11) 골 4:12; 고후 12:15.</li>
+<li>12) 행 18:25.</li>
+<li>13) 살전 2:4-6; 요 7:18.</li>
+<li>14) 고전 9:19-22.</li>
+<li>15) 고후 12:19; 엡 4:12.</li>
+<li>16) 딤전 4:16; 행 26:16-18.</li>
+<li>17) 고후 2:17; 4:2.</li>
+<li>딛 2:1, 8 “오직 너는 바른 교훈에 합당한 것을 말하여 … 책망할 것이 없</li>
+<li>는 바른 말을 하게 하라 이는 대적하는 자로 하여금 부끄러워 우리를 악하</li>
+<li>다할것이 없게 하려 함이라”</li>
+<li>11 월 27A장. 말씀과성례 73</li>
+<li>딤후 4:2 ·너는 말씀을 전파하라 때를 얻든지 못 얻든지 항상 힘쓰라 범</li>
+<li>사에 오래 참음과 가르침으로 경책하며 경계하며 권하라”</li>
+<li>고전 2:4 “내 말과 내 전도함이 설득력 있는 지혜의 말로 하지 아니하고</li>
+<li>다만 성령의 나타나심과 능력으로 하여.</li>
+<li>고전 3:2 “내가 너희를 젖으로 먹이고 밥으로 아니하였노니 이는 너희가</li>
+<li>감당하지 못하였음이거니와 지금도 못하리라”</li>
+<li>골 1:28 “우리가 그를 전파하여 각 사람을 권하고 모든 지혜로 각 사람을</li>
+<li>가르침은 각 사람올 그리스도 안에서 완전한 자로 세우려 함이니"</li>
+<li>골 4:12 “그리스도 예수의 종인 너희에게서 온 에바브라가 너희에게 문안</li>
+<li>하느니라 그가 항상 너희를 위하여 애써 기도하여 너희로 하나님의 모든</li>
+<li>뜻 가운데서 완전하고 확신 있게 서기를 구하나니"</li>
+<li>고전 9:19 “내가 모든 사람에게서 자유로우나 스스로 모든 사람에게 종이</li>
+<li>된 것은 더 많은 사람을 얻고자 함이라”</li>
+<li>딤전 4:l6 "네가 네 자신과 가르침을 살펴 이 일을 계속하라 이것을 행함</li>
+<li>으로 네 자신과 네게 돋는 자를 구원하리라”</li>
+<li>고후 2:17 “우리는 수많은 사람들처럼 하나님의 말씀을 혼잡하게 하지 아</li>
+<li>니하고 곧 순전함으로 하나님께 받은 것 같이 하나님 앞에서와 그리스도</li>
+<li>안에서 말하노라”</li>
+<li>‘ 교리해설</li>
+<li>오늘 읽는 대요리문답 159항은 설교의 직무를 맡도록 부름 받은 사람이 이</li>
+<li>고귀한 직무를 어떻게 수행해야 하는지를 교훈합니다. 이는 곧 “설교란 무</li>
+<li>엇인가”라는 질문과 깊이 연결됩니다. 대요리문답이 이 주제를 다루는 본</li>
+<li>질적인 이유는, 설교를 통한 말씀 선포가 하나님 나라를 세워 가는 일에</li>
+<li>참으로 중요하기 때문입니다. 동시에 역사적 상황을 살펴보면, 로마 가톨릭</li>
+<li>의 미사가 하나님의 말씀을 중심에 두지 않고 성례 중심의 의식주의로 변</li>
+<li>질되어, 말씀을 선포하고 듣는 일이 극도로 약화되어 있었습니다. 이는 말</li>
+<li>씀 선포를 통해 주시는 하나님의 은혜를 가로막는 심각한 왜곡이었습니다.</li>
+<li>또한, 아무나 나서서 성경을 불건전하게 해석하고, 하나님의 말씀을 왜곡하</li>
+<li>는 일을 막아야 할 필요도 있었습니다. 이러한 맥락 속에서 대요리문답은,</li>
+<li>먼저 158항에서 설교자는 반드시 합법적인 부르심을 받아야 함을 교훈했</li>
+<li>고, 이어서 159항에서는 설교 직무가 어떠한 방식으로 수행되어야 하는지</li>
+<li>룰 명확히 진술합니다. 이에 우리는 여덟 가지 항목으로 나누어 그 내용을</li>
+<li>살펴보겠습니다.</li>
+<li>(1) "말씀 사역에 수고하도록 부름을 받은 사람은"： 설교자는 하나님의 말</li>
+<li>씀을 공적으로 선포하고 가르치는 직무를 맡습니다. 따라서 설교자는 이</li>
+<li>직무를 올바르게 수행하기 위해 말씀을 연구하고, 이를 강설하며, 실천으</li>
+<li>로 적용하도록 교훈하는 수고를 감당해야 합니다. 설교자가 이러한 수고</li>
+<li>를 올바르게 행할 때, 설교 사역은 11월 일에 살펴본 대요리문답 155 항에</li>
+<li>서 말한 바와 같이 성령 하나님의 은혜가 임하는 방편으로 사용됩니다. 곧</li>
+<li>성령 하나님께서 말씀을 통해 베푸시는 은혜는 다음과 같이 진술되었습니</li>
+<li>다. “죄인들의 마음을 밝히시고, 죄책을 드러내시며, 겸손하게 하시고, 이들</li>
+<li>올 자신에게서 끌어내 그리스도에게로 나아가게 하시며, 그리스도의 형상</li>
+<li>올 본받게 하시고, 그분의 뜻에 복종하게 하시며, 유혹과 부패에 빠지지 않</li>
+<li>11 일. 27A장. 말씀과성례 75</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audio
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+
+        function onYouTubeIframeAPIReady() {
+            // 플레이어는 버튼 클릭 시 생성
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        function onPlayerStateChange(event) {
+            playerState = event.data;
+            updateButtonUI(playerState);
+        }
+
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
+                buttonText.textContent = '일시정지';
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            } else {
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            }
+        }
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1111';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

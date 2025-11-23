@@ -3,375 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 11월 6일</title>
+    <title>11월 6일: 고전 14:24-25 “그러나 다 예언을 하면 믿지 아니하는 자들이나 알지 못하</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6; /* Tailwind gray-100 */
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
-            border-radius: 0.75rem; /* lg */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* lg */
-            margin-bottom: 1.5rem; /* 6 */
-            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568; /* Tailwind gray-700 */
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem; /* xl */
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb; /* gray-200 */
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem; /* lg */
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937; /* gray-800 */
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151; /* gray-700 */
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151; /* gray-700 */
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827; /* gray-900 */
-        }
-        .card-body .answer {
-            color: #374151; /* gray-700 */
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb; /* gray-50 */
-            border-top: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb; /* gray-200 */
-            color: #9ca3af; /* gray-400 */
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb; /* blue-600 */
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8; /* blue-700 */
-        }
-        .audio-button.pause {
-            background-color: #f87171; /* red-400 */
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444; /* red-500 */
-        }
-        .audio-error {
-            color: #dc2626; /* red-600 */
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem; /* sm */
-            color: #6b7280; /* gray-500 */
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">11월 6일</h1>
-            <p class="text-xl text-gray-600 mt-2">하나님의 말씀의 설교자</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">고전 14:24-25 “그러나 다 예언을 하면 믿지 아니하는 자들이나 알지 못하</h1>
+            <p class="text-lg md:text-xl text-gray-500">11월 6일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    AI요약 듣기
-                </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    대요리문답 158문
-                </div>
-                <div class="card-body">
-                    <div class="question-answer">
-                        <p class="question">문158. 하나님의 말씀은 누가 설교할 수 있습니까?</p>
-                        <p class="answer">답. 하나님의 말씀은 충분한 은사를 받았을 뿐만 아니라, 그 직무를 감당하도록 공식적으로 인허받고 부름을 받은 사람만이 설교할 수 있습니다.</p>
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     </div>
+                    <h2 class="card-title">소요리문답 89</h2>
                 </div>
-            </div>
-
-            <div class="card">
+                <div class="catechism-body">
+                    <p>항과 대요리문답 155 항은 어제 살펴본 내용에 이 어지는 질문을 다룹니다. 어제 우리는 말씀과 성례와 기도와 같은 그리스 도의 규례들 곧 은혜의 수단이 택함을 받은 자들이 구원올 얻는 데 효과 적이라는 사실올 알아보았습니다. 그렇다면 이제 구체적으로 말씀은 어떻 게 구원을 얻는 데 효과 있게 되는 것인지를 살펴보겠습니다. 소요리문답 89항과 대요리문답 155 항은 역시 동일한 내용을 교훈하고 있으므로 대요리문답을 중심으로 전체 내용을 세 개로 나누어 차례대로 살펴보겠습니다. (1) “성령 하나님께서는 말씀을 읽는 것, 특별히 말씀의 선포룰 효과 있는 수단으로 사용하셔서”: ‘말씀 선포’는 그리스도의 구속의 유익을 전달하는 은혜의 수단입니다. 그러나 말씀이 선포되어도 듣는 자에게 선포된 말씀이 그 자체로 은혜를 전달하는 효과를 낳지 않습니다. 동일한 말씀올 돋고도 어떤 이는 복음의 은혜 앞에 나오는 반면, 다른 어떤 이는 전혀 깨달음이 없거나 오히려 반발하기도 합니다. 이처럼 반옹이 다르게 나타나는 일은 마 치 은혜의 수단으로서 말씀이 자동적으로 효과를 주는 것이 아니라는 사 실을 잘 보여줍니다. 그러면 무엇이 이러한 차이를 드러내는 것일까요? 오늘 대요리문답 155 항은 “성령 하나님”의 사역으로 인한 것임을 교훈합니 다. 말씀의 선포가 듣는 자에게 복음의 은혜와 중보자의 유익을 받는 효과 로 나타나는 것은 성령 하나님께서 "말씀의 선포를 효과 있는 수단으로 사 11 열. 27A장. 말씁파성례 41 용“하심으로 이루어지는 것이라고 진술합니다. 이러한 진리는 월 일에 대요리문답 항과 신앙고백서 .5올 읽으면서 성경이 하나님의 말씀으로서 참 된 계시라는 사실과 이것이 과연 그러하다는 것을 아는 일이 성령 하나님 의 사역으로 인한 것임을 학습하면서 살펴본 바와 연결됩니다. 대요리문답 항은 “성경이 하나님의 말씀이라는 것은 어떻게 나타납니까?" 라는 질문에 대하여 다음과 같이 답을 합니다: “성경은 그 자체가 하나님 의 말씀임을 명백하게 드러냅니다. 성경의 장엄함과 순수함, 모든 부분의 일 치와 모든 영광을 하나님께 돌리는 전체의 목적, 또한 죄인임을 드러내어 회개시키며, 신자를 위로하며 구원에 이르도록 세우는 그 빛과 능력이 성 경 자체가 하나님의 말씀임을 명백하게 드러냅니다. 그러나 성경으로, 또한 성경과 함께 사람의 마음 안에서 중언하시는 성령 하나님만이 성경이 하 나님의 말씀임을 온전히 설득하실 수 있습니다.” 먼저 성경은 그 자체로 하 나님의 말씀임을 명백하게 드러냅니다. 그러하기에 하나님의 말씀의 선포 는 구원의 은혜롤 전달하는 수단이 된다는 점은 명백합니다. 하지만 성경 이 하나님의 말씀이라는 것을 온전히 설득하는 일은 성령 하나님만의 사역 입니다. 그러하기에 은혜의 수단이 성경의 말씀 선포가 효과를 나타내는 일 도 성령 하나님의 은혜의 사역이 있어야만 가능합니다. 성경 말씀이 성령 하나님의 영감으로 기록되었듯이, 기록된 성경을 읽고, 듣고, 깨닫는 일 또 한 성령 하나님의 사역으로 인하여 이루어집니다. 이것을 가리켜 성령 하나 님의 조명의 은혜라고 일컫습니다. 성령 하나님께서 성경의 말씀으로 은혜 롤 전달하시는 일을 가리켜서 혼히들 성령 하나님께서는 "말씀을 가지고 또는 함께 ”(Cum Verbo) 사역을 하신다고 표현합니다. 이러한 진술은 성경 에서 “이는 우리 복옴이 너희에게 말로만 이른 것이 아니라 또한 능력과 성 령과 큰 확신으로 된 것임이라 우리가 너희 가운데서 너희를 위하여 어떤 사람이 된 것은 너희가 아는 바와 같으니라”(살전 1:5) 라고 하신 말씀에 근 거합니다. (2) “죄인들의 마음을 밝히시고 죄책을 드러내시며 겸손하게 하시고, 이들 울 자신에게서 끌어내 그리스도에게로 나아가도록 하시고, 그리스도의 형 상을 본받게 하시며 그분의 뜻에 복종하게 하시고, 이들이 유혹과 부패에 빠지지 않도록 강하게 하시며, 은혜 안에서 자라게 하시고 … 이들의 마 음을 거룩함과 위로 가운데 굳게 세우셔서"： 성령 하나님께서 말씀을 수 단으로 하여 전달하시는 은혜의 유익들을 일곱 가지 효과로 제시합니다. ® 성령 하나님께서는 적인들의 마음”을 밝혀주십니다. 아담의 타락 이후 에 모든 인류는 원죄로 인하여 영적 진리를 불완전하며 왜곡되게 인지합 니다. 죄의 영향으로 인하여 인류는 진리를 아는 일에 있어 총명이 어두워 지고 무지하며 마음이 굳어져 있고 하나님과의 관계가 단절되어 있습니다 (엡 4:18). 하나님이 계신다는 것을 핑계할 수 없음에도 하나님을 영화롭게 도 아니하고 감사하지도 아니합니다. 스스로 지혜 있다고 하지만 미련한 마 음에 어두워진 자들입니다(롬 1:21-22). 따라서 자연인, 곧 육에 속한 사람 은 성령의 일을 어리석게 여기며 알지도 못합니다(고전 2:14). 따라서 하나 님의 말씀이 선포되어도 이들은 귀로만 들을 뿐 그 말씀을 스스로 깨닫 지를 못합니다. 이들이 선포된 하나님의 말씀을 통하여 그리스도의 구속 의 유익을 받는 길은 이들의 마음을 먼저 밝히시는 성령 하나님의 은혜뿐 입니다. ® 성령 하나님께서는 “죄책"올 드러내십니다. 죄인들의 마음을 밝 히시어 하나님의 율법 앞에 서 있는 자신을 보게 하시고 자신의 죄를 보게 하십니다. 그리고 양심의 찔림을 받습니다(히 4:12). ® 성령 하나님께서는 “겸손하게" 하십니다. 죄인은 자신의 마음에 빛을 받아, 하나님의 말씀 앞 에서 자신의 죄와 이에 대한 심판을 알게 되며, 이러할 때 자신이 의롭다고 생각한 일체의 교만이 무너지고 하나님의 긍휼을 바라는 겸손한 마음으로 무릎올 꿇게 됩니다. 그리하여 통회하고 애통해합니다(사 66:2). © 성령 하 나님께서는 죄인들을 “자신에게서 끌어내 그리스도에게로 나아가도록” 하 십니다. 이제 하나님의 긍휼 외에 자신이 의지할 바가 없다는 사실을 깨달 11 월. 27A 장. 말씀과성례 43 은 죄인은 더 이상 자신의 의나 공로를 의지하지 않습니다. 다만 오직 그리 스도만을 구원의 소망임을 고백하고 그리스도에게로 나아갑니다(요 6:44). 바울 사도는 그리스도를 아는 것 이외에 다른 율법의 의는 구원에 이르는 데 해가 될 뿐이라고 말합니다. 바울에게 있어서 자신의 의란 자신이 행한 율법의 의가 아니라 오직 믿음으로 말미암는 그리스도의 의일 뿐입니다(빌 3:7-9). ® “그리스도의 형상을 본받게 하시며 그분의 뜻에 복종하게 하시 고": 믿음으로 말미암는 그리스도의 의를 전가받은 신자는 법적으로 의롭 다 하심을 받은 신분상의 변화에 머무르지 않습니다. 신자는 그리스도의 형상을 본받고 그리스도의 뜻에 복종하는 데로 나아가는 거룩한 상태로의 변화, 곧 성화를 이루어 갑니다. 이러한 일은 성령 하나님의 은혜입니다. 이 것은 월 22일에 읽은 신앙고백서 13.1에서 읽은 바와 같습니다: “효과 있 는 부르심을 받아 중생하여 자신 안에 창조된 새 마음과 새 영을 가진 사 람들은 더 나아가, 그리스도의 죽으심과 부활의 능력으로 인하여, 또 그분 의 말씀과 이들 안에 거하시는 성령 하나님으로 말미암아 실제로 또 인격 적으로 거룩하게 하심을 받는다.” 여기서 신앙고백서는 "거룩하게 하심”(성 화)에 대해 교훈하면서 성령 하나님께서 말씀을 수단으로 사용하셔서 거룩 함을 이루어 가게 하심을 명확하게 밝혀줍니다. ® “이들이 유혹과 부패에 빠지지 않도록 강하게 하시며": 앞서 언급한 신앙고백서 13.1은 인용한 부 분에 이어서 이렇게 진술합니다: "죽 온몸에 대한 죄의 지배는 파괴되고 그 것으로 인한 여러 욕정은 점점 더 약화되며 죽게 된다.” 이 진술은 바로 성 령 하나님의 은혜로 인하여 말씀은 유혹과 부패에 빠지도록 하는 욕정을 약화하는 데에 효과있게 사용됨을 밝혀줍니다. 하나님의 말씀을 가까이하 고 묵상하며 그 교훈을 자신의 마음과 삶에 적용할 때 유혹과 부패의 영 향력은 약화되고 이것에 대한 대항력은 더욱 강화됩니다. ® "은혜 안에서 자라게 하시고 믿음을 통해 이들의 마음을 거룩함과 위로 가운데 굳게 세 우셔서”: 하나님의 말씀으로 인하여 이루어지는 모든 영적 유익은 성령 하 나님께서 행하시는 은혜의 사역입니다. 따라서 이러한 유익을 풍성하게 누 리는 일은 오직 은혜로 인한 것입니다. 그리고 이 은혜로 인하여 성도는 그 마음에 거룩함과 위로를 확고하게 붙듭니다. 특별히 거룩한 삶을 인내로 견 디며 살아가는 일에 있어서 하나님의 말씀은 성도에게 죄 사함과 하나님의 자녀의 신분과 장차 누릴 영광과 부활의 소망을 바라보면서 위로룰 누리게 합니다. (3) “구원에 이르게 하십니다”: 오늘 읽는 대요리문답 155항의 질문은 말 씀과 구원의 효과와의 연결에 관한 것입니다. 대요리문답은 성령 하나님께 서 말씀을 효과 있는 수단으로 사용하셔서 앞서 언급한 일곱 가지 영적 유 익을 이루시고, 그 결과로 신자를 “구원에 이르게 하신다”라고 진술합니다. 하나님의 말씀은 단지 복음에 관한 지식적 정보를 전달하는 데 그 효과가 그치지 않습니다. 성령 하나님께서는 이 말씀을 사용하여 실제로 구원에 이르도록 역사하십니다. 월 29일에 읽은 신앙고백서 14.1은 이와 관련하여 분명하게 다음과 같이 진술합니다. “선택된 자들은 믿음의 은혜로 인하여 믿을 수 있게 되어 영혼의 구원에 이르게 된다. 이 믿음의 은혜는 그리스도 의 성령께서 이둘 마음 안에서 행하시는 일이며, 통상적으로 말씀 사역에 의해 이루어진다. 또한 말씀 사역에 의해, 그리고 성례의 시행과 기도에 의 해 이 믿음이 중가되고 강화된다.” 구원은 그리스도를 믿는 믿음으로 말미 암아 주어집니다. 이 믿음은 성령 하나님께서 행하시는 은혜입니다. 그리고 성령 하나님께서는 통상적으로 말씀 사역을 통해 이 믿음의 은혜를 이루 십니다. 말씀은 구원의 은혜를 붙드는 믿음을 창조하고 강화하는 수단입니 다. 성령 하나님께서 성도를 구원에 이르게 하기 위해 말씀을 사용하신다 는 사실에 대해, 대요리문답 73항은 의롭다 하심을 받는 믿음을 설명하면 서 이렇게 명확히 진술합니다. ”의롭다 하심을 받는 믿음은 성령 하나님과 말씀이 죄인의 마음속에 일으키신 구원의 은혜입니다.” 또한 이어지는 76 항은 이렇게 고백합니다. “생명에 이르는 회개는 성령 하나님과 말씀이 죄 11 일. 27A장. 말씀과성례 45</p>
+                </div>
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    교리 해설
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="card-body">
-                    <p>오늘날에는 유튜브, SNS 등 여러 수단을 통해 누구나 '설교자'와 같은 영향력을 행사할 수 있습니다. 이러한 상황 속에서 대요리문답 158항은 설교와 설교자에 관해 핵심적인 교훈을 전합니다. 교회가 들어야 할 설교는 자칭 설교자가 전하는 내용으로 대체될 수 없습니다. 왜냐하면 설교자를 통해 참으로 말씀하시는 분은 하나님이시며, 하나님께서는 이를 위해 설교자를 부르시고 교회를 통하여 인준하시기 때문입니다.</p>
-                    <p>대요리문답 158항의 교훈을 네 가지로 나누어 살펴봅니다.</p>
-
-                    <ul>
-                        <li>
-                            <strong class="text-blue-600">(1) "부름을 받은 사람만이 설교할 수 있습니다.":</strong>
-                            설교는 모든 신자가 행사할 수 있는 사역이나 권리가 아닙니다. 설교는 <strong class="text-blue-600">공적 예배에서 말씀을 선포하는 거룩한 직무</strong>입니다. 예배는 사람이 고안한 방식이 아니라, 하나님께서 말씀으로 규정하신 방식대로 드려져야 합니다(제2계명, 대요리문답 108항). 따라서 설교 또한 하나님께서 정하신 방식, 즉 하나님께 부름을 받은 자가 행하는 <strong class="text-blue-600">공적 직무</strong>로서의 규례입니다. 이는 개인적인 은혜 나눔이나 권면과는 명확히 구별됩니다.
-                        </li>
-                        <li>
-                            <strong class="text-blue-600">(2) "충분한 은사를 받았을 뿐만 아니라":</strong>
-                            하나님께서 설교자로 부르시는 자를 분별하는 기준은 <strong class="text-blue-600">"충분한 은사"</strong>입니다.
-                            <ul class="list-disc list-inside ml-6 mt-2">
-                                <li><strong class="text-blue-600">말씀 이해와 전달</strong>: 성경 말씀을 올바르게 해석하고(딤후 2:15), 회중에게 잘 설명하고 가르칠 수 있는 능력(딤전 3:2)입니다.</li>
-                                <li><strong class="text-blue-600">목양의 지혜</strong>: 단순한 학자가 아니라, 성도의 삶에 말씀을 적용하도록 교훈하는 목양의 책임(딛 1:9)을 감당할 지혜입니다.</li>
-                                <li><strong class="text-blue-600">삶의 본</strong>: 말과 행실, 사랑과 믿음, 정절에 있어 믿는 자에게 본이 되는(딤전 4:12-13) 존경할 만한 삶입니다.</li>
-                                <li><strong class="text-blue-600">목자의 성품</strong>: 다투지 않고 온유하며(딤후 2:24) 따뜻한 목양의 마음입니다.</li>
-                            </ul>
-                            <p>이러한 은사들은 자연적 재능이 아니라, <strong class="text-blue-600">성령 하나님의 은혜로 주어지는 영적 자질</strong>입니다. 대중적 호소력이나 인기가 아니라, 하나님의 사람으로서 교회를 진리 가운데 이끌기에 합당한 자질이 기준입니다.</p>
-                        </li>
-                        <li>
-                            <strong class="text-blue-600">(3) "그 직무를 감당하도록 공식적으로 인허받고":</strong>
-                            설교자는 스스로 은사가 있다고 주장하거나 사람들이 인정해 주는 것만으로는 충분하지 않습니다. 반드시 <strong class="text-blue-600">교회의 공적 권위인 장로회 총회와 노회에 의해 인허와 임명</strong>을 받아야 합니다(딤전 4:14). 이 심사와 인준 과정은, <strong class="text-blue-600">스스로 설교자로 자임하여 말씀을 왜곡하는 일을 방지</strong>하고, 성도들을 바른 진리로 인도하며, 교회의 영적 질서를 세우기 위함입니다. 장로교회의 원리에 따르면, 오늘날 SNS 등에서 공적 인준 없이 독립적으로 활동하는 설교자는 용납될 수 없습니다.
-                        </li>
-                        <li>
-                            <strong class="text-blue-600">(4) "부름을 받은 사람만이 설교할 수 있습니다.":</strong>
-                            설교자에게는 '소명'(Calling)이 요구됩니다. 이 소명은 <strong class="text-blue-600">외적 부르심</strong>과 <strong class="text-blue-600">내적 부르심</strong>으로 구별됩니다.
-                            <ul class="list-disc list-inside ml-6 mt-2">
-                                <li><strong class="text-blue-600">외적 부르심</strong>: 앞서 말한 "충분한 은사"를 확인하고, 교회의 공적 권위가 "공식적으로 인허"하는 것입니다.</li>
-                                <li><strong class="text-blue-600">내적 부르심</strong>: 단순한 직업 선택이 아닙니다. 성령께서 주시는, <strong class="text-blue-600">복음을 전하고자 하는 강렬한 열망과 사명감</strong>(렘 20:9)입니다. 말씀을 연구하는 기쁨, 영혼을 돌보는 수고를 즐거워함, 세상의 명예나 이익보다 주님의 교회를 위한 헌신의 각오가 있어야 합니다. 이는 단순한 희망이나 과도한 집착과는 구별되며, <strong class="text-blue-600">자신을 위한 것이 아니라 그리스도의 나라를 위하여</strong> 헌신하고자 하는 진실한 소원입니다.</li>
-                            </ul>
-                        </li>
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p>오늘 읽은 소요리문답 89항과 대요리문답 155 항은 어제 살펴본 내용에 이 
+어지는 질문을 다룹니다. 어제 우리는 말씀과 성례와 기도와 같은 그리스 
+도의 규례들 곧 은혜의 수단이 택함을 받은 자들이 구원을 얻는 데 효과 
+적이라는 사실을 알아보았습니다. 그렇다면 이제 구체적으로 말씀은 어떻 
+게 구원을 얻는 데 효과 있게 되는 것인지를 살펴보겠습니다. 소요리문답 
+89항과 대요리문답 155 항은 역시 동일한 내용을 교훈하고 있으므로 대요리문답을 중심으로 전체 내용을 세 개로 나누어 차례대로 살펴보겠습니다.</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 1</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">1. 왜 대요리문답 158항은 설교가 모든 신자가 자유롭게 할 수 있는 일이 아니라, 하나님께서 부르신 자만이 맡아야 하는 공적 직무라고 말합니까? 여러분은 설교가 단순한 가르침이나 권면이 아니라 하나님께서 제정하신 예배의 규례이며, 그분이 세우신 질서에 따라 드려져야 함을 인정하며 설교를 듣고 있습니까?</span></li>
-                        <li><span class="question">2. 설교자가 되기 위해 "충분한 은사"가 필요하다고 할 때, 그것은 어떤 은사와 자질을 의미합니까? 여러분은 설교자가 단순히 말재주나 대중적 영향력이 아니라, 성령께서 주시는 은사와 영적 자질로 교회를 목양해야 한다는 사실을 기억하며, 참된 은사가 있는 설교자를 분별하고 존중하고 있습니까?</span></li>
-                        <li><span class="question">3. 왜 설교자는 교회의 공적 권위에 의해 공식적으로 인허를 받아야 합니까? 여러분은 오늘날 유튜브나 SNS와 같은 매체에서 스스로 설교자라 주장하는 이들이 많다는 사실을 기억하면서, 공적으로 인준받은 참된 설교자의 말씀에 귀를 기울이고 있습니까?</span></li>
-                        <li><span class="question">4. 설교 직무에는 외적 부르심뿐 아니라 내적 부르심도 필요하다고 할 때, 내적 부르심은 어떤 특징을 지니고 있습니까? 여러분은 설교자가 단순히 직업을 택한 사람이 아니라, 그리스도의 복음을 전하려는 성령의 불타는 열망과 사명을 지닌 자임을 기억하며, 그러한 설교자를 통해 말씀하시는 하나님께 순종하고 있습니까?</span></li>
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">성령 하나님께서는 말씀을 읽는 것, 특별히 말씀의 선포룰 효과 있는 
+수단으로 사용하셔서</strong>: ‘말씀 선포’는 그리스도의 구속의 유익을 전달하는 
+은혜의 수단입니다. 그러나 말씀이 선포되어도 듣는 자에게 선포된 말씀이 
+그 자체로 은혜를 전달하는 효과를 낳지 않습니다. 동일한 말씀을 돋고도 
+어떤 이는 복음의 은혜 앞에 나오는 반면, 다른 어떤 이는 전혀 깨달음이 
+없거나 오히려 반발하기도 합니다. 이처럼 반옹이 다르게 나타나는 일은 마 
+치 은혜의 수단으로서 말씀이 자동적으로 효과를 주는 것이 아니라는 사 
+실을 잘 보여줍니다. 그러면 무엇이 이러한 차이를 드러내는 것일까요? 
+오늘 대요리문답 155 항은 <strong class="text-blue-600">성령 하나님</strong>의 사역으로 인한 것임을 교훈합니 
+다. 말씀의 선포가 듣는 자에게 복음의 은혜와 중보자의 유익을 받는 효과 
+로 나타나는 것은 성령 하나님께서 <strong class="text-blue-600">말씀의 선포를 효과 있는 수단으로 사 
+11 열. 27A장. 말씁파성례 41 
+용<strong class="text-blue-600">하심으로 이루어지는 것이라고 진술합니다. 이러한 진리는 월 일에 대요리문답 항과 신앙고백서 .5을 읽으면서 성경이 하나님의 말씀으로서 참 
+된 계시라는 사실과 이것이 과연 그러하다는 것을 아는 일이 성령 하나님 
+의 사역으로 인한 것임을 학습하면서 살펴본 바와 연결됩니다. 
+대요리문답 항은 “성경이 하나님의 말씀이라는 것은 어떻게 나타납니까?</strong> 
+라는 질문에 대하여 다음과 같이 답을 합니다: “성경은 그 자체가 하나님 
+의 말씀임을 명백하게 드러냅니다. 성경의 장엄함과 순수함, 모든 부분의 일 
+치와 모든 영광을 하나님께 돌리는 전체의 목적, 또한 죄인임을 드러내어 
+회개시키며, 신자를 위로하며 구원에 이르도록 세우는 그 빛과 능력이 성 
+경 자체가 하나님의 말씀임을 명백하게 드러냅니다. 그러나 성경으로, 또한 
+성경과 함께 사람의 마음 안에서 중언하시는 성령 하나님만이 성경이 하 
+나님의 말씀임을 온전히 설득하실 수 있습니다.</strong> 먼저 성경은 그 자체로 하 
+나님의 말씀임을 명백하게 드러냅니다. 그러하기에 하나님의 말씀의 선포 
+는 구원의 은혜롤 전달하는 수단이 된다는 점은 명백합니다. 하지만 성경 
+이 하나님의 말씀이라는 것을 온전히 설득하는 일은 성령 하나님만의 사역 
+입니다. 그러하기에 은혜의 수단이 성경의 말씀 선포가 효과를 나타내는 일 
+도 성령 하나님의 은혜의 사역이 있어야만 가능합니다. 성경 말씀이 성령 
+하나님의 영감으로 기록되었듯이, 기록된 성경을 읽고, 듣고, 깨닫는 일 또 
+한 성령 하나님의 사역으로 인하여 이루어집니다. 이것을 가리켜 성령 하나 
+님의 조명의 은혜라고 일컫습니다. 성령 하나님께서 성경의 말씀으로 은혜 
+롤 전달하시는 일을 가리켜서 혼히들 성령 하나님께서는 "말씀을 가지고 
+또는 함께 ”(Cum Verbo) 사역을 하신다고 표현합니다. 이러한 진술은 성경 
+에서 <strong class="text-blue-600">이는 우리 복옴이 너희에게 말로만 이른 것이 아니라 또한 능력과 성 
+령과 큰 확신으로 된 것임이라 우리가 너희 가운데서 너희를 위하여 어떤 
+사람이 된 것은 너희가 아는 바와 같으니라</strong>(살전 1:5) 라고 하신 말씀에 근 
+거합니다. </p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">죄인들의 마음을 밝히시고 죄책을 드러내시며 겸손하게 하시고, 이들 
+울 자신에게서 끌어내 그리스도에게로 나아가도록 하시고, 그리스도의 형 
+상을 본받게 하시며 그분의 뜻에 복종하게 하시고, 이들이 유혹과 부패에 
+빠지지 않도록 강하게 하시며, 은혜 안에서 자라게 하시고 … 이들의 마 
+음을 거룩함과 위로 가운데 굳게 세우셔서<strong class="text-blue-600">： 성령 하나님께서 말씀을 수 
+단으로 하여 전달하시는 은혜의 유익들을 일곱 가지 효과로 제시합니다. 
+® 성령 하나님께서는 적인들의 마음</strong>을 밝혀주십니다. 아담의 타락 이후 
+에 모든 인류는 원죄로 인하여 영적 진리를 불완전하며 왜곡되게 인지합 
+니다. 죄의 영향으로 인하여 인류는 진리를 아는 일에 있어 총명이 어두워 
+지고 무지하며 마음이 굳어져 있고 하나님과의 관계가 단절되어 있습니다 
+(엡 4:18). 하나님이 계신다는 것을 핑계할 수 없음에도 하나님을 영화롭게 
+도 아니하고 감사하지도 아니합니다. 스스로 지혜 있다고 하지만 미련한 마 
+음에 어두워진 자들입니다(롬 1:21-22). 따라서 자연인, 곧 육에 속한 사람 
+은 성령의 일을 어리석게 여기며 알지도 못합니다(고전 2:14). 따라서 하나 
+님의 말씀이 선포되어도 이들은 귀로만 들을 뿐 그 말씀을 스스로 깨닫 
+지를 못합니다. 이들이 선포된 하나님의 말씀을 통하여 그리스도의 구속 
+의 유익을 받는 길은 이들의 마음을 먼저 밝히시는 성령 하나님의 은혜뿐 
+입니다. ® 성령 하나님께서는 <strong class="text-blue-600">죄책</strong>을 드러내십니다. 죄인들의 마음을 밝 
+히시어 하나님의 율법 앞에 서 있는 자신을 보게 하시고 자신의 죄를 보게 
+하십니다. 그리고 양심의 찔림을 받습니다(히 4:12). ® 성령 하나님께서는 
+“겸손하게<strong class="text-blue-600"> 하십니다. 죄인은 자신의 마음에 빛을 받아, 하나님의 말씀 앞 
+에서 자신의 죄와 이에 대한 심판을 알게 되며, 이러할 때 자신이 의롭다고 
+생각한 일체의 교만이 무너지고 하나님의 긍휼을 바라는 겸손한 마음으로 
+무릎을 꿇게 됩니다. 그리하여 통회하고 애통해합니다(사 66:2). © 성령 하 
+나님께서는 죄인들을 “자신에게서 끌어내 그리스도에게로 나아가도록</strong> 하 
+십니다. 이제 하나님의 긍휼 외에 자신이 의지할 바가 없다는 사실을 깨달 
+11 월. 27A 장. 말씀과성례 43 
+은 죄인은 더 이상 자신의 의나 공로를 의지하지 않습니다. 다만 오직 그리 
+스도만을 구원의 소망임을 고백하고 그리스도에게로 나아갑니다(요 6:44). 
+바울 사도는 그리스도를 아는 것 이외에 다른 율법의 의는 구원에 이르는 
+데 해가 될 뿐이라고 말합니다. 바울에게 있어서 자신의 의란 자신이 행한 
+율법의 의가 아니라 오직 믿음으로 말미암는 그리스도의 의일 뿐입니다(빌 
+3:7-9). ® <strong class="text-blue-600">그리스도의 형상을 본받게 하시며 그분의 뜻에 복종하게 하시 
+고</strong>: 믿음으로 말미암는 그리스도의 의를 전가받은 신자는 법적으로 의롭 
+다 하심을 받은 신분상의 변화에 머무르지 않습니다. 신자는 그리스도의 
+형상을 본받고 그리스도의 뜻에 복종하는 데로 나아가는 거룩한 상태로의 
+변화, 곧 성화를 이루어 갑니다. 이러한 일은 성령 하나님의 은혜입니다. 이 
+것은 월 22일에 읽은 신앙고백서 13.1에서 읽은 바와 같습니다: “효과 있 
+는 부르심을 받아 중생하여 자신 안에 창조된 새 마음과 새 영을 가진 사 
+람들은 더 나아가, 그리스도의 죽으심과 부활의 능력으로 인하여, 또 그분 
+의 말씀과 이들 안에 거하시는 성령 하나님으로 말미암아 실제로 또 인격 
+적으로 거룩하게 하심을 받는다.</strong> 여기서 신앙고백서는 <strong class="text-blue-600">거룩하게 하심”(성 
+화)에 대해 교훈하면서 성령 하나님께서 말씀을 수단으로 사용하셔서 거룩 
+함을 이루어 가게 하심을 명확하게 밝혀줍니다. ® <strong class="text-blue-600">이들이 유혹과 부패에 
+빠지지 않도록 강하게 하시며</strong>: 앞서 언급한 신앙고백서 13.1은 인용한 부 
+분에 이어서 이렇게 진술합니다: <strong class="text-blue-600">죽 온몸에 대한 죄의 지배는 파괴되고 그 
+것으로 인한 여러 욕정은 점점 더 약화되며 죽게 된다.</strong> 이 진술은 바로 성 
+령 하나님의 은혜로 인하여 말씀은 유혹과 부패에 빠지도록 하는 욕정을 
+약화하는 데에 효과있게 사용됨을 밝혀줍니다. 하나님의 말씀을 가까이하 
+고 묵상하며 그 교훈을 자신의 마음과 삶에 적용할 때 유혹과 부패의 영 
+향력은 약화되고 이것에 대한 대항력은 더욱 강화됩니다. ® </strong>은혜 안에서 
+자라게 하시고 믿음을 통해 이들의 마음을 거룩함과 위로 가운데 굳게 세 
+우셔서”: 하나님의 말씀으로 인하여 이루어지는 모든 영적 유익은 성령 하 
+나님께서 행하시는 은혜의 사역입니다. 따라서 이러한 유익을 풍성하게 누 
+리는 일은 오직 은혜로 인한 것입니다. 그리고 이 은혜로 인하여 성도는 그 
+마음에 거룩함과 위로를 확고하게 붙듭니다. 특별히 거룩한 삶을 인내로 견 
+디며 살아가는 일에 있어서 하나님의 말씀은 성도에게 죄 사함과 하나님의 
+자녀의 신분과 장차 누릴 영광과 부활의 소망을 바라보면서 위로룰 누리게 
+합니다. </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 3</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">구원에 이르게 하십니다</strong>: 오늘 읽는 대요리문답 155항의 질문은 말 
+씀과 구원의 효과와의 연결에 관한 것입니다. 대요리문답은 성령 하나님께 
+서 말씀을 효과 있는 수단으로 사용하셔서 앞서 언급한 일곱 가지 영적 유 
+익을 이루시고, 그 결과로 신자를 <strong class="text-blue-600">구원에 이르게 하신다</strong>라고 진술합니다. 
+하나님의 말씀은 단지 복음에 관한 지식적 정보를 전달하는 데 그 효과가 
+그치지 않습니다. 성령 하나님께서는 이 말씀을 사용하여 실제로 구원에 
+이르도록 역사하십니다. 월 29일에 읽은 신앙고백서 14.1은 이와 관련하여 
+분명하게 다음과 같이 진술합니다. <strong class="text-blue-600">선택된 자들은 믿음의 은혜로 인하여 
+믿을 수 있게 되어 영혼의 구원에 이르게 된다. 이 믿음의 은혜는 그리스도 
+의 성령께서 이둘 마음 안에서 행하시는 일이며, 통상적으로 말씀 사역에 
+의해 이루어진다. 또한 말씀 사역에 의해, 그리고 성례의 시행과 기도에 의 
+해 이 믿음이 중가되고 강화된다.</strong> 구원은 그리스도를 믿는 믿음으로 말미 
+암아 주어집니다. 이 믿음은 성령 하나님께서 행하시는 은혜입니다. 그리고 
+성령 하나님께서는 통상적으로 말씀 사역을 통해 이 믿음의 은혜를 이루 
+십니다. 말씀은 구원의 은혜를 붙드는 믿음을 창조하고 강화하는 수단입니 
+다. 성령 하나님께서 성도를 구원에 이르게 하기 위해 말씀을 사용하신다 
+는 사실에 대해, 대요리문답 73항은 의롭다 하심을 받는 믿음을 설명하면 
+서 이렇게 명확히 진술합니다. ”의롭다 하심을 받는 믿음은 성령 하나님과 
+말씀이 죄인의 마음속에 일으키신 구원의 은혜입니다.” 또한 이어지는 76 
+항은 이렇게 고백합니다. “생명에 이르는 회개는 성령 하나님과 말씀이 죄 
+11 일. 27A장. 말씀과성례 45</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-        const playerUi = document.getElementById('audio-player-ui');
 
-        // 1. YouTube API 로드
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
-
-        // 2. API 콜백 함수
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
+            // 플레이어는 버튼 클릭 시 생성
         }
 
-        // 3. 오디오 주소 fetch 및 파싱
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = getFormattedDate();
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    // 비디오 ID 추출 (URL 전체에서 ID만 정확히 파싱)
-                    // 정규식: (v=... 또는 youtu.be/...) 다음에 오는 비디오 ID (특수문자 포함)
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    // 오늘 날짜의 주소가 없는 경우
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        // 4. 오늘 날짜 포맷 (MMDD)
-        function getFormattedDate() {
-            const now = new Date();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            // return `${month}${day}`;
-            return '1106'; // 요청된 날짜로 고정
-        }
-
-        // 5. 플레이어 초기화
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                    'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        // 6. 플레이어 준비 완료
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
-        // 7. 플레이어 상태 변경
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0); // 끝나면 처음으로 되감기
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        // 8. 재생/일시정지 토글
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        // 9. 버튼 UI 업데이트
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        // 10. 오류 처리
-        function showError(message) {
-            // 기존 UI 숨기기
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            
-            // 오류 메시지 표시
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        // API 로드 시작
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1106';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

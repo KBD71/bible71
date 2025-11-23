@@ -3,378 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 11월 12일</title>
+    <title>11월 12일: 도록 강하게 하시고, 은혜 안에서 자라게 하시며, … 이들의 마음을 거룩함</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6; /* Tailwind gray-100 */
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
-            border-radius: 0.75rem; /* lg */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* lg */
-            margin-bottom: 1.5rem; /* 6 */
-            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568; /* Tailwind gray-700 */
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem; /* xl */
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb; /* gray-200 */
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem; /* lg */
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937; /* gray-800 */
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151; /* gray-700 */
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151; /* gray-700 */
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827; /* gray-900 */
-        }
-        .card-body .answer {
-            color: #374151; /* gray-700 */
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb; /* gray-50 */
-            border-top: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb; /* gray-200 */
-            color: #9ca3af; /* gray-400 */
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb; /* blue-600 */
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8; /* blue-700 */
-        }
-        .audio-button.pause {
-            background-color: #f87171; /* red-400 */
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444; /* red-500 */
-        }
-        .audio-error {
-            color: #dc2626; /* red-600 */
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem; /* sm */
-            color: #6b7280; /* gray-500 */
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">11월 12일</h1>
-            <p class="text-xl text-gray-600 mt-2">구원의 효과 있는 수단인 성례</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">도록 강하게 하시고, 은혜 안에서 자라게 하시며, … 이들의 마음을 거룩함</h1>
+            <p class="text-lg md:text-xl text-gray-500">11월 12일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    소요리문답 91문
-                </div>
-                <div class="card-body">
-                    <div class="question-answer">
-                        <p class="question">문91. 성례는 어떻게 구원의 효과 있는 수단이 됩니까?</p>
-                        <p class="answer">답. 성례가 구원의 효과 있는 수단이 되는 것은 성례 자체나 성례를 시행하는 사람에게 어떤 능력이 있어서가 아니라, 오직 그리스도의 복 주심과 성례를 믿음으로 받는 자들 안에 계시는 성령 하나님의 역사하심 때문입니다.</p>
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     </div>
+                    <h2 class="card-title">신앙고백서 1</h2>
                 </div>
-            </div>
-
-            <div class="card">
+                <div class="catechism-body">
+                    <p>. 의 원리에 따라 “성경 유비”와 “신앙 유비”에 근거해 해 석하며, 최종적으로 교리적 체계와 연결하는 신학적 작업을 수행해야 합니 다. 그러나 설교자는 단순히 연구에만 전념하는 학자가 아니라, 성도들에게 하나님의 말씀올 선포하고 가르쳐야 하는 강설의 수고를 감당해야 합니다. 풀어진 의미가 과연 그러하다는 사실이 성도들에게 납득되도록 설명하고, 성도들이 말씀의 교훈을 자신의 삶의 자리에서 적용하며 살아가도록 안내 하고 설득하며 도전해야 합니다. 또한 이 모든 수고가 열매 맺도록 성령 하 나님의 도우심올 구하는 기도의 수고도 반드시 필요합니다. 오늘 대요리문답은 단 한 구절 "말씀 사역에 수고하도록 부름을 받은“이라는 표현 속에 이러한 모든 차원의 수고를 함축하여 담고 있습니다. (2) "바론 교훈을 설교하되": 설교자는 반드시 "바른 교훈"(sound doctrine)올 설교해야 합니다. 여기서 “바른“이라는 말은 성경의 진리에 충 실하며, 다른 요소에 의해 오염되지 않은 순수성을 뜻합니다. 동시에 이는 교회의 정통 신앙고백과 일치함을 가리킵니다. 성경 말씀에 근거한 순수성 이 “바른 교훈"올 결정하는 이유는, 월 10일에 살펴본 것처럼 신앙고백서 1. 이 “하나님 자신의 영광, 사람의 구원, 믿음, 그리고 생활에 필요한 모든 것과 관련한 하나님의 전체 경륜“이라고 분명하게 진술하고 있는 것에서 잘 드러납니다. 기록된 말씀 외에 다른 것을 더하거나 보태는 것은 곧 성경의 순수성을 훼손하고, 진리를 오엽시키는 행위가 됩니다. 성경은 또한 “바른 말을 본받아 지키라”(딤후 1:l3; 참조, 딛 1:9)고 말씀하면서, 그 기준을 “내 게 들은 바”, 곧 사도의 교훈에 두고 있습니다. 이는 바른 교훈이란 곧 사도 의 가르침에 충실히 서 있는 교훈임을 뜻합니다. (3) “때를 얻든지 못 얻든지 부지런히.： 설교자는 설교 사역을 반드시 “부 지런히” 감당해야 합니다. 여기서 “부지런히”라는 말은 설교를 해도 되고 하지 않아도 되는 일로 여겨서는 안 된다는 점을 강조합니다(딤후 4:2). 설 교자에게 있어 설교는 언제나 항상 행해야 하는 직무이며, 이를 위해 꾸준 히 성실하게 준비해야 하는 의무입니다. “때를 얻든지 못 얻든지”라는 표현 은 다소 의아하게 들릴 수 있습니다. 설교는 기본적으로 공적 예배에서 행 하는 일이기 때문에, “때를 얻지 못한다”라는 말이 무슨 뜻인지 의문이 생 길 수 있기 때문입니다. 마치 “때를 얻을 때면 언제든 부지런히”라고 하는 것이 더 자연스러워 보일 수도 있습니다. 그러나 여기서 “때를 얻든지 못 얻 든지”라는 말은, 설교자가 예배에서만이 아니라 성도롤 심방하거나 권면할 때, 혹은 다른 어떤 기회 속에서도 말씀을 준비하여 권위 있게 선포해야 하는 책임을 지고 있음을 뜻합니다. 특히 상황적으로 보면, 설교자의 말을 들을 준비가 되어 있는 사람에게 전하는 것은 “때를 얻은 것”이 되고, 반대 로 듣기를 거부하거나 싫어하는 사람에게 전하는 것은 “때를 얻지 못하는 것“이라 할 수 있습니다. 곧 설교자는 복음을 선포하기에 좋은 환경이 아닐 지라도, 자신이 여전히 말씀 전파자로 부름 받은 자임을 잊지 말아야 합니 다. 따라서 청중의 반옹이 냉랭하거나 분위기가 불리하다 하여, 진리의 내 용올 희석하거나 생략하려 해서는 안 됩니다. 설교자는 언제나 담대히 진 리를 전해야 하며, 동시에 전도자로서의 소명올 잊지 말아야 합니다. (4) “사람의 지혜의 권하는 말로 하지 아니하고 성령의 나타남과 능력으로 단순하게": 설교는 반드시 "단순하게", 곧 “이해하기 쉽게•, "명료하게" 전 달되어야 합니다. 여기서 "단순하게"란 내용을 단순화시켜 가볍게 만든다 는 뜻이 아니라 성도가 말씀을 분명히 깨달을 수 있도록 명확하게 전한다 는 의미입니다. 반대로 “사람의 지혜의 권하는 말“이란, 말씀을 풀어낸다고 하면서도 사람의 논리와 상상으로 과도하게 꾸며서 성도들이 오히려 분명 히 알아듣기 어렵게 만드는 방식을 가리킵니다. 바울은 이러한 설교를 "허 공에다 말하는 것”(고전 14:9)에 비유했습니다. 그러므로 설교는 성도가 명 확히 알아들올 수 있도록 분명하게 전달되어야 합니다. 또한 사람의 지혜 나 말하는 기술에 의존해서는 얀 되며, 오직 성령 하나님의 능력에 의지해 야 합니다. 이럴 때 말씀을 통해 역사하시는 성령께서 성도들의 마음에 깨 닫는 은혜를 주십니다. 설교자는 성경의 교훈을 바르게, 정확하게 전하며, 성령 하나님께서 복음을 통해 듣는 자들의 영혼올 그리스도께로 이끄신다 는 사실을 믿고 강단에 서야 합니다. 따라서 설교자는 하나님의 말씀을 기 록된 그대로 드러내고, 올바른 신앙고백의 교리에 일치하도록 충실히, 그리 고 단순하게 곧 명료하게 전달하는 것이 직무임을 잊지 말아야 합니다. 반 면, 설교가 단순히 사람이 처한 문제를 간중이나 심리 상담으로 풀어내거 나, 사회적 이슈에 대한 정치적 견해를 제시하거나, 청중이 즐거워할 만한 오락·쇼적 요소를 보여주거나; 혹은 자기 계발 아이디어를 제공하는 것에 머문다면 그것은 더 이상 올바론 의미에서의 설교가 아닙니다. (5) “하나님의 모든 경륜을 알 수 있도록 충실하게": 설교자는 반드시 "충 실하게" 설교해야 합니다. 여기서 "충실하다”라는 것은, 내용에 있어서 “하 나님의 모든 경륜”을 전체적으로 조화를 이루며 해석된 그리스도의 복음을 전한다는 의미입니다. 범위와 관련해서 “하나님의 모든 경륜"은 성경의 모 든 교훈을 포괄하는 것을 뜻합니다. 그러므로 설교자는 본문을 선택할 때 자기 생각에 맞는 주제나 청중이 듣기 좋아할 만한 부분만 편향적으로 택 해서는 안 됩니다. 이는 곧 개혁신학 설교자가 루터파·아르미니우스파·로 마 가톨릭 신학과 같은 해석 차이를 전혀 가질 수 없다는 의미는 아닙니 다. 해석 차이가 있올 수 있으나, 설교자는 자신의 신학적 체계 안에서라 도 하나님의 전체 경륜울 드러내는 방향으로 설교해야 한다는 것올 뜻합니 다. 그렇게 함으로써 설교자가 본문 선택을 임의로 제한하여 자기 신학 안 에서도 균형을 잃는 일이 없도록 해야 합니다. 성경의 모든 말씀 곧 교훈 • 책망·바르게 함·의로 교육하는 내용을 임의로 생략하지 않아야 합니다(딤 후 3:16). 반대로, 자신의 사상이나 선호를 계시인 것처럼 첨가해서도 안 됩 니다. 설교자는 본문올 선택하거나 회피할 때 자신의 성향이나 회중의 반 응에 좌우되어서는 안 됩니다. 예를 들어, 설교자가 그리스도 안에서 모든 자가 용서받은 은혜만 강조하고 싶다는 이유로, 하나님께서 죄를 미워하시 고 성도를 거룩한 삶으로 부르신다는 본문을 회피하는 것은 충실하지 못 한 태도입니다. 또 성도들이 말씀 앞에서 자신의 연약함과 죄성을 직면하 고, 그리스도의 용서 안에서 새롭게 결단하도록 인도하지 않고, 단지 용서 의 확신만을 반복적으로 강조하여 듣기에 편안한 메시지만 주는 것도 마찬 가지입니다. 설교자는 청중이 듣기 좋아하는 대중적이고 무난한 본문만 선 택하여, 성경 전체의 경륜에 비추어 볼 때 편중된 설교를 하지 않도록 유의 해야 합니다. 바로 이러한 이유 때문에, 개혁교회는 역사적으로 본문을 순 차적으로 이어가며 성경 전체를 다루는 강해설교(expo it ry preach ing) 를 주된 설교 방식으로 삼아 왔습니다. 오늘 읽은 대요리문답 159항의 교 훈은 그 전통적 이유를 잘 설명해 줍니다. (6) "듣는 사람들의 필요와 이해 능력에 맞도록 지혜롭게"： 설교자는 반드 시 “지혜롭게" 설교해야 합니다. 여기서 ‘지혜롭게"란, 하나님의 말씀을 회 중에게 전달할 때 회중의 필요와 이해 능력에 적절하게 맞추는 일을 뜻합 니다. 성도의 영적 성숙도는 다양합니다. 또 삶의 처지도 제각기 다룝니다. 어떤 이는 믿은 지 얼마 되지 않은 초신자이고, 어떤 이는 오랜 신앙의 길 올 걸어온 성도입니다. 어떤 이는 고난 가운데 있고, 또 다른 이는 평안 가 운데 지넵니다. 그러므로 설교자는 회중 개개인의 상태를 분별하고, 그들의 영적 필요를 헤아릴 책임이 있습니다. 그리고 신앙의 연륜과 성숙도의 차이 로 언해 말씀을 이해하는 능력에도 차이가 있습니다. 따라서 설교자는 이 러한 상태를 잘 살피고, 말씀을 풀어내며 적실한 적용을 제시하는 지혜를 11월. 27A잘 말씀과성례 79 발휘해야 합니다. 설교자는 진리의 말씀을 "충실하게" 전하되, 단지 정보 전달에 머물지 않고 양 떼를 돌보는 목자로서 돌봄의 목적을 가지고 설교 해야 합니다. 바울이 권면한 대로, 설교자는 게으른 자를 권계하고, 마음이 약한 자를 격려하며, 힘이 없는 자를 붙들어 주는(살전 5:13-14) 은혜의 사 역을 감당해야 합니다. 이를 위해서는 말씀 준비와 선포뿐 아니라 무엇보 다도 기도로 지혜를 구하는 일이 필요합니다. 설교자가 회중이 자신의 설교 를 어떻게 돋는지 전혀 고민하지 않고, 단지 말씀을 무심히 “내던지돗” 선 포한다면, 그것은 지혜로운 설교가 아닙니다. 설교자는 성도의 신앙 수준과 삶의 현실을 깊이 살피며, 목양적 마음으로 그리스도의 은혜와 하나님의 크신 사랑을 전해야 합니다. 설교를 “지혜롭게” 행한다는 것은, 진리를 충실 히 전하는 동시에 회중의 형편과 영적 상태를 살피며, 그 말씀을 적절히 적 용해 양 떼를 돌보는 목자의 심정으로 설교하는 것을 의미합니다. 이것이 참된 지혜의 설교입니다. (7) “하나님과 그분의 백성의 영혼에 대한 뜨거운 사랑을 품고 열정적으 로": 설교자는 반드시 "뜨거운 사랑을 품고 열정적으로. 설교해야 합니다. 왜냐하면 설교는 단지 하나님의 말씀에 담긴 내용을 지식적으로 전달하는 것에 그치지 않기 때문입니다. 설교자는 하나님의 말씀에 담긴 구원의 온 혜를 먼저 받은 자로서, 하나님께서 그분의 백성을 향해 베푸시는 크신 긍 휼과 인애를 뜨거운 사랑의 마음으로, 열정적으로 선포해야 합니다. 이 사 랑은 곧 하나님의 은혜에 감사하여 하나님께 드리는 사랑이며, 동시에 하 나님께서 사랑하시는 그분의 자녀를 향한 목자의 사랑입니다. 만일 이 사 랑이 없는 열정적인 설교는 단순히 자기주장을 높이는 데 그칠 뿐입니다. 반대로 사랑은 있으나 열정이 없다면, 목자로서의 목양적 마음이 설교 가 운데 드러나지 않습니다. 그러므로 참된 설교는 사랑과 열정이 결합된 모습 이어야 합니다. 설교자는 설교 가운데 하나님과 그분의 백성을 향한 사랑 올 담고, 그것을 열정적으로 표현하는 태도와 동기를 반영해야 합니다. 이 럴 때 설교는 단순한 지식 전달을 넘어, 하나님의 은혜와 사랑을 살아 있는 말씀으로 드러내게 됩니다. (8) “하나님의 영광과 백성의 회심, 건덕, 구원을 목표로 삼아 진실하게 설 교해야 합니다”: 설교자는 반드시 "진실하게" 설교해야 합니다. 이것은 설교 자가 설교할 때 가져야 할 가장 근본적인 동기가 “하나님의 영광계 있다는 사실과 직결됩니다. 설교자는 언제나 하나님 앞에서 성도에게 말씀을 전합 니다. 그러나 성도는 사람이기에, 설교자는 사람에게서 인정과 칭찬을 받 고자 하는 유혹에 마음올 빼앗기기 쉽습니다. 또한 교세의 확장이나 자기 영향력을 목표로 설교하는 잘못에 빠질 위험도 있습니다. 하지만 설교자 는 결코 이러한 동기를 따라 설교해서는 안 됩니다. 설교의 목적은 오직 하 나님께서 그의 백성을 구원하고자 하시는 은혜의 사역을 선포하여, 성도가 회심하고, 덕을 세우며, 마침내 구원에 이르도록 돕는 데 있습니다. 소위 말 하는 “구령의 열정“이 바로 설교자의 참된 목표여야 합니다. 따라서 "진실 하게" 설교한다는 것은 설교자의 마음이 정직하게 말하며, 오직 하나님의 영광에 집중되어 있어야 함을 의미합니다. ‘ 적용질문 1. 왜 대요리문답은 설교를 단순한 개인적 권면이나 가르침과 구별되는 공적이고 거룩한 직무라고 말합니까? 여러분은 공예배의 설교를 하나님의 직접적인 말씀 선포로 여기며, 사람의 말이 아닌 하나님의 음성에 귀 기울 이는 태도로 예배에 임하고 있습니까? 2. 설교자가 반드시 바른 교훈을 전해야 한다고 할 때, 그것은 어떤 기준 11 월. 27A장. 말씀과성례 81</p>
+                </div>
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    대요리문답 161문
-                </div>
-                <div class="card-body">
-                    <div class="question-answer">
-                        <p class="question">문161. 성례는 어떻게 구원의 효과 있는 수단이 됩니까?</p>
-                        <p class="answer">답. 성례가 구원의 효과 있는 수단이 되는 것은 성례 자체에 어떤 능력이 있어서라든지, 혹은 성례를 시행하는 사람의 경건이나 의향에서 나오는 어떤 덕 때문이 아니고, 오직 성령 하나님의 역사하심과 성례를 제정하신 그리스도의 복 주심 때문입니다.</p>
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
                     </div>
+                    <h2 class="card-title">교리 해설</h2>
                 </div>
-            </div>
-
-            <div class="card">
+                <div class="space-y-4 text-gray-600">
+                    <p></p>
+                </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    교리 해설
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
                 </div>
-                <div class="card-body">
-                    <p>오늘 읽는 소요리문답 91항과 대요리문답 161항은 성례가 실제로 구원의 은혜를 전달한다고 할 때 그 효력이 어디에서 오는지를 묻습니다. 두 문답의 대답은 동일하므로 대요리문답을 토대로 살펴봅니다.</p>
-
-                    <h3>1. 성례는 "구원의 효과 있는 수단"이다</h3>
-                    <p>성례는 구원이 이루어지는 일을 단지 상징하거나 기념하는 것이 아닙니다. 성례는 <strong class="text-blue-600">실제로 구원이 이루어지는 일에 사용되는 수단</strong>입니다. 대요리문답 153항에서 확인했듯이, 성례는 말씀, 기도와 더불어 그리스도의 중보의 유익을 우리에게 전달하는 '외적 수단' 중 하나입니다. 따라서 성례는 하나님의 진노와 저주를 피하고 구원을 얻기에 필요한 그리스도의 구속의 유익을 받는 방편입니다.</p>
-
-                    <h3>2. 성례의 효력은 "성례 자체"에 있지 않다</h3>
-                    <p>성례가 구원의 효과를 나타내는 것은 성례 자체에 어떤 능력이 있기 때문이 아닙니다. 이는 <strong class="text-blue-600">'사효성'(ex opere operato)</strong>, 즉 '행해진 행위 그 자체로부터' 효과가 주어진다는 로마 가톨릭의 주장을 배격하는 것입니다. 성례는 은혜의 방편이지만 "외적 수단"일 뿐, 그 자체나 그 행위 안에 구원의 능력을 지닌 것이 아닙니다. 성례의 유익은 오직 참여자가 <strong class="text-blue-600">은혜를 바라는 믿음으로 참여할 때</strong> 주어집니다. 형식적으로만 참여하는 것은 약속된 구원의 은혜를 전달하지 못합니다.</p>
-
-                    <h3>3. 성례의 효력은 "시행하는 사람"에게 있지 않다</h3>
-                    <p>성례의 효력은 성례를 시행하는 사람의 <strong class="text-blue-600">경건(piety)이나 의향(intention)</strong>에서 나오는 것도 아닙니다. 만일 그렇다면, 집례자가 성례의 효력을 발생시키는 능력을 행사하는 것이 됩니다. 집례자의 도덕적 상태나 영적 순결성, 혹은 그의 내면적 의도에 따라 성례의 효력이 결정되는 것이 아닙니다.</p>
-                    <p>역사적으로 4세기 도나투스주의(Donatism)는 배교한 성직자가 집례한 성례는 무효라고 주장했습니다. 이에 대해 아우구스티누스는 <strong class="text-blue-600">성례의 거룩함은 집례자가 아니라 그리스도께 근거</strong>하며, 성례의 효력은 집례자의 개인적 상태에 달려 있지 않다고 바르게 가르쳤습니다.</p>
-
-                    <h3>4. 성례의 효력은 "성령의 역사"와 "그리스도의 복 주심" 때문이다</h3>
-                    <p>성례가 구원의 효과 있는 수단이 되는 근거는 오직 두 가지입니다. 바로 <strong class="text-blue-600">성령 하나님의 역사하심</strong>과 <strong class="text-blue-600">그리스도의 복 주심</strong>입니다.</p>
-                    <ul>
-                        <li>
-                            <strong class="text-blue-600">성령 하나님의 역사</strong>: 성령께서는 성례가 표지하는 은혜가 참례자에게 실제로 적용되도록 역사하십니다. 신자의 마음을 비추어(조명) 성례의 표(물, 빵, 포도주)가 가리키는 은혜의 실체를 깨닫게 하십니다. 또한 믿음을 주시고 강화하여, 믿음으로 참여하는 신자를 그리스도와의 연합으로 이끌어 가십니다. 성령의 사역이 없다면 성례는 단순한 상징 행위에 그칠 것입니다.
-                        </li>
-                        <li>
-                            <strong class="text-blue-600">그리스도의 복 주심</strong>: 성례의 제정자이신 그리스도께서는 교회의 머리이시며 언약의 중보자로서, 성례를 통해 약속하신 복(대속의 죽음, 부활, 영생 등)을 자신의 권위와 능력으로 실제로 전달하십니다.
-                        </li>
-                    </ul>
-                    <p>따라서 신자들은 집례자의 상태와 관계없이, 오직 성령의 역사와 그리스도의 복 주심에 의지하여 자신이 받은 성례의 효력을 의심할 필요가 없습니다.</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    AI요약 듣기
-                </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    적용 질문
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">1. 성례가 실제로 구원의 은혜를 전달하는 수단이 된다고 할 때, 그 효력은 어디에서 비롯되는가? 성례 자체가 능력을 지닌 것이 아니라 그리스도의 은혜를 전달하는 외적 방편으로 사용된다는 사실을 여러분은 믿고 있는가? 성례를 받을 때 단순히 의식에 참여하는 행위로만 여기는 것이 아니라, 그리스도께서 이 수단을 통해 자신의 구속의 은혜를 실제로 전달하신다는 믿음으로 참여하고 있는가?</span></li>
-                        <li><span class="question">2. 성례가 효력을 가지는 것은 예식 자체의 힘에서가 아니라 믿음을 통한 참여에서 비롯된다는 점을 여러분은 어떻게 이해하는가? 만약 성례가 외적으로만 참여하는 것으로 그친다면 아무런 유익이 없다는 이 교훈 앞에서, 여러분은 세례나 성찬에 참여할 때 마음과 믿음으로 하나님께 나아가고 있는가? 성례의 형식보다 내면의 믿음을 더 중시하며 참여하고 있는가?</span></li>
-                        <li><span class="question">3. 성례의 효력이 집례자의 경건이나 의도에 달려 있지 않다는 대요리문답의 가르침을 여러분은 어떻게 이해하는가? 만일 집례자의 신앙이 온전하지 않다 하더라도 성례의 효력은 그리스도께 달려 있다는 이 진리를 여러분은 신뢰하는가? 여러분은 사람을 의식하기보다, 그리스도께서 친히 집례하시며 복 주시는 분이심을 기억하고 성례에 참여하고 있는가?</span></li>
-                        <li><span class="question">4. 성례가 구원의 효과 있는 수단이 되는 것은 오직 성령의 역사와 그리스도의 복 주심 때문이라는 사실을 여러분은 어떻게 깨닫고 있는가? 성령께서 신자의 마음을 밝히시고 믿음을 강화하여 그리스도와 연합하게 하신다는 이 교훈을 여러분의 신앙생활 속에서 어떻게 경험하고 있는가? 성례에 참여할 때 성령의 실제적 역사를 사모하며, 그리스도께서 약속하신 복을 믿음으로 붙잡고 있는가?</span></li>
-                    </ul>
-                </div>
-            </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>왜 대요리문답은 설교를 단순한 개인적 권면이나 가르침과 구별되는</li>
+<li>공적이고 거룩한 직무라고 말합니까? 여러분은 공예배의 설교를 하나님의</li>
+<li>직접적인 말씀 선포로 여기며, 사람의 말이 아닌 하나님의 음성에 귀 기울</li>
+<li>이는 태도로 예배에 임하고 있습니까?</li>
+<li>설교자가 반드시 바른 교훈을 전해야 한다고 할 때, 그것은 어떤 기준</li>
+<li>11 월. 27A장. 말씀과성례 81</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-        const playerUi = document.getElementById('audio-player-ui');
 
-        // 1. YouTube API 로드
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
-
-        // 2. API 콜백 함수
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
+            // 플레이어는 버튼 클릭 시 생성
         }
 
-        // 3. 오디오 주소 fetch 및 파싱
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = getFormattedDate();
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    // 비디오 ID 추출 (URL 전체에서 ID만 정확히 파싱)
-                    // 정규식: (v=... 또는 youtu.be/...) 다음에 오는 비디오 ID (특수문자 포함)
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    // 오늘 날짜의 주소가 없는 경우
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        // 4. 오늘 날짜 포맷 (MMDD)
-        function getFormattedDate() {
-            const now = new Date();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            // return `${month}${day}`;
-            return '1112'; // 요청된 날짜로 고정
-        }
-
-        // 5. 플레이어 초기화
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                    'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        // 6. 플레이어 준비 완료
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
-        // 7. 플레이어 상태 변경
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0); // 끝나면 처음으로 되감기
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        // 8. 재생/일시정지 토글
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        // 9. 버튼 UI 업데이트
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        // 10. 오류 처리
-        function showError(message) {
-            // 기존 UI 숨기기
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            
-            // 오류 메시지 표시
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        // API 로드 시작
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1112';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

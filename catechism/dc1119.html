@@ -3,342 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 11월 19일</title>
+    <title>11월 19일: rx). 세례의요소와시행</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">11월 19일</h1>
-            <p class="text-xl text-gray-600 mt-2">rx). 세례의요소와시행</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">rx). 세례의요소와시행</h1>
+            <p class="text-lg md:text-xl text-gray-500">11월 19일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    신앙고백서 28.2
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">신앙고백서 28.2</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">신앙고백서 28.2 이 성례에서 사용되는 외적 요소는 물이다. 수세자는 물로 세례를 받되, 세례를 주도록 합법하게 부름을 받 은 복음 사역자에 의하여, 성부와 성자와 성령의 이름 으로받아야한다.1) 1) 마 3:11 ; 요 1 :33; 마 28:19-20. 11 월. 28장. 세례 159 ‘</p>
+                <div class="catechism-body">
+                    <p>신앙고백서 28.2 이 성례에서 사용되는 외적 요소는 물이다. 수세자는 물로 세례를 받되, 세례를 주도록 합법하게 부름을 받 은 복음 사역자에 의하여, 성부와 성자와 성령의 이름 으로받아야한다.1) 1) 마 3:11 ; 요 1 :33; 마 28:19-20. 11 월. 28장. 세례 159 ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">교리 해설</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                <div class="space-y-4 text-gray-600">
+                    <p>오늘 읽는 신앙고백서가 말하는 바는 세 가지입니다. 하나는 세례에서 사  용하는 외적 요소는 물이라는 것이고, 다른 하나는 세례는 합법적으로 부  름받은 복음 사역자에 의해 집행되어야 한다는 것이며, 마지막 하나는 세  례는 성부와 성자와 성령의 이름으로 베풀어져야 한다는 것입니다. 두 번  째 내용은 11월 15일 신앙고백서 27.4을 읽으면서 살펴보았고, 마지막 세 번  째 내용은 11월 17일 대요리문답 165항을 읽으면서 이미 살펴보았습니다.  오늘은 세례에서 사용되는 외적 요소에 대해 살펴봅니다.  신앙고백서는 “이 성례에서 사용되는 의적 요소는 물이다. 수세자는 물로  세례를 받되”라고 전술함으로써, 세례에서 사용되는 외적 요소, 곧 물질이  물임을 말합니다. ”의적 요소”에서 "외적“이라는 말은 "눈에 보이는“ 요소라  는 뜻입니다. 물이 표지하는 실체, 곧 구속의 유익은 눈에 보이지 않지만,  물이라는 표지는 눈에 보입니다. 이것을 가리켜 외적 요소라고 하며, 이에  대조되는 눈에 보이지 않는 영적인 은혜를 내적 요소라 합니다. 이와 관련  하여 11월 11일에 읽은 대요리문답 163항은 성례를 구성하는 두 부분에 대  해 "첫째는 그리스도께서 친히 명령하신 바에 따라 사용하는 외적이고 감  각적인 표지이며, 둘째는 이것으로 표하는 내적이고 영적인 은혜입니다”라  고진술합니다.  세례를 물로 받는 것은 너무나 당연한 일처럼 보이지만, 신앙고백서는 이를  굳이 명확히 진술함으로써 세례의 외적 요소를 물이 아닌 다른 것으로 바  꾸려는 잘못된 시도를 금지합니다. 예를 들어 영지주의자들은 물질을 악  한 것으로 여겼기 때문에, 어떤 물질을 사용한 행위, 곧 세례와 같은 예식  을 통해 구원의 은혜가 전달된다는 주장을 받아들이지 않았습니다. 그들  은 하나님이 순전한 영이시므로 물질이라는 악을 통하여 영적인 선을 베푸  신다는 것은 도무지 이치에 맞지 않는 일이라고 여겼습니다. 그래서 물세례  룰 지나치게 물질적이며 세속적인 것으로 비판했습니다.  그들은 물 대신 영적인 것을 상징한다고 생각한 대체물을 사용하는 것은  허용했습니다. 예를 들어 신비한 능력이나 영적 깨달음을 상징하는 기름,  신령한 양식을 상징하는 우유 혹은 하늘의 생명력과 열정을 상징하는 포  도주가 그것입니다. 결국 그들은 세례를 단지 영적인 것을 상징하는 행위로  만 이해하며, 그들이 보기에 더 영적이라 여긴 요소들로 세례의 본질을 바  꾸어 버렸습니다. 그러나 이것은 예수 그리스도께서 친히 세례를 제정하신  명령을 무시한 이단적 오류입니다.  예수님께서는 세례의 외적 방편을 물로 정하시고, 이를 통해 성령의 은혜를  나타내셨습니다(마 2s:19; 요 3:s). 초대교회 시절에도 물 대신 다른 액체를  11 일. 28장. 세례 161  사용하는 세례에 대한 논란이 있었으나, 교회는 언제나 물이 세례의 유일  한 외적 요소임을 올바로 확증했습니다. 따라서 포도주나 우유로 베푼 세  례는 유효하지 않으며, 그것은 성례의 본질, 곧 물로 씻어 죄 씻음을 나타내  는 의미를 훼손하기 때문입니다.  ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    교리 해설
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
                 </div>
-                <div class="card-body">
-                    <p>오늘 읽는 신앙고백서가 말하는 바는 세 가지입니다. 하나는 세례에서 사 
-용하는 외적 요소는 물이라는 것이고, 다른 하나는 세례는 합법적으로 부 
-름받은 복음 사역자에 의해 집행되어야 한다는 것이며, 마지막 하나는 세 
-례는 성부와 성자와 성령의 이름으로 베풀어져야 한다는 것입니다. 두 번 
-째 내용은 11월 15일 신앙고백서 27.4을 읽으면서 살펴보았고, 마지막 세 번 
-째 내용은 11월 17일 대요리문답 165항을 읽으면서 이미 살펴보았습니다. 
-오늘은 세례에서 사용되는 외적 요소에 대해 살펴봅니다. 
-신앙고백서는 “이 성례에서 사용되는 의적 요소는 물이다. 수세자는 물로 
-세례를 받되”라고 전술함으로써, 세례에서 사용되는 외적 요소, 곧 물질이 
-물임을 말합니다. ”의적 요소”에서 "외적“이라는 말은 "눈에 보이는“ 요소라 
-는 뜻입니다. 물이 표지하는 실체, 곧 구속의 유익은 눈에 보이지 않지만, 
-물이라는 표지는 눈에 보입니다. 이것을 가리켜 외적 요소라고 하며, 이에 
-대조되는 눈에 보이지 않는 영적인 은혜를 내적 요소라 합니다. 이와 관련 
-하여 11월 11일에 읽은 대요리문답 163항은 성례를 구성하는 두 부분에 대 
-해 "첫째는 그리스도께서 친히 명령하신 바에 따라 사용하는 외적이고 감 
-각적인 표지이며, 둘째는 이것으로 표하는 내적이고 영적인 은혜입니다”라 
-고진술합니다. 
-세례를 물로 받는 것은 너무나 당연한 일처럼 보이지만, 신앙고백서는 이를 
-굳이 명확히 진술함으로써 세례의 외적 요소를 물이 아닌 다른 것으로 바 
-꾸려는 잘못된 시도를 금지합니다. 예를 들어 영지주의자들은 물질을 악 
-한 것으로 여겼기 때문에, 어떤 물질을 사용한 행위, 곧 세례와 같은 예식 
-을 통해 구원의 은혜가 전달된다는 주장을 받아들이지 않았습니다. 그들 
-은 하나님이 순전한 영이시므로 물질이라는 악을 통하여 영적인 선을 베푸 
-신다는 것은 도무지 이치에 맞지 않는 일이라고 여겼습니다. 그래서 물세례 
-룰 지나치게 물질...</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    적용 질문
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">세례의 외적 요소가 물이라는 것은 어떤 의미를 가지며, 왜 이것을 "눈</span></li>
-<li><span class="question">에 보이는 요소”라고 부를까요? 여러분은 세례의 물을 볼 때, 단지 의식의</span></li>
-<li><span class="question">도구로서의 물이 아니라, 하나님께서 보이지 않는 은혜를 표하시는 언약의</span></li>
-<li><span class="question">표징으로 보며 감사합니까?</span></li>
-<li><span class="question">예수 그리스도께서 세례의 외적 요소를 물로 정하셨다는 것은 어떤 신</span></li>
-<li><span class="question">학적 의미를 가지며, 왜 교회는 이룰 변경할 수 없을까요? 여러분은 신앙의</span></li>
-
-                    </ul>
-                </div>
-            </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>세례의 외적 요소가 물이라는 것은 어떤 의미를 가지며, 왜 이것을 "눈</li>
+<li>에 보이는 요소”라고 부를까요? 여러분은 세례의 물을 볼 때, 단지 의식의</li>
+<li>도구로서의 물이 아니라, 하나님께서 보이지 않는 은혜를 표하시는 언약의</li>
+<li>표징으로 보며 감사합니까?</li>
+<li>예수 그리스도께서 세례의 외적 요소를 물로 정하셨다는 것은 어떤 신</li>
+<li>학적 의미를 가지며, 왜 교회는 이룰 변경할 수 없을까요? 여러분은 신앙의</li>
+<li>실천과 예배에서 하나님께서 명하신 방식과 요소를 따라야 한다는 정해</li>
+<li>진 제정의 질서’를 존중하며, 신앙의 형식보다 그 제정하신 뜻올 순종으로</li>
+<li>따르고있습니까?</li>
+<li>영지주의자들은 세례의 요소를 어떤 것으로 바꾸었습니까? 이것은 어</li>
+<li>떤 오류를 드러넵니까? 여러분은 혹시 오늘날 신앙을 보다 ‘영적’이고 ‘상징</li>
+<li>적’인 것으로 꾸미려 하면서, 하나님이 정하신 단순하고 구체적인 순종을</li>
+<li>가볍게 여기고 있지는 않습니까?</li>
+<li>교회가 초대부터 물만을 세례의 외적 요소로 고백하며 다른 대체물을</li>
+<li>거부한 이유는 무엇입니까? 여러분은 신앙생활 속에서 세례가 보여주는 단</li>
+<li>순하고 구체적인 순종의 의미를 붙들며, 세례를 통해 주신 성령의 새 생명</li>
+<li>올 실제로 살아내고 있습니까?</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1119';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1119';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

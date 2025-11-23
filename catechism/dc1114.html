@@ -3,369 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 11월 14일</title>
+    <title>11월 14일: (4) "묵상하며 말씀을 서로 나누고”: 설교를 듣는 회중은 진리로 받은 하</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6; /* Tailwind gray-100 */
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
-            border-radius: 0.75rem; /* lg */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* lg */
-            margin-bottom: 1.5rem; /* 6 */
-            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568; /* Tailwind gray-700 */
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem; /* xl */
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb; /* gray-200 */
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem; /* lg */
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937; /* gray-800 */
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151; /* gray-700 */
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151; /* gray-700 */
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827; /* gray-900 */
-        }
-        .card-body .answer {
-            color: #374151; /* gray-700 */
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb; /* gray-50 */
-            border-top: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb; /* gray-200 */
-            color: #9ca3af; /* gray-400 */
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb; /* blue-600 */
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8; /* blue-700 */
-        }
-        .audio-button.pause {
-            background-color: #f87171; /* red-400 */
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444; /* red-500 */
-        }
-        .audio-error {
-            color: #dc2626; /* red-600 */
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem; /* sm */
-            color: #6b7280; /* gray-500 */
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">11월 14일</h1>
-            <p class="text-xl text-gray-600 mt-2">그리스도께서 제정하신 두 가지 성례</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">(4) "묵상하며 말씀을 서로 나누고”: 설교를 듣는 회중은 진리로 받은 하</h1>
+            <p class="text-lg md:text-xl text-gray-500">11월 14일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    AI요약 듣기
-                </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    소요리문답 93문
-                </div>
-                <div class="card-body">
-                    <div class="question-answer">
-                        <p class="question">문93. 신약의 성례는 무엇입니까?</p>
-                        <p class="answer">답. 신약의 성례는 세례와 주의 만찬[성찬]입니다.</p>
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     </div>
+                    <h2 class="card-title">대요리문답 159</h2>
                 </div>
-            </div>
-
-            <div class="card">
+                <div class="catechism-body">
+                    <p>항은 설교 자가 “하나님의 영광과 백성의 회심, 건덕, 구원올 목표로 삼아 진실하게" 설교해야 한다고 교훈합니다. 설교자의 목표가 이러하다면, 설교를 듣는 자 의 목표 역시 하나님의 영광을 위한 삶의 열매를 맺는 것이어야 합니다. 곧 자신의 죄를 고백하고 하나님의 뜻에 따라 살아가는 회심의 열매를 맺으 며, 교회 공동체 안에서 덕을 세우는 것입니다. 그러므로 설교를 단지 감정 적 위로나 귀로 듣기에 만족스러운 이야기로 여기는 소비적 태도에 대하여, 대요리문답 160항은 분명한 경고를 줍니다. ‘ 적용질문 1. 왜 대요리문답은 설교를 듣는 회중에게 근면과 준비와 기도로 말씀에 집중하라고 요구합니까? 여러분은 예배에 부지런히 참여하며, 설교 전, 설 교 중 그리고 설교 후에 기도로 준비하여 말씀을 적극적으로 듣고 있습니 刀}? 2. 왜 성도는 설교를 들을 때 베뢰아 사람들처럼 성경을 근거로 하여 그 말씀이 진리인지 살펴야 합니까? 여러분은 설교를 들을 때 단순히 설교자 의 말에 의존하지 않고, 성경으로 확인하며 말씀의 진리를 분별하는 훈련 올하고있습니까? 3. 왜 설교를 성경과 비교해 옳다고 확인했올 때, 그 말씀을 단순한 사람 의 말이 아니라 하나님의 말씀으로 믿음과 사랑과 온유한 마음으로 받아 야 합니까? 여러분은 설교를 비평적으로만 듣지 않고, 참으로 하나님의 말 씀으로 받아 믿음과 사랑과 겸손으로 순종하며 듣고 있습니까? 4. 왜 설교를 들은 후에 묵상하고 성도들과 말씀을 나누며 삶 속에서 열 매를 맺는 것이 중요합니까? 여러분은 설교를 듣고 곧 잊어버리지 않고 묵 상과 나눔올 통해 마음에 간직하며, 회개와 성화의 열매로 하나님께 영광 올돌리고있습니까? /? --~`` / \ II' 111/ ``` 일 성례의의미 ‘ 소요리문답 92 대요리문답 162 소요리문답 92: 대요리문답 162: 92. 성례란 무엇입니까? 답. 성례란 그리스도께서 제정하신 거룩한 규례입 니다. 이 규례는 감각할 수 있는 표지에 의해서 그리스 도와 새 언약의 유익을 신자들에게 표하고, 인치고, 적 용합니다.1) 1) 창 17:7, 10; 출 12:1-51; 고전 11:23, 26. 162. 성례란 무엇입니까? 답. 성례는 그리스도께서 자신의 교회에 제정하신 거룩한 규례입니다? 이 규례는 은혜언약 안에 있는 자 ‘</p>
+                </div>
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    대요리문답 164문
-                </div>
-                <div class="card-body">
-                    <div class="question-answer">
-                        <p class="question">문164. 신약 아래에서 그리스도께서 그분 자신의 교회에 몇 가지 성례를 제정하셨습니까?</p>
-                        <p class="answer">답. 그리스도께서는 신약 교회에 오직 두 가지 성례만을 제정하셨으니, 곧 세례와 주의 만찬[성찬]입니다.</p>
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
                     </div>
+                    <h2 class="card-title">교리 해설</h2>
                 </div>
-            </div>
-
-            <div class="card">
+                <div class="space-y-4 text-gray-600">
+                    <p></p>
+                </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    교리 해설
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
                 </div>
-                <div class="card-body">
-                    <p>오늘 읽는 문답은 성례 교리에 대한 교훈을 마무리하며, 성례의 수와 경계를 설명합니다. 소요리문답 93항과 대요리문답 164항이 가르치는 바를 네 가지 내용으로 살펴봅니다.</p>
-
-                    <h3>1. "신약 아래에서"</h3>
-                    <p>대요리문답이 "신약 아래에서"라는 제한을 두는 이유는, 구약의 여러 예식(할례, 유월절, 제사 규례 등)이 그리스도 안에서 성취되었음을 밝히기 위함입니다. 성경은 <strong class="text-blue-600">할례가 세례로 대체</strong>되었음(골 2:11-12)을 보여주고, <strong class="text-blue-600">유월절 의식이 성찬으로 대체</strong>되었음(고전 5:7-8)을 교훈합니다. "신약 아래에서"라는 표현은 이러한 은혜 언약의 성취와 그림자에서 실체로의 전환, 곧 새 언약의 시대가 도래했음을 보여줍니다.</p>
-
-                    <h3>2. "그리스도께서는... 제정하셨으니"</h3>
-                    <p>신약의 성례는 그리스도로부터 비롯되었습니다. 이는 <strong class="text-blue-600">중보자로서의 권위에 근거한 명령과 약속</strong>으로 이루어진 것입니다. 그리스도께서는 구원의 은혜를 성취하시고 그 공로에 근거하여 성례를 제정하셨습니다. 따라서 성례의 수와 방식, 시행의 명령은 오직 그리스도께만 속한 권위입니다. 누구든 이를 임의로 더하거나, 빼거나, 바꾸는 것은 그리스도의 권위를 침해하는 죄가 됩니다.</p>
-
-                    <h3>3. "그분 자신의 교회 안에"</h3>
-                    <p>이 구절은 성례가 반드시 <strong class="text-blue-600">교회 안에서 시행되어야 함</strong>을 강조합니다. 성례는 개인의 신앙을 드러내기 위한 사적인 행위가 아니라, 교회의 공적 질서 안에서 공동체적으로 시행되어야 하는 언약의 표입니다. 따라서 개인이 임의로 행하는 '개인 세례'나 '개인 성찬'은 성경적 근거가 없습니다. 오늘날 온라인 예배에서 각자 흩어져 화면을 통해 성례를 행하는 방식은, 교회가 함께 모여 시행해야 하는 <strong class="text-blue-600">성례의 본질과 그리스도의 제정 의도를 훼손하는 잘못된 행위</strong>입니다. 성례는 반드시 교회가 함께 모인 자리에서, 말씀의 선포와 더불어 시행되는 공적 행위여야 합니다.</p>
-
-                    <h3>4. "오직 두 가지 성례만을 제정하셨으니"</h3>
-                    <p>성례는 오직 <strong class="text-blue-600">세례와 성찬, 두 가지뿐</strong>입니다. 이 강조는 로마 가톨릭이 '일곱 성사'(세례, 성찬, 견진, 고해, 종부성사, 서품, 혼인)를 교리로 확정한 것을 비판하기 위한 것입니다. 로마 가톨릭은 이 일곱 가지가 모두 은혜를 전달하며, 인간의 출생부터 죽음까지 전 생애를 관리한다고 가르칩니다.</p>
-                    <p>그러나 종교개혁자들은 이 중 <strong class="text-blue-600">오직 세례와 성찬만이 성경적 근거를 가진 참된 성례</strong>이며, 나머지 다섯 가지는 교회의 전통에 불과하다고 선언했습니다. 오직 성경의 권위 아래에서 그리스도께서 친히 제정하신 것(엡 4:5; 고전 10:16)만이 구원의 은혜를 믿음으로 전달받는 수단입니다.</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    적용 질문
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">1. "신약 아래에서"라는 말로 강조되는 성례의 시대적 구분은 무엇입니까? 여러분은 구약 아래에 있지 않다는 사실을 성례를 통해 확인하십니까? 이제 그리스도 안에서 완성된 성례의 단순함과 충만함을 신뢰하며, 신앙의 중심을 오직 그분께 두고 있습니까?</span></li>
-                        <li><span class="question">2. "그리스도께서 제정하셨다"는 말은 무엇을 의미합니까? 왜 성례의 제정 권한이 오직 그리스도께만 속해야 합니까? 교회도 필요에 따라 성례를 제정할 수는 없습니까? 여러분은 예배나 성례에서 인간적인 감정이나 문화적 요소를 앞세워, 주께서 명하신 본래의 질서를 흐리고 있지 않습니까? 그렇다면 그리스도의 권위를 신뢰하며 그분의 제정에 순종하는 태도로 예배하고 있습니까?</span></li>
-                        <li><span class="question">3. "그분의 교회 안에서"라는 말이 시사하는 바는 무엇입니까? 왜 성례가 교회의 질서 안에서 시행되어야 합니까? 여러분은 개인의 편의나 감정 때문에 공적 예배와 공동체의 질서를 가볍게 여기고, 성례를 사적인 경험으로 대하고 있지 않습니까? 그렇다면 성례를 통해 그리스도께서 세우신 교회의 실제적 경계를 인식하며, 공동체의 삶 안에서 함께 은혜를 누리고 있습니까?</span></li>
-                        <li><span class="question">4. "오직 두 가지 성례만을 제정하셨으니, 곧 세례와 성찬'이라는 고백은 왜 중요합니까? 성례의 수를 제한하는 것이 단지 형식의 문제가 아니라, 그리스도의 구속 사역의 완전성과 어떤 관련이 있습니까? 여러분은 구원의 은혜를 성례 외의 다른 경험이나 행위에서 얻으려 하거나, 인간이 만든 예식에 의존하려 하지 않습니까? 그렇다면 그리스도의 완전하신 사역이 충분하다는 믿음 위에서, 세례와 성찬 안에서 주어지는 은혜를 깊이 신뢰하고 있습니까?</span></li>
-                    </ul>
-                </div>
-            </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>왜 대요리문답은 설교를 듣는 회중에게 근면과 준비와 기도로 말씀에</li>
+<li>집중하라고 요구합니까? 여러분은 예배에 부지런히 참여하며, 설교 전, 설</li>
+<li>교 중 그리고 설교 후에 기도로 준비하여 말씀을 적극적으로 듣고 있습니</li>
+<li>刀}?</li>
+<li>왜 성도는 설교를 들을 때 베뢰아 사람들처럼 성경을 근거로 하여 그</li>
+<li>말씀이 진리인지 살펴야 합니까? 여러분은 설교를 들을 때 단순히 설교자</li>
+<li>의 말에 의존하지 않고, 성경으로 확인하며 말씀의 진리를 분별하는 훈련</li>
+<li>올하고있습니까?</li>
+<li>왜 설교를 성경과 비교해 옳다고 확인했올 때, 그 말씀을 단순한 사람</li>
+<li>의 말이 아니라 하나님의 말씀으로 믿음과 사랑과 온유한 마음으로 받아</li>
+<li>야 합니까? 여러분은 설교를 비평적으로만 듣지 않고, 참으로 하나님의 말</li>
+<li>씀으로 받아 믿음과 사랑과 겸손으로 순종하며 듣고 있습니까?</li>
+<li>왜 설교를 들은 후에 묵상하고 성도들과 말씀을 나누며 삶 속에서 열</li>
+<li>매를 맺는 것이 중요합니까? 여러분은 설교를 듣고 곧 잊어버리지 않고 묵</li>
+<li>상과 나눔올 통해 마음에 간직하며, 회개와 성화의 열매로 하나님께 영광</li>
+<li>올돌리고있습니까?</li>
+<li>/? --~``</li>
+<li>/ \</li>
+<li>II' 111/ ```</li>
+<li>일</li>
+<li>성례의의미</li>
+<li>‘ 소요리문답 92</li>
+<li>대요리문답 162</li>
+<li>소요리문답</li>
+<li>92:</li>
+<li>대요리문답</li>
+<li>162:</li>
+<li>성례란 무엇입니까?</li>
+<li>답. 성례란 그리스도께서 제정하신 거룩한 규례입</li>
+<li>니다. 이 규례는 감각할 수 있는 표지에 의해서 그리스</li>
+<li>도와 새 언약의 유익을 신자들에게 표하고, 인치고, 적</li>
+<li>용합니다.1)</li>
+<li>1) 창 17:7, 10; 출 12:1-51; 고전 11:23, 26.</li>
+<li>성례란 무엇입니까?</li>
+<li>답. 성례는 그리스도께서 자신의 교회에 제정하신</li>
+<li>거룩한 규례입니다? 이 규례는 은혜언약 안에 있는 자</li>
+<li>‘ 말씀요절</li>
+<li>둘에게2) 중보의 유익을3) 표하고 인치고 적용하기 위한</li>
+<li>것이며 ,4) 이들의 믿음과 다른 모든 은혜를 강화하고 중</li>
+<li>진하기 위한 것이며,5) 이들이 순종하게 하고,6) 이들 상</li>
+<li>호 간에 사랑과 교제를 중거하고 소중히 여기도록 하는</li>
+<li>것이며? 이들을 은혜언약 밖에 있는 자들과 구별하기</li>
+<li>위한것입니다.8)</li>
+<li>1) 창 17:7, 10; 출 12장; 마 28:19: 26:26-28.</li>
+<li>2) 롬 15:8; 출 12:48.</li>
+<li>3) 행 2:38; 고전 10:16.</li>
+<li>4) 롬 4:11; 고전 11:24-25.</li>
+<li>5) 롬 4:11; 갈 3:27.</li>
+<li>6) 롬 6:3-4: 고전 10:21.</li>
+<li>7) 엡 4:2-5; 고전 12:13.</li>
+<li>8) 엡 2:11-12: 창 34:14.</li>
+<li>창 17:7, 10 “내가 내 언약을 나와 너 및 1 대대 후손 사이에 세워서 영원</li>
+<li>한 언약올 삼고 너와 네 후손의 하나님이 되리라 … 너희 중 남자는 다 할</li>
+<li>례를 받으라 이것이 나와 너희와 너희 후손 사이에 지킬 내 언약이니라”</li>
+<li>고전 11:23-26 “내가 너희에게 전한 것은 주께 받은 것이니 곧 주 예수께서</li>
+<li>잡히시던 밤에 빵을 가지사 축사하시고 떼어 이르시되 이것은 너희를 위하</li>
+<li>11 월. 27B장. 말씀과성례 93</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-        const playerUi = document.getElementById('audio-player-ui');
 
-        // 1. YouTube API 로드
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
-
-        // 2. API 콜백 함수
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
+            // 플레이어는 버튼 클릭 시 생성
         }
 
-        // 3. 오디오 주소 fetch 및 파싱
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = getFormattedDate();
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    // 비디오 ID 추출 (URL 전체에서 ID만 정확히 파싱)
-                    // 정규식: (v=... 또는 youtu.be/...) 다음에 오는 비디오 ID (특수문자 포함)
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    // 오늘 날짜의 주소가 없는 경우
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        // 4. 오늘 날짜 포맷 (MMDD)
-        function getFormattedDate() {
-            const now = new Date();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            // return `${month}${day}`;
-            return '1114'; // 요청된 날짜로 고정
-        }
-
-        // 5. 플레이어 초기화
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                    'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        // 6. 플레이어 준비 완료
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
-        // 7. 플레이어 상태 변경
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0); // 끝나면 처음으로 되감기
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        // 8. 재생/일시정지 토글
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        // 9. 버튼 UI 업데이트
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        // 10. 오류 처리
-        function showError(message) {
-            // 기존 UI 숨기기
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            
-            // 오류 메시지 표시
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        // API 로드 시작
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1114';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

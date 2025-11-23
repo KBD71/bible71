@@ -3,341 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 14일</title>
+    <title>12월 14일: ::0 천국열쇠의권세</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 14일</h1>
-            <p class="text-xl text-gray-600 mt-2">::0 천국열쇠의권세</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">::0 천국열쇠의권세</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 14일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    신앙고백서 30.2
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">신앙고백서 30.2</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">신앙고백서 30.2 이 교회 직원들에게 천국 열쇠들이 위임되었다. 이 열쇠 들의 힘으로 이들은 사안별로 죄를 그대로 두거나 사할 권세를 갖는다. 필요에 따라 회개하지 않는 죄인에게는 말씀과 권징에 의하여 천국 문을 닫을 권세롤 가지며, 또한 회개하는 죄인에게는 복음 사역에 의하여 그리고 해벌에 의하여 천국 문을 열 권세를 갖는다.1) 1) 마 16:19; 마 18:17-18; 요 20:21-23; 고후 2:6-8. ‘</p>
+                <div class="catechism-body">
+                    <p>신앙고백서 30.2 이 교회 직원들에게 천국 열쇠들이 위임되었다. 이 열쇠 들의 힘으로 이들은 사안별로 죄를 그대로 두거나 사할 권세를 갖는다. 필요에 따라 회개하지 않는 죄인에게는 말씀과 권징에 의하여 천국 문을 닫을 권세롤 가지며, 또한 회개하는 죄인에게는 복음 사역에 의하여 그리고 해벌에 의하여 천국 문을 열 권세를 갖는다.1) 1) 마 16:19; 마 18:17-18; 요 20:21-23; 고후 2:6-8. ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>어제 읽은 신앙고백서 30.1은 권징과 같은 교회의 정치적 권세가 “교회 
 직원들”에게 맡겨졌음을 진술하였습니다. 오늘 읽는 302은 그 교회 직원 
 들에게 위임된 “천국의 열쇠들(the keys of the kingdom of heaven)”에 대 
-하여 설명합니다. 이 절의 내용은 두 가지로 나누어 살펴볼 수 있습니다. 
-(1) “이 교회 직원들에게 천국 열쇠들이 위임되었다. 이 열쇠들의 힘으로 이 
-들은 사안별로 죄를 그대로 두거나 사할 권세를 갖는다”: 이 진술은, 앞서 
-30.1에서 언급된 교회 직원들이 곧 주 예수 그리스도께서 교회의 정치적 
+하여 설명합니다. 이 절의 내용은 두 가지로 나누어 살펴볼 수 있습니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">이 교회 직원들에게 천국 열쇠들이 위임되었다</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>다. 이 열쇠들의 힘으로 이 
+들은 사안별로 죄를 그대로 두거나 사할 권세를 갖는다”: 이 진술은, 앞서</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>1에서 언급된 교회 직원들이 곧 주 예수 그리스도께서 교회의 정치적 
 권세를 위임하신 자들이라는 사실을 전제합니다. 장로교회의 교회 정치에 
-서는 이 교회 직원들이 목사와 장로를 의미합니다. 사도 바울은 "잘 다스리 
+서는 이 교회 직원들이 목사와 장로를 의미합니다. 사도 바울은 <strong class="text-blue-600">잘 다스리 
 는 장로들은 배나 존경할 자로 알되 말씀과 가르침에 수고하는 이들에게는 
-더욱 그리할 것이니라”(딤전 5:17) 라고 말하며, 또 “바울이 밀레도에서 사람 
+더욱 그리할 것이니라”(딤전 5:17) 라고 말하며, 또 <strong class="text-blue-600">바울이 밀레도에서 사람 
 을 에베소로 보내어 교회의 장로들을 청하니 ... 여러분은 자기를 위하여 
 또는 온 양 떼를 위하여 삼가라. 성령이 그들 가운데 여러분을 감독자로 삼 
 고, 하나님이 자기 피로 사신 교회를 보살피게 하셨느니라.（행 20:17, 28) 라 
 고 증언합니다. 이 말씀에서 보듯이, 가르치는 장로인 목사와 다스리는 장 
 로인 치리 장로는 함께 교회의 감독자(b sho s or overseers)로서의 직무 
 롤수행합니다. 
-목사와 장로들에게 위임된 “천국 열쇠”는 주 예수님께서 베드로에게 하신 
-말씀에 근거합니다. “내가 천국 열쇠를 네게 주리니, 네가 땅에서 무엇이든 
+목사와 장로들에게 위임된 “천국 열쇠</strong>는 주 예수님께서 베드로에게 하신 
+말씀에 근거합니다. <strong class="text-blue-600">내가 천국 열쇠를 네게 주리니, 네가 땅에서 무엇이든 
 지 매면 하늘에서도 매일 것이요, 네가 땅에서 무엇이든지 풀면 하늘에서 
-도 풀리리라”(마 16:19). 천국 열쇠는 그리스도께서 친히 위임하신 것으로, 
+도 풀리리라</strong>(마 16:19). 천국 열쇠는 그리스도께서 친히 위임하신 것으로, 
 교회 직원들이 그리스도의 청지기로서 그리스도의 왕권을 대리하여 이 땅 
 에서 하나님의 뜻을 선포하고 실행하는 영적 권세를 뜻합니다. 열쇠는 문 
-울 여닫는 ...</p>
+울 여닫는 기능을 가지며, 천국 열쇠는 하늘 나라의 문을 닫고 여는 권세 
+를 행사하는 수단입니다. 따라서 이 천국 열쇠는 단순히 개인의 구원 문제 
+에만 국한되지 않고, 교회의 공적 질서와 권징의 영역에 깊이 관련됩니다 
+(마 18:17-18). 
+예수께서 말씀하신 <strong class="text-blue-600">땅에서 무엇이든지 매면 하늘에서도 매일 것이요</strong>에서 
+</strong>매다”(bind) 는 것은 묶는다는 뜻으로, 허용하지 않고 금지함을 의미합니 
+다. 그러므로 <strong class="text-blue-600">땅에서 무엇이든지 매면“이라는 표현은 교회 직원들이 죄가 
+드러난 신자에게 회개할 때까지 성찬 참여를 금하는 둥의 권징을 시행하 
+는 것을 가리킵니다. 이와 같은 권징의 행위는 단순한 사람의 판단이 아니 
+라 하늘의 뜻이 땅에서 공적으로 선포되는 일입니다. 마찬가지로 “네가 땅 
+에서 무엇이든지 풀면 하늘에서도 풀리리라</strong>는 말씀은, 권징을 받은 신자 
+가 회개하고 믿음으로 돌아을 때 그에게 내린 징계를 해벌하고, 교회의 교 
+제와 성찬의 자리에 다시 받아들이는 권세가 교회 직원들에게 주어졌음을 
+의미합니다. 
+이처럼 교회 직원들이 이 땅의 교회에서 행하는 권징과 해벌의 행위는, 그 
+들의 사사로운 판단이나 재량의 문제가 아니라, 그리스도께서 친히 약속하 
+신 대로 하늘의 뜻이 공적으로 선언되고 집행되는 일입니다. 따라서 천국 
+열쇠의 권세는 결코 인간 중심적이거나 제도적 권력의 행사가 아니라, 오직 
+그리스도의 왕권이 교회를 통하여 드러나는 영적 통치의 표현이며, 교회는 
+이 권세를 맡은 청지기로서 신실하게 주님의 뜻을 수행해야 합니다. </p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 3</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">예수 그리스도께서 천국의 열쇠를 교회 직원들에게 맡기셨다는 것은</span></li>
-<li><span class="question">무엇을 뜻합니까? 이 권세는 그들 자신에게서 비롯된 것이 아니라 그리스</span></li>
-<li><span class="question">도의 위임으로 주어진 것임을 어떻게 알 수 있습니까? 여러분은 교회의 직</span></li>
-<li><span class="question">분자들을 단순한 행정가나 종교 지도자가 아니라, 그리스도의 권세를 맡은</span></li>
-<li><span class="question">청지기로 존중하며, 그들을 통해 주님의 통치가 교회 안에서 나타나도록</span></li>
-<li><span class="question">순종하고 협력하고 있습니까?</span></li>
-
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">필요에 따라, 회개하지 않는 죄인에게는 말씀과 권징에 의하여 천국 
+문을 닫을 권세를 가지며 또한 회개하는 죄인에게는 복음 사역에 의하여 
+그리고 해벌에 의하여 천국 문을 열 권세를 갖는다”: 천국의 문을 닫는 권 
+세는 말씀의 선포와 권징을 통하여 실행됩니다. 선포된 말씀을 듣고도 회 
+개하지 않고 오히려 저항하는 자에게는 천국의 문이 닫힙니다. 교회 직원들 
+온 그와 같은 자에 대하여 공적인 차원에서 권징을 시행할 권세를 부여받 
+았습니다. 반면 선포된 말씀을 듣고 권징 가운데서 회개하는 자에게는 그 
+룰 해벌하고 다시 천국 문을 여는 권세를 행사할 수 있습니다. 그러나 교회 
+직원들이 행사하는 천국 열쇠의 권세는 그들 자신에게 본질적인 근거룰 두 
+지 않으며, 오직 그리스도께서 친히 그들에게 위임하신 것입니다. 그러므로 
+이 권한의 행사는 언제나 복음 사역을 통하여 실현되어야 합니다. 교회 직 
+원들이 말씀을 선포할 때, 이 말씀 앞에서 회개하는 자에게는 천국이 열리 
+며, 반대로 선포된 말씀에 불순종하고 회개하지 않는 자에게는 천국이 닫 
+힙니다. 곧 천국을 여는 열쇠는 복음의 말씀 선포이고, 천국을 닫는 일은 
+그 말씀에 대한 불순종과 완고함으로 나타납니다. 그러나 이러한 자들도 
+교회 직원들에 의해 선포되는 복음의 말씀에 감동되어 회개할 때, 그들에 
+게 천국 문은 다시 열립니다. 천국 열쇠는 하나님의 말씀의 선포와 그것을 
+듣는 자의 회개를 통하여 천국 문을 열고 닫는 일을 실행하는 것입니다. 
+정리하자면 천국 열쇠의 근원적인 권한은 교회의 왕이시며 머리이신 예수 
+그리스도께 있으며, 교회 직원들은 그리스도로부터 이 권한을 위임받은 청 
+지기들입니다. 그러므로 천국 열쇠의 성격은 철저히 그리스도 중심적입니 
+다. 교회는 그리스도의 복음의 말씀을 선포함으로써, 그리스도께서 “자기 
+피로 사신 교회</strong>(행 20:28) 를 감독하고 돌보시는 사역에 동참합니다. 곧 천 
+국 열쇠의 핵심 기능은 복음의 선포이며, 성령 하나님의 은혜가 이 열쇠의 
+능력과 작용을 결정합니다. 교회 직원들이 행사하는 천국 열쇠의 권세는 
+오직 복음의 말씀 선포를 통해서만 유효하게 작동합니다. 복음의 말씀은 
+회개를 일깨우며, 회개와 순종이 있을 때 천국 문이 열리고, 불순종과 거부 
+가 있을 때 천국 문이 닫힙니다. 또한 닫혀진 천국 문을 다시 여는 유일한 
+열쇠도 바로 복음의 말씀 선포입니다. 
+이러한 이유로 천국 열쇠는 개인이 사적으로 행사할 수 있는 권세가 아니 
+라, 언약 공동체 안에서 교회 직원들에 의해 공적으로 시행되는 권세입니 
+다. 교회 직원은 결코 사사로운 판단이나 개인적 감정으로 천국 열쇠를 행 
+사할 수 없습니다. 이 권세의 행사는 언약 공동체의 범위 안에서만 적용되 
+며, 교회 밖에 있는 자들에게는 해당되지 않습니다. 천국 열쇠는 언약 공동 
+체가 거룩함을 지켜 나가도록 돕는 은혜의 도구이며, 동시에 교회를 드러내 
+는 중요한 표지입니다. 그러므로 천국 열쇠는 그리스도 중심적이며, 복음 중 
+심적이고, 또한 언약 공동체 중심적인 교회의 본질적 사역입니다. 
+12일. 30장. 교회권징 339 
+‘</p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>예수 그리스도께서 천국의 열쇠를 교회 직원들에게 맡기셨다는 것은</li>
+<li>무엇을 뜻합니까? 이 권세는 그들 자신에게서 비롯된 것이 아니라 그리스</li>
+<li>도의 위임으로 주어진 것임을 어떻게 알 수 있습니까? 여러분은 교회의 직</li>
+<li>분자들을 단순한 행정가나 종교 지도자가 아니라, 그리스도의 권세를 맡은</li>
+<li>청지기로 존중하며, 그들을 통해 주님의 통치가 교회 안에서 나타나도록</li>
+<li>순종하고 협력하고 있습니까?</li>
+<li>“땅에서 무엇이든지 매면 하늘에서도 매일 것이요, 풀면 하늘에서도</li>
+<li>풀리리라”는 말씀은 교회가 어떤 사역을 감당함을 보여줍니까? 이 권세가</li>
+<li>단순한 인간의 판단이 아니라 하늘의 뜻이 공적으로 선포되는 일임을 어떻</li>
+<li>게 이해할 수 있습니까? 여러분은 교회의 권징과 해벌의 과정을 인간의 판</li>
+<li>단으로 여기지 않고, 그리스도께서 세우신 질서 안에서 하늘의 뜻이 드러</li>
+<li>나는 은혜의 수단으로 겸손히 받아들이고 있습니까?</li>
+<li>천국의 문을 여닫는 권세가 말씀의 선포와 권징을 통해 이루어진다고</li>
+<li>할 때, 말씀 앞에서 회개하는 자와 완고하게 거부하는 자에게 각각 어떤 결</li>
+<li>과가 주어집니까? 그리고 이 권세가 복음 사역 안에서만 정당하게 행사된</li>
+<li>다는 것은 무엇을 의미합니까? 여러분은 말씀을 들을 때마다 자신의 마음</li>
+<li>올 살피며, 권징의 경고를 통해 회개로 나아가고 있습니까? 복음의 선포가</li>
+<li>여러분에게 천국 문을 여는 은혜의 열쇠가 되도록 날마다 순종의 결단을</li>
+<li>하고있습니까?</li>
+<li>천국 열쇠가 개인이 사적으로 행사할 수 있는 것이 아니라, 언약 공동</li>
+<li>체 안에서 교회 직원들을 통해 공적으로 시행된다고 할 때, 이것이 교회의</li>
+<li>거룩성과 연합에 대해 어떤 의미를 가집니까? 천국 열쇠가 왜 그리스도 중</li>
+<li>심적이고 복음 중심적이며 언약 공동체 중심적 사역이라 말할 수 있습니</li>
+<li>까? 여러분은 교회를 언약 공동체로서 사랑하며, 교회가 복음의 선포와 권</li>
+<li>징을 통해 거룩함을 지켜 나갈 때 그 일에 함께 동참하고 있습니까? 또한</li>
+<li>교회의 권세가 인본적 통제가 아니라 그리스도의 왕권이 드러나는 은혜의</li>
+<li>질서임을 믿으며 순종하고 있습니까?</li>
+<li>12월. 30 장. 교회권칭 341</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1214';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1214';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

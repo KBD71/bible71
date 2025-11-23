@@ -3,170 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 22일</title>
+    <title>12월 22일: - -` ,- ``` ,'' \</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 22일</h1>
-            <p class="text-xl text-gray-600 mt-2">- -` ,- ``` ,'' \</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">- -` ,- ``` ,'' \</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 22일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    대요리문답 84
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">대요리문답 84</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">대요리문답 84: 84. 모든사람은 죽어야 합니까? 답. 죄의 샀으로 죽음을 경고하셨으므로1) 한 번 죽는 것은 모든 사람에게 정해진 것입니다? 왜냐하면 모든 사람이 죄를 범했기 때문입니다.3) 1) 롬 6:23. 2) 히 9:27. 3) 롬 5:12. ‘</p>
+                <div class="catechism-body">
+                    <p>대요리문답 84: 84. 모든사람은 죽어야 합니까? 답. 죄의 샀으로 죽음을 경고하셨으므로1) 한 번 죽는 것은 모든 사람에게 정해진 것입니다? 왜냐하면 모든 사람이 죄를 범했기 때문입니다.3) 1) 롬 6:23. 2) 히 9:27. 3) 롬 5:12. ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>오늘 읽는 대요리문답 84항은 인간의 죽음이 필연적인 이유와 이 죽음을 
 피할 수 있는 사람은 아무도 없다는 사실을 교훈합니다. 이 문답의 내용을 
-세 부분으로 나누어 살펴보겠습니다. 
-(1) “죄의 샀으로 죽음을 경고하셨으므로”: “죄의 샀“이라는 표현은 성경의 
+세 부분으로 나누어 살펴보겠습니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 1</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">죄의 샀으로 죽음을 경고하셨으므로</strong>: <strong class="text-blue-600">죄의 샀“이라는 표현은 성경의 
 언어입니다. “죄의 샀은 사망이요 하나님의 은사는 그리스도 예수 우리 주 
-안에 있는 영생이니라”(롬 6:23). 여기서 밍:"은 어떤 행위에 대해 마땅히 지 
-급되어야 하는 보상이나 대가를 의미합니다. 그러므로 “죄의 샀“이란 죄를 
+안에 있는 영생이니라</strong>(롬 6:23). 여기서 밍:"은 어떤 행위에 대해 마땅히 지 
+급되어야 하는 보상이나 대가를 의미합니다. 그러므로 <strong class="text-blue-600">죄의 샀“이란 죄를 
 범한 결과로 죄인이 정당하게 받아야 할 형벌을 가리키며, 그 형벌은 곧 죽 
 음입니다. 죄는 단순한 실수나 부주의가 아니라, 하나님의 거룩한 율법을 
 정면으로 거스르는 반역입니다. 한 번 범한 죄는 반드시 사망의 형벌을 초 
@@ -178,167 +135,281 @@
 죄는 둘 다 하나님의 의로운 율법의 위반이며, 그 성질상 죄인에게 죄책을 
 초래한다. 이로 말미암아 죄인은 하나님의 진노와 율법의 저주 아래 결박되 
 고, 그 결과 영적이며 현세적이며 영원한 모든 비참함과 함께 죽어야 하는 
-처지가되었다.” 
-첫째, 영적 사망입니다. 이것은 하나님과의 생명적 교제가 단절된 상태, 곧 
-"허물과 죄로 죽은"(엡 2:1) 상태를 말합니다. 월 22일에 읽은 신앙고백서 
-6.2은 이룰 다음과 같이 설명합니다. “이 죄로 말미암아 그들은 원의와 하 
-나님과의 교제에서 떨어졌으며, 그리하여 죄 가운데 죽은 자가 되었고, 영 
-혼과 몸의 모든 기능과 부분이 완전히 오염되었다.” 둘째, 육체적 사망입니 
-다. 이것은 영혼과 육체가 분리되는 것으로, 사람이 더 이상 생명을...</p>
+처지가되었다.</strong> </p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">영적 사망입니다</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">I. 하나님께서 낭i의 샀으로 죽음을 경고하셨다.라는 말씀은 인간의 죄</span></li>
-<li><span class="question">와 죽음 사이에 어떤 관계를 보여줍니까? 여러분은 죄가 단순한 실수나 약</span></li>
-<li><span class="question">점이 아니라 하나님의 거룩한 율법을 거스르는 반역이며, 그 결과가 죽음이</span></li>
-<li><span class="question">라는 사실을 깊이 인식하고 있습니까? 그렇다면 우리는 날마다 죄의 심각</span></li>
-<li><span class="question">성을 자각하며, 죄로부터 돌이켜 거룩한 삶을 추구하기 위해 어떻게 살아</span></li>
-<li><span class="question">야하겠습니까?</span></li>
-
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p>. 이것은 하나님과의 생명적 교제가 단절된 상태, 곧 
+<strong class="text-blue-600">허물과 죄로 죽은</strong>(엡 2:1) 상태를 말합니다. 월 22일에 읽은 신앙고백서</p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">2은 이를 다음과 같이 설명합니다</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>. <strong class="text-blue-600">이 죄로 말미암아 그들은 원의와 하 
+나님과의 교제에서 떨어졌으며, 그리하여 죄 가운데 죽은 자가 되었고, 영 
+혼과 몸의 모든 기능과 부분이 완전히 오염되었다.</strong> 둘째, 육체적 사망입니 
+다. 이것은 영혼과 육체가 분리되는 것으로, 사람이 더 이상 생명을 유지하 
+지 못하고 육체가 썩어 흙으로 돌아가는 상태롤 말합니다(창 3:19)_ 셋째, 
+영원한 사망입니다. 이것은 마지막 심판 후 하나님에게서 영원히 분리되어 
+지옥에서 공의의 형벌을 받는 상태를 가리킵니다. 월 일에 읽은 소요리문답 19항은 이를 <strong class="text-blue-600">영원한 지옥의 고통“이라고 표현합니다. 
+“죄의 샀으로 죽음을 경고하셨다</strong>라는 것은 죽음이 인간의 본성에 속한 것 
+이 아님을 보여줍니다. 사람은 창조될 때부터 "죽을 존재”로 지음 받지 않 
+았습니다. 죽음은 죄로 인해 하나님의 공의로운 진노 아래 임한 결과요 형 
+벌입니다. 그러나 인간이 본래 생물학적 죽음을 겪도록 창조되었다고 주장 
+하는 잘못된 견해가 교회사 속에 있어 왔습니다. 특히 현대의 자유주의 신 
+학자들과 유신진화론자들은 죽음을 인간 존재의 유한성에서 비롯된 자연 
+적 현상으로 해석하며, 죄의 결과로 주어진 형벌이라는 성경적 교리를 부정 
+합니다. 이러한 주장은 성경의 명백한 가르침에 어긋납니다. 만일 죽음이 죄 
+의 형벌이 아니라면, 그리스도의 대속적 죽음 곧 죄인을 대신하여 형벌을 
+담당하신 사건은 의미를 잃게 됩니다. 죄로 인해 죽음이 들어왔기에, 그리 
+스도께서 죽음울 담당하심으로 죽음의 권세를 깨뜨리시고 부활과 영생을 
+주셨다는 복음의 진리가 선포될 수 있는 것입니다. 따라서 죽음은 본래 창 
+조의 일부가 아니라, 죄로 인해 더해진 저주의 결과입니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 4</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">한 번 죽는 것은 모든 사람에게 정해진 것입니다</strong>: <strong class="text-blue-600">한 번 죽는 것</strong>의 
+의미는 단지 기회적으로 한 번만 죽는다는 사실에 그치지 않습니다. 그것 
+은 단회적이며, 동시에 돌이킬 수 없는 결정적 죽음을 뜻합니다. 죽음은 결 
+코 윤회나 다른 생애로 이어지는 자연 안에 있는 순환과정이 아닙니다. 사 
+람이 자연 질서 안에서 스스로 죽음에서 일어날 수 있는 길은 없습니다. 
+죽음은 저주의 심판이며 형벌이기 때문입니다. 
+죽음은 모든 사람에게 정해진 것이며, 따라서 보편적입니다. <strong class="text-blue-600">선악을 알게 
+하는 나무의 열매는 먹지 말라 네가 먹는 날에는 반드시 죽으리라 하시니 
+라</strong>(창 2:17) 라는 말씀은 단지 아담 개인에게만 해당하는 명령이 아니라, 모 
+든 인류에게 적용되는 언약적 말씀입니다. 월 일에 읽은 웨스트민스터 신앙고백서 7.2은 이 사실을 명확히 진술합니다. <strong class="text-blue-600">사람과 맺으신 첫 번째 언약 
+은 행위 언약이었다. 이 언약 안에서 완전하며 인격적인 순종을 조건으로 
+하여, 아담에게 그리고 아담 안에 있는 그의 후손들에게 생명이 약속되었 
+다.</strong> 여기서 언급된 행위 언약(Covenant of Works)은 앞서 인용한 창세기 
+2:17 말씀 곧 "네가 먹는 날에는 반드시 죽으리라”는 언약적 명령을 가리킵 
+니다. 아담은 그의 후손들의 언약적 대표자입니다. 따라서 아담의 불순종 
+으로 말미암아 주어진 죽음의 형벌은 단지 아담 한 사람에게만이 아니라, 
+그의 후손들 전체에게 미치게 되었습니다. 그러므로 <strong class="text-blue-600">한 번 죽는 것</strong>은 모 
+든 사람에게 정해진 것입니다. </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 5</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>"왜냐하면 모든 사람이 죄를 범했기 때문입니다”: 모든 사람이 죽는 이 
+유는 모든 사람이 죄를 범했기 때문입니다. 이는 앞서 살핀 것처럼, 아담이 
+인류의 대표로서 하나님과 행위 언약을 맺었기 때문입니다. 아담이 그 언 
+12월. 32 장. 사람의 사후상태와죽은자의 부활 393 
+약을 어겼을 때, 그 불순종의 결과인 죽음의 형벌이 그의 모든 후손에게도 
+예외 없이 임하게 되었습니다. 이 말은 아담의 후손들이 자신에게 죄가 없 
+음에도 불구하고 억울하게 죽음을 당한다는 뜻이 아닙니다. 그들은 언약의 
+머리이자 대표자인 아담의 죄책을 함께 짊어졌기 때문입니다. 사도 바울을 
+통해 성경은 이렇게 말씀합니다. <strong class="text-blue-600">그러므로 한 사람으로 말미암아 죄가 세 
+상에 들어오고 죄로 말미암아 사망이 들어왔나니, 이와 같이 모든 사람이 
+죄를 지었으므로 사망이 모든 사람에게 이르렀느니라</strong>(롬 5:12). 이 구절이 
+보여주는 바와 같이, 아담이 죄를 범하였을 때 그 안에 있는 모든 사람도 
+죄를 지은 것으로 간주됩니다. 여기서 <strong class="text-blue-600">죄를 지었다</strong>라는 말은 아담이 대표 
+로 범한 죄의 죄책(guilt)이 그의 모든 후손에게 전가(imp tation)되었음을 
+의미합니다. 동시에 이는 모든 사람이 죄의 오염 (corruption) 아래 놓이게 
+되었음을 부수적으로 포함합니다. 곧, 모든 사람에게 사망이 임한 것은 모 
+든 사람이 죄를 범하였기 때문이며, 이는 아담의 죄책이 그의 모든 후손에 
+게 전가되고, 그 결과 인간의 본성이 부패하게 되었기 때문입니다. 따라서 
+모든 사람은 타고난 부패한 본성을 가지고 세상에 태어나는 것입니다. 
+‘</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>I. 하나님께서 낭i의 샀으로 죽음을 경고하셨다.라는 말씀은 인간의 죄</li>
+<li>와 죽음 사이에 어떤 관계를 보여줍니까? 여러분은 죄가 단순한 실수나 약</li>
+<li>점이 아니라 하나님의 거룩한 율법을 거스르는 반역이며, 그 결과가 죽음이</li>
+<li>라는 사실을 깊이 인식하고 있습니까? 그렇다면 우리는 날마다 죄의 심각</li>
+<li>성을 자각하며, 죄로부터 돌이켜 거룩한 삶을 추구하기 위해 어떻게 살아</li>
+<li>야하겠습니까?</li>
+<li>성경이 말하는 사망이 영적—육체적—영원한 세 가지로 구분된다는</li>
+<li>것은 인간의 타락이 얼마나 전인적인지를 보여줍니다. 여러분은 하나님과</li>
+<li>의 교제가 끊어전 영적 사망 상태가 얼마나 비참한지를 깨닫고 있습니까?</li>
+<li>우리는 이 세 가지 죽음의 실재를 깊이 인식함으로써, 오직 그리스도의 생</li>
+<li>명 안에서만 참된 회복과 소망이 있음을 어떻게 더 확신하며 살아갈 수 있</li>
+<li>을7J}요?</li>
+<li>“한 번 죽는 것은 모든 사람에게 정해진 것”이라는 진리는 인간의 죽</li>
+<li>음이 단순한 자연의 순환이 아니라 하나님의 공의로운 심판임을 보여줍니</li>
+<li>다. 여러분은 죽음을 피할 수 없는 현실로만 보지 않고, 죄에 대한 하나님</li>
+<li>의 거룩한 심판의 결과로 받아들이고 있습니까? 우리는 죽음의 필연성을</li>
+<li>깨달을 때, 그리스도의 부활 안에서 주어진 새 생명의 소망을 어떻게 더 확</li>
+<li>고히 붙들며 살아야 하겠습니까?</li>
+<li>“모든 사람이 죄를 범하였기 때문”이라는 말씀은 아담의 범죄가 모든</li>
+<li>인류에게 영향을 미쳤다는 대표성과 전가의 교리를 가르칩니다. 여러분은</li>
+<li>자신의 죄가 단지 개인적 행위의 결과가 아니라, 아담 안에서 이미 부패한</li>
+<li>본성을 지닌 존재로 태어난 데에서 비롯되었음을 이해하고 있습니까? 우</li>
+<li>리는 이러한 교리를 깨달을 때, 인간의 구원이 오직 두 번째 아담이신 예수</li>
+<li>그리스도의 은혜와 의의 전가에 의해서만 가능하다는 사실을 어떻게 더 깊</li>
+<li>이 감사하며 고백할 수 있을까요?</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1222';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1222';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

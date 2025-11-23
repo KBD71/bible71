@@ -3,339 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 2일</title>
+    <title>12월 2일: 121/ · 일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 2일</h1>
-            <p class="text-xl text-gray-600 mt-2">121/ · 일</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">121/ · 일</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 2일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    신앙고백서 29.5
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">신앙고백서 29.5</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">외적요소와그것이 의미하는것의 성례전적 판계 신앙고백서 29.5 이 성례의 외적 요소들은 그리스도께서 제정하신 용도 를 위해 합당하게 구별될 때, 십자가에 달려 죽으신 그 리스도와 관계된다. 이 관계에 따라 종종 이 요소들은, 참으로 그러나 성례전적으로만, 이 요소들이 나타내는 실체의 이름, 즉 그리스도의 몸과 피로 불린다? 그럼에 도 이 요소들은 실체와 본질에 있어서 전과 같이, 참으 로 그리고 오직, 여전히 빵과 포도주 그대로이다.2) 1) 마 26:26-28. 2) 고전 11:26-28; 마 26:29. ‘</p>
+                <div class="catechism-body">
+                    <p>외적요소와그것이 의미하는것의 성례전적 판계 신앙고백서 29.5 이 성례의 외적 요소들은 그리스도께서 제정하신 용도 를 위해 합당하게 구별될 때, 십자가에 달려 죽으신 그 리스도와 관계된다. 이 관계에 따라 종종 이 요소들은, 참으로 그러나 성례전적으로만, 이 요소들이 나타내는 실체의 이름, 즉 그리스도의 몸과 피로 불린다? 그럼에 도 이 요소들은 실체와 본질에 있어서 전과 같이, 참으 로 그리고 오직, 여전히 빵과 포도주 그대로이다.2) 1) 마 26:26-28. 2) 고전 11:26-28; 마 26:29. ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>오늘 읽는 신앙고백서 29.5은, 11월 11일에 살핀 신앙고백서 27.2과 대요리문답 163항에서 진술하고 있는 “성례전적 연합"(sacramental union)을 
 성찬의 규례에 맞추어 구체적으로 교훈합니다. 본문의 내용을 크게 두 부 
-분으로 나누어 살펴보겠습니다. 
-(1) “이 성례의 외적 요소들은 그리스도께서 제정하신 용도를 위해 합당하 
+분으로 나누어 살펴보겠습니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 1</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">이 성례의 외적 요소들은 그리스도께서 제정하신 용도를 위해 합당하 
 게 구별될 때, 십자가에 달려 죽으신 그리스도와 관계된다. 이 관계에 따라 
 종종 이 요소들은, 참으로 그러나 성례전적으로만, 이 요소들이 나타내는 
-실체의 이름 죽 그리스도의 몸과 피로 불린다”: 성례의 외적 요소들이란 대요리문답 163항에서 언급한 성례의 두 구성 부분 가운데 외적이고 감각적 
+실체의 이름 죽 그리스도의 몸과 피로 불린다</strong>: 성례의 외적 요소들이란 대요리문답 163항에서 언급한 성례의 두 구성 부분 가운데 외적이고 감각적 
 인 표지를 말합니다. 다른 구성 부분은 이 외적 요소가 나타내는 내적이고 
 영적인 은혜입니다. 여기서 외적 요소는 성찬의 경우 빵과 포도주를 가리 
-킵니다. 이러한 외적 요소들은 “그리스도께서 제정하신 용도를 위해 합당 
-하게 구별될 때,” 단지 빵과 포도주라는 일상 음식이 아니라 십자가에 달려 
+킵니다. 이러한 외적 요소들은 <strong class="text-blue-600">그리스도께서 제정하신 용도를 위해 합당 
+하게 구별될 때,</strong> 단지 빵과 포도주라는 일상 음식이 아니라 십자가에 달려 
 죽으신 그리스도와 연결되는 효력을 지닌 표징이 됩니다. 그리고 이러한 효 
 력으로 말미암아 외적 요소인 빵과 포도주는 성찬에서 그것들이 표지하는 
 실체의 이름, 죽 그리스도의 몸과 피로 불립니다. 이것은 합당하게 구별된 
 외적 요소와 그것이 표지하는 내적이고 영적인 은혜 사이에 성례전적 연합, 
 곧 영적 관계가 주어지기 때문입니다. 이러한 성례전적 연합은 표지와 실체 
 가 구별되지만 분리되지 않는 관계를 형성합니다. 
-오늘 읽는 신앙고백서 29.5은 이러한 관계에 따라 "참으로 그러나 성례전 
-적으로만" 그리스도의 몸과 피라고 불린다고 진술합니다. "참으로”라는 말 
+오늘 읽는 신앙고백서 29.5은 이러한 관계에 따라 <strong class="text-blue-600">참으로 그러나 성례전 
+적으로만</strong> 그리스도의 몸과 피라고 불린다고 진술합니다. <strong class="text-blue-600">참으로”라는 말 
 은 빵과 포도주가 그리스도의 몸과 피라고 불리는 일이 단지 비유나 상징 
 에 불과한 이름으로 이해되어서는 안 된다는 점을 강조합니다. 이는 소위 
-단순 기념설(Mere Memo rialism) 의 오류를 배격하는 것입니다. "참...</p>
+단순 기념설(Mere Memo rialism) 의 오류를 배격하는 것입니다. </strong>참으로” 
+라는 말은 개혁신학의 <strong class="text-blue-600">영적 임재<strong class="text-blue-600">(spiritual resence)로 알려진 성찬 이해 
+를 특징짓습니다. 개혁신학의 “영적 임재</strong>(spiritu al presence) 교리는, 성찬 
+중에 성령께서 역사하심으로 말미암아 그리스도께서 자신의 구속의 은혜 
+룰 신자의 마음과 영혼 안에 실제로 임재하게 하신다는 뜻을 가르칩니다. 
+이는 그리스도께서 친히 육체적으로 성찬의 자리로 내려오신다는 의미가 
+아니라, 성령을 통하여 하늘에 계신 그리스도의 은혜와 생명이 믿는 자에 
+게 실제로 전달되고 누려진다는 의미입니다. 성령 하나님께서는 믿음으로 
+성찬을 받는 신자의 영혼을 하늘에 계신 그리스도께로 들어 올리셔서 신 
+자로 하여금 그리스도와 교제하게 하십니다. 이때 영혼이 하늘로 들어 을 
+려진다.라는 표현은 물리적 이동이 아니라, 믿음 안에서 성령에 의한 영적 
+교통(cornmunio piritualis)을 뜻합니다. 이 말은 신자가 육체를 떠나서 하 
+늘로 올라간다는 의미가 아닙니다. 이 땅의 신자는 여전히 몸과 영혼이 결 
+합된 통일된 인격체로서 성찬에 참여하면서, 그 마음과 믿음은 성령의 역 
+사로 하늘에 계신 그리스도께 향하게 됩니다. 이렇게 신자는 몸으로는 성례 
+의 표징을 받고, 영혼으로는 그리스도의 은혜에 참여함으로써, 전인적으로 
+그리스도와 교제하게 됩니다. 이러한 은혜로 말미암아 성찬의 외적 요소는 
+단순한 상징 (bare ign)이 아니라, 믿음 안에서 참으로 그리스도의 몸과 피 
+라고불립니다. 
+여기서 <strong class="text-blue-600">참으로</strong>(truly)라는 말은, 빵과 포도주가 그리스도의 몸과 피라고 
+불리는 일이 단지 비유적이거나 상징적인 명칭에 불과하다는 의미가 아님 
+을 가르칩니다. 오히려 <strong class="text-blue-600">그러나 성례전적으로만</strong>(sacramentally nly)이라는 
+표현이 명확히 보여주듯, 이는 성례전적 실재 (unio sacramentalis) 의 차원 
+에서 이해되어야 합니다. 
+그러나 <strong class="text-blue-600">참으로</strong>라는 표현은 로마 가톨릭이 주장하듯이, 빵과 포도주의 실 
+체가 그리스도의 몸과 피의 물질적 실체로 변화되었다는 뜻이 아닙니다. 또 
+한 루터파가 말하는 공재설(Consubstanti tion), 죽 그리스도의 몸과 피가 
+초자연적으로 빵과 포도주의 물질 안에, 함께, 또는 아래에 존재한다고 보 
+는견해도부정합니다. 
+주의할 점은, 루터파가 빵과 포도주의 물질과 그리스도의 몸과 피가 물리적 
+으로 혼합되어 있다고 말하지는 않는다는 사실입니다. 루터파는 수찬자가 
+빵과 포도주를 자연적 방식으로 먹는 동시에, 그리스도의 몸과 피를 초자 
+연적 방식으로 먹는다고 주장합니다. 그들은 그리스도의 몸과 피가 물리적 
+으로 공간을 점유하지는 않지만, 공간 안에 실제로 존재한다고 보기 때문 
+입니다. 이것이 루터파가 이해하는 성례전적 연합의 방식입니다. 
+12일. 29장. 주의 만찬(성찬) 245 
+그러나 루터파의 성례전적 연합과 개혁신학의 가장 분명한 차이는, 루터파 
+는 성찬을 통해 그리스도의 몸과 피를 먹는 일이 수찬자의 믿음과 상관없 
+이 가능하다고 본다는 데 있습니다. 로마 가톨릭과 루터파 모두 수찬자가 
+빵과 포도주를 먹을 때 믿음의 유무와 상관없이 그리스도의 몸과 피를 실 
+제로 먹고 마신다고 보는 점에서 일치합니다. 이에 반해, 웨스트민스터 신앙고백서는 성찬의 외적 요소들이 그리스도의 몸과 피로 불릴 수는 있지만, 
+그것이 </strong>참으로 그러나 성례전적으로만” 그러하다는 점을 분명히 선언합니 
+다. 이 표현은 오직 믿음으로 받는 수찬자만이 그리스도의 몸과 피를 영적 
+으로 먹고 마신다는 뜻을 담습니다. 그리고 "믿음으로, 그리고 영적으로” 
+그리스도의 몸과 피를 먹고 마신다는 것은, 곧 그리스도께서 베푸시는 구 
+속의 은혜를 실제로 누리는 것을 의미합니다. 다시 말해, 성찬을 받는 자가 
+성령의 능력에 의해 믿음으로 받을 때, 그리스도와 그분의 구속의 유익들 
+이 실제로 전달되고 누려지는 은혜가 성찬을 통해 주어지는 것입니다. </p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">루터파가 이해하는 성례전적 연합에서 그리스도의 몸과 피가 수찬자의</span></li>
-<li><span class="question">믿음과 상관없이 실제로 먹히고 마신다고 할 때, 그것은 성찬의 효력을 어</span></li>
-<li><span class="question">떻게 설명합니까? 여러분은 성찬을 받을 때 믿음이 없는 자도 동일한 은혜</span></li>
-<li><span class="question">를 받는다고 생각하지 않으시며, 오직 믿음을 통해서만 그리스도의 구속의</span></li>
-<li><span class="question">은혜가 실제로 전달된다는 진리를 확신하고 계십니까?</span></li>
-<li><span class="question">개혁신학이 이해하는 성례전적 연합에서 오직 믿음으로 받는 수찬자</span></li>
-
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">그럼에도 이 요소들은 실체와 본질에 있어서 전과 같이, 참으로 그리 
+고 오직, 여전히 빵과 포도주 그대로이다</strong>: 먼저 살펴본 신앙고백서 27.2 
+은, 표지와 그것이 표지하는 실체 사이에 성례전적 연합이라는 영적 관계 
+가 존재함을 말합니다. 이러한 연합의 관계로 인하여, 앞서 살핀 대로 성찬 
+의 외적 요소들은 그것이 나타내는 실체의 효력을 전달하는 수단으로 사 
+용됩니다. 그러므로 이 외적 요소들은 <strong class="text-blue-600">참으로” 외적 요소에 의해 표지된 
+실체의 이름 곧 그리스도의 몸과 피로 불립니다. 
+그러나 우리는 또 하나의 </strong>참으로.를 유의해야 합니다. 그것은 외적 요소 
+들이 실체와 본질에 있어서 여전히 <strong class="text-blue-600">참으로” 오직 빵과 포도주 그대로라 
+는 사실입니다. 성례전적 연합은 표지의 실체를 변화시키지 않습니다. 성례 
+전적 연합으로 인해 표지는 </strong>참으로” 그리스도의 몸과 피로 불리지만, 동시 
+에 표지가 그리스도의 몸과 피라는 실체로 변하는 것은 아닙니다. 외적 요 
+소들인 빵과 포도주는 실체와 본질에 있어서 성례전적 연합으로 인한 어떤 
+변화도 겪지 않으며, 오직 여전히 빵과 포도주 그대로입니다. 
+‘</p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+<li>루터파가 이해하는 성례전적 연합에서 그리스도의 몸과 피가 수찬자의</li>
+<li>믿음과 상관없이 실제로 먹히고 마신다고 할 때, 그것은 성찬의 효력을 어</li>
+<li>떻게 설명합니까? 여러분은 성찬을 받을 때 믿음이 없는 자도 동일한 은혜</li>
+<li>를 받는다고 생각하지 않으시며, 오직 믿음을 통해서만 그리스도의 구속의</li>
+<li>은혜가 실제로 전달된다는 진리를 확신하고 계십니까?</li>
+<li>개혁신학이 이해하는 성례전적 연합에서 오직 믿음으로 받는 수찬자</li>
+<li>만이 그리스도의 몸과 피를 영적으로 먹고 마신다고 할 때, 이것은 성찬의</li>
+<li>은혜가 어떤 방식으로 주어진다는 것을 의미합니까? 여러분은 성찬의 외적</li>
+<li>행위보다 성령의 내적 사역과 믿음의 반응을 더 중요하게 여기며, 성찬을</li>
+<li>통해 실제로 그리스도의 은혜를 누리기 위해 자신의 믿음을 점검하고 계십</li>
+<li>니까?</li>
+<li>이러한 차이로 인해 개혁신학에서 성찬의 외적 요소가 "참으로“ 그리</li>
+<li>스도의 몸과 피로 불리더라도, 그것이 구속의 은혜를 전달하는 수단으로</li>
+<li>서 어떤 제한적인 역할을 가진다고 할 수 있습니까? 여러분은 성찬의 빵과</li>
+<li>포도주 그 자체에 신비한 능력이 있다고 생각하지 않고, 그것들이 오직 성</li>
+<li>령의 역사와 믿음을 통해서만 은혜의 방편이 된다는 사실을 겸손히 인정하</li>
+<li>며 성찬에 참여하고 계십니까?</li>
+<li>12일. 29장. 주의 만찬(성찬) 247</li>
+<li>성찬의 효력이 오직 성령의 능력과 수찬자의 믿음에 달려 있다는 교훈</li>
+<li>은 우리의 마음이 어디에 집중되어야 함을 가르쳐 줍니까? 여러분은 성찬</li>
+<li>올 받을 때 눈앞의 표징인 빵과 포도주에 마음을 두지 않고, 하늘에 계신</li>
+<li>그리스도와 그분의 구속의 은혜에 시선을 고정하며, 믿음으로 그분의 임재</li>
+<li>와 교통을 사모하고 계십니까?</li>
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1202';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1202';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>

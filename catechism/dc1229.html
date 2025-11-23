@@ -3,336 +3,508 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 12월 29일</title>
+    <title>12월 29일: '.-----—-.`</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            word-break: keep-all;
-            background-color: #f3f4f6;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
         }
-        .card {
+        .infographic-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .card-header {
-            background-color: #4a5568;
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.75;
-        }
-        .card-body h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .card-body p {
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        .card-body li {
-            margin-bottom: 0.5rem;
-        }
-        .card-body .question {
-            font-weight: 600;
-            color: #111827;
-        }
-        .card-body .answer {
-            color: #374151;
-        }
-        .audio-player-container {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            background-color: #e0e7ff;
+            color: #4338ca;
         }
-        .audio-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid transparent;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
-        .audio-button:disabled {
-            background-color: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
+        .catechism-body {
+            color: #374151;
+            padding-left: 1rem;
+            border-left: 3px solid #6366f1;
+            line-height: 1.7;
         }
-        .audio-button.play {
-            background-color: #2563eb;
-            color: white;
+        .sub-heading {
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
-        .audio-button.play:hover {
-            background-color: #1d4ed8;
-        }
-        .audio-button.pause {
-            background-color: #f87171;
-            color: white;
-        }
-        .audio-button.pause:hover {
-            background-color: #ef4444;
-        }
-        .audio-error {
-            color: #dc2626;
-            font-weight: 500;
-            text-align: center;
-        }
-        #player-container {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            left: -100px;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.875rem;
-            color: #6b7280;
+        #player {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
 
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">12월 29일</h1>
-            <p class="text-xl text-gray-600 mt-2">'.-----—-.`</p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">'.-----—-.`</h1>
+            <p class="text-lg md:text-xl text-gray-500">12월 29일</p>
+            <div class="mt-6 flex justify-center">
+                <button id="audio-toggle" class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="button-text">AI 요약</span>
+                </button>
+            </div>
         </header>
 
-        <main>
-            <div class="card">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="infographic-card md:col-span-2">
                 <div class="card-header">
-                    소요리문답 38
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">소요리문답 38</h2>
                 </div>
-                <div class="card-body">
-                    <p class="answer">대요리문답 89,90 소요리문답 38: 38. 신자는 부활할 때 그리스도로부터 어떤 은택을 받 습니까? 달 부활할 때 영광스러움으로 다시 살아난1) 신자 는 심판 날에 공적으로 인정받아 무죄선언을 받고,2) 완 전히 복을 받아 하나님을 영원토록히 충만히 줄거워합니 .4 1) 고전 15:43. 2) 마 25:23; 1 Q:32. 3) 살전 4:17-18. 4) 요일 3:2; 고전 13:12. 12일. 33장. 최후의십판 439 대요리문답 89: 대요리문답 90: 89. 십판날에 악인에게는 어떤 일이 있습니까? 답. 심판 날에 악인은 그리스도의 왼편에 놓입니 다? 그리고 명백한 중거와 양심의 완전한 책망에 따라2) 이들에게 두려우면서도 공정한 정죄의 선고가 내려집니 다.3) 그리하여 하나님의 사랑의 얼굴을 떠냐 그리고 그 리스도와 성도들과 모든 거룩한 천사들과 더불어 누리 는 영화로운 교제로부터 쫓겨나 지옥에 던져져서 마귀 와그사자들과함께 몸과 영혼모두 말할수 없는고 통의 형벌을 영원히 받습니다.4) 1) 마 25:33. 2) 륨 2:15-16. 3) 마 25:41-43. 4) 늑 16:26; 살후 1 :8-9. 90. 십판날에 의인에게는 어떤 일이 있습니까? 답. 심판 날에 의인은 구름 속으로 그리스도에게 끌어올려져 그분의 오른편에 놓이며? 거기서 공적으로 인정받아 무죄 선언을 받고전 타락한 천사들과 사람들 을 그리스도와 함께 심판하며? 하늘에 영접받아 들어 갑니다.4) 거기서 이들은 모든 죄와 비참에서 온전히 그 리고 영원히 해방되어!i) 상상할 수도 없는 기쁨으로 충 만해집니다.6) 그리고 몸과 영혼이 완전히 거룩하고 행 복하게 되어 셀 수 없이 많은 성도와 거룩한 천사들과 ‘</p>
+                <div class="catechism-body">
+                    <p>대요리문답 89,90 소요리문답 38: 38. 신자는 부활할 때 그리스도로부터 어떤 은택을 받 습니까? 달 부활할 때 영광스러움으로 다시 살아난1) 신자 는 심판 날에 공적으로 인정받아 무죄선언을 받고,2) 완 전히 복을 받아 하나님을 영원토록히 충만히 줄거워합니 .4 1) 고전 15:43. 2) 마 25:23; 1 Q:32. 3) 살전 4:17-18. 4) 요일 3:2; 고전 13:12. 12일. 33장. 최후의십판 439 대요리문답 89: 대요리문답 90: 89. 십판날에 악인에게는 어떤 일이 있습니까? 답. 심판 날에 악인은 그리스도의 왼편에 놓입니 다? 그리고 명백한 중거와 양심의 완전한 책망에 따라2) 이들에게 두려우면서도 공정한 정죄의 선고가 내려집니 다.3) 그리하여 하나님의 사랑의 얼굴을 떠냐 그리고 그 리스도와 성도들과 모든 거룩한 천사들과 더불어 누리 는 영화로운 교제로부터 쫓겨나 지옥에 던져져서 마귀 와그사자들과함께 몸과 영혼모두 말할수 없는고 통의 형벌을 영원히 받습니다.4) 1) 마 25:33. 2) 륨 2:15-16. 3) 마 25:41-43. 4) 늑 16:26; 살후 1 :8-9. 90. 십판날에 의인에게는 어떤 일이 있습니까? 답. 심판 날에 의인은 구름 속으로 그리스도에게 끌어올려져 그분의 오른편에 놓이며? 거기서 공적으로 인정받아 무죄 선언을 받고전 타락한 천사들과 사람들 을 그리스도와 함께 심판하며? 하늘에 영접받아 들어 갑니다.4) 거기서 이들은 모든 죄와 비참에서 온전히 그 리고 영원히 해방되어!i) 상상할 수도 없는 기쁨으로 충 만해집니다.6) 그리고 몸과 영혼이 완전히 거룩하고 행 복하게 되어 셀 수 없이 많은 성도와 거룩한 천사들과 ‘</p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+    
+            <section class="infographic-card">
                 <div class="card-header">
-                    AI요약 듣기
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">서론</h2>
                 </div>
-                <div class="audio-player-container" id="audio-player-ui">
-                    <div id="player-container"></div>
-                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
-                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
-                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span id="button-text">로딩 중...</span>
-                    </button>
-                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    교리 해설
-                </div>
-                <div class="card-body">
+                <div class="space-y-4 text-gray-600">
                     <p>오늘 읽는 소요리문답 38항과 대요리문답 89항, 90항은 마지막 심판의 날 
 에 악인과 의인에게 각각 어떤 일이 일어나는가를 교훈합니다. 소요리문답 
 38항이 말하는 의인의 영광은 대요리문답 90항 안에 포함되어 있으므로, 
-여기서는 대요리문답 89항(악인)과 90항(의인)을 차례로 살펴보겠습니다. 
-1. 심판 날에 악인이 당할 형벌과 의인이 누릴 복 
-(1) "심판 날에 악인은 그리스도의 왼편에 놓입니다”: 최후 심판에서 의인과 
-악인의 공개적 분리가 이루어집니다. 예수께서는 “그 양은 오른편에, 염소 
-는 왼편에 두시리라”(마 25:33) 하셨습니다. ‘양과 염소’의 비유는 구속사적 
+여기서는 대요리문답 89항(악인)과 90항(의인)을 차례로 살펴보겠습니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">심판 날에 악인이 당할 형벌과 의인이 누릴 복</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>심판 날에 악인이 당할 형벌과 의인이 누릴 복 </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 2</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>"심판 날에 악인은 그리스도의 왼편에 놓입니다”: 최후 심판에서 의인과 
+악인의 공개적 분리가 이루어집니다. 예수께서는 <strong class="text-blue-600">그 양은 오른편에, 염소 
+는 왼편에 두시리라</strong>(마 25:33) 하셨습니다. ‘양과 염소’의 비유는 구속사적 
 으로 구원의 경계선을 드러냅니다. 왼편은 그리스도의 은혜로운 사역에서 
 완전히 배제된 자리를 상징하며. 악인은 구속의 은총에 참여하지 못한 자 
-들로판명됩니다. 
-(2) “그리고 명백한 중거와 양심의 완전한 책망에 따라 이들에게 두려우면 
-서도 공정한 정죄의 선고가 내려집니다”: 하나님의 심판은 자의적이거나 감 
+들로판명됩니다. </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 3</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">그리고 명백한 중거와 양심의 완전한 책망에 따라 이들에게 두려우면 
+서도 공정한 정죄의 선고가 내려집니다</strong>: 하나님의 심판은 자의적이거나 감 
 정적이지 않고, 인간의 행위에 대한 명백한 중거를 따라 공의로 진행됩니다. 
 심판의 기준은 하나님의 율법이며, 인간의 마음에 새겨진 양심의 중언 또 
 한 그 법의 내적 중거가 됩니다(롬 2:14-15). 이때 양심의 책망은 죄인이 어 
 떤 변명도 할 수 없게 하는 자기고발적 중언으로 작용합니다. 심판은 하나 
 님의 불가피한 공의의 행위로서, 죄의 대가가 정당하게 선포되는 두려운 자 
-리입니다. 
-(3) “지옥에 던져져서 마귀와 그 사자들과 함께 몸과 영혼 모두 말할 수 없 
-는 고통의 형벌을 영원히 받습니다”: 악인이 받는 형벌의 장소는 지옥입니 
-다. 예수께서 “마귀와 그 사자들을 위하여 예비된 영원한 불”(마 25:41) 이라 
-하셨으며, 요한계시록은 이를 "불과 유황의 못"（계 20:10) 으로 묘사합니다. 
-이 형벌은 몸과 영혼 모두에게 가해지는 전인적 고통이며, 끝이 없는 지속 
-적 상태입니다. 이것은 단순한 정서...</p>
+리입니다. </p>
                 </div>
-            </div>
-
-            <div class="card">
+            </section>
+        
+            <section class="infographic-card">
                 <div class="card-header">
-                    적용 질문
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 4</h2>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li><span class="question">적용 질문이 제공되지 않았습니다.</span></li>
-                    </ul>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">지옥에 던져져서 마귀와 그 사자들과 함께 몸과 영혼 모두 말할 수 없 
+는 고통의 형벌을 영원히 받습니다</strong>: 악인이 받는 형벌의 장소는 지옥입니 
+다. 예수께서 <strong class="text-blue-600">마귀와 그 사자들을 위하여 예비된 영원한 불</strong>(마 25:41) 이라 
+하셨으며, 요한계시록은 이를 <strong class="text-blue-600">불과 유황의 못</strong>（계 20:10) 으로 묘사합니다. 
+이 형벌은 몸과 영혼 모두에게 가해지는 전인적 고통이며, 끝이 없는 지속 
+적 상태입니다. 이것은 단순한 정서적 고통이나 상징적 표현이 아니라, 의식 
+적이고 실재적인 형벌임을 개혁신학은 분명히 합니다. </p>
                 </div>
-            </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 5</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">그리하여 하나님의 사랑의 얼굴을 떠나, 그리고 그리스도와 성도들과 
+모든 거룩한 천사들과 더불어 누리는 영화로운 교제로부터 쫓겨나"： 지옥 
+의 본질은 단순히 불의 고통이 아니라 하나님의 임재로부터의 영원한 단절 
+(살후 1:9) 입니다. 악인은 이 땅에서 누렸던 하나님의 일반은총마저 완전히 
+상실하며, 하나님의 은혜로운 얼굴빛으로부터 영원히 끊어집니다. 이것이 
+바로 “어린양의 전노</strong>(계 6:16) 라 불리는 형벌의 중심입니다. 따라서 악인의 
+비극은 단순히 형벌의 고통이 아니라, 은혜의 하나님으로부터 영원히 버려 
+진 상태에 있다는 사실입니다. </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">심판날에 의인이 누릴복</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>심판날에 의인이 누릴복 </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 7</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">심판 날에 의인은 구름 속으로 그리스도에게 끌어올려져 그분의 오른 
+편에 놓이며</strong>：의인은 공중에서 주님을 영접하여(살전 4:17) 그분의 오른편, 
+곧 왕의 나라에 상속받는 영광스러운 자리에 놓입니다. 이 들림 (rapture) 
+은 은밀한 사건이 아니라, 세상 만민 앞에 드러나는 공적 선언(publi c 
+vindication) 의 순간입니다. </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 8</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-blue-600">거기서 공적으로 인정받아 무죄 선언을 받고, 타락한 천사들과 사 
+람들을 그리스도와 함께 심판하며</strong>： 이것은 칭의의 공적 선언(publi c 
+ustification) 이라 부를 수 있습니다. 의인은 이미 은혜로 의롭다 하심을 받 
+았지만, 그 최종적 진실이 심판의 날에 공개적으로 확중됩니다. 이때 성도 
+들은 그리스도의 통치에 참여하는 보조적 심판자들로 서게 됩니다(고전 
+6:2 전). 이는 본질적 심판권이 아니라, 그리스도의 의로우심에 대한 찬양과 
+동의의 참여적 심판입니다. </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">하늘에 영접받아 들어갑니다</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>다. 거기서 이들은 모든 죄와 비참에서 온전 
+히 그리고 영원히 해방되어”: 성도는 하늘의 성소, 곧 하나님의 임재의 거처 
+로 영접됩니다. 이곳에서 그는 죄의 오염, 비참, 슬픔 질병, 죽음에서 완전히 
+해방됩니다. "처음 것들이 다 지나갔음이라”(계 21:4) 하신 말씀처럼, 영화 
+롭게 된 성도는 죄의 근원과 결과로부터 완전한 구속을 누립니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">상상할 수도 없는 기쁨으로 충만해집니다</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>다. 그리고 몸과 영혼이 완전히 
+거룩하고 행복하게 되어”: 천국의 기쁨온 인간의 언어로 표현할 수 없는 지 
+복의 상태(beatitudo)입니다. 영혼뿐 아니라, 부활의 영화로운 몸도 그 기쁨 
+에 참여합니다(빌 3:21). 부활체(glorified body)는 썩지 아니하고, 고통이 
+나 부패의 영향으로부터 완전히 자유로운 존재로 변모됩니다.</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 11</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>겔 수 없이 많은 성도와 거룩한 천사들과 함께 어울리고, 특별히 영원 
+무궁토록 하나님 아버지와 우리 주 예수 그리스도와 성령님을 직접 대면하 
+며 줄깁니다. 이것이 곧 보이지 않는 교회의 지체들이 부활과 심판 날에 영 
+광 가운데 그리스도와 더불어 누릴 완전하고 충만한 교제입니다”: 천상의 
+교제의 절정은 삼위일체 하나님과의 직접 교통입니다. 이를 개혁신학은 지 
+12 월. 33장. 최후의십판 445 
+복직관(beatific vision) 이라 부릅니다. 이는 피조물이 하나님의 본질을 본 
+다는 의미가 아니라 하나님께서 그리스도 안에서 자신을 계시하신 만큼을 
+완전하고 참되게 아는 지식입니다. 성도는 그리스도의 인성 안에서 하나님 
+을 보는 언약적 대면의 복을 누립니다. 그리스도의 지식을 모형적으로. 따라 
+참여하는 참된 인식이 이때 완성됩니다. 
+이 교제는 <strong class="text-blue-600">보이지 않는 교회"(invi ble church) 의 모든 지체가 부활과 심 
+판 후에 그리스도와 더불어 누릴 완전한 연합의 교제이며, 곧 인간 존재 
+의 궁극적 목적, “하나님을 영화롭게 하고, 그분을 영원토록 줄거워하는 
+것</strong>(대요리문답/소요리문답 항)의 완성입니다. 
+‘ 적용잘문 </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h2 class="card-title">마지막 심판 날에 악인은 왜 그리스도의 왼편에 놓이게 됩니까</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>? 여러 
+분은 하나님께서 지금도 의인과 악인을 구분하시는 공의로운 심판자이심 
+울 믿으며, 그 심판의 날을 바라보며 현재의 삶을 어떻게 살아가고 있습니 
+7Jl-?</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 13</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>하나님의 심판이 자의적이거나 감정적인 것이 아니라 명백한 중거와 
+양심의 책망을 따라 공의로 이루어진다는 것은 무엇을 의미합니까? 여러분 
+은 하나님의 공의로운 기준 앞에서 자신의 말과 행위가 드러날 날을 기억 
+하며, 지금의 삶을 어떻게 접검하고 있습니까? </p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h2 class="card-title">의인은 왜 공중에서 주님을 영접하고 그분의 오른편에 놓이게 됩니까</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>? 
+여러분은 장차 모든 믿는 자에게 주어질 그 영광스러운 자리와 공개적 인 
+정의 복을 소망하며, 지금 이 땅에서 주님의 재림을 기다리는 삶을 어떻게 
+준비하고 있습니까?</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h2 class="card-title">핵심 주제 15</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>지복직관(beatific vi on) 이란 무엇이며, 성도가 삼위일체 하나님과 직 
+접 교제하게 된다는 것은 어떤 의미입니까? 여러분은 장차 그리스도 안에 
+서 하나님을 참되게 알고 대면할 그 영광스러운 교제를 소망하며, 오늘의 
+예배와 기도 속에서 하나님과의 교제를 어떻게 더 깊이 누리고자 합니까?</p>
+                </div>
+            </section>
+        
+            <section class="infographic-card md:col-span-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 12h.01M12 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </div>
+                    <h2 class="card-title">적용 질문</h2>
+                </div>
+                <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+</ul>
+            </section>
+    
         </main>
+        
+        <div id="player"></div>
 
-        <footer>
-            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
+            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
         </footer>
 
     </div>
 
     <script>
+        // YouTube IFrame Player API 비동기 로드
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         let player;
-        let videoId = null;
-        let isPlayerReady = false;
-        let isPlaying = false;
-        const audioButton = document.getElementById('audio-button');
+        let playerState;
+
+        const audioToggleButton = document.getElementById('audio-toggle');
         const buttonText = document.getElementById('button-text');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
-        const errorContainer = document.getElementById('audio-error');
-
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
 
         function onYouTubeIframeAPIReady() {
-            fetchAudioAddress();
-        }
-
-        async function fetchAudioAddress() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
-                }
-                const text = await response.text();
-                const lines = text.split('\n');
-                const today = '1229';
-                const todayLine = lines.find(line => line.startsWith(today));
-
-                if (todayLine) {
-                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = todayLine.match(regex);
-                    if (match && match[1]) {
-                        videoId = match[1];
-                        initializePlayer();
-                    } else {
-                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
-                    }
-                } else {
-                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
-                }
-            } catch (error) {
-                console.error('Error fetching audio address:', error);
-                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        function initializePlayer() {
-            player = new YT.Player('player-container', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                  'showinfo': 0,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+            // 플레이어는 버튼 클릭 시 생성
         }
 
         function onPlayerReady(event) {
-            isPlayerReady = true;
-            audioButton.disabled = false;
-            buttonText.textContent = 'AI요약 듣기';
-            audioButton.setAttribute('aria-label', '교리 오디오 재생');
-            audioButton.addEventListener('click', togglePlayPause);
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateButtonUI(true);
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonUI(false);
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.seekTo(0);
-                }
-            }
+            playerState = event.data;
+            updateButtonUI(playerState);
         }
 
-        function togglePlayPause() {
-            if (!isPlayerReady) return;
-            if (isPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        }
-
-        function updateButtonUI(playing) {
-            if (playing) {
-                audioButton.classList.remove('play');
-                audioButton.classList.add('pause');
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+        function updateButtonUI(state) {
+            if (state === YT.PlayerState.PLAYING) {
                 buttonText.textContent = '일시정지';
-                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
             } else {
-                audioButton.classList.remove('pause');
-                audioButton.classList.add('play');
-                playIcon.style.display = 'inline';
-                pauseIcon.style.display = 'none';
-                buttonText.textContent = 'AI요약 듣기';
-                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+                buttonText.textContent = 'AI 요약';
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
         }
-
-        function showError(message) {
-            const button = document.getElementById('audio-button');
-            if (button) {
-                button.style.display = 'none';
-            }
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
+        
+        function extractVideoID(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/
+\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
         }
 
-        loadYouTubeAPI();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (audioToggleButton) {
+                audioToggleButton.addEventListener('click', () => {
+                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
+                        player.pauseVideo();
+                    } 
+                    else if (player && playerState === YT.PlayerState.PAUSED) {
+                        player.playVideo();
+                    } 
+                    else {
+                        const audioFilePath = '../address/dcaddr.txt';
+
+                        fetch(audioFilePath)
+                            .then(response => {
+                                if (!response.ok) throw new Error('404');
+                                return response.text();
+                            })
+                            .then(fileContent => {
+                                if (!fileContent || fileContent.trim() === '') {
+                                    alert('유효한 오디오 주소가 파일에 없습니다.');
+                                    return;
+                                }
+
+                                const lines = fileContent.split('\n');
+                                const targetDate = '1229';
+                                let url = '';
+
+                                for (const line of lines) {
+                                    if (line.trim().startsWith(targetDate + ' ')) {
+                                        url = line.trim().substring(5);
+                                        break;
+                                    }
+                                }
+
+                                if (!url) {
+                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
+                                    return;
+                                }
+
+                                const videoId = extractVideoID(url.trim());
+
+                                if (!videoId) {
+                                    alert('유효한 YouTube URL이 아닙니다.');
+                                    return;
+                                }
+
+                                if (player) {
+                                    player.loadVideoById(videoId);
+                                } else {
+                                    player = new YT.Player('player', {
+                                        height: '0',
+                                        width: '0',
+                                        videoId: videoId,
+                                        playerVars: {
+                                            'playsinline': 1
+                                        },
+                                        events: {
+                                            'onReady': onPlayerReady,
+                                            'onStateChange': onPlayerStateChange
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message === '404') {
+                                    alert('아직 업로드 전입니다.');
+                                } else {
+                                    console.error('오디오 파일 로드 중 오류 발생:', error);
+                                }
+                            });
+                    }
+                });
+            }
+        });
     </script>
 
 </body>
