@@ -3,50 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업로드 대기 중</title>
+    <title>설교 요약 - 김대근 목사</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f7f9fc;
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            max-width: 400px;
-            width: 90%;
-        }
-        img {
-            width: 150px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 24px;
-            margin: 0 0 10px 0;
-            color: #2c3e50;
-        }
-        p {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin: 0;
-        }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f3f4f6; }
+        .card-icon { width: 24px; height: 24px; flex-shrink: 0; }
+        .keyword { font-weight: 700; color: #b91c1c; background-color: #fee2e2; padding: 0 4px; border-radius: 4px; }
+        blockquote { border-left: 4px solid #e5e7eb; padding-left: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; font-style: italic; color: #4b5563; }
+        /* Player hidden but accessible for API */
+        #player { position: absolute; top: -9999px; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <img src="waiting_placeholder.png" alt="Waiting Icon">
-        <h1>아직 업로드 전입니다.</h1>
-        <p>말씀이 곧 업데이트될 예정입니다.<br>잠시만 기다려주세요.</p>
+<body class="antialiased text-gray-800">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        
+        <header class="bg-white rounded-xl shadow-lg p-8 mb-6 text-center border-t-8 border-indigo-900">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">[느5:1-19] 매일성경본문</h1>
+            <div class="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-600 font-medium mt-3">
+                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full">느헤미야 5:1-19</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> 김대근 목사</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 2025-11-24</span>
+            </div>
+
+            <div class="mt-6 bg-indigo-50 border border-indigo-100 rounded-lg p-5 relative">
+                <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">핵심 주제</span>
+                <p class="text-indigo-900 font-medium text-lg leading-relaxed pt-2">
+                    "참된 하나님 경외는 예배당을 넘어 삶의 현장에서 <span class="keyword">형제 사랑과 공의의 실천</span>으로 증명되어야 하며, 지도자의 청렴과 희생은 공동체의 회복과 하나님께 영광을 돌리는 통로가 됩니다."
+                </p>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6 flex justify-center items-center sticky top-4 z-50 ring-1 ring-gray-200">
+            <div id="player"></div> <button id="audio-control-btn" class="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">
+                <span id="btn-icon">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                </span>
+                <span id="btn-text" class="text-lg">설교 듣기</span>
+            </button>
+        </div>
+
+        <div class="scripture-text-section bg-stone-50 text-stone-700 p-6 rounded-lg shadow-inner mb-8 border-l-4 border-stone-400 text-sm leading-7">
+            <h3 class="font-bold text-stone-600 mb-3 flex items-center border-b border-stone-200 pb-2">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 19.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 19.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                느헤미야 5:1-19
+            </h3>
+            <div class="space-y-2 h-64 overflow-y-auto pr-2 custom-scrollbar">
+                <p><strong>1</strong> 그때에 백성들이 그들의 아내와 함께 크게 부르짖어 그들의 형제인 유다 사람들을 원망하는데</p>
+                <p><strong>2</strong> 어떤 사람은 말하기를 우리와 우리 자녀가 많으니 양식을 얻어먹고 살아야 하겠다 하고</p>
+                <p><strong>3</strong> 어떤 사람은 말하기를 우리가 밭과 포도원과 집이라도 저당 잡히고 이 흉년에 곡식을 얻자 하고</p>
+                <p><strong>4</strong> 어떤 사람은 말하기를 우리는 밭과 포도원으로 돈을 빚내서 왕에게 세금을 바쳤도다</p>
+                <p><strong>5</strong> 우리 육체도 우리 형제의 육체와 같고 우리 자녀도 그들의 자녀와 같거늘 이제 우리 자녀를 종으로 파는도다 우리 딸 중에 벌써 종 된 자가 있고 우리의 밭과 포도원이 이미 남의 것이 되었으나 우리에게는 아무런 힘이 없도다 하더라</p>
+                <p><strong>6</strong> 내가 백성의 부르짖음과 이런 말을 듣고 크게 노하였으나</p>
+                <p><strong>7</strong> 깊이 생각하고 귀족들과 민장들을 꾸짖어 그들에게 이르기를 너희가 각기 형제에게 높은 이자를 취하는도다 하고 대회를 열고 그들을 쳐서</p>
+                <p><strong>8</strong> 그들에게 이르기를 우리는 이방인의 손에 팔린 우리 형제 유다 사람들을 우리의 힘을 다하여 도로 찾았거늘 너희는 너희 형제를 팔고자 하느냐 더구나 우리의 손에 팔리게 하겠느냐 하매 그들이 잠잠하여 말이 없기로</p>
+                <p><strong>9</strong> 내가 또 이르기를 너희의 소행이 좋지 못하도다 우리의 대적 이방 사람의 비방을 생각하고 우리 하나님을 경외하는 가운데 행할 것이 아니냐</p>
+                <p><strong>10</strong> 나와 내 형제와 종자들도 역시 돈과 양식을 백성에게 꾸어 주었거니와 우리가 그 이자 받기를 그치자</p>
+                <p><strong>11</strong> 그런즉 너희는 그들에게 오늘이라도 그들의 밭과 포도원과 감람원과 집이며 너희가 꾸어 준 돈이나 양식이나 새 포도주나 기름의 백분의 일을 돌려보내라 하였더니</p>
+                <p><strong>12</strong> 그들이 말하기를 우리가 당신의 말씀대로 행하여 돌려보내고 그들에게서 아무것도 요구하지 아니하리이다 하기로 내가 제사장들을 불러 그들에게 그 말대로 행하겠다고 맹세하게 하고</p>
+                <p><strong>13</strong> 내가 옷자락을 털며 이르기를 이 말대로 행하지 아니하는 자는 모두 하나님이 또한 이와 같이 그 집과 산업에서 털어버리실지니 그는 곧 이렇게 털려서 빈손이 될지로다 하매 회중이 다 아멘 하고 여호와를 찬송하고 백성들이 그 말한 대로 행하였느니라</p>
+                <p><strong>14</strong> 또한 유다 땅 총독으로 세움을 받은 때 곧 아닥사스다 왕 제이십년부터 제삼십이년까지 십이 년 동안은 나와 내 형제들이 총독의 녹을 먹지 아니하였느니라</p>
+                <p><strong>15</strong> 나보다 먼저 있었던 총독들은 백성에게서 양식과 포도주와 또 은 사십 세겔을 그들에게서 빼앗았고 또한 그들의 종자들도 백성을 압제하였으나 나는 하나님을 경외하므로 이같이 행하지 아니하고</p>
+                <p><strong>16</strong> 도리어 이 성벽 공사에 힘을 다하며 땅을 사지 아니하였고 내 모든 종자들도 모여서 일을 하였으며</p>
+                <p><strong>17</strong> 또 내 상에는 유다 사람들과 민장들 백오십 명이 있고 그 외에도 우리 주위에 있는 이방 족속들 중에서 우리에게 나아온 자들이 있었는데</p>
+                <p><strong>18</strong> 매일 나를 위하여 소 한 마리와 살진 양 여섯 마리를 준비하며 닭도 많이 준비하고 열흘에 한 번씩은 각종 포도주를 갖추었나니 비록 이같이 하였을지라도 내가 총독의 녹을 요구하지 아니하였음은 이 백성의 부역이 중함이었더라</p>
+                <p><strong>19</strong> 내 하나님이여 내가 이 백성을 위하여 행한 모든 일을 기억하사 내게 은혜를 베푸시옵소서</p>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-6">
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-orange-500">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-orange-500">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    배경: 내부의 위기와 부르짖음
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    당시 이스라엘 공동체는 외부의 대적뿐만 아니라 심각한 <span class="keyword">경제적 위기와 내부 갈등</span>에 직면해 있었습니다. 인구 증가와 흉년, 그리고 과중한 세금으로 인해 가난한 백성들은 극심한 고통을 겪고 있었습니다.
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li>부유한 형제들이 가난한 자들에게 양식과 돈을 빌려주며 높은 이자를 요구함.</li>
+                    <li>빚을 갚지 못한 자들의 자녀가 노예로 팔려가는 비극적인 상황 발생.</li>
+                    <li>외부의 적보다 더 무서운 <strong>공동체의 붕괴 위기</strong>가 도래함.</li>
+                </ul>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-purple-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    반응: 분노와 절제된 지혜
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    백성들의 원망을 들은 느헤미야는 '크게 노하였으나' 즉시 감정을 폭발시키지 않았습니다. 성경은 그가 <span class="keyword">깊이 생각했다</span>고 기록합니다. 이는 자신의 마음을 다스리고 상황을 냉철하게 직시했음을 의미합니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    의로운 분노라 할지라도, 그것을 성령의 소욕으로 다스리지 않으면 덕을 세우기 어렵습니다. 느헤미야는 분노를 다스린 후에야 비로소 귀족과 민장들을 꾸짖으며, 문제를 공의롭게 해결할 지혜로운 방안을 제시할 수 있었습니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-rose-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-rose-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    책망: 하나님을 경외하는 삶
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    느헤미야는 부유한 자들에게 "이방 사람의 비방을 생각하고 <span class="keyword">하나님을 경외하는 가운데</span> 행할 것이 아니냐"라고 책망합니다. 이는 신자의 삶이 세상의 도덕적 기준보다 낮아서는 안 됨을 경고하는 것입니다.
+                </p>
+                <blockquote class="text-sm">
+                    "우리는 이방인의 손에 팔린 형제를 도로 찾았거늘, 너희는 형제를 팔고자 하느냐?"
+                </blockquote>
+                <p class="mt-3 leading-relaxed text-gray-700">
+                    하나님을 믿는다고 하면서 세상 사람들과 다를 바 없이, 혹은 더 악하게 이익을 추구하는 모습은 하나님의 영광을 가리는 심각한 죄악입니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-emerald-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-emerald-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    결과: 순종과 공동체의 찬양
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    느헤미야의 권면에 부유한 자들은 즉각적으로 순종하여 착취한 것을 돌려주기로 맹세했습니다. 이에 온 회중은 "아멘"으로 화답하고 여호와를 찬송했습니다.
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li><strong>진정한 찬양:</strong> 입술의 고백뿐만 아니라, 삶의 구체적인 순종과 형제 사랑이 동반될 때 하나님께서 영광 받으십니다.</li>
+                    <li><strong>공동체 회복:</strong> 억울한 자가 없고 정의가 실현될 때 교회 공동체는 비로소 하나님 나라의 모델이 됩니다.</li>
+                </ul>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-purple-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    본보: 지도자의 희생과 청렴
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    느헤미야는 12년 동안 총독으로서 마땅히 받을 수 있는 녹(월급/식량)을 받지 않았습니다. 오히려 그는 자신의 재산으로 많은 사람을 먹이며 성벽 재건에 헌신했습니다. 그 이유는 백성들의 부역이 중했기 때문입니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    그가 이렇게 할 수 있었던 동력은 <span class="keyword">"나는 하나님을 경외하므로"</span>(15절)라는 고백에 있습니다. 하나님을 진정으로 두려워하고 사랑하는 마음이 탐욕을 이기고 희생하게 만드는 원동력입니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-gray-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-gray-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    결론: 하늘의 상급을 바라는 기도
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    느헤미야의 마지막 기도는 "내 하나님이여, 내가 이 백성을 위하여 행한 모든 일을 기억하사 내게 은혜를 베푸시옵소서"입니다. 이는 자신의 공로를 자랑하는 것이 아닙니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    이 세상에서의 보상과 칭찬이 아니라, 오직 <span class="keyword">하나님의 인정과 하늘의 상급</span>만을 바라는 신자의 올바른 태도를 보여줍니다. 우리의 보물과 마음을 하늘에 쌓아두는 삶, 그것이 바로 하나님을 경외하는 자의 마땅한 삶입니다.
+                </p>
+            </div>
+
+        </main>
+
+        <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
+            <p>© 설교 요약 인포그래픽 | Soli Deo Gloria</p>
+        </footer>
     </div>
+
+    <script>
+        // YouTube Iframe API Loading
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isPlaying = false;
+        var btn = document.getElementById('audio-control-btn');
+        var btnText = document.getElementById('btn-text');
+        var btnIcon = document.getElementById('btn-icon');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'v4NLDklFycY',
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonState('playing');
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                isPlaying = false;
+                updateButtonState('paused');
+            } else if (event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonState('ended');
+            }
+        }
+
+        function updateButtonState(state) {
+            if (state === 'playing') {
+                btnText.innerText = "일시정지";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'paused') {
+                btnText.innerText = "다시 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'ended') {
+                btnText.innerText = "처음부터 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
+            }
+        }
+
+        btn.addEventListener('click', function() {
+            if (player && player.playVideo) {
+                var state = player.getPlayerState();
+                if (state === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else if (state === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                    player.playVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
