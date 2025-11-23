@@ -62,7 +62,7 @@ def parse_content(text):
     text = re.sub(r'신\s*앙\s*고\s*백\s*서', '신앙고백서', text)
     text = re.sub(r'대\s*요\s*리\s*문\s*답', '대요리문답', text)
     text = re.sub(r'소\s*요\s*리\s*문\s*답', '소요리문답', text)
-    text = re.sub(r'교\s*리\s*해\s*설', '교리해설', text)
+    text = re.sub(r'교\s*리\s*해\s*[설셜실]', '교리해설', text)
     text = re.sub(r'적\s*용\s*질\s*문', '적용질문', text)
     text = re.sub(r'말\s*씀\s*요\s*절', '말씀요절', text)
     
@@ -113,10 +113,10 @@ def parse_content(text):
     return title, catechism_title, catechism, exposition, questions
 
 def split_exposition_into_cards(exposition):
-    """Split exposition text into topic cards"""
+    """Split exposition text into topic cards with intelligent title extraction"""
     cards = []
     
-    # Common OCR fixes
+    # Extended OCR fixes
     replacements = {
         "피 홀란": "피 흘리는",
         "올 ": "을 ",
@@ -124,7 +124,17 @@ def split_exposition_into_cards(exposition):
         "이룰": "이를",
         "다움": "다음",
         "유익올": "유익을",
-        "주어전": "주어진"
+        "주어전": "주어진",
+        "의적 요소": "외적 요소",
+        "사용하는갸": "사용하는가",
+        "롤": "를",
+        "동에서": "등에서",
+        "적수(as ers on)": "적수(aspersion)",
+        "뿌리는(s inkling)": "뿌리는(sprinkling)",
+        "명二1": "골 2:11",
+        "명:": "계 1:5",
+        "중인으로": "증인으로",
+        "성색": "성령"
     }
     for old, new in replacements.items():
         exposition = exposition.replace(old, new)
@@ -133,7 +143,6 @@ def split_exposition_into_cards(exposition):
     exposition = exposition.replace('\r', '').strip()
     
     # Try to split by numbered lists (1. 2. or (1) (2) or 첫째, 둘째)
-    # Improved regex to handle newlines and whitespace better
     split_pattern = r'(?:^|\n)\s*(?:\(?\d+\)|[첫둘셋넷]째,?|\d+\.)\s*'
     
     parts = re.split(split_pattern, exposition)
@@ -147,20 +156,41 @@ def split_exposition_into_cards(exposition):
         for i, part in enumerate(parts[1:], 1):
             if not part.strip(): continue
             
-            # Try to extract a title from the first sentence
-            # Remove leading quotes/punctuation for title extraction
+            # Intelligent Title Extraction
             clean_part = part.strip().lstrip('"\'“‘')
             sentences = re.split(r'[.!?]\s+', clean_part)
-            first_sentence = sentences[0]
+            first_sentence = sentences[0].strip()
             
-            # If first sentence is short (likely a title like "구약의 성례들은"), use it
-            if len(first_sentence) < 40:
-                title = first_sentence.strip().rstrip(':"\'”’')
-                content = part[len(first_sentence):].strip().lstrip(':"\'”’')
-                # If content is empty, the whole part was the title? Unlikely in this context.
+            title = ""
+            # 1. Check for colon pattern (e.g., "구약의 성례들은: ...")
+            if ':' in first_sentence:
+                title = first_sentence.split(':')[0].strip()
+                content = part
+            # 2. Check for quote pattern (e.g., "이것들이 표지하고...")
+            elif first_sentence.startswith('"') or first_sentence.startswith('“'):
+                end_quote = first_sentence.find('"', 1)
+                if end_quote == -1: end_quote = first_sentence.find('”', 1)
+                
+                if end_quote != -1 and end_quote < 30:
+                    title = first_sentence[:end_quote+1].strip('"“')
+                    content = part
+                else:
+                    title = f"핵심 주제 {i}"
+                    content = part
+            # 3. Use first sentence if short
+            elif len(first_sentence) < 25:
+                title = first_sentence
+                content = part[len(first_sentence):].strip()
                 if not content: content = part
             else:
-                title = f"핵심 주제 {i}"
+                # Try to extract subject or key phrase
+                # Simple heuristic: take first 15 chars or up to first space after 10 chars
+                if '은 ' in first_sentence[:20]:
+                    title = first_sentence.split('은 ')[0] + "은"
+                elif '는 ' in first_sentence[:20]:
+                    title = first_sentence.split('는 ')[0] + "는"
+                else:
+                    title = f"핵심 주제 {i}"
                 content = part
             
             # Clean content
@@ -173,13 +203,14 @@ def split_exposition_into_cards(exposition):
         # If no clear split, split by paragraphs and group them
         paragraphs = [p for p in exposition.split('\n') if p.strip()]
         
-        # Merge short lines that might be broken sentences
+        # Merge short lines
         merged_paragraphs = []
         current_para = ""
         for p in paragraphs:
             if not current_para:
                 current_para = p
-            elif len(current_para) < 50 or not current_para.endswith(('.', '!', '?')):
+            # Merge if previous line doesn't end with sentence closer or is too short
+            elif not current_para.endswith(('.', '!', '?')) or len(current_para) < 40:
                 current_para += " " + p
             else:
                 merged_paragraphs.append(current_para)
@@ -190,11 +221,9 @@ def split_exposition_into_cards(exposition):
         paragraphs = merged_paragraphs
         
         if len(paragraphs) <= 2:
-            # Just one card
             content = "\n\n".join([f"<p>{p}</p>" for p in paragraphs])
             cards.append({"title": "교리 해설", "content": content})
         else:
-            # Split into 2 cards
             mid = len(paragraphs) // 2
             
             content1 = "\n\n".join([f"<p>{p}</p>" for p in paragraphs[:mid]])
@@ -502,6 +531,10 @@ def main():
     dates = sorted(DATE_PAGE_MAP.keys())
     
     for i, date_str in enumerate(dates):
+        if date_str == "1116":
+            print(f"Skipping {date_str} (Manual override)")
+            continue
+            
         start_page = DATE_PAGE_MAP[date_str]
         if i < len(dates) - 1:
             end_page = DATE_PAGE_MAP[dates[i+1]]
