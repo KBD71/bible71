@@ -3,182 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11월 22일 | 세례의 유익을 더욱 누리기 위해 해야할 일</title>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <title>11월 22일 교리 묵상</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <style>
-        body {
-            font-family: 'Pretendard', sans-serif;
-        }
+        body { font-family: 'Pretendard', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-
-    <div class="container mx-auto max-w-4xl px-4 py-8">
-
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900">11월 22일</h1>
-            <p class="text-xl text-gray-600 mt-2">세례의 유익을 더욱 누리기 위해 해야할 일</p>
+<body class="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto space-y-8">
+        <!-- Header -->
+        <header class="text-center space-y-2">
+            <h1 class="text-3xl font-bold text-gray-900">11월 22일</h1>
+            <h2 class="text-xl font-semibold text-gray-700">//\</h2>
         </header>
 
-        <section id="audio-player-section" class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4">AI요약 듣기</h2>
-            <div id="player-ui" class="flex items-center space-x-4">
-                <button id="play-pause-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-28 transition-opacity duration-300" aria-label="교리 오디오 재생/일시정지" disabled>
-                    로딩 중...
-                </button>
-                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
-                </div>
+        <!-- Audio Player -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-gray-900">AI요약 듣기</h3>
+            <div id="player-container" class="w-full">
+                <div id="youtube-player"></div>
             </div>
-            <div id="player" class="hidden"></div>
-            <div id="error-message" class="hidden text-red-500 mt-4"></div>
-            <p class="mt-4 text-sm text-gray-500">
-                오늘의 자료는 유튜브 영상입니다. '재생' 버튼을 누르면 영상의 음성이 재생됩니다.<br>
-                영상 URL: <a href="https://www.youtube.com/watch?v=iYlcvHRzu_4" target="_blank" class="text-blue-600 hover:underline">https://www.youtube.com/watch?v=iYlcvHRzu_4</a>
-            </p>
-        </section>
-        
-        <section class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4 text-blue-800">대요리문답 167문</h2>
-            <div class="space-y-4 text-lg leading-relaxed">
-                <p><strong class="font-bold">문:</strong> 우리의 세례를 어떻게 유익하게 할 수 있습니까?</p>
-                <p><strong class="font-bold">답:</strong> 세례를 유익하게 하는 필수적이고도 소홀히 된 의무는 우리가 살아 있는 동안 평생 행해야 할 일입니다. 특히 시험을 받을 때나 다른 사람들이 세례받는 자리에 참석했을 때, 세례의 본질과 그리스도께서 제정하신 목적, 그리고 우리가 받은 특권과 혜택, 우리가 엄숙하게 한 서약 등을 <strong class="text-blue-600">진지하고 감사하는 마음으로 회상함</strong>으로써 해야 합니다. 또한 우리의 죄악된 더러움과 세례의 은혜에 미치지 못하고 반대되게 행한 삶에 대해 <strong class="text-blue-600">겸손해지고</strong>, 죄 사함과 다른 모든 복에 대한 <strong class="text-blue-600">확신</strong>에까지 이르도록 해야 합니다. 나아가 세례를 통해 그리스도께 자신을 드린 자로서 <strong class="text-blue-600">죄에 대하여 죽고 의에 대하여 살며</strong>, 같은 성령으로 세례를 받은 지체들과 형제 사랑 안에서 행함으로써 세례를 유익하게 해야 합니다.</p>
-            </div>
-        </section>
+            <div id="player-status" class="hidden text-center text-gray-500 py-4"></div>
+            <button id="play-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2" aria-label="교리 오디오 재생/일시정지">
+                <span id="btn-text">로딩 중...</span>
+            </button>
+        </div>
 
-        <section class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4 text-blue-800">교리 해설</h2>
-            <div class="space-y-4 text-lg leading-relaxed">
-                <p>
-                    세례는 과거에 단 한 번 받고 끝나는 예식이 아닙니다. 웨스트민스터 대요리문답 167문은 세례의 유익을 평생토록 더욱 깊이 누리기 위해 성도가 힘써야 할 네 가지 핵심적인 노력을 가르칩니다. 이는 세례 행위 자체가 자동적으로 은혜를 주는 것이 아니라, 믿음으로 반응할 때 풍성한 유익을 누릴 수 있음을 보여줍니다.
-                </p>
-                <ul class="list-disc list-inside space-y-4 pl-4">
-                    <li>
-                        <strong class="text-blue-600">신중하고 감사하게 기억하기:</strong>
-                        우리는 세례가 사람이 아닌 그리스도께서 친히 제정하신 은혜의 약속이자 보증임을 기억해야 합니다. 죄 씻음, 그리스도와의 연합, 새 생명으로의 부르심과 같은 특권을 단순히 지적으로 동의하는 것을 넘어, 믿음으로 받아들이고 감사해야 합니다.
-                    </li>
-                    <li>
-                        <strong class="text-blue-600">겸손과 회개:</strong>
-                        우리의 여전한 죄성과 세례의 은혜에 미치지 못하는 삶을 정직하게 인정하고 겸손해져야 합니다. 이는 단순한 자책이나 절망이 아니라, 복음 안에서 자신의 연약함을 인정하고 세례 때 받은 약속에 비추어 적극적으로 회개하는 자세입니다. 이러한 성찰은 영적 나태를 막고 그리스도의 은혜를 더욱 의지하게 만듭니다.
-                    </li>
-                    <li>
-                        <strong class="text-blue-600">확신으로 나아가기:</strong>
-                        겸손과 함께 죄 사함과 하나님의 복에 대한 확신을 가져야 합니다. 이 확신은 나 자신에게서 나오는 것이 아니라, 세례가 확증하는 <strong class="text-blue-600">그리스도와의 연합</strong>에 근거합니다. 비록 내가 부족할지라도, 그리스도의 죽음과 부활 능력이 내 것이 되었음을 믿을 때 흔들리지 않는 확신과 거룩하게 살 힘을 얻게 됩니다.
-                    </li>
-                    <li>
-                        <strong class="text-blue-600">거룩과 사랑의 실천:</strong>
-                        이러한 내적인 노력은 반드시 삶의 열매로 나타나야 합니다. 죄에 대해 죽고 의에 대해 살며 거룩한 삶을 추구하는 개인적인 노력뿐만 아니라, 한 성령으로 세례받아 한 몸 된 지체들을 사랑하고 격려하는 <strong class="text-blue-600">공동체적인 책임</strong>을 다해야 합니다.
-                    </li>
-                </ul>
-                <p>
-                    결국 세례의 유익을 누린다는 것은 평생에 걸쳐 기억하고, 회개하며, 확신을 굳게 하고, 거룩과 사랑을 실천하는 역동적인 과정입니다.
-                </p>
+        <!-- Catechism Section -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-indigo-900 border-b-2 border-indigo-100 pb-2">대요리문답 167</h3>
+            <div class="prose prose-indigo max-w-none text-gray-800 bg-indigo-50 p-4 rounded-lg">
+                <p class="leading-relaxed">대요리문답 167: 167. 우리가 받은 세례의 유익올 더욱 누리려면 어떻게 해야합니까? 답. 우리가 받은 세례의 유익올 더욱 누리기 위해 애쓰는 일은 꼭 필요하면서도 대단히 무시되고 있는 의 무입니다. 이 의무를 우리는 평생 이행해야 합니다. 유 혹을 받을 때와 다른 사람들이 세례받는 자리에 참석 했을 때에 특히 이행해야 합니다? 이것을 위해 세례의 본질과 그리스도께서 세례를 제정하신 목적과 세례에 의해 우리에게 주어지고 보중된 특권과 유익과 세례받 을 때 우리가 했던 엄숙한 서약 둥을 신중함과 감사함 으로 생각해야 합니다? 또한 우리 죄악의 더러움과 우 리가 세례의 은혜에 미치지 못하고 있고 그 은혜에 역 11 월. 행하는 것 때문에 겸손해야 합니다흐 또한 이 성례 안에 서 우리에게 보중된 죄 사함의 확신과 다른 모든 복에 대한 확신에 이르기까지 성숙해 나가야 합니다.4) 그리 고 그리스도와 합하여 세례를 받은 우리는 죄를 죽이 고 은혜를 소생시키기 위해서 그분의 죽음과 부활로부 터 힘을 얻어야 합니다선 세례에서 그리스도께 자신의 존재를 바친 자로서6) 믿음으로 살기를 힘쓰며7) 거룩하 고 의로운 생활 태도를 가져야 하고전 같은 성령으로 세 례를 받아 한 몸을 이룬 자들로서 형제의 사랑으로 행 하기를 노력해야 합니다.9) 1) 골 2:11-12; 롬 6:4, 6, 11. 2) 롬 6:3-5. 3) 고전 1:11-13; 롬 6:2-3. 4) 롬 4:11-12; 벤전 3:21. 5) 롬 6:3-5. 6) 행 2:38. 7) 갈 3:26-27. 8) 롬 6:22. 9) 고전 12:13, 25-27. 28장. 세례 177 ‘</p>
             </div>
-        </section>
+        </div>
 
-        <section class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-semibold mb-4 text-blue-800">적용 질문</h2>
-            <div class="space-y-4 text-lg leading-relaxed">
-                <p>세례가 그리스도의 죽음과 부활과의 '연합'을 의미한다면, 단순히 세례받았다는 사실을 기억하는 것을 넘어, 바로 이 '연합'이라는 개념 자체를 매일의 삶 속에서 매 순간 의식적으로 붙잡고 살아가는 것이 당신이 일상에서 마주하는 여러 어려움이나 기쁨들을 해석하고 반응하는 방식을 근본적으로 어떻게 바꿔 놓을 수 있을까요?</p>
+        <!-- Exposition Section -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">교리 해설</h3>
+            <div class="prose prose-blue max-w-none">
+                <p class="mb-4 text-gray-700 leading-relaxed">오늘 읽는 대요리문답 167항은, 세례를 받음으로써 세례가 표지하는 그리 
+스도의 구속의 유익을 더욱 누리는 일이 한 번의 세례 행위로 자동적으로 
+주어지는 것이 아님을 교훈합니다. 세례를 통해 약속된 은혜를 누리기 위 
+해서는 신앙의 노력이 필요하기 때문입니다. 어떤 이들온 세례를 받은 한 
+번의 사건을 내세워 신앙생활에 나태해지거나, 경건의 노력을 전혀 하지 않 
+는 잘못된 삶을 살기도 합니다. 대요리문답 167항은 세례 의식 자체로 은 
+11 일. 28장. 세례 179 
+혜가 주어진다고 주장하는 로마 가톨릭의 사효설(ex opere per o) 과, 세 
+례를 받은 후 율법적 순종 없이 방종하게 사는 명목상 신앙을 모두 비판합 
+니다. 대요리문답이 가르치는 바는, 신자가 방종하기는커녕 오히려 세례룰 
+받은 후 세례의 표지가 가리키는 영적 유익을 누리기 위해 평생 동안 경건 
+의 노력을 다해야 한다는 것입니다. 
+특히 신자는 유혹을 받을 때마다 자신이 받은 세례의 의미룰 되새기며 유 
+혹을 이겨내야 합니다. 또한 다른 사람이 세례를 받을 때 그 자리에 함께한 
+다면, 자신이 받은 세례의 의미를 기억하며 그리스도의 것이라는 정체성올 
+다시 확인하고 헌신의 서약을 새롭게 다짐해야 합니다. 이러한 의미에서 대요리문답은 “우리가 받은 세례의 유익을 누리려면“이라는 진술을 통해, 신 
+자가 이미 받은 세례의 유익을 잊지 말고 그것을 붙들며, 그 의미를 삶 속 
+에서 실천하도록 교훈합니다. 이러한 세례의 유익을 누리기 위한 신자의 노 
+력은 네 가지로 나누어 살펴볼 수 있습니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong> “이것을 위해 세례의 본질과 그리스도께서 세례를 제정하신 목적과 세 
+례에 의해 우리에게 주어지고 보중된 특권과 유익과 세례받을 때 우리가 
+했던 엄숙한 서약 둥을 신중함과 감사함으로 생각해야 합니다”: 신자는 자 
+신이 받은 세례가 사람에 의해 고안된 임의적인 상징이나 의식이 아니라, 
+바로 그리스도께서 자신의 중보자의 공로를 세우시고 이룰 근거로 은혜의 
+특권을 우리에게 베풀어 주셨음을 잊지 말아야 합니다. 대요리문답은 세례 
+와 관련해 늘 감사하며 생각해야 할 몇 가지룰 제시하며 권합니다. 곧 세례 
+의 본질, 세례를 제정하신 목적과 그로 인하여 누리는 특권들과 유익, 서약 
+그리고 이러한 것들에 대한 인침입니다. 이것들은 세례의 본질 안에 총체적 
+으로 모두 포괄됩니다. 그리스도께서 세례를 제정하신 목적은 성도를 자신 
+과 연합하게 하여 구원의 특권을 누리게 하며, 이들로 가시적 교회에 회원 
+으로 받아들이고, 이들로 거룩한 새 생명의 삶을 살도록 하도록 이끄시는 
+데에 있습니다. 이것을 위하여 제정하신 세례는 외적 요소로 물을 사용하 
+여 물 씻음을 받는 의식으로 실행됩니다. 세례로 인하여 성도에게 주어지 
+는 특권과 유익이란 세례가 단순히 물로 씻는 행위라는 외적 의식에 그치 
+는 것이 아니라 그것으로 상징하는 죄의 씻음이라는 것, 그리스도와 연합 
+하여 그분의 죽음과 부활에 동참하는 외적 선언이라는 것, 그리스도의 몸 
+이 교회에 보이는 회원으로 받아들여지는 것들입니다. 또한 세례가 표지하 
+는 이러한 영적 특권을 믿음으로 받는 성도로 일생 동안 하나님께 자신을 
+헌신하고 거룩하고 의로운 새 생명의 삶을 살아갈 것을 공적으로 서약한 
+바를 다짐하는 것입니다. 그리고 이러한 물이란 외적 표지인 세례가 그것이 
+가리키는 영적 유익들을 참으로 제시한다는 사실을, 그리고 이것을 수세자 
+가 믿음으로 받을 때 이러한 유익이 참으로 전달된다는 은혜의 사실을 인 
+치고 보중한다는 것을 확신하고 감사하는 일입니다. 대요리문답은 이러한 
+일을 감사함으로 상기할 것을 권합니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong> “또한 우리 죄악의 더러움과 우리가 세례의 은혜에 미치지 못하고 있 
+고 그 은혜에 역행하는 것 때문에 겸손해야 합니다”: 세례를 받올 때, 그리 
+고 세례를 받은 교인이 되어 다른 사람이 세례를 받는 일에 중인으로 함께 
+할 때, 세례의 유익을 더욱 깊이 누리기 위해 신자는 자신 안의 죄의 오염을 
+깨닫고, 세례의 은혜에 합당하지 못한 삶을 회개해야 합니다. 세례의 본질 
+과 그 은혜를 기억하며 자신을 돌이켜 겸손히 회개하는 것은 단순한 감정 
+적 자책이 아니라 복음 안에서 새롭게 되는 회개의 삶입니다. 대요리문답은 
+신자가 세례로 약속된 은혜에 비해 자신의 실제 모습이 부족함을 인식하고, 
+그리스도의 은혜를 의지하여 겸손히 거룩함올 추구할 것을 권합니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(3)</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(3)</strong> “또한 이 성례 안에서 우리에게 보중된 죄 사함의 확신과 다른 모든 복 
+에 대한 확신에 이르기까지 성숙해 나가야 합니다. 그리고 그리스도와 합 
+하여 세례를 받은 우리는 죄룰 죽이고 은혜를 소생시키기 위해서 그분의 
+죽음과 부활로부터 힘을 얻어야 합니다”: 세례의 유익을 더 중진하기 위하 
+여 자신을 돌이켜 회개하고 겸비하라는 권면은 단순히 감정적으로 자신을 
+11 월. 28장. 세례 181 
+몹쓸 자라 생각하며 자책과 고통 속에 있도록 하는 율법적 회개를 하라는 
+것이 아닙니다. 그리스도의 복음을 믿고 회개하면서 자신이 받았던 세례의 
+은혜를 다시 상기하고 새로운 헌신을 위하여 은혜를 구하는 복음적 회개 
+를 하라는 것입니다. 이를 위하여 신자는 세례가 표지하는 영적 실체인 그 
+리스도와의 연합을 바라보아야 합니다. 세례는 우리가 그리스도의 죽으심 
+과 부활에 연합하였음을 가리키며 이를 믿음으로 확신케 하는 인침이라는 
+사실을 굳게 믿어야 합니다. 그리고 세례가 보중하는 죄 사함과 새 생명의 
+삶을 살아가도록 이끄시는 성화의 능력과 도움을 주시는 약속을 확신하는 
+것입니다. 이로부터 자신의 더러움과 은혜를 거슬러 행하였던 죄악을 회개 
+하면서도 여전히 그리스도 안에 속한 자로서 죄를 죽이고 은혜의 새 생명 
+올 소생시키는 힘을 얻을 수가 있게 됩니다. 세례로 인한 영적 상태와 능력 
+은 이러한 과정을 통해서 점점 자라가며 성숙해집니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(4)</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(4)</strong> “세례에서 그리스도께 자신의 존재를 바친 자로서 믿음으로 살기를 힘 
+쓰며 거룩하고 의로운 생활 태도를 가져야 하고, 같은 성령으로 세례를 받 
+아 한 몸을 이룬 자들로서 형제의 사랑으로 행하기를 노력해야 합니다”: 세 
+례의 유익에 대한 확신 안에서 자신의 더러움을 보고 죄 사함의 기쁨을 다 
+시 상기하면서 주님과 언약한 헌신의 약속을 다짐하는 일은 세례의 유익 
+올 누리기에 요구되는 일입니다. 세례의 유익을 확신한 신자는 단순히 내적 
+확신에 머물지 않고, 삶 속에서 거룩과 의를 실천해야 합니다. 하나님의 말 
+씀의 진리됨을 믿으며 그 교훈에 따라 살기에 힘쓰고 거룩하고 의로운 생 
+활을 하고자 노력하는 것입니다. 그리고 개인으로 그리스도와 연합하는 것 
+이 아니라, 성령 안에서 한 몸으로 부름을 받아 교회 공동체 안으로 가입 
+된 것임을 생각하고 믿음의 형제를 사랑하기에 힘을 다하여야 합니다. 이러 
+한 노력은 서로의 덕을 세우며 사랑을 나누고 누리는 복된 열매를 맺게 합 
+니다. 
+‘ 적용잘문 
+L 세례가 한 번의 의식으로 자동적인 은혜를 주는 것이 아니라, 평생에 
+걸쳐 신앙의 노력 속에서 그 유익올 누리게 된다는 사실은 무엇을 의미합 
+니까? 여러분은 세례를 단지 과거의 사건으로 여기지 않고, 지금도 그리스 
+도께서 주신 언약의 은혜를 붙들며 날마다 경건의 삶으로 세례의 의미를 
+새롭게 누리고 있습니까?</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>2.</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>2.</strong> 세례의 본질과 목적, 그리고 그로 말미암아 주어지는 특권과 유익을 
+감사히 기억해야 한다는 교훈은 왜 중요합니까? 여러분은 자신이 받은 세 
+례가 사람의 의식이 아니라 그리스도께서 친히 제정하신 은혜의 표와 인이 
+라는 사실을 믿으며, 그 은혜를 감사히 묵상하고 세례의 서약에 합당한 거 
+룩한 삶을 살기 위해 힘쓰고 있습니까?</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>3.</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>3.</strong> 세례롤 받은 신자가 자신의 죄악의 더러움과 세례의 은혜에 미치지 못 
+한 삶을 인식하고 겸손히 회개해야 한다는 교훈은 어떤 의미를 가집니까? 
+여러분은 세례의 은혜를 생각하며 자신 안에 여전히 남아 있는 죄의 오염 
+올 슬퍼하고, 복음의 능력 안에서 새롭게 회개하며 그리스도의 은혜를 의 
+지해 거룩함으로 자라가고 있습니까?</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>4.</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>4.</strong> 세례가 죄 사함과 성화의 은혜를 확신케 하고, 그리스도의 죽음과 부 
+활의 능력으로부터 힘을 얻어 살아가게 한다는 교훈은 신자의 삶에 어떤 
+변화를 요구합니까? 여러분은 세례를 통하여 그리스도의 죽음과 부활에 
+연합한 자로서, 죄를 죽이고 은혜의 생명을 새롭게 하며 믿음과 사랑으로 
+성도들과 함께 교회의 한 지체로 살아가고 있습니까? 
+11 월. 28장. 세례 183</p>
+
             </div>
-        </section>
+        </div>
 
-        <footer class="text-center mt-8 text-sm text-gray-500">
+        <!-- Application Questions -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">적용 질문</h3>
+            <div class="prose prose-green max-w-none bg-green-50 p-4 rounded-lg">
+                <p class="text-gray-700 leading-relaxed"></p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-sm py-4">
             <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
-
     </div>
 
     <script>
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+        // Audio Player Logic
+        const dateStr = "1122";
         let player;
-        let progressInterval;
-        const playPauseButton = document.getElementById('play-pause-button');
-        const progressBar = document.getElementById('progress-bar');
-        const errorMessageDiv = document.getElementById('error-message');
-        const playerUi = document.getElementById('player-ui');
-        
-        // 11월 22일 자료는 제공된 유튜브 링크 ID를 직접 사용합니다.
-        const videoIdForToday = 'iYlcvHRzu_4';
+        let isReady = false;
+        let videoId = null;
 
-        function onYouTubeIframeAPIReady() {
+        async function initAudio() {
             try {
-                if (!videoIdForToday) {
-                    throw new Error('No video ID specified.');
-                }
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) throw new Error('Address file not found');
+                const text = await response.text();
                 
-                player = new YT.Player('player', {
-                    height: '0',
-                    width: '0',
-                    videoId: videoIdForToday,
-                    playerVars: {
-                        'playsinline': 1
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
+                // Parse file for today's video ID
+                const lines = text.split('\n');
+                const todayLine = lines.find(line => line.startsWith(dateStr));
+                
+                if (!todayLine) {
+                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
+                    return;
+                }
 
-            } catch (error) {
-                playerUi.classList.add('hidden');
-                errorMessageDiv.classList.remove('hidden');
-                errorMessageDiv.textContent = '오디오를 불러오는 중 오류가 발생했습니다.';
-                console.error('Error creating player:', error);
+                // Extract Video ID (regex for youtube URLs)
+                const urlMatch = todayLine.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
+                if (urlMatch && urlMatch[1]) {
+                    videoId = urlMatch[1];
+                    loadYoutubeAPI();
+                } else {
+                    showError("오디오 주소를 찾을 수 없습니다.");
+                }
+            } catch (e) {
+                showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
+                console.error(e);
             }
         }
 
-        function extractVideoID(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
+        function showError(msg) {
+            const status = document.getElementById('player-status');
+            const btn = document.getElementById('play-btn');
+            status.textContent = msg;
+            status.classList.remove('hidden');
+            btn.classList.add('hidden');
+        }
+
+        function loadYoutubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         }
 
         function onPlayerReady(event) {
-            playPauseButton.disabled = false;
-            playPauseButton.textContent = '재생';
-            playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
-            
-            playPauseButton.addEventListener('click', togglePlayPause);
+            isReady = true;
+            const btn = document.getElementById('play-btn');
+            btn.disabled = false;
+            document.getElementById('btn-text').textContent = '재생';
         }
 
         function onPlayerStateChange(event) {
+            const btnText = document.getElementById('btn-text');
             if (event.data === YT.PlayerState.PLAYING) {
-                playPauseButton.textContent = '일시정지';
-                playPauseButton.setAttribute('aria-label', '교리 오디오 일시정지');
-                progressInterval = setInterval(updateProgressBar, 1000);
+                btnText.textContent = '일시정지';
             } else {
-                playPauseButton.textContent = '재생';
-                playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
-                clearInterval(progressInterval);
-                if (event.data === YT.PlayerState.ENDED) {
-                    progressBar.style.width = '100%';
-                }
+                btnText.textContent = '재생';
             }
         }
 
-        function togglePlayPause() {
-            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+        document.getElementById('play-btn').addEventListener('click', () => {
+            if (!isReady) return;
+            const state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
                 player.pauseVideo();
             } else {
                 player.playVideo();
             }
-        }
+        });
 
-        function updateProgressBar() {
-            if (player && player.getDuration) {
-                const currentTime = player.getCurrentTime();
-                const duration = player.getDuration();
-                const progress = (currentTime / duration) * 100;
-                progressBar.style.width = progress + '%';
-            }
-        }
+        // Start initialization
+        initAudio();
     </script>
-
 </body>
 </html>

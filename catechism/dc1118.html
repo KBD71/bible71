@@ -3,240 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11월 18일 | 세례의 의미와 의의</title>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <title>11월 18일 교리 묵상</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <style>
-        body {
-            font-family: 'Pretendard', sans-serif;
-        }
+        body { font-family: 'Pretendard', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-
-    <div class="container mx-auto max-w-4xl px-4 py-8">
-
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900">11월 18일</h1>
-            <p class="text-xl text-gray-600 mt-2">세례의 의미와 의의</p>
+<body class="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto space-y-8">
+        <!-- Header -->
+        <header class="text-center space-y-2">
+            <h1 class="text-3xl font-bold text-gray-900">11월 18일</h1>
+            <h2 class="text-xl font-semibold text-gray-700">· '</h2>
         </header>
 
-        <section id="audio-player-section" class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4">AI요약 듣기</h2>
-            <div id="player-ui" class="flex items-center space-x-4">
-                <button id="play-pause-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-28 transition-opacity duration-300" aria-label="교리 오디오 재생/일시정지" disabled>
-                    로딩 중...
-                </button>
-                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
-                </div>
+        <!-- Audio Player -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-gray-900">AI요약 듣기</h3>
+            <div id="player-container" class="w-full">
+                <div id="youtube-player"></div>
             </div>
-            <div id="player" class="hidden"></div>
-            <div id="error-message" class="hidden text-red-500 mt-4"></div>
-            <p class="mt-4 text-sm text-gray-500">
-                오늘의 자료는 유튜브 영상입니다. '재생' 버튼을 누르면 영상의 음성이 재생됩니다.<br>
-                영상 URL: <a href="https://www.youtube.com/watch?v=AGQpv1S94ro" target="_blank" class="text-blue-600 hover:underline">https://www.youtube.com/watch?v=AGQpv1S94ro</a>
-            </p>
-        </section>
-        
-        <section class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4 text-blue-800">신앙고백서 28.1 (주제)</h2>
-            <div class="space-y-4 text-lg leading-relaxed">
-                <p><strong class="font-bold">문:</strong> 세례는 무엇입니까?</p>
-                <p><strong class="font-bold">답:</strong> 세례는 예수 그리스도께서 제정하신 신약의 성례로서, <strong class="text-blue-600">보이는 교회</strong>에 수세자를 엄숙히 가입시키는 예식입니다. 또한 <strong class="text-blue-600">은혜 언약</strong>의 <strong class="text-blue-600">표(sign)</strong>요 <strong class="text-blue-600">인(seal)</strong>이며, 이를 통해 그리스도께 접붙여짐, 중생(거듭남), 죄 씻음, 그리고 새 생명 가운데서 하나님께 헌신함을 나타내고 확증합니다.</p>
-            </div>
-        </section>
+            <div id="player-status" class="hidden text-center text-gray-500 py-4"></div>
+            <button id="play-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2" aria-label="교리 오디오 재생/일시정지">
+                <span id="btn-text">로딩 중...</span>
+            </button>
+        </div>
 
-        <section class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4 text-blue-800">교리 해설</h2>
-            <div class="space-y-4 text-lg leading-relaxed">
-                <p>
-                    세례는 단순한 의식이 아니라, 보이지 않는 은혜를 보이는 방식으로 전달하고 확인하는 <strong class="text-blue-600">거룩한 성례</strong>입니다. 웨스트민스터 신앙고백서는 세례의 의미를 설명할 때, 개인의 영적 체험보다 <strong class="text-blue-600">‘보이는 교회’ 공동체에 가입</strong>하는 공적인 의미를 먼저 강조합니다. 이는 개인의 신앙이 교회 공동체 안에서 이해되어야 함을 보여줍니다.
-                </p>
-                <p>
-                    개인에게 있어 세례는 <strong class="text-blue-600">‘표’(sign)</strong>와 <strong class="text-blue-600">‘인’(seal)</strong>으로서의 의미를 갖습니다.
-                </p>
-                <ul class="list-disc list-inside space-y-2 pl-4">
-                    <li><strong>표(Sign):</strong> 세례라는 행위가 ‘그리스도와의 연합’, ‘중생’, ‘죄 씻음’, ‘새 생명으로의 헌신’과 같은 영적인 실재를 가리키는 표지판 역할을 합니다.</li>
-                    <li><strong>인(Seal):</strong> 이 약속들이 당신에게 진짜 해당된다고 하나님께서 공식적으로 확증하고 <strong class="text-blue-600">보증하시는 도장</strong>과 같습니다.</li>
-                </ul>
-                <p>
-                    무엇보다 중요한 것은, 세례가 이 모든 구원의 유익들을 포괄하는 <strong class="text-blue-600">‘은혜 언약’</strong>의 표와 인이라는 점입니다. 세례의 효력은 나의 행위나 상태가 아닌 하나님의 신실한 약속에 달려있음을 보여줍니다.
-                </p>
-                <p>
-                    이 <strong class="text-blue-600">은혜 언약</strong>의 관점은 세 가지 중요한 의미를 가집니다.
-                </p>
-                <ol class="list-decimal list-inside space-y-4 pl-4">
-                    <li>모든 구원의 유익(죄 씻음, 중생 등)이 하나님의 큰 언약 관계 안에서 주어짐을 분명히 합니다.</li>
-                    <li>세례 자체가 "너는 내 언약 안에 있다"고 하시는 하나님의 공식적인 보증(인증마크)임을 강조합니다.</li>
-                    <li>구약의 <strong class="text-blue-600">할례</strong>와 신약의 <strong class="text-blue-600">세례</strong>를 동일한 '은혜 언약의 표'라는 관점으로 연결합니다. 이는 구약의 언약 백성의 자녀들이 할례를 받았듯이, 신약의 언약 백성의 자녀들(유아)도 세례를 받을 수 있다는 <strong class="text-blue-600">유아세례</strong>의 신학적 근거가 됩니다.</li>
-                </ol>
-                <p>
-                    결국 세례는 예수님의 지상 명령(마 28장)에 따라 교회가 주님 오실 때까지 수행해야 할 사명이며, 그리스도께서 우리와 항상 함께 하신다는 약속의 가시적인 표현입니다. 개인의 신앙 이야기가 아브라함 때부터 이어져 온 거대한 하나님의 백성 이야기 속으로 연결되는 거룩한 사건인 것입니다.
-                </p>
+        <!-- Catechism Section -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-indigo-900 border-b-2 border-indigo-100 pb-2">신앙고백서 28.1</h3>
+            <div class="prose prose-indigo max-w-none text-gray-800 bg-indigo-50 p-4 rounded-lg">
+                <p class="leading-relaxed">신앙고벡서 28.1 세례는 신약의 성례이다? 예수 그리스도께서 제정하신 것으로, 보이는 교회에 수세자를 엄숙히 가입시키는 것 일 뿐 아니라? 수세자를 위한 은혜언약의 표지와 인장 이다.3) 그리스도께 접붙임 받음? 중생전 죄 사함,6) 그리 고 예수 그리스도로 말미암아 하나님께 자신을 드려 새 생명 가운데 행함의 표지와 인장이다? 이 성례는 그 리스도께서 친히 명하신 대로 그분의 교회 안에서 세 상 끝까지 계속되어야 한다.” 1) 마 28:19. 2) 고전 12:13. 3) 롱 4:11; 골 2:11-12. 11일. 28장. 세례 153 4) 갈 3:27; 롬 6:5. 5) 딛 3:5. 6) 막 1:4. 7) 롬 6:3-4. 8) 마 28:19-20. ‘</p>
             </div>
-        </section>
+        </div>
 
-        <section class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-semibold mb-4 text-blue-800">적용 질문</h2>
-            <div class="space-y-4 text-lg leading-relaxed">
-                <p>세례가 이렇게 하나님께서 당신에게 주시는 언약의 인(도장)인 동시에, 또 하나님께 대한 당신의 헌신을 공적으로 나타내는 것이라고 한다면요. 이 깊은 언약적인 의미를 매일매일 의식하면서 살아간다면 교회 공동체 안에서 당신의 믿음 생활, 또 당신의 삶은 어떻게 좀 달라질 수 있을까요?</p>
+        <!-- Exposition Section -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">교리 해설</h3>
+            <div class="prose prose-blue max-w-none">
+                <p class="mb-4 text-gray-700 leading-relaxed">오늘 읽는 신앙고백서 28 .1은 어제 살핀 대요리문답 165항과 내용상으로 
+거의 동일합니다. 두 문서에서 세례의 의미를 설명할 때 필수적으로 언급되 
+는 주제는 다움과 같습니다. 세례가 신약의 성례라는 사실, 그리스도께서 
+제정하신 것이라는 사실, 수세자가 보이는 교회에 가입된다는 사실, 세례가 
+그리스도에게로의 접붙임과 성령 하나님에 의한 거듭남과 죄 사함의 표지 
+와 인장이라는 사실, 그리고 수세자가 그리스도로 말미암아 하나님께 자신 
+올 드리는 언약적 헌신이라는 사실입니다. 
+이러한 동일한 내용을 다루는 신앙고백서의 진술은 대요리문답과 약간 다 
+른 특징올 보입니다. 신앙고백서는 세례가 “보이는 교회에 수세자를 엄숙히 
+가입시키는 것"임을 먼저 말합니다. 이것은 앞서 11월 15일에 살핀 신앙고백서</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>27.</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>27.</strong> 4의 진술 "합법적으로 임직받은 말씀 사역자 외에는 누구에 의해서 
+도 시행되어서는 안 된다”에서 볼 수 있듯이, 성례가 그리스도께서 교회 공 
+동체에· 주신 은혜임을 보여줍니다. 동시에 신앙고백서가 교회의 공적인 신 
+앙을 선언하는 문서적 성격을 지니고 있음올 반영합니다. 따라서 신앙고백서는 세례의 교회론적 의미를 먼저 전술한 후, 세례를 통해 개인이 받는 구 
+속의 유익들올 이어서 설명합니다. 반면 교인의 신앙 교육을 목적으로 한 
+11 일. 28장. 세례 155 
+대요리문답은 신자가 그리스도의 세례를 받음으로 누리는 영적 은택들을 
+먼저 나열하고, 그러한 유익을 받은 신자가 마땅히 주님의 것으로 헌신한다 
+는 언약적 서약의 흐름을 따라 서술합니다. 또한 신앙고백서가 “새 생명 가 
+운데 행함“이라는 표현으로 성화적 강조점을 보이는 반면, 대요리문답은 그 
+리스도께 헌신하는 언약 관계의 신분적 변화를 강조합니다. 이처럼 두 문 
+서는 동일한 내용을 다루지만, 서로 다른 목적과 강조에 따라 표현과 서술 
+순서에 약간의 차이룰 보입니다. 
+이제 대요리문답에는 나타나지 않고 신앙고백서에만 포함된 두 가지 유의 
+점을살펴보겠습니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong> “수세자를 위한 은혜 언약의 표지와 인장이다”: 신앙고백서는 대요리문답과 마찬가지로, 세례가 그리스도에게로의 접붙임과 성령에 의한 거듭남, 
+그리고 죄 사함의 표지와 인장임을 진술합니다. 그러나 신앙고백서는 그보 
+다 앞서 “수세자를 위한 은혜 언약의 표지와 인장이다”라는 문장을 먼저 
+제시합니다. 이것이 단순한 반복이 아닌 이유는 세 가지입니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong> 신앙고백서는 세례를 통해 언약신학적 구조를 교훈합니다. 죽 세례를 통해 받는 
+모든 구속의 유익은 하나님께서 그분의 백성과 맺으신 은혜 언약 아래에서 
+주어지는 것임을 밝힙니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong> 세례는 죄 사함을 포함한 구속의 은혜를 
+확증할 뿐 아니라, 세례 자체가 하나님의 은혜 언약 안에서 주어지는 관계 
+적 보중임을 교훈합니다. 세례가 언약에 속한다는 사실이 먼저 확중되지 않 
+으면, 그 안에 표지된 구속적 유익들도 확실히 보중될 수 없기 때문입니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong> 세례가 은혜 언약의 표지와 인장이라는 전술은 세례를 단지 성인의 
+개인적 순종 행위로 제한하는 재세례파적 관점을 배격합니다. 신앙고백서 
+.5은 은혜 언약이 "율법 시대와 복음 시대에 다르게 시행되었다”라고 말하 
+며, 구약과 신약이 모두 동일한 은혜 언약임을 강조합니다. 차이는 단지 시 
+행 방식에 있을 뿐입니다. 그러므로 세례가 은혜 언약의 표지요 인장이라 
+는 교훈은, 구약의 할례가 유아에게도 시행된 것처럼, 신약의 세례 또한 유 
+아에게 베풀 수 있는 성례임을 뒷받침하는 중요한 근거가 됩니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong> “이 성례는 그리스도께서 친히 명하신 대로 그분의 교회 안에서 세상 
+끝까지 계속되어야 한다”: 신앙고백서는 세례가 세상 끝 날까지 계속되어 
+야 할 성례임을 명확히 진술합니다. 이는 예수님께서 세례를 명하실 때 "볼 
+지어댜 내가 세상 끝날까지 너희와 항상 함께 있으리라”(마 28:20)고 약속 
+하신 말씀에 근거합니다. “모든 민족을 제자로 삼아 아버지와 아들과 성령 
+의 이름으로 세례를 베풀라”는 명령은 곧 주님의 임재의 약속과 연결된 사 
+명입니다. 그러므로 세례는 교회의 회원으로 받아들여지고, 그리스도께 속 
+한 자로 헌신을 서약하는 유일한 입문 성례로서, 다른 어떤 예식으로도 대 
+체될 수 없습니다. 또한 세례가 주님 다시 오실 때까지 유효하다는 것은, 세 
+례가 표지하고 인치는 은혜 언약의 지속성을 보중한다는 의미이기도 합니 
+다. 따라서 교회는 주께서 다시 오실 날까지 복음을 전파하며 세례의 사명 
+을 충실히 감당해야 합니다. 
+‘</p>
+
             </div>
-        </section>
+        </div>
 
-        <footer class="text-center mt-8 text-sm text-gray-500">
+        <!-- Application Questions -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">적용 질문</h3>
+            <div class="prose prose-green max-w-none bg-green-50 p-4 rounded-lg">
+                <ol class="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed">
+<li class="mb-2">세례가 교회에 속한 자로서의 공적 표지라고 할 때, 왜 신앙고백서는 
+이 점을 먼저 강조할까요? 여러분은 세례가 단지 개인의 신앙고백이 아니 
+11 월. 28장. 세례 157 
+라 교회의 한 지체로 부름받은 사실을 증언하는 공적 행위임을 기억하며 
+교회 공동체 안에서 신앙을 드러내고 있습니까?</li>
+<li class="mb-2">세례가 은혜 언약의 표지요 인장이라는 말은 어떤 의미입니까? 여러분 
+은 세례를 통해 하나님께서 그분의 은혜 언약 안에서 여러분을 자녀로 받 
+아들이시고 결코 버리지 않으신다는 사실을 믿음으로 확신하며, 이 언약적 
+관계에 합당하게 살아가고 있습니까?</li>
+<li class="mb-2">세례가 그리스도께서 명하신 대로 세상 끝 날까지 계속되어야 한다는 
+것은 무슨 뜻입니까? 여러분은 세례가 단지 과거의 사건이 아니라, 지금도 
+교회가 세상 속에서 복음을 전하며 주님의 약속을 이어가는 사명임을 기 
+억하고, 그 사명에 동참하고 있습니까?</li>
+</ol>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-sm py-4">
             <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
-
     </div>
 
     <script>
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+        // Audio Player Logic
+        const dateStr = "1118";
         let player;
-        let progressInterval;
-        const playPauseButton = document.getElementById('play-pause-button');
-        const progressBar = document.getElementById('progress-bar');
-        const errorMessageDiv = document.getElementById('error-message');
-        const playerUi = document.getElementById('player-ui');
-        
-        // 11월 18일 자료는 제공된 유튜브 링크 ID를 직접 사용합니다.
-        const videoIdForToday = 'AGQpv1S94ro';
+        let isReady = false;
+        let videoId = null;
 
-        function onYouTubeIframeAPIReady() {
-            // txt 파일 로드 대신 직접 ID로 플레이어 생성
-            try {
-                if (!videoIdForToday) {
-                    throw new Error('No video ID specified.');
-                }
-                
-                player = new YT.Player('player', {
-                    height: '0',
-                    width: '0',
-                    videoId: videoIdForToday,
-                    playerVars: {
-                        'playsinline': 1
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-
-            } catch (error) {
-                playerUi.classList.add('hidden');
-                errorMessageDiv.classList.remove('hidden');
-                errorMessageDiv.textContent = '오디오를 불러오는 중 오류가 발생했습니다.';
-                console.error('Error creating player:', error);
-            }
-        }
-
-        // dcaddr.txt 파일을 로드하는 함수 (참고용으로 남겨둠)
-        async function loadVideoForToday_fromFile() {
+        async function initAudio() {
             try {
                 const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('Audio address file could not be loaded.');
-                }
-                const data = await response.text();
-                const lines = data.split('\n');
+                if (!response.ok) throw new Error('Address file not found');
+                const text = await response.text();
                 
-                const todayKey = '1118'; // 키는 1118로 설정
-
-                // '1118'로 시작하는 줄을 찾습니다 (공백이나 '=' 모두 처리).
-                const todayLine = lines.find(line => line.trim().startsWith(todayKey));
+                // Parse file for today's video ID
+                const lines = text.split('\n');
+                const todayLine = lines.find(line => line.startsWith(dateStr));
                 
                 if (!todayLine) {
-                    throw new Error('not_uploaded');
+                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
+                    return;
                 }
 
-                // 날짜(키) 부분을 제외하고 나머지(URL)를 추출합니다.
-                let url = todayLine.substring(todayKey.length).trim();
-                // 맨 앞에 '=' 문자가 있다면 제거합니다.
-                if (url.startsWith('=')) {
-                    url = url.substring(1).trim();
-                }
-
-                const videoId = extractVideoID(url);
-
-                if (!videoId) {
-                    throw new Error('Invalid YouTube URL in dcaddr.txt');
-                }
-                
-                player = new YT.Player('player', {
-                    height: '0',
-                    width: '0',
-                    videoId: videoId,
-                    playerVars: {
-                        'playsinline': 1
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-
-            } catch (error) {
-                playerUi.classList.add('hidden');
-                errorMessageDiv.classList.remove('hidden');
-                if (error.message === 'not_uploaded') {
-                    errorMessageDiv.textContent = '오늘의 AI요약 음성은 아직 업로드 전입니다.';
+                // Extract Video ID (regex for youtube URLs)
+                const urlMatch = todayLine.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
+                if (urlMatch && urlMatch[1]) {
+                    videoId = urlMatch[1];
+                    loadYoutubeAPI();
                 } else {
-                    errorMessageDiv.textContent = '오디오를 불러오는 중 오류가 발생했습니다.';
-                    console.error('Error loading video:', error);
+                    showError("오디오 주소를 찾을 수 없습니다.");
                 }
+            } catch (e) {
+                showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
+                console.error(e);
             }
         }
 
-        function extractVideoID(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
+        function showError(msg) {
+            const status = document.getElementById('player-status');
+            const btn = document.getElementById('play-btn');
+            status.textContent = msg;
+            status.classList.remove('hidden');
+            btn.classList.add('hidden');
+        }
+
+        function loadYoutubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         }
 
         function onPlayerReady(event) {
-            playPauseButton.disabled = false;
-            playPauseButton.textContent = '재생';
-            playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
-            
-            playPauseButton.addEventListener('click', togglePlayPause);
+            isReady = true;
+            const btn = document.getElementById('play-btn');
+            btn.disabled = false;
+            document.getElementById('btn-text').textContent = '재생';
         }
 
         function onPlayerStateChange(event) {
+            const btnText = document.getElementById('btn-text');
             if (event.data === YT.PlayerState.PLAYING) {
-                playPauseButton.textContent = '일시정지';
-                playPauseButton.setAttribute('aria-label', '교리 오디오 일시정지');
-                progressInterval = setInterval(updateProgressBar, 1000);
+                btnText.textContent = '일시정지';
             } else {
-                playPauseButton.textContent = '재생';
-                playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
-                clearInterval(progressInterval);
-                if (event.data === YT.PlayerState.ENDED) {
-                    progressBar.style.width = '100%';
-                }
+                btnText.textContent = '재생';
             }
         }
 
-        function togglePlayPause() {
-            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+        document.getElementById('play-btn').addEventListener('click', () => {
+            if (!isReady) return;
+            const state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
                 player.pauseVideo();
             } else {
                 player.playVideo();
             }
-        }
+        });
 
-        function updateProgressBar() {
-            if (player && player.getDuration) {
-                const currentTime = player.getCurrentTime();
-                const duration = player.getDuration();
-                const progress = (currentTime / duration) * 100;
-                progressBar.style.width = progress + '%';
-            }
-        }
+        // Start initialization
+        initAudio();
     </script>
-
 </body>
 </html>

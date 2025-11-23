@@ -3,186 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11월 20일 | 세례의 방식</title>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <title>11월 20일 교리 묵상</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <style>
-        body {
-            font-family: 'Pretendard', sans-serif;
-        }
+        body { font-family: 'Pretendard', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-
-    <div class="container mx-auto max-w-4xl px-4 py-8">
-
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900">11월 20일</h1>
-            <p class="text-xl text-gray-600 mt-2">세례의 방식</p>
+<body class="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto space-y-8">
+        <!-- Header -->
+        <header class="text-center space-y-2">
+            <h1 class="text-3xl font-bold text-gray-900">11월 20일</h1>
+            <h2 class="text-xl font-semibold text-gray-700">I'〉일\</h2>
         </header>
 
-        <section id="audio-player-section" class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4">AI요약 듣기</h2>
-            <div id="player-ui" class="flex items-center space-x-4">
-                <button id="play-pause-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-28 transition-opacity duration-300" aria-label="교리 오디오 재생/일시정지" disabled>
-                    로딩 중...
-                </button>
-                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
-                </div>
+        <!-- Audio Player -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-gray-900">AI요약 듣기</h3>
+            <div id="player-container" class="w-full">
+                <div id="youtube-player"></div>
             </div>
-            <div id="player" class="hidden"></div>
-            <div id="error-message" class="hidden text-red-500 mt-4"></div>
-            <p class="mt-4 text-sm text-gray-500">
-                오늘의 자료는 유튜브 영상입니다. '재생' 버튼을 누르면 영상의 음성이 재생됩니다.<br>
-                영상 URL: <a href="https://www.youtube.com/watch?v=_yTTcQkt-dI" target="_blank" class="text-blue-600 hover:underline">https://www.youtube.com/watch?v=_yTTcQkt-dI</a>
-            </p>
-        </section>
-        
-        <section class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4 text-blue-800">신앙고백서 28.3</h2>
-            <div class="space-y-4 text-lg leading-relaxed">
-                <p><strong class="font-bold">문:</strong> 세례는 반드시 물에 잠기는 방식으로 행해야 합니까?</p>
-                <p><strong class="font-bold">답:</strong> 수세자를 물에 잠그는 것은 필요하지 않으며, 사람에게 물을 <strong class="text-blue-600">붓거나 뿌리는 것</strong>으로 세례를 베푸는 것도 정당합니다.</p>
-            </div>
-        </section>
+            <div id="player-status" class="hidden text-center text-gray-500 py-4"></div>
+            <button id="play-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2" aria-label="교리 오디오 재생/일시정지">
+                <span id="btn-text">로딩 중...</span>
+            </button>
+        </div>
 
-        <section class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4 text-blue-800">교리 해설</h2>
-            <div class="space-y-4 text-lg leading-relaxed">
-                <p>
-                    세례는 기독교의 중요한 예식이지만, 그 시행 방식(mode)에 대해서는 교파마다 다양한 견해가 존재합니다. 웨스트민스터 신앙고백서는 세례의 방식에 대해 유연하면서도 성경적인 입장을 취하고 있습니다.
-                </p>
-                <h3 class="text-xl font-bold text-gray-800 mt-4 mb-2">세 가지 주요 세례 방식과 의미</h3>
-                <ul class="list-disc list-inside space-y-4 pl-4">
-                    <li>
-                        <strong class="text-blue-600">침수(Immersion):</strong> 몸 전체를 물에 잠그는 방식입니다. 주로 침례교에서 선호하며, 로마서 6장 4절에 근거하여 그리스도와 함께 죽고 함께 다시 사는 <strong class="text-blue-600">연합</strong>의 의미를 강렬하게 시각적으로 보여줍니다.
-                    </li>
-                    <li>
-                        <strong class="text-blue-600">관수(Pouring):</strong> 머리에 물을 붓는 방식입니다. "내가 내 영을 부어 주리니"(행 2:17)라는 말씀처럼, 위로부터 임하시는 <strong class="text-blue-600">성령의 부어주심</strong>과 은혜를 상징합니다.
-                    </li>
-                    <li>
-                        <strong class="text-blue-600">적수(Sprinkling):</strong> 물을 뿌리는 방식입니다. 구약의 정결 예식이나 히브리서 10장의 "마음에 뿌림을 받아"라는 표현처럼, 죄를 씻어내는 <strong class="text-blue-600">정결</strong>과 속죄의 의미를 강조합니다. 개혁교회와 장로교회에서 주로 사용합니다.
-                    </li>
-                </ul>
-                
-                <h3 class="text-xl font-bold text-gray-800 mt-4 mb-2">왜 침수만이 유일한 방식이 아닌가?</h3>
-                <p>
-                    일부에서는 헬라어 원어 '밥티조(baptizo)'의 의미(잠그다)와 상징성을 들어 침수만이 유일한 성경적 방식이라고 주장합니다. 그러나 신앙고백서는 이에 동의하지 않습니다.
-                </p>
-                <ol class="list-decimal list-inside space-y-2 pl-4">
-                    <li>성경에서 '밥티조'는 식사 전 손을 씻거나(눅 11:38) 물건을 씻을 때(막 7:4)와 같이 <strong class="text-blue-600">부분적인 씻음</strong>을 가리킬 때도 사용되었습니다.</li>
-                    <li>사도행전의 오순절 3천 명 세례나 빌립보 감옥의 간수 가족 세례 등은 현실적으로 침수가 불가능하거나 매우 어려운 상황이었습니다.</li>
-                    <li>초대 교회 문서(디다케)에서도 물이 부족할 경우 관수를 허용했습니다.</li>
-                </ol>
-                <p>
-                    결론적으로, 세례의 핵심은 '방식' 그 자체가 아니라 그 방식이 가리키는 <strong class="text-blue-600">본질적인 은혜</strong>—그리스도와의 연합, 죄 씻음, 중생, 성령의 은혜—에 있습니다. 하나님께서 정하신 것은 물을 사용하는 것이며, 그 물의 양이나 방식이 은혜의 효력을 결정하는 것은 아닙니다.
-                </p>
+        <!-- Catechism Section -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-indigo-900 border-b-2 border-indigo-100 pb-2">신앙고백서 28.3</h3>
+            <div class="prose prose-indigo max-w-none text-gray-800 bg-indigo-50 p-4 rounded-lg">
+                <p class="leading-relaxed">신앙고백서 28.3 수세자를 물에 잠그는 것은 필수가 아니며, 물을 붓거 나 뿌리는 것으로도 세례는 바르게 시행된다.1) 1) 히 9:10, 19-22; 행 2:41; 행 16:33; 마 7:4. ‘</p>
             </div>
-        </section>
+        </div>
 
-        <section class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-semibold mb-4 text-blue-800">적용 질문</h2>
-            <div class="space-y-4 text-lg leading-relaxed">
-                <p>세례의 형식보다 그 안에 담긴 의미와 은혜가 진짜 본질이라고 한다면, 이러한 이해가 혹시 여러분의 신앙생활 전체나, 나와 다른 신앙 전통을 바라보는 시각에 어떤 새로운 변화를 가져다 줄 수 있을까요? 어쩌면 형식 너머의 본질을 발견하고 그것을 삶으로 살아내는 것이야말로 더 깊고 풍성한 신앙의 여정이 아닐까요?</p>
+        <!-- Exposition Section -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">교리 해설</h3>
+            <div class="prose prose-blue max-w-none">
+                <p class="mb-4 text-gray-700 leading-relaxed">어제 읽은 신앙고백서</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>28.</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>28.</strong> 2은 세례에서 사용하는 의적 요소가 물이라는 사 
+실을 분명히 밝히고 있지만, 주의할 것은 물을 어떻게 사용하는갸 즉 세례 
+의 집례 방식에 대해서는 아무런 언급을 하지 않는다는 점입니다. 세례의 집 
+행 방식에 대해서는 오늘 읽는 신앙고백서</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>28.</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>28.</strong> 3이 명확하게 교훈합니다. 
+세례는 기독교 교회 안에서 세 가지 방식으로 행해집니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째</strong> 는 침수 
+(imm ersion) 방식입니다. 세례를 받는 사람을 물속에 완전히 잠그는 방식 
+으로, 주로 침례교회와 오순절교회가 따릅니다. 침수 방식은 “그러므로 우 
+리가 그의 죽으심과 합하여 세례롤 받음으로 그와 함께 장사되었나니, 이는 
+아버지의 영광으로 말미암아 그리스도를 죽은 자 가운데서 살리심과 같이 
+우리로 또한 새 생명 가운데서 행하게 하려 함이라”(롬 6:4) 라는 말씀을 근 
+거로 삼습니다. 이들은 침수 방식이 그리스도와의 연합을 강하게 상징하며, 
+그리스도의 죽음과 부활에 참여함을 감각적으로 강조한다고 주장합니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong> 는 관수(affusion), 죽 물을 붓는(pouring) 방식입니다. 머리 위에 물을 
+부어 적시는 방법으로, 루터교회나 감리교회, 구세군 동에서 사용하며, 일 
+부 정교회에서도 채택합니다. 관수 방식은 “하나님이 말씀하시기를 말세에 
+내가 내 영을 모든 육체에 부어 주리나 .. "(행 2:17) 라는 말씀에서 “내 영을 
+부어 주리니”라는 표현과 연결되어, 성령 하나님께서 세례를 통하여 은혜 
+를 부어 주심을 상징적으로 보여 준다고 이해됩니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째</strong> 는 적수(as ers on), 죽 물을 뿌리는(s inkling) 방식입니다. 손이나 
+다른 도구를 사용하여 물을 뿌리는 방법으로, 개혁교회와 장로교회, 그리 
+고 로마 가톨릭교회에서 주로 사용합니다. 개혁교회와 장로교회는 이 세 
+가지 방식 모두를 허용하지만, 실제로는 관수나 적수 방식을 주로 사용합 
+니다. 반면 침례교회는 침수만을 성경적인 방식으로 인정합니다. 적수 방 
+식은 “우리가 마음에 뿌림을 받아 악한 양심으로부터 벗어나고, 몸은 맑은 
+물로 씻음을 받았으나 .. "(히 10:22) 라는 말씀에서 “마음에 뿌림을 받아”라 
+는 표현에 근거하여, 뿌림을 통한 정결과 씻음을 상징한다고 봅니다. 
+이 세 가지 방식 가운데 어느 것을 사용하든 모두 다음의 세 가지 공통된 
+의미를 지닙니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong> 그리스도와의 연합입니다. 세례는 그 집행 방식과 
+관계없이 그리스도와의 연합을 표지하며, 그분의 죽음과 장사됨, 부활에 
+참여함을 의미합니다(롬 6:3-4).</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong> 정결과 죄 사함입니다. 세 가지 방식 
+모두 죄 씻음과 정결의 은혜를 상징합니다. ＂회개하여 각각 예수 그리스도 
+의 이름으로 세례를 받고 죄 사함을 받으라”(행 2:38), “이는 곧 물로 씻어 
+말씀으로 깨끗하게 하사 거룩하게 하시고”(엡 5:26) 둥의 구절이 이룰 뒷받 
+침합니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong> 중생과 새 생명, 그리고 성령의 은혜를 상징합니다. “우리를 
+구원하시되 우리가 행한 바 의로운 행위로 말미암지 아니하고 … 중생의 
+씻음과 성령의 새롭게 하심으로 하셨나니"（딛 3:5) 에서 그 의미를 확인할 
+수있습니다. 
+홍미롭게도 침례교회는 오직 침수 방식만이 성경적으로 유효하다고 주장합 
+니다. 그들은 “세례하다”(baptize) 의 헬라어 원어가 본래 ‘담그다’ 또는 ‘잠 
+기게 하다’라는 뜻이라고 해석합니다. 또한 세례가 그리스도의 죽음과 장사 
+됨, 그리고 부활을 상징하므로(롬 6:3-4), 물속에 잠기고 나오는 침수만이 
+이를 온전히 표현한다고 주장합니다. 이러한 점에서 침수 방식은 감각적으 
+로 죽음과 부활을 표현하는 상징성이 강한 것은 사실입니다. 
+그러나 개혁교회와 장로교회는 침수 방식을 부정하거나 거부하지 않지만, 
+그것만이 유일하고 필수적인 방식이라고 보지 않습니다. 그 이유는</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong> “세례하다”(baptize) 라는 헬라어가 항상 ‘완전히 잠그다’라는 뜻으로만 사 
+용되지 않기 때문입니다. 예를 들어 “또 시장에서 돌아와서도 물을 뿌리지 
+않고서는 먹지 아니하며"（막 7:4) 에서 이 단어는 ‘뿌리다’의 의미로 쓰였으 
+며, “잡수시기 전에 손 씻지 아니하심을 보고 이상히 여기느니라”(눅 11:38) 
+에서는 실제로 ‘물을 붓는’ 행위를 가리킵니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong> 로마서 장은 세례를 
+그리스도와의 연합이라는 영적 실체로 설명하며, 물리적 행위의 재현을 명 
+하지 않습니다.</p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong></p>
+<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong> 오순절 날 약 천 명이 세례를 받았을 때(행 2:41) 나 
+빌립보 간수와 그 가족이 한밤중에 세례룰 받았을 때(행 16:33), 침수에 필 
+요한 물을 준비했을 가능성은 높지 않습니다. 오히려 다른 방식이 사용되었 
+올 가능성이 현실적입니다. 
+초대교회의 교육 문헌인 『디다케』는 물이 충분하지 않을 경우 물을 부어 
+세례를 베풀 것을 권면합니다. 실제로 지역적 환경과 기후, 물의 양 동을 고 
+려할 때 세 가지 방식이 모두 사용될 수 있고, 필요에 따라 적용되었습니 
+다. 그러므로 우리의 관심은 어떤 방식으로 세례를 받았는가에 있지 않고, 
+세례를 통해 표지되는 은혜의 실체를 믿음으로 받고 있는가에 두어야 합니 
+다. 
+11 월. 28 장. 세례 167 
+‘</p>
+
             </div>
-        </section>
+        </div>
 
-        <footer class="text-center mt-8 text-sm text-gray-500">
+        <!-- Application Questions -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">적용 질문</h3>
+            <div class="prose prose-green max-w-none bg-green-50 p-4 rounded-lg">
+                <ol class="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed">
+<li class="mb-2">세례의 세 가지 방식 가운데 침수 관수 적수는 각각 어떤 신학적 의미 
+를 담고 있습니까? 여러분은 세례를 받을 때 물의 양이나 형식보다 하나님 
+께서 주시는 영적 정결과 성령의 은혜를 더 귀히 여기며, 그 은혜에 합당한 
+삶을살고있습니까?</li>
+<li class="mb-2">왜 개혁교회와 장로교회는 세례의 한 가지 방식만을 고집하지 않습니 
+까? 여러분은 신앙의 외적 형태나 의식의 방식보다 복음의 실체와 믿음의 
+내용에 집중하며, 세례의 참된 의미를 일상에서 신앙의 순종으로 드러내고 
+있습니까?</li>
+<li class="mb-2">초대교회의 『디다케』가 물이 부족할 때 침수가 아니라 물을 부어 세례 
+를 베풀도록 한 이유는 무엇입니까? 여러분은 세례가 단지 예식이 아니라 
+하나님의 은혜의 약속을 확증하는 언약의 표임을 기억하며, 그 언약 안에 
+서 날마다 새롭게 살아가고 있습니까?</li>
+</ol>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-sm py-4">
             <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
-
     </div>
 
     <script>
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+        // Audio Player Logic
+        const dateStr = "1120";
         let player;
-        let progressInterval;
-        const playPauseButton = document.getElementById('play-pause-button');
-        const progressBar = document.getElementById('progress-bar');
-        const errorMessageDiv = document.getElementById('error-message');
-        const playerUi = document.getElementById('player-ui');
-        
-        // 11월 20일 자료는 제공된 유튜브 링크 ID를 직접 사용합니다.
-        const videoIdForToday = '_yTTcQkt-dI';
+        let isReady = false;
+        let videoId = null;
 
-        function onYouTubeIframeAPIReady() {
+        async function initAudio() {
             try {
-                if (!videoIdForToday) {
-                    throw new Error('No video ID specified.');
-                }
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) throw new Error('Address file not found');
+                const text = await response.text();
                 
-                player = new YT.Player('player', {
-                    height: '0',
-                    width: '0',
-                    videoId: videoIdForToday,
-                    playerVars: {
-                        'playsinline': 1
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
+                // Parse file for today's video ID
+                const lines = text.split('\n');
+                const todayLine = lines.find(line => line.startsWith(dateStr));
+                
+                if (!todayLine) {
+                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
+                    return;
+                }
 
-            } catch (error) {
-                playerUi.classList.add('hidden');
-                errorMessageDiv.classList.remove('hidden');
-                errorMessageDiv.textContent = '오디오를 불러오는 중 오류가 발생했습니다.';
-                console.error('Error creating player:', error);
+                // Extract Video ID (regex for youtube URLs)
+                const urlMatch = todayLine.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
+                if (urlMatch && urlMatch[1]) {
+                    videoId = urlMatch[1];
+                    loadYoutubeAPI();
+                } else {
+                    showError("오디오 주소를 찾을 수 없습니다.");
+                }
+            } catch (e) {
+                showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
+                console.error(e);
             }
         }
 
-        function extractVideoID(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
+        function showError(msg) {
+            const status = document.getElementById('player-status');
+            const btn = document.getElementById('play-btn');
+            status.textContent = msg;
+            status.classList.remove('hidden');
+            btn.classList.add('hidden');
+        }
+
+        function loadYoutubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         }
 
         function onPlayerReady(event) {
-            playPauseButton.disabled = false;
-            playPauseButton.textContent = '재생';
-            playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
-            
-            playPauseButton.addEventListener('click', togglePlayPause);
+            isReady = true;
+            const btn = document.getElementById('play-btn');
+            btn.disabled = false;
+            document.getElementById('btn-text').textContent = '재생';
         }
 
         function onPlayerStateChange(event) {
+            const btnText = document.getElementById('btn-text');
             if (event.data === YT.PlayerState.PLAYING) {
-                playPauseButton.textContent = '일시정지';
-                playPauseButton.setAttribute('aria-label', '교리 오디오 일시정지');
-                progressInterval = setInterval(updateProgressBar, 1000);
+                btnText.textContent = '일시정지';
             } else {
-                playPauseButton.textContent = '재생';
-                playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
-                clearInterval(progressInterval);
-                if (event.data === YT.PlayerState.ENDED) {
-                    progressBar.style.width = '100%';
-                }
+                btnText.textContent = '재생';
             }
         }
 
-        function togglePlayPause() {
-            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+        document.getElementById('play-btn').addEventListener('click', () => {
+            if (!isReady) return;
+            const state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
                 player.pauseVideo();
             } else {
                 player.playVideo();
             }
-        }
+        });
 
-        function updateProgressBar() {
-            if (player && player.getDuration) {
-                const currentTime = player.getCurrentTime();
-                const duration = player.getDuration();
-                const progress = (currentTime / duration) * 100;
-                progressBar.style.width = progress + '%';
-            }
-        }
+        // Start initialization
+        initAudio();
     </script>
-
 </body>
 </html>
