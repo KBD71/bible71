@@ -1,0 +1,44 @@
+name: Daily Sermon Automation
+
+on:
+  schedule:
+    - cron: '0 22 * * *' # 07:00 KST (UTC 22:00)
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  process-sermon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360 # Allow up to 6 hours for the retry loop
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ffmpeg
+
+    - name: Install Python dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Automation Script
+      env:
+        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      run: |
+        python daily_sermon_automation.py
+
+    - name: Commit and Push changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add dailybible/*.html
+        git commit -m "Auto-generated sermon summary [skip ci]" || echo "No changes to commit"
+        git push
