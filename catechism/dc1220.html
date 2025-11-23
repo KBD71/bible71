@@ -3,58 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12월 20일 교리 묵상</title>
+    <title>날마다 읽는 교리 - 12월 20일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
     <style>
-        body { font-family: 'Pretendard', sans-serif; }
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            word-break: keep-all;
+            background-color: #f3f4f6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #4a5568;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .card-body {
+            padding: 1.5rem;
+            line-height: 1.75;
+        }
+        .card-body h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+        .card-body p {
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        .card-body .question {
+            font-weight: 600;
+            color: #111827;
+        }
+        .card-body .answer {
+            color: #374151;
+        }
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .audio-button:disabled {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+        .audio-button.play {
+            background-color: #2563eb;
+            color: white;
+        }
+        .audio-button.play:hover {
+            background-color: #1d4ed8;
+        }
+        .audio-button.pause {
+            background-color: #f87171;
+            color: white;
+        }
+        .audio-button.pause:hover {
+            background-color: #ef4444;
+        }
+        .audio-error {
+            color: #dc2626;
+            font-weight: 500;
+            text-align: center;
+        }
+        #player-container {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            left: -100px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto space-y-8">
-        <!-- Header -->
-        <header class="text-center space-y-2">
-            <h1 class="text-3xl font-bold text-gray-900">12월 20일</h1>
-            <h2 class="text-xl font-semibold text-gray-700">\. 대회와공의회의결정과</h2>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">12월 20일</h1>
+            <p class="text-xl text-gray-600 mt-2">\. 대회와공의회의결정과</p>
         </header>
 
-        <!-- Audio Player -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900">AI요약 듣기</h3>
-            <div id="player-container" class="w-full">
-                <div id="youtube-player"></div>
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    신앙고백서 31.4
+                </div>
+                <div class="card-body">
+                    <p class="answer">신앙고빽서 사도 시대 이래로, 보편 규모이든지 지역 규모이든지, 모 31.4 든 대회나 공의회는 오류를 범할 수 있으며 많은 회의 가 오류를 범했다. 그러므로 이 회의들은 신앙과 행위 의 규칙이 되어서는 안 되며 도움이 되는 것으로만 여 겨야한다.1) 1) 엡 2:20; 행 11:11; 고전 2:5; 고후 1:24. ‘</p>
+                </div>
             </div>
-            <div id="player-status" class="hidden text-center text-gray-500 py-4"></div>
-            <button id="play-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2" aria-label="교리 오디오 재생/일시정지">
-                <span id="btn-text">로딩 중...</span>
-            </button>
-        </div>
 
-        <!-- Catechism Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-indigo-900 border-b-2 border-indigo-100 pb-2">신앙고백서 31.4</h3>
-            <div class="prose prose-indigo max-w-none text-gray-800 bg-indigo-50 p-4 rounded-lg">
-                <p class="leading-relaxed">신앙고빽서 사도 시대 이래로, 보편 규모이든지 지역 규모이든지, 모 31.4 든 대회나 공의회는 오류를 범할 수 있으며 많은 회의 가 오류를 범했다. 그러므로 이 회의들은 신앙과 행위 의 규칙이 되어서는 안 되며 도움이 되는 것으로만 여 겨야한다.1) 1) 엡 2:20; 행 11:11; 고전 2:5; 고후 1:24. ‘</p>
+            <div class="card">
+                <div class="card-header">
+                    AI요약 듣기
+                </div>
+                <div class="audio-player-container" id="audio-player-ui">
+                    <div id="player-container"></div>
+                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="button-text">로딩 중...</span>
+                    </button>
+                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Exposition Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">교리 해설</h3>
-            <div class="prose prose-blue max-w-none">
-                <p class="mb-4 text-gray-700 leading-relaxed">오늘 읽는 웨스트민스터 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong> 은 대회(synod)와 공의회(council) 
+            <div class="card">
+                <div class="card-header">
+                    교리 해설
+                </div>
+                <div class="card-body">
+                    <p>오늘 읽는 웨스트민스터 신앙고백서 1. 은 대회(synod)와 공의회(council) 
 의 결정이 오류를 범할 수 있으며, 실제로 많은 오류가 있었다는 사실을 지 
 적합니다. 이 절은 신앙과 행위의 규칙은 오직 성경 말씀뿐이며, 공의회의 
-결정은 다만 도움이 되는 보조적 수단으로 사용되어야 함올 교훈합니다. 
-내용을 두 부분으로 나누어 살펴보겠습니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong> “사도 시대 이래로, 보편 규모이든지 지역 규모이든지, 모든 대회나 공의 
+결정은 다만 도움이 되는 보조적 수단으로 사용되어야 함을 교훈합니다. 
+내용을 두 부분으로 나누어 살펴보겠습니다. 
+(1) “사도 시대 이래로, 보편 규모이든지 지역 규모이든지, 모든 대회나 공의 
 회는 오류를 범할 수 있으며 많은 회의가 오류를 범했다.： 이 진술은 앞 절 
-(</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>31.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>31.</strong> 3) 에서 공의회의 판단이나 결정을 “하나님의 말씀에 일치한다면 존경 
+(31. 3) 에서 공의회의 판단이나 결정을 “하나님의 말씀에 일치한다면 존경 
 12월. 31 장. 대회와공의회 379 
 과 복종으로 받아들여야 한다”라고 한 내용을 완화하는 것처럼 들릴 수 있 
 습니다. 그러나 앞 절의 진술에는 이미 “하나님의 말씀에 일치한다면“이라 
@@ -64,147 +177,52 @@
 는 공의회의 판단을 검중하는 불변의 기준이 됩니다. 사도들은 특별계시 
 룰 교회에 전달하는 독특한 지위와 임무를 받았지만, 사도들 이후에는 어 
 떠한 사람이나 교회 회의도, 그것이 보편 공의회이든 지역 공의회이든, 무 
-오한 권위를 지니지 않습니다. 이 진술은 로마 가톨릭교회의 <strong class="text-blue-600">공의회 무오 
-성</strong>(infalli ility of counc ils) 교리를 명확히 배격하는 것입니다. 
+오한 권위를 지니지 않습니다. 이 진술은 로마 가톨릭교회의 "공의회 무오 
+성"(infalli ility of counc ils) 교리를 명확히 배격하는 것입니다. 
 역사적 사례를 살펴보면 다음과 같습니다. 차 에베소 공의회 (449년)는 그 
 리스도의 단성론을 받아들여, 그리스도의 인성과 신성이 연합된 후 하나 
 의 본성으로 존재한다고 결정했습니다. 그러나 이것은 심각한 오류였습니 
 다. 두 해 뒤에 열린 칼케돈 공의회(451년)는 이 단성론을 폐기하고, 그리스 
-도의 두 본성을 정통 교리로 확립했습니다. 끄} 에베소 공의회의 결정은 내 
-용뿐 아니라 절차상에서도 강압적이고 폭력적이었기에, 역사적으로 “강도 
-회의”(Latrocinium) 라고 불립니다. 또한 콘스탄티노폴 공의회 (381년)에서는 
-그 교구의 대주교를 안디옥이나 알렉산드리아보다 높은 지위로 세우려는 
-시도가 있었고, 칼케돈 공의회 (451년)에서도 로마의 교황과 동등한 권위를 
-부여하려는 정치적 조항이 논의되었으나, 결국 절차상의 이유로 거부되었 
-습니다. 차 콘스탄티노폴 공의회 (553년)는 마리아의 “영원 동정성 <strong class="text-blue-600">(ever￾virginity)이라는 비성경적 교리를 수용했습니다. 
-중세에 들어 공의회의 오류는 더욱 심화되었습니다. 차 라테라노 공의회 
-(1215년)는 성경에 근거하지 않는 화체설(transubstanti tion)올 공식 교리 
-로 확정했습니다. 트리엔트 공의회(1545 1563) 는 성인들의 중보적 역할올 
-인정하면서, 마리아를 가장 탁월한 중보자로 높이고, 마리아에게 모든 성인 
-보다 더 높은 “상급공경 </strong>(hyperdulia) 을 드리도록 규정했습니다. 이 공의회 
-는 또한 성인들의 중재를 통해 하나님께 기도하도록 가르치고, 성인의 유해 
-와 성화상을 공경하도록 결정했습니다. 
-이러한 오류적 결정은 근대와 현대에도 계속되었습니다. 교황 비오 세는 
-1854년 교황령을 통해 마리아가 원죄의 오염 없이 잉태되었다는 “무염시 
-<strong class="text-blue-600">(Immacula e Conception) 를 교리로 선포했습니다. 교황 비오 12세는 
-1950년 “성모승천”(Assumption of Mary) 교리를 제정하여, 마리아가 영혼 
-과 육체가 함께 하늘로 올려졌다고 선언했습니다. 또한 차 바티칸 공의 
-(1962 65) 는 마리아를 “구속자의 어머니 </strong>(Ma er Redemptor s) 라 부르 
-며, 예수 그리스도와 더불어 공동 중보자의 위치에까지 올려놓았습니다. 이 
-처럼 성경의 가르침에 어긋나는 공의회와 교황령의 결정들은 수없이 많습 
-니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong> “그러므로 이 회의들은 신앙과 행위의 규칙이 되어서는 안 되며 도움 
-이 되는 것으로만 여겨야 한다”: 이러한 많은 오류를 낳은 공의회의 결정들 
-은 마땅히 배격되어야 합니다. 그렇다면, 성경에 일치하는 공의회의 결정은 
-신앙과 행위의 규칙으로 받을 수 있을까요? 그렇지 않습니다. 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong> 3에서 “하나님의 말씀에 일치한다면 존경과 복종의 마음으로 받아들여 
-야 한다”라는 말은, 공의회의 결정이 곧 신앙의 규칙이라는 뜻이 아닙니다. 
-신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong> 은 성경 66권을 “하나님의 영감으로 주어진, 믿음과 생활의 
-규범“이라고 선언하며,</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong> 1 은 “신앙과 관련한 모든 논쟁은 최고의 재판관이 
-신 성령 하나님께서 성경을 통하여 판결하신다”라고 밝힙니다. 결국 신앙과 
-행위의 유일한 규칙은 오직 성경 말씀입니다. 
-따라서 하나님의 말씀에 일치하는 공의회의 결정은 존경과 복종으로 받 
-아들여야 하지만, 그것 자체가 신앙의 규칙은 아닙니다. 다만 “도움이 되는 
-것”으로 여겨야 합니다. 여기서 ‘도움’이란 공의회의 결정이 성경의 진리를 
-섬기고 중언하는 보조적 역할(testim nium subserviens) 을 가리킵니다. 예 
-12월. 31 장. 대회와공의회 381 
-를 들어 웨스트민스터 총회가 제정한 신앙 표준문서들은 그 자체로 신앙과 
-행위의 규칙이 아니라, 유일한 규범인 성경의 가르침을 충실히 요약하고 해 
-설한 것입니다. 따라서 그것들은 성경에 종속된 정기는 규칙”으로서, 교회 
-를 세우는 유익한 도구입니다. 요컨대 성경은 모든 규범을 세우는 근원적 
-규범(norma normans)이며, 대회나 공의회가 제정한 신앙 문서들은 성경에 
-의해 세워진 종속적 규범 (norma normata)입니다. 이런 의미에서 공의회의 
-결정이나 신앙 표준문서는 신앙과 행위의 규칙에 있어서 보조적 • 종속적 
-가치를 가집니다. <strong class="text-blue-600">종속적 가치</strong>를 가진다는 말은 그것이 성경의 권위 아 
-래 있으며, 성경의 가르침에 일치할 때만 그 효력을 가진다는 뜻입니다. 동 
-시에, 이러한 표준문서들은 교회의 신앙에 통일성과 연속성을 부여하며, 역 
-사적 계승을 따라 이어지는 교회의 신앙 전통을 보존한다는 점에서 귀하고 
-필수적인 가치를 지닙니다. 
-‘</p>
-
+도의 두 본성을 정통 교리로 확립했습니다. 끄} 에...</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Application Questions -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">적용 질문</h3>
-            <div class="prose prose-green max-w-none bg-green-50 p-4 rounded-lg">
-                <ol class="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed">
-<li class="mb-2">왜 공의회의 결정이 오류를 범할 수 있다는 사실이 로마 가톨릭의 "공 
-의회 무오성” 교리를 반박하는 근거가 됩니까? 여러분은 신앙의 근거를 교 
-회나 전통이 아니라 성경의 절대적 권위 위에 두며, 교회의 결정이 아니라 
-하나님의 말씀을 최종 판단의 기준으로 삼고 있습니까?</li>
-<li class="mb-2">왜 신앙고백서는 ·성경에 일치하는 공의회의 결정조차 신앙과 행위의 
-규칙이 될 수 없다”라고 말합니까? 여러분은 신앙생활에서 신조나 교리문 
-서를 성경보다 높이지 않고, 그것들이 성경의 가르침을 더 깊이 이해하도록 
-돕는 종의 자리에 머물게 하고 있습니까?</li>
-<li class="mb-2">왜 성경은 모든 규범을 세우는 근원적 규범 (norma normans) 이며, 공 
-의회의 결정은 종속적 규범 (norma norma a) 이라 불립니까? 여러분은 신 
-앙의 통일성과 역사적 계승을 소중히 여기되, 언제나 그 중심에 하나님의 
-말씀을 두어, 교회의 모든 신앙 문서와 결정이 말씀에 종속되어야 함을 확 
-신하며 살아가고 있습니까? 
-12일. 31 장. 대회와공의회 383</li>
-</ol>
+            <div class="card">
+                <div class="card-header">
+                    적용 질문
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="question">왜 웨스트민스터 신앙고백서는 사도 시대 이후의 모든 대회나 공의회</span></li>
+<li><span class="question">가 오류를 범할 수 있다고 말합니까? 여러분은 교회의 권위를 존중하되, 그</span></li>
+<li><span class="question">어떤 회의의 결정이라도 오직 성경의 진리에 비추어 겁중해야 한다는 원리</span></li>
+<li><span class="question">를 실제 신앙생활 속에서 실천하고 있습니까?</span></li>
+<li><span class="question">왜 공의회의 결정이 오류를 범할 수 있다는 사실이 로마 가톨릭의 "공</span></li>
+<li><span class="question">의회 무오성” 교리를 반박하는 근거가 됩니까? 여러분은 신앙의 근거를 교</span></li>
+
+                    </ul>
+                </div>
             </div>
-        </div>
+        </main>
 
-        <!-- Footer -->
-        <footer class="text-center text-gray-500 text-sm py-4">
+        <footer>
             <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
+
     </div>
 
     <script>
-        // Audio Player Logic
-        const dateStr = "1220";
         let player;
-        let isReady = false;
         let videoId = null;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        const audioButton = document.getElementById('audio-button');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const errorContainer = document.getElementById('audio-error');
 
-        async function initAudio() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) throw new Error('Address file not found');
-                const text = await response.text();
-                
-                // Parse file for today's video ID
-                const lines = text.split('\n');
-                const todayLine = lines.find(line => line.startsWith(dateStr));
-                
-                if (!todayLine) {
-                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
-                    return;
-                }
-
-                // Extract Video ID (regex for youtube URLs)
-                const urlMatch = todayLine.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
-                if (urlMatch && urlMatch[1]) {
-                    videoId = urlMatch[1];
-                    loadYoutubeAPI();
-                } else {
-                    showError("오디오 주소를 찾을 수 없습니다.");
-                }
-            } catch (e) {
-                showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
-                console.error(e);
-            }
-        }
-
-        function showError(msg) {
-            const status = document.getElementById('player-status');
-            const btn = document.getElementById('play-btn');
-            status.textContent = msg;
-            status.classList.remove('hidden');
-            btn.classList.add('hidden');
-        }
-
-        function loadYoutubeAPI() {
+        function loadYouTubeAPI() {
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -212,13 +230,48 @@
         }
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
+            fetchAudioAddress();
+        }
+
+        async function fetchAudioAddress() {
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                const today = '1220';
+                const todayLine = lines.find(line => line.startsWith(today));
+
+                if (todayLine) {
+                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                    const match = todayLine.match(regex);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        initializePlayer();
+                    } else {
+                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
+                    }
+                } else {
+                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
+                }
+            } catch (error) {
+                console.error('Error fetching audio address:', error);
+                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        function initializePlayer() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
                 videoId: videoId,
                 playerVars: {
                     'playsinline': 1,
-                    'controls': 0
+                    'controls': 0,
+                  'showinfo': 0,
+                    'rel': 0
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -228,33 +281,64 @@
         }
 
         function onPlayerReady(event) {
-            isReady = true;
-            const btn = document.getElementById('play-btn');
-            btn.disabled = false;
-            document.getElementById('btn-text').textContent = '재생';
+            isPlayerReady = true;
+            audioButton.disabled = false;
+            buttonText.textContent = 'AI요약 듣기';
+            audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            audioButton.addEventListener('click', togglePlayPause);
         }
 
         function onPlayerStateChange(event) {
-            const btnText = document.getElementById('btn-text');
             if (event.data === YT.PlayerState.PLAYING) {
-                btnText.textContent = '일시정지';
-            } else {
-                btnText.textContent = '재생';
+                isPlaying = true;
+                updateButtonUI(true);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonUI(false);
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                }
             }
         }
 
-        document.getElementById('play-btn').addEventListener('click', () => {
-            if (!isReady) return;
-            const state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
+        function togglePlayPause() {
+            if (!isPlayerReady) return;
+            if (isPlaying) {
                 player.pauseVideo();
             } else {
                 player.playVideo();
             }
-        });
+        }
 
-        // Start initialization
-        initAudio();
+        function updateButtonUI(playing) {
+            if (playing) {
+                audioButton.classList.remove('play');
+                audioButton.classList.add('pause');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+                buttonText.textContent = '일시정지';
+                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                audioButton.classList.remove('pause');
+                audioButton.classList.add('play');
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = 'AI요약 듣기';
+                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            }
+        }
+
+        function showError(message) {
+            const button = document.getElementById('audio-button');
+            if (button) {
+                button.style.display = 'none';
+            }
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        loadYouTubeAPI();
     </script>
+
 </body>
 </html>

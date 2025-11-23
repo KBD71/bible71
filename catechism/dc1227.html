@@ -3,51 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12월 27일 교리 묵상</title>
+    <title>날마다 읽는 교리 - 12월 27일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
     <style>
-        body { font-family: 'Pretendard', sans-serif; }
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            word-break: keep-all;
+            background-color: #f3f4f6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #4a5568;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .card-body {
+            padding: 1.5rem;
+            line-height: 1.75;
+        }
+        .card-body h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+        .card-body p {
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        .card-body .question {
+            font-weight: 600;
+            color: #111827;
+        }
+        .card-body .answer {
+            color: #374151;
+        }
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .audio-button:disabled {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+        .audio-button.play {
+            background-color: #2563eb;
+            color: white;
+        }
+        .audio-button.play:hover {
+            background-color: #1d4ed8;
+        }
+        .audio-button.pause {
+            background-color: #f87171;
+            color: white;
+        }
+        .audio-button.pause:hover {
+            background-color: #ef4444;
+        }
+        .audio-error {
+            color: #dc2626;
+            font-weight: 500;
+            text-align: center;
+        }
+        #player-container {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            left: -100px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto space-y-8">
-        <!-- Header -->
-        <header class="text-center space-y-2">
-            <h1 class="text-3xl font-bold text-gray-900">12월 27일</h1>
-            <h2 class="text-xl font-semibold text-gray-700">121/ 27일</h2>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">12월 27일</h1>
+            <p class="text-xl text-gray-600 mt-2">121/ 27일</p>
         </header>
 
-        <!-- Audio Player -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900">AI요약 듣기</h3>
-            <div id="player-container" class="w-full">
-                <div id="youtube-player"></div>
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    대요리문답 88
+                </div>
+                <div class="card-body">
+                    <p class="answer">: 부활직후에일어날일 대요리문답 88 88. 부활직후에는 어떤 일이 일어납니까? 답. 부활 직후에는 천사들과 사람들 모두에 대한 최후 심판이 있습니다.1) 그러나 그날과 그때는 아무도 모릅니다. 그래서 모두 깨어 기도하며 주님의 오심을 항 상 준비해야 합니다.2) 1) 벰후 2:4; 유 1:6-7, 14-15; 마 25:46. 2) 마 24:36, 42, 44; 눅 21 :35-36. ‘</p>
+                </div>
             </div>
-            <div id="player-status" class="hidden text-center text-gray-500 py-4"></div>
-            <button id="play-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2" aria-label="교리 오디오 재생/일시정지">
-                <span id="btn-text">로딩 중...</span>
-            </button>
-        </div>
 
-        <!-- Catechism Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-indigo-900 border-b-2 border-indigo-100 pb-2">대요리문답 88</h3>
-            <div class="prose prose-indigo max-w-none text-gray-800 bg-indigo-50 p-4 rounded-lg">
-                <p class="leading-relaxed">: 부활직후에일어날일 대요리문답 88 88. 부활직후에는 어떤 일이 일어납니까? 답. 부활 직후에는 천사들과 사람들 모두에 대한 최후 심판이 있습니다.1) 그러나 그날과 그때는 아무도 모릅니다. 그래서 모두 깨어 기도하며 주님의 오심을 항 상 준비해야 합니다.2) 1) 벰후 2:4; 유 1:6-7, 14-15; 마 25:46. 2) 마 24:36, 42, 44; 눅 21 :35-36. ‘</p>
+            <div class="card">
+                <div class="card-header">
+                    AI요약 듣기
+                </div>
+                <div class="audio-player-container" id="audio-player-ui">
+                    <div id="player-container"></div>
+                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="button-text">로딩 중...</span>
+                    </button>
+                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Exposition Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">교리 해설</h3>
-            <div class="prose prose-blue max-w-none">
-                <p class="mb-4 text-gray-700 leading-relaxed">오늘 살피는 대요리문답 88항은 그리스도의 재림 이후, 부활한 인류에게 
+            <div class="card">
+                <div class="card-header">
+                    교리 해설
+                </div>
+                <div class="card-body">
+                    <p>오늘 살피는 대요리문답 88항은 그리스도의 재림 이후, 부활한 인류에게 
 12일. 33 장. 최후의십판 425 
 어떤 일이 이어지는가에 대해 답을 제시합니다. 그 내용을 두 부분으로 나 
-누어살펴보겠습니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong> “부활 직후에는 천사들과 사람들 모두에 대한 최후 심판이 있습니다”: 
+누어살펴보겠습니다. 
+(1) “부활 직후에는 천사들과 사람들 모두에 대한 최후 심판이 있습니다”: 
 그리스도의 재림과 최후 심판 사이에는 어떠한 시간적 간격이나 중간 단계 
 가 존재하지 않습니다. 세대주의자들은 재림 후에 이 땅에서 천년 동안 그 
 리스도의 지상 통치가 이어지고, 그 기간이 끝난 후에 최후 심판이 있다고 
@@ -55,145 +172,58 @@
 개혁신학은 전통적으로 무천년설(amillenni li sm) 또는 후천년설(post￾nnialism)을 견지합니다. 무천년설은 요한계시록 20장의 ‘천년을 문자 
 적 기간으로 보지 않고, 그리스도의 초림부터 재림까지의 교회 시대로 이 
 해합니다. 이 기간 동안 그리스도께서는 하늘 보좌에서 말씀과 성령으로 
-교회를 통치하시며, 사탄올 결박하셔서 복음이 온 세상에 전파되도록 하십 
+교회를 통치하시며, 사탄을 결박하셔서 복음이 온 세상에 전파되도록 하십 
 니다. 이 시대가 끝나면 곧바로 재림과 함께 부활과 심판이 일어납니다. 후 
 천년설은 복음의 점진적 확장으로 세상이 그리스도의 통치 아래 변화되고, 
 그 후 재림과 최후 심판이 연속적으로 일어난다고 봅니다. 두 견해 모두 부 
 활과 최후 심판 사이에 중간 단계가 없으며, 재림 직후에 최후 심판이 곧바 
 로 시행됨을 공통적으로 인정합니다. 
 예수님께서는 이러한 사실에 대해 이렇게 말씀하셨습니다. “인자가 자기 영 
-광으로 모든 천사와 함께 올 때에 자기 영광의 보좌에 앉으리니 모든 민 
+광으로 모든 천사와 함께 을 때에 자기 영광의 보좌에 앉으리니 모든 민 
 족을 그 앞에 모으고 각각 구분하기룰 목자가 양과 염소를 구분하는 것 
 같이 하여 … 그들은 영벌에, 의인들은 영생에 들어가리라 하시니라.”(마 
 25:31-32, 46) 이 말씀은 재림과 심판이 단일한 사건으로 연속됨을 보여줍 
 니다(요 5:28-']9; 살후 1:7-10 참조). 
-성경은 또한 천사들조차 최후 심판의 대상이 됨을 밝힙니다. “하나님이 범 
-죄한 천사들을 용서하지 아니하시고 지옥에 던져 어두운 구덩이에 두어 심 
-판 때까지 지키게 하셨으며<strong class="text-blue-600">（벤후 2:4) 또한 “또 자가 지위를 지키지 아니하 
-고 자기 처소롤 떠난 천사들을 큰 날의 심판까지 영원한 결박으로 혹암에 
-가두셨으며</strong>(유 1:6). 성경의 교훈은 부활한 모든 사람들만이 아니라 죽지 
-않고 항상 살아 있는 천사들도 최후 심판의 대상임을 명확하게 밝힙니다. 
-따라서 심판은 부활한 인간들뿐 아니라 타락한 천사들까지 포함하는 우주 
-적 사건입니다. 요한계시록 20장은 그 최종적 결과를 보여줍니다 “또 그들 
-을 미혹하는 마귀가 불과 유황 못에 던져지니 거기는 그 짐승과 거짓 선지 
-자도 있어 세세토록 밤낮 괴로움을 받으리라 … 또 내가 보니 죽은 자들이 
-큰자나작은자나그보좌앞에 서 있는데 책들이 펴 있고또다른책이 
-펴졌으니 곧 생명책이라 죽은 자들이 자기 행위를 따라 책들에 기록된 대 
-로 심판을 받으니 바다가 그 가운데에서 죽은 자들올 내주고 또 사망과 음 
-부도 그 가운데에서 죽은 자들을 내주매 각 사람이 자기의 행위대로 심판 
-을 받고 … 누구든지 생명책에 기록되지 못한 자는 불못에 던져지더라”(계 
-20:10, 12-13, 15). 악인들과 불의한 천사들은 모두 최후 심판의 대상이며 
-이들은 모두 불못에 던져집니다. 
-여기서 최후 심판의 대상인 사람이 부활한 자들이라는 사실 때문에 천 
-사의 경우도 부활한 천사들이 심판의 대상이라고 생각하지 않아야 합니 
-다. 천사는 부활하지 않습니다. 부활은 몸을 가전 사람에게만 있는 일입니 
-다. 그런 까닭에 몸을 가지지 않은 영적 존재인 천사에게는 부활이란 없습 
-니다. 또한 예수님께서 천사에 대하여 이르시기를 .그들은 다시 죽을 수도 
-없나니 이는 천사와 동동이요 부활의 자녀로서 하나님의 자녀임이라”(눅 
-20:36) 라고 하신 말씀에서 부활한 사람들은 천사와 같아서 다시는 죽는 
-일이 없다고 하셨습니다. 천사는 죽는 존재가 아니므로 죽음을 전제로 하 
-는 부활이란 있을 수 없습니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong> “그러나 그날과 그때는 아무도 모릅니다. 그래서 모두 깨어 기도하며 주 
-님의 오심을 항상 준비해야 합니다”: 최후 심판의 날이 언제일지는 아무도 
-알 수 없습니다. 최후 심판의 날과 때는 “하늘의 천사들도, 아들도 모르고 
-12월. 33 장. 최후의 십판 427 
-오직 아버지만” 아십니다(마 24:36). 여기서 “아들도 모르고”라는 말씀은 
-예수님의 인성에 따른 제한된 지식을 가리킵니다. 신성에 따라 예수님은 
-참 하나님으로서 모든 것을 아시지만, 인성에 따라서는 성령의 계시에 따 
-라 아버지께로부터 배우시며 순종하셨습니다. 따라서 이 말씀은 삼위일체 
-의 위격 간의 본질적 차이를 말하는 것이 아니라, 성육신의 신비 속에서 참 
-사람으로서의 지식의 유한성을 보여줍니다(빌 2:6-8). 
-그날을 알 수 없다는 사실은 신자들에게 영적 긴장감과 깨어 있음의 삶을 
-요구합니다. “깨어 있으라”라는 명령은 단순한 경계심이 아니라, 죄의 유혹 
-과 세속의 무감각함으로부터 자신올 지키며, 재림을 기다리는 신앙의 자세 
-를 뜻합니다. 사도 베드로는 이렇게 권면합니다. "거룩한 행실과 경건함으로 
-하나님의 날이 임하기를 바라보고 간절히 사모하라 ••• 그러므로 사랑하는 
-자들아 너희가 이것을 기다리니 점도 없고 홈도 없이 평강 가운데서 나타 
-나기를 힘쓰라”(벤후 3:11, 14). 이처럼 신자는 날마다 주님의 재림올 사모하 
-며, 기도와 거룩한 생활로 그날을 준비해야 합니다. 
-한편, 재림의 시기를 특정하려는 모든 시도는 성경이 경고하는 오류입니다. 
-1992년의 ‘다미선교회’ 사건처럼, 거짓된 종말론은 신자들의 삶을 파괴하고 
-사회적 혼란을 초래합니다. 재림의 시기는 인간이 정할 수 있는 영역이 아 
-니며, 오직 하나님 아버지께 속한 주권적 비밀입니다. 그러므로 신자는 때 
-를 계산하기보다 항상 준비된 삶으로 재림을 기다려야 합니다. 
-‘</p>
-
+성경은 또한 천사들조차 최후 심판의 ...</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Application Questions -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">적용 질문</h3>
-            <div class="prose prose-green max-w-none bg-green-50 p-4 rounded-lg">
-                <ol class="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed">
-<li class="mb-2">왜 성경은 천사들까지도 최후 심판의 대상이 된다고 말씀합니까? 여러 
-분은 인간뿐 아니라 모든 피조물이 하나님의 의로운 심판 아래 있음을 깨 
-닫고, 그분 앞에서 자신도 예외가 아님을 인식하며 날마다 회개와 경건의 
-삶을힘쓰고있습니까?</li>
-<li class="mb-2">예수님께서 “아들도 모르고 오직 아버지만 아신다”(마 24:36) 라고 하 
-신 말씀은 어떤 의미입니까? 여러분은 그리스도의 인성과 신성의 조화를 
-바르게 이해하여, 하나님께서 정하신 때와 방식에 대한 인간의 알 수 없는 
-한계를 인정하며 겸손히 순종하는 신앙을 유지하고 있습니까?</li>
-<li class="mb-2">재림의 때를 알 수 없다는 사실이 신자에게 어떤 신앙적 자세를 요구 
-합니까? 여러분은 때를 계산하려는 불필요한 호기심을 버리고, 오늘 하루 
-를 주님의 재림 앞에 서 있는 날처럼 여기며 깨어 기도하고 거룩한 행실로 
-준비된 삶을 살고 있습니까?</li>
-</ol>
+            <div class="card">
+                <div class="card-header">
+                    적용 질문
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="question">왜 개혁신학은 세대주의의 천년왕국론을 부정하고 재림 직후에 최후</span></li>
+<li><span class="question">심판이 곧바로 시행된다고 가르칩니까? 여러분은 그리스도의 재림이 역사</span></li>
+<li><span class="question">적 시간의 한 장면이 아니라 하나님의 구속 역사의 완성으로 죽각적인 심</span></li>
+<li><span class="question">판과 영원한 나라의 도래를 이루는 사건임을 믿고, 지금 이 시대를 하늘의</span></li>
+<li><span class="question">통치 아래 살아가고 있습니까?</span></li>
+<li><span class="question">왜 성경은 천사들까지도 최후 심판의 대상이 된다고 말씀합니까? 여러</span></li>
+
+                    </ul>
+                </div>
             </div>
-        </div>
+        </main>
 
-        <!-- Footer -->
-        <footer class="text-center text-gray-500 text-sm py-4">
+        <footer>
             <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
+
     </div>
 
     <script>
-        // Audio Player Logic
-        const dateStr = "1227";
         let player;
-        let isReady = false;
         let videoId = null;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        const audioButton = document.getElementById('audio-button');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const errorContainer = document.getElementById('audio-error');
 
-        async function initAudio() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) throw new Error('Address file not found');
-                const text = await response.text();
-                
-                // Parse file for today's video ID
-                const lines = text.split('\n');
-                const todayLine = lines.find(line => line.startsWith(dateStr));
-                
-                if (!todayLine) {
-                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
-                    return;
-                }
-
-                // Extract Video ID (regex for youtube URLs)
-                const urlMatch = todayLine.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
-                if (urlMatch && urlMatch[1]) {
-                    videoId = urlMatch[1];
-                    loadYoutubeAPI();
-                } else {
-                    showError("오디오 주소를 찾을 수 없습니다.");
-                }
-            } catch (e) {
-                showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
-                console.error(e);
-            }
-        }
-
-        function showError(msg) {
-            const status = document.getElementById('player-status');
-            const btn = document.getElementById('play-btn');
-            status.textContent = msg;
-            status.classList.remove('hidden');
-            btn.classList.add('hidden');
-        }
-
-        function loadYoutubeAPI() {
+        function loadYouTubeAPI() {
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -201,13 +231,48 @@
         }
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
+            fetchAudioAddress();
+        }
+
+        async function fetchAudioAddress() {
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                const today = '1227';
+                const todayLine = lines.find(line => line.startsWith(today));
+
+                if (todayLine) {
+                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                    const match = todayLine.match(regex);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        initializePlayer();
+                    } else {
+                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
+                    }
+                } else {
+                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
+                }
+            } catch (error) {
+                console.error('Error fetching audio address:', error);
+                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        function initializePlayer() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
                 videoId: videoId,
                 playerVars: {
                     'playsinline': 1,
-                    'controls': 0
+                    'controls': 0,
+                  'showinfo': 0,
+                    'rel': 0
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -217,33 +282,64 @@
         }
 
         function onPlayerReady(event) {
-            isReady = true;
-            const btn = document.getElementById('play-btn');
-            btn.disabled = false;
-            document.getElementById('btn-text').textContent = '재생';
+            isPlayerReady = true;
+            audioButton.disabled = false;
+            buttonText.textContent = 'AI요약 듣기';
+            audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            audioButton.addEventListener('click', togglePlayPause);
         }
 
         function onPlayerStateChange(event) {
-            const btnText = document.getElementById('btn-text');
             if (event.data === YT.PlayerState.PLAYING) {
-                btnText.textContent = '일시정지';
-            } else {
-                btnText.textContent = '재생';
+                isPlaying = true;
+                updateButtonUI(true);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonUI(false);
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                }
             }
         }
 
-        document.getElementById('play-btn').addEventListener('click', () => {
-            if (!isReady) return;
-            const state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
+        function togglePlayPause() {
+            if (!isPlayerReady) return;
+            if (isPlaying) {
                 player.pauseVideo();
             } else {
                 player.playVideo();
             }
-        });
+        }
 
-        // Start initialization
-        initAudio();
+        function updateButtonUI(playing) {
+            if (playing) {
+                audioButton.classList.remove('play');
+                audioButton.classList.add('pause');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+                buttonText.textContent = '일시정지';
+                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                audioButton.classList.remove('pause');
+                audioButton.classList.add('play');
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = 'AI요약 듣기';
+                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            }
+        }
+
+        function showError(message) {
+            const button = document.getElementById('audio-button');
+            if (button) {
+                button.style.display = 'none';
+            }
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        loadYouTubeAPI();
     </script>
+
 </body>
 </html>

@@ -3,57 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12월 13일 교리 묵상</title>
+    <title>날마다 읽는 교리 - 12월 13일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
     <style>
-        body { font-family: 'Pretendard', sans-serif; }
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            word-break: keep-all;
+            background-color: #f3f4f6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #4a5568;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .card-body {
+            padding: 1.5rem;
+            line-height: 1.75;
+        }
+        .card-body h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+        .card-body p {
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        .card-body .question {
+            font-weight: 600;
+            color: #111827;
+        }
+        .card-body .answer {
+            color: #374151;
+        }
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .audio-button:disabled {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+        .audio-button.play {
+            background-color: #2563eb;
+            color: white;
+        }
+        .audio-button.play:hover {
+            background-color: #1d4ed8;
+        }
+        .audio-button.pause {
+            background-color: #f87171;
+            color: white;
+        }
+        .audio-button.pause:hover {
+            background-color: #ef4444;
+        }
+        .audio-error {
+            color: #dc2626;
+            font-weight: 500;
+            text-align: center;
+        }
+        #player-container {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            left: -100px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto space-y-8">
-        <!-- Header -->
-        <header class="text-center space-y-2">
-            <h1 class="text-3xl font-bold text-gray-900">12월 13일</h1>
-            <h2 class="text-xl font-semibold text-gray-700">121/ 13일</h2>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">12월 13일</h1>
+            <p class="text-xl text-gray-600 mt-2">121/ 13일</p>
         </header>
 
-        <!-- Audio Player -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900">AI요약 듣기</h3>
-            <div id="player-container" class="w-full">
-                <div id="youtube-player"></div>
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    신앙고백서 30.1
+                </div>
+                <div class="card-body">
+                    <p class="answer">교회정치와교회직원 신앙고백서 30.1 교회의 왕이시며 머리이신 주 예수님께서 교회 정치를 국가 통치자의 손이 아니라 교회 직원들에게 맡기셨다.1) 1) 사 9:6-7; 딤전 5:17; 살전 5:12; 행 20:17-18; 히 13:7, 17, 24; 고전 12:28; 마 28:18-20. ‘</p>
+                </div>
             </div>
-            <div id="player-status" class="hidden text-center text-gray-500 py-4"></div>
-            <button id="play-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2" aria-label="교리 오디오 재생/일시정지">
-                <span id="btn-text">로딩 중...</span>
-            </button>
-        </div>
 
-        <!-- Catechism Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-indigo-900 border-b-2 border-indigo-100 pb-2">신앙고백서 30.1</h3>
-            <div class="prose prose-indigo max-w-none text-gray-800 bg-indigo-50 p-4 rounded-lg">
-                <p class="leading-relaxed">교회정치와교회직원 신앙고백서 30.1 교회의 왕이시며 머리이신 주 예수님께서 교회 정치를 국가 통치자의 손이 아니라 교회 직원들에게 맡기셨다.1) 1) 사 9:6-7; 딤전 5:17; 살전 5:12; 행 20:17-18; 히 13:7, 17, 24; 고전 12:28; 마 28:18-20. ‘</p>
+            <div class="card">
+                <div class="card-header">
+                    AI요약 듣기
+                </div>
+                <div class="audio-player-container" id="audio-player-ui">
+                    <div id="player-container"></div>
+                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="button-text">로딩 중...</span>
+                    </button>
+                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Exposition Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">교리 해설</h3>
-            <div class="prose prose-blue max-w-none">
-                <p class="mb-4 text-gray-700 leading-relaxed">오늘 읽은 웨스트민스터 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong> 1은, 교회가 권징을 시행할 권 
+            <div class="card">
+                <div class="card-header">
+                    교리 해설
+                </div>
+                <div class="card-body">
+                    <p>오늘 읽은 웨스트민스터 신앙고백서 30.1은, 교회가 권징을 시행할 권 
 세의 근원이 무엇이며, 또한 그 권세를 누가 행사하는가를 가르칩니 
 다. 이 조항은 특별히 세속 군주가 교회의 수장이라 주장하는 에라스 
 투스주의 (Eras ti an sm) 를 명백히 반박하며, 동시에 극단적 회중주의 
 (Congr gati nalism)와 로마 가톨릭의 교황주의(Papism)를 함께 배격하는 
 교리적 의도를 내포합니다. 
 이제 신앙고백서의 내용을 이 세 가지 교회정치 이론과 비교하여 차례로 
-살펴보겠습니다. 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong> 1은 웨스트민스터 총회에서 에라스투스 
+살펴보겠습니다. 신앙고백서 30.1은 웨스트민스터 총회에서 에라스투스 
 파와 장로파 사이에 벌어진 치열한 논쟁을 반영하고 있습니다. 에라스투스 
 주의는 스위스 신학자 토마스 에라스투스(Thomas·Erastus, 1524-1583)의 
 이름에서 유래한 교회 정치 이론입니다. 에라스투스는 주 예수 그리스도께 
@@ -66,160 +180,43 @@
 역을 시민 통치자(civil magistrate) 의 관할 아래 두려는 시도였습니다. 그 
 는 교회가 독립된 재판권을 가지는 것을 부정하고, 교회 권징의 권세가 교 
 회의 직분자들이 아니라 국가 권력자에게 속한다고 주장했습니다. 
-그러나 이러한 체계는 필연적으로 그리스도의 왕권올 형식적으로는 인정하 
+그러나 이러한 체계는 필연적으로 그리스도의 왕권을 형식적으로는 인정하 
 지만, 실질적으로는 세속 군주에게 양도하는 결과를 낳았습니다. 곧, 교회 
 의 외적 통치에 있어서 그리스도의 권세는 명목상에 머물고, 세속 군주가 
-교회의 권징과 행정 전반올 주관함으로써 교회의 머리와 같은 역할을 담 
-당하게 되는 것입니다. 따라서 에라스투스주의는 “그리스도의 왕권의 실재 
-적 행사”를 세속 통치권 아래 종속시킴으로써, 그리스도의 교회 머리 되심 
-(Headship of Christ over the Church) 올 사실상 부정하는 결과를 초래 
-합니다. 
-이러한 이유로 웨스트민스터 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong> 1은 두 가지 핵심 진리를 명 
-확히 선언함으로써 에라스투스주의를 단호히 거부합니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong> “주 예수 
-그리스도께서 교회 정부(government)를 세속 통치자의 손이 아니라 교회 
-의 직분자들의 손에 맡기셨다”는 사실입니다. 이는 교회의 권징과 행정이 
-국가의 관할이 아니라, 교회 내부의 직분 제도 안에서 수행되어야 함을 밝 
-힙니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong> "교회의 왕이시며 머리이신 주 예수 그리스도”라는 고백이 보 
-여주듯, 교회의 왕권은 오직 그리스도께 속해 있으며, 그 통치는 명목상이 
-나 상징적으로가 아니라 실질적이고 실제적인 통치입니다. 그리스도께서는 
-교회를 영적으로만 다스리시는 분이 아니라, 교회의 외적 정치 질서와 권징 
-사역 속에서도 친히 통치하시는 왕이십니다. 따라서 교회의 권징과 같은 사 
-법적 행정권은 세속 군주에게 위임된 것이 아니라, 그리스도께서 친히 세우 
-신 교회 직분자들을 통해 교회 안에서 시행되는 것입니다. 
-요컨대, 그리스도께서는 교회의 권징권을 세속 군주에게 위임하지 않으셨 
-으며, 교회 정부의 모든 권위는 그리스도의 왕권 아래에서 교회의 합법적 
-직분자들에게 위탁되어 있습니다. 교회와 국가는 각각 하나님께로부터 부 
-여받은 서로 다른 권위 영역을 가지며. 그 권위는 분명히 구별됩니다. 교회 
-는 그리스도로부터 직접 권위를 받았기 때문에, 국가는 교회의 정치를 자 
-기 권한 아래 두려 해서는 안 됩니다. 출교나 성찬 참여 제한과 같은 권징 
-에 관한 사법적 권한은 오직 교회에 주어진 것이며, 그리스도께서 세우신 
-교회의 직분자들에 의해 정당하게 시행되어야 합니다. 
-신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong> 1은 또한 ‘극단적 회중주의’(Extreme Congr gationalism)를 
-거부해야 할 근거도 제시합니다. 이를테면 극단적 회중주의는 교회의 통치 
-12일. 30 장. 교회 권징 331 
-권이 교회 직원이 아니라 개별 회중 전체에 속하여 있다는 이해 위에서, 교 
-회의 통치에 관한 결정도 교인들의 직접적인 참여로 이루어져야 한다고 주 
-장합니다. 그러나 신앙고백서는 교회의 권징권을 포함하는 교회 정치가 교 
-회 직분자의 손에 위임되었다는 사실을 명시적으로 진술함으로 극단적 회 
-중주의의 정치 원리를 비판합니다. 
-아울러 오늘의 신앙고백서는 교황주의에 대한 비판도 담고 있습니다. 로마 
-가톨릭은 교황이 베드로의 후계자이며 지상 교회의 보이는 머리이고 그리 
-스도의 대리자로서 교회 정치의 최고의 권력을 가집니다. 그러나 신앙고백서는 오직 그리스도만이 교회의 왕이시며 머리시라고 명백하게 선언함으로 
-써, 교황이 지상 최고 수위권을 갖는다는 교회 정치적 원리를 배격합니다. 
-웨스트민스터 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong> 1이 오늘날 교회에 주는 교훈은 무엇일까 
-요? 이 조항은 그리스도의 교회 머리 되심을 고백하는 동시에, 교회와 국 
-가; 그리고 교회 내부의 권위 구조에 대한 중요한 원리를 제시합니다. 
-먼저, 교회는 국가가 과도하게 행정권을 발동하여 교회의 권징이나 재정 운 
-용과 갇은 사안에 간섭하려는 시도를 경계하고 이에 단호히 저항해야 합니 
-다. 교회의 정부(government)는 그리스도께서 친히 제정하신 것이며, 세속 
-통치자의 권한과는 구별됩니다. 
-다움으로, 교회는 국가 권력에 종속되어서는 안 될 뿐 아니라, 반대로 국가 
-를 도구화하여 정치적 의도나 세속적 목적을 추구하는 시도 또한 경계해야 
-합니다. 교회의 사명은 본질적으로 영적인 것이며, 정치적 영향력이나 사회 
-적 이익을 위해 그 본질을 훼손해서는 안 됩니다. 
-또한, 교회는 내부적으로도 권위의 왜곡과 집중을 경계해야 합니다. 교회 
-의 권위가 담임목사와 같은 특정 개인에게 집중되어 독재적 권한이 행사된 
-다면, 그것은 그리스도의 왕권 아래 세워진 교회정치의 원리를 부정하는 
-일입니다. 교회의 모든 권위는 그리스도꺼µ1 세우신 여러 직분자들의 공동 
-작합의적 사역을 통해 행사되어야 합니다. 
-마지막으로, 교회의 정치가 세속적 민주주의의 원리에 따라 회중 전체의 
-다수결에 의해 결정되어야 한다는 생각 역시 성경적이지 않습니다. 교회의 
-정치는 단순한 대중 의사 결정이 아니라 그리스도의 위임을 받은 직분자들 
-(elders and ministers) 에 의해 신앙적 판단과 영적 권위로 다스려지는 것 
-입니다. 
-‘ 적용잘문</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>1.</strong> 왜 신앙고백서는 에라스투스주의를 단호히 거부합니까? 여러분은 교회 
-의 실제 운영과 권징 속에서도 그리스도의 통치가 실질적으로 드러나야 함 
-올 믿으며, 세속 권위가 아닌 주님의 권위 아래 순종하는 교회의 질서를 세 
-워가고있습니까?</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>2.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>2.</strong> 교회가 국가의 간섭을 받지 말아야 한다는 교훈은 무엇을 의미합니 
-까? 여러분은 국가나 사회의 압력보다 그리스도의 주권을 더 높이 인정하 
-며, 교회의 영적 독립성과 거룩함을 지키기 위해 어떤 태도를 취하고 있습 
-니까?</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>3.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>3.</strong> 신앙고백서는 왜 극단적 회중주의를 비판합니까? 여러분은 교회의 결 
-정이 단순한 인간적 다수결이 아니라 그리스도의 위임을 받은 직분자들의 
-영적 판단과 순종의 행위임을 인정하며, 주께서 세우신 질서 안에 기꺼이 
-복종하고있습니까?</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>4.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>4.</strong> 신앙고백서는 왜 교황주의를 거부합니까? 여러분은 어떤 인간적 제도 
-나 지도자보다 오직 그리스도 한 분만이 교회의 참된 머리이심을 믿으며, 
-그분께만 충성과 순종을 드리는 신앙을 지켜가고 있습니까?</p>
-
+교회의 권징과 행정 전반을 주관함으로써 교회의...</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Application Questions -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">적용 질문</h3>
-            <div class="prose prose-green max-w-none bg-green-50 p-4 rounded-lg">
-                <p class="text-gray-700 leading-relaxed"></p>
+            <div class="card">
+                <div class="card-header">
+                    적용 질문
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="question">적용 질문이 제공되지 않았습니다.</span></li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </main>
 
-        <!-- Footer -->
-        <footer class="text-center text-gray-500 text-sm py-4">
+        <footer>
             <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
+
     </div>
 
     <script>
-        // Audio Player Logic
-        const dateStr = "1213";
         let player;
-        let isReady = false;
         let videoId = null;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        const audioButton = document.getElementById('audio-button');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const errorContainer = document.getElementById('audio-error');
 
-        async function initAudio() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) throw new Error('Address file not found');
-                const text = await response.text();
-                
-                // Parse file for today's video ID
-                const lines = text.split('\n');
-                const todayLine = lines.find(line => line.startsWith(dateStr));
-                
-                if (!todayLine) {
-                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
-                    return;
-                }
-
-                // Extract Video ID (regex for youtube URLs)
-                const urlMatch = todayLine.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
-                if (urlMatch && urlMatch[1]) {
-                    videoId = urlMatch[1];
-                    loadYoutubeAPI();
-                } else {
-                    showError("오디오 주소를 찾을 수 없습니다.");
-                }
-            } catch (e) {
-                showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
-                console.error(e);
-            }
-        }
-
-        function showError(msg) {
-            const status = document.getElementById('player-status');
-            const btn = document.getElementById('play-btn');
-            status.textContent = msg;
-            status.classList.remove('hidden');
-            btn.classList.add('hidden');
-        }
-
-        function loadYoutubeAPI() {
+        function loadYouTubeAPI() {
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -227,13 +224,48 @@
         }
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
+            fetchAudioAddress();
+        }
+
+        async function fetchAudioAddress() {
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                const today = '1213';
+                const todayLine = lines.find(line => line.startsWith(today));
+
+                if (todayLine) {
+                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                    const match = todayLine.match(regex);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        initializePlayer();
+                    } else {
+                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
+                    }
+                } else {
+                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
+                }
+            } catch (error) {
+                console.error('Error fetching audio address:', error);
+                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        function initializePlayer() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
                 videoId: videoId,
                 playerVars: {
                     'playsinline': 1,
-                    'controls': 0
+                    'controls': 0,
+                  'showinfo': 0,
+                    'rel': 0
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -243,33 +275,64 @@
         }
 
         function onPlayerReady(event) {
-            isReady = true;
-            const btn = document.getElementById('play-btn');
-            btn.disabled = false;
-            document.getElementById('btn-text').textContent = '재생';
+            isPlayerReady = true;
+            audioButton.disabled = false;
+            buttonText.textContent = 'AI요약 듣기';
+            audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            audioButton.addEventListener('click', togglePlayPause);
         }
 
         function onPlayerStateChange(event) {
-            const btnText = document.getElementById('btn-text');
             if (event.data === YT.PlayerState.PLAYING) {
-                btnText.textContent = '일시정지';
-            } else {
-                btnText.textContent = '재생';
+                isPlaying = true;
+                updateButtonUI(true);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonUI(false);
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                }
             }
         }
 
-        document.getElementById('play-btn').addEventListener('click', () => {
-            if (!isReady) return;
-            const state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
+        function togglePlayPause() {
+            if (!isPlayerReady) return;
+            if (isPlaying) {
                 player.pauseVideo();
             } else {
                 player.playVideo();
             }
-        });
+        }
 
-        // Start initialization
-        initAudio();
+        function updateButtonUI(playing) {
+            if (playing) {
+                audioButton.classList.remove('play');
+                audioButton.classList.add('pause');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+                buttonText.textContent = '일시정지';
+                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                audioButton.classList.remove('pause');
+                audioButton.classList.add('play');
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = 'AI요약 듣기';
+                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            }
+        }
+
+        function showError(message) {
+            const button = document.getElementById('audio-button');
+            if (button) {
+                button.style.display = 'none';
+            }
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        loadYouTubeAPI();
     </script>
+
 </body>
 </html>

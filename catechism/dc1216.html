@@ -3,67 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12월 16일 교리 묵상</title>
+    <title>날마다 읽는 교리 - 12월 16일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
     <style>
-        body { font-family: 'Pretendard', sans-serif; }
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            word-break: keep-all;
+            background-color: #f3f4f6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #4a5568;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .card-body {
+            padding: 1.5rem;
+            line-height: 1.75;
+        }
+        .card-body h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+        .card-body p {
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        .card-body .question {
+            font-weight: 600;
+            color: #111827;
+        }
+        .card-body .answer {
+            color: #374151;
+        }
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .audio-button:disabled {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+        .audio-button.play {
+            background-color: #2563eb;
+            color: white;
+        }
+        .audio-button.play:hover {
+            background-color: #1d4ed8;
+        }
+        .audio-button.pause {
+            background-color: #f87171;
+            color: white;
+        }
+        .audio-button.pause:hover {
+            background-color: #ef4444;
+        }
+        .audio-error {
+            color: #dc2626;
+            font-weight: 500;
+            text-align: center;
+        }
+        #player-container {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            left: -100px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto space-y-8">
-        <!-- Header -->
-        <header class="text-center space-y-2">
-            <h1 class="text-3xl font-bold text-gray-900">12월 16일</h1>
-            <h2 class="text-xl font-semibold text-gray-700">121/ 16일</h2>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">12월 16일</h1>
+            <p class="text-xl text-gray-600 mt-2">121/ 16일</p>
         </header>
 
-        <!-- Audio Player -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900">AI요약 듣기</h3>
-            <div id="player-container" class="w-full">
-                <div id="youtube-player"></div>
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    신앙고백서 30.4
+                </div>
+                <div class="card-body">
+                    <p class="answer">신앙고백서 30.4 이러한 목적을 더 잘 실현하기 위하여 교회 직원들은 범죄의 성질과 해당 교인의 과실에 따라 견책, 일시적 수찬정지, 그리고 출교의 절차를 진행해야 한다.1) 1) 살전 5:12; 살후 3:6, 14-15; 고전 5:4-5, 13: 마 18:17; 딛 3:10. ‘</p>
+                </div>
             </div>
-            <div id="player-status" class="hidden text-center text-gray-500 py-4"></div>
-            <button id="play-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2" aria-label="교리 오디오 재생/일시정지">
-                <span id="btn-text">로딩 중...</span>
-            </button>
-        </div>
 
-        <!-- Catechism Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-indigo-900 border-b-2 border-indigo-100 pb-2">신앙고백서 30.4</h3>
-            <div class="prose prose-indigo max-w-none text-gray-800 bg-indigo-50 p-4 rounded-lg">
-                <p class="leading-relaxed">신앙고백서 30.4 이러한 목적을 더 잘 실현하기 위하여 교회 직원들은 범죄의 성질과 해당 교인의 과실에 따라 견책, 일시적 수찬정지, 그리고 출교의 절차를 진행해야 한다.1) 1) 살전 5:12; 살후 3:6, 14-15; 고전 5:4-5, 13: 마 18:17; 딛 3:10. ‘</p>
+            <div class="card">
+                <div class="card-header">
+                    AI요약 듣기
+                </div>
+                <div class="audio-player-container" id="audio-player-ui">
+                    <div id="player-container"></div>
+                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="button-text">로딩 중...</span>
+                    </button>
+                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Exposition Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">교리 해설</h3>
-            <div class="prose prose-blue max-w-none">
-                <p class="mb-4 text-gray-700 leading-relaxed">오늘 읽는 웨스트민스터 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong> 4은 권징의 목적을 보다 효과적으 
+            <div class="card">
+                <div class="card-header">
+                    교리 해설
+                </div>
+                <div class="card-body">
+                    <p>오늘 읽는 웨스트민스터 신앙고백서 30.4은 권징의 목적을 보다 효과적으 
 로 실현하기 위한 구체적인 실행 단계룰 제시합니다. 권징의 궁극적 목적은 
-앞서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong> 3에서 살핀 바와 갇이, 죄를 범한 형제를 교정하고 회복시키며, 다 
+앞서 30.3에서 살핀 바와 갇이, 죄를 범한 형제를 교정하고 회복시키며, 다 
 른 사람들이 유사한 죄에 빠지지 않도록 예방하고, 죄의 누룩이 교회 공동 
 체 전체를 오염시키지 않도록 방지하며, 그리스도의 명예와 복음의 거룩한 
-고백이 욕되지 않도록 하는 것입니다. 또한 이러한 권징올 태만히 하는 것 
+고백이 욕되지 않도록 하는 것입니다. 또한 이러한 권징을 태만히 하는 것 
 은 하나님의 진노를 초래할 수 있는 일이므로, 교회의 직원들은 필요할 때 
 반드시 권징을 시행해야 합니다. 오늘은 이 절이 가르치는 권징의 실행 기 
-준과 절차를 두 가지로 나누어 살펴봅니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong> “이러한 목적을 더 잘 실현하기 위하여 교회 직원들은 범죄의 성질과 
+준과 절차를 두 가지로 나누어 살펴봅니다. 
+(1) “이러한 목적을 더 잘 실현하기 위하여 교회 직원들은 범죄의 성질과 
 해당 교인의 과실에 따라”: 권징은 교회 직원의 사사로운 감정이나 자의적 
 판단에 따라 행해져서는 안 됩니다. 신앙고백서는 권징의 두 가지 기준을 
-제시합니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째</strong> 는 범죄 (crime) 의 성질을 살피는 일이며,</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong> 는 범죄자의 
+제시합니다. 첫째는 범죄 (crime) 의 성질을 살피는 일이며, 둘째는 범죄자의 
 과실(demerit) 정도를 살피는 일입니다. 
 먼저, “범죄의 성질에 따라 행한다”라는 것은 그 죄가 교회와 신앙의 질서 
 를 어느 정도로 해치는가를 면밀히 살피는 것을 의미합니다. 죄의 성질이 
@@ -74,171 +183,47 @@
 죽, 동일한 죄에는 동일한 징계를 죄의 중대성이 다를 경우에는 그 정도에 
 상옹하는 징계를 내리는 것입니다. 권징이 공의의 원리를 따라야 하는 이 
 유는, 모든 자에게 편파적 적용 없이 하나님의 거룩한 법도에 따라 공정하 
-고 단호한 판단이 내려져야 하기 때문입니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong> 는 범죄자의 주관적 태도와 상태를 살피는 일입니다. 그는 회개하고 있 
-는가, 아니면 완고하게 버티고 있는가? 그 죄는 습관적 • 반복적이었는가, 아 
-니면 일시적이었는가? 또한 알고 행한 죄인지, 무지에서 비롯된 죄인지를 
-살펴야 합니다. 더 나아가. 그는 교회의 직분자로서 더 큰 책임을 지는 위 
-치에 있었는갸 아니면 신앙의 초보자인가도 고려해야 합니다. 전자의 경우 
-더 엄중한 징계가 필요하지만, 후자의 경우에는 보다 온유하고 교정적인 징 
-계가합당합니다. 
-이처럼 권징은 죄를 범한 개인의 형편과 상황을 세밀히 고려해야 하며, 지 
-나치게 가혹하거나 부당한 처벌이 되지 않도록 신중히 행해져야 합니다. 이 
-는 권징이 단순한 법적 조치가 아니라, 회복과 구원이라는 복음적 목적을 
-담고 있기 때문입니다. 따라서 권징은 공의의 원칙으로 객관적 엄격성을 세 
-우되, 동시에 형평 (equity)의 원칙으로 사랑과 긍휼의 목회적 배려를 유지 
-해야 합니다. 결국 교회 권징은 정의와 자비의 조화를 이루는 사역으로, 그 
-리스도의 몸을 세우며 범죄한 형제를 회복시키는 은혜의 수단이 되어야 합 
-니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong> 견책, 일시적 수찬정지, 그리고 출교의 절차를 진행해야 한다”: 권징 
-은 범죄의 성질과 해당 교인의 과실 정도를 고려하여 공의와 형평의 원 
-리를 반영하는 처벌이어야 합니다. 먼저, “범죄의 성질”(the nature of the 
-rime)은 하나님의 율법에 대한 객관적 위반올 뜻하며, ”과실의 정도”(the 
-demerit of the person)는 범죄자의 주관적 상태, 곧 완고함이나 회개의 결 
-여 정도를 가리킵니다. 따라서 권징은 공의의 원리(범죄의 객관적 중대성에 
-따른 정의로운 판단)와 형평의 원리(범죄자의 태도와 상황에 따른 적절한 
-조치)를 함께 반영해야 합니다. 이러한 권징은 단순한 처벌이 아니라, 죄인 
-올 회복시키고 교회의 거룩올 보존하며 하나님의 진노를 예방하려는 사랑 
-의 행위입니다(참조: 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong> 3). 웨스트민스터 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>30.</strong> 4은 이 
-러한 원리를 구체화하며, 세 단계의 권징 절차를 제시합니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong> 견책(admonition) 가장 낮은 단계의 권징으로, 주로 사적인 교정의 
-형태로 시행됩니다. 잦은 예배 결석, 태만한 경건 생활, 반복적이며 습관적 
-인 부주의한 언행, 교인 간의 사소한 다툼 둥으로 인해 신앙과 공동체에 덕 
-울 세우지 못할 때, 목사나 장로는 해당 교인을 심방하여 하나님의 말씀으 
-로 교훈하고 권면합니다(마 18:15). 이로써 죄가 더 심각해지지 않도록 예방 
-하고, 형제가 사랑 가운데 돌이키도록 돕습니다. 이 단계는 아직 당회가 공 
-식적으로 권징 절차롤 개시하기 전의 목회적 심방 단계입니다. 피해자가 있 
-을 경우 그에게만 혹은 관련된 소수에게만 알리고 사태를 비공개적으로 처 
-리하여, 당회의 공식 기록에 남기지 않고 형제를 회복시키는 일에 집중합니 
-다. 그러나 이러한 사적 권면에도 불구하고 죄가 계속될 경우, 이후에는 공 
-적 권면(public admonition)이나 수찬정지(suspension)의 단계로 나아가게 
-됩니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong> 일시적 수찬정지(sus ens on) 입니다. 수찬정지는 교회의 언약적 교 
-제에서의 일시적 단절을 의미하며, 보다 공적이고 무거운 단계의 권징입니 
-다. 습관적 음주, 공금 횡령, 간음, 도박, 사기 동 사회적 덕을 심각히 훼손 
-한 경우, 또는 여러 차례의 사적 권면을 완고하게 거부한 경우에 해당합니 
-다. 이때 교회 직원들은 당회로 모여 사실을 조사하고, 범죄의 성격과 공 
-적 파급력, 그리고 범죄자의 태도를 함께 판단합니다. 범죄가 비교적 경미 
-하거나 회개의 여지가 있는 경우에는 회중 앞에서 공적 권면을 시행하여 
-죄를 책망하고 회개를 촉구합니다. 그러나 이러한 권면에도 회개하지 않을 
-경우; 일정 기간 동안 성찬 참여를 금지하는 수찬정지의 징계를 내립니다. 
-이 수찬정지는 교회의 거룩성을 보전하기 위한 언약적 교제의 일시적 제 
-한이며, 징계의 목적은 회개와 회복입니다. 공적 권면이나 수찬정지는 모두 
-교회의 공식 기록에 남기며, 이 기록은 훗날 회개의 열매가 있을 때 해벌 
-(restoration) 절차의 근거가 됩니다(딤전 5:20).</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong> 출교(excommunication) 입니다. 출교는 교회가 내릴 수 있는 가장 
-엄중하고 최종적인 권징입니다. 수찬정지에도 불구하고 죄를 완고하게 고집 
-할 때 내려집니다. 예를 들어, 이단 교리를 퍼뜨리거나 교인을 미혹하여 이 
-단 집단으로 이끌거냐 살인·사기 ·패륜 둥 사회적 ·도덕적으로 중대한 범죄 
-를 저지르고도 회개하지 않을 경우; 당회는 공식적으로 교인 명부에서 제 
-명하는 출교의 권징을 시행합니다(마 18:17; 고전 5:4-5, 13). 출교는 단순 
-한 형벌이 아니라, 언약의 교제에서의 공식적 분리를 통하여 그 사람이 영 
-적 고통을 통해 회개에 이르도록 돕는 은혜의 수단입니다. 따라서 당회는 
-회중에게 출교의 목적이 단절이 아니라 회복에 있음을 분명히 알려야 합니 
-다. 교회는 출교된 자가 언제든지 회개로 돌아와 다시 교제에 참여할 수 있 
-음을 선포하며, 이것이 교회의 거룩과 질서를 지키기 위한 목회적 사랑의 
-행위임을 가르칩니다. 결국 권징의 모든 단계는 그리스도의 몸 된 교회의 
-거룩함을 보존하고, 회개의 은혜를 통해 잃은 형제를 다시 얻기 위한 복음 
-적사역입니다. 
-‘</p>
-
+고 단호한 판단이 내려져야 하기 때문입니다. 
+둘째는 범죄자의 주관...</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Application Questions -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">적용 질문</h3>
-            <div class="prose prose-green max-w-none bg-green-50 p-4 rounded-lg">
-                <ol class="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed">
-<li class="mb-2">견책(admonition)은 가장 낮은 단계의 권징으로, 주로 사적인 권면을 
-통해 형제를 돌이키는 일올 의미합니다. 왜 교회는 이런 개인적이고 비공개 
-적인 권면을 먼저 시행해야 하며, 그것이 교회의 평화와 질서에 어떤 유익 
-올 줍니까? 또한 이 사적인 권면이 목회적 사랑의 표현이 되는 이유는 무 
-엇입니까? 여러분은 누군가의 잘못을 보았을 때, 비난하거나 방관하기보다 
-그를 사랑으로 세우기 위해 조용히 권면하려고 노력합니까? 그리고 다른 
-이가 여러분에게 권면할 때, 그것을 불쾌하게 여기지 않고 하나님의 말씀으 
-로 받아들이며 교훈을 얻으려 합니까?</li>
-<li class="mb-2">수찬정지(suspens on)는 회개하지 않는 자가 계속해서 성찬에 참여함 
-으로써 교회의 거룩함을 더럽히는 일을 막기 위한 조치입니다. 왜 교회는 
-이런 징계를 통해 성찬의 존귀함을 지키고, 동시에 죄인을 회개로 이끌어 
-야 합니까? 또한 수찬정지가 단순한 벌이 아니라 "언약적 교제의 일시적 제 
-한으로서 가지는 복음적 의미는 무엇입니까? 여러분은 성찬에 참여하기 
-전 자신을 살피며, 혹시라도 회개하지 않은 죄로 인해 주님의 몸과 피를 합 
-당하지 않게 받는 일이 없도록 준비하고 있습니까? 또 교회의 징계를 받을 
-때 그것을 수치로만 여기지 않고, 하나님께서 회복의 기회를 주시는 은혜 
-로이해하고있습니까?</li>
-<li class="mb-2">출교(excommunication)는 교회의 언약적 교제에서 공식적으로 분리 
-하는 가장 엄중한 권징입니다. 왜 교회는 이렇게까지 단호한 조치를 취해야 
-하며, 그것이 단절이 아니라 회개의 길을 열어 주는 은혜의 수단이 되는 이 
-유는 무엇입니까? 또한 출교를 통해 드러나는 교회의 거룩과 사랑은 어떤 
-방식으로 복음을 중거합니까? 여러분은 교회의 징계를 하나님께서 잃은 
-자를 다시 찾으시려는 사랑의 표현으로 이해합니까? 또 징계를 받은 형제 
-가 참된 회개로 돌아올 때, 그를 용납하고 함께 기뻐하며 교재를 회복하려 
-는 마음의 준비가 되어 있습니까?</li>
-</ol>
+            <div class="card">
+                <div class="card-header">
+                    적용 질문
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="question">웨스트민스터 신앙고백서 30.4은 권징을 단순한 처벌이 아니라 공의와</span></li>
+<li><span class="question">형평의 원리를 반영한 사랑의 행위로 설명합니다. 왜 교회는 죄인을 징계하</span></li>
+<li><span class="question">면서도 그 안에 하나님의 사랑과 자비를 드러내야 합니까? 또한 “범죄의 성</span></li>
+<li><span class="question">질”과 ”과실의 정도”를 함께 고려해야 한다는 이 원리는, 교회가 하나님의</span></li>
+<li><span class="question">거룩함과 긍휼을 동시에 보여주는 방식과 어떤 관련이 있습니까? 여러분은</span></li>
+<li><span class="question">권징을 받을 때, 그것을 사람의 판단이 아니라 하나님께서 우리를 회복시</span></li>
+
+                    </ul>
+                </div>
             </div>
-        </div>
+        </main>
 
-        <!-- Footer -->
-        <footer class="text-center text-gray-500 text-sm py-4">
+        <footer>
             <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
+
     </div>
 
     <script>
-        // Audio Player Logic
-        const dateStr = "1216";
         let player;
-        let isReady = false;
         let videoId = null;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        const audioButton = document.getElementById('audio-button');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const errorContainer = document.getElementById('audio-error');
 
-        async function initAudio() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) throw new Error('Address file not found');
-                const text = await response.text();
-                
-                // Parse file for today's video ID
-                const lines = text.split('\n');
-                const todayLine = lines.find(line => line.startsWith(dateStr));
-                
-                if (!todayLine) {
-                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
-                    return;
-                }
-
-                // Extract Video ID (regex for youtube URLs)
-                const urlMatch = todayLine.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
-                if (urlMatch && urlMatch[1]) {
-                    videoId = urlMatch[1];
-                    loadYoutubeAPI();
-                } else {
-                    showError("오디오 주소를 찾을 수 없습니다.");
-                }
-            } catch (e) {
-                showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
-                console.error(e);
-            }
-        }
-
-        function showError(msg) {
-            const status = document.getElementById('player-status');
-            const btn = document.getElementById('play-btn');
-            status.textContent = msg;
-            status.classList.remove('hidden');
-            btn.classList.add('hidden');
-        }
-
-        function loadYoutubeAPI() {
+        function loadYouTubeAPI() {
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -246,13 +231,48 @@ demerit of the person)는 범죄자의 주관적 상태, 곧 완고함이나 회
         }
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
+            fetchAudioAddress();
+        }
+
+        async function fetchAudioAddress() {
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                const today = '1216';
+                const todayLine = lines.find(line => line.startsWith(today));
+
+                if (todayLine) {
+                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                    const match = todayLine.match(regex);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        initializePlayer();
+                    } else {
+                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
+                    }
+                } else {
+                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
+                }
+            } catch (error) {
+                console.error('Error fetching audio address:', error);
+                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        function initializePlayer() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
                 videoId: videoId,
                 playerVars: {
                     'playsinline': 1,
-                    'controls': 0
+                    'controls': 0,
+                  'showinfo': 0,
+                    'rel': 0
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -262,33 +282,64 @@ demerit of the person)는 범죄자의 주관적 상태, 곧 완고함이나 회
         }
 
         function onPlayerReady(event) {
-            isReady = true;
-            const btn = document.getElementById('play-btn');
-            btn.disabled = false;
-            document.getElementById('btn-text').textContent = '재생';
+            isPlayerReady = true;
+            audioButton.disabled = false;
+            buttonText.textContent = 'AI요약 듣기';
+            audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            audioButton.addEventListener('click', togglePlayPause);
         }
 
         function onPlayerStateChange(event) {
-            const btnText = document.getElementById('btn-text');
             if (event.data === YT.PlayerState.PLAYING) {
-                btnText.textContent = '일시정지';
-            } else {
-                btnText.textContent = '재생';
+                isPlaying = true;
+                updateButtonUI(true);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonUI(false);
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                }
             }
         }
 
-        document.getElementById('play-btn').addEventListener('click', () => {
-            if (!isReady) return;
-            const state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
+        function togglePlayPause() {
+            if (!isPlayerReady) return;
+            if (isPlaying) {
                 player.pauseVideo();
             } else {
                 player.playVideo();
             }
-        });
+        }
 
-        // Start initialization
-        initAudio();
+        function updateButtonUI(playing) {
+            if (playing) {
+                audioButton.classList.remove('play');
+                audioButton.classList.add('pause');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+                buttonText.textContent = '일시정지';
+                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                audioButton.classList.remove('pause');
+                audioButton.classList.add('play');
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = 'AI요약 듣기';
+                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            }
+        }
+
+        function showError(message) {
+            const button = document.getElementById('audio-button');
+            if (button) {
+                button.style.display = 'none';
+            }
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        loadYouTubeAPI();
     </script>
+
 </body>
 </html>

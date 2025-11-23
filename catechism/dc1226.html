@@ -3,224 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12월 26일 교리 묵상</title>
+    <title>날마다 읽는 교리 - 12월 26일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
     <style>
-        body { font-family: 'Pretendard', sans-serif; }
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            word-break: keep-all;
+            background-color: #f3f4f6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #4a5568;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .card-body {
+            padding: 1.5rem;
+            line-height: 1.75;
+        }
+        .card-body h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+        .card-body p {
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        .card-body .question {
+            font-weight: 600;
+            color: #111827;
+        }
+        .card-body .answer {
+            color: #374151;
+        }
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .audio-button:disabled {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+        .audio-button.play {
+            background-color: #2563eb;
+            color: white;
+        }
+        .audio-button.play:hover {
+            background-color: #1d4ed8;
+        }
+        .audio-button.pause {
+            background-color: #f87171;
+            color: white;
+        }
+        .audio-button.pause:hover {
+            background-color: #ef4444;
+        }
+        .audio-error {
+            color: #dc2626;
+            font-weight: 500;
+            text-align: center;
+        }
+        #player-container {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            left: -100px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto space-y-8">
-        <!-- Header -->
-        <header class="text-center space-y-2">
-            <h1 class="text-3xl font-bold text-gray-900">12월 26일</h1>
-            <h2 class="text-xl font-semibold text-gray-700">의인의 영광스러운부활과</h2>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">12월 26일</h1>
+            <p class="text-xl text-gray-600 mt-2">의인의 영광스러운부활과</p>
         </header>
 
-        <!-- Audio Player -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900">AI요약 듣기</h3>
-            <div id="player-container" class="w-full">
-                <div id="youtube-player"></div>
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    신앙고백서 32.3
+                </div>
+                <div class="card-body">
+                    <p class="answer">신앙고백서 32.3 악인의 몸은 그리스도의 능력으로 말미암아 부활하여 수치를 당하게 될 것이다. 반면에 의인의 몸은 그리스도 의 성령으로 말미암아 부활하여 영광에 이르게 될 것 이며, 그리스도 그분의 영광스러운 몸의 형체와 같이 변 화될것이다.1) 1) 행 24:15; 요 5:28-29; 고전 15:42; 빌 3:21. ‘</p>
+                </div>
             </div>
-            <div id="player-status" class="hidden text-center text-gray-500 py-4"></div>
-            <button id="play-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2" aria-label="교리 오디오 재생/일시정지">
-                <span id="btn-text">로딩 중...</span>
-            </button>
-        </div>
 
-        <!-- Catechism Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-indigo-900 border-b-2 border-indigo-100 pb-2">신앙고백서 32.3</h3>
-            <div class="prose prose-indigo max-w-none text-gray-800 bg-indigo-50 p-4 rounded-lg">
-                <p class="leading-relaxed">신앙고백서 32.3 악인의 몸은 그리스도의 능력으로 말미암아 부활하여 수치를 당하게 될 것이다. 반면에 의인의 몸은 그리스도 의 성령으로 말미암아 부활하여 영광에 이르게 될 것 이며, 그리스도 그분의 영광스러운 몸의 형체와 같이 변 화될것이다.1) 1) 행 24:15; 요 5:28-29; 고전 15:42; 빌 3:21. ‘</p>
+            <div class="card">
+                <div class="card-header">
+                    AI요약 듣기
+                </div>
+                <div class="audio-player-container" id="audio-player-ui">
+                    <div id="player-container"></div>
+                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="button-text">로딩 중...</span>
+                    </button>
+                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Exposition Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">교리 해설</h3>
-            <div class="prose prose-blue max-w-none">
-                <p class="mb-4 text-gray-700 leading-relaxed">어제 살펴본 대요리문답 87항은 “마지막 날에 의인과 불의한 자 모두의 일 
-반 부활이 있을 것"올 믿는다고 고백합니다. 그러나 이 부활은 단일한 사 
+            <div class="card">
+                <div class="card-header">
+                    교리 해설
+                </div>
+                <div class="card-body">
+                    <p>어제 살펴본 대요리문답 87항은 “마지막 날에 의인과 불의한 자 모두의 일 
+반 부활이 있을 것"을 믿는다고 고백합니다. 그러나 이 부활은 단일한 사 
 건이지만, 그 본질은 의인과 불의한 자에게서 전혀 다르게 나타납니다. 의 
 인의 부활의 몸은 죽기 이전의 몸과 질적으로 다른 몸으로 변화됩니다. 이 
-사실은 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong> 2에서 이미 진술된 바이며, 그 “질적으로 다른 상태" 
-가 무엇인지 오늘 읽는</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong> 3이 명확히 설명합니다. 곧 의인의 부활의 몸은 
+사실은 신앙고백서 32.2에서 이미 진술된 바이며, 그 “질적으로 다른 상태" 
+가 무엇인지 오늘 읽는 32.3이 명확히 설명합니다. 곧 의인의 부활의 몸은 
 “그리스도께서 가지신 영광스러운 몸의 형체와 같이 변화되는” 것입니다. 
 반면 불의한 자의 부활은 전혀 다른 성격을 지닙니다. 그들의 몸은 영광의 
 상태가 아니라, 하나님의 공의로운 심판과 형벌을 받을 수 있는 상태로 변 
 화된 몸입니다. 그러므로 의인의 부활과 악인의 부활은 단지 시기나 방식 
 의 차이가 아니라, 존재의 질적 본질에서 근본적으로 다르다고 할 수 있습 
-니다. 이제 이러한 내용에 대하여 오늘 읽는 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong> 3을 두 가지로 
+니다. 이제 이러한 내용에 대하여 오늘 읽는 신앙고백서 32.3을 두 가지로 
 나누어 살펴보겠습니다. 동시에 어제 살펴본 대요리문답 87항의 가르침을 
-함께 참조하여, 부활의 영광과 심판의 실재를 함께 고백하도록 하겠습니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(1)</strong> “악인의 몸은 그리스도의 능력으로 말미암아 부활하여 수치를 당하게 
-될 것이다”(신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong> 3); “그러나 악인의 몸은 전노하신 심판주 그리 
+함께 참조하여, 부활의 영광과 심판의 실재를 함께 고백하도록 하겠습니다. 
+(1) “악인의 몸은 그리스도의 능력으로 말미암아 부활하여 수치를 당하게 
+될 것이다”(신앙고백서 32.3); “그러나 악인의 몸은 전노하신 심판주 그리 
 스도에 의해 부활하여 수욕을 당합니다”(대요리문답 87): 앞서 대요리문답 
 87항은 모든 사람의 부활이 “그리스도의 권능으로 말미암는다“고 밝히고 
 있습니다. 부활이 그리스도의 권능으로 이루어지는 이유는 세 가지로 요약 
-할 수 있습니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong> 그리스도께서는 창조주이시며 모든 생명의 근원이시 
-기 때문입니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong> 그리스도께서는 구속 사역올 완성하신 분으로서 마지 
-막 날의 심판자이시기 때문입니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong> 그리스도께서는 “잠자는 자들의 
+할 수 있습니다. 첫째, 그리스도께서는 창조주이시며 모든 생명의 근원이시 
+기 때문입니다. 둘째, 그리스도께서는 구속 사역을 완성하신 분으로서 마지 
+막 날의 심판자이시기 때문입니다. 셋째, 그리스도께서는 “잠자는 자들의 
 첫 열매”(고전 15:20)로서 성도의 부활의 모형과 원형이 되시기 때문입니다. 
-이 가운데 악인의 부활은 구속과 연합의 범주에 속하지 않습니다. 그들의 
-부활은 오직 그리스도께서 창조주이시며 동시에 심판자로서 가지신 주권 
-적 명령과 권능에 의해 이루어집니다. 이것을 신앙고백서는 “그리스도의 능 
-력으로 말미암아” 악인의 부활이 일어날 뿐이라고 진술합니다. 악인의 부 
-활은 생명으로 나아가는 부활이 아니라 심판을 받기 위한 부활입니다. 대요리문답 87항이 말하듯, 악인의 부활은 “전노하신 심판주 그리스도에 의 
-해<strong class="text-blue-600"> 일어납니다. 그리스도께서 악인을 부활시키시는 목적은 그들이 범한 
-죄의 대가를 몸소 받게 하시려는 데 있습니다. 그러므로 악인의 존재는 부 
-활로 인해 회복되지만, 그것은 복된 존재로의 회복이 아니라 형벌을 감당 
-할 수 있는 존재로의 회복입니다. 육체 안에서 범한 죄가 육체 안에서 심판 
-받게 되는 것입니다. 성경은 이를 다음과 같이 말씀합니다. “또 인자됨으로 
-말미암아 심판하는 권한올 주셨느니라. 이를 놀랍게 여기지 말라. 무덤 속 
-에 있는자가다그의 음성을들을 때가오나니, 선한 일올 행한자는생 
-명의 부활로, 악한 일을 행한 자는 심판의 부활로 나오리라.</strong> （요 5:27-29) 
-이 심판의 결과로 악인은 부활하여 정죄와 저주와 불명예와 수치를 당하게 
-됩니다. 그들의 부활한 몸은 영원히 하나님의 공의로운 진노 아래 놓이며, 
-그 존재 전체가 저주 속에 머물게 됩니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>(2)</strong> "반면에 의인의 몸은 그리스도의 성령으로 말미암아 부활하여 영광에 
-이르게 될 것이며, 그리스도 그분의 영광스러운 몸의 형체와 같이 변화될 
-것이다”(신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong> 3); 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>32.</strong> 3은 의인의 몸의 부활이 “그리스 
-도의 성령으로 말미암아” 이루어진다고 진술합니다. 그리고 대요리문답 87 
-항은 의인의 몸이 “그리스도의 영”에 의하여 다시 살아난다고 가르칩니다. 
-두 진술은 서로를 보완하며, 의인의 부활이 그리스도의 권능에 근거하면서 
-동시에 성령 하나님의 사역에 의한 것임을 보여줍니다. 성령 하나님께서 의 
-인의 부활의 주체로 언급되는 이유는, 성령께서 성도들을 영화롭게 하시는 
-분이시기 때문입니다. 성령은 성도 안에 내주하시며, 그리스도와의 연합올 
-실제적으로 적용하심으로써 그 연합의 완성을 영화의 상태에까지 이르게 
-하십니다. 이러한 영화의 완성이 바로 의인의 부활입니다. 
-부활한 의인의 몸의 특징올 대요리문답 87 항은 네 가지로 요약합니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong> 강한 몸(in power),</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong> 신령한 (spi itual),</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째</strong> 썩지 않는 몸 
-(incorruptible),</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>넷째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>넷째,</strong> 그리스도의 영광스러운 몸과 같이 된 (made like 
-to his glorious body)입니다. 이 진술은 고린도전서 15장 42- 竹절의 말 
-씀을 근거로 합니다. ·죽은 자의 부활도 이와 갇으니 썩을 것으로 십고 썩 
-지 아니할 것으로 다시 살아나며, 욕된 것으로 십고 영광스러운 것으로 다 
-시 살아나며, 약한 것으로 심고 강한 것으로 다시 살아나며, 육의 몸으로 
-심고 신령한 몸으로 다시 살아나나니.” 이 말씀은 죽은 몸과 부활한 몸의 
-대조를 통해 의인의 부활이 어떤 본질적 변화를 수반하는지를 보여줍니다. 
-대요리문답이 정리한 바와 같이, 이러한 모든 특성의 종합은 곧 의인의 몸 
-이 “그리스도의 영광스러운 몸의 형체와 같이 되는 것”입니다. <strong class="text-blue-600">같이 된다” 
-라는 말은 단순한 유사성의 표현이 아니라, 그리스도의 몸에 나타난 영광 
-의 속성이 성도의 몸에도 반사적으로 나타난다는 의미입니다. 성도의 부활 
-한 몸은 그리스도의 영화의 실체에 참여하여, 그분의 영광을 비추는 거울 
-이됩니다. 
-요컨대 의인의 부활은 단지 죽은 몸이 다시 살아나는 생물학적 회복이 아 
-니라, 그리스도와의 연합 속에서 </strong>질적으로 다른” 영화로운 몸으로 변화되 
-는 사건입니다. 그 몸은 완전한 거룩함을 입은 영혼과 결합하여, 새 하늘과 
-새 땅에서 그리스도의 영광을 반사하는 새로운 존재로서 완전한 생명에 참 
-여하게됩니다. 
-‘</p>
-
+이...</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Application Questions -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">적용 질문</h3>
-            <div class="prose prose-green max-w-none bg-green-50 p-4 rounded-lg">
-                <ol class="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed">
-<li class="mb-2">악인의 부활은 생명의 부활이 아니라 심판을 받기 위한 부활이며, 그 
-들의 몸은 형벌을 받아야 하는 존재로 회복됩니다. 왜 하나님의 공의는 악 
-인의 죄를 영혼뿐 아니라 몸으로도 심판하시는 방식으로 드러나는 것일까 
-요? 여러분은 죄가 영적 차원에만 머무는 것이 아니라 몸을 통해 드러난다 
-는 사실을 기억하며, 자신의 몸을 거룩하게 보존하려는 신앙의 책임을 어떻 
-게실천하고있습니까?</li>
-<li class="mb-2">신앙고백서와 대요리문답은 의인의 부활이 “그리스도의 성령으로 말미 
-암아” 이루어진다고 말합니다. 왜 의인의 부활이 단순히 하나님의 권능의 
-결과가 아니라 성령의 사역으로서 이해되어야 할까요? 여러분은 지금 성령 
-께서 내주하시며 그리스도와 연합하게 하신다는 사실을 믿고, 장차 영화의 
-몸으로 부활하게 될 소망을 어떤 방식으로 현재의 삶 속에서 드러내고 있 
-습니까?</li>
-<li class="mb-2">의인의 부활한 몸은 강하고, 신령하며, 썩지 않으며, 그리스도의 영광스 
-러운 몸의 형체와 같이 됩니다. 왜 이 네 가지 특징이 의인의 영화로운 부 
-활을 가장 잘 묘사한다고 할 수 있을까요? 여러분은 이 영광스러운 부활의 
-약속을 바라보며, 현재의 연약함과 고난 속에서도 어떻게 그리스도의 영광 
-을 반사하는 삶을 살아가려 합니까?</li>
-</ol>
+            <div class="card">
+                <div class="card-header">
+                    적용 질문
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="question">신앙고백서 32.3은 악인의 부활이 “그리스도의 능력으로 말미암아" 된</span></li>
+<li><span class="question">다고 가르칩니다. 왜 악인의 부활이 구속과 생명의 연합에 근거하지 않고</span></li>
+<li><span class="question">오직 그리스도의 능력으로만 이루어진다고 할 수 있을까요? 여러분은 이</span></li>
+<li><span class="question">진리를 통해 하나님의 심판이 피조물의 존재 전체를 관통하는 절대적 주권</span></li>
+<li><span class="question">의 행사임을 어떻게 인식하고 있습니까?</span></li>
+<li><span class="question">악인의 부활은 생명의 부활이 아니라 심판을 받기 위한 부활이며, 그</span></li>
+
+                    </ul>
+                </div>
             </div>
-        </div>
+        </main>
 
-        <!-- Footer -->
-        <footer class="text-center text-gray-500 text-sm py-4">
+        <footer>
             <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
+
     </div>
 
     <script>
-        // Audio Player Logic
-        const dateStr = "1226";
         let player;
-        let isReady = false;
         let videoId = null;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        const audioButton = document.getElementById('audio-button');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const errorContainer = document.getElementById('audio-error');
 
-        async function initAudio() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) throw new Error('Address file not found');
-                const text = await response.text();
-                
-                // Parse file for today's video ID
-                const lines = text.split('\n');
-                const todayLine = lines.find(line => line.startsWith(dateStr));
-                
-                if (!todayLine) {
-                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
-                    return;
-                }
-
-                // Extract Video ID (regex for youtube URLs)
-                const urlMatch = todayLine.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
-                if (urlMatch && urlMatch[1]) {
-                    videoId = urlMatch[1];
-                    loadYoutubeAPI();
-                } else {
-                    showError("오디오 주소를 찾을 수 없습니다.");
-                }
-            } catch (e) {
-                showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
-                console.error(e);
-            }
-        }
-
-        function showError(msg) {
-            const status = document.getElementById('player-status');
-            const btn = document.getElementById('play-btn');
-            status.textContent = msg;
-            status.classList.remove('hidden');
-            btn.classList.add('hidden');
-        }
-
-        function loadYoutubeAPI() {
+        function loadYouTubeAPI() {
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -228,13 +230,48 @@ to his glorious body)입니다. 이 진술은 고린도전서 15장 42- 竹절�
         }
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
+            fetchAudioAddress();
+        }
+
+        async function fetchAudioAddress() {
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                const today = '1226';
+                const todayLine = lines.find(line => line.startsWith(today));
+
+                if (todayLine) {
+                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                    const match = todayLine.match(regex);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        initializePlayer();
+                    } else {
+                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
+                    }
+                } else {
+                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
+                }
+            } catch (error) {
+                console.error('Error fetching audio address:', error);
+                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        function initializePlayer() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
                 videoId: videoId,
                 playerVars: {
                     'playsinline': 1,
-                    'controls': 0
+                    'controls': 0,
+                  'showinfo': 0,
+                    'rel': 0
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -244,33 +281,64 @@ to his glorious body)입니다. 이 진술은 고린도전서 15장 42- 竹절�
         }
 
         function onPlayerReady(event) {
-            isReady = true;
-            const btn = document.getElementById('play-btn');
-            btn.disabled = false;
-            document.getElementById('btn-text').textContent = '재생';
+            isPlayerReady = true;
+            audioButton.disabled = false;
+            buttonText.textContent = 'AI요약 듣기';
+            audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            audioButton.addEventListener('click', togglePlayPause);
         }
 
         function onPlayerStateChange(event) {
-            const btnText = document.getElementById('btn-text');
             if (event.data === YT.PlayerState.PLAYING) {
-                btnText.textContent = '일시정지';
-            } else {
-                btnText.textContent = '재생';
+                isPlaying = true;
+                updateButtonUI(true);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonUI(false);
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                }
             }
         }
 
-        document.getElementById('play-btn').addEventListener('click', () => {
-            if (!isReady) return;
-            const state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
+        function togglePlayPause() {
+            if (!isPlayerReady) return;
+            if (isPlaying) {
                 player.pauseVideo();
             } else {
                 player.playVideo();
             }
-        });
+        }
 
-        // Start initialization
-        initAudio();
+        function updateButtonUI(playing) {
+            if (playing) {
+                audioButton.classList.remove('play');
+                audioButton.classList.add('pause');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+                buttonText.textContent = '일시정지';
+                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                audioButton.classList.remove('pause');
+                audioButton.classList.add('play');
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = 'AI요약 듣기';
+                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            }
+        }
+
+        function showError(message) {
+            const button = document.getElementById('audio-button');
+            if (button) {
+                button.style.display = 'none';
+            }
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        loadYouTubeAPI();
     </script>
+
 </body>
 </html>

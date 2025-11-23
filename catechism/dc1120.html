@@ -3,203 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11월 20일 교리 묵상</title>
+    <title>날마다 읽는 교리 - 11월 20일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
     <style>
-        body { font-family: 'Pretendard', sans-serif; }
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            word-break: keep-all;
+            background-color: #f3f4f6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #4a5568;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .card-body {
+            padding: 1.5rem;
+            line-height: 1.75;
+        }
+        .card-body h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+        .card-body p {
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        .card-body .question {
+            font-weight: 600;
+            color: #111827;
+        }
+        .card-body .answer {
+            color: #374151;
+        }
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .audio-button:disabled {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+        .audio-button.play {
+            background-color: #2563eb;
+            color: white;
+        }
+        .audio-button.play:hover {
+            background-color: #1d4ed8;
+        }
+        .audio-button.pause {
+            background-color: #f87171;
+            color: white;
+        }
+        .audio-button.pause:hover {
+            background-color: #ef4444;
+        }
+        .audio-error {
+            color: #dc2626;
+            font-weight: 500;
+            text-align: center;
+        }
+        #player-container {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            left: -100px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto space-y-8">
-        <!-- Header -->
-        <header class="text-center space-y-2">
-            <h1 class="text-3xl font-bold text-gray-900">11월 20일</h1>
-            <h2 class="text-xl font-semibold text-gray-700">I'〉일\</h2>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">11월 20일</h1>
+            <p class="text-xl text-gray-600 mt-2">I'〉일\</p>
         </header>
 
-        <!-- Audio Player -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900">AI요약 듣기</h3>
-            <div id="player-container" class="w-full">
-                <div id="youtube-player"></div>
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    신앙고백서 28.3
+                </div>
+                <div class="card-body">
+                    <p class="answer">신앙고백서 28.3 수세자를 물에 잠그는 것은 필수가 아니며, 물을 붓거 나 뿌리는 것으로도 세례는 바르게 시행된다.1) 1) 히 9:10, 19-22; 행 2:41; 행 16:33; 마 7:4. ‘</p>
+                </div>
             </div>
-            <div id="player-status" class="hidden text-center text-gray-500 py-4"></div>
-            <button id="play-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2" aria-label="교리 오디오 재생/일시정지">
-                <span id="btn-text">로딩 중...</span>
-            </button>
-        </div>
 
-        <!-- Catechism Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-indigo-900 border-b-2 border-indigo-100 pb-2">신앙고백서 28.3</h3>
-            <div class="prose prose-indigo max-w-none text-gray-800 bg-indigo-50 p-4 rounded-lg">
-                <p class="leading-relaxed">신앙고백서 28.3 수세자를 물에 잠그는 것은 필수가 아니며, 물을 붓거 나 뿌리는 것으로도 세례는 바르게 시행된다.1) 1) 히 9:10, 19-22; 행 2:41; 행 16:33; 마 7:4. ‘</p>
+            <div class="card">
+                <div class="card-header">
+                    AI요약 듣기
+                </div>
+                <div class="audio-player-container" id="audio-player-ui">
+                    <div id="player-container"></div>
+                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="button-text">로딩 중...</span>
+                    </button>
+                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Exposition Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">교리 해설</h3>
-            <div class="prose prose-blue max-w-none">
-                <p class="mb-4 text-gray-700 leading-relaxed">어제 읽은 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>28.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>28.</strong> 2은 세례에서 사용하는 의적 요소가 물이라는 사 
+            <div class="card">
+                <div class="card-header">
+                    교리 해설
+                </div>
+                <div class="card-body">
+                    <p>어제 읽은 신앙고백서 28.2은 세례에서 사용하는 의적 요소가 물이라는 사 
 실을 분명히 밝히고 있지만, 주의할 것은 물을 어떻게 사용하는갸 즉 세례 
 의 집례 방식에 대해서는 아무런 언급을 하지 않는다는 점입니다. 세례의 집 
-행 방식에 대해서는 오늘 읽는 신앙고백서</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>28.</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>28.</strong> 3이 명확하게 교훈합니다. 
-세례는 기독교 교회 안에서 세 가지 방식으로 행해집니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째</strong> 는 침수 
+행 방식에 대해서는 오늘 읽는 신앙고백서 28.3이 명확하게 교훈합니다. 
+세례는 기독교 교회 안에서 세 가지 방식으로 행해집니다. 첫째는 침수 
 (imm ersion) 방식입니다. 세례를 받는 사람을 물속에 완전히 잠그는 방식 
 으로, 주로 침례교회와 오순절교회가 따릅니다. 침수 방식은 “그러므로 우 
 리가 그의 죽으심과 합하여 세례롤 받음으로 그와 함께 장사되었나니, 이는 
 아버지의 영광으로 말미암아 그리스도를 죽은 자 가운데서 살리심과 같이 
 우리로 또한 새 생명 가운데서 행하게 하려 함이라”(롬 6:4) 라는 말씀을 근 
 거로 삼습니다. 이들은 침수 방식이 그리스도와의 연합을 강하게 상징하며, 
-그리스도의 죽음과 부활에 참여함을 감각적으로 강조한다고 주장합니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째</strong> 는 관수(affusion), 죽 물을 붓는(pouring) 방식입니다. 머리 위에 물을 
+그리스도의 죽음과 부활에 참여함을 감각적으로 강조한다고 주장합니다. 
+둘째는 관수(affusion), 죽 물을 붓는(pouring) 방식입니다. 머리 위에 물을 
 부어 적시는 방법으로, 루터교회나 감리교회, 구세군 동에서 사용하며, 일 
 부 정교회에서도 채택합니다. 관수 방식은 “하나님이 말씀하시기를 말세에 
 내가 내 영을 모든 육체에 부어 주리나 .. "(행 2:17) 라는 말씀에서 “내 영을 
 부어 주리니”라는 표현과 연결되어, 성령 하나님께서 세례를 통하여 은혜 
-를 부어 주심을 상징적으로 보여 준다고 이해됩니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째</strong> 는 적수(as ers on), 죽 물을 뿌리는(s inkling) 방식입니다. 손이나 
+를 부어 주심을 상징적으로 보여 준다고 이해됩니다. 
+셋째는 적수(as ers on), 죽 물을 뿌리는(s inkling) 방식입니다. 손이나 
 다른 도구를 사용하여 물을 뿌리는 방법으로, 개혁교회와 장로교회, 그리 
 고 로마 가톨릭교회에서 주로 사용합니다. 개혁교회와 장로교회는 이 세 
 가지 방식 모두를 허용하지만, 실제로는 관수나 적수 방식을 주로 사용합 
-니다. 반면 침례교회는 침수만을 성경적인 방식으로 인정합니다. 적수 방 
-식은 “우리가 마음에 뿌림을 받아 악한 양심으로부터 벗어나고, 몸은 맑은 
-물로 씻음을 받았으나 .. "(히 10:22) 라는 말씀에서 “마음에 뿌림을 받아”라 
-는 표현에 근거하여, 뿌림을 통한 정결과 씻음을 상징한다고 봅니다. 
-이 세 가지 방식 가운데 어느 것을 사용하든 모두 다음의 세 가지 공통된 
-의미를 지닙니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong> 그리스도와의 연합입니다. 세례는 그 집행 방식과 
-관계없이 그리스도와의 연합을 표지하며, 그분의 죽음과 장사됨, 부활에 
-참여함을 의미합니다(롬 6:3-4).</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong> 정결과 죄 사함입니다. 세 가지 방식 
-모두 죄 씻음과 정결의 은혜를 상징합니다. ＂회개하여 각각 예수 그리스도 
-의 이름으로 세례를 받고 죄 사함을 받으라”(행 2:38), “이는 곧 물로 씻어 
-말씀으로 깨끗하게 하사 거룩하게 하시고”(엡 5:26) 둥의 구절이 이룰 뒷받 
-침합니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong> 중생과 새 생명, 그리고 성령의 은혜를 상징합니다. “우리를 
-구원하시되 우리가 행한 바 의로운 행위로 말미암지 아니하고 … 중생의 
-씻음과 성령의 새롭게 하심으로 하셨나니"（딛 3:5) 에서 그 의미를 확인할 
-수있습니다. 
-홍미롭게도 침례교회는 오직 침수 방식만이 성경적으로 유효하다고 주장합 
-니다. 그들은 “세례하다”(baptize) 의 헬라어 원어가 본래 ‘담그다’ 또는 ‘잠 
-기게 하다’라는 뜻이라고 해석합니다. 또한 세례가 그리스도의 죽음과 장사 
-됨, 그리고 부활을 상징하므로(롬 6:3-4), 물속에 잠기고 나오는 침수만이 
-이를 온전히 표현한다고 주장합니다. 이러한 점에서 침수 방식은 감각적으 
-로 죽음과 부활을 표현하는 상징성이 강한 것은 사실입니다. 
-그러나 개혁교회와 장로교회는 침수 방식을 부정하거나 거부하지 않지만, 
-그것만이 유일하고 필수적인 방식이라고 보지 않습니다. 그 이유는</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>첫째,</strong> “세례하다”(baptize) 라는 헬라어가 항상 ‘완전히 잠그다’라는 뜻으로만 사 
-용되지 않기 때문입니다. 예를 들어 “또 시장에서 돌아와서도 물을 뿌리지 
-않고서는 먹지 아니하며"（막 7:4) 에서 이 단어는 ‘뿌리다’의 의미로 쓰였으 
-며, “잡수시기 전에 손 씻지 아니하심을 보고 이상히 여기느니라”(눅 11:38) 
-에서는 실제로 ‘물을 붓는’ 행위를 가리킵니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>둘째,</strong> 로마서 장은 세례를 
-그리스도와의 연합이라는 영적 실체로 설명하며, 물리적 행위의 재현을 명 
-하지 않습니다.</p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong></p>
-<p class="mb-4 text-gray-700 leading-relaxed"><strong>셋째,</strong> 오순절 날 약 천 명이 세례를 받았을 때(행 2:41) 나 
-빌립보 간수와 그 가족이 한밤중에 세례룰 받았을 때(행 16:33), 침수에 필 
-요한 물을 준비했을 가능성은 높지 않습니다. 오히려 다른 방식이 사용되었 
-올 가능성이 현실적입니다. 
-초대교회의 교육 문헌인 『디다케』는 물이 충분하지 않을 경우 물을 부어 
-세례를 베풀 것을 권면합니다. 실제로 지역적 환경과 기후, 물의 양 동을 고 
-려할 때 세 가지 방식이 모두 사용될 수 있고, 필요에 따라 적용되었습니 
-다. 그러므로 우리의 관심은 어떤 방식으로 세례를 받았는가에 있지 않고, 
-세례를 통해 표지되는 은혜의 실체를 믿음으로 받고 있는가에 두어야 합니 
-다. 
-11 월. 28 장. 세례 167 
-‘</p>
-
+니다. 반면 침례교회는 침수만을 성경적인 방식으로 인정합니다. 적수 방 ...</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Application Questions -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
-            <h3 class="text-lg font-bold text-gray-900 border-b-2 border-gray-100 pb-2">적용 질문</h3>
-            <div class="prose prose-green max-w-none bg-green-50 p-4 rounded-lg">
-                <ol class="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed">
-<li class="mb-2">세례의 세 가지 방식 가운데 침수 관수 적수는 각각 어떤 신학적 의미 
-를 담고 있습니까? 여러분은 세례를 받을 때 물의 양이나 형식보다 하나님 
-께서 주시는 영적 정결과 성령의 은혜를 더 귀히 여기며, 그 은혜에 합당한 
-삶을살고있습니까?</li>
-<li class="mb-2">왜 개혁교회와 장로교회는 세례의 한 가지 방식만을 고집하지 않습니 
-까? 여러분은 신앙의 외적 형태나 의식의 방식보다 복음의 실체와 믿음의 
-내용에 집중하며, 세례의 참된 의미를 일상에서 신앙의 순종으로 드러내고 
-있습니까?</li>
-<li class="mb-2">초대교회의 『디다케』가 물이 부족할 때 침수가 아니라 물을 부어 세례 
-를 베풀도록 한 이유는 무엇입니까? 여러분은 세례가 단지 예식이 아니라 
-하나님의 은혜의 약속을 확증하는 언약의 표임을 기억하며, 그 언약 안에 
-서 날마다 새롭게 살아가고 있습니까?</li>
-</ol>
+            <div class="card">
+                <div class="card-header">
+                    적용 질문
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="question">I. 세례의 집례 방식에 관한 교훈은 왜 신앙고백서에서 굳이 언급되었을</span></li>
+<li><span class="question">까요? 여러분은 세례의 방식이 다르더라도 그것이 상징하는 본질적 의미가</span></li>
+<li><span class="question">동일하다는 사실을 믿음으로 이해하며, 다른 교파의 세례 방식을 불필요하</span></li>
+<li><span class="question">게 비판하거나 형식에 매이지 않고 그리스도께 속한 자로서의 정체성을 더</span></li>
+<li><span class="question">욱 분명히 하고 있습니까?</span></li>
+<li><span class="question">세례의 세 가지 방식 가운데 침수 관수 적수는 각각 어떤 신학적 의미</span></li>
+
+                    </ul>
+                </div>
             </div>
-        </div>
+        </main>
 
-        <!-- Footer -->
-        <footer class="text-center text-gray-500 text-sm py-4">
+        <footer>
             <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
+
     </div>
 
     <script>
-        // Audio Player Logic
-        const dateStr = "1120";
         let player;
-        let isReady = false;
         let videoId = null;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        const audioButton = document.getElementById('audio-button');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const errorContainer = document.getElementById('audio-error');
 
-        async function initAudio() {
-            try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) throw new Error('Address file not found');
-                const text = await response.text();
-                
-                // Parse file for today's video ID
-                const lines = text.split('\n');
-                const todayLine = lines.find(line => line.startsWith(dateStr));
-                
-                if (!todayLine) {
-                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
-                    return;
-                }
-
-                // Extract Video ID (regex for youtube URLs)
-                const urlMatch = todayLine.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
-                if (urlMatch && urlMatch[1]) {
-                    videoId = urlMatch[1];
-                    loadYoutubeAPI();
-                } else {
-                    showError("오디오 주소를 찾을 수 없습니다.");
-                }
-            } catch (e) {
-                showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
-                console.error(e);
-            }
-        }
-
-        function showError(msg) {
-            const status = document.getElementById('player-status');
-            const btn = document.getElementById('play-btn');
-            status.textContent = msg;
-            status.classList.remove('hidden');
-            btn.classList.add('hidden');
-        }
-
-        function loadYoutubeAPI() {
+        function loadYouTubeAPI() {
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -207,13 +229,48 @@
         }
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
+            fetchAudioAddress();
+        }
+
+        async function fetchAudioAddress() {
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                const today = '1120';
+                const todayLine = lines.find(line => line.startsWith(today));
+
+                if (todayLine) {
+                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                    const match = todayLine.match(regex);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        initializePlayer();
+                    } else {
+                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
+                    }
+                } else {
+                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
+                }
+            } catch (error) {
+                console.error('Error fetching audio address:', error);
+                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        function initializePlayer() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
                 videoId: videoId,
                 playerVars: {
                     'playsinline': 1,
-                    'controls': 0
+                    'controls': 0,
+                  'showinfo': 0,
+                    'rel': 0
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -223,33 +280,64 @@
         }
 
         function onPlayerReady(event) {
-            isReady = true;
-            const btn = document.getElementById('play-btn');
-            btn.disabled = false;
-            document.getElementById('btn-text').textContent = '재생';
+            isPlayerReady = true;
+            audioButton.disabled = false;
+            buttonText.textContent = 'AI요약 듣기';
+            audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            audioButton.addEventListener('click', togglePlayPause);
         }
 
         function onPlayerStateChange(event) {
-            const btnText = document.getElementById('btn-text');
             if (event.data === YT.PlayerState.PLAYING) {
-                btnText.textContent = '일시정지';
-            } else {
-                btnText.textContent = '재생';
+                isPlaying = true;
+                updateButtonUI(true);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonUI(false);
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                }
             }
         }
 
-        document.getElementById('play-btn').addEventListener('click', () => {
-            if (!isReady) return;
-            const state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
+        function togglePlayPause() {
+            if (!isPlayerReady) return;
+            if (isPlaying) {
                 player.pauseVideo();
             } else {
                 player.playVideo();
             }
-        });
+        }
 
-        // Start initialization
-        initAudio();
+        function updateButtonUI(playing) {
+            if (playing) {
+                audioButton.classList.remove('play');
+                audioButton.classList.add('pause');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+                buttonText.textContent = '일시정지';
+                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                audioButton.classList.remove('pause');
+                audioButton.classList.add('play');
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = 'AI요약 듣기';
+                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            }
+        }
+
+        function showError(message) {
+            const button = document.getElementById('audio-button');
+            if (button) {
+                button.style.display = 'none';
+            }
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        loadYouTubeAPI();
     </script>
+
 </body>
 </html>
