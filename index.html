@@ -9,6 +9,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; frame-src 'self' https://www.youtube.com https://youtube.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://cdn.tailwindcss.com https://fonts.googleapis.com;">
     <title>말씀의 샘</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23764ba2'><path d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'/></svg>">
+    <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com?v=3.4.0&cache-bust=20250915"></script>
     <script>
         tailwind.config = {
@@ -41,8 +42,21 @@
         }
         .serif { font-family: 'Noto Serif KR', serif; }
         .main-container-wrapper { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 100dvh; padding: 1rem; }
-        @media (min-width: 768px) { .main-container-wrapper { justify-content: flex-start; padding: 2rem; } }
-        .modern-card { background: var(--color-card-bg); backdrop-filter: blur(12px); border: 1px solid var(--color-card-border); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); max-width: 420px; width: 100%; }
+        @media (min-width: 768px) { .main-container-wrapper { justify-content: center; padding: 2rem; } }
+        .modern-card { 
+            background: var(--color-card-bg); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid var(--color-card-border); 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+            width: 100%; 
+            max-width: 420px; 
+            transition: max-width 0.3s ease;
+        }
+        @media (min-width: 1024px) {
+            .modern-card { max-width: 1200px; }
+            .modern-card header { max-width: 800px; margin: 0 auto; }
+            .modern-card main { max-width: 800px; margin: 0 auto; }
+        }
         .header-title { color: var(--color-parchment); text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
         .header-subtitle { color: var(--color-parchment); opacity: 0.8; text-shadow: 1px 1px 2px rgba(0,0,0,0.4); }
         .header-icon-bg { background: rgba(245, 239, 230, 0.15); border: 1px solid rgba(245, 239, 230, 0.25); }
@@ -206,13 +220,24 @@
         </div>
     </div>
     <div id="content-view" class="content-view fixed inset-0 z-[100] flex flex-col" style="display: none;">
-       <div class="content-header shadow-md p-4 flex items-center justify-between">
-            <button id="home-button" class="home-button py-2 px-4 rounded-lg font-semibold flex items-center transition-colors">
+        <div class="content-header shadow-md p-4 flex items-center justify-between bg-white z-10">
+            <button id="home-button" class="home-button py-2 px-4 rounded-lg font-semibold flex items-center transition-colors shrink-0">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                <span>홈으로</span>
+                <span class="hidden sm:inline">홈으로</span>
             </button>
-            <h2 id="content-title" class="text-xl sm:text-2xl lg:text-3xl font-bold serif mx-4 text-center flex-1 truncate"></h2>
-            <div class="w-24"></div> </div>
+            
+            <div class="flex items-center space-x-2 mx-4">
+                <button id="font-decrease" class="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition-colors" title="글자 작게">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+                </button>
+                <span class="text-sm font-medium text-gray-500 select-none">글자 크기</span>
+                <button id="font-increase" class="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition-colors" title="글자 크게">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                </button>
+            </div>
+
+            <div class="w-8"></div> <!-- Spacer for balance -->
+        </div>
         <div class="content-body flex-1 relative">
             <div id="loading-spinner" class="loading-spinner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 border-4 border-gray-200 border-t-4 rounded-full animate-spin"></div>
             <iframe id="content-iframe" class="w-full h-full border-none" style="display: none;" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation allow-modals allow-top-navigation allow-downloads" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
@@ -224,6 +249,8 @@
     <script>
         let currentDate = new Date();
         let calendarDate = new Date();
+        let currentFontSize = 100; // Percentage
+
 
         function pad(num) {
             return num < 10 ? '0' + num : String(num);
@@ -354,23 +381,46 @@
         
         function showContent(url, title) {
             const contentView = document.getElementById('content-view');
-            const contentTitle = document.getElementById('content-title');
             const contentIframe = document.getElementById('content-iframe');
             const loadingSpinner = document.getElementById('loading-spinner');
             const errorMessageDiv = document.getElementById('error-message');
 
-            if (!contentView || !contentTitle || !contentIframe || !loadingSpinner || !errorMessageDiv) return;
+            if (!contentView || !contentIframe || !loadingSpinner || !errorMessageDiv) return;
 
-            contentTitle.textContent = title;
+            // contentTitle 제거됨 (헤더 공간 확보 위해)
             contentView.style.display = 'flex';
             loadingSpinner.style.display = 'block';
             contentIframe.style.display = 'none';
             errorMessageDiv.style.display = 'none';
 
             contentIframe.src = url;
+            
             contentIframe.onload = () => {
                 loadingSpinner.style.display = 'none';
                 contentIframe.style.display = 'block';
+                
+                // Iframe 내부 스타일 조작 (글자 크기 및 너비)
+                try {
+                    const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
+                    
+                    // 1. 글자 크기 적용
+                    applyFontSize();
+
+                    // 2. 너비 제한 해제 (데스크탑에서 넓게 보기 위함)
+                    const maxWidthContainers = doc.querySelectorAll('.max-w-3xl');
+                    maxWidthContainers.forEach(el => {
+                        el.style.maxWidth = '100%';
+                        el.style.paddingLeft = '2rem';
+                        el.style.paddingRight = '2rem';
+                    });
+                    
+                    // 3. 외부 링크 새 창으로 열기
+                    const links = doc.querySelectorAll('a');
+                    links.forEach(link => link.target = '_blank');
+
+                } catch (e) {
+                    console.log('Cannot access iframe content (CORS/Protocol restriction):', e);
+                }
             };
             
             contentIframe.onerror = () => {
@@ -378,6 +428,22 @@
                  errorMessageDiv.innerHTML = `<h3 class='text-lg font-bold text-red-600 mb-2'>콘텐츠 로딩 실패</h3><p class='text-gray-700'>해당 날짜의 자료를 찾을 수 없습니다.<br>다른 날짜를 선택해주세요.</p>`;
                  errorMessageDiv.style.display = 'block';
             }
+        }
+
+        function applyFontSize() {
+            const contentIframe = document.getElementById('content-iframe');
+            if (!contentIframe) return;
+            try {
+                const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
+                doc.documentElement.style.fontSize = `${16 * (currentFontSize / 100)}px`;
+            } catch (e) {
+                console.warn('Cannot change font size due to security restrictions.');
+            }
+        }
+
+        function changeFontSize(delta) {
+            currentFontSize = Math.max(50, Math.min(200, currentFontSize + delta));
+            applyFontSize();
         }
 
         function hideContent() {
@@ -442,7 +508,24 @@
             });
 
             document.getElementById('home-button').addEventListener('click', hideContent);
+            
+            // 폰트 조절 이벤트
+            document.getElementById('font-decrease').addEventListener('click', () => changeFontSize(-10));
+            document.getElementById('font-increase').addEventListener('click', () => changeFontSize(10));
+
             window.addEventListener('resize', () => updatePageForDate(currentDate));
+
+            // PWA Service Worker Registration
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js')
+                        .then(registration => {
+                            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                        }, err => {
+                            console.log('ServiceWorker registration failed: ', err);
+                        });
+                });
+            }
         });
     </script>
 </body>
