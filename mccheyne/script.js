@@ -12,12 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextTabBtn = document.getElementById('next-tab');
     const currentTabInfo = document.getElementById('current-tab-info');
     const progressBar = document.getElementById('reading-progress');
-    
+
     const modalOverlay = document.getElementById('text-modal');
     const modalCloseBtn = document.getElementById('modal-close');
     const modalTitle = document.getElementById('modal-title');
     const modalIframe = document.getElementById('modal-iframe');
-    
+
     const audioPlayerBar = document.getElementById('audio-player');
     const playerInfo = document.getElementById('player-info');
     const playPauseBtn = document.getElementById('play-pause-btn');
@@ -88,16 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
         tabButtons.forEach((button, index) => button.addEventListener('click', () => switchTab(index)));
         document.querySelectorAll('.view-text-btn').forEach(button => button.addEventListener('click', () => openTextModal(button)));
         document.querySelectorAll('.listen-audio-btn').forEach(button => button.addEventListener('click', () => playAudio(button)));
-        
+
         modalCloseBtn.addEventListener('click', closeModal);
         modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-        
+
         playPauseBtn.addEventListener('click', togglePlayPause);
         closePlayerBtn.addEventListener('click', closeAudioPlayer);
 
         prevTabBtn.addEventListener('click', () => switchTab(currentTabIndex - 1));
         nextTabBtn.addEventListener('click', () => switchTab(currentTabIndex + 1));
-        
+
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
             updateReadingProgress();
@@ -130,8 +130,23 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.style.overflow = 'hidden';
         }
 
-        // iframe 로딩 완료 후 터치 이벤트 활성화
+        // iframe 로딩 완료 후 처리
         modalIframe.onload = () => {
+            try {
+                const doc = modalIframe.contentDocument || modalIframe.contentWindow.document;
+
+                // 1. 중복 타이틀 숨기기
+                const h1 = doc.querySelector('h1');
+                if (h1) h1.style.display = 'none';
+
+                // 2. 폰트 사이즈 적용 (부모 창의 함수 호출)
+                if (window.parent && typeof window.parent.applyFontSize === 'function') {
+                    window.parent.applyFontSize();
+                }
+            } catch (e) {
+                console.warn('Cannot access iframe content:', e);
+            }
+
             if (window.innerWidth <= 768) {
                 modalIframe.style.pointerEvents = 'auto';
                 modalIframe.style.touchAction = 'auto';
@@ -186,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else { alert('유효한 YouTube 주소가 아닙니다.'); }
         } else { alert('오디오 정보를 찾을 수 없습니다. (Key: ' + key + ')'); }
     }
-    
+
     function togglePlayPause() {
         if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
         const playerState = ytPlayer.getPlayerState();
