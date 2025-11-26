@@ -742,8 +742,8 @@
                     ytPlayer = iframeWindow.player;
                     console.log("YT Player found!");
 
-                    // Auto play
-                    ytPlayer.playVideo();
+                    // Default to Pause (User Request)
+                    // ytPlayer.playVideo(); // Removed auto-play
 
                     // Start sync loop
                     startPlayerSync();
@@ -900,6 +900,13 @@
                     });
                     const links = doc.querySelectorAll('a');
                     links.forEach(link => link.target = '_blank');
+
+                    // Hide audio control button in iframe (User Request)
+                    const audioBtn = doc.getElementById('audio-control-btn');
+                    if (audioBtn) {
+                        audioBtn.style.display = 'none';
+                    }
+
                 } catch (e) {
                     console.log('Cannot access iframe content:', e);
                 }
