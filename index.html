@@ -467,12 +467,65 @@
     </div>
 
     <script>
+    <!-- Global Audio Player -->
+    <div id="global-player" class="fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-md border-t border-gray-700 p-4 z-[200] transform transition-transform duration-300 translate-y-full" style="display: none;">
+        <div class="max-w-3xl mx-auto">
+            <div class="flex flex-col space-y-2">
+                <!-- Title and Controls Row -->
+                <div class="flex items-center justify-between text-white">
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <button id="player-expand" class="p-2 hover:bg-gray-800 rounded-full transition-colors" title="본문 보기">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+                        </button>
+                        <span id="player-title" class="text-sm font-medium truncate">재생 중인 콘텐츠</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <!-- Speed Control -->
+                        <select id="player-speed" class="bg-gray-800 text-xs rounded px-2 py-1 border border-gray-700 focus:outline-none focus:border-gray-500">
+                            <option value="0.75">0.75x</option>
+                            <option value="1.0" selected>1.0x</option>
+                            <option value="1.25">1.25x</option>
+                            <option value="1.5">1.5x</option>
+                            <option value="2.0">2.0x</option>
+                        </select>
+                        <!-- Play/Pause -->
+                        <button id="player-play-pause" class="p-2 bg-white text-gray-900 rounded-full hover:bg-gray-200 transition-colors">
+                            <svg id="icon-play" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                            <svg id="icon-pause" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                        </button>
+                        <!-- Close -->
+                        <button id="player-close" class="p-2 hover:bg-gray-800 rounded-full transition-colors text-gray-400 hover:text-white">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- Progress Bar Row -->
+                <div class="flex items-center space-x-3">
+                    <span id="current-time" class="text-xs text-gray-400 w-10 text-right">0:00</span>
+                    <input type="range" id="player-progress" min="0" max="100" value="0" class="flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-white">
+                    <span id="duration" class="text-xs text-gray-400 w-10">0:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
         let currentDate = new Date();
         let calendarDate = new Date();
         let currentFontSize = 100; // Percentage
+        let ytPlayer = null;
+        let playerInterval = null;
+        let isDragging = false;
 
         function pad(num) {
             return num < 10 ? '0' + num : String(num);
+        }
+
+        function formatTime(seconds) {
+            if (!seconds) return "0:00";
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `${m}:${pad(s)}`;
         }
 
         function updatePageForDate(date) {
@@ -639,68 +692,174 @@
             if (currentFontSize > 200) currentFontSize = 200;
             applyFontSize();
         }
+
+        // Global Player Functions
+        function initGlobalPlayer(iframeWindow) {
+            const playerUI = document.getElementById('global-player');
+            const playPauseBtn = document.getElementById('player-play-pause');
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            const progressBar = document.getElementById('player-progress');
+            const currentTimeEl = document.getElementById('current-time');
+            const durationEl = document.getElementById('duration');
+            const speedSelect = document.getElementById('player-speed');
+            const expandBtn = document.getElementById('player-expand');
+            const closeBtn = document.getElementById('player-close');
+            const playerTitle = document.getElementById('player-title');
+
+            // Reset UI
+            playerUI.style.display = 'block';
+            setTimeout(() => playerUI.classList.remove('translate-y-full'), 10);
+            
+            // Poll for YT player
+            let attempts = 0;
+            const checkPlayer = setInterval(() => {
+                attempts++;
+                if (iframeWindow.player && typeof iframeWindow.player.getPlayerState === 'function') {
+                    clearInterval(checkPlayer);
+                    ytPlayer = iframeWindow.player;
+                    console.log("YT Player found!");
+                    
+                    // Auto play
+                    ytPlayer.playVideo();
+                    
+                    // Start sync loop
+                    startPlayerSync();
+                } else if (attempts > 50) { // 5 seconds
+                    clearInterval(checkPlayer);
+                    console.warn("YT Player not found in iframe");
+                    // If no player found, maybe it's text content. Show modal.
+                    document.getElementById('content-view').style.display = 'flex';
+                    playerUI.style.display = 'none';
+                }
+            }, 100);
+
+            // Controls
+            playPauseBtn.onclick = () => {
+                if (!ytPlayer) return;
+                const state = ytPlayer.getPlayerState();
+                if (state === 1) { // Playing
+                    ytPlayer.pauseVideo();
+                } else {
+                    ytPlayer.playVideo();
+                }
+            };
+
+            progressBar.oninput = () => {
+                isDragging = true;
+                const time = (progressBar.value / 100) * ytPlayer.getDuration();
+                currentTimeEl.textContent = formatTime(time);
+            };
+
+            progressBar.onchange = () => {
+                if (!ytPlayer) return;
+                const time = (progressBar.value / 100) * ytPlayer.getDuration();
+                ytPlayer.seekTo(time, true);
+                isDragging = false;
+            };
+
+            speedSelect.onchange = () => {
+                if (!ytPlayer) return;
+                ytPlayer.setPlaybackRate(parseFloat(speedSelect.value));
+            };
+
+            expandBtn.onclick = () => {
+                document.getElementById('content-view').style.display = 'flex';
+            };
+
+            closeBtn.onclick = () => {
+                hideContent();
+            };
+        }
+
+        function startPlayerSync() {
+            if (playerInterval) clearInterval(playerInterval);
+            
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            const progressBar = document.getElementById('player-progress');
+            const currentTimeEl = document.getElementById('current-time');
+            const durationEl = document.getElementById('duration');
+
+            playerInterval = setInterval(() => {
+                if (!ytPlayer || !ytPlayer.getPlayerState) return;
+
+                const state = ytPlayer.getPlayerState();
+                const currentTime = ytPlayer.getCurrentTime();
+                const duration = ytPlayer.getDuration();
+
+                // Update Play/Pause Icon
+                if (state === 1) { // Playing
+                    iconPlay.classList.add('hidden');
+                    iconPause.classList.remove('hidden');
+                } else {
+                    iconPlay.classList.remove('hidden');
+                    iconPause.classList.add('hidden');
+                }
+
+                // Update Progress
+                if (!isDragging && duration > 0) {
+                    progressBar.value = (currentTime / duration) * 100;
+                    currentTimeEl.textContent = formatTime(currentTime);
+                    durationEl.textContent = formatTime(duration);
+                }
+            }, 500);
+        }
+
         function showContent(url, title) {
             const contentView = document.getElementById('content-view');
             const contentIframe = document.getElementById('content-iframe');
             const loadingSpinner = document.getElementById('loading-spinner');
             const errorMessageDiv = document.getElementById('error-message');
+            const playerTitle = document.getElementById('player-title');
 
             if (!contentView || !contentIframe || !loadingSpinner || !errorMessageDiv) return;
 
-            contentView.style.display = 'flex';
-            loadingSpinner.style.display = 'block';
-            contentIframe.style.display = 'none';
-            errorMessageDiv.style.display = 'none';
+            // Reset
+            if (playerInterval) clearInterval(playerInterval);
+            ytPlayer = null;
+            playerTitle.textContent = title;
 
-            // Ensure iframe has a background (fixes transparency issues)
+            // Hide modal initially (we will show player first)
+            contentView.style.display = 'none';
+            
+            // Show loading in player title?
+            playerTitle.textContent = "로딩 중... " + title;
+
+            // Ensure iframe has a background
             contentIframe.style.backgroundColor = 'white';
 
             // Set URL
             contentIframe.src = url;
             console.log(`Loading content: ${url}`);
 
-            // Safety timeout: If onload doesn't fire within 5 seconds, force show iframe
-            // This handles cases where onload might be blocked or very slow
-            const loadTimeout = setTimeout(() => {
-                if (loadingSpinner.style.display !== 'none') {
-                    console.warn('Content load timed out or onload event missed. Forcing display.');
-                    loadingSpinner.style.display = 'none';
-                    contentIframe.style.display = 'block';
-                }
-            }, 5000);
-
             contentIframe.onload = () => {
-                clearTimeout(loadTimeout);
                 console.log('Content loaded successfully.');
-                loadingSpinner.style.display = 'none';
-                contentIframe.style.display = 'block';
+                playerTitle.textContent = title;
+                
+                // Try to init global player
+                initGlobalPlayer(contentIframe.contentWindow);
 
                 try {
                     const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
-
-                    // 1. 글자 크기 적용
                     applyFontSize();
-
-                    // 2. 너비 제한 해제
                     const maxWidthContainers = doc.querySelectorAll('.max-w-3xl');
                     maxWidthContainers.forEach(el => {
                         el.style.maxWidth = '100%';
                         el.style.paddingLeft = '2rem';
                         el.style.paddingRight = '2rem';
                     });
-
-                    // 3. 외부 링크 새 창으로 열기
                     const links = doc.querySelectorAll('a');
                     links.forEach(link => link.target = '_blank');
-
                 } catch (e) {
-                    console.log('Cannot access iframe content (CORS/Protocol restriction):', e);
+                    console.log('Cannot access iframe content:', e);
                 }
             };
 
             contentIframe.onerror = () => {
-                clearTimeout(loadTimeout);
                 console.error('Failed to load content.');
+                // If error, show modal with error
+                contentView.style.display = 'flex';
                 loadingSpinner.style.display = 'none';
                 errorMessageDiv.innerHTML = `<h3 class='text-lg font-bold text-red-600 mb-2'>콘텐츠 로딩 실패</h3><p class='text-gray-700'>해당 날짜의 자료를 찾을 수 없습니다.<br>다른 날짜를 선택해주세요.</p>`;
                 errorMessageDiv.style.display = 'block';
@@ -710,9 +869,20 @@
         function hideContent() {
             const contentView = document.getElementById('content-view');
             const contentIframe = document.getElementById('content-iframe');
-            if (!contentView || !contentIframe) return;
-            contentView.style.display = 'none';
-            contentIframe.src = 'about:blank';
+            const playerUI = document.getElementById('global-player');
+            
+            if (playerInterval) clearInterval(playerInterval);
+            if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
+                ytPlayer.stopVideo();
+            }
+            ytPlayer = null;
+
+            if (contentView) contentView.style.display = 'none';
+            if (playerUI) {
+                playerUI.classList.add('translate-y-full');
+                setTimeout(() => playerUI.style.display = 'none', 300);
+            }
+            if (contentIframe) contentIframe.src = 'about:blank';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -766,7 +936,9 @@
                 });
             });
 
-            document.getElementById('home-button').addEventListener('click', hideContent);
+            document.getElementById('home-button').addEventListener('click', () => {
+                document.getElementById('content-view').style.display = 'none';
+            });
 
             document.getElementById('font-decrease').addEventListener('click', () => changeFontSize(-10));
             document.getElementById('font-increase').addEventListener('click', () => changeFontSize(10));
