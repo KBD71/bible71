@@ -320,6 +320,11 @@
             }
         }
 
+        #player-play-pause:active {
+            transform: scale(0.90);
+            transition: transform 0.1s;
+        }
+
         .custom-button.sermon {
             background-color: #5D4037;
             /* Deep Warm Brown to match the theme */
@@ -832,34 +837,45 @@
 
         function startPlayerSync() {
             if (playerInterval) clearInterval(playerInterval);
-
-            const iconPlay = document.getElementById('icon-play');
-            const iconPause = document.getElementById('icon-pause');
-            const progressBar = document.getElementById('player-progress');
-            const currentTimeEl = document.getElementById('current-time');
-            const durationEl = document.getElementById('duration');
-
             playerInterval = setInterval(() => {
-                if (!ytPlayer || !ytPlayer.getPlayerState) return;
-
-                const state = ytPlayer.getPlayerState();
-                const currentTime = ytPlayer.getCurrentTime();
-                const duration = ytPlayer.getDuration();
-
-                // Update Play/Pause Icon
-                if (state === 1) { // Playing
-                    iconPlay.classList.add('hidden');
-                    iconPause.classList.remove('hidden');
-                } else {
-                    iconPlay.classList.remove('hidden');
-                    iconPause.classList.add('hidden');
+                // Robustly check for player existence
+                if (!ytPlayer) {
+                    const contentIframe = document.getElementById('content-iframe');
+                    if (contentIframe && contentIframe.contentWindow && contentIframe.contentWindow.player) {
+                        ytPlayer = contentIframe.contentWindow.player;
+                        console.log("Global player synced with internal player.");
+                    }
                 }
 
-                // Update Progress
-                if (!isDragging && duration > 0) {
-                    progressBar.value = (currentTime / duration) * 100;
-                    currentTimeEl.textContent = formatTime(currentTime);
+                if (!ytPlayer || !ytPlayer.getPlayerState) return;
+
+                try {
+                    const state = ytPlayer.getPlayerState();
+                    const currentTime = ytPlayer.getCurrentTime();
+                    const duration = ytPlayer.getDuration();
+
+                    const playIcon = document.getElementById('icon-play');
+                    const pauseIcon = document.getElementById('icon-pause');
+                    const progressBar = document.getElementById('player-progress');
+                    const currentTimeEl = document.getElementById('current-time');
+                    const durationEl = document.getElementById('duration');
+
+                    if (state === 1) { // Playing
+                        playIcon.classList.add('hidden');
+                        pauseIcon.classList.remove('hidden');
+                    } else {
+                        playIcon.classList.remove('hidden');
+                        pauseIcon.classList.add('hidden');
+                    }
+
+                    if (!isDragging) {
+                        progressBar.value = (currentTime / duration) * 100 || 0;
+                        currentTimeEl.textContent = formatTime(currentTime);
+                    }
                     durationEl.textContent = formatTime(duration);
+
+                } catch (e) {
+                    // Ignore errors if player is not ready
                 }
             }, 500);
         }
@@ -964,13 +980,7 @@
                     });
 
                     // For McCheyne: We hid the listen buttons, so we must auto-trigger the first one or provide a way to play.
-                    // McCheyne script checks 'isPlayerReady' which might be false if we intercepted but didn't trigger onReady?
-                    // Actually, the YT API calls onReady. 
-                    // Let's override the internal playAudio function to be more robust or wait.
-
                     if (url.includes('mc')) {
-                        // Override internal playAudio to bypass 'isPlayerReady' check if we know player exists
-                        // Or just force isPlayerReady to true since we have the player
                         const iframeWin = contentIframe.contentWindow;
                         if (iframeWin) {
                             // Wait for player to be available
@@ -978,29 +988,10 @@
                                 if (iframeWin.player && iframeWin.playAudio) {
                                     clearInterval(checkPlayer);
 
-                                    // Force isPlayerReady to true in the internal scope if possible? 
-                                    // Variables are closed over. We can't easily access 'isPlayerReady'.
-                                    // But we can override playAudio.
                                     const originalPlayAudio = iframeWin.playAudio;
                                     iframeWin.playAudio = function (button) {
-                                        // We can implement our own logic using the global 'player' we exposed
-                                        const key = button.dataset.key;
-                                        const title = button.dataset.title;
-                                        // We need audioKeyMap. It's internal.
-                                        // But we can try to call original if we can trick it?
-                                        // Easier: Just try to click it after a delay, assuming onReady fires.
-                                        // Or better: The alert is annoying. Let's suppress it.
-
-                                        // If we have the player, we can try to load video directly if we knew the ID.
-                                        // But we don't know the ID without the map.
-
-                                        // Let's try to set the internal isPlayerReady flag? No.
-                                        // Let's just wait a bit longer before auto-clicking?
-                                        // Or, we can hook into the onReady event we intercepted.
+                                        // No-op or custom logic if needed, but we rely on click
                                     };
-
-                                    // Actually, let's just try to click it. If it alerts, it means onReady hasn't fired yet.
-                                    // We should wait for onReady.
                                 }
                             }, 100);
                         }
@@ -1011,11 +1002,7 @@
                             if (activeContent) {
                                 const listenBtn = activeContent.querySelector('.listen-audio-btn');
                                 if (listenBtn) {
-                                    // Check if we can play?
-                                    // We can't check internal state.
-                                    // Just click. If it fails, user sees alert. 
-                                    // We want to avoid the alert.
-                                    // Let's override window.alert in the iframe temporarily?
+                                    // Override alert to suppress "not ready"
                                     const originalAlert = iframeWin.alert;
                                     iframeWin.alert = (msg) => {
                                         if (msg.includes('준비되지 않았습니다')) {
@@ -1028,8 +1015,13 @@
 
                                     listenBtn.click();
 
-                                    // Restore alert after some time?
-                                    // setTimeout(() => iframeWin.alert = originalAlert, 5000);
+                                    // Pause after a short delay to prevent auto-play (User Request)
+                                    setTimeout(() => {
+                                        if (iframeWin.player && iframeWin.player.pauseVideo) {
+                                            iframeWin.player.pauseVideo();
+                                            console.log("Auto-paused McCheyne audio.");
+                                        }
+                                    }, 1500); // Wait enough for it to start loading/playing
                                 }
                             }
                         };
@@ -1046,17 +1038,19 @@
                         });
                     }
 
-                    // Catechism specific: Hide the entire audio section
+                    // Catechism specific: Hide the entire audio section but keep it active
                     if (url.includes('dc')) {
                         const playerContainer = doc.getElementById('audio-player-container');
                         if (playerContainer) {
-                            // Find the parent section (the box with "AI요약 듣기")
-                            // It is likely the parent of the container's parent?
-                            // Structure: section > h2 > "AI요약 듣기", div#audio-player-container
-                            // So playerContainer.parentElement is the section.
                             const section = playerContainer.closest('section');
                             if (section) {
-                                section.style.display = 'none';
+                                // Use visibility hidden instead of display none
+                                section.style.visibility = 'hidden';
+                                section.style.height = '0';
+                                section.style.overflow = 'hidden';
+                                section.style.margin = '0';
+                                section.style.padding = '0';
+                                section.style.border = 'none';
                             } else {
                                 playerContainer.style.display = 'none'; // Fallback
                             }
