@@ -270,6 +270,27 @@
         .loading-spinner {
             border-top-color: var(--color-primary);
         }
+
+        .custom-button {
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            padding: 0.8rem 1.2rem;
+            font-size: 0.95rem;
+            border-radius: 1rem;
+            color: var(--color-parchment);
+            border: 1px solid rgba(245, 239, 230, 0.3);
+        }
+
+        .custom-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .custom-button.sermon {
+            background-color: #6a0dad;
+        }
     </style>
 </head>
 
@@ -314,6 +335,14 @@
             </header>
 
             <main class="px-6 pb-6 sm:px-8 sm:pb-8 space-y-3">
+                <div class="grid grid-cols-3 gap-2 mb-3">
+                    <button class="custom-button sermon sermon-button w-full font-semibold text-xs sm:text-sm px-1"
+                        data-prefix="ae">오전장년교육</button>
+                    <button class="custom-button sermon sermon-button w-full font-semibold text-xs sm:text-sm px-1"
+                        data-prefix="ms">오전강설</button>
+                    <button class="custom-button sermon sermon-button w-full font-semibold text-xs sm:text-sm px-1"
+                        data-prefix="as">오후강설</button>
+                </div>
                 <div class="category-group w-full">
                     <div class="flex items-center space-x-2">
                         <svg class="w-5 h-5 text-[var(--color-parchment)]" fill="none" stroke="currentColor"
@@ -419,19 +448,22 @@
             </div>
 
             <div class="w-8"></div> <!-- Spacer for balance -->
+            <h2 id="content-title"
+                class="text-xl sm:text-2xl lg:text-3xl font-bold serif mx-4 text-center flex-1 truncate hidden"></h2>
         </div>
-        <div class="content-body flex-1 relative">
-            <div id="loading-spinner"
-                class="loading-spinner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 border-4 border-gray-200 border-t-4 rounded-full animate-spin">
-            </div>
-            <iframe id="content-iframe" class="w-full h-full border-none" style="display: none;" allowfullscreen
-                sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation allow-modals allow-top-navigation allow-downloads"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-            <div id="error-message"
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-md border rounded-lg p-6 text-center shadow-lg"
-                style="display: none;">
-            </div>
+    </div>
+    <div class="content-body flex-1 relative">
+        <div id="loading-spinner"
+            class="loading-spinner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 border-4 border-gray-200 border-t-4 rounded-full animate-spin">
         </div>
+        <iframe id="content-iframe" class="w-full h-full border-none" style="display: none;" allowfullscreen
+            sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation allow-modals allow-top-navigation allow-downloads"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+        <div id="error-message"
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-md border rounded-lg p-6 text-center shadow-lg"
+            style="display: none;">
+        </div>
+    </div>
     </div>
 
     <script>
@@ -481,9 +513,9 @@
             const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
             const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
 
-            document.querySelectorAll('.category-group .category-button').forEach(button => {
+            document.querySelectorAll('.sermon-button').forEach(button => {
                 const prefix = button.dataset.prefix;
-                if (prefix) { // 주일강설 버튼만 해당
+                if (prefix) {
                     const url = `./sermon/${prefix}${dateSuffix}.html`;
                     button.dataset.url = url;
                 }
@@ -599,7 +631,6 @@
             if (currentFontSize > 200) currentFontSize = 200;
             applyFontSize();
         }
-
         function showContent(url, title) {
             const contentView = document.getElementById('content-view');
             const contentIframe = document.getElementById('content-iframe');
@@ -697,12 +728,11 @@
                 });
             });
 
-            const sermonButtons = document.querySelectorAll('.category-group .category-button[data-prefix]');
-            sermonButtons.forEach(button => {
+            // 설교 버튼 클릭 이벤트
+            document.querySelectorAll('.sermon-button').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    e.stopPropagation();
                     const url = e.currentTarget.dataset.url;
-                    const title = `주일강설: ${e.currentTarget.textContent}`;
+                    const title = `주일설교: ${e.currentTarget.textContent}`;
                     if (url) {
                         showContent(url, title);
                     }
