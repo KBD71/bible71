@@ -41,9 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
         window.onYouTubeIframeAPIReady = () => {
             ytPlayer = new YT.Player('player-container', {
                 height: '0', width: '0',
-                playerVars: { 'autoplay': 1, 'controls': 0, 'rel': 0, 'fs': 0 },
+                playerVars: { 'autoplay': 0, 'controls': 0, 'rel': 0, 'fs': 0 },
                 events: {
-                    'onReady': () => { isPlayerReady = true; },
+                    'onReady': (event) => {
+                        isPlayerReady = true;
+                        // Expose player to window for global control from index.html
+                        window.player = ytPlayer;
+                    },
                     'onStateChange': onPlayerStateChange
                 }
             });
