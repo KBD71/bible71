@@ -3,50 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업로드 대기 중</title>
+    <title>설교 요약 - 김병훈 목사</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f7f9fc;
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            max-width: 400px;
-            width: 90%;
-        }
-        img {
-            width: 150px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 24px;
-            margin: 0 0 10px 0;
-            color: #2c3e50;
-        }
-        p {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin: 0;
-        }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f3f4f6; }
+        .card-icon { width: 24px; height: 24px; flex-shrink: 0; }
+        .keyword { font-weight: 700; color: #b91c1c; background-color: #fee2e2; padding: 0 4px; border-radius: 4px; }
+        blockquote { border-left: 4px solid #e5e7eb; padding-left: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; font-style: italic; color: #4b5563; }
+        /* Player hidden but accessible for API */
+        #player { position: absolute; top: -9999px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <img src="waiting_placeholder.png" alt="Waiting Icon">
-        <h1>아직 업로드 전입니다.</h1>
-        <p>말씀이 곧 업데이트될 예정입니다.<br>잠시만 기다려주세요.</p>
+<body class="antialiased text-gray-800">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        
+        <header class="bg-white rounded-xl shadow-lg p-8 mb-6 text-center border-t-8 border-indigo-900">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">[느6:15-7:4] 매일성경본문</h1>
+            <div class="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-600 font-medium mt-3">
+                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full">느헤미야 6:15-7:4</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> 김병훈 목사</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 2025-11-26</span>
+            </div>
+
+            <div class="mt-6 bg-indigo-50 border border-indigo-100 rounded-lg p-5 relative">
+                <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">핵심 주제</span>
+                <p class="text-indigo-900 font-medium text-lg leading-relaxed pt-2">
+                    "성벽 재건의 완공은 끝이 아닌 거룩한 공동체 회복의 시작이며, 하나님을 <span class="keyword">경외하는 신실한 일꾼</span>을 통해 내면의 성벽까지 파수해야 합니다."
+                </p>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6 flex justify-center items-center sticky top-4 z-50 ring-1 ring-gray-200">
+            <div id="player"></div> <button id="audio-control-btn" class="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">
+                <span id="btn-icon">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                </span>
+                <span id="btn-text" class="text-lg">설교 듣기</span>
+            </button>
+        </div>
+
+        <div class="scripture-text-section bg-stone-50 text-stone-700 p-6 rounded-lg shadow-inner mb-8 border-l-4 border-stone-400 text-sm leading-7">
+            <h3 class="font-bold text-stone-600 mb-3 flex items-center border-b border-stone-200 pb-2">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 19.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 19.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                느헤미야 6:15-7:4
+            </h3>
+            <div class="space-y-2 h-64 overflow-y-auto pr-2 custom-scrollbar">
+                <p><strong>15</strong> 성벽 역사가 오십이 일 만인 엘룰월 이십오일에 끝나매</p>
+                <p><strong>16</strong> 우리의 모든 대적과 주위에 있는 이방 족속들이 이를 듣고 다 두려워하여 크게 낙담하였으니 그들이 우리 하나님께서 이 역사를 이루신 것을 앎이니라</p>
+                <p><strong>17</strong> 또한 그 때에 유다의 귀족들이 여러 번 도비아에게 편지하였고 도비아의 편지도 그들에게 이르렀으니</p>
+                <p><strong>18</strong> 도비아는 아라의 아들 스가냐의 사위가 되었고 도비아의 아들 여호하난도 베레갸의 아들 무슬람의 딸을 아내로 맞이하였으므로 유다에서 그와 동맹한 자가 많음이라</p>
+                <p><strong>19</strong> 그들이 도비아의 선행을 내 앞에서 말하고 또 내 말도 그에게 전하매 도비아가 내게 편지하여 나를 두렵게 하고자 하였느니라</p>
+                <p><strong>7:1</strong> 성벽이 건축되매 문짝을 달고 문지기와 노래하는 자들과 레위 사람들을 세운 후에</p>
+                <p><strong>2</strong> 내 아우 하나니와 영문의 관원 하나냐가 함께 예루살렘을 다스리게 하였는데 하나냐는 충성스러운 사람이요 하나님을 경외함이 무리 중에서 뛰어난 자라</p>
+                <p><strong>3</strong> 내가 그들에게 이르기를 해가 높이 뜨기 전에는 예루살렘 성문을 열지 말고 아직 파수할 때에 곧 문을 닫고 빗장을 지르며 또 예루살렘 주민이 각각 자기가 지키는 곳에서 파수하되 자기 집 맞은편을 지키게 하라 하였노니</p>
+                <p><strong>4</strong> 그 성읍은 광대하고 그 주민은 적으며 가옥은 미처 건축하지 못하였음이니라</p>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-6">
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-orange-500">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-orange-500">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    배경: 52일의 기적과 대적의 반응
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    성벽 재건 역사는 불과 52일 만에 완공되었습니다. 이것은 인간의 힘으로는 불가능한 속도였기에, 이를 지켜보던 대적들과 이방 족속들은 <span class="keyword">"하나님께서 이 역사를 이루신 것"</span>을 깨닫고 두려워하며 낙담했습니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    하나님의 영광이 나타날 때 세상은 두려워합니다. 성벽의 완공은 단순한 방어 시설의 구축을 넘어, 거룩한 공동체의 외형적 회복과 구별됨을 세상에 선포하는 사건이었습니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-rose-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-rose-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    위기: 내부의 적과 타협주의
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    외적인 성벽은 완성되었으나, 내부의 영적 위기는 여전했습니다. 유다의 귀족들은 대적 도비아와 결혼 동맹을 맺고, 그와 서신을 교환하며 내통하고 있었습니다.
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li>귀족들은 도비아의 '선행'을 칭송하며 현실적인 평화와 이익을 추구했습니다.</li>
+                    <li>이는 <span class="keyword">혼합주의와 타협주의</span>의 전형입니다. 공간적 구별은 이루어졌으나, 내면의 거룩성은 여전히 위협받고 있었습니다.</li>
+                </ul>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-purple-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    본질: 문지기와 예배자의 우선순위
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    느헤미야는 성벽 완공 후 즉시 행정관이나 군사령관이 아닌, <strong>문지기와 노래하는 자들, 레위 사람들</strong>을 먼저 세웠습니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    성벽 재건의 진정한 목적은 '예배의 회복'에 있기 때문입니다. 문지기를 통해 거룩한 경계를 지키고, 노래하는 자와 레위인을 통해 예배 공동체를 확립하는 것이야말로 성벽이 존재하는 이유입니다. 우리의 삶에서도 우선순위는 언제나 <span class="keyword">예배와 거룩의 파수</span>가 되어야 합니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-emerald-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-emerald-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    적용: 지도자의 자격과 기준
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    느헤미야는 예루살렘을 다스릴 지도자로 아우 하나니와 영문의 관원 하나냐를 세웁니다. 그 선택의 기준은 명확했습니다.
+                </p>
+                <blockquote class="text-sm">
+                    "하나냐는 충성스러운 사람이요 하나님을 경외함이 무리 중에서 뛰어난 자라" (느 7:2)
+                </blockquote>
+                <p class="mt-3 leading-relaxed text-gray-700">
+                    세상의 능력이나 처세술이 아닌, <span class="keyword">충성(Faithfulness)</span>과 <span class="keyword">하나님 경외(Fear of God)</span>가 지도자의 핵심 자격입니다. 오늘날 교회와 공동체에도 이러한 영적 자질을 갖춘 일꾼이 절실히 필요합니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-blue-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-blue-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    수칙: 영적 긴장과 파수
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    느헤미야는 성문을 여는 시간을 제한(해가 높이 뜰 때)하고, 주민들이 각자의 집 맞은편을 지키게 했습니다. 이는 영적 안일함에 빠지지 않도록 경계를 늦추지 않는 태도입니다.
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li><strong>성문 관리:</strong> 무분별한 개방이 아닌, 거룩한 분별력(비평적 사고)을 가지고 세상의 가치가 침투하지 못하도록 마음의 문을 지켜야 합니다.</li>
+                    <li><strong>각자의 파수:</strong> 모든 성도가 각자의 삶의 현장과 가정에서 영적 파수꾼의 역할을 감당해야 합니다.</li>
+                </ul>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-gray-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-gray-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    결론: 채워야 할 과제
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    "그 성읍은 광대하고 그 주민은 적으며 가옥은 미처 건축하지 못하였음이니라" (느 7:4).
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    성벽 재건은 끝이 아니라 시작입니다. 이제 그 안을 거룩한 백성들과 온전한 믿음의 가정들로 채워가야 합니다. 오늘날 우리에게도 예배당이라는 공간을 넘어, <span class="keyword">내면의 성전</span>을 신실함으로 채우고 세상과 구별된 거룩한 삶을 살아가는 과제가 주어져 있습니다.
+                </p>
+            </div>
+
+        </main>
+
+        <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
+            <p>© 설교 요약 인포그래픽 | Soli Deo Gloria</p>
+        </footer>
     </div>
+
+    <script>
+        // YouTube Iframe API Loading
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isPlaying = false;
+        var btn = document.getElementById('audio-control-btn');
+        var btnText = document.getElementById('btn-text');
+        var btnIcon = document.getElementById('btn-icon');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: '5O1sitJ6PnQ',
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonState('playing');
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                isPlaying = false;
+                updateButtonState('paused');
+            } else if (event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonState('ended');
+            }
+        }
+
+        function updateButtonState(state) {
+            if (state === 'playing') {
+                btnText.innerText = "일시정지";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'paused') {
+                btnText.innerText = "다시 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'ended') {
+                btnText.innerText = "처음부터 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
+            }
+        }
+
+        btn.addEventListener('click', function() {
+            if (player && player.playVideo) {
+                var state = player.getPlayerState();
+                if (state === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else if (state === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                    player.playVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
