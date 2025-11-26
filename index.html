@@ -924,9 +924,72 @@
                         }
                     });
 
-                    // Hide McCheyne listen buttons
+                    // For McCheyne: We hid the listen buttons, so we must auto-trigger the first one or provide a way to play.
+                    // Let's try to auto-click the audio button for the active tab if it exists, 
+                    // OR better, expose a function to play it.
+                    // Actually, if we hide the buttons, the user can't select which chapter to listen to in McCheyne.
+                    // STRATEGY CHANGE: Show the "Listen" buttons in McCheyne but style them to look integrated or just let them work.
+                    // BUT user asked to hide them.
+                    // If hidden, we must auto-load the audio for the current tab.
+
+                    // McCheyne specific: Auto-load audio for active tab
+                    if (url.includes('mc')) {
+                        const activeTabBtn = doc.querySelector('.tab-btn.active');
+                        if (activeTabBtn) {
+                            // Find the corresponding audio button for this tab? 
+                            // In McCheyne script, buttons are inside .tab-content.
+                            // We need to find the active tab content and its listen button.
+                            const activeContent = doc.querySelector('.tab-content.active');
+                            if (activeContent) {
+                                const listenBtn = activeContent.querySelector('.listen-audio-btn');
+                                if (listenBtn) {
+                                    // Simulate click to load audio into the player
+                                    // The player is intercepted, so it should work.
+                                    console.log("Auto-loading McCheyne audio...");
+                                    listenBtn.click();
+                                }
+                            }
+                        }
+
+                        // Also add listener to tab buttons to auto-load audio when switching tabs
+                        const tabBtns = doc.querySelectorAll('.tab-btn');
+                        tabBtns.forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                setTimeout(() => {
+                                    const activeContent = doc.querySelector('.tab-content.active');
+                                    if (activeContent) {
+                                        const listenBtn = activeContent.querySelector('.listen-audio-btn');
+                                        if (listenBtn) listenBtn.click();
+                                    }
+                                }, 200);
+                            });
+                        });
+                    }
+
+                    // Catechism specific: It auto-loads usually? 
+                    // The catechism page has an 'audio-player-container'. We hid it.
+                    // But the YT player is inside it. If we display:none the container, the player might not initialize or be visible/audible?
+                    // YouTube player needs to be visible (or at least not display:none) to work in some browsers?
+                    // Actually, display:none on iframe/div often stops playback or initialization.
+                    // FIX: Instead of display:none, use visibility:hidden or height:0 for the container if it contains the player.
+                    if (url.includes('dc')) {
+                        const playerContainer = doc.getElementById('audio-player-container');
+                        if (playerContainer) {
+                            playerContainer.style.display = 'block'; // Restore display
+                            playerContainer.style.height = '0';
+                            playerContainer.style.overflow = 'hidden';
+                            playerContainer.style.opacity = '0';
+                            playerContainer.style.margin = '0';
+                            playerContainer.style.padding = '0';
+                        }
+                    }
+
+                    // Hide McCheyne listen buttons (Visual only, they are clicked programmatically)
                     const listenBtns = doc.querySelectorAll('.listen-audio-btn');
                     listenBtns.forEach(btn => btn.style.display = 'none');
+
+                    // Restore McCheyne floating nav if it was hidden by our broad stroke?
+                    // No, 'audio-player' id was hidden. Floating nav is 'floating-nav'.
 
                 } catch (e) {
                     console.log('Cannot access iframe content:', e);
