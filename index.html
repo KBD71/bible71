@@ -902,19 +902,61 @@
                     links.forEach(link => link.target = '_blank');
 
                     // Hide audio control button in iframe (User Request)
-                    const audioBtn = doc.getElementById('audio-control-btn');
-                    if (audioBtn) {
-                        audioBtn.style.display = 'none';
-                        // Also hide the parent container if it only contains the button and the hidden player div
-                        if (audioBtn.parentElement && audioBtn.parentElement.classList.contains('sticky')) {
-                            audioBtn.parentElement.style.display = 'none';
+                    const elementsToHide = [
+                        'audio-control-btn', // Daily Bible
+                        'play-btn',          // Sermon
+                        'audio-player',      // McCheyne (floating bar)
+                        'audio-player-container' // Catechism
+                    ];
+
+                    elementsToHide.forEach(id => {
+                        const el = doc.getElementById(id);
+                        if (el) {
+                            el.style.display = 'none';
+                            // Hide parent if sticky (Daily Bible) or specific wrappers
+                            if (id === 'audio-control-btn' && el.parentElement && el.parentElement.classList.contains('sticky')) {
+                                el.parentElement.style.display = 'none';
+                            }
+                            // Hide parent container for Sermon button if it looks like a wrapper
+                            if (id === 'play-btn' && el.parentElement && el.parentElement.classList.contains('bg-white')) {
+                                el.parentElement.style.display = 'none';
+                            }
                         }
-                    }
+                    });
+
+                    // Hide McCheyne listen buttons
+                    const listenBtns = doc.querySelectorAll('.listen-audio-btn');
+                    listenBtns.forEach(btn => btn.style.display = 'none');
 
                 } catch (e) {
                     console.log('Cannot access iframe content:', e);
                 }
             };
+
+            // Intercept YT Player creation to expose it globally
+            // This runs in parallel with onload to catch YT API loading
+            const interceptInterval = setInterval(() => {
+                try {
+                    const iframeWindow = contentIframe.contentWindow;
+                    if (iframeWindow && iframeWindow.YT && iframeWindow.YT.Player && !iframeWindow.YT.Player._intercepted) {
+                        const OriginalPlayer = iframeWindow.YT.Player;
+                        iframeWindow.YT.Player = function (id, options) {
+                            const player = new OriginalPlayer(id, options);
+                            iframeWindow.player = player; // Expose to window for global control
+                            console.log("Intercepted YT Player creation!");
+                            return player;
+                        };
+                        iframeWindow.YT.Player.prototype = OriginalPlayer.prototype;
+                        iframeWindow.YT.Player._intercepted = true;
+                        clearInterval(interceptInterval);
+                    }
+                } catch (e) {
+                    // Ignore cross-origin errors if any (shouldn't happen for same origin)
+                }
+            }, 50);
+
+            // Clear intercept interval after 10 seconds
+            setTimeout(() => clearInterval(interceptInterval), 10000);
 
             contentIframe.onerror = () => {
                 clearTimeout(loadTimeout);
