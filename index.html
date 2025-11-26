@@ -288,6 +288,38 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
+        .custom-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Loading State for Buttons */
+        .button-loading {
+            position: relative;
+            color: transparent !important;
+            pointer-events: none;
+        }
+
+        .button-loading::after {
+            content: "";
+            position: absolute;
+            width: 1.2em;
+            height: 1.2em;
+            top: 50%;
+            left: 50%;
+            margin-top: -0.6em;
+            margin-left: -0.6em;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         .custom-button.sermon {
             background-color: #5D4037;
             /* Deep Warm Brown to match the theme */
@@ -832,7 +864,7 @@
             }, 500);
         }
 
-        function showContent(url, title) {
+        function showContent(url, title, buttonElement = null) {
             const contentView = document.getElementById('content-view');
             const contentIframe = document.getElementById('content-iframe');
             const loadingSpinner = document.getElementById('loading-spinner');
@@ -841,6 +873,11 @@
             const contentTitle = document.getElementById('content-title');
 
             if (!contentView || !contentIframe || !loadingSpinner || !errorMessageDiv) return;
+
+            // Set button loading state
+            if (buttonElement) {
+                buttonElement.classList.add('button-loading');
+            }
 
             // Reset
             if (playerInterval) clearInterval(playerInterval);
@@ -873,6 +910,7 @@
                     console.warn('Content load timed out. Forcing display.');
                     loadingSpinner.style.display = 'none';
                     contentIframe.style.display = 'block';
+                    if (buttonElement) buttonElement.classList.remove('button-loading');
                 }
             }, 8000);
 
@@ -882,6 +920,7 @@
 
                 loadingSpinner.style.display = 'none';
                 contentIframe.style.display = 'block';
+                if (buttonElement) buttonElement.classList.remove('button-loading');
 
                 playerTitle.textContent = title;
 
@@ -1107,22 +1146,27 @@
             if (calendarModal) calendarModal.addEventListener('click', (e) => {
                 if (e.target === calendarModal) closeCalendar();
             });
-
-            document.querySelectorAll('.link-container button').forEach(button => {
+            // 주일설교 버튼 이벤트 리스너
+            const sermonButtons = document.querySelectorAll('.category-group .category-button[data-prefix]');
+            sermonButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     const url = e.currentTarget.dataset.url;
-                    const title = e.currentTarget.querySelector('span').textContent;
-                    if (url) showContent(url, title);
+                    const title = `주일강설: ${e.currentTarget.textContent}`;
+                    if (url) {
+                        showContent(url, title, e.currentTarget);
+                    }
                 });
             });
 
-            // 설교 버튼 클릭 이벤트
-            document.querySelectorAll('.sermon-button').forEach(button => {
+            // 매일의 말씀, 맥체인, 교리 버튼 이벤트 리스너
+            document.querySelectorAll('.link-container button').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    const url = e.currentTarget.dataset.url;
-                    const title = `주일설교: ${e.currentTarget.textContent}`;
+                    const container = e.currentTarget.closest('.link-container');
+                    const url = container.dataset.url;
+                    const title = container.querySelector('span').textContent;
                     if (url) {
-                        showContent(url, title);
+                        showContent(url, title, e.currentTarget);
                     }
                 });
             });
