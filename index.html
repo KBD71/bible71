@@ -490,10 +490,12 @@
                 dateDisplay.textContent = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
             }
 
+            // 매일의 말씀, 맥체인, 교리 버튼 링크 업데이트
             document.querySelectorAll('.link-container').forEach(container => {
                 const prefix = container.dataset.prefix;
                 const button = container.querySelector('button');
-                let url;
+                let url = '';
+
                 if (prefix === 'mc') {
                     const dateSuffix = `${pad(month)}${pad(day)}`;
                     url = `./mccheyne/mc${dateSuffix}.html`;
@@ -505,19 +507,25 @@
                     const dateSuffix = `${pad(month)}${pad(day)}`;
                     url = `./catechism/dc${dateSuffix}.html`;
                 }
-                if (button) button.dataset.url = url;
+
+                if (button && url) {
+                    button.dataset.url = url;
+                    console.log(`Updated ${prefix} button url: ${url}`);
+                }
             });
 
+            // 주일 설교 버튼 링크 업데이트
             const lastSunday = new Date(date);
             lastSunday.setDate(date.getDate() - date.getDay());
             const yearSuffix = String(lastSunday.getFullYear()).slice(-2);
-            const dateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
+            const sermonDateSuffix = `${yearSuffix}${pad(lastSunday.getMonth() + 1)}${pad(lastSunday.getDate())}`;
 
             document.querySelectorAll('.sermon-button').forEach(button => {
                 const prefix = button.dataset.prefix;
                 if (prefix) {
-                    const url = `./sermon/${prefix}${dateSuffix}.html`;
+                    const url = `./sermon/${prefix}${sermonDateSuffix}.html`;
                     button.dataset.url = url;
+                    console.log(`Updated sermon ${prefix} button url: ${url}`);
                 }
             });
         }
