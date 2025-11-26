@@ -905,6 +905,10 @@
                     const audioBtn = doc.getElementById('audio-control-btn');
                     if (audioBtn) {
                         audioBtn.style.display = 'none';
+                        // Also hide the parent container if it only contains the button and the hidden player div
+                        if (audioBtn.parentElement && audioBtn.parentElement.classList.contains('sticky')) {
+                            audioBtn.parentElement.style.display = 'none';
+                        }
                     }
 
                 } catch (e) {
