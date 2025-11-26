@@ -944,6 +944,33 @@
                             const player = new OriginalPlayer(id, options);
                             iframeWindow.player = player; // Expose to window for global control
                             console.log("Intercepted YT Player creation!");
+
+                            // Intercept loadVideoById to update global player title if possible
+                            const originalLoadVideoById = player.loadVideoById;
+                            player.loadVideoById = function (args) {
+                                console.log("Video changed internally:", args);
+                                // Call original
+                                const result = originalLoadVideoById.apply(player, arguments);
+
+                                // Update Global Player Title if we can find the title
+                                // In McCheyne, the title is often in the button that triggered this, 
+                                // but here we don't have easy access. 
+                                // We can try to update the title to "재생 중..." or try to find the active tab title.
+                                try {
+                                    const doc = iframeWindow.document;
+                                    const activeTab = doc.querySelector('.tab-btn.active');
+                                    if (activeTab) {
+                                        const title = activeTab.textContent;
+                                        const parentTitle = document.getElementById('player-title');
+                                        if (parentTitle) parentTitle.textContent = title;
+                                    }
+                                } catch (e) { }
+
+                                // Ensure global player is playing (or paused based on default)
+                                // The internal script might auto-play.
+                                return result;
+                            };
+
                             return player;
                         };
                         iframeWindow.YT.Player.prototype = OriginalPlayer.prototype;
