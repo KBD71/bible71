@@ -750,9 +750,8 @@
                 } else if (attempts > 50) { // 5 seconds
                     clearInterval(checkPlayer);
                     console.warn("YT Player not found in iframe");
-                    // If no player found, maybe it's text content. Show modal.
+                    // If no player found, ensure content view is visible
                     document.getElementById('content-view').style.display = 'flex';
-                    playerUI.style.display = 'none';
                 }
             }, 100);
 
@@ -786,7 +785,12 @@
             };
 
             expandBtn.onclick = () => {
-                document.getElementById('content-view').style.display = 'flex';
+                const contentView = document.getElementById('content-view');
+                if (contentView.style.display === 'none') {
+                    contentView.style.display = 'flex';
+                } else {
+                    contentView.style.display = 'none';
+                }
             };
 
             closeBtn.onclick = () => {
@@ -834,19 +838,27 @@
             const loadingSpinner = document.getElementById('loading-spinner');
             const errorMessageDiv = document.getElementById('error-message');
             const playerTitle = document.getElementById('player-title');
+            const contentTitle = document.getElementById('content-title');
 
             if (!contentView || !contentIframe || !loadingSpinner || !errorMessageDiv) return;
 
             // Reset
             if (playerInterval) clearInterval(playerInterval);
             ytPlayer = null;
-            playerTitle.textContent = title;
 
-            // Hide modal initially (we will show player first)
-            contentView.style.display = 'none';
-
-            // Show loading in player title?
             playerTitle.textContent = "로딩 중... " + title;
+            if (contentTitle) {
+                contentTitle.textContent = title;
+                contentTitle.classList.remove('hidden');
+            }
+
+            // Show modal immediately (User Request)
+            contentView.style.display = 'flex';
+
+            // Show Spinner, Hide Iframe initially
+            loadingSpinner.style.display = 'block';
+            contentIframe.style.display = 'none';
+            errorMessageDiv.style.display = 'none';
 
             // Ensure iframe has a background
             contentIframe.style.backgroundColor = 'white';
@@ -855,8 +867,22 @@
             contentIframe.src = url;
             console.log(`Loading content: ${url}`);
 
+            // Safety timeout
+            const loadTimeout = setTimeout(() => {
+                if (loadingSpinner.style.display !== 'none') {
+                    console.warn('Content load timed out. Forcing display.');
+                    loadingSpinner.style.display = 'none';
+                    contentIframe.style.display = 'block';
+                }
+            }, 8000);
+
             contentIframe.onload = () => {
+                clearTimeout(loadTimeout);
                 console.log('Content loaded successfully.');
+
+                loadingSpinner.style.display = 'none';
+                contentIframe.style.display = 'block';
+
                 playerTitle.textContent = title;
 
                 // Try to init global player
@@ -870,6 +896,7 @@
                         el.style.maxWidth = '100%';
                         el.style.paddingLeft = '2rem';
                         el.style.paddingRight = '2rem';
+                        el.style.paddingBottom = '10rem'; // Add padding for player
                     });
                     const links = doc.querySelectorAll('a');
                     links.forEach(link => link.target = '_blank');
@@ -879,9 +906,8 @@
             };
 
             contentIframe.onerror = () => {
+                clearTimeout(loadTimeout);
                 console.error('Failed to load content.');
-                // If error, show modal with error
-                contentView.style.display = 'flex';
                 loadingSpinner.style.display = 'none';
                 errorMessageDiv.innerHTML = `<h3 class='text-lg font-bold text-red-600 mb-2'>콘텐츠 로딩 실패</h3><p class='text-gray-700'>해당 날짜의 자료를 찾을 수 없습니다.<br>다른 날짜를 선택해주세요.</p>`;
                 errorMessageDiv.style.display = 'block';
