@@ -3,50 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업로드 대기 중</title>
+    <title>설교 요약 - 이희용 목사</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f7f9fc;
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            max-width: 400px;
-            width: 90%;
-        }
-        img {
-            width: 150px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 24px;
-            margin: 0 0 10px 0;
-            color: #2c3e50;
-        }
-        p {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin: 0;
-        }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f3f4f6; }
+        .card-icon { width: 24px; height: 24px; flex-shrink: 0; }
+        .keyword { font-weight: 700; color: #b91c1c; background-color: #fee2e2; padding: 0 4px; border-radius: 4px; }
+        blockquote { border-left: 4px solid #e5e7eb; padding-left: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; font-style: italic; color: #4b5563; }
+        /* Player hidden but accessible for API */
+        #player { position: absolute; top: -9999px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <img src="waiting_placeholder.png" alt="Waiting Icon">
-        <h1>아직 업로드 전입니다.</h1>
-        <p>말씀이 곧 업데이트될 예정입니다.<br>잠시만 기다려주세요.</p>
+<body class="antialiased text-gray-800">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        
+        <header class="bg-white rounded-xl shadow-lg p-8 mb-6 text-center border-t-8 border-indigo-900">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">[느8:1-18] 매일성경본문</h1>
+            <div class="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-600 font-medium mt-3">
+                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full">느헤미야 8:1-18</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> 이희용 목사</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 2025-11-28</span>
+            </div>
+
+            <div class="mt-6 bg-indigo-50 border border-indigo-100 rounded-lg p-5 relative">
+                <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">핵심 주제</span>
+                <p class="text-indigo-900 font-medium text-lg leading-relaxed pt-2">
+                    "성벽 재건보다 중요한 것은 무너진 <span class="keyword">말씀의 성벽</span>을 세우는 것이며, 여호와를 기뻐하는 것이 우리 인생의 참된 목적이자 힘입니다."
+                </p>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6 flex justify-center items-center sticky top-4 z-50 ring-1 ring-gray-200">
+            <div id="player"></div> <button id="audio-control-btn" class="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">
+                <span id="btn-icon">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                </span>
+                <span id="btn-text" class="text-lg">설교 듣기</span>
+            </button>
+        </div>
+
+        <div class="scripture-text-section bg-stone-50 text-stone-700 p-6 rounded-lg shadow-inner mb-8 border-l-4 border-stone-400 text-sm leading-7">
+            <h3 class="font-bold text-stone-600 mb-3 flex items-center border-b border-stone-200 pb-2">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 19.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 19.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                느헤미야 8:1-18 (발췌)
+            </h3>
+            <div class="space-y-2 h-64 overflow-y-auto pr-2 custom-scrollbar">
+                <p><strong>1</strong> 이스라엘 자손이 자기들의 성읍에 거주하였더니 일곱째 달에 이르러 모든 백성이 일제히 수문 앞 광장에 모여 학사 에스라에게 여호와께서 이스라엘에게 명령하신 모세의 율법책을 가져오기를 청하매</p>
+                <p><strong>2</strong> 일곱째 달 초하루에 제사장 에스라가 율법책을 가지고 회중 앞 곧 남자나 여자나 알아들을 만한 모든 사람 앞에 이르러</p>
+                <p><strong>3</strong> 수문 앞 광장에서 새벽부터 정오까지 남자나 여자나 알아들을 만한 모든 사람 앞에서 읽으매 뭇 백성이 그 율법책에 귀를 기울였는데</p>
+                <p><strong>5</strong> 에스라가 모든 백성 위에 서서 그들 목전에 책을 펼 때에 모든 백성이 일어서니라</p>
+                <p><strong>6</strong> 에스라가 위대하신 하나님 여호와를 송축하매 모든 백성이 손을 들고 아멘 아멘 하고 응답하고 몸을 굽혀 얼굴을 땅에 대고 여호와께 경배하니라</p>
+                <p><strong>8</strong> 하나님의 율법책을 낭독하고 그 뜻을 해석하여 백성에게 그 낭독하는 것을 다 깨닫게 하니</p>
+                <p><strong>9</strong> 백성이 율법의 말씀을 듣고 다 우는지라 총독 느헤미야와 제사장 겸 학사 에스라와 백성을 가르치는 레위 사람들이 모든 백성에게 이르기를 오늘은 너희 하나님 여호와의 성일이니 슬퍼하지 말며 울지 말라 하고</p>
+                <p><strong>10</strong> 느헤미야가 또 그들에게 이르기를 너희는 가서 살진 것을 먹고 단 것을 마시되 준비하지 못한 자에게는 나누어 주라 이 날은 우리 주의 성일이니 근심하지 말라 여호와로 인하여 기뻐하는 것이 너희의 힘이니라 하고</p>
+                <p><strong>12</strong> 모든 백성이 곧 가서 먹고 마시며 나누어 주고 크게 즐거워하니 이는 그들이 그 읽어 들려 준 말을 밝히 앎이라</p>
+                <p><strong>14</strong> 율법에 기록된 바를 본즉 여호와께서 모세를 통하여 명령하시기를 이스라엘 자손은 일곱째 달 절기에 초막에 거할지니라 하였고</p>
+                <p><strong>17</strong> 사로잡혔다가 돌아온 회중이 다 초막을 짓고 그 안에서 거하니 눈의 아들 여호수아 때로부터 그 날까지 이스라엘 자손이 이같이 행한 일이 없었으므로 이에 크게 기뻐하며</p>
+                <p><strong>18</strong> 에스라는 첫날부터 끝날까지 날마다 하나님의 율법책을 낭독하고 무리가 이레 동안 절기를 지키고 여덟째 날에 규례를 따라 성회를 열었느니라</p>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-6">
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-orange-500">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-orange-500">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    배경: 말씀에 대한 갈망
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    성벽 재건을 마친 이스라엘 백성은 스스로 수문 앞 광장에 모여 학사 에스라에게 율법책을 가져오기를 청했습니다. 그들은 성벽이라는 외형적 과업의 완성을 넘어, 그들 내면의 <span class="keyword">무너진 말씀의 성벽</span>을 재건할 필요성을 절실히 느꼈습니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    한 해의 시작인 7월 1일(나팔절), 그들은 새벽부터 정오까지 장시간 서서 말씀에 귀를 기울였습니다. 이는 하나님의 은혜가 이미 그들 가운데 깊이 임해 있었음을 보여줍니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-purple-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    태도: 경외함과 반응
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    에스라가 율법책을 펼 때 모든 백성이 일어서고, 송축할 때 손을 들고 "아멘, 아멘"으로 화답하며 얼굴을 땅에 대고 경배했습니다. 이는 말씀 앞에 선 성도의 마땅한 자세를 보여줍니다.
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li><strong>경외감:</strong> 말씀에 대한 존중과 두려움으로 하나님을 높임.</li>
+                    <li><strong>이해와 깨달음:</strong> 레위 사람들의 해석을 통해 말씀을 밝히 깨닫고, 그 말씀이 심령을 찌르자 회개의 눈물을 흘림.</li>
+                </ul>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-blue-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-blue-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    명령: 여호와를 기뻐하라
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    회개의 눈물을 흘리는 백성들에게 느헤미야와 지도자들은 "오늘은 주의 성일이니 슬퍼하지 말며 근심하지 말라"고 선포합니다. 그리고 <span class="keyword">"여호와로 인하여 기뻐하는 것이 너희의 힘이니라"</span>라고 격려합니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    감정에 매몰되지 않고, 말씀이 명하는 바를 따라 기뻐하며 이웃과 나누는 것이 진정한 신앙의 힘입니다. 그들은 말씀을 밝히 알았기에(12절) 진정한 기쁨을 누릴 수 있었습니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-emerald-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-emerald-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    순종: 초막절의 회복
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    말씀을 더 알기 위해 모인 지도자들은 초막절 규례를 발견하고 즉시 순종했습니다. 여호수아 때 이후로 가장 크게 기뻐하며 초막절을 지켰습니다.
+                </p>
+                <blockquote class="text-sm">
+                    "사로잡혔다가 돌아온 회중이 다 초막을 짓고 그 안에 거하니... 이에 크게 기뻐하며"
+                </blockquote>
+                <p class="mt-3 leading-relaxed text-gray-700">
+                    율법이 기뻐하라고 해서 억지로 하는 것이 아니라, 말씀에 순종할 때 성령께서 주시는 부드러운 마음과 참된 기쁨이 그들 안에 넘쳐났습니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-gray-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-gray-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    결론: 하나님을 영화롭게 하는 삶
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    인생의 목적은 거창한 업적이나 화려한 건물을 남기는 것이 아닙니다. 소요리문답의 고백처럼, <span class="keyword">하나님을 영화롭게 하고 영원토록 그를 즐거워하는 것</span>이 우리의 제일 되는 목적입니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    말씀을 사모하고, 듣기를 즐거워하며, 그 말씀에 순종할 때 세상이 줄 수 없는 평안과 기쁨이 임합니다. 여호와의 말씀을 기뻐하는 것이 오늘을 살아가는 우리의 유일한 힘과 위로가 됩니다.
+                </p>
+            </div>
+
+        </main>
+
+        <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
+            <p>© 설교 요약 인포그래픽 | Soli Deo Gloria</p>
+        </footer>
     </div>
+
+    <script>
+        // YouTube Iframe API Loading
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isPlaying = false;
+        var btn = document.getElementById('audio-control-btn');
+        var btnText = document.getElementById('btn-text');
+        var btnIcon = document.getElementById('btn-icon');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'T7LXiXIIuxc',
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonState('playing');
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                isPlaying = false;
+                updateButtonState('paused');
+            } else if (event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonState('ended');
+            }
+        }
+
+        function updateButtonState(state) {
+            if (state === 'playing') {
+                btnText.innerText = "일시정지";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'paused') {
+                btnText.innerText = "다시 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'ended') {
+                btnText.innerText = "처음부터 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
+            }
+        }
+
+        btn.addEventListener('click', function() {
+            if (player && player.playVideo) {
+                var state = player.getPlayerState();
+                if (state === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else if (state === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                    player.playVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
