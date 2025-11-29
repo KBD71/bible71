@@ -3,50 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업로드 대기 중</title>
+    <title>설교 요약 - 이희용 목사</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f7f9fc;
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            max-width: 400px;
-            width: 90%;
-        }
-        img {
-            width: 150px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 24px;
-            margin: 0 0 10px 0;
-            color: #2c3e50;
-        }
-        p {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin: 0;
-        }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f3f4f6; }
+        .card-icon { width: 24px; height: 24px; flex-shrink: 0; }
+        .keyword { font-weight: 700; color: #b91c1c; background-color: #fee2e2; padding: 0 4px; border-radius: 4px; }
+        blockquote { border-left: 4px solid #e5e7eb; padding-left: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; font-style: italic; color: #4b5563; }
+        /* Player hidden but accessible for API */
+        #player { position: absolute; top: -9999px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <img src="waiting_placeholder.png" alt="Waiting Icon">
-        <h1>아직 업로드 전입니다.</h1>
-        <p>말씀이 곧 업데이트될 예정입니다.<br>잠시만 기다려주세요.</p>
+<body class="antialiased text-gray-800">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        
+        <header class="bg-white rounded-xl shadow-lg p-8 mb-6 text-center border-t-8 border-indigo-900">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">[느9:1-22] 매일성경본문</h1>
+            <div class="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-600 font-medium mt-3">
+                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full">느헤미야 9:1-22</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> 이희용 목사</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 2025-11-28</span>
+            </div>
+
+            <div class="mt-6 bg-indigo-50 border border-indigo-100 rounded-lg p-5 relative">
+                <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">핵심 주제</span>
+                <p class="text-indigo-900 font-medium text-lg leading-relaxed pt-2">
+                    "진정한 회개와 기쁨은 오직 <span class="keyword">말씀의 능력</span>에서 비롯되며, 광야 같은 인생에서도 우리를 버리지 않으시는 하나님의 신실하신 은혜를 기억해야 합니다."
+                </p>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6 flex justify-center items-center sticky top-4 z-50 ring-1 ring-gray-200">
+            <div id="player"></div> <button id="audio-control-btn" class="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">
+                <span id="btn-icon">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                </span>
+                <span id="btn-text" class="text-lg">설교 듣기</span>
+            </button>
+        </div>
+
+        <div class="scripture-text-section bg-stone-50 text-stone-700 p-6 rounded-lg shadow-inner mb-8 border-l-4 border-stone-400 text-sm leading-7">
+            <h3 class="font-bold text-stone-600 mb-3 flex items-center border-b border-stone-200 pb-2">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 19.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 19.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                느헤미야 9:1-22 (발췌)
+            </h3>
+            <div class="space-y-2 h-64 overflow-y-auto pr-2 custom-scrollbar">
+                <p><strong>1</strong> 그 달 스무나흘 날에 이스라엘 자손이 다 모여 금식하며 굵은 베 옷을 입고 티끌을 무릅쓰며</p>
+                <p><strong>2</strong> 모든 이방 사람들과 절교하고 서서 자기의 죄와 조상들의 허물을 자복하고</p>
+                <p><strong>3</strong> 이 날에 낮 사분의 일은 그 제자리에 서서 그들의 하나님 여호와의 율법책을 낭독하고 낮 사분의 일은 죄를 자복하며 그들의 하나님 여호와께 경배하는데</p>
+                <p><strong>6</strong> 오직 주는 여호와시라 하늘과 하늘들의 하늘과 일월 성신과 땅과 땅 위의 만물과 바다와 그 가운데 모든 것을 지으시고 다 보존하시오니 모든 천군이 주께 경배하나이다</p>
+                <p><strong>8</strong> 그의 마음이 주 앞에서 충성됨을 보시고 그와 더불어 언약을 세우사 가나안 족속과 헷 족속과 아모리 족속과 브리스 족속과 여부스 족속과 기르가스 족속의 땅을 그의 씨에게 주리라 하시더니 그 말씀대로 이루셨사오매 주는 의로우심이로소이다</p>
+                <p><strong>13</strong> 또 시내 산에 강림하시고 하늘에서부터 그들과 말씀하사 정직한 규례와 진정한 율법과 선한 율례와 계명을 그들에게 주시고</p>
+                <p><strong>16</strong> 그들과 우리 조상들이 교만하고 목을 굳게 하여 주의 명령을 듣지 아니하고</p>
+                <p><strong>17</strong> 거역하며 주께서 그들 가운데서 행하신 기사를 기억하지 아니하고 목을 굳게 하며 패역하여 스스로 한 우두머리를 세우고 종 되었던 땅으로 돌아가고자 하였사오나 그러나 주께서는 용서하시는 하나님이시라 은혜로우시며 긍휼히 여기시며 더디 노하시며 인자가 풍부하시므로 그들을 버리지 아니하셨나이다</p>
+                <p><strong>19</strong> 주께서는 주의 크신 긍휼로 그들을 광야에 버리지 아니하시고 낮에는 구름 기둥이 그들에게서 떠나지 아니하고 길을 인도하며 밤에는 불 기둥이 그들이 갈 길을 비추게 하셨사오며</p>
+                <p><strong>21</strong> 사십 년 동안 들에서 기르시되 부족함이 없게 하시므로 그 옷이 해어지지 아니하였고 발이 부르트지 아니하였사오며</p>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-6">
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-purple-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    본질: 기쁨과 회개의 근원
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    8장의 '기쁨'과 9장의 '회개(금식)'는 겉보기에는 상반된 감정처럼 보이지만, 실제로는 동일한 근원, 즉 <span class="keyword">말씀의 역사</span>에서 비롯되었습니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    말씀이 심령을 조명할 때, 우리는 하나님을 즐거워하는 동시에 자신의 죄악을 깨닫고 통회하게 됩니다. 이스라엘 백성의 금식과 자복은 단순한 의식이 아니라, 말씀에 사로잡힌 심령에서 우러나온 진정한 반응이었습니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-rose-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-rose-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    회개: 결단과 절교
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    참된 회개는 감정적인 눈물에 그치지 않습니다. 이스라엘 백성들은 <span class="keyword">모든 이방 사람들과 절교</span>하며 구체적으로 죄를 끊어내는 결단을 보여주었습니다.
+                </p>
+                <blockquote class="text-sm">
+                    "모든 이방 사람들과 절교하고 서서 자기의 죄와 조상들의 허물을 자복하고"
+                </blockquote>
+                <p class="mt-3 leading-relaxed text-gray-700">
+                    하나님의 뜻에 순종하여 삶을 돌이키는 구체적인 행위가 없다면, 아무리 경건해 보이는 금식이라도 외식에 불과함을 경계해야 합니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-emerald-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-emerald-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    은혜: 반역에도 불구하고
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    이스라엘의 역사는 '하나님의 은혜'와 '인간의 배반'의 끊임없는 대조입니다. 조상들은 금송아지를 만들고 애굽으로 돌아가려 했으나, 하나님은 <span class="keyword">크신 긍휼</span>로 그들을 광야에 버리지 않으셨습니다.
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li>낮에는 구름 기둥, 밤에는 불 기둥으로 인도하심.</li>
+                    <li>만나와 물을 주시고, 옷이 해어지지 않게 하심.</li>
+                    <li>요람의 아기처럼 전적인 사랑과 공급을 베푸심.</li>
+                </ul>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-gray-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-gray-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    적용: 광야 같은 세상에서의 고백
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    포로 귀환 공동체 역시 여전히 식민지 상황이라는 '광야'에 있었지만, 그들은 "부족함이 없었나이다"라고 고백합니다. 이는 환경의 변화가 아니라 말씀이 그들의 심령을 채웠기 때문입니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    우리 삶이 척박한 광야 같을지라도, 불평 대신 감사를 고백할 수 있는 힘은 오직 <span class="keyword">하나님의 말씀</span> 안에 있습니다. 말씀이 우리 안에 살아있을 때, 우리는 어떤 형편에서도 하나님의 신실하심을 찬양할 수 있습니다.
+                </p>
+            </div>
+
+        </main>
+
+        <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
+            <p>© 설교 요약 인포그래픽 | Soli Deo Gloria</p>
+        </footer>
     </div>
+
+    <script>
+        // YouTube Iframe API Loading
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isPlaying = false;
+        var btn = document.getElementById('audio-control-btn');
+        var btnText = document.getElementById('btn-text');
+        var btnIcon = document.getElementById('btn-icon');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'NwDHCjlMv50',
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonState('playing');
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                isPlaying = false;
+                updateButtonState('paused');
+            } else if (event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonState('ended');
+            }
+        }
+
+        function updateButtonState(state) {
+            if (state === 'playing') {
+                btnText.innerText = "일시정지";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'paused') {
+                btnText.innerText = "다시 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'ended') {
+                btnText.innerText = "처음부터 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
+            }
+        }
+
+        btn.addEventListener('click', function() {
+            if (player && player.playVideo) {
+                var state = player.getPlayerState();
+                if (state === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else if (state === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                    player.playVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
