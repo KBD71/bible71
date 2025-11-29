@@ -3,50 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업로드 대기 중</title>
+    <title>설교 요약 - 김병훈 목사</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f7f9fc;
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            max-width: 400px;
-            width: 90%;
-        }
-        img {
-            width: 150px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 24px;
-            margin: 0 0 10px 0;
-            color: #2c3e50;
-        }
-        p {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin: 0;
-        }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f3f4f6; }
+        .card-icon { width: 24px; height: 24px; flex-shrink: 0; }
+        .keyword { font-weight: 700; color: #b91c1c; background-color: #fee2e2; padding: 0 4px; border-radius: 4px; }
+        blockquote { border-left: 4px solid #e5e7eb; padding-left: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; font-style: italic; color: #4b5563; }
+        /* Player hidden but accessible for API */
+        #player { position: absolute; top: -9999px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <img src="waiting_placeholder.png" alt="Waiting Icon">
-        <h1>아직 업로드 전입니다.</h1>
-        <p>말씀이 곧 업데이트될 예정입니다.<br>잠시만 기다려주세요.</p>
+<body class="antialiased text-gray-800">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        
+        <header class="bg-white rounded-xl shadow-lg p-8 mb-6 text-center border-t-8 border-indigo-900">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">[느9:23-38] 매일성경본문</h1>
+            <div class="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-600 font-medium mt-3">
+                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full">느헤미야 9:23-38</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> 김병훈 목사</span>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 2025-11-29</span>
+            </div>
+
+            <div class="mt-6 bg-indigo-50 border border-indigo-100 rounded-lg p-5 relative">
+                <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">핵심 주제</span>
+                <p class="text-indigo-900 font-medium text-lg leading-relaxed pt-2">
+                    "풍요 속에서도 하나님을 거역한 죄악과 그에 따른 징계가 있었으나, 끝까지 버리지 않으시는 <span class="keyword">하나님의 긍휼</span>을 의지하여 다시금 견고한 언약을 세워야 합니다."
+                </p>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6 flex justify-center items-center sticky top-4 z-50 ring-1 ring-gray-200">
+            <div id="player"></div> <button id="audio-control-btn" class="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-md transition-all transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">
+                <span id="btn-icon">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                </span>
+                <span id="btn-text" class="text-lg">설교 듣기</span>
+            </button>
+        </div>
+
+        <div class="scripture-text-section bg-stone-50 text-stone-700 p-6 rounded-lg shadow-inner mb-8 border-l-4 border-stone-400 text-sm leading-7">
+            <h3 class="font-bold text-stone-600 mb-3 flex items-center border-b border-stone-200 pb-2">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 19.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 19.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                느헤미야 9:23-38
+            </h3>
+            <div class="space-y-2 h-64 overflow-y-auto pr-2 custom-scrollbar">
+                <p><strong>23</strong> 주께서 그들의 자손을 하늘의 별같이 많게 하시고 전에 그들의 열조에게 들어가서 차지하라고 말씀하신 땅으로 인도하여 이르게 하셨으므로</p>
+                <p><strong>24</strong> 그 자손이 들어가서 땅을 차지하되 주께서 그 땅 가나안 주민들이 그들 앞에 복종하게 하실 때에 가나안 사람들과 그들의 왕들과 여러 족속들을 그들의 손에 넘겨 임의로 행하게 하시매</p>
+                <p><strong>25</strong> 그들이 견고한 성읍들과 기름진 땅을 점령하고 모든 아름다운 물건이 가득한 집과 판 우물과 포도원과 감람원과 허다한 과목을 차지하여 배불리 먹어 살찌고 주의 큰 복을 즐겼사오나</p>
+                <p><strong>26</strong> 그들은 순종하지 아니하고 주를 거역하며 주의 율법을 등지고 주께로 돌아오기를 권면하는 선지자들을 죽여 주를 심히 모독하였나이다</p>
+                <p><strong>27</strong> 그러므로 주께서 그들을 대적의 손에 넘기사 그들이 곤고를 당하게 하시매 그들이 환난을 당하여 주께 부르짖을 때에 주께서 하늘에서 들으시고 주의 크신 긍휼로 그들에게 구원자들을 주어 그들의 대적의 손에서 구원하셨거늘</p>
+                <p><strong>28</strong> 그들이 평강을 얻은 후에 다시 주 앞에서 악을 행하므로 주께서 그들을 원수들의 손에 버려 두사 원수들에게 지배를 당하게 하시다가 그들이 돌이켜 주께 부르짖으매 주께서 하늘에서 들으시고 여러 번 주의 긍휼로 건져내시고</p>
+                <p><strong>29</strong> 다시 주의 율법을 복종하게 하시려고 그들에게 경계하셨으나 그들이 교만하여 사람이 준행하면 그 가운데서 삶을 얻는 주의 계명을 듣지 아니하며 주의 규례를 범하여 고집하는 어깨를 내밀며 목을 굳게 하여 듣지 아니하였나이다</p>
+                <p><strong>31</strong> 주의 크신 긍휼로 그들을 아주 멸하지 아니하시며 버리지도 아니하셨사오니 주는 은혜로우시며 불쌍히 여기시는 하나님이심이니이다</p>
+                <p><strong>33</strong> 그러나 우리가 당한 모든 일에 주는 공의로우시니 우리는 악을 행하였사오나 주께서는 진실하게 행하셨음이니이다</p>
+                <p><strong>36</strong> 우리가 오늘날 종이 되었는데 곧 주께서 우리 조상들에게 주사 그것의 열매를 먹고 그것의 아름다운 소산을 누리게 하신 땅에서 우리가 종이 되었나이다</p>
+                <p><strong>37</strong> 우리의 죄로 말미암아 주께서 우리 위에 세우신 이방 왕들이 이 땅의 많은 소산을 얻고 그들이 우리의 몸과 가축을 임의로 관할하오니 우리의 곤란이 심하오며</p>
+                <p><strong>38</strong> 우리가 이 모든 일로 말미암아 이제 견고한 언약을 세워 기록하고 우리의 방백들과 레위 사람들과 제사장들이 다 인봉하나이다 하였느니라</p>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-6">
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-orange-500">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-orange-500">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    배경: 약속의 성취와 풍요
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    하나님께서는 아브라함에게 약속하신 대로 자손을 하늘의 별같이 많게 하시고, 약속의 땅 가나안을 정복하게 하셨습니다. 백성들은 <span class="keyword">견고한 성읍과 기름진 땅</span>을 차지하여 배불리 먹고 주의 큰 복을 즐겼습니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    이 풍요는 단순한 물질적 축복을 넘어, 장차 오실 예수 그리스도의 통치 아래 이루어질 영원한 하나님 나라의 기업을 예표하는 것이었습니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-rose-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-rose-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    죄악: 은혜를 망각한 배반
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    그러나 백성들은 은혜를 받고도 순종하지 않았습니다. 오히려 율법을 등지고, 주께로 돌아오라고 권면하는 선지자들을 죽이며 하나님을 심히 모독했습니다.
+                </p>
+                <blockquote class="text-sm">
+                    "그들이 평강을 얻은 후에 다시 주 앞에서 악을 행하므로..."
+                </blockquote>
+                <p class="mt-3 leading-relaxed text-gray-700">
+                    인간의 부패한 마음은 평안할 때 오히려 하나님을 망각하고 교만해집니다. 그들은 하나님의 목소리에 귀를 막고 고집스런 어깨를 내밀며 완악하게 행했습니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-purple-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-purple-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    성품: 긍휼과 오래 참으심
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    이스라엘의 반복되는 배반에도 불구하고, 하나님은 그들을 아주 멸하지 않으시고 버리지 않으셨습니다. 성경은 하나님을 <span class="keyword">"은혜로우시며 불쌍히 여기시는 하나님"</span>이라고 고백합니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    하나님의 징계는 멸망이 목적이 아니라 회복이 목적입니다. 여러 번 긍휼로 건져내시고 선지자를 통해 경계하신 것은 그들을 다시 율법 아래로, 즉 말씀의 복된 통치 아래로 복종하게 하시려는 사랑의 손길이었습니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-gray-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-gray-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                    현실: 공의로운 징계와 탄식
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    이스라엘은 지금 하나님이 주신 땅에서 종이 되었습니다. 그 땅의 소산은 이방 왕들의 차지가 되었고, 큰 곤란을 겪고 있습니다. 그들은 이 모든 고난 앞에서 "주는 공의로우시니 우리는 악을 행하였나이다"라고 고백합니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    현재의 고난이 죄로 인한 것임을 깨달을 때, 그것은 절망이 아니라 소망의 시작입니다. 하나님이 여전히 우리를 다루고 계신다는 증거이기 때문입니다.
+                </p>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-emerald-600">
+                <h2 class="text-xl font-bold mb-4 flex items-center text-emerald-600">
+                    <svg class="card-icon mr-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    결단: 견고한 언약의 갱신
+                </h2>
+                <p class="leading-relaxed mb-4">
+                    말씀을 통해 자신의 죄와 하나님의 긍휼을 깨달은 백성들은 이제 <span class="keyword">"견고한 언약(Firm Covenant)"</span>을 세우고 인봉합니다. 이는 단순한 후회가 아니라, 하나님께로 삶의 방향을 완전히 돌이키는 구체적인 결단입니다.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    우리 또한 중보자 되신 예수 그리스도를 의지하여 날마다 언약을 갱신해야 합니다. 비록 우리는 연약하여 넘어질지라도, 그리스도 안에 있는 자는 결코 하나님의 사랑에서 끊어지지 않음을 확신하며 감사함으로 순종의 길을 걸어가야 합니다.
+                </p>
+            </div>
+
+        </main>
+
+        <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
+            <p>© 설교 요약 인포그래픽 | Soli Deo Gloria</p>
+        </footer>
     </div>
+
+    <script>
+        // YouTube Iframe API Loading
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isPlaying = false;
+        var btn = document.getElementById('audio-control-btn');
+        var btnText = document.getElementById('btn-text');
+        var btnIcon = document.getElementById('btn-icon');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'yBraI8WvVSo',
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonState('playing');
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                isPlaying = false;
+                updateButtonState('paused');
+            } else if (event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonState('ended');
+            }
+        }
+
+        function updateButtonState(state) {
+            if (state === 'playing') {
+                btnText.innerText = "일시정지";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'paused') {
+                btnText.innerText = "다시 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>';
+            } else if (state === 'ended') {
+                btnText.innerText = "처음부터 듣기";
+                btnIcon.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
+            }
+        }
+
+        btn.addEventListener('click', function() {
+            if (player && player.playVideo) {
+                var state = player.getPlayerState();
+                if (state === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else if (state === YT.PlayerState.ENDED) {
+                    player.seekTo(0);
+                    player.playVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
