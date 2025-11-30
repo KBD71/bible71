@@ -1,165 +1,126 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11월 28일: 희생제사가 아닌 주의 만찬</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>11월 28일: 희생제사가 아닌 주의 만찬</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+<style>
         body {
             font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
         }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 antialiased">
-
-    <main class="max-w-3xl mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
-        
-        <header class="text-center space-y-2">
-            <div class="text-sm font-bold text-blue-600 tracking-wide uppercase">11월 28일</div>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">희생제사가 아닌 주의 만찬</h1>
-            <p class="text-gray-500 text-sm sm:text-base">신앙고백서 29.2</p>
-        </header>
-
-        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                <svg class="w-5 h-5 mr-2 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+<main class="max-w-3xl mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+<header class="text-center space-y-2">
+<div class="text-sm font-bold text-blue-600 tracking-wide uppercase">11월 28일</div>
+<h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">희생제사가 아닌 주의 만찬</h1>
+<p class="text-gray-500 text-sm sm:text-base">신앙고백서 29.2</p>
+</header>
+<section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+<h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+<svg class="w-5 h-5 mr-2 text-red-600" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" fill-rule="evenodd"></path></svg>
                 AI요약 듣기
             </h2>
-            
-            <div class="flex flex-col items-center justify-center bg-gray-50 rounded-xl p-6 border border-gray-100">
-                <div id="player-status" class="text-sm text-gray-500 mb-4 font-medium">오디오 로딩 중...</div>
-                
-                <div class="flex items-center gap-6">
-                    <button id="play-btn" disabled class="group flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed focus:outline-none focus:ring-4 focus:ring-blue-200" aria-label="교리 오디오 재생">
-                        <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    </button>
-                    
-                    <button id="pause-btn" class="hidden group flex items-center justify-center w-16 h-16 bg-white border-2 border-gray-200 rounded-full shadow-md hover:bg-gray-50 transition-all focus:outline-none focus:ring-4 focus:ring-gray-100" aria-label="교리 오디오 일시정지">
-                        <svg class="w-8 h-8 text-gray-600" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                    </button>
-                </div>
-                <div class="mt-4 text-xs text-gray-400">화면 없이 오디오만 재생됩니다</div>
-            </div>
-
-            <div class="absolute opacity-0 pointer-events-none w-px h-px overflow-hidden">
-                <div id="youtube-player"></div>
-            </div>
-            
-            <div id="error-message" class="hidden mt-4 p-4 bg-yellow-50 text-yellow-800 rounded-lg text-sm text-center"></div>
-        </section>
-
-        <section class="bg-white rounded-2xl shadow-lg overflow-hidden border-l-4 border-blue-600">
-            <div class="p-6 sm:p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">신앙고백서 29.2</h2>
-                <div class="prose prose-blue max-w-none text-gray-700 leading-relaxed">
-                    <p>
+<div class="flex flex-col items-center justify-center bg-gray-50 rounded-xl p-6 border border-gray-100">
+<div class="text-sm text-gray-500 mb-4 font-medium" id="player-status">오디오 로딩 중...</div>
+<div class="flex items-center gap-6">
+<button aria-label="교리 오디오 재생" class="group flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed focus:outline-none focus:ring-4 focus:ring-blue-200" disabled="" id="play-btn">
+<svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+</button>
+<button aria-label="교리 오디오 일시정지" class="hidden group flex items-center justify-center w-16 h-16 bg-white border-2 border-gray-200 rounded-full shadow-md hover:bg-gray-50 transition-all focus:outline-none focus:ring-4 focus:ring-gray-100" id="pause-btn">
+<svg class="w-8 h-8 text-gray-600" fill="currentColor" viewbox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+</button>
+</div>
+<div class="mt-4 text-xs text-gray-400">화면 없이 오디오만 재생됩니다</div>
+</div>
+<div class="absolute opacity-0 pointer-events-none w-px h-px overflow-hidden">
+<div id="youtube-player"></div>
+</div>
+<div class="hidden mt-4 p-4 bg-yellow-50 text-yellow-800 rounded-lg text-sm text-center" id="error-message"></div>
+</section>
+<section class="bg-white rounded-2xl shadow-lg overflow-hidden border-l-4 border-blue-600">
+<div class="p-6 sm:p-8">
+<h2 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">신앙고백서 29.2</h2>
+<div class="prose prose-blue max-w-none text-gray-700 leading-relaxed">
+<p>
                         이 성례에서 그리스도께서 성부 하나님께 바쳐지는 것이 아니며, 또한 산 자와 죽은 자의 죄 사함을 위한 희생제사가 실제로 행해지는 것도 결코 아니다.<sup>1)</sup> 단지 십자가 위에서 단번에 스스로 자신을 바치신 그 한 번의 봉헌을 기념하는 것일 뿐이다. 그리고 이것에 대해 할 수 있는 모든 찬송을 하나님께 영적으로 올려드리는 것일 뿐이다.<sup>2)</sup> 그러므로 교황주의자들이 미사라고 부르는 희생제사는 선택받은 자들의 모든 죄를 위한 유일한 화목제물, 곧 그리스도의 단 하나뿐인 희생제사에 대한 지극히 혐오스러운 훼손이다.<sup>3)</sup>
-                    </p>
-                    <div class="mt-4 text-sm text-gray-500 bg-gray-50 p-3 rounded">
-                        <p>1) 히 9:22, 25-26, 28.</p>
-                        <p>2) 고전 11:24-26; 마 26:26-27.</p>
-                        <p>3) 히 7:23-24, 27; 10:11-12, 14, 18.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-blue-50 rounded-2xl shadow-sm border border-blue-100 p-6">
-            <h3 class="text-lg font-bold text-blue-900 mb-3 flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+</p>
+<div class="mt-4 text-sm text-gray-500 bg-gray-50 p-3 rounded">
+<p>1) 히 9:22, 25-26, 28.</p>
+<p>2) 고전 11:24-26; 마 26:26-27.</p>
+<p>3) 히 7:23-24, 27; 10:11-12, 14, 18.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-blue-50 rounded-2xl shadow-sm border border-blue-100 p-6">
+<h3 class="text-lg font-bold text-blue-900 mb-3 flex items-center">
+<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                 관련 말씀
             </h3>
-            <ul class="space-y-3 text-gray-700 leading-relaxed">
-                <li>
-                    <span class="font-semibold text-blue-800">히 9:26</span> "이제 자기를 단번에 제물로 드려 죄를 없이 하시려고 세상 끝에 나타나셨느니라"
+<ul class="space-y-3 text-gray-700 leading-relaxed">
+<li>
+<span class="font-semibold text-blue-800">히 9:26</span> "이제 자기를 단번에 제물로 드려 죄를 없이 하시려고 세상 끝에 나타나셨느니라"
                 </li>
-                <li>
-                    <span class="font-semibold text-blue-800">히 9:28</span> "이와 같이 그리스도도 많은 사람의 죄를 담당하시려고 단번에 드리신 바 되셨고"
+<li>
+<span class="font-semibold text-blue-800">히 9:28</span> "이와 같이 그리스도도 많은 사람의 죄를 담당하시려고 단번에 드리신 바 되셨고"
                 </li>
-                <li>
-                    <span class="font-semibold text-blue-800">고전 11:24-26</span> "...이것을 행하여 나를 기념하라 하시고... 너희가 이 떡을 먹으며 이 잔을 마실 때마다 주의 죽으심을 그가 오실 때까지 전하는 것이니라"
+<li>
+<span class="font-semibold text-blue-800">고전 11:24-26</span> "...이것을 행하여 나를 기념하라 하시고... 너희가 이 떡을 먹으며 이 잔을 마실 때마다 주의 죽으심을 그가 오실 때까지 전하는 것이니라"
                 </li>
-                <li>
-                    <span class="font-semibold text-blue-800">히 10:12, 14</span> "오직 그리스도는 죄를 위하여 한 영원한 제사를 드리시고 하나님 우편에 앉으사... 그가 거룩하게 된 자들을 한 번의 제사로 영원히 온전하게 하셨느니라"
+<li>
+<span class="font-semibold text-blue-800">히 10:12, 14</span> "오직 그리스도는 죄를 위하여 한 영원한 제사를 드리시고 하나님 우편에 앉으사... 그가 거룩하게 된 자들을 한 번의 제사로 영원히 온전하게 하셨느니라"
                 </li>
-            </ul>
-        </section>
-
-        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8">
-            <h3 class="text-xl font-bold text-gray-900 mb-6 border-b pb-2">교리 해설</h3>
-            <div class="prose prose-lg max-w-none text-gray-700 space-y-6">
-                <p>
+</ul>
+</section>
+<section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8">
+<h3 class="text-xl font-bold text-gray-900 mb-6 border-b pb-2">교리 해설</h3>
+<div class="prose prose-lg max-w-none text-gray-700 space-y-6">
+<p>
                     신앙고백서 29.2는 로마 가톨릭의 <strong class="text-blue-600">미사(Mass)</strong> 교리를 반박하며, 그리스도의 단번의 희생제사(One Sacrifice)가 갖는 완전성과 충족성을 확증합니다.
                 </p>
-
-                <div class="bg-gray-50 p-5 rounded-lg border-l-4 border-gray-400">
-                    <h4 class="font-bold text-gray-900 mb-2">1. 성찬은 제사(Sacrifice)가 아닙니다</h4>
-                    <p class="mb-2">
+<div class="bg-gray-50 p-5 rounded-lg border-l-4 border-gray-400">
+<h4 class="font-bold text-gray-900 mb-2">1. 성찬은 제사(Sacrifice)가 아닙니다</h4>
+<p class="mb-2">
                         성찬은 그리스도를 하나님께 다시 바치는 제사가 아닙니다. 또한 산 자와 죽은 자의 죄를 사하기 위해 실제로 행해지는 희생제사도 결코 아닙니다.
                     </p>
-                    <ul class="list-disc list-inside space-y-1 ml-2">
-                        <li><strong>미사 비판:</strong> 로마 가톨릭은 미사가 십자가 제사의 '재현'이자, 피 흘림 없는 방식으로 반복되는 '실제적인 속죄제사'라고 주장합니다. 그들은 사제가 축성한 성체(그리스도의 몸)를 하나님께 바침으로써 산 자뿐 아니라 연옥에 있는 죽은 자들의 죄까지 사해진다고 가르칩니다.</li>
-                        <li><strong>신앙고백서의 입장:</strong> 신앙고백서는 이러한 미사 교리를 <strong class="text-red-600">"지극히 혐오스러운 훼손"</strong>이라고 단호히 배격합니다. 이는 그리스도께서 십자가에서 단번에 이루신 구속 사역의 완전성을 부정하는 것이기 때문입니다.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-400">
-                    <h4 class="font-bold text-gray-900 mb-2">2. 성찬은 기념(Commemoration)입니다</h4>
-                    <p class="mb-2">
+<ul class="list-disc list-inside space-y-1 ml-2">
+<li><strong>미사 비판:</strong> 로마 가톨릭은 미사가 십자가 제사의 '재현'이자, 피 흘림 없는 방식으로 반복되는 '실제적인 속죄제사'라고 주장합니다. 그들은 사제가 축성한 성체(그리스도의 몸)를 하나님께 바침으로써 산 자뿐 아니라 연옥에 있는 죽은 자들의 죄까지 사해진다고 가르칩니다.</li>
+<li><strong>신앙고백서의 입장:</strong> 신앙고백서는 이러한 미사 교리를 <strong class="text-red-600">"지극히 혐오스러운 훼손"</strong>이라고 단호히 배격합니다. 이는 그리스도께서 십자가에서 단번에 이루신 구속 사역의 완전성을 부정하는 것이기 때문입니다.</li>
+</ul>
+</div>
+<div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-400">
+<h4 class="font-bold text-gray-900 mb-2">2. 성찬은 기념(Commemoration)입니다</h4>
+<p class="mb-2">
                         성찬은 십자가 위에서 단번에 스스로 자신을 바치신 그 한 번의 봉헌을 <strong class="text-blue-600">기념</strong>하는 것입니다.
                     </p>
-                    <ul class="list-disc list-inside space-y-1 ml-2">
-                        <li><strong>단회성(One-time):</strong> 그리스도의 제사는 구약의 제사처럼 반복될 필요가 없는, 단 한 번으로 영원히 완전한 제사입니다(히 10:12, 14).</li>
-                        <li><strong>기념의 의미:</strong> '기념'은 단순한 회상이 아니라, 그 단번의 제사로 성취된 은혜를 믿음 안에서 현재적으로 확증하고 누리는 언약적 행위입니다.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-yellow-50 p-5 rounded-lg border-l-4 border-yellow-400">
-                    <h4 class="font-bold text-gray-900 mb-2">3. 성찬은 찬송의 제사(Spiritual Offering)입니다</h4>
-                    <p class="mb-2">
+<ul class="list-disc list-inside space-y-1 ml-2">
+<li><strong>단회성(One-time):</strong> 그리스도의 제사는 구약의 제사처럼 반복될 필요가 없는, 단 한 번으로 영원히 완전한 제사입니다(히 10:12, 14).</li>
+<li><strong>기념의 의미:</strong> '기념'은 단순한 회상이 아니라, 그 단번의 제사로 성취된 은혜를 믿음 안에서 현재적으로 확증하고 누리는 언약적 행위입니다.</li>
+</ul>
+</div>
+<div class="bg-yellow-50 p-5 rounded-lg border-l-4 border-yellow-400">
+<h4 class="font-bold text-gray-900 mb-2">3. 성찬은 찬송의 제사(Spiritual Offering)입니다</h4>
+<p class="mb-2">
                         성찬에서 우리가 드리는 것은 속죄를 위한 제물이 아니라, <strong class="text-blue-600">감사와 찬송</strong>입니다.
                     </p>
-                    <ul class="list-disc list-inside space-y-1 ml-2">
-                        <li><strong>영적 봉헌:</strong> 우리는 이미 이루어진 구속의 은혜에 감사하며, "할 수 있는 모든 찬송을 하나님께 영적으로 올려드리는 것"입니다.</li>
-                        <li><strong>헌신:</strong> 이는 곧 우리 자신을 하나님께 '거룩한 산 제물'(롬 12:1)로 드리는 헌신의 예배입니다.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+<ul class="list-disc list-inside space-y-1 ml-2">
+<li><strong>영적 봉헌:</strong> 우리는 이미 이루어진 구속의 은혜에 감사하며, "할 수 있는 모든 찬송을 하나님께 영적으로 올려드리는 것"입니다.</li>
+<li><strong>헌신:</strong> 이는 곧 우리 자신을 하나님께 '거룩한 산 제물'(롬 12:1)로 드리는 헌신의 예배입니다.</li>
+</ul>
+</div>
+</div>
+</section>
 
-        <section class="bg-white rounded-2xl shadow-sm border border-yellow-200 p-6">
-            <h3 class="text-lg font-bold text-yellow-800 mb-4 flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                적용 질문
-            </h3>
-            <ul class="space-y-4">
-                <li class="bg-yellow-50 p-4 rounded-lg">
-                    <span class="font-bold text-yellow-900 block mb-1">1. 신앙고백서 29.2는 왜 로마 가톨릭의 미사 교리를 반박하고 그리스도의 단번의 희생제사를 강조합니까?</span>
-                    <p class="text-gray-700 text-sm">여러분은 성찬이 반복되는 제사가 아니라, 오직 한 번 단번에 드려진 그리스도의 완전한 희생을 기념하고 감사하는 예식임을 기억하며, 성찬에 참여할 때마다 그리스도의 구속의 완전함과 충분함을 신뢰하고 계십니까?</p>
-                </li>
-                <li class="bg-yellow-50 p-4 rounded-lg">
-                    <span class="font-bold text-yellow-900 block mb-1">2. 로마 가톨릭이 미사를 반복적인 속죄제사로 이해하는 것은 어떤 신학적 문제를 드러냅니까?</span>
-                    <p class="text-gray-700 text-sm">여러분은 인간의 제의나 행위가 아니라 오직 그리스도의 단번의 희생과 하나님의 은혜만이 죄를 사하는 근거임을 믿고, 구원의 확신을 자신의 행위나 자격이 아닌 십자가의 완전한 은혜에 두고 살아가고 계십니까?</p>
-                </li>
-                <li class="bg-yellow-50 p-4 rounded-lg">
-                    <span class="font-bold text-yellow-900 block mb-1">3. 신앙고백서가 성찬을 "기념"이라 부르는 이유는 무엇입니까?</span>
-                    <p class="text-gray-700 text-sm">여러분은 성찬을 단순한 상징적 회상으로 여기지 않고, 그리스도의 단번의 희생으로 주어진 은혜를 믿음으로 새롭게 확증하며, 감사와 찬양으로 하나님께 헌신하는 언약적 예배로서 성찬에 참여하고 계십니까?</p>
-                </li>
-                <li class="bg-yellow-50 p-4 rounded-lg">
-                    <span class="font-bold text-yellow-900 block mb-1">4. 왜 신앙고백서는 로마 가톨릭의 미사를 "지극히 혐오스러운 훼손"이라고까지 표현합니까?</span>
-                    <p class="text-gray-700 text-sm">여러분은 그리스도의 단번의 희생제사를 다른 어떤 제의나 중보적 행위로 대신하거나 덧붙이려는 시도가 곧 복음의 본질을 훼손하는 일임을 분명히 인식하며, 오직 십자가의 공로만을 의지하여 하나님께 감사와 경배를 드리고 계십니까?</p>
-                </li>
-            </ul>
-        </section>
-
-        <footer class="text-center text-gray-500 text-xs sm:text-sm mt-8 pb-8">
+<footer class="text-center text-gray-500 text-xs sm:text-sm mt-8 pb-8">
             교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다
         </footer>
-    </main>
-
-    <script>
+</main>
+<script>
         // Constants
         const ADDRESS_FILE_URL = '../address/dcaddr.txt';
         const DATE_KEY = '1128'; // MMDD format for November 28
