@@ -3,50 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업로드 대기 중</title>
+    <title>설교 요약: 언약 백성의 결단</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f7f9fc;
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            max-width: 400px;
-            width: 90%;
-        }
-        img {
-            width: 150px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 24px;
-            margin: 0 0 10px 0;
-            color: #2c3e50;
-        }
-        p {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin: 0;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f3f4f6; }
+        .card-icon { width: 24px; height: 24px; display: inline-block; vertical-align: text-bottom; }
+        .keyword { background-color: #fef3c7; color: #92400e; padding: 0 4px; border-radius: 4px; font-weight: 600; }
+        .scripture-text-section strong { color: #2563eb; margin-right: 4px; font-size: 0.9em; vertical-align: super; }
+        .scripture-text-section p { margin-bottom: 0.5rem; line-height: 1.6; }
+        /* Hide scrollbar for cleaner look in scripture box */
+        .scripture-box::-webkit-scrollbar { width: 6px; }
+        .scripture-box::-webkit-scrollbar-track { background: #f1f1f1; }
+        .scripture-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .scripture-box::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <img src="waiting_placeholder.png" alt="Waiting Icon">
-        <h1>아직 업로드 전입니다.</h1>
-        <p>말씀이 곧 업데이트될 예정입니다.<br>잠시만 기다려주세요.</p>
+<body class="min-h-screen p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto space-y-6">
+        
+        <header class="bg-white rounded-xl shadow-sm p-8 text-center border-b-4 border-indigo-900">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight">언약 백성의 결단: 하나님의 전을 버려두지 아니하리라</h1>
+            <div class="inline-flex items-center justify-center space-x-2 text-gray-600 font-medium bg-gray-100 px-4 py-2 rounded-full text-sm md:text-base">
+                <span>느헤미야 10:1-39</span>
+                <span class="text-gray-300">|</span>
+                <span>김대복 목사</span>
+                <span class="text-gray-300">|</span>
+                <span>2025-12-01</span>
+            </div>
+            
+            <div class="mt-8 p-6 bg-indigo-50 border border-indigo-100 rounded-lg text-left relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                <h3 class="text-indigo-900 font-bold text-lg mb-2 flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    핵심 주제
+                </h3>
+                <p class="text-indigo-800 leading-relaxed font-medium">
+                    "참된 회개는 막연한 감정이 아니라, 말씀을 따라 삶의 구체적인 영역(결혼, 안식일, 물질)에서 하나님을 최우선으로 두는 <span class="keyword">실천적 결단</span>이며, 이를 통해 하나님의 전(교회)을 거룩하게 세워가는 헌신입니다."
+                </p>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div id="player" style="position: absolute; top: -9999px;"></div>
+            
+            <div class="flex flex-col items-center justify-center mb-6">
+                <button id="audioControlBtn" class="flex items-center space-x-3 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-full transition-all duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 group">
+                    <span id="btnIcon" class="text-xl">▶</span>
+                    <span id="btnText" class="font-bold">설교 듣기</span>
+                </button>
+                <p class="text-xs text-gray-400 mt-2">버튼을 눌러 설교 오디오를 재생하거나 일시정지할 수 있습니다.</p>
+            </div>
+
+            <div class="scripture-text-section border-t border-gray-100 pt-4">
+                <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">설교 본문 (느헤미야 10:1-39)</h4>
+                <div class="scripture-box max-h-60 overflow-y-auto bg-gray-50 p-4 rounded text-gray-700 text-sm leading-relaxed border border-gray-200">
+                    <p><strong>1</strong>그 인봉한 자는 하가랴의 아들 총독 느헤미야와 시드기야,</p>
+                    <p><strong>2-8</strong>스라야, 아사랴, 예레미야... (제사장들)</p>
+                    <p><strong>9-13</strong>또 레위 사람 곧 아사냐의 아들 예수아... (레위 사람들)</p>
+                    <p><strong>14-27</strong>또 백성의 두목들 곧 바로스... (백성의 지도자들)</p>
+                    <p><strong>28</strong>그 남은 백성과 제사장들과 레위 사람들과 문지기들과 노래하는 자들과 느디님 사람들과 및 이방 사람과 절교하고 하나님의 율법을 준행하는 모든 자와 그들의 아내와 그들의 자녀들 곧 지식과 총명이 있는 자들은</p>
+                    <p><strong>29</strong>다 그들의 형제 귀족들을 따라 저주로 맹세하기를 우리가 하나님의 종 모세를 통하여 주신 하나님의 율법을 따라 우리 주 여호와의 모든 계명과 규례와 율례를 지켜 행하여</p>
+                    <p><strong>30</strong>우리의 딸들을 이 땅 백성에게 주지 아니하고 우리의 아들들을 위하여 그들의 딸들을 데려오지 아니하며</p>
+                    <p><strong>31</strong>혹시 이 땅 백성이 안식일에 물품이나 온갖 곡물을 가져다가 팔려고 할지라도 우리가 안식일이나 성일에는 그들에게서 사지 않겠고 일곱째 해마다 땅을 쉬게 하고 모든 빚을 탕감하리라 하였고</p>
+                    <p><strong>32</strong>우리가 또 스스로 규례를 정하기를 해마다 각기 세겔의 삼분의 일을 수납하여 하나님의 전을 위하여 쓰게 하되</p>
+                    <p><strong>33</strong>곧 진설병과 항상 드리는 소제와 항상 드리는 번제와 안식일과 초하루와 정한 절기에 쓸 것과 성물과 이스라엘을 위하는 속죄제와 우리 하나님의 전의 모든 일을 위하여 쓰게 하였고</p>
+                    <p><strong>34</strong>또 우리 제사장들과 레위 사람들과 백성들이 제비 뽑아 각기 종족대로 해마다 정한 시기에 나무를 우리 하나님의 전에 바쳐 율법에 기록한 대로 우리 하나님 여호와의 제단에 사르게 하였고</p>
+                    <p><strong>35</strong>해마다 우리 토지 소산의 맏물과 각종 과목의 첫 열매를 여호와의 전에 드리기로 하였고</p>
+                    <p><strong>36</strong>또 우리의 맏아들들과 가축의 처음 난 것과 소와 양의 처음 난 것을 율법에 기록된 대로 우리 하나님의 전으로 가져다가 우리 하나님의 전에서 섬기는 제사장들에게 주고</p>
+                    <p><strong>37</strong>또 처음 익은 밀의 가루와 거제물과 각종 과목의 열매와 새 포도주와 기름을 제사장들에게로 가져다가 우리 하나님의 전의 여러 방에 두고 또 우리 산물의 십일조를 레위 사람들에게 주리라 하였나니 이 레위 사람들은 우리의 모든 성읍에서 산물의 십일조를 받는 자임이며</p>
+                    <p><strong>38</strong>레위 사람들이 십일조를 받을 때에는 아론의 자손 제사장 한 사람이 함께 있을 것이요 레위 사람들은 그 십일조의 십분의 일을 가져다가 우리 하나님의 전 곳간의 여러 방에 두되</p>
+                    <p><strong>39</strong>곧 이스라엘 자손과 레위 자손이 거제로 드린 곡식과 새 포도주와 기름을 가져다가 성소의 그릇들을 두는 골방 곧 섬기는 제사장들과 문지기들과 노래하는 자들이 있는 골방에 둘 것이라 그리하여 우리가 우리 하나님의 전을 버려 두지 아니하리라</p>
+                </div>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-6">
+            
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-orange-500">
+                <h3 class="font-bold text-xl mb-3 flex items-center text-orange-500">
+                    <svg class="card-icon mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    언약에 인봉한 자들: 공동체의 헌신
+                </h3>
+                <p class="leading-relaxed mb-4">
+                    본문은 하나님 앞에서의 결단을 문서화하고 도장을 찍은 사람들의 명단을 상세히 기록하고 있습니다. 이는 느헤미야와 같은 지도자뿐만 아니라 제사장, 레위인, 그리고 "지식과 총명이 있는" 모든 백성과 그들의 자녀들까지 포함된 <span class="keyword">전 국가적인 언약 갱신</span>이었습니다.
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li>
+                        <strong>자발적인 참여:</strong> 이들은 억지로가 아니라, 말씀 앞에서 자신들의 죄를 깨닫고 자발적으로 언약에 참여하였습니다.
+                    </li>
+                    <li>
+                        <strong>저주로 맹세함:</strong> "저주로 맹세했다"는 표현은 그만큼 이 결단이 엄중하고 진지했음을 보여줍니다. 그들은 하나님의 율법을 삶의 절대적인 기준으로 삼기로 서약했습니다.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-blue-600">
+                <h3 class="font-bold text-xl mb-3 flex items-center text-blue-600">
+                    <svg class="card-icon mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    거룩한 구별: 이방인 통혼 금지와 안식일
+                </h3>
+                <p class="leading-relaxed mb-4">
+                    언약 백성으로서의 첫 번째 구체적인 적용은 '세상과의 구별'이었습니다. 이는 단순한 배타주의가 아니라, 신앙의 순수성을 지키기 위한 영적인 방어벽을 세우는 일이었습니다.
+                </p>
+                <blockquote class="border-l-4 border-blue-200 pl-4 italic text-gray-600 mb-4 bg-gray-50 py-2 pr-2">
+                    "우리의 딸들을 이 땅 백성에게 주지 아니하고... 혹시 이 땅 백성이 안식일에 물품을... 팔려고 할지라도 우리가... 사지 않겠고" (30-31절)
+                </blockquote>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li>
+                        <strong>통혼 금지:</strong> 이는 혈통의 문제가 아니라 <span class="keyword">신앙의 혼합</span>을 막기 위함입니다. 가정은 신앙 전수의 못자리이기에, 불신 결혼을 통해 우상숭배가 들어오는 것을 철저히 경계했습니다.
+                    </li>
+                    <li>
+                        <strong>안식일 준수:</strong> 경제적 이익보다 하나님의 말씀을 우선순위에 두겠다는 신앙고백입니다. 7년마다 땅을 쉬게 하고 빚을 탕감하는 것은, 나의 공급자가 땅이나 채무자가 아니라 오직 하나님이심을 인정하는 믿음의 행위입니다.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-emerald-600">
+                <h3 class="font-bold text-xl mb-3 flex items-center text-emerald-600">
+                    <svg class="card-icon mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    예배 회복을 위한 구체적 헌신
+                </h3>
+                <p class="leading-relaxed mb-4">
+                    백성들은 성전의 기능이 멈추지 않도록 물질적 헌신을 다짐합니다. 당시 경제적으로 어려운 상황이었음에도 불구하고, 그들은 하나님의 집을 위해 자신들의 소유를 구별하여 드렸습니다.
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li>
+                        <strong>성전세 (3분의 1 세겔):</strong> 본래 율법(출애굽기)의 반 세겔보다 줄어든 액수이나, 이는 가난한 현실 속에서도 <span class="keyword">자원하는 마음</span>으로 성전 유지를 위해 최선을 다했음을 보여줍니다.
+                    </li>
+                    <li>
+                        <strong>나무 헌물과 첫 열매:</strong> 제단 불이 꺼지지 않도록 나무를 바치고, 토지 소산의 맏물과 가축의 첫 새끼를 드림으로써 모든 소유의 주권이 하나님께 있음을 고백했습니다.
+                    </li>
+                    <li>
+                        <strong>십일조의 회복:</strong> 레위인과 제사장들이 생계 걱정 없이 성전 봉사에 전념할 수 있도록 십일조를 철저히 구별하여 드렸습니다. 이는 성전 제사(예배)가 지속되게 하는 필수적인 헌신이었습니다.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card bg-white text-gray-800 rounded-lg shadow-lg p-6 border-t-4 border-gray-600">
+                <h3 class="font-bold text-xl mb-3 flex items-center text-gray-600">
+                    <svg class="card-icon mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    결론: 우리가 우리 하나님의 전을 버려두지 아니하리라
+                </h3>
+                <p class="leading-relaxed mb-4">
+                    모든 맹세의 결론은 <span class="keyword">"우리가 우리 하나님의 전을 버려두지 아니하리라"</span>(39절)는 다짐으로 귀결됩니다. 회개는 입술의 고백에서 끝나지 않고, 예배의 회복과 교회를 위한 구체적인 책임 이행으로 완성됩니다.
+                </p>
+                <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                    <li>
+                        <strong>회개에 합당한 열매:</strong> 참된 신앙은 말씀을 삶의 규범으로 삼고, 구체적인 생활(결혼, 시간, 물질)에서 하나님의 주권을 인정하는 것입니다.
+                    </li>
+                    <li>
+                        <strong>은혜의 필요성:</strong> 이스라엘 백성들의 이러한 결단은 귀하지만, 인간의 의지만으로는 온전히 지킬 수 없음을 역사는 보여줍니다. 그렇기에 우리는 매일 십자가의 은혜를 의지하며, 성령의 도우심을 구해야 합니다.
+                    </li>
+                </ul>
+            </div>
+
+        </main>
     </div>
+
+    <script>
+        var player;
+        var isPlaying = false;
+        var btnIcon = document.getElementById('btnIcon');
+        var btnText = document.getElementById('btnText');
+        var controlBtn = document.getElementById('audioControlBtn');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'JjRRStx5ufY', // 설교 영상 ID
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                btnIcon.textContent = '❚❚';
+                btnText.textContent = '일시정지';
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                isPlaying = false;
+                btnIcon.textContent = '▶';
+                btnText.textContent = '다시 듣기';
+            } else if (event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
+                btnIcon.textContent = '↻';
+                btnText.textContent = '처음부터 듣기';
+            }
+        }
+
+        controlBtn.addEventListener('click', function() {
+            if (!player) return;
+            var state = player.getPlayerState();
+            
+            if (state == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else if (state == YT.PlayerState.ENDED) {
+                player.seekTo(0);
+                player.playVideo();
+            } else {
+                player.playVideo();
+            }
+        });
+
+        // Load Youtube API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
 </body>
 </html>
