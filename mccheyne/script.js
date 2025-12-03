@@ -188,6 +188,15 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'auto' });
         updateFloatingNav();
         setTimeout(updateReadingProgress, 150);
+
+        // 오디오 플레이어가 활성화된 상태라면 탭 이동 시 해당 탭의 오디오로 자동 전환
+        if (audioPlayerBar.classList.contains('visible')) {
+            const activeContent = tabContents[index];
+            const audioBtn = activeContent.querySelector('.listen-audio-btn');
+            if (audioBtn) {
+                playAudio(audioBtn);
+            }
+        }
     }
 
     function playAudio(button) {
