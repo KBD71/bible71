@@ -831,7 +831,18 @@
             };
 
             closeBtn.onclick = () => {
-                hideContent();
+                // Stop audio and hide player, but keep content
+                if (playerInterval) clearInterval(playerInterval);
+                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
+                    ytPlayer.stopVideo();
+                }
+                ytPlayer = null;
+
+                const playerUI = document.getElementById('global-player');
+                if (playerUI) {
+                    playerUI.classList.add('translate-y-full');
+                    setTimeout(() => playerUI.style.display = 'none', 300);
+                }
             };
         }
 
@@ -1184,7 +1195,7 @@
             });
 
             document.getElementById('home-button').addEventListener('click', () => {
-                document.getElementById('content-view').style.display = 'none';
+                hideContent();
             });
 
             document.getElementById('font-decrease').addEventListener('click', () => changeFontSize(-10));
