@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (url) {
             const videoId = getYouTubeID(url);
             if (videoId) {
-                ytPlayer.loadVideoById(videoId);
+                ytPlayer.cueVideoById(videoId);
                 playerInfo.textContent = `재생 중: ${title}`;
                 floatingNav.classList.add('hidden');
                 audioPlayerBar.classList.add('visible');
