@@ -15,7 +15,12 @@ function findVideoId() {
     // 1. Try Hidden Input (New Method)
     const hiddenInput = document.getElementById('youtube-link');
     if (hiddenInput && hiddenInput.value) {
-        const url = hiddenInput.value;
+        let url = hiddenInput.value;
+        // Clean up Markdown syntax if present [url](url)
+        if (url.startsWith('[') && url.includes('](')) {
+            const match = url.match(/\((.*?)\)/);
+            if (match) url = match[1];
+        }
         videoId = getYouTubeID(url);
         if (videoId) {
             console.log(`Found video ID from hidden input: ${videoId}`);
@@ -88,7 +93,23 @@ function onYouTubeIframeAPIReady() {
 function createPlayer() {
     if (isPlayerReady) return;
 
-    player = new YT.Player('hidden-player-container', {
+    let containerId = 'hidden-player-container';
+    let container = document.getElementById(containerId);
+
+    if (!container) {
+        // Auto-create container if missing (for new design without visible player)
+        container = document.createElement('div');
+        container.id = containerId;
+        // Make it invisible but present in DOM
+        container.style.width = '1px';
+        container.style.height = '1px';
+        container.style.position = 'absolute';
+        container.style.top = '-9999px';
+        container.style.left = '-9999px';
+        document.body.appendChild(container);
+    }
+
+    player = new YT.Player(containerId, {
         height: '1',
         width: '1',
         videoId: videoId,
@@ -162,6 +183,7 @@ function updateButtonState(state, text) {
 document.addEventListener('DOMContentLoaded', () => {
     if (listenBtn) {
         listenBtn.addEventListener('click', togglePlay);
-        findVideoId();
     }
+    // Always search for video ID, regardless of button existence
+    findVideoId();
 });
