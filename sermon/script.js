@@ -145,6 +145,7 @@ function togglePlay() {
     if (player.getPlayerState() == YT.PlayerState.PLAYING) {
         player.pauseVideo();
     } else {
+        updateButtonState('loading', '로딩 중...');
         player.playVideo();
     }
 }

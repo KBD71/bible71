@@ -12,8 +12,26 @@ const playIcon = document.getElementById('play-icon');
 const pauseIcon = document.getElementById('pause-icon');
 const loadingIcon = document.getElementById('loading-icon');
 
-// 1. Find Video ID from HTML Comment
-function findVideoIdFromComment() {
+// 1. Find Video ID (Hidden Input or HTML Comment)
+function findVideoId() {
+    // 1. Try Hidden Input (New Method)
+    const hiddenInput = document.getElementById('youtube-link');
+    if (hiddenInput && hiddenInput.value) {
+        let url = hiddenInput.value;
+        // Clean up Markdown syntax if present [url](url)
+        if (url.startsWith('[') && url.includes('](')) {
+            const match = url.match(/\((.*?)\)/);
+            if (match) url = match[1];
+        }
+        videoId = getYouTubeID(url);
+        if (videoId) {
+            console.log(`Found video ID from hidden input: ${videoId}`);
+            initYouTubeAPI();
+            return;
+        }
+    }
+
+    // 2. Fallback: HTML Comment (Old Method)
     const iterator = document.createNodeIterator(
         document.documentElement,
         NodeFilter.SHOW_COMMENT,
@@ -76,7 +94,22 @@ function onYouTubeIframeAPIReady() {
 function createPlayer() {
     if (isPlayerReady) return;
 
-    player = new YT.Player('hidden-player-container', {
+    let containerId = 'hidden-player-container';
+    let container = document.getElementById(containerId);
+
+    if (!container) {
+        // Auto-create container if missing
+        container = document.createElement('div');
+        container.id = containerId;
+        container.style.width = '1px';
+        container.style.height = '1px';
+        container.style.position = 'absolute';
+        container.style.top = '-9999px';
+        container.style.left = '-9999px';
+        document.body.appendChild(container);
+    }
+
+    player = new YT.Player(containerId, {
         height: '1',
         width: '1',
         videoId: videoId,
@@ -112,6 +145,7 @@ function togglePlay() {
     if (player.getPlayerState() == YT.PlayerState.PLAYING) {
         player.pauseVideo();
     } else {
+        updateButtonState('loading', '로딩 중...');
         player.playVideo();
     }
 }
@@ -155,6 +189,6 @@ function updateButtonState(state, text) {
 document.addEventListener('DOMContentLoaded', () => {
     if (listenBtn) {
         listenBtn.addEventListener('click', togglePlay);
-        findVideoIdFromComment();
     }
+    findVideoId();
 });
