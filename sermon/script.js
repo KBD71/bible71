@@ -10,8 +10,21 @@ const listenBtn = document.getElementById('play-btn');
 const buttonText = document.getElementById('btn-text');
 const iconSpan = document.getElementById('btn-icon');
 
-// 1. Find Video ID from HTML Comment
-function findVideoIdFromComment() {
+// 1. Find Video ID (Hidden Input or HTML Comment)
+function findVideoId() {
+    // 1. Try Hidden Input (New Method)
+    const hiddenInput = document.getElementById('youtube-link');
+    if (hiddenInput && hiddenInput.value) {
+        const url = hiddenInput.value;
+        videoId = getYouTubeID(url);
+        if (videoId) {
+            console.log(`Found video ID from hidden input: ${videoId}`);
+            initYouTubeAPI();
+            return;
+        }
+    }
+
+    // 2. Fallback: HTML Comment (Old Method)
     const iterator = document.createNodeIterator(
         document.documentElement,
         NodeFilter.SHOW_COMMENT,
@@ -149,6 +162,6 @@ function updateButtonState(state, text) {
 document.addEventListener('DOMContentLoaded', () => {
     if (listenBtn) {
         listenBtn.addEventListener('click', togglePlay);
-        findVideoIdFromComment();
+        findVideoId();
     }
 });
