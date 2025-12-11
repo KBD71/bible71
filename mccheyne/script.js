@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let ytPlayer, isPlayerReady = false;
     const audioKeyMap = new Map();
     let currentTabIndex = 0;
+    let playlist = [];
+    let currentPlayIndex = 0;
 
     // --- DOM 요소 캐싱 ---
     const tabButtons = document.querySelectorAll('.tab-btn');
@@ -201,18 +203,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playAudio(button) {
         if (!isPlayerReady) { alert('오디오 플레이어가 아직 준비되지 않았습니다.'); return; }
-        const key = button.dataset.key;
+
+        const key = button.dataset.key; // e.g., "GEN_9_10" or "GEN_9"
         const title = button.dataset.title;
-        const url = audioKeyMap.get(key);
-        if (url) {
-            const videoId = getYouTubeID(url);
-            if (videoId) {
-                ytPlayer.cueVideoById(videoId);
-                playerInfo.textContent = `재생 중: ${title}`;
-                floatingNav.classList.add('hidden');
-                audioPlayerBar.classList.add('visible');
-            } else { alert('유효한 YouTube 주소가 아닙니다.'); }
-        } else { alert('오디오 정보를 찾을 수 없습니다. (Key: ' + key + ')'); }
+
+        // 1. 키 파싱 및 재생 목록 생성
+        playlist = [];
+        currentPlayIndex = 0;
+
+        const parts = key.split('_');
+        // 예: GEN_9_10 -> parts: ['GEN', '9', '10']
+        // 예: GEN_9    -> parts: ['GEN', '9']
+
+        if (parts.length >= 2) {
+            const bookCode = parts[0]; // 'GEN'
+            // 나머지 부분들은 챕터 번호들임
+            const chapters = parts.slice(1);
+
+            chapters.forEach(chapterStr => {
+                // 각 챕터별 키 재구성 (예: GEN_9)
+                // 주의: mcbible.txt의 키 형식은 BOOK_CHAPTER (예: GEN_9) 라고 가정
+                // 실제 mcbible.txt를 보면 'OT_01_GEN_01' 같은 긴 키가 있고, 
+                // loadAudioKeys()에서 이를 'GEN_1' 같은 짧은 키로 매핑해두었음 (line 73)
+                // 따라서 여기서도 'GEN_9' 형태로 만들어야 함.
+
+                const singleChapterKey = `${bookCode}_${chapterStr}`;
+                const url = audioKeyMap.get(singleChapterKey);
+
+                if (url) {
+                    const videoId = getYouTubeID(url);
+                    if (videoId) {
+                        playlist.push({
+                            videoId: videoId,
+                            title: `${title} (${chapterStr}장)` // 상세 타이틀은 필요시 조정
+                        });
+                    }
+                } else {
+                    console.warn(`오디오 정보를 찾을 수 없음: ${singleChapterKey}`);
+                }
+            });
+        }
+
+        if (playlist.length > 0) {
+            // 플레이어 UI 표시
+            floatingNav.classList.add('hidden');
+            audioPlayerBar.classList.add('visible');
+            playerInfo.textContent = `재생 준비 중: ${title}`;
+
+            // 첫 번째 영상 재생
+            playNextVideo();
+        } else {
+            alert('재생할 오디오 정보를 찾을 수 없습니다. (Key: ' + key + ')');
+        }
+    }
+
+    function playNextVideo() {
+        if (currentPlayIndex < playlist.length) {
+            const item = playlist[currentPlayIndex];
+            // 큐에 넣고 바로 재생
+            ytPlayer.loadVideoById(item.videoId);
+            // loadVideoById는 자동으로 재생됨. cueVideoById는 대기만 함.
+            // 연속 재생을 위해서는 loadVideoById가 적절함.
+
+            // 전체 타이틀 표시 (현재 몇 번째인지 표시해주는 것도 좋음)
+            // playerInfo.textContent = `재생 중: ${item.title}`; 
+            // 원래 타이틀 유지를 원하면 아래와 같이:
+            // playerInfo.textContent = `재생 중: ${document.querySelector('.listen-audio-btn[data-key="'+ ... +'"]').dataset.title}`;
+            // 하지만 여기서는 간단히:
+            playerInfo.textContent = `재생 중... (${currentPlayIndex + 1}/${playlist.length})`;
+
+            currentPlayIndex++;
+        } else {
+            // 재생 목록 끝
+            closeAudioPlayer();
+        }
     }
 
     function togglePlayPause() {
@@ -227,6 +291,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function onPlayerStateChange(event) {
         playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
+
+        if (event.data === YT.PlayerState.ENDED) {
+            playNextVideo();
+        }
     }
 
     function closeAudioPlayer() {
