@@ -212,21 +212,14 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPlayIndex = 0;
 
         const parts = key.split('_');
-        // 예: GEN_9_10 -> parts: ['GEN', '9', '10']
-        // 예: GEN_9    -> parts: ['GEN', '9']
 
-        if (parts.length >= 2) {
+        // Case A: Composite Key (e.g., GEN_9_10) - Existing Logic
+        // Check if key has more than 2 parts (BOOK_CH1_CH2...) OR if it explicitly has multiple chapters
+        if (parts.length > 2) {
             const bookCode = parts[0]; // 'GEN'
-            // 나머지 부분들은 챕터 번호들임
             const chapters = parts.slice(1);
 
             chapters.forEach(chapterStr => {
-                // 각 챕터별 키 재구성 (예: GEN_9)
-                // 주의: mcbible.txt의 키 형식은 BOOK_CHAPTER (예: GEN_9) 라고 가정
-                // 실제 mcbible.txt를 보면 'OT_01_GEN_01' 같은 긴 키가 있고, 
-                // loadAudioKeys()에서 이를 'GEN_1' 같은 짧은 키로 매핑해두었음 (line 73)
-                // 따라서 여기서도 'GEN_9' 형태로 만들어야 함.
-
                 const singleChapterKey = `${bookCode}_${chapterStr}`;
                 const url = audioKeyMap.get(singleChapterKey);
 
@@ -235,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (videoId) {
                         playlist.push({
                             videoId: videoId,
-                            title: `${title} (${chapterStr}장)` // 상세 타이틀은 필요시 조정
+                            title: `${title} (${chapterStr}장)`
                         });
                     }
                 } else {
@@ -243,14 +236,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+        // Case B: Single Key (e.g., GEN_9) - New Logic for Separate Buttons
+        else {
+            // Check for sibling buttons in the same card
+            const cardContent = button.closest('.card-content');
+            if (cardContent) {
+                const siblingBtns = Array.from(cardContent.querySelectorAll('.listen-audio-btn'));
+
+                if (siblingBtns.length > 1) {
+                    // Build playlist from all siblings
+                    siblingBtns.forEach((btn, index) => {
+                        const siblingKey = btn.dataset.key;
+                        const siblingTitle = btn.dataset.title;
+
+                        // Parse key to get chapter number for title (assuming BOOK_CHAPTER format)
+                        const siblingParts = siblingKey.split('_');
+                        const chapterStr = siblingParts.length >= 2 ? siblingParts[1] : '';
+
+                        const url = audioKeyMap.get(siblingKey);
+                        if (url) {
+                            const videoId = getYouTubeID(url);
+                            if (videoId) {
+                                playlist.push({
+                                    videoId: videoId,
+                                    title: siblingTitle
+                                });
+                            }
+                        }
+
+                        // If this is the clicked button, set start index
+                        if (btn === button) {
+                            currentPlayIndex = playlist.length - 1;
+                        }
+                    });
+                }
+            }
+
+            // If playlist is still empty (no siblings or single button), add the clicked button
+            if (playlist.length === 0) {
+                const url = audioKeyMap.get(key);
+                if (url) {
+                    const videoId = getYouTubeID(url);
+                    if (videoId) {
+                        playlist.push({
+                            videoId: videoId,
+                            title: title
+                        });
+                    }
+                }
+            }
+        }
 
         if (playlist.length > 0) {
             // 플레이어 UI 표시
             floatingNav.classList.add('hidden');
             audioPlayerBar.classList.add('visible');
-            playerInfo.textContent = `재생 준비 중: ${title}`;
 
-            // 첫 번째 영상 재생
+            // 첫 번째 영상 재생 (또는 클릭한 버튼에 해당하는 영상)
             playNextVideo();
         } else {
             alert('재생할 오디오 정보를 찾을 수 없습니다. (Key: ' + key + ')');
