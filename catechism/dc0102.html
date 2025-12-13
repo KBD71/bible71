@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날마다 읽는 교리 - 1월 2일</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            word-break: keep-all;
+            background-color: #f3f4f6; /* Tailwind gray-100 */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* lg */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* lg */
+            margin-bottom: 1.5rem; /* 6 */
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #4a5568; /* Tailwind gray-700 */
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem; /* xl */
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .card-body {
+            padding: 1.5rem;
+            line-height: 1.75;
+        }
+        .card-body h3 {
+            font-size: 1.125rem; /* lg */
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1f2937; /* gray-800 */
+        }
+        .card-body p {
+            margin-bottom: 1rem;
+            color: #374151; /* gray-700 */
+        }
+        .card-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151; /* gray-700 */
+        }
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        .card-body .question {
+            font-weight: 600;
+            color: #111827; /* gray-900 */
+        }
+        .card-body .answer {
+            color: #374151; /* gray-700 */
+        }
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: #f9fafb; /* gray-50 */
+            border-top: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .audio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .audio-button:disabled {
+            background-color: #e5e7eb; /* gray-200 */
+            color: #9ca3af; /* gray-400 */
+            cursor: not-allowed;
+        }
+        .audio-button.play {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+        }
+        .audio-button.play:hover {
+            background-color: #1d4ed8; /* blue-700 */
+        }
+        .audio-button.pause {
+            background-color: #f87171; /* red-400 */
+            color: white;
+        }
+        .audio-button.pause:hover {
+            background-color: #ef4444; /* red-500 */
+        }
+        .audio-error {
+            color: #dc2626; /* red-600 */
+            font-weight: 500;
+            text-align: center;
+        }
+        #player-container {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            left: -100px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.875rem; /* sm */
+            color: #6b7280; /* gray-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-12">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800">1월 2일</h1>
+            <p class="text-xl text-gray-600 mt-2">하나님의 계시와 성경의 필요성</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    AI요약 듣기
+                </div>
+                <div class="audio-player-container" id="audio-player-ui">
+                    <div id="player-container"></div>
+                    <button id="audio-button" class="audio-button play" aria-label="교리 오디오 재생" disabled>
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2" style="display: none;">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="button-text">로딩 중...</span>
+                    </button>
+                    <div id="audio-error" class="audio-error mt-4" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    대요리문답 2문
+                </div>
+                <div class="card-body">
+                    <div class="question-answer">
+                        <p class="question">문2. 하나님께서 계신다는 것이 어떻게 나타납니까?</p>
+                        <p class="answer">답. 사람 안에 있는 본성의 빛과 하나님께서 하시는 일들이 하나님이 계신다는 것을 분명히 선포합니다. 그러나 사람을 구원하기 위해서는 하나님의 말씀과 성령 하나님만이 하나님을 실로 충분하고도 효과 있게 계시하십니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    신앙고백서 1.1
+                </div>
+                <div class="card-body">
+                    <p class="answer">본성의 빛과 창조와 섭리의 일들은 사람이 핑계할 수 없을 정도로 하나님의 선하심과 지혜와 능력을 너무나도 명백하게 나타내고 있다. 그럼에도 이것들은 하나님과 그분의 뜻에 관하여 구원에 필요한 지식을 줄 정도로 충분하지는 않다. 그래서 주님께서 여러 시대에 여러 모양으로 자신의 교회에 자신을 계시하고 자신의 뜻을 선포하기를 기뻐하셨다. 그리고 후에는 진리를 더 잘 보존하고 전파하며, 육신의 부패 및 사탄과 세상의 악의에 맞서 교회를 더욱 견고하게 세우고 위로하기 위하여 바로 그 모든 것을 기록하기를 기뻐하셨다. 이로 인하여 성경은 반드시 필요하게 되었다. 그리고 하나님께서 자신의 뜻을 자기 백성에게 계시하시던 이전 방식들은 이제 중지되었다.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    교리 해설
+                </div>
+                <div class="card-body">
+                    <p>사람들이 하나님을 인지하지 못한다고 말하지만, 이는 하나님께서 자신을 드러내지 않으셨기 때문이 아닙니다. 하나님은 사람의 본성, 창조 세계, 그리고 섭리를 통해 당신의 존재를 충분히 계시하셨습니다. 그러나 타락한 인간에게는 이 자연 계시만으로는 부족하며, 구원을 위해서는 특별한 계시인 성경이 반드시 필요합니다.</p>
+
+                    <h3>1. 자연 계시와 인간의 종교성</h3>
+                    <p>하나님께서는 사람의 이성, 감성, 양심 속에 '본성의 빛'을 비추셨습니다. 또한, 만물을 창조하시고 다스리시는 섭리를 통해 당신의 선하심, 지혜, 능력을 명백히 보여주십니다. 이를 <strong class="text-blue-600">자연 계시</strong>라고 합니다. 이러한 계시 때문에 사람은 본능적으로 하나님의 존재를 이성으로 추론하거나, 종교적 감정을 느끼며, 죄에 대해 양심의 가책을 받게 됩니다.</p>
+
+                    <h3>2. 죄로 인한 인식의 왜곡</h3>
+                    <p>그러나 타락 이후, 인간의 영적 안목은 심각하게 어두워졌습니다. 죄의 영향으로 인해 하나님을 인식하는 감각과 판단력이 왜곡되어 버렸습니다. 그 결과, 자연 계시를 통해 하나님을 어렴풋하게 느낄 수는 있어도, 하나님을 바르게 알거나 설명할 수 없게 되었으며, 오히려 거짓된 신관을 갖게 되었습니다.</p>
+
+                    <h3>3. 핑계할 수 없는 인간</h3>
+                    <p>비록 인간의 인식이 제한되고 왜곡되었지만, 이것이 하나님을 모른다고 할 핑계가 될 수는 없습니다. 하나님께서는 자신을 충분히 나타내셨으며, 인간이 하나님을 바르게 알지 못하는 것은 계시의 부족함 때문이 아니라 인간 자신의 타락과 죄악 때문입니다.</p>
+
+                    <h3>4. 성경의 필요성: 구원에 이르는 지식</h3>
+                    <p>자연 계시의 가장 큰 한계는 <strong class="text-blue-600">구원에 필요한 지식</strong>을 주지 못한다는 점입니다. 본성의 빛이나 창조 세계는 우리가 죄로 인해 받아야 할 형벌에서 어떻게 구원받을 수 있는지 알려주지 않습니다. 그래서 하나님께서는 구원을 위하여 자신과 뜻을 교회에 직접 계시하셨는데, 이를 <strong class="text-blue-600">특별 계시</strong>라고 합니다. 하나님께서는 이 특별 계시를 기록하여 보존하게 하셨으니, 이것이 바로 성경입니다. 오직 성경만이 구원에 관한 지식을 제공하며, 자연 계시에 대한 왜곡된 이해도 올바르게 교정해 줍니다.</p>
+
+                    <h3>5. 성령 하나님의 조명</h3>
+                    <p>가장 중요한 것은, 자연 계시든 성경에 기록된 특별 계시든, 이를 올바르게 이해하고 깨닫기 위해서는 <strong class="text-blue-600">성령 하나님의 은혜</strong>가 필요하다는 사실입니다. 성령께서 영적인 안목을 열어 주실 때라야 비로소 우리는 하나님의 계시를 효과적으로 알고 믿을 수 있습니다.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+
+    </div>
+
+    <script>
+        let player;
+        let videoId = null;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        const audioButton = document.getElementById('audio-button');
+        const buttonText = document.getElementById('button-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const errorContainer = document.getElementById('audio-error');
+        const playerUi = document.getElementById('audio-player-ui');
+
+        // 1. YouTube API 로드
+        function loadYouTubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // 2. API 콜백 함수
+        function onYouTubeIframeAPIReady() {
+            fetchAudioAddress();
+        }
+
+        // 3. 오디오 주소 fetch 및 파싱
+        async function fetchAudioAddress() {
+            try {
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error('오디오 목록 파일을 불러오는 데 실패했습니다.');
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+                const today = getFormattedDate();
+                const todayLine = lines.find(line => line.startsWith(today));
+
+                if (todayLine) {
+                    // 비디오 ID 추출 (URL 전체에서 ID만 정확히 파싱)
+                    // 정규식: (v=... 또는 youtu.be/...) 다음에 오는 비디오 ID (특수문자 포함)
+                    const regex = /(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                    const match = todayLine.match(regex);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        initializePlayer();
+                    } else {
+                        throw new Error('오늘 날짜의 오디오 주소 형식이 올바르지 않습니다.');
+                    }
+                } else {
+                    // 오늘 날짜의 주소가 없는 경우
+                    showError('오늘의 AI요약 음성은 아직 업로드 전입니다.');
+                }
+            } catch (error) {
+                console.error('Error fetching audio address:', error);
+                showError(error.message || '오디오를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 4. 오늘 날짜 포맷 (MMDD)
+        function getFormattedDate() {
+            // 1월 2일로 고정
+            return '0102';
+        }
+
+        // 5. 플레이어 초기화
+        function initializePlayer() {
+            player = new YT.Player('player-container', {
+                height: '1',
+                width: '1',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 6. 플레이어 준비 완료
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            audioButton.disabled = false;
+            buttonText.textContent = 'AI요약 듣기';
+            audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            audioButton.addEventListener('click', togglePlayPause);
+        }
+
+        // 7. 플레이어 상태 변경
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateButtonUI(true);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+                updateButtonUI(false);
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.seekTo(0); // 끝나면 처음으로 되감기
+                }
+            }
+        }
+
+        // 8. 재생/일시정지 토글
+        function togglePlayPause() {
+            if (!isPlayerReady) return;
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        // 9. 버튼 UI 업데이트
+        function updateButtonUI(playing) {
+            if (playing) {
+                audioButton.classList.remove('play');
+                audioButton.classList.add('pause');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+                buttonText.textContent = '일시정지';
+                audioButton.setAttribute('aria-label', '교리 오디오 일시정지');
+            } else {
+                audioButton.classList.remove('pause');
+                audioButton.classList.add('play');
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+                buttonText.textContent = 'AI요약 듣기';
+                audioButton.setAttribute('aria-label', '교리 오디오 재생');
+            }
+        }
+
+        // 10. 오류 처리
+        function showError(message) {
+            // 기존 UI 숨기기
+            const button = document.getElementById('audio-button');
+            if (button) {
+                button.style.display = 'none';
+            }
+            
+            // 오류 메시지 표시
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        // API 로드 시작
+        loadYouTubeAPI();
+    </script>
+
+</body>
+</html>
