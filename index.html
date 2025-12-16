@@ -587,7 +587,9 @@
         let calendarDate = new Date();
         let currentFontSize = 100; // Percentage
         let ytPlayer = null;
-        let playerInterval = null;
+        let playerInterval = null; // Sync interval
+        let checkPlayerInterval = null; // Initial check interval
+        let interceptPlayerInterval = null; // YT API intercept interval
         let isDragging = false;
 
         function pad(num) {
@@ -787,23 +789,32 @@
 
             // Poll for YT player
             let attempts = 0;
-            const checkPlayer = setInterval(() => {
+            if (checkPlayerInterval) clearInterval(checkPlayerInterval);
+            
+            checkPlayerInterval = setInterval(() => {
                 attempts++;
                 if (iframeWindow.player && typeof iframeWindow.player.getPlayerState === 'function') {
-                    clearInterval(checkPlayer);
+                    clearInterval(checkPlayerInterval);
+                    checkPlayerInterval = null;
                     ytPlayer = iframeWindow.player;
                     console.log("YT Player found!");
-
-                    // Default to Pause (User Request)
-                    // ytPlayer.playVideo(); // Removed auto-play
 
                     // Start sync loop
                     startPlayerSync();
                 } else if (attempts > 50) { // 5 seconds
-                    clearInterval(checkPlayer);
+                    clearInterval(checkPlayerInterval);
+                    checkPlayerInterval = null;
                     console.warn("YT Player not found in iframe");
                     // If no player found, ensure content view is visible
-                    document.getElementById('content-view').style.display = 'flex';
+                    // This was forcing the display back on. 
+                    // We only want to do this if we are seemingly still in the content view mode and waiting for player.
+                    // But if the user navigated away, checkPlayerInterval should have been cleared.
+                    // So if we are here, it means we are still essentially "loading" or "waiting".
+                    // However, to be safe, check if content-view is supposed to be active or if we are hidden.
+                    const contentView = document.getElementById('content-view');
+                    if (contentView.style.display !== 'none') {
+                         contentView.style.display = 'flex';
+                    }
                 }
             }, 100);
 
@@ -848,6 +859,8 @@
             closeBtn.onclick = () => {
                 // Stop audio and hide player, but keep content
                 if (playerInterval) clearInterval(playerInterval);
+                playerInterval = null;
+                
                 if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
                     ytPlayer.stopVideo();
                 }
@@ -916,13 +929,26 @@
 
             if (!contentView || !contentIframe || !loadingSpinner || !errorMessageDiv) return;
 
+            // Clear any pending navigation/checks
+            if (checkPlayerInterval) {
+                clearInterval(checkPlayerInterval);
+                checkPlayerInterval = null;
+            }
+            if (interceptPlayerInterval) {
+                clearInterval(interceptPlayerInterval);
+                interceptPlayerInterval = null;
+            }
+            if (playerInterval) {
+                clearInterval(playerInterval);
+                playerInterval = null;
+            }
+
             // Set button loading state
             if (buttonElement) {
                 buttonElement.classList.add('button-loading');
             }
 
             // Reset
-            if (playerInterval) clearInterval(playerInterval);
             ytPlayer = null;
 
             playerTitle.textContent = "로딩 중... " + title;
@@ -996,7 +1022,7 @@
                             el.style.display = 'none';
                             // Hide parent if sticky (Daily Bible) or specific wrappers
                             if (id === 'audio-control-btn' && el.parentElement && el.parentElement.classList.contains('sticky')) {
-                                el.parentElement.style.display = 'none';
+                                main = el.parentElement.style.display = 'none';
                             }
                             // Hide parent container for Sermon button if it looks like a wrapper
                             if (id === 'play-btn' && el.parentElement && el.parentElement.classList.contains('bg-white')) {
@@ -1008,39 +1034,19 @@
                     // For McCheyne: Internal script now exposes window.player and has autoplay:0.
                     // We just need to ensure the global player picks it up.
                     if (url.includes('mc')) {
-                        // No need for auto-click hacks anymore.
-                        // The user can just click play on the global player.
-                        // Or if we want to auto-load the first track but NOT play:
-                        // The internal script loads the video when a button is clicked.
-                        // If we want it to be ready, we might still need to trigger the load.
-                        // But the user said "McCheyne plays immediately", which was the bug.
-                        // Now it won't.
-                        // If the user wants to play, they can click the global play button?
-                        // Wait, if no video is loaded, global play button won't work.
-                        // We need to load the video for the current tab *without* playing.
-                        // McCheyne script doesn't have a "load but don't play" function exposed easily.
-                        // But we can click the button (which calls loadVideoById) and then immediately pause?
-                        // Or rely on the user clicking the tab/button?
-                        // The user said "Global control not working".
-                        // If we don't load a video, global control has nothing to control.
-                        // So we SHOULD auto-load the video.
-
+                        // McCheyne specific logic
                         const attemptLoad = () => {
-                            const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
-                            const activeContent = doc.querySelector('.tab-content.active');
-                            if (activeContent) {
-                                const listenBtn = activeContent.querySelector('.listen-audio-btn');
-                                if (listenBtn) {
-                                    console.log("Auto-loading McCheyne video (paused)...");
-                                    listenBtn.click();
-                                    // The internal script now has autoplay:0, so clicking it should load it but NOT play it?
-                                    // Wait, McCheyne script uses `loadVideoById`.
-                                    // `loadVideoById` usually auto-plays.
-                                    // We need `cueVideoById` to load without playing.
-                                    // I should have checked McCheyne script for `loadVideoById`.
-                                    // Let's assume I need to pause it if it starts.
+                            try {
+                                const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
+                                const activeContent = doc.querySelector('.tab-content.active');
+                                if (activeContent) {
+                                    const listenBtn = activeContent.querySelector('.listen-audio-btn');
+                                    if (listenBtn) {
+                                        console.log("Auto-loading McCheyne video (paused)...");
+                                        listenBtn.click();
+                                    }
                                 }
-                            }
+                            } catch (e) {}
                         };
                         setTimeout(attemptLoad, 1000);
                     }
@@ -1065,9 +1071,6 @@
                     const listenBtns = doc.querySelectorAll('.listen-audio-btn');
                     listenBtns.forEach(btn => btn.style.display = 'none');
 
-                    // Restore McCheyne floating nav if it was hidden by our broad stroke?
-                    // No, 'audio-player' id was hidden. Floating nav is 'floating-nav'.
-
                 } catch (e) {
                     console.log('Cannot access iframe content:', e);
                 }
@@ -1075,7 +1078,8 @@
 
             // Intercept YT Player creation to expose it globally
             // This runs in parallel with onload to catch YT API loading
-            const interceptInterval = setInterval(() => {
+            if (interceptPlayerInterval) clearInterval(interceptPlayerInterval);
+            interceptPlayerInterval = setInterval(() => {
                 try {
                     const iframeWindow = contentIframe.contentWindow;
                     if (iframeWindow && iframeWindow.YT && iframeWindow.YT.Player && !iframeWindow.YT.Player._intercepted) {
@@ -1093,9 +1097,6 @@
                                 const result = originalLoadVideoById.apply(player, arguments);
 
                                 // Update Global Player Title if we can find the title
-                                // In McCheyne, the title is often in the button that triggered this, 
-                                // but here we don't have easy access. 
-                                // We can try to update the title to "재생 중..." or try to find the active tab title.
                                 try {
                                     const doc = iframeWindow.document;
                                     const activeTab = doc.querySelector('.tab-btn.active');
@@ -1106,8 +1107,6 @@
                                     }
                                 } catch (e) { }
 
-                                // Ensure global player is playing (or paused based on default)
-                                // The internal script might auto-play.
                                 return result;
                             };
 
@@ -1115,7 +1114,10 @@
                         };
                         iframeWindow.YT.Player.prototype = OriginalPlayer.prototype;
                         iframeWindow.YT.Player._intercepted = true;
-                        clearInterval(interceptInterval);
+                        if (interceptPlayerInterval) {
+                            clearInterval(interceptPlayerInterval);
+                            interceptPlayerInterval = null;
+                        }
                     }
                 } catch (e) {
                     // Ignore cross-origin errors if any (shouldn't happen for same origin)
@@ -1123,7 +1125,12 @@
             }, 50);
 
             // Clear intercept interval after 10 seconds
-            setTimeout(() => clearInterval(interceptInterval), 10000);
+            setTimeout(() => {
+                if (interceptPlayerInterval) {
+                     clearInterval(interceptPlayerInterval);
+                     interceptPlayerInterval = null;
+                }
+            }, 10000);
 
             contentIframe.onerror = () => {
                 clearTimeout(loadTimeout);
@@ -1139,7 +1146,20 @@
             const contentIframe = document.getElementById('content-iframe');
             const playerUI = document.getElementById('global-player');
 
-            if (playerInterval) clearInterval(playerInterval);
+            // CRITICAL: Clear all pending checks and syncs to avoid ghost redirects
+            if (checkPlayerInterval) {
+                clearInterval(checkPlayerInterval);
+                checkPlayerInterval = null;
+            }
+            if (interceptPlayerInterval) {
+                clearInterval(interceptPlayerInterval);
+                interceptPlayerInterval = null;
+            }
+            if (playerInterval) {
+                clearInterval(playerInterval);
+                playerInterval = null;
+            }
+
             if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
                 ytPlayer.stopVideo();
             }
