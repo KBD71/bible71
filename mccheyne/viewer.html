@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맥체인 성경읽기 뷰어</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/epub.js/0.3.93/epub.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        #header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #title {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        #viewer {
+            flex: 1;
+            background: #fff;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        #controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <span id="title">맥체인 성경읽기</span>
+        <div id="controls">
+            <button id="prev" onclick="alert('책이 로딩 중입니다.')">이전</button>
+            <button id="next" onclick="alert('책이 로딩 중입니다.')">다음</button>
+        </div>
+    </div>
+
+    <div id="viewer"></div>
+    <div id="loading">책을 불러오는 중입니다...</div>
+
+    <script>
+        var book = ePub("mccheyne_bible.epub");
+        var rendition = book.renderTo("viewer", {
+            width: "100%",
+            height: "100%",
+            flow: "paginated",
+            manager: "default"
+        });
+
+        document.getElementById('loading').style.display = 'block';
+
+        book.ready.then(function () {
+            console.log("EPUB structure loaded");
+        }).catch(function (err) {
+            console.error("Error loading book:", err);
+            alert("책 파일을 불러올 수 없습니다. 서버 로그를 확인하세요.\n오류 내용: " + err);
+            document.getElementById('loading').textContent = "불러오기 실패: " + err;
+        });
+
+        rendition.display().then(function () {
+            document.getElementById('loading').style.display = 'none';
+
+            // Update button handlers once loaded
+            document.getElementById("prev").onclick = function () {
+                book.package.metadata.direction === 'rtl' ? rendition.next() : rendition.prev();
+            };
+            document.getElementById("next").onclick = function () {
+                book.package.metadata.direction === 'rtl' ? rendition.prev() : rendition.next();
+            };
+        });
+
+        book.loaded.metadata.then(function (meta) {
+            document.getElementById("title").textContent = meta.title;
+        });
+
+        rendition.on("keyup", function (e) {
+            // Left Key
+            if ((e.keyCode || e.which) == 37) {
+                book.package.metadata.direction === 'rtl' ? rendition.next() : rendition.prev();
+            }
+            // Right Key
+            if ((e.keyCode || e.which) == 39) {
+                book.package.metadata.direction === 'rtl' ? rendition.prev() : rendition.next();
+            }
+        });
+    </script>
+</body>
+
+</html>
