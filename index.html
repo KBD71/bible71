@@ -343,7 +343,7 @@
             background-color: #5D4037;
             /* Deep Warm Brown to match the theme */
         }
-    
+
         /* Global Player Loading State */
         #player-play-pause.loading {
             position: relative;
@@ -374,11 +374,11 @@
             from {
                 transform: rotate(0deg);
             }
+
             to {
                 transform: rotate(360deg);
             }
         }
-
     </style>
 </head>
 
@@ -826,7 +826,7 @@
             // Poll for YT player
             let attempts = 0;
             if (checkPlayerInterval) clearInterval(checkPlayerInterval);
-            
+
             checkPlayerInterval = setInterval(() => {
                 attempts++;
                 if (iframeWindow.player && typeof iframeWindow.player.getPlayerState === 'function') {
@@ -849,19 +849,55 @@
                     // However, to be safe, check if content-view is supposed to be active or if we are hidden.
                     const contentView = document.getElementById('content-view');
                     if (contentView.style.display !== 'none') {
-                         contentView.style.display = 'flex';
+                        contentView.style.display = 'flex';
                     }
                 }
             }, 100);
 
             // Controls
             playPauseBtn.onclick = () => {
-                if (!ytPlayer) return;
-                const state = ytPlayer.getPlayerState();
-                if (state === 1) { // Playing
-                    ytPlayer.pauseVideo();
+                // Modified: Trigger content audio if player is not ready
+                if (ytPlayer && typeof ytPlayer.getPlayerState === 'function' && [1, 2, 3, 5].includes(ytPlayer.getPlayerState())) {
+                    const state = ytPlayer.getPlayerState();
+                    if (state === 1) { // Playing
+                        ytPlayer.pauseVideo();
+                    } else {
+                        ytPlayer.playVideo();
+                    }
                 } else {
-                    ytPlayer.playVideo();
+                    // Try to trigger content audio
+                    try {
+                        const contentIframe = document.getElementById('content-iframe');
+                        const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
+
+                        // 1. McCheyne: Active Tab Audio
+                        const activeTab = doc.querySelector('.tab-content.active');
+                        if (activeTab) {
+                            const audioBtn = activeTab.querySelector('.listen-audio-btn');
+                            if (audioBtn) {
+                                console.log("Global: Clicking McCheyne Audio");
+                                audioBtn.click();
+                                return;
+                            }
+                        }
+
+                        // 2. Daily Bible / Sermon
+                        const listenBtn = doc.getElementById('listen-btn');
+                        if (listenBtn) {
+                            console.log("Global: Clicking DailyBible Audio");
+                            listenBtn.click();
+                        }
+
+                        // Force play after a short delay to ensure playback starts
+                        setTimeout(() => {
+                            if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+                                ytPlayer.playVideo();
+                            }
+                        }, 500);
+
+                    } catch (e) {
+                        console.warn("Global Play trigger failed", e);
+                    }
                 }
             };
 
@@ -896,7 +932,7 @@
                 // Stop audio and hide player, but keep content
                 if (playerInterval) clearInterval(playerInterval);
                 playerInterval = null;
-                
+
                 if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
                     ytPlayer.stopVideo();
                 }
@@ -934,6 +970,13 @@
                     const progressBar = document.getElementById('player-progress');
                     const currentTimeEl = document.getElementById('current-time');
                     const durationEl = document.getElementById('duration');
+                    const playBtn = document.getElementById('player-play-pause');
+
+                    if (state === 3) { // Buffering
+                        playBtn.classList.add('loading');
+                    } else {
+                        playBtn.classList.remove('loading');
+                    }
 
                     if (state === 1) { // Playing
                         playIcon.classList.add('hidden');
@@ -1082,7 +1125,7 @@
                                         listenBtn.click();
                                     }
                                 }
-                            } catch (e) {}
+                            } catch (e) { }
                         };
                         setTimeout(attemptLoad, 1000);
                     }
@@ -1163,8 +1206,8 @@
             // Clear intercept interval after 10 seconds
             setTimeout(() => {
                 if (interceptPlayerInterval) {
-                     clearInterval(interceptPlayerInterval);
-                     interceptPlayerInterval = null;
+                    clearInterval(interceptPlayerInterval);
+                    interceptPlayerInterval = null;
                 }
             }, 10000);
 
