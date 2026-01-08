@@ -138,24 +138,23 @@
     }
 
     // --- 기능별 함수 ---
+    // 스크롤 위치 저장 변수
+    let savedScrollY = 0;
+
     function openTextModal(button) {
         modalTitle.innerText = button.dataset.title;
         modalIframe.src = button.dataset.path;
         modalOverlay.classList.add('visible');
 
-        // 오디오 플레이어가 표시 중이면 body 스크롤 잠금 건너뛰기 (모달 스크롤 허용)
-        const isAudioPlaying = audioPlayerBar.classList.contains('visible');
+        // 현재 스크롤 위치 저장
+        savedScrollY = window.scrollY;
 
-        // 모바일에서 스크롤 문제 방지를 위한 개선된 방법
-        if (window.innerWidth <= 768 && !isAudioPlaying) {
-            // 모바일에서는 body만 고정하고 position 조정 (오디오 미재생 시에만)
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${window.scrollY}px`;
-            document.body.style.width = '100%';
-        } else if (window.innerWidth > 768) {
-            // 데스크톱에서는 기존 방식 유지
-            document.documentElement.style.overflow = 'hidden';
-        }
+        // 배경 스크롤 방지 (모바일/데스크톱 공통) - overflow 방식 사용
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${savedScrollY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
 
         // iframe 로딩 완료 후 처리
         modalIframe.onload = () => {
@@ -175,30 +174,35 @@
                     // Fallback: 부모 창의 함수 호출
                     window.parent.applyFontSize();
                 }
+
+                // 3. iframe 내부 body 스크롤 강제 활성화
+                doc.body.style.overflow = 'auto';
+                doc.body.style.overflowY = 'scroll';
+                doc.body.style.webkitOverflowScrolling = 'touch';
             } catch (e) {
                 console.warn('Cannot access iframe content:', e);
             }
 
-            if (window.innerWidth <= 768) {
-                modalIframe.style.pointerEvents = 'auto';
-                modalIframe.style.touchAction = 'auto';
-            }
+            // 모바일에서 터치 이벤트 활성화
+            modalIframe.style.pointerEvents = 'auto';
+            modalIframe.style.touchAction = 'pan-y';
+            modalIframe.style.overflowY = 'auto';
+            modalIframe.style.webkitOverflowScrolling = 'touch';
         };
     }
 
     function closeModal() {
         modalOverlay.classList.remove('visible');
 
-        // 모바일에서 스크롤 위치 복원
-        if (window.innerWidth <= 768) {
-            const scrollY = document.body.style.top;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            window.scrollTo(0, parseInt(scrollY || '0') * -1);
-        } else {
-            document.documentElement.style.overflow = '';
-        }
+        // 배경 스크롤 복원
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+
+        // 스크롤 위치 복원
+        window.scrollTo(0, savedScrollY);
 
         // iframe 초기화
         modalIframe.onload = null;
