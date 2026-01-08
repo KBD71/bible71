@@ -5,85 +5,205 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 28일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 28일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 29장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 29장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 28장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">에스더 5장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 28장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 29장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 29장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_29.html" data-title="창세기 29장">본문 보기 (29장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_29" data-title="창세기 29장">성경 듣기 (29장)</button> </div>
+                            <h3>1월 28일: 언약의 성취와 지상 명령의 수행</h3>
+                            <h4>오늘의 길잡이: 하나님의 섭리 안에서 완성되는 사명</h4>
+                            <p>오늘의 성경 읽기는 하나님의 섭리가 인간의 삶과 역사 속에서 어떻게 구체적으로 성취되는지, 그리고 그 성취가 우리에게 어떤 사명을 부여하는지를 보여줍니다. <strong>창세기 29장</strong>은 야곱이 외삼촌 라반의 집에서 겪는 연단을 통해 이스라엘 12지파의 기초가 형성되는 과정을, <strong>에스더 5장</strong>은 에스더의 결단 위에 하나님께서 왕의 마음을 움직이시는 은혜를 보여줍니다.</p>
+                            <p><strong>마태복음 28장</strong>은 부활하신 예수님께서 하늘과 땅의 모든 권세를 가지시고 제자들에게 대위임령(Great Commission)을 주시는 장면으로 복음서의 절정을 이룹니다. <strong>사도행전 28장</strong>은 바울이 로마에 도착하여 담대히 복음을 전파함으로써, 땅 끝까지 이르러 증인이 되리라는 말씀이 성취됨을 보여줍니다. 하나님의 섭리를 믿고 주어진 사명의 자리에서 충성하는 하루가 되시기를 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 29장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 29장: 야곱의 결혼과 이스라엘의 형성</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">야곱이 라반에게 속아 레아와 결혼하게 된 사건은 하나님의 섭리 관점에서 어떤 의미를 가집니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>야곱은 하란에 도착하여 라헬을 만나고, 그녀를 얻기 위해 라반을 7년 동안 섬깁니다. 그러나 라반의 속임수로 언니 레아와 먼저 결혼하게 되고, 다시 7년을 봉사하여 라헬을 아내로 맞이합니다. 야곱은 라헬을 더 사랑했으나, 하나님은 사랑받지 못하는 레아의 태를 여십니다. 레아는 르우벤, 시므온, 레위, 유다를 낳으며 하나님의 돌보심을 찬양합니다. 이 가정의 갈등과 경쟁 속에서도 하나님은 이스라엘 12지파를 형성해 가십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 뿌린 대로 거두는 징계와 연단:</strong> 형과 아버지를 속였던 야곱은 외삼촌 라반에게 속임을 당하며 자신의 죄를 직면하게 됩니다. 이는 하나님께서 야곱을 언약의 사람으로 빚어가시는 성화의 과정입니다.</p>
+                            <p><strong>2. 하나님의 주권적 섭리:</strong> 인간적으로는 야곱이 원하지 않았던 레아를 통해 제사장 지파(레위)와 왕의 지파(유다)가 탄생합니다. 이는 구속사의 주도권이 인간의 선호가 아닌 하나님의 주권적 계획에 있음을 명백히 보여줍니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_29.html" data-title="창세기 29장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_29" data-title="창세기 29장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 28장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 28장</h3>
+                            <h3>마태복음 28장: 부활과 지상 명령</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">"하늘과 땅의 모든 권세를 내게 주셨으니"라는 선언은 지상 명령 수행에 있어 성도에게 어떤 확신을 줍니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 28장의 주요 내용을 설명합니다.</p>
+                            <p>안식 후 첫날 새벽, 막달라 마리아와 다른 마리아가 무덤을 찾았을 때 천사가 예수님의 부활 소식을 알립니다. 부활하신 예수님은 여인들을 만나시고, 갈릴리에서 제자들에게 나타나십니다. 주님은 <span class="scripture-quote">그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 세례를 베풀고...</span>(19절)라는 지상 명령을 주시며, 세상 끝날까지 항상 함께 있으리라고 약속하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_28.html" data-title="마태복음 28장">본문 보기 (28장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_28" data-title="마태복음 28장">성경 듣기 (28장)</button> </div>
+                            <p><strong>1. 부활의 역사성:</strong> 예수님의 부활은 조작된 신화가 아니라, 빈 무덤과 목격자들, 그리고 변화된 제자들의 삶으로 증명되는 역사적 사실입니다. 이는 사망 권세를 이기신 그리스도의 승리이며 우리 부활의 첫 열매입니다.</p>
+                            <p><strong>2. 대위임령(Great Commission):</strong> 교회의 존재 목적은 모든 민족을 제자 삼는 것입니다. 이 명령은 인간의 능력으로 수행하는 것이 아니라, 하늘과 땅의 권세를 가지신 그리스도의 통치와 성령의 임재(임마누엘) 안에서 이루어집니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_28.html" data-title="마태복음 28장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_28" data-title="마태복음 28장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 에스더 5장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>에스더 5장</h3>
+                            <h3>에스더 5장: 은혜를 입은 에스더</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">에스더가 왕의 금규를 만지며 은혜를 입은 장면은 우리가 하나님 보좌 앞에 나아가는 것과 어떤 유사점이 있습니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>에스더 5장의 주요 내용을 설명합니다.</p>
+                            <p>3일 금식 후 에스더는 예복을 입고 왕궁 안뜰에 섭니다. 왕이 에스더를 보고 심히 사랑스럽게 여겨 금규를 내밀자 에스더가 나아가 그 끝을 만집니다. 왕이 소원을 묻자 에스더는 왕과 하만을 자신이 준비한 잔치에 초대합니다. 첫 번째 잔치에서 왕이 다시 소원을 묻자, 에스더는 내일 다시 잔치에 와달라고 청합니다. 한편 하만은 모르드개를 달 나무를 세우며 교만에 빠집니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_05.html" data-title="에스더 5장">본문 보기 (5장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="EST_5" data-title="에스더 5장">성경 듣기 (5장)</button> </div>
+                            <p><strong>1. 하나님의 주권적 개입:</strong> 왕이 에스더를 "심히 사랑스럽게" 본 것은 왕의 감정 변화가 아니라, 금식하며 기도한 백성들의 간구에 응답하신 하나님의 개입이었습니다(잠 21:1). 하나님은 사람의 마음을 움직여 구원의 길을 여십니다.</p>
+                            <p><strong>2. 은혜의 보좌:</strong> 죽을 수밖에 없는 자가 왕의 규(Scepter)를 통해 생명을 얻은 것은, 죄인인 우리가 그리스도의 보혈을 힘입어 은혜의 보좌 앞에 담대히 나아갈 수 있음을 상징적으로 보여줍니다(히 4:16).</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_05.html" data-title="에스더 5장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EST_5" data-title="에스더 5장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 28장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 28장</h3>
+                            <h3>사도행전 28장: 로마 입성과 하나님 나라 전파</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">사도행전이 "담대하게 거침없이 가르치더라"로 끝나는 결말(열린 결말)은 오늘날 교회에 어떤 메시지를 줍니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 28장의 주요 내용을 설명합니다.</p>
+                            <p>멜리데 섬에서 독사에 물리고도 해를 입지 않은 바울은 병자들을 고치며 능력을 행합니다. 마침내 로마에 도착한 바울은 형제들의 영접을 받고, 셋집에 머물며 유대인들을 초청해 복음을 전합니다. 일부는 믿고 일부는 믿지 않자, 바울은 이사야서를 인용하여 구원이 이방인에게로 향했음을 선언합니다. 그는 만 2년 동안 자기에게 오는 모든 사람에게 <span class="scripture-quote">하나님 나라를 전파하며 주 예수 그리스도에 관한 모든 것을 담대하게 거침없이 가르치더라</span>(31절).</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_28.html" data-title="사도행전 28장">본문 보기 (28장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_28" data-title="사도행전 28장">성경 듣기 (28장)</button> </div>
+                            <p><strong>1. 땅 끝 선교의 성취:</strong> 바울의 로마 입성은 사도행전 1장 8절의 성취이자, 당시 세계의 중심부까지 복음이 확장되었음을 상징합니다. 쇠사슬에 매인 죄수의 몸이었지만, 복음은 결코 매이지 않고 로마 제국 전체로 퍼져나갔습니다.</p>
+                            <p><strong>2. 하나님 나라의 현재성:</strong> 사도행전의 마지막은 바울의 순교가 아니라 '계속되는 전파'로 끝납니다. 이는 하나님 나라의 확장이 사도 시대로 끝난 것이 아니라, 오고 오는 모든 세대의 교회를 통해 '거침없이' 계속되어야 함을 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_28.html" data-title="사도행전 28장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_28" data-title="사도행전 28장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 약속의 성취와 멈추지 않는 복음 행진</h4>
+                            
+                            <p>오늘의 네 본문은 하나님의 약속이 역사의 파도 속에서도 신실하게 성취됨을 보여줍니다. <strong>창세기 29장</strong>의 야곱은 인간적인 고난 속에서도 12지파의 아비가 되는 약속을 이루어가고, <strong>에스더 5장</strong>의 에스더는 믿음의 결단을 통해 민족 구원의 문을 엽니다. 이 모든 구약의 그림자는 <strong>마태복음 28장</strong>에서 부활하신 그리스도를 통해 완성됩니다.</p>
+                            
+                            <p>부활하신 주님은 하늘과 땅의 권세를 가지고 교회에게 "가서 제자 삼으라"고 명령하셨습니다. 그리고 <strong>사도행전 28장</strong>은 이 명령을 받은 교회가 세상의 중심 로마에서 "담대하게 거침없이" 하나님 나라를 전파하는 것으로 대단원의 막을 내립니다, 아니 새로운 시작을 알립니다. 오늘 우리도 이 거룩한 복음 행진의 바통을 이어받아, 삶의 자리에서 하나님 나라를 증거하는 증인으로 살아가야 합니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +211,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +242,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

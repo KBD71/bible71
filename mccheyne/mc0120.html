@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 20일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 20일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 21장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 21장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 20장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 10장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 20장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 21장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 21장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_21.html" data-title="창세기 21장">본문 보기 (21장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_21" data-title="창세기 21장">성경 듣기 (21장)</button> </div>
+                            <h3>1월 20일: 언약의 성취와 십자가의 섬김</h3>
+                            <h4>오늘의 길잡이: 은혜를 입은 자, 섬김의 자리로</h4>
+                            <p>오늘 성경 읽기는 하나님의 신실하신 약속 성취와 그 은혜에 반응하는 성도의 삶을 조명합니다. <strong>창세기 21장</strong>은 "여호와께서 말씀하신 대로" 사라를 돌보사 이삭을 주심으로, 인간의 불가능을 뛰어넘는 언약의 성취를 보여줍니다. <strong>마태복음 20장</strong>에서 예수님은 이 은혜가 자격 없는 자들에게 주어지는 선물임을 포도원 품꾼 비유로 가르치시며, 은혜 입은 자들은 으뜸이 되고자 함이 아니라 섬기는 자가 되어야 함을 선포하십니다.</p>
+                            <p><strong>느헤미야 10장</strong>은 말씀 앞에서 언약을 인봉하고 구체적인 헌신을 서약하는 백성들의 결단을, <strong>사도행전 20장</strong>은 복음을 위해 생명조차 귀한 것으로 여기지 않고 눈물로 양 떼를 섬긴 바울의 고별 설교를 통해 참된 헌신의 모델을 제시합니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 21장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 21장: 이삭의 출생과 이스마엘의 축출</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">하나님께서 하갈과 이스마엘을 내보내라는 사라의 요구를 들어주신 구속사적 이유는 무엇입니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>하나님께서 말씀하신 시기가 되어 사라가 이삭을 낳습니다. 아브라함은 말씀대로 8일 만에 할례를 행합니다. 이삭이 젖을 떼던 날, 이스마엘이 이삭을 놀리는 것을 본 사라는 그들을 내쫓으라 요구합니다. 아브라함이 근심하나, 하나님은 "이삭에게서 나는 자라야 네 씨라 부를 것임이니라" 하시며 사라의 말을 들으라 하십니다. 쫓겨난 하갈에게 하나님은 다시 나타나 이스마엘도 한 민족을 이룰 것을 약속하십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 언약 자손의 구별:</strong> 이스마엘의 축출은 가정 불화의 해결을 넘어, 약속의 자녀(은혜)와 육체의 자녀(율법/행위)가 함께 유업을 얻을 수 없음을 보여주는 예표적 사건입니다(갈 4:29-30). 구원은 오직 약속을 따라 난 자들에게 주어지는 은혜입니다.</p>
+                            <p><strong>2. 말씀의 성취:</strong> <span class="scripture-quote">여호와께서 말씀하신 대로... 사라를 돌보셨고</span>(1절)라는 기록은 하나님의 신실하심(Faithfulness)을 강조합니다. 인간의 생물학적 한계(경수가 끊어짐)는 하나님의 약속 성취에 아무런 장애가 되지 않습니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_21.html" data-title="창세기 21장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_21" data-title="창세기 21장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 20장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 20장</h3>
+                            <h3>마태복음 20장: 포도원 품꾼과 섬김의 도</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">"나중 된 자로서 먼저 되고 먼저 된 자로서 나중 되리라"는 말씀은 하나님 나라의 어떤 원리를 가르칩니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 20장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 포도원 품꾼 비유를 통해, 이른 아침에 온 자나 제5시에 온 자나 똑같이 한 데나리온을 주시는 주인의 뜻을 설명하십니다. 이는 보상이 공로가 아닌 주권적 은혜임을 보여줍니다. 이후 세베대의 어머니가 아들들의 높은 자리를 청탁하자, 예수님은 <span class="scripture-quote">인자가 온 것은 섬김을 받으려 함이 아니라 도리어 섬기려 하고 자기 목숨을 많은 사람의 대속물로 주려 함이니라</span>(28절)고 참된 위대함을 정의하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_20.html" data-title="마태복음 20장">본문 보기 (20장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_20" data-title="마태복음 20장">성경 듣기 (20장)</button> </div>
+                            <p><strong>1. 주권적 은혜의 평등성:</strong> 먼저 온 일꾼들의 불평은 '공로주의'에서 비롯되었습니다. 그러나 하나님 나라의 상급은 인간의 수고(Works)가 아닌 하나님의 약속과 뜻(Grace)에 기초합니다. 늦게 온 죄인도 동일한 구원의 은혜를 누리는 것이 복음의 파격입니다.</p>
+                            <p><strong>2. 대속물(Lytron)로서의 그리스도:</strong> 예수님의 섬김은 도덕적 봉사를 넘어, 죄의 노예 된 자들을 해방하기 위해 자신의 생명을 지불하시는 '대속'입니다. 제자도란 이 십자가의 길을 따라 종이 되어 섬기는 것입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_20.html" data-title="마태복음 20장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_20" data-title="마태복음 20장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 10장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 10장</h3>
+                            <h3>느헤미야 10장: 언약의 인봉과 헌신</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">백성들이 "우리 하나님의 전을 버려두지 아니하리라"고 맹세하며 구체적으로 서약한 항목들은 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 10장의 주요 내용을 설명합니다.</p>
+                            <p>말씀 앞에 회개한 백성들은 이제 구체적인 순종을 맹세하며 언약 문서에 인봉합니다. 총독 느헤미야를 비롯한 지도자들과 백성들은 이방인과 통혼하지 않고, 안식일과 안식년을 거룩히 지키며, 성전세를 내고, 첫 열매와 십일조를 드릴 것을 서약합니다. 그들은 성전의 제사와 레위인들의 생계를 책임짐으로써 하나님 중심의 삶을 회복할 것을 결단합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_10.html" data-title="느헤미야 10장">본문 보기 (10장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_10" data-title="느헤미야 10장">성경 듣기 (10장)</button> </div>
+                            <p><strong>1. 구체적 적용이 있는 회개:</strong> 참된 부흥은 감정적 고양에 머물지 않고 삶의 구체적인 영역(결혼, 시간, 물질)에서의 변혁으로 이어집니다. 언약 갱신은 율법의 세부 조항에 대한 자발적 순종으로 증명됩니다.</p>
+                            <p><strong>2. 예배의 회복과 공동체 유지:</strong> 십일조와 성전세는 단순한 의무가 아니라, 하나님을 예배하는 시스템이 지속되도록 하는 공동체적 헌신입니다. "하나님의 전을 버려두지 않겠다"는 고백은 하나님을 삶의 최우선순위에 두겠다는 신앙고백입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_10.html" data-title="느헤미야 10장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_10" data-title="느헤미야 10장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 20장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 20장</h3>
+                            <h3>사도행전 20장: 바울의 고별 설교와 목양</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">바울이 "나의 달려갈 길과 주 예수께 받은 사명"을 생명보다 귀하게 여긴 동력은 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 20장의 주요 내용을 설명합니다.</p>
+                            <p>바울은 드로아에서 밤늦게까지 강론하다 떨어진 유두고를 살리고, 밀레도에서 에베소 장로들을 불러 고별 설교를 합니다. 그는 자신이 겸손과 눈물로 섬겼음을 회고하며, 예루살렘에서 닥칠 환난을 알면서도 성령에 매여 간다고 고백합니다. 그는 장로들에게 <span class="scripture-quote">하나님이 자기 피로 사신 교회를 보살피게 하셨느니라</span>(28절)고 당부하며, "주는 것이 받는 것보다 복되다"는 주님의 말씀을 기억하라고 권면합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_20.html" data-title="사도행전 20장">본문 보기 (20장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_20" data-title="사도행전 20장">성경 듣기 (20장)</button> </div>
+                            <p><strong>1. 사명 중심적 삶:</strong> 바울에게 생명은 그 자체가 목적이 아니라, 은혜의 복음을 증언하기 위한 도구였습니다. <span class="scripture-quote">내가 달려갈 길과... 은혜의 복음을 증언하는 일을 마치려 함에는 나의 생명조차 조금도 귀한 것으로 여기지 아니하노라</span>(24절)는 고백은 십자가를 지는 제자도의 정수입니다.</p>
+                            <p><strong>2. 교회의 가치:</strong> 교회는 인간의 조직이 아니라 '하나님이 자기 피로 사신' 존귀한 공동체입니다. 목회자와 직분자는 이 거룩한 피 값을 기억하며 양 떼를 흉악한 이리(이단)로부터 지키고 말씀으로 양육해야 할 막중한 책임을 집니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_20.html" data-title="사도행전 20장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_20" data-title="사도행전 20장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 은혜를 입은 자의 헌신</h4>
+                            
+                            <p>오늘의 네 본문은 하나님의 주권적인 은혜와 그 은혜에 빚진 자들의 마땅한 헌신을 연결합니다. <strong>창세기 21장</strong>과 <strong>마태복음 20장</strong>은 구원이 인간의 조건이나 공로가 아닌, 오직 하나님의 약속과 주권적 은혜(Sola Gratia)로 주어짐을 선포합니다. 먼저 온 자나 나중 온 자나 동일한 은혜를 받습니다.</p>
+                            
+                            <p>이 놀라운 은혜를 입은 자들은 어떻게 살아야 합니까? <strong>느헤미야 10장</strong>의 백성들처럼 하나님의 전을 위해 물질과 시간을 구별하여 드리는 구체적인 헌신이 있어야 합니다. 더 나아가 <strong>사도행전 20장</strong>의 바울처럼, 자기 생명보다 사명을 더 귀히 여기며 "주는 것이 받는 것보다 복되다"는 예수님의 말씀을 삶으로 실천하는 섬김의 자리로 나아가야 합니다.</p>
+                            
+                            <p>오늘 하루, 우리에게 베푸신 감당할 수 없는 은혜를 기억하며, 으뜸이 되기보다 섬기는 자로, 받는 자보다 주는 자로 살아가기를 소망합니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

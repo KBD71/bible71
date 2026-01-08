@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 17일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 17일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 18장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 18장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 17장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 7장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 17장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 18장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 18장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_18.html" data-title="창세기 18장">본문 보기 (18장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_18" data-title="창세기 18장">성경 듣기 (18장)</button> </div>
+                            <h3>1월 17일: 약속의 성취와 영광의 계시</h3>
+                            <h4>오늘의 길잡이: 능치 못함이 없는 하나님을 바라보라</h4>
+                            <p>오늘 말씀은 하나님의 약속이 얼마나 구체적으로 성취되며, 그리스도의 영광이 어떻게 드러나는지를 보여줍니다. <strong>창세기 18장</strong>에서 하나님은 "기한이 이를 때에" 사라에게 아들이 있으리라 말씀하시며, 불가능해 보이는 상황 속에서도 일하시는 전능성을 드러내십니다. <strong>마태복음 17장</strong>의 변화산 사건은 예수님이 율법(모세)과 선지자(엘리야)의 완성이신 영광스러운 하나님 아들이심을 계시합니다.</p>
+                            <p><strong>느헤미야 7장</strong>은 약속대로 포로지에서 돌아온 자들의 명단을 통해 하나님의 신실하심을 증거하며, <strong>사도행전 17장</strong>은 이 복음의 소식이 유대인의 회당을 넘어 헬라의 철학적 중심지인 아테네에까지 선포되는 확장의 역사를 보여줍니다. 능치 못함이 없는 하나님을 신뢰하며 말씀 앞에 서는 하루가 되시기를 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 18장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 18장: 이삭 약속과 아브라함의 중보</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">사라의 웃음과 하나님의 "여호와께 능하지 못한 일이 있겠느냐"는 반문은 우리의 믿음에 대해 무엇을 도전합니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>마무레 상수리나무 아래에 나타나신 여호와와 두 천사를 아브라함이 극진히 대접합니다. 하나님은 사라에게 내년 이맘때 아들이 있으리라 약속하시지만, 사라는 장막 뒤에서 속으로 웃으며 불신합니다. 하나님은 이를 아시고 전능하심을 선포하십니다. 이후 하나님은 소돔과 고모라의 죄악을 심판하려 하심을 숨기지 않고 알리시고, 아브라함은 의인 열 명을 찾기까지 간절히 중보합니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 전능성과 인간의 불신:</strong> 사라는 생물학적 불가능성 때문에 웃었으나, 하나님은 <span class="scripture-quote">여호와께 능하지 못한 일이 있겠느냐</span>(14절)고 반문하십니다. 이삭(웃음)의 출생은 인간의 한계를 뛰어넘는 하나님의 전능한 능력과 주권적 은혜의 산물임을 보여줍니다.</p>
+                            <p><strong>2. 중보자의 원형:</strong> 아브라함이 소돔을 위해 끈질기게 중보한 것은 하나님의 공의와 사랑에 호소한 것입니다. 이는 죄인을 위해 하나님 우편에서 간구하시는 참된 중보자 예수 그리스도의 사역을 예표합니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_18.html" data-title="창세기 18장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_18" data-title="창세기 18장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 17장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 17장</h3>
+                            <h3>마태복음 17장: 변화산의 영광과 십자가의 길</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">예수님이 모세와 엘리야와 함께 말씀하신 '별세(exodos)'는 구속사적으로 어떤 의미를 가집니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 17장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 베드로, 야고보, 요한을 데리고 높은 산에 올라가사 해같이 빛나는 모습으로 변형되십니다. 모세와 엘리야가 나타나 예수님과 대화하고, 하늘에서 <span class="scripture-quote">이는 내 사랑하는 아들이요 내 기뻐하는 자니 너희는 그의 말을 들으라</span>(5절)는 음성이 들립니다. 산 아래로 내려오신 예수님은 믿음이 없는 세대를 책망하시며 귀신 들린 아이를 고치시고, 다시 한번 자신의 죽음과 부활을 예고하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_17.html" data-title="마태복음 17장">본문 보기 (17장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_17" data-title="마태복음 17장">성경 듣기 (17장)</button> </div>
+                            <p><strong>1. 율법과 선지자의 완성:</strong> 모세(율법)와 엘리야(선지자)의 등장은 구약의 모든 계시가 예수 그리스도를 통해 완성됨을 보여줍니다. '너희는 그의 말을 들으라'는 명령은 이제 그리스도가 유일하고 최종적인 계시자이심을 확증합니다.</p>
+                            <p><strong>2. 영광과 고난의 역설:</strong> 변화산의 영광은 십자가 고난을 통해 성취될 부활의 영광을 미리 보여준 것입니다. 제자들은 영광에 머물고 싶어 했으나(초막 셋), 주님은 산 아래 고통받는 세상으로 내려가 십자가를 지셨습니다. 이것이 영광에 이르는 유일한 길입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_17.html" data-title="마태복음 17장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_17" data-title="마태복음 17장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 7장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 7장</h3>
+                            <h3>느헤미야 7장: 귀환자 명단과 공동체의 회복</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">성벽 재건 후 느헤미야가 과거 1차 귀환자들의 계보를 다시 확인한 이유는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 7장의 주요 내용을 설명합니다.</p>
+                            <p>성벽 건축이 끝나고 문짝을 단 후, 느헤미야는 예루살렘을 다스릴 자들을 세우고 하나님이 주신 감동을 따라 인구 조사를 실시합니다. 그는 약 100년 전 스룹바벨과 함께 돌아온 1차 포로 귀환자들의 명단(에스라 2장과 유사)을 발견하고 이를 상세히 기록합니다. 이 명단에는 제사장, 레위 사람, 느디님 사람, 그리고 계보가 불분명하여 제사장 직분을 행하지 못한 자들까지 포함되어 있습니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_07.html" data-title="느헤미야 7장">본문 보기 (7장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_7" data-title="느헤미야 7장">성경 듣기 (7장)</button> </div>
+                            <p><strong>1. 언약 백성의 정체성 확인:</strong> 족보의 재확인은 성벽(외형) 재건을 넘어, 그 안에 거할 공동체의 영적 정체성(내면)을 세우는 작업이었습니다. 하나님 나라는 건물이 아닌, 언약 안에 있는 '사람들'로 구성됩니다.</p>
+                            <p><strong>2. 하나님의 신실하심의 기록:</strong> 수많은 가문과 숫자의 기록은 하나님께서 약속대로 남은 자(Remnant)를 보존하시고 회복시키셨음을 보여주는 역사적 증거입니다. 이름 없는 평범한 자들도 하나님의 생명책에는 낱낱이 기록되어 있음을 상기시킵니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_07.html" data-title="느헤미야 7장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_7" data-title="느헤미야 7장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 17장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 17장</h3>
+                            <h3>사도행전 17장: 아레오바고의 변증과 복음</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">바울이 아테네의 철학자들에게 '알지 못하는 신'을 언급하며 창조주 하나님을 전한 변증의 핵심은 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 17장의 주요 내용을 설명합니다.</p>
+                            <p>바울은 데살로니가에서 성경을 강론하며 예수가 그리스도라 증언하고, 베뢰아에서는 신사적인 유대인들이 날마다 성경을 상고합니다. 아테네에 도착한 바울은 우상이 가득한 것을 보고 격분하여, 에피쿠로스와 스토아 철학자들과 논쟁합니다. 그는 아레오바고 법정에서 우주와 만물을 지으신 창조주 하나님을 선포하며, 사람의 손으로 만든 우상의 허구성을 지적하고, 부활하신 예수 그리스도를 통한 심판과 회개를 촉구합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_17.html" data-title="사도행전 17장">본문 보기 (17장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_17" data-title="사도행전 17장">성경 듣기 (17장)</button> </div>
+                            <p><strong>1. 상황화와 복음의 본질:</strong> 바울은 헬라 철학자들의 눈높이에 맞춰 그들의 시인(아라투스 등)을 인용하면서도, 복음의 본질인 '창조주 하나님, 회개, 부활, 심판'은 타협하지 않고 선포했습니다. 이는 문화적 접촉점을 찾되 복음의 유일성을 견지하는 선교의 모델입니다.</p>
+                            <p><strong>2. 성경 중심의 신앙:</strong> 데살로니가와 베뢰아의 대조는 성경을 대하는 태도의 중요성을 보여줍니다. <span class="scripture-quote">이것이 그러한가 하여 날마다 성경을 상고하므로</span>(11절)라는 베뢰아 사람들의 태도는 개혁주의 성경관의 모범입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_17.html" data-title="사도행전 17장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_17" data-title="사도행전 17장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 인간의 이성을 뛰어넘는 하나님의 계시</h4>
+                            
+                            <p>오늘의 본문들은 인간의 상식과 이성을 초월하여 임하는 하나님의 구원 역사를 보여줍니다. <strong>창세기 18장</strong>에서 사라는 노년의 출산을 비웃었으나 하나님은 전능으로 약속을 성취하셨고, <strong>마태복음 17장</strong>의 변화산 사건은 예수님이 인간의 이해를 넘어서는 영광의 본체이심을 계시했습니다.</p>
+                            
+                            <p>이 신비로운 구원의 역사는 <strong>사도행전 17장</strong>에서 인간 지성의 정점인 아테네 철학자들 앞에서 '부활'이라는 충격적인 메시지로 선포되었습니다. 그리고 <strong>느헤미야 7장</strong>은 그 구원의 역사 속에 부름 받은 한 사람 한 사람의 이름이 결코 잊혀지지 않고 생명책에 기록됨을 보여줍니다.</p>
+                            
+                            <p>우리는 오늘 말씀을 통해, 우리의 이성으로 하나님을 제한하지 않고, "능치 못함이 없으신" 하나님의 말씀 앞에 겸손히 무릎 꿇는 베뢰아 사람들과 같은 믿음을 가져야 합니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

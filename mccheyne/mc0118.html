@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 18일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 18일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 19장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 19장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 18장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 8장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 18장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 19장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 19장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_19.html" data-title="창세기 19장">본문 보기 (19장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_19" data-title="창세기 19장">성경 듣기 (19장)</button> </div>
+                            <h3>1월 18일: 심판의 불과 말씀의 빛</h3>
+                            <h4>오늘의 길잡이: 멸망할 세상에서 구별된 백성으로</h4>
+                            <p>오늘 성경 읽기는 죄악 된 세상에 임하는 하나님의 심판과, 그 가운데서 자기 백성을 구원하시고 말씀으로 세우시는 은혜의 역사를 다룹니다. <strong>창세기 19장</strong>은 소돔과 고모라의 멸망을 통해 죄에 대한 하나님의 공의가 얼마나 엄위한지를 보여주며, 세상을 뒤돌아보지 말 것을 경고합니다. <strong>마태복음 18장</strong>은 구원받은 천국 백성이 가져야 할 겸손과 용서의 윤리를 가르치며, 공동체의 거룩함을 강조합니다.</p>
+                            <p><strong>느헤미야 8장</strong>은 수문 앞 광장에 모여 율법을 듣고 회개하며 기뻐하는 백성들을 통해, 진정한 부흥이 말씀으로 돌아감에 있음을 증거합니다. <strong>사도행전 18장</strong>은 타락한 도시 고린도에서 두려워하는 바울에게 "내 백성이 많다"고 격려하시며, 말씀 사역을 통해 교회를 든든히 세워가시는 주님의 주권을 보여줍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 19장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 19장: 소돔의 멸망과 롯의 구원</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">롯의 아내가 뒤를 돌아본 행위는 단순한 호기심을 넘어 영적으로 어떤 상태를 대변합니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>두 천사가 소돔에 이르러 롯에게 피신을 재촉하지만, 롯은 지체합니다. 천사들이 그와 가족의 손을 잡아 이끌어 성 밖으로 인도하고, 하나님은 유황과 불을 비같이 내려 소돔과 고모라를 심판하십니다. 롯의 아내는 뒤를 돌아보아 소금 기둥이 되고, 롯은 두 딸과 함께 굴에 거하며 모압과 암몬 족속의 조상이 되는 부끄러운 결말을 맞습니다. 하나님은 아브라함을 생각하사 롯을 엎으시는 중에서 건지셨습니다(29절).</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 심판의 필연성과 긍휼:</strong> 소돔의 멸망은 죄에 대한 하나님의 진노가 실재함을 보여줍니다. 롯이 구원받은 것은 그의 의로움 때문이 아니라 <span class="scripture-quote">여호와께서 그에게 자비를 더하심</span>(16절)과 아브라함의 중보(언약) 때문이었습니다. 이는 칭의가 전적인 은혜임을 예표합니다.</p>
+                            <p><strong>2. 세상에 대한 미련:</strong> 롯의 아내가 뒤를 돌아본 것은 심판받는 세상에 대한 미련과 애착을 버리지 못한 마음의 표현입니다. 이는 "손에 쟁기를 잡고 뒤를 돌아보는 자는 하나님 나라에 합당하지 아니하니라"(눅 9:62)는 말씀처럼, 성도가 세상과 구별되어야 함을 엄중히 경고합니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_19.html" data-title="창세기 19장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_19" data-title="창세기 19장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 18장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 18장</h3>
+                            <h3>마태복음 18장: 천국 백성의 겸손과 용서</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">일만 달란트 탕감받은 자의 비유는 우리가 형제를 용서해야 하는 근거가 어디에 있음을 가르칩니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 18장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 천국에서 큰 자는 어린아이와 같이 자기를 낮추는 자라고 말씀하시며, 작은 자 하나를 실족하게 하는 것의 엄중함을 경고하십니다. 잃은 양의 비유를 통해 한 영혼의 소중함을, 형제의 죄에 대한 권징 절차를 통해 공동체의 거룩함을 가르치십니다. 베드로가 용서의 횟수를 묻자, 일만 달란트 빚진 자의 비유를 통해 하나님께 무한한 용서를 받은 자는 형제를 끝까지 용서해야 할 의무가 있음을 선포하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_18.html" data-title="마태복음 18장">본문 보기 (18장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_18" data-title="마태복음 18장">성경 듣기 (18장)</button> </div>
+                            <p><strong>1. 은혜에 기초한 윤리:</strong> 우리가 형제를 용서해야 하는 이유는 우리가 도덕적으로 우월해서가 아니라, 갚을 수 없는 죄(일만 달란트)를 하나님께 탕감받았기 때문입니다. 용서는 선택이 아니라 구원받은 성도의 필연적 열매입니다.</p>
+                            <p><strong>2. 교회의 치리권:</strong> <span class="scripture-quote">무엇이든지 너희가 땅에서 매면 하늘에서도 매일 것이요</span>(18절)라는 말씀은 교회에 주신 영적 권위(열쇠권)를 의미합니다. 교회는 죄에 대해 단호히 권징함으로써 공동체의 순결을 지켜야 합니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_18.html" data-title="마태복음 18장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_18" data-title="마태복음 18장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 8장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 8장</h3>
+                            <h3>느헤미야 8장: 말씀의 회복과 영적 부흥</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">백성들이 율법의 말씀을 듣고 울다가 다시 기뻐하게 된 영적 과정은 무엇을 의미합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 8장의 주요 내용을 설명합니다.</p>
+                            <p>모든 백성이 수문 앞 광장에 모여 학사 에스라에게 율법책을 가져오기를 청합니다. 에스라가 새벽부터 정오까지 율법을 낭독하고 레위 사람들이 뜻을 해석해 주자, 백성들이 말씀을 깨닫고 다 웁니다. 느헤미야와 에스라는 <span class="scripture-quote">오늘은 너희 하나님 여호와의 성일이니 슬퍼하지 말며... 여호와를 기뻐하는 것이 너희의 힘이니라</span>(10절)고 위로합니다. 백성들은 말씀을 따라 초막절을 지키며 큰 기쁨을 누립니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_08.html" data-title="느헤미야 8장">본문 보기 (8장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_8" data-title="느헤미야 8장">성경 듣기 (8장)</button> </div>
+                            <p><strong>1. 말씀 중심의 부흥:</strong> 진정한 부흥은 감정적 고조가 아니라, 하나님의 말씀이 선포되고 그 의미가 깨달아질 때 일어납니다. 죄에 대한 자각(울음)과 구원의 은혜에 대한 감사(기쁨)는 말씀이 심령에 역사할 때 나타나는 균형 잡힌 반응입니다.</p>
+                            <p><strong>2. 언약 갱신과 절기:</strong> 초막절을 지킨 것은 광야 생활 동안 지키신 하나님을 기억하고, 현재의 안식이 하나님의 은혜임을 고백하는 행위입니다. 이는 공동체가 구속사의 기억을 공유함으로 정체성을 확립하는 과정입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_08.html" data-title="느헤미야 8장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_8" data-title="느헤미야 8장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 18장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 18장</h3>
+                            <h3>사도행전 18장: 고린도 선교와 하나님의 주권</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">"이 성중에 내 백성이 많음이라"는 주님의 말씀은 전도자의 두려움을 어떻게 잠재웁니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 18장의 주요 내용을 설명합니다.</p>
+                            <p>바울은 아테네를 떠나 고린도에 이르러 브리스길라와 아굴라 부부를 만나 장막 만드는 일을 함께하며 복음을 전합니다. 유대인들의 대적과 비방에도 불구하고 회당장 그리스보와 많은 고린도 사람이 믿고 세례를 받습니다. 밤에 주께서 환상 가운데 바울에게 <span class="scripture-quote">두려워하지 말며 침묵하지 말고 말하라... 이 성중에 내 백성이 많음이라</span>(9-10절)고 격려하십니다. 바울은 1년 6개월을 머물며 하나님의 말씀을 가르칩니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_18.html" data-title="사도행전 18장">본문 보기 (18장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_18" data-title="사도행전 18장">성경 듣기 (18장)</button> </div>
+                            <p><strong>1. 선택 교리와 선교의 확신:</strong> 하나님은 아직 믿지 않는 고린도 사람들 중에도 '내 백성(택함 받은 자)'이 있다고 선언하십니다. 이는 구원이 하나님의 영원한 선택(Election)에 근거함을 보여주며, 전도자가 핍박 속에서도 낙심하지 않고 말씀을 전해야 할 강력한 동기가 됩니다.</p>
+                            <p><strong>2. 자비량 사역과 동역:</strong> 바울이 생업을 하며 복음을 전한 것과 브리스길라 부부와의 만남은, 평신도 전문인 선교와 거룩한 동역의 아름다운 모델을 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_18.html" data-title="사도행전 18장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_18" data-title="사도행전 18장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 심판을 이기는 은혜와 말씀의 능력</h4>
+                            
+                            <p>오늘의 네 본문은 죄악이 관영한 세상 속에서 하나님께서 어떻게 자기 백성을 구별하시고 보존하시는지를 보여줍니다. <strong>창세기 19장</strong>의 소돔은 심판받아 마땅한 세상의 모습이며, 롯의 구원은 전적인 하나님의 긍휼이었습니다. 이 구원받은 백성이 살아가야 할 윤리는 <strong>마태복음 18장</strong>에서 '겸손과 용서'로 제시됩니다.</p>
+                            
+                            <p>이러한 거룩한 삶은 어떻게 가능합니까? <strong>느헤미야 8장</strong>은 '말씀의 회복'을 통해서만 가능함을 보여줍니다. 율법책 앞에서 울고 기뻐했던 이스라엘처럼, 말씀이 우리 심령을 찌르고 위로할 때 참된 부흥이 일어납니다. 또한 <strong>사도행전 18장</strong>은 타락한 도시 고린도에도 "내 백성이 많다"고 하신 주님의 주권을 믿고, 담대히 말씀을 선포할 때 교회가 세워짐을 증거합니다.</p>
+                            
+                            <p>오늘 우리는 소돔과 같은 세상에 살지만, 뒤를 돌아보지 말고 오직 말씀을 붙들어야 합니다. 여호와를 기뻐하는 것이 우리의 힘이며, 주께서 우리와 함께하심으로 누구도 우리를 대적할 수 없음을 믿으시기 바랍니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

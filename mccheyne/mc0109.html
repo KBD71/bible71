@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 9일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 9일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 9-10장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 9-10장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 9장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">에스라 9장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 9장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 9-10장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 9-10장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_09.html" data-title="창세기 9-10장">본문 보기 (9-10장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_9_10" data-title="창세기 9-10장">성경 듣기 (9-10장)</button> </div>
+                            <h3>1월 9일: 죄인을 부르시는 긍휼의 주권</h3>
+                            <h4>오늘의 길잡이: 자격 없는 자들에게 임하는 은혜</h4>
+                            <p>오늘 우리는 성경 전체를 관통하는 '인간의 실패'와 '하나님의 신실하심'의 극적인 대조를 목격하게 됩니다. <strong>창세기 9-10장</strong>에서 하나님은 홍수 직후에도 여전히 부패한 인간을 위해 무지개 언약을 맺으시며 보존의 은혜를 약속하십니다. <strong>마태복음 9장</strong>에서 예수님은 스스로 의롭다 하는 자들이 아닌, 세리와 죄인들을 부르러 오셨음을 선포하십니다.</p>
+                            <p><strong>에스라 9장</strong>은 거룩함을 잃어버린 공동체를 위한 에스라의 처절한 회개 기도를 통해, 죄에 대한 깊은 슬픔이 회복의 시작임을 보여줍니다. 마지막으로 <strong>사도행전 9장</strong>은 교회의 핍박자였던 사울을 굴복시켜 이방인의 사도로 삼으시는 장면을 통해, 누구도 거부할 수 없는 하나님의 불가항력적인 은혜를 증거합니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 9-10장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 9-10장: 무지개 언약과 인류의 확산</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">홍수 심판 직후에도 인간의 마음이 여전히 악함을 아시면서 하나님께서 언약을 맺으신 이유는 무엇입니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>하나님은 노아와 그의 아들들에게 복을 주시며 생육하고 번성할 것을 명령하십니다. 또한 다시는 물로 세상을 멸하지 않겠다는 증표로 무지개를 주시며 보존의 언약을 맺으십니다(9장). 그러나 곧이어 노아의 실수와 함의 범죄가 발생하며 죄의 뿌리가 여전히 남아 있음을 보여줍니다. 10장은 노아의 후손들이 각 나라와 족속으로 퍼져나가는 과정을 기록하며, 이들이 훗날 이스라엘 역사와 관계 맺게 될 열방의 기원임을 설명합니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 노아 언약과 일반 은총:</strong> 무지개 언약은 구원받은 자들뿐만 아니라 모든 생물을 대상으로 하는 '보존의 언약'입니다. 이는 인간의 악함에도 불구하고, 구속 역사가 완성될 때까지 하나님께서 자연 질서와 인류 사회를 유지하시겠다는 일반 은총(Common Grace)의 표현입니다.</p>
+                            <p><strong>2. 셈의 하나님 여호와:</strong> 노아의 예언(9:26)을 통해 하나님은 셈의 하나님으로 불리십니다. 이는 장차 셈의 계보를 통해 구원자이신 메시아가 오실 것임을 암시하며, 구속사가 특정 계보를 통해 구체화됨을 보여주는 중요한 계시입니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_09.html" data-title="창세기 9장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_9" data-title="창세기 9장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 9장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 9장</h3>
+                            <h3>마태복음 9장: 죄를 사하시는 권세</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">종교 지도자들이 예수님의 "네 죄 사함을 받았느니라"는 선언에 걸려 넘어진 근본적인 이유는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 9장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 중풍병자를 고치시며 육체의 치유보다 근본적인 '죄 사함의 권세'를 선포하십니다. 또한 세리 마태를 제자로 부르시고 죄인들과 함께 식사하시며, <span class="scripture-quote">나는 의인을 부르러 온 것이 아니요 죄인을 부르러 왔노라</span>(13절)고 자신의 사역 목적을 밝히십니다. 혈루증 앓는 여인의 믿음, 관리의 딸을 살리신 사건, 두 맹인의 눈을 뜨게 하신 이적들은 그분이 구약이 예언한 메시아이심을 입증합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_09.html" data-title="마태복음 9장">본문 보기 (9장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_9" data-title="마태복음 9장">성경 듣기 (9장)</button> </div>
+                            <p><strong>1. 인자의 죄 사함 권세:</strong> 서기관들은 오직 하나님만이 죄를 사하실 수 있다고 믿었기에 예수님을 신성모독으로 여겼습니다. 그러나 예수님은 중풍병자를 고치심으로 인자(Son of Man)가 땅에서 죄를 사하는 권능이 있음을 증명하셨습니다. 이는 예수님이 곧 성육신하신 하나님이심을 드러내는 결정적 계시입니다.</p>
+                            <p><strong>2. 은혜의 대상:</strong> 예수님은 자신을 '의원'으로, 죄인들을 '병든 자'로 비유하십니다. 이는 자신의 영적 파산을 인정하는 자만이 그리스도의 은혜를 필요로 한다는 복음의 원리를 보여줍니다. 자기 의(Self-righteousness)에 빠진 자들은 결코 이 은혜를 누릴 수 없습니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_09.html" data-title="마태복음 9장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_9" data-title="마태복음 9장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 에스라 9장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>에스라 9장</h3>
+                            <h3>에스라 9장: 거룩한 씨의 타락과 회개</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">이방인과의 통혼이 단순한 결혼 문제를 넘어 이스라엘 공동체의 존립을 위협하는 이유는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>에스라 9장의 주요 내용을 설명합니다.</p>
+                            <p>에스라는 백성들의 방백들로부터 이스라엘 자손이 이방 땅의 백성들과 섞여 '거룩한 씨'가 섞이게 되었다는 보고를 듣습니다. 이에 그는 속옷과 겉옷을 찢고 머리털을 뜯으며 기가 막혀 앉아 있다가, 저녁 제사 때에 하나님 앞에 무릎을 꿇고 통곡하며 회개 기도를 드립니다. 그는 조상 때부터의 죄악을 인정하고, 지금 베푸신 은혜를 배반한 백성의 죄를 낱낱이 고백합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_15_EZR_09.html" data-title="에스라 9장">본문 보기 (9장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="EZR_9" data-title="에스라 9장">성경 듣기 (9장)</button> </div>
+                            <p><strong>1. 언약 공동체의 거룩성:</strong> 이방인과의 통혼 금지는 인종 차별이 아니라 신앙의 순수성을 지키기 위한 언약적 장치였습니다. '거룩한 씨'(2절)의 혼합은 결국 우상 숭배로 이어져 언약 관계를 파괴하기 때문입니다. 에스라의 슬픔은 하나님의 거룩하심에 대한 깊은 인식에서 비롯되었습니다.</p>
+                            <p><strong>2. 연대적 회개와 중보:</strong> 에스라는 자신은 범죄하지 않았음에도 <span class="scripture-quote">우리의 죄악이 많아 정수리에 넘치고</span>(6절)라며 백성의 죄를 자신의 죄로 끌어안습니다. 이는 그리스도께서 자기 백성의 죄를 짊어지신 중보 사역의 모형이며, 참된 영적 지도자가 가져야 할 태도를 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_15_EZR_09.html" data-title="에스라 9장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZR_9" data-title="에스라 9장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 9장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 9장</h3>
+                            <h3>사도행전 9장: 핍박자를 사도로 부르심</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">사울의 회심 사건은 구원이 인간의 결단이 아닌 하나님의 전적인 주권임을 어떻게 증명합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 9장의 주요 내용을 설명합니다.</p>
+                            <p>살기가 등등하여 다메섹으로 향하던 사울은 길 위에서 부활하신 예수님을 만납니다. 강렬한 빛과 함께 <span class="scripture-quote">사울아 사울아 네가 어찌하여 나를 박해하느냐</span>(4절)라는 음성을 들은 그는 눈이 멀게 되고, 3일간 금식합니다. 주님은 아나니아를 보내어 그에게 안수하게 하시고, 그를 '이방인을 위한 나의 택한 그릇'이라고 선언하십니다. 사울은 즉시 회당에서 예수가 하나님의 아들이심을 전파합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_09.html" data-title="사도행전 9장">본문 보기 (9장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_9" data-title="사도행전 9장">성경 듣기 (9장)</button> </div>
+                            <p><strong>1. 불가항력적 은혜 (Irresistible Grace):</strong> 사울은 예수님을 찾지도, 원하지도 않았으며 오히려 대적했습니다. 그러나 주권적인 주님은 그를 강권적으로 굴복시키셨습니다. 이는 구원이 인간의 자유의지에 달린 것이 아니라, 하나님의 창세 전 선택과 부르심에 근거함을 보여주는 '불가항력적 은혜'의 가장 확실한 증거입니다.</p>
+                            <p><strong>2. 그리스도와 교회의 연합:</strong> 예수님은 교회를 핍박하는 사울에게 "왜 '나'를 박해하느냐"고 물으셨습니다. 이는 지상에 있는 성도(교회)와 천상에 계신 머리(그리스도)가 신비적으로 연합되어 있음을 계시합니다. 교회를 건드리는 것은 곧 그리스도의 눈동자를 건드리는 것입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_09.html" data-title="사도행전 9장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_9" data-title="사도행전 9장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 죄인을 향한 하나님의 주권적 섭리</h4>
+                            
+                            <p>오늘의 네 본문은 인간의 깊은 타락과 그보다 더 깊은 하나님의 은혜를 극적으로 대조합니다. <strong>창세기 9-10장</strong>은 홍수 심판 후에도 여전히 죄성을 가진 인간을 위해 무지개 언약을 맺으시는 하나님의 인내를 보여줍니다. <strong>에스라 9장</strong>은 그 언약 백성이 거룩함을 잃었을 때, 찢어지는 마음으로 드리는 회개가 회복의 통로임을 가르쳐줍니다.</p>
+                            
+                            <p>이러한 죄인들을 향한 하나님의 응답은 신약에서 절정을 이룹니다. <strong>마태복음 9장</strong>에서 예수님은 "내가 의인을 부르러 온 것이 아니요 죄인을 부르러 왔노라"고 선언하시며, 영적 병자들을 고치시는 진정한 의사로 오셨습니다. 이 선언은 <strong>사도행전 9장</strong>에서 교회의 핍박자 괴수 사울을 이방인의 사도로 변화시키는 불가항력적인 은혜의 사건으로 증명됩니다.</p>
+                            
+                            <p>우리는 오늘 말씀을 통해 구원이 우리의 어떠함에 있지 않고, 대적자조차 아들로 만드시는 하나님의 주권적인 사랑에 있음을 확신하게 됩니다. 우리의 죄악이 깊을수록, 그리스도의 은혜는 더욱 넘칩니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

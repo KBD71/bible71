@@ -5,85 +5,226 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 8일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 추가된 스타일: 전체 개요 및 핵심 질문 박스 등 */
+        
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* 본문 이동 버튼 스타일 (개요 하단) */
+        .start-reading-btn {
+            background-color: #4285F4;
+            color: white;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .start-reading-btn:hover {
+            background-color: #3367d6;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 8일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 8장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 8장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 8장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">에스라 8장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 8장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 8장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 8장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_08.html" data-title="창세기 8장">본문 보기 (8장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_8" data-title="창세기 8장">성경 듣기 (8장)</button> </div>
+                            <h3>1월 8일: 하나님의 기억하심과 새 시대의 시작</h3>
+                            <h4>오늘의 길잡이: 심판을 넘어 구원으로</h4>
+                            <p>오늘의 네 본문은 모두 '새로운 시작'과 '하나님의 주권적 개입'이라는 거시적인 주제를 공유합니다. <strong>창세기 8장</strong>은 홍수 심판 이후 하나님께서 노아를 기억하심으로 새 창조의 질서를 여시는 장면을 보여줍니다. <strong>마태복음 8장</strong>은 예수 그리스도께서 질병과 자연을 다스리시는 왕권을 통해 하나님 나라가 이 땅에 도래했음을 선포합니다.</p>
+                            <p><strong>에스라 8장</strong>은 바벨론 포로지에서 예루살렘으로 귀환하는 2차 여정을 다루며, 하나님의 선한 손이 그들의 길을 보호하심을 증언합니다. 마지막으로 <strong>사도행전 8장</strong>은 예루살렘 교회의 박해로 인해 복음이 사마리아와 땅끝으로 흩어져 나가는 역설적인 은혜를 보여줍니다. 고난과 심판의 상황 속에서도 자기 백성을 기억하시고 구원의 역사를 이어가시는 하나님의 신실하심을 묵상해 보시기 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 8장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 8장: 하나님이 기억하시다</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">온 세상이 물에 잠긴 절망적인 상황에서, 구원의 전환점은 어떻게 시작됩니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>홍수로 인해 온 땅이 물에 잠겼을 때, 성경은 <span class="scripture-quote">하나님이 노아와... 모든 들짐승과 가축을 기억하사</span>(1절)라고 기록합니다. 하나님께서 바람을 불게 하시니 물이 줄어들고, 마침내 방주에서 나온 노아는 하나님께 제단을 쌓고 번제를 드립니다. 하나님께서는 그 향기를 받으시고 다시는 사람으로 말미암아 땅을 저주하지 않으시겠다고 언약하시며, 땅에 심음과 거둠의 질서가 있을 것을 약속하십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 기억하심(Zakar):</strong> 본문의 전환점은 인간의 노력이 아닌, 하나님께서 노아를 '기억하심'에 있습니다. 성경에서 하나님이 기억하신다는 것은 단순한 회상이 아니라, 언약에 근거하여 구원 행동을 시작하신다는 의미입니다. 이는 구원이 전적으로 하나님의 주권적인 은혜와 신실하심에서 비롯됨을 보여줍니다.</p>
+                            <p><strong>2. 제사와 새 언약의 보존:</strong> 노아가 드린 번제는 정결한 짐승의 희생을 통해 드려졌습니다. 이는 죄인인 인간이 거룩하신 하나님 앞에 나아가기 위해서는 대속의 피가 필요함을 예표합니다. 하나님은 이 제사를 통해 보존의 언약을 세우시며, 이는 훗날 예수 그리스도의 완전한 희생을 통해 성취될 영원한 화해를 미리 보여줍니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_08.html" data-title="창세기 8장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_8" data-title="창세기 8장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 8장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 8장</h3>
+                            <h3>마태복음 8장: 왕의 권세와 치유</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">예수님의 기적들은 단순히 병을 고치는 능력을 넘어, 그분이 누구이심을 증거합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 8장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 산상수훈(5-7장)의 가르침을 마치신 후, 8장에서 메시아적 권능을 행하십니다. 나병 환자를 깨끗하게 하시고, 백부장의 믿음을 보시고 하인을 고치시며, 베드로의 장모와 많은 병자들을 치유하십니다. 또한 바람과 바다를 꾸짖어 잠잠하게 하시고, 귀신 들린 자들을 자유케 하십니다. 이 모든 사건은 예수님이 죄와 질병, 자연 만물과 영적 세계를 다스리시는 진정한 왕이심을 드러냅니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_08.html" data-title="마태복음 8장">본문 보기 (8장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_8" data-title="마태복음 8장">성경 듣기 (8장)</button> </div>
+                            <p><strong>1. 이사야 예언의 성취:</strong> 마태는 예수님의 치유 사역을 보며 <span class="scripture-quote">우리의 연약한 것을 친히 담당하시고 병을 짊어지셨도다</span>(17절)라는 이사야 53장 4절을 인용합니다. 예수님의 치유는 단순한 기적이 아니라, 장차 십자가에서 감당하실 대속의 사역을 통해 죄의 결과인 질병과 고통을 해결하시는 구속사적 사건입니다.</p>
+                            <p><strong>2. 자연과 영계를 다스리시는 주권:</strong> 풍랑을 잠잠케 하신 사건은 예수님이 창조주 하나님의 권세를 가지신 분임을 증명합니다. 제자들의 <span class="scripture-quote">이가 어떠한 사람이기에 바람과 바다도 순종하는가</span>(27절)라는 질문은 독자로 하여금 예수 그리스도의 신성을 고백하도록 이끕니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_08.html" data-title="마태복음 8장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_8" data-title="마태복음 8장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 에스라 8장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>에스라 8장</h3>
+                            <h3>에스라 8장: 하나님의 선한 손의 도우심</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">위험한 귀환길 앞에서 에스라는 인간적인 군대 요청 대신 무엇을 선택했습니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>에스라 8장의 주요 내용을 설명합니다.</p>
+                            <p>에스라는 2차 포로 귀환자들의 명단을 기록한 후, 아하와 강가에 무리를 모으고 금식을 선포합니다. 그는 왕에게 보병과 마병을 구하는 것을 부끄러워하며, 오직 하나님의 도우심을 구하기 위해 간절히 기도합니다. 하나님께서는 그들의 간구를 들으시고, 대적과 매복한 자의 손에서 건지사(31절) 예루살렘에 무사히 도착하게 하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_15_EZR_08.html" data-title="에스라 8장">본문 보기 (8장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="EZR_8" data-title="에스라 8장">성경 듣기 (8장)</button> </div>
+                            <p><strong>1. 섭리에 대한 절대적 의존:</strong> 에스라가 왕의 군대 없이 귀환을 감행한 것은 무모함이 아니라, 하나님의 언약적 보호하심에 대한 확신 때문이었습니다. <span class="scripture-quote">우리 하나님의 손은 자기를 찾는 모든 자에게 선을 베푸시고</span>(22절)라는 고백은 하나님의 섭리(Providence)가 성도의 삶을 실제로 주관하심을 보여주는 신앙고백입니다.</p>
+                            <p><strong>2. 성전 기물의 성별:</strong> 에스라가 제사장들에게 성전 기물들을 맡기며 거룩하게 구별한 것은, 하나님의 일이 거룩한 방법으로 수행되어야 함을 강조합니다. 이는 하나님을 섬기는 자들이 과정에 있어서도 정결함과 신실함을 유지해야 함을 교훈합니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_15_EZR_08.html" data-title="에스라 8장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZR_8" data-title="에스라 8장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 8장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 8장</h3>
+                            <h3>사도행전 8장: 흩어짐을 통한 복음의 확산</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">박해라는 위기 상황을 하나님께서는 어떻게 복음 전파의 기회로 역전시키십니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 8장의 주요 내용을 설명합니다.</p>
+                            <p>스데반의 순교 이후 예루살렘 교회에 큰 박해가 일어납니다. 사도 외에는 모두 유대와 사마리아 모든 땅으로 흩어지지만, 흩어진 사람들은 도리어 두루 다니며 복음의 말씀을 전합니다. 빌립은 사마리아 성에 내려가 그리스도를 전파하고, 주의 사자의 인도를 받아 광야 길에서 에디오피아 내시에게 복음을 전하고 세례를 베풉니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_08.html" data-title="사도행전 8장">본문 보기 (8장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_8" data-title="사도행전 8장">성경 듣기 (8장)</button> </div>
+                            <p><strong>1. 고난을 통한 하나님의 주권적 선교:</strong> 인간의 눈에는 박해가 교회의 위기처럼 보였으나, 하나님은 이를 통해 사도행전 1장 8절의 말씀(유대와 사마리아와 땅 끝까지)을 성취하셨습니다. 이는 역사의 주관자이신 하나님께서 악조차 선용하여 당신의 뜻을 이루시는 섭리의 신비를 보여줍니다.</p>
+                            <p><strong>2. 복음의 보편성:</strong> 유대인들이 꺼리던 사마리아인들과 이방인인 에디오피아 내시가 복음을 받아들인 사건은, 그리스도의 구원이 인종과 계급을 넘어 모든 사람에게 열려 있음을 확증합니다. 이는 구속사의 지평이 이스라엘을 넘어 열방으로 확장되는 중요한 전환점입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_08.html" data-title="사도행전 8장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_8" data-title="사도행전 8장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 전적 무능력과 하나님의 주권적 구원</h4>
+                            
+                            <p>오늘의 네 본문은 인간의 전적 무능력과 하나님의 주권적 구원이라는 개혁주의 신학의 핵심 교리를 선명하게 드러냅니다. <strong>창세기 8장</strong>의 홍수 심판 속에서 노아는 스스로 구원할 능력이 없었으나, 하나님께서 그를 '기억하심'으로 구원이 시작되었습니다. <strong>에스라 8장</strong>의 귀환 여정 또한 대적들 앞에서 무력했던 에스라가 오직 '하나님의 선한 손'을 의지했을 때 보호를 받았습니다.</p>
+                            
+                            <p>이러한 구약의 예표는 신약에서 그리스도를 통해 절정을 이룹니다. <strong>마태복음 8장</strong>의 나병 환자와 백부장의 하인은 인간의 의술로는 고칠 수 없는 절망적 상태였으나, 왕이신 예수님의 말씀 한마디로 치유와 회복을 얻었습니다. <strong>사도행전 8장</strong>에서 박해로 인해 흩어진 교회는 겉보기에 패배한 듯했으나, 성령께서는 그 상황을 역전시켜 복음이 땅 끝까지 전파되게 하셨습니다.</p>
+                            
+                            <p>결론적으로 오늘 말씀은 구원이 인간의 조건이나 상황에 달려 있지 않고, 오직 언약에 신실하신 삼위일체 하나님의 주권적 역사임을 가르칩니다. 우리는 홍수와 같은 심판과 인생의 풍랑 속에서도, 우리를 기억하시고 찾아오시는 그리스도의 은혜만을 의지해야 합니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +232,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 (템플릿 유지) -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +263,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

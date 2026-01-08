@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 21일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 21일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 22장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 22장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 21장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 11장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 21장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 22장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 22장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_22.html" data-title="창세기 22장">본문 보기 (22장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_22" data-title="창세기 22장">성경 듣기 (22장)</button> </div>
+                            <h3>1월 21일: 여호와 이레와 예루살렘을 향한 순종</h3>
+                            <h4>오늘의 길잡이: 희생을 통해 완성되는 언약</h4>
+                            <p>오늘의 성경 읽기는 구속사의 핵심 장소인 '예루살렘(모리아 산)'과 그곳에서 이루어질 '대속적 희생'을 향해 수렴됩니다. <strong>창세기 22장</strong>은 아브라함이 독자 이삭을 바친 사건을 통해, 하나님께서 친히 준비하실 어린 양(여호와 이레)을 계시합니다. 이는 <strong>마태복음 21장</strong>에서 참된 유월절 어린 양이신 예수님이 예루살렘에 입성하심으로 성취를 향해 나아갑니다.</p>
+                            <p>한편, <strong>느헤미야 11장</strong>은 거룩한 성 예루살렘을 회복하기 위해 기꺼이 자신을 드려 그곳에 거주하기로 한 자원자들의 헌신을 기록하며, <strong>사도행전 21장</strong>은 "죽을 것도 각오하였노라"는 고백과 함께 예루살렘으로 향하는 바울의 비장한 순종을 보여줍니다. 하나님의 구원 역사는 누군가의 거룩한 희생과 순종을 통해 이루어짐을 묵상하시기 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 22장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 22장: 아브라함의 시험과 여호와 이레</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">하나님께서 약속의 자녀 이삭을 바치라고 명령하신 것은 하나님의 성품과 모순되지 않습니까? 이 사건의 궁극적 목적은 무엇입니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>하나님께서 아브라함을 시험하시려고 독자 이삭을 모리아 땅의 한 산에서 번제로 드리라고 명령하십니다. 아브라함은 즉각 순종하여 삼일 길을 걸어갑니다. 이삭이 번제할 어린 양은 어디 있냐고 묻자, 아브라함은 하나님이 친히 준비하실 것이라고 답합니다. 칼을 들어 이삭을 잡으려 할 때 여호와의 사자가 막으시고, 수풀에 걸린 숫양을 이삭 대신 드리게 하십니다. 아브라함은 그 땅 이름을 '여호와 이레'라 부릅니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 대속의 예표 (Type of Atonement):</strong> 이삭을 대신하여 죽은 숫양은 장차 우리 죄를 대신하여 십자가에서 죽으실 예수 그리스도를 예표합니다. 모리아 산은 훗날 예루살렘 성전 터가 되며(대하 3:1), 골고다 언덕과 지리적으로 연결됩니다. 하나님은 자신이 친히 준비하신 제물로만 만족하십니다.</p>
+                            <p><strong>2. 부활 신앙:</strong> 히브리서 기자는 아브라함이 "하나님이 능히 이삭을 죽은 자 가운데서 다시 살리실 줄로 생각한지라"(히 11:19)고 해석합니다. 아브라함의 순종은 단순한 맹종이 아니라, 약속(이삭을 통해 자손이 나리라)을 지키실 하나님의 전능성에 대한 철저한 신뢰였습니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_22.html" data-title="창세기 22장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_22" data-title="창세기 22장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 21장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 21장</h3>
+                            <h3>마태복음 21장: 예루살렘 입성과 성전 청결</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">예수님께서 나귀 새끼를 타고 예루살렘에 입성하신 행동은 그분이 어떤 종류의 왕이심을 선포하는 것입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 21장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 스가랴 선지자의 예언대로 겸손하게 나귀 새끼를 타고 예루살렘에 입성하십니다(9절). 성전에 들어가사 매매하는 자들을 쫓아내시며 "내 집은 기도하는 집"이라고 선포하십니다. 무화과나무를 저주하여 심판을 예고하시고, 두 아들의 비유와 포도원 농부 비유를 통해 종교 지도자들의 불순종을 책망하십니다. 건축자들의 버린 돌이 모퉁이의 머릿돌이 됨을 말씀하시며, 하나님 나라가 열매 맺는 백성에게 옮겨질 것을 경고하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_21.html" data-title="마태복음 21장">본문 보기 (21장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_21" data-title="마태복음 21장">성경 듣기 (21장)</button> </div>
+                            <p><strong>1. 겸손의 왕권:</strong> 세상의 왕들은 군마를 타고 위엄을 과시하지만, 만왕의 왕이신 예수님은 나귀를 타고 평화와 겸손의 왕으로 오셨습니다. 이는 그분의 나라가 무력이 아닌, 자기 희생과 십자가를 통해 세워짐을 보여줍니다.</p>
+                            <p><strong>2. 성전 청결과 심판:</strong> 성전 정화 사건은 타락한 유대교에 대한 심판이자, 예수님 자신이 참된 성전이 되심을 암시합니다. 포도원 농부 비유는 아들을 죽임으로 상속을 차지하려는 인간의 악함을 폭로하며, 그리스도의 죽음이 하나님의 주권적 섭리 안에서 구원의 머릿돌이 될 것을 예언합니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_21.html" data-title="마태복음 21장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_21" data-title="마태복음 21장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 11장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 11장</h3>
+                            <h3>느헤미야 11장: 거룩한 성 예루살렘의 거주자들</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">당시 예루살렘에 거주하는 것이 왜 '자원하는 헌신'을 필요로 하는 일이었으며, 이것이 오늘날 교회에 주는 교훈은 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 11장의 주요 내용을 설명합니다.</p>
+                            <p>성벽은 재건되었으나 성읍은 크고 거주민은 적었습니다. 이에 백성의 지도자들은 예루살렘에 거주하고, 나머지 백성은 제비 뽑아 10분의 1을 거룩한 성에 거주하게 합니다. 성경은 자원하여 예루살렘에 거주하려는 자들을 위해 백성이 복을 빌었다고 기록합니다. 유다와 베냐민 자손, 제사장, 레위인들이 각자의 직무를 따라 성 안에 거주하며 하나님을 섬기는 체계를 갖춥니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_11.html" data-title="느헤미야 11장">본문 보기 (11장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_11" data-title="느헤미야 11장">성경 듣기 (11장)</button> </div>
+                            <p><strong>1. 거룩한 성을 위한 헌신:</strong> 당시 예루살렘은 대적들의 위협이 상존하고 경제 기반이 취약한 곳이었습니다. 그곳에 거주하는 것은 편안함을 포기한 희생이었습니다. 하나님 나라는 이처럼 자신의 안위보다 공동체의 회복과 하나님의 영광을 위해 헌신하는 '남은 자'들을 통해 세워집니다.</p>
+                            <p><strong>2. 대표성과 거주:</strong> 제비를 뽑아 10분의 1이 거주한 것은 전체를 대표하는 의미가 있습니다. 이는 교회가 세상 속에 흩어져 있지만, 영적으로는 거룩한 도성 새 예루살렘의 시민으로 살아가는 정체성을 예표합니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_11.html" data-title="느헤미야 11장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_11" data-title="느헤미야 11장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 21장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 21장</h3>
+                            <h3>사도행전 21장: 예루살렘을 향한 바울의 결단</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">성령께서 바울이 당할 결박을 미리 알게 하셨음에도 바울이 예루살렘 행을 고집한 이유는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 21장의 주요 내용을 설명합니다.</p>
+                            <p>바울은 예루살렘으로 가는 여정에서 두로와 가이사랴의 성도들을 만납니다. 선지자 아가보는 바울의 띠를 가져다가 결박당할 것을 예언하며 가지 말 것을 권합니다. 그러나 바울은 <span class="scripture-quote">나는 주 예수의 이름을 위하여 결박당할 뿐 아니라 예루살렘에서 죽을 것도 각오하였노라</span>(13절)고 답합니다. 예루살렘에 도착한 바울은 유대인들의 오해를 풀기 위해 정결 예식을 행하지만, 결국 유대인들의 선동으로 체포되어 천부장에게 넘겨집니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_21.html" data-title="사도행전 21장">본문 보기 (21장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_21" data-title="사도행전 21장">성경 듣기 (21장)</button> </div>
+                            <p><strong>1. 주의 뜻에 대한 순종:</strong> 성령의 예고는 '가지 말라'는 금지 명령이 아니라, 그가 감당해야 할 고난을 미리 알려주어 준비시키시는 은혜였습니다. 바울의 결단은 자신의 생명보다 사명을 우선시하는 십자가의 길이었으며, 이는 예수님께서 예루살렘을 향해 얼굴을 굳게 향하셨던 모습(눅 9:51)을 따르는 제자도입니다.</p>
+                            <p><strong>2. 섭리적 인도:</strong> 바울의 체포는 표면적으로는 사역의 중단처럼 보이지만, 실제로는 그가 로마의 보호 아래 가이사(황제) 앞에서 복음을 전하게 하려는 하나님의 섭리적인 방법이었습니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_21.html" data-title="사도행전 21장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_21" data-title="사도행전 21장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 여호와 이레의 산을 향한 희생적 순종</h4>
+                            
+                            <p>오늘의 네 본문은 구속사의 중심지인 예루살렘을 배경으로, 하나님을 향한 거룩한 헌신과 희생을 조명합니다. <strong>창세기 22장</strong>의 모리아 산(예루살렘)에서 아브라함은 독자를 바치는 순종을 통해 '여호와 이레'의 은혜를 체험했습니다. 이 예표는 <strong>마태복음 21장</strong>에서 예수 그리스도께서 유월절 어린 양으로 예루살렘에 입성하심으로써 성취를 향해 나아갑니다.</p>
+                            
+                            <p>이러한 십자가의 길을 따르는 성도들의 모습이 역사 속에 나타납니다. <strong>느헤미야 11장</strong>의 백성들은 폐허가 된 예루살렘을 회복하기 위해 자신의 안락한 삶을 포기하고 거주를 자원했으며, <strong>사도행전 21장</strong>의 바울은 결박과 죽음이 기다리는 예루살렘을 향해 "주 예수의 이름을 위하여" 나아갔습니다.</p>
+                            
+                            <p>오늘 우리에게도 각자의 '예루살렘'이 있습니다. 그것은 헌신이 요구되는 사명의 자리입니다. 주님께서 친히 준비하신 은혜를 의지하여, 두려움 없이 순종의 걸음을 내딛는 하루가 되시기를 바랍니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

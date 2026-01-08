@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 14일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 14일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 15장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 15장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 14장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 4장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 14장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 15장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 15장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_15.html" data-title="창세기 15장">본문 보기 (15장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_15" data-title="창세기 15장">성경 듣기 (15장)</button> </div>
+                            <h3>1월 14일: 언약의 확증과 고난 속의 승리</h3>
+                            <h4>오늘의 길잡이: 믿음으로 의로워지고 인내로 완성하다</h4>
+                            <p>오늘의 성경 읽기는 하나님께서 주신 언약의 확실함과 그 언약을 믿고 따르는 자들이 겪는 현실적인 고난을 대조하며 보여줍니다. <strong>창세기 15장</strong>에서 하나님은 자식이 없는 아브람에게 별과 같은 자손을 약속하시며, 오직 믿음으로 의롭다 여김을 받는 이신칭의의 복음을 계시하십니다. 그러나 이 믿음의 길은 순탄치 않습니다.</p>
+                            <p><strong>느헤미야 4장</strong>은 하나님의 일을 할 때 필연적으로 따르는 대적들의 조롱과 위협을, <strong>마태복음 14장</strong>은 세례 요한의 죽음과 같은 이해할 수 없는 비극을 보여줍니다. 또한 <strong>사도행전 14장</strong>에서 바울은 복음을 전하다가 돌에 맞아 죽을 뻔합니다. 하지만 성경은 이 모든 고난 속에서도, 물 위를 걸어오시는 예수님과 죽음에서 일어나 다시 성에 들어가는 바울의 모습을 통해 하나님의 주권적인 승리를 증언합니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 15장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 15장: 횃불 언약과 이신칭의</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">아브람이 여호와를 믿으니 이를 그의 의로 여기셨다는 말씀은 우리 구원에 대해 무엇을 가르쳐줍니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>아브람이 자손에 대한 불안함을 토로하자, 하나님은 그를 밖으로 이끌어 뭇별을 보여주시며 자손의 번성을 약속하십니다. 아브람이 이를 믿을 때 하나님은 그것을 그의 의로 여기십니다(6절). 이후 하나님은 쪼갠 고기 사이로 지나가는 타는 횃불의 형상으로 나타나 언약을 체결하십니다. 또한 아브람의 자손이 이방의 객이 되어 400년 동안 괴로움을 당한 후 큰 재물을 이끌고 나올 것을 예언하십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 이신칭의(Justification by Faith)의 원형:</strong> 아브람의 행위가 아닌 '믿음'을 의로 여기신 사건은 바울 신학의 기초가 됩니다(롬 4장). 이는 죄인이 하나님 앞에 설 수 있는 유일한 근거가 자신의 공로가 아닌, 하나님의 약속을 신뢰하는 믿음(궁극적으로는 그리스도의 의)에 있음을 보여줍니다.</p>
+                            <p><strong>2. 횃불 언약과 하나님의 자기 저주:</strong> 고대 근동의 언약식에서 쪼갠 고기 사이로 지나가는 것은 언약 파기 시 죽음을 감수하겠다는 맹세입니다. 하나님 홀로 그 사이를 지나가신 것은, 언약 성취의 책임이 전적으로 하나님께 있으며, 인간의 실패조차 하나님께서 친히 담당하실 것(십자가)을 예표합니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_15.html" data-title="창세기 15장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_15" data-title="창세기 15장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 14장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 14장</h3>
+                            <h3>마태복음 14장: 창조주의 권능과 공급하심</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">오병이어의 기적과 물 위를 걷는 사건은 예수님이 단순한 선지자를 넘어 누구이심을 계시합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 14장의 주요 내용을 설명합니다.</p>
+                            <p>세례 요한이 헤롯에 의해 참수당하는 비극이 일어납니다. 예수님은 빈 들에서 떡 다섯 개와 물고기 두 마리로 오천 명을 먹이시는 기적을 통해 생명의 떡이심을 보여주십니다. 이후 제자들이 탄 배가 풍랑을 만났을 때, 예수님은 밤 사경에 물 위를 걸어오십니다. 베드로가 믿음으로 물 위를 걷다가 의심하여 빠지지만, 주님은 그를 건지시며 <span class="scripture-quote">믿음이 작은 자여 왜 의심하였느냐</span>(31절)고 교훈하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_14.html" data-title="마태복음 14장">본문 보기 (14장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_14" data-title="마태복음 14장">성경 듣기 (14장)</button> </div>
+                            <p><strong>1. 새 출애굽의 인도자:</strong> 광야에서 무리를 먹이신 사건은 만나를 주신 하나님을 연상시킵니다. 예수님은 자기 백성을 먹이시고 돌보시는 참된 목자이시며, 창조 질서를 다스리시는 하나님 자신이십니다. 배에 있던 자들의 "진실로 하나님의 아들이로소이다"(33절)라는 고백은 정당합니다.</p>
+                            <p><strong>2. 고난 속의 임재:</strong> 제자들이 풍랑으로 고난 당할 때 예수님은 산에서 기도하고 계셨지만, 결정적인 순간에 찾아오셨습니다. 이는 부활 승천 후 하늘 보좌 우편에서 중보하고 계신 그리스도께서 환난 당하는 지상의 교회와 늘 함께하심을 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_14.html" data-title="마태복음 14장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_14" data-title="마태복음 14장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 4장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 4장</h3>
+                            <h3>느헤미야 4장: 대적의 방해와 영적 전투</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">"한 손으로 일을 하며 한 손에는 병기를 잡았다"는 기록은 영적 전쟁을 수행하는 성도의 자세에 대해 무엇을 말해줍니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 4장의 주요 내용을 설명합니다.</p>
+                            <p>산발랏과 도비야는 성벽 재건을 비웃고 조롱하다가, 공사가 진척되자 무력으로 공격하려 공모합니다. 이에 느헤미야는 하나님께 기도하며 파수꾼을 세워 주야로 방비합니다. 백성들이 지치고 두려워할 때, 그는 <span class="scripture-quote">너희는 그들을 두려워하지 말고 지극히 크시고 두려우신 주를 기억하고... 싸우라</span>(14절)고 독려합니다. 백성들은 절반은 일하고 절반은 무장하는 태세로 공사를 계속합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_04.html" data-title="느헤미야 4장">본문 보기 (4장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_4" data-title="느헤미야 4장">성경 듣기 (4장)</button> </div>
+                            <p><strong>1. 기도와 파수(Watcher):</strong> 느헤미야는 <span class="scripture-quote">우리가 우리 하나님께 기도하며... 파수꾼을 두어</span>(9절)라고 고백합니다. 참된 신앙은 하나님의 주권에 대한 의존(기도)과 인간의 거룩한 책임(파수)을 분리하지 않습니다. 하나님은 우리의 준비와 노력을 통해 일하십니다.</p>
+                            <p><strong>2. 교회의 영적 전투:</strong> 성벽 재건을 방해하는 세력은 오늘날 하나님 나라 확장을 방해하는 사탄의 세력을 상징합니다. 성도는 '전투하는 교회(Church Militant)'의 일원으로서, 한 손에는 노동(사명)을, 한 손에는 말씀의 검(엡 6:17)을 들고 깨어 있어야 합니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_04.html" data-title="느헤미야 4장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_4" data-title="느헤미야 4장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 14장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 14장</h3>
+                            <h3>사도행전 14장: 환난을 통한 하나님 나라의 진입</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">바울이 "하나님 나라에 들어가려면 많은 환난을 겪어야 할 것"이라고 가르친 이유는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 14장의 주요 내용을 설명합니다.</p>
+                            <p>이고니온과 루스드라에서 전도하던 바울과 바나바는 극적인 사건들을 겪습니다. 나면서 걷지 못하는 자를 고치자 사람들이 그들을 신으로 숭배하려 했고, 바울은 이를 찢어 말리며 창조주 하나님을 전합니다. 그러나 곧 유대인들의 선동으로 바울은 돌에 맞아 죽은 줄 알고 성 밖으로 끌려 나가는 처지가 됩니다. 그러나 바울은 털고 일어나 다시 성에 들어가 복음을 전하며, 제자들에게 믿음을 굳게 하라고 권면합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_14.html" data-title="사도행전 14장">본문 보기 (14장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_14" data-title="사도행전 14장">성경 듣기 (14장)</button> </div>
+                            <p><strong>1. 영광의 신학 거부와 십자가 신학:</strong> 군중은 기적을 보고 바울을 신격화하려 했으나(영광의 신학), 바울은 철저히 자신을 부인하고 오직 하나님께만 영광을 돌렸습니다. 그 결과가 칭송이 아닌 돌에 맞음(십자가의 길)이었음은, 참된 제자도가 세상의 환호가 아닌 고난을 통해 증명됨을 보여줍니다.</p>
+                            <p><strong>2. 고난의 필연성:</strong> <span class="scripture-quote">우리가 하나님의 나라에 들어가려면 많은 환난을 겪어야 할 것이라</span>(22절)는 선포는 기독교가 고난 면제가 아닌 고난 승리의 종교임을 가르칩니다. 고난은 성도를 연단하여 하나님 나라에 합당한 자로 빚어가는 필수 과정입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_14.html" data-title="사도행전 14장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_14" data-title="사도행전 14장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 언약의 확신과 십자가의 길</h4>
+                            
+                            <p>오늘의 네 본문은 하나님의 언약을 믿는 믿음이 어떻게 고난이라는 현실 속에서 증명되고 완성되는지를 보여줍니다. <strong>창세기 15장</strong>은 믿음의 기초가 인간의 행위가 아닌 하나님의 주권적 언약(이신칭의)에 있음을 확증합니다. 이 확고한 언약을 가진 자들은 <strong>마태복음 14장</strong>의 제자들처럼 인생의 풍랑 속에서도 찾아오시는 주님을 경험합니다.</p>
+                            
+                            <p>그러나 그 믿음의 여정은 낭만적이지 않습니다. <strong>느헤미야 4장</strong>의 성벽 재건자들은 한 손에 병기를 들어야 했고, <strong>사도행전 14장</strong>의 바울은 복음을 위해 돌에 맞는 핍박을 감내해야 했습니다. 중요한 것은 "하나님 나라에 들어가려면 많은 환난을 겪어야 한다"는 사실입니다.</p>
+                            
+                            <p>우리는 오늘 말씀을 통해, 고난이 하나님의 부재를 의미하는 것이 아니라 오히려 언약 백성이 걸어야 할 영광스러운 십자가의 길임을 깨닫습니다. 대적의 조롱과 풍랑 앞에서도 '지극히 크시고 두려우신 주'를 기억하며 믿음의 경주를 완주하시기 바랍니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

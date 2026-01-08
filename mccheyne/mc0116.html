@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 16일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 16일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 17장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 17장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 16장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 6장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 16장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 17장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 17장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_17.html" data-title="창세기 17장">본문 보기 (17장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_17" data-title="창세기 17장">성경 듣기 (17장)</button> </div>
+                            <h3>1월 16일: 언약의 표징과 흔들리지 않는 고백</h3>
+                            <h4>오늘의 길잡이: 몸에 새긴 언약, 마음에 새긴 믿음</h4>
+                            <p>오늘의 성경 읽기는 '변치 않는 하나님의 언약'과 그 언약에 대한 '성도의 확고한 고백'을 중심으로 전개됩니다. <strong>창세기 17장</strong>에서 하나님은 할례를 통해 언약을 아브라함의 몸에 영원히 새기시며, 그를 열국의 아비로 확증하십니다. <strong>마태복음 16장</strong>에서 베드로는 "주는 그리스도시요 살아 계신 하나님의 아들이시니이다"라는 고백을 통해 교회의 기초가 되는 믿음을 선포합니다.</p>
+                            <p>이러한 언약적 확신은 고난 속에서도 흔들리지 않는 승리를 가져옵니다. <strong>느헤미야 6장</strong>은 온갖 음모 속에서도 성벽 공사를 완공하는 느헤미야의 담대함을, <strong>사도행전 16장</strong>은 감옥 속에서도 찬송하며 구원의 문을 여는 바울과 실라의 기적을 보여줍니다. 오늘 말씀을 통해 우리의 믿음이 환경을 뛰어넘는 언약적 확신 위에 서 있기를 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 17장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 17장: 할례 언약과 개명</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">하나님께서 99세의 아브람에게 나타나 "나는 전능한 하나님이라"고 선포하시며 이름을 바꾸신 영적 의미는 무엇입니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>아브람이 99세 되었을 때, 하나님은 그에게 나타나 언약을 갱신하시며 그의 이름을 '아브라함(열국의 아비)'으로, 사래의 이름을 '사라(열국의 어미)'로 바꾸어 주십니다. 또한 언약의 표징으로 할례를 명하시며, 난 지 8일 만에 남자는 다 할례를 받을 것을 명령하십니다. 아브라함이 이스마엘을 생각하여 간구하지만, 하나님은 사라가 낳을 아들 이삭과 영원한 언약을 세울 것이라고 말씀하십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 전능하신 하나님 (El Shaddai):</strong> 하나님은 생물학적 생산 능력이 끊어진 아브라함 부부에게 '전능한 하나님'으로 자신을 계시하십니다. 이는 구원과 약속의 성취가 인간의 능력이 아닌 하나님의 전능하신 능력에서 나옴을 보여줍니다.</p>
+                            <p><strong>2. 언약의 표징, 할례:</strong> 할례는 육체의 신뢰를 잘라내고 오직 하나님의 언약만을 의지하겠다는 상징적 행위입니다. 이는 신약에서 '마음의 할례' 곧 세례로 완성되며(골 2:11-12), 성도가 그리스도와 연합하여 옛 사람을 벗어버리고 새 사람이 되었음을 의미합니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_17.html" data-title="창세기 17장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_17" data-title="창세기 17장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 16장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 16장</h3>
+                            <h3>마태복음 16장: 베드로의 신앙고백과 십자가의 길</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">베드로의 신앙고백 위에 교회를 세우겠다는 말씀과 곧이어 "사탄아 물러가라"고 책망하신 사건은 제자도에 대해 무엇을 가르칩니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 16장의 주요 내용을 설명합니다.</p>
+                            <p>예수님께서 가이사랴 빌립보에서 제자들에게 "나를 누구라 하느냐"고 물으실 때, 베드로는 <span class="scripture-quote">주는 그리스도시요 살아 계신 하나님의 아들이시니이다</span>(16절)라고 고백합니다. 예수님은 이를 칭찬하시며 이 반석 위에 교회를 세우겠다고 약속하십니다. 그러나 주님이 십자가 고난과 죽음을 예고하시자 베드로가 이를 항변하고, 예수님은 그를 사탄이라 책망하시며 <span class="scripture-quote">누구든지 나를 따라오려거든 자기를 부인하고 자기 십자가를 지고 나를 따를 것이니라</span>(24절)고 참된 제자도를 가르치십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_16.html" data-title="마태복음 16장">본문 보기 (16장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_16" data-title="마태복음 16장">성경 듣기 (16장)</button> </div>
+                            <p><strong>1. 교회(Ekklesia)의 기초:</strong> 교회는 인간 베드로 개인이 아니라, 그가 고백한 "예수는 그리스도"라는 신앙고백 위에 세워집니다. 이 고백은 음부의 권세가 이기지 못하는 교회의 영원한 기초이자 승리의 보증입니다.</p>
+                            <p><strong>2. 십자가 없는 영광의 거부:</strong> 베드로는 영광의 메시아는 원했으나 고난 받는 메시아는 거부했습니다. 이는 사탄의 생각입니다. 참된 기독교는 십자가 없는 영광(Theology of Glory)을 배격하고, 고난을 통해 영광에 이르는 십자가 신학(Theology of the Cross)을 따릅니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_16.html" data-title="마태복음 16장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_16" data-title="마태복음 16장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 6장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 6장</h3>
+                            <h3>느헤미야 6장: 성벽 완공과 믿음의 승리</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">느헤미야가 "나 같은 자가 어찌 도망하리요"라며 성전으로 피하라는 유혹을 거절한 것은 어떤 신앙적 담대함에서 비롯되었습니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 6장의 주요 내용을 설명합니다.</p>
+                            <p>성벽 공사가 마무리 단계에 이르자 대적들의 방해는 더욱 교묘해집니다. 산발랏은 느헤미야를 살해하려고 네 번이나 회담을 제안하고, 뇌물을 받은 선지자 스마야를 통해 성소로 피신하라고 유혹하여 느헤미야를 범죄하게 하려 합니다. 그러나 느헤미야는 이 모든 흉계를 간파하고 흔들리지 않았으며, 마침내 52일 만에 성벽을 완공합니다. 대적들은 이 역사가 하나님으로 말미암아 이루어진 것임을 깨닫고 두려워합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_06.html" data-title="느헤미야 6장">본문 보기 (6장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_6" data-title="느헤미야 6장">성경 듣기 (6장)</button> </div>
+                            <p><strong>1. 영적 분별력:</strong> 느헤미야는 생명의 위협 속에서도 율법(외인이 성소에 들어가는 것 금지)을 어기라는 제안이 하나님께로부터 온 것이 아님을 즉시 분별했습니다. 성도는 위기 상황일수록 말씀의 원칙을 타협하지 않는 영적 분별력을 가져야 합니다.</p>
+                            <p><strong>2. 하나님의 역사하심의 증거:</strong> 52일이라는 짧은 기간 내에 성벽이 완공된 것은 인간의 힘으로는 불가능한 일이었습니다. 이는 하나님께서 대적들의 방해 속에서도 자기 백성의 일을 친히 이루시며, 결국 세상이 하나님을 두려워하게 만드신다는 승리의 원리를 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_06.html" data-title="느헤미야 6장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_6" data-title="느헤미야 6장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 16장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 16장</h3>
+                            <h3>사도행전 16장: 빌립보 감옥의 기적</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">"주 예수를 믿으라 그리하면 너와 네 집이 구원을 받으리라"는 선포는 복음의 능력에 대해 무엇을 말해줍니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 16장의 주요 내용을 설명합니다.</p>
+                            <p>바울은 환상을 보고 마게도냐로 건너가 빌립보에서 루디아를 만나 첫 교회를 세웁니다. 귀신 들린 여종을 고쳐준 일로 고발당해 매를 맞고 감옥에 갇히지만, 바울과 실라는 한밤중에 기도하고 찬송합니다. 지진이 일어나 옥문이 열리고, 자결하려던 간수에게 바울은 복음을 전합니다. 간수와 그 가족이 세례를 받고 구원을 얻는 놀라운 역사가 일어납니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_16.html" data-title="사도행전 16장">본문 보기 (16장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_16" data-title="사도행전 16장">성경 듣기 (16장)</button> </div>
+                            <p><strong>1. 고난 중의 찬송:</strong> 바울과 실라의 찬송은 환경을 초월한 믿음의 표현이었습니다. 억울한 고난 속에서도 하나님을 신뢰하는 태도는 옥문을 여는 기적뿐 아니라, 지켜보던 죄수들과 간수의 영혼을 깨우는 복음의 능력이 되었습니다.</p>
+                            <p><strong>2. 언약적 구원:</strong> <span class="scripture-quote">너와 네 집이 구원을 받으리라</span>(31절)는 말씀은 구원이 개인을 넘어 가정과 공동체로 확산되는 언약적 성격을 가짐을 보여줍니다. 루디아의 집과 간수의 집이 구원받음으로 빌립보 교회라는 유럽 선교의 교두보가 마련되었습니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_16.html" data-title="사도행전 16장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_16" data-title="사도행전 16장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 흔들리지 않는 언약과 믿음의 승리</h4>
+                            
+                            <p>오늘의 본문들은 세상의 어떤 상황 속에서도 변하지 않는 하나님의 언약과, 그 언약을 붙드는 성도의 승리를 웅장하게 보여줍니다. <strong>창세기 17장</strong>의 할례 언약은 하나님의 약속이 우리의 몸과 삶에 영원히 새겨진 것임을 확증합니다. 이 확신 위에서 <strong>마태복음 16장</strong>의 베드로는 "주는 그리스도시요"라고 고백하며 교회의 반석이 되었습니다.</p>
+                            
+                            <p>이러한 언약적 믿음을 가진 자들은 세상이 감당할 수 없습니다. <strong>느헤미야 6장</strong>의 느헤미야는 끊임없는 살해 위협 속에서도 성벽을 완공했고, <strong>사도행전 16장</strong>의 바울과 실라는 깊은 감옥 속에서도 찬송하며 구원의 문을 열었습니다. 고난은 성도를 무너뜨리는 것이 아니라, 오히려 하나님의 전능하심(El Shaddai)을 체험하고 복음을 확장하는 기회가 됩니다.</p>
+                            
+                            <p>오늘 우리도 눈에 보이는 현실이 아닌, 전능하신 하나님의 언약을 붙들고 삶의 자리에서 믿음의 고백을 드리며 승리하시기를 바랍니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

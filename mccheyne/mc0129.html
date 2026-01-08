@@ -5,85 +5,205 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 29일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 29일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 30장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 30장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마가복음 1장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">에스더 6장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">로마서 1장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 30장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 30장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_30.html" data-title="창세기 30장">본문 보기 (30장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_30" data-title="창세기 30장">성경 듣기 (30장)</button> </div>
+                            <h3>1월 29일: 섭리의 반전과 복음의 능력</h3>
+                            <h4>오늘의 길잡이: 은밀한 섭리에서 선포된 복음으로</h4>
+                            <p>오늘부터 신약의 새로운 책인 마가복음과 로마서가 시작됩니다. <strong>마가복음 1장</strong>은 "하나님의 아들 예수 그리스도의 복음의 시작이라"는 웅장한 선포로 하나님 나라의 도래를 알리며, <strong>로마서 1장</strong>은 이 복음이 모든 믿는 자를 구원하시는 하나님의 능력임을 논증합니다.</p>
+                            <p>구약의 본문들은 이 구원의 역사를 이루어 가시는 하나님의 섭리를 보여줍니다. <strong>창세기 30장</strong>은 자매간의 갈등과 라반의 속임수 속에서도 이스라엘 12지파를 형성하시고 야곱을 축복하시는 하나님의 주권을, <strong>에스더 6장</strong>은 잠 못 이루는 밤과 역대기 낭독이라는 우연해 보이는 사건을 통해 역사를 뒤집으시는 하나님의 기이한 섭리를 증거합니다. 오늘 말씀을 통해 우리 삶의 배후에 계신 하나님의 손길을 발견하시기 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 30장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 30장: 이스라엘 12지파의 형성과 번성</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">레아와 라헬의 출산 경쟁과 야곱의 얼룩무늬 양 사건은 하나님의 주권적 은혜에 대해 무엇을 보여줍니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>라헬은 자녀가 없음을 투기하여 여종 빌하를 야곱에게 주고, 레아도 질세라 여종 실바를 줍니다. 이 경쟁적인 과정을 통해 하나님은 단, 납달리, 갓, 아셀, 잇사갈, 스불론, 그리고 마침내 요셉을 태어나게 하십니다. 이후 야곱은 라반과 품삯을 정하고 아롱진 것과 점 있는 것을 갖기로 합니다. 라반의 방해에도 불구하고 하나님은 야곱의 소유를 풍성하게 하십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 인간의 결핍과 하나님의 성취:</strong> 12지파의 탄생 배경은 시기, 질투, 인간적 방법이 뒤섞인 혼란스러운 모습이었습니다. 그러나 하나님은 이러한 인간의 연약함과 죄성조차 선용하셔서 언약 백성(이스라엘)의 기초를 놓으셨습니다. 이는 구속사가 인간의 도덕성이 아닌 하나님의 신실하심에 기초함을 보여줍니다.</p>
+                            <p><strong>2. 초자연적 공급:</strong> 야곱이 나뭇가지를 둔 행위는 당시의 민간요법이었으나, 그가 거부가 된 것은 유전학적 결과가 아니라 하나님의 약속 성취였습니다(창 31:12). 하나님은 언약 백성의 기업을 세상 권력(라반)으로부터 보호하시고 증식시키십니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_30.html" data-title="창세기 30장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_30" data-title="창세기 30장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마가복음 1장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마가복음 1장</h3>
+                            <h3>마가복음 1장: 하나님 나라의 강력한 시작</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">예수님께서 "때가 찼고 하나님의 나라가 가까이 왔으니 회개하고 복음을 믿으라"고 하신 선포의 의미는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마가복음 1장의 주요 내용을 설명합니다.</p>
+                            <p>세례 요한의 회개 선포와 함께 예수 그리스도의 복음이 시작됩니다. 예수님은 세례를 받으시고 성령에 이끌려 광야에서 시험을 받으신 후, 갈릴리에서 하나님 나라를 선포하십니다. 네 제자를 부르시고, 가버나움 회당에서 권위 있는 교훈과 축사(귀신 쫓음) 사역을 행하십니다. 나병 환자를 깨끗하게 하시며, 새벽 미명에 기도하심으로 사역의 능력이 하나님께로부터 옴을 보이십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_41_MRK_01.html" data-title="마가복음 1장">본문 보기 (1장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MRK_1" data-title="마가복음 1장">성경 듣기 (1장)</button> </div>
+                            <p><strong>1. 하나님 나라의 침노:</strong> 마가복음은 '즉시(euthus)'라는 단어를 반복하며 예수님의 사역을 역동적으로 묘사합니다. 예수님의 오심은 사탄의 통치 아래 있던 세상에 하나님 나라가 강력하게 침투하여 악의 세력을 몰아내고 통치권을 회복하는 왕의 행진입니다.</p>
+                            <p><strong>2. 종으로서의 왕:</strong> 예수님은 하나님의 아들(1절)이시지만, 섬기는 종의 모습으로 오셔서 질병과 귀신들림으로 고통받는 자들을 치유하십니다. 이는 메시아의 권능이 군림이 아닌 긍휼과 회복을 통해 나타남을 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_41_MAR_01.html" data-title="마가복음 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAR_1" data-title="마가복음 1장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 에스더 6장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>에스더 6장</h3>
+                            <h3>에스더 6장: 왕의 불면증과 섭리적 반전</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">왕이 잠이 오지 않아 역대 일기를 읽게 된 사건은 우연입니까, 아니면 하나님의 필연적인 개입입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>에스더 6장의 주요 내용을 설명합니다.</p>
+                            <p>하만이 모르드개를 나무에 달기를 청하러 온 그 밤에, 왕은 잠이 오지 않아 역대 일기를 읽게 합니다. 마침 모르드개가 왕의 암살 음모를 고발한 내용이 낭독되고, 왕은 그에게 존귀를 베풀지 않았음을 깨닫습니다. 때마침 도착한 하만에게 왕은 "왕이 존귀하게 하기를 원하는 사람에게 어떻게 하여야 하겠느냐"고 묻고, 하만은 자신인 줄 착각하여 최고의 영광을 제안합니다. 결국 하만은 자신이 제안한 대로 원수 모르드개를 높여주어야 하는 수치를 당합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_06.html" data-title="에스더 6장">본문 보기 (6장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="EST_6" data-title="에스더 6장">성경 듣기 (6장)</button> </div>
+                            <p><strong>1. 보이지 않는 손(Invisible Hand):</strong> 에스더서의 절정인 이 반전(Reversal) 드라마에는 하나님이라는 단어가 없지만, 왕의 불면증, 책을 펴는 타이밍, 하만의 도착 등 모든 정황이 하나님의 완벽한 각본대로 움직입니다. 이는 하나님이 역사의 배후에서 모든 것을 주관하시는 절대 주권자이심을 증명합니다.</p>
+                            <p><strong>2. 교만의 패망:</strong> 하만의 몰락은 "교만은 패망의 선봉"(잠 16:18)이라는 잠언의 진리를 실증합니다. 하나님은 자기를 높이는 자를 낮추시고, 죽음의 위기에서도 믿음을 지킨 모르드개를 높이십니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_06.html" data-title="에스더 6장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EST_6" data-title="에스더 6장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 로마서 1장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>로마서 1장</h3>
+                            <h3>로마서 1장: 복음의 능력과 인류의 죄</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">바울이 "내가 복음을 부끄러워하지 아니하노니"라고 선언하며 복음을 '하나님의 능력'이라고 정의한 이유는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>로마서 1장의 주요 내용을 설명합니다.</p>
+                            <p>바울은 자신을 예수 그리스도의 종이요 사도로 소개하며, 이 복음이 성경에 미리 약속된 하나님의 아들에 관한 것임을 밝힙니다. 그는 로마 교회에 가기를 간절히 원하며, <span class="scripture-quote">내가 복음을 부끄러워하지 아니하노니 이 복음은 모든 믿는 자에게 구원을 주시는 하나님의 능력이 됨이라</span>(16절)고 선포합니다. 이어 하나님을 알되 영화롭게도 아니하는 이방 세계의 죄악상과, 그들을 상실한 마음대로 내버려 두시는 하나님의 진노를 엄중히 경고합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_45_ROM_01.html" data-title="로마서 1장">본문 보기 (1장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ROM_1" data-title="로마서 1장">성경 듣기 (1장)</button> </div>
+                            <p><strong>1. 하나님의 의(The Righteousness of God):</strong> 복음에는 하나님의 의가 나타나서 믿음으로 믿음에 이르게 합니다(17절). 이는 루터와 종교개혁의 핵심 교리로, 죄인이 자신의 행위가 아닌 오직 그리스도를 믿음으로 말미암아 하나님으로부터 의롭다 칭함을 받는다는 '이신칭의'의 대주제입니다.</p>
+                            <p><strong>2. 일반 계시와 핑계치 못할 죄:</strong> 하나님은 창조 만물을 통해 자신의 능력을 보이셨기에(일반 계시), 인간은 하나님을 몰랐다고 핑계할 수 없습니다. 우상 숭배와 도덕적 타락은 하나님을 마음에 두기 싫어하는 인간의 근본적인 반역에서 비롯된 결과이자 심판입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_45_ROM_01.html" data-title="로마서 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ROM_1" data-title="로마서 1장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 주권적 섭리와 구원의 복음</h4>
+                            
+                            <p>오늘의 본문은 인간의 죄악과 연약함 속에서도 당신의 뜻을 이루시는 하나님의 섭리와, 그 섭리의 절정인 복음의 능력을 증거합니다. <strong>창세기 30장</strong>은 인간적인 경쟁과 갈등 속에서도 이스라엘 12지파를 세워가시는 하나님의 주권을, <strong>에스더 6장</strong>은 잠 못 이루는 밤이라는 사소한 일을 통해 역사를 반전시키시는 하나님의 기이한 섭리를 보여줍니다.</p>
+                            
+                            <p>이러한 구약의 섭리는 신약에서 복음의 성취로 나타납니다. <strong>마가복음 1장</strong>은 하나님 나라가 예수 그리스도를 통해 능력 있게 임하였음을 선포하며, <strong>로마서 1장</strong>은 이 복음이 인간의 모든 죄와 진노를 해결하고 구원을 주시는 유일한 '하나님의 능력'임을 논증합니다. 우리의 삶을 주관하시는 세밀한 섭리를 믿고, 오직 믿음으로 의롭게 되는 복음의 진리 위에 굳게 서시기를 바랍니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +211,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +242,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

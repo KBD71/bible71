@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 12일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 12일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 13장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 13장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 12장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 2장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 12장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 13장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 13장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_13.html" data-title="창세기 13장">본문 보기 (13장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_13" data-title="창세기 13장">성경 듣기 (13장)</button> </div>
+                            <h3>1월 12일: 보이는 현실과 보이지 않는 주권자</h3>
+                            <h4>오늘의 길잡이: 믿음의 눈을 들어 주를 보라</h4>
+                            <p>오늘 말씀들은 '눈에 보이는 현실적 이익이나 권력'과 '보이지 않는 하나님의 주권적 통치' 사이의 대조를 선명하게 보여줍니다. <strong>창세기 13장</strong>에서 롯은 눈에 보기에 좋은 소돔 땅을 택하지만, 아브람은 하나님의 약속을 신뢰하며 가나안에 머뭅니다. <strong>마태복음 12장</strong>에서 바리새인들은 안식일 규정이라는 형식에 갇혀 있었으나, 예수님은 안식일의 주인으로서 참된 쉼을 선포하십니다.</p>
+                            <p><strong>느헤미야 2장</strong>은 무너진 성벽이라는 암담한 현실 앞에서도 '하나님의 선한 손'을 의지하여 재건을 시작하는 믿음의 결단을, <strong>사도행전 12장</strong>은 강력한 권력자 헤롯의 박해 속에서도 기도를 통해 베드로를 구출하시는 하나님의 역설적인 승리를 증거합니다. 보이는 상황 너머에 계신 역사의 주관자를 바라보는 하루가 되시기를 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 13장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 13장: 아브람의 양보와 하나님의 약속</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">롯이 선택한 '여호와의 동산 같고 애굽 땅과 같은' 소돔의 치명적인 영적 문제는 무엇이었습니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>애굽에서 돌아온 아브람과 롯의 소유가 많아져 동거할 수 없게 되자, 아브람은 조카에게 선택권을 양보합니다. 롯은 눈을 들어 물이 넉넉하고 풍요로워 보이는 요단 온 들(소돔)을 선택합니다. 롯이 떠난 후, 하나님께서는 아브람에게 나타나 <span class="scripture-quote">너는 눈을 들어... 동서남북을 바라보라 보이는 땅을 내가 너와 네 자손에게 주리니</span>(14-15절)라고 약속을 재확인하십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 믿음의 선택 vs 안목의 정욕:</strong> 롯의 선택은 경제적 합리성에 근거했으나 영적 분별력이 결여되어 있었습니다. 그는 눈에 보기에 좋은 곳을 택했으나 그곳은 <span class="scripture-quote">여호와 앞에 악하며 큰 죄인</span>(13절)들이 있는 곳이었습니다. 반면 아브람의 양보는 하나님의 공급하심에 대한 전적인 신뢰에서 나온 믿음의 행위였습니다.</p>
+                            <p><strong>2. 약속의 갱신:</strong> 아브람이 인간적인 의지처였던 롯을 떠나보냈을 때, 하나님은 그에게 더 크고 확고한 언약을 주십니다. 이는 우리가 세상의 보장들을 내려놓을 때, 하나님께서 당신의 약속으로 우리를 더욱 견고하게 채우신다는 진리를 보여줍니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_13.html" data-title="창세기 13장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_13" data-title="창세기 13장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 12장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 12장</h3>
+                            <h3>마태복음 12장: 안식일의 주인과 하나님 나라</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">예수님께서 자신을 "성전보다 더 큰 이"요 "안식일의 주인"이라고 선언하신 것은 어떤 의미입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 12장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 안식일에 밀 이삭을 잘라 먹은 제자들을 변호하시고, 손 마른 사람을 고치시며 안식일 논쟁을 벌이십니다. 주님은 <span class="scripture-quote">나는 자비를 원하고 제사를 원하지 아니하노라</span>(7절)는 말씀을 인용하시며 율법의 본질을 가르치십니다. 또한 귀신을 쫓아내는 능력이 하나님의 성령을 힘입은 것임을 밝히시며 하나님 나라가 이미 임했음을 선포하십니다. 표적을 구하는 자들에게는 '요나의 표적'(부활) 밖에는 보일 것이 없다고 말씀하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_12.html" data-title="마태복음 12장">본문 보기 (12장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_12" data-title="마태복음 12장">성경 듣기 (12장)</button> </div>
+                            <p><strong>1. 기독론적 권위:</strong> 예수님은 자신이 다윗보다 크고, 성전보다 크며, 요나보다 크고, 솔로몬보다 더 큰 분임을 선포하십니다. 이는 구약의 모든 제도와 예표가 그리스도 안에서 성취되었음을 의미합니다. 안식일의 참된 쉼은 날(Day)이 아닌 인격(Person), 곧 그리스도 안에서만 발견됩니다.</p>
+                            <p><strong>2. 성령 모독죄의 본질:</strong> 바리새인들이 성령의 명백한 역사를 귀신의 왕 바알세불의 역사로 매도한 것은, 구원의 유일한 통로인 성령의 증거를 의도적으로 거부하는 행위입니다. 이는 무지가 아닌 악의적인 거절이기에 사함을 받지 못합니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_12.html" data-title="마태복음 12장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_12" data-title="마태복음 12장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 2장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 2장</h3>
+                            <h3>느헤미야 2장: 하나님의 선한 손의 도우심</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">느헤미야가 왕의 질문에 대답하기 전 "하늘의 하나님께 묵도"한 행동은 그의 신앙을 어떻게 보여줍니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 2장의 주요 내용을 설명합니다.</p>
+                            <p>기도로 준비한 느헤미야는 아닥사스다 왕에게 유다 땅으로 돌아가 성을 건축하게 해달라고 요청합니다. 왕의 허락과 필요한 조서들을 받은 느헤미야는 <span class="scripture-quote">내 하나님의 선한 손이 나를 도우시므로</span>(8절) 왕이 허락했다고 고백합니다. 예루살렘에 도착한 그는 밤에 은밀히 성벽을 시찰한 후, 백성들에게 하나님의 도우심을 간증하며 재건을 독려합니다. 대적들의 비웃음에도 그는 "하늘의 하나님이 우리를 형통하게 하시리라"(20절)고 담대히 선포합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_02.html" data-title="느헤미야 2장">본문 보기 (2장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_2" data-title="느헤미야 2장">성경 듣기 (2장)</button> </div>
+                            <p><strong>1. 주권적 섭리와 인간의 책임:</strong> 느헤미야는 철저히 기도했지만, 동시에 왕에게 구체적인 요구사항을 준비하고 현장을 면밀히 조사했습니다. 이는 하나님의 주권(Sovereignty)을 믿는 신앙이 인간의 책임(Responsibility)이나 지혜로운 계획을 배제하지 않고 오히려 강화함을 보여줍니다.</p>
+                            <p><strong>2. 하나님의 선한 손:</strong> 역사의 배후에는 언제나 하나님의 보이지 않는 손이 역사하십니다. 이방 왕의 마음을 움직이고 대적의 방해를 막아주시는 분은 결국 하나님이십니다. 개혁주의 신앙은 모든 성공의 원인을 인간의 탁월함이 아닌 하나님의 은혜로 돌립니다(Soli Deo Gloria).</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_02.html" data-title="느헤미야 2장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_2" data-title="느헤미야 2장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 12장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 12장</h3>
+                            <h3>사도행전 12장: 교회의 기도와 하나님의 간섭</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">헤롯의 죽음과 베드로의 구출이 동시에 기록된 것은 세상 권력과 하나님의 권세에 대해 무엇을 시사합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 12장의 주요 내용을 설명합니다.</p>
+                            <p>헤롯 아그립바 1세는 요한의 형제 야고보를 죽이고 베드로마저 옥에 가둡니다. 교회는 그를 위해 간절히 하나님께 기도합니다. 처형 전날 밤, 주의 사자가 나타나 베드로를 기이한 방법으로 구출합니다. 반면, 영광을 하나님께 돌리지 않고 스스로 신처럼 높임 받으려던 헤롯은 주의 사자가 치니 벌레에게 먹혀 죽습니다. 성경은 이 모든 일 후에 <span class="scripture-quote">하나님의 말씀은 흥왕하여 더하더라</span>(24절)고 결론 맺습니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_12.html" data-title="사도행전 12장">본문 보기 (12장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_12" data-title="사도행전 12장">성경 듣기 (12장)</button> </div>
+                            <p><strong>1. 박해 속의 보존:</strong> 야고보의 순교와 베드로의 구출은 하나님의 주권적 뜻이 각기 다르게 나타날 수 있음을 보여줍니다. 그러나 어떤 상황에서도 하나님은 교회를 보존하시며, 성도들의 합심 기도는 닫힌 옥문을 여는 강력한 영적 무기임을 입증합니다.</p>
+                            <p><strong>2. 인간의 교만과 심판:</strong> 헤롯의 비참한 최후는 하나님의 영광을 가로채는 교만이 얼마나 큰 죄인지를 경고합니다. 세상 권력이 아무리 강해 보여도, 역사의 진정한 통치자는 하나님이시며 그분의 말씀만이 영원히 승리합니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_12.html" data-title="사도행전 12장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_12" data-title="사도행전 12장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 세상의 영광과 하나님의 영광의 대결</h4>
+                            
+                            <p>오늘의 네 본문은 눈에 보이는 세상의 영광과 보이지 않는 하나님의 영광 사이의 치열한 대결과, 결국 승리하시는 하나님의 주권을 보여줍니다. <strong>창세기 13장</strong>에서 롯은 눈에 보이는 소돔의 풍요를 좇았으나 결국 실패했고, 아브람은 보이지 않는 약속을 좇아 복의 근원이 되었습니다.</p>
+                            
+                            <p>이 대결은 신약에서 더욱 극대화됩니다. <strong>사도행전 12장</strong>의 헤롯은 세상 영광의 정점에 서서 교회를 핍박했으나 하나님의 심판으로 비참하게 몰락했습니다. 반면, <strong>느헤미야 2장</strong>의 느헤미야와 <strong>마태복음 12장</strong>의 예수님은 세상의 반대와 형식주의 속에서도 '하나님의 선한 손'과 '성령의 능력'을 힘입어 하나님 나라를 건설하셨습니다.</p>
+                            
+                            <p>우리는 오늘 말씀을 통해, 눈앞의 이익이나 세상의 권력을 두려워하지 않고, 역사의 진정한 주인이신 그리스도의 통치를 신뢰해야 합니다. 교회는 세상의 박해 속에서도 기도로 승리하며, 말씀은 영원히 흥왕할 것입니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

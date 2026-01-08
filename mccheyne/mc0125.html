@@ -5,85 +5,205 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 25일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 25일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 26장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 26장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 25장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">에스더 2장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 25장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 26장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 26장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_26.html" data-title="창세기 26장">본문 보기 (26장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_26" data-title="창세기 26장">성경 듣기 (26장)</button> </div>
+                            <h3>1월 25일: 깨어 준비하는 믿음과 섭리의 손길</h3>
+                            <h4>오늘의 길잡이: 다가올 미래를 예비하시는 하나님과 성도</h4>
+                            <p>오늘의 성경 읽기는 미래를 주관하시는 하나님의 섭리와 그 앞에서 성도가 가져야 할 깨어있는 자세를 다룹니다. <strong>창세기 26장</strong>에서 이삭은 흉년이라는 위기 속에서도 하나님의 언약을 따라 순종하며, 하나님은 그를 위해 르호봇(넓은 장소)의 축복을 예비하십니다. <strong>에스더 2장</strong>은 유다 민족의 멸절 위기(3장)가 오기 전에 하나님께서 에스더를 왕후로 세우시고 모르드개를 준비시키시는 은밀한 섭리를 보여줍니다.</p>
+                            <p>이러한 하나님의 섭리 앞에서 성도는 어떻게 살아야 합니까? <strong>마태복음 25장</strong>은 열 처녀와 달란트 비유를 통해, 다시 오실 주님을 기다리며 기름을 준비하고 충성스럽게 사명을 감당할 것을 촉구합니다. <strong>사도행전 25장</strong>의 바울 역시 로마 선교라는 하나님의 계획을 신뢰하며 가이사에게 상소함으로써, 다가올 미래를 향해 담대히 나아갑니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 26장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 26장: 이삭에게 계승된 언약과 축복</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">이삭이 그랄 목자들과 다투지 않고 우물을 양보했을 때, 하나님께서 그에게 '르호봇'의 축복을 주신 영적 의미는 무엇입니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>흉년이 들자 이삭은 애굽으로 내려가지 않고 하나님의 지시대로 그랄에 거합니다. 하나님은 아브라함에게 주신 언약을 이삭에게 재확인시키십니다. 이삭이 농사하여 백 배나 얻고 거부가 되자 블레셋 사람들이 시기하여 우물을 막습니다. 이삭은 다투지 않고 자리를 옮기며 계속 우물을 팠고, 마침내 다툼이 없는 르호봇 우물을 얻습니다. 하나님은 브엘세바에서 다시 나타나 <span class="scripture-quote">두려워하지 말라 내 종 아브라함을 위하여 내가 너와 함께 있어... 번성하게 하리라</span>(24절)고 약속하십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 언약의 갱신과 계승:</strong> 하나님은 아브라함과 맺은 언약을 그의 아들 이삭에게 직접 나타나 갱신하십니다. 이는 언약이 한 세대에 그치지 않고 대대로 계승되는 영원한 것임을 보여줍니다. 이삭의 축복은 그의 능력이 아닌, 아브라함에게 하신 약속에 근거합니다.</p>
+                            <p><strong>2. 온유한 자의 기업:</strong> 이삭이 우물을 양보한 것은 바보여서가 아니라, 하나님의 공급하심을 신뢰했기 때문입니다. 온유한 자가 땅을 기업으로 받을 것(마 5:5)이라는 말씀처럼, 하나님은 다투지 않고 평화를 추구하는 자에게 더 넓은 지경(르호봇)을 열어주십니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_26.html" data-title="창세기 26장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_26" data-title="창세기 26장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 25장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 25장</h3>
+                            <h3>마태복음 25장: 천국 준비와 충성된 종</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">열 처녀 비유의 '기름'과 양과 염소 비유의 '지극히 작은 자에게 한 것'은 종말을 사는 성도에게 어떤 구체적인 삶을 요구합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 25장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 세 가지 종말 비유를 말씀하십니다. 열 처녀 비유는 신랑이 더디 오더라도 등불(믿음)과 기름(성령의 내주하심/거룩한 삶)을 예비하며 깨어 있으라고 경고합니다. 달란트 비유는 주인이 맡긴 재능과 기회를 활용하여 충성스럽게 일할 것을, 양과 염소의 비유는 지극히 작은 자 하나에게 베푼 사랑이 곧 주님께 한 것임을 가르치며 마지막 심판의 기준이 사랑의 실천임을 선포하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_25.html" data-title="마태복음 25장">본문 보기 (25장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_25" data-title="마태복음 25장">성경 듣기 (25장)</button> </div>
+                            <p><strong>1. 종말론적 준비성:</strong> '기름'은 빌려줄 수 없는 것으로, 각자가 하나님 앞에서 준비해야 할 참된 신앙과 성령의 은혜를 의미합니다. 종말 신앙은 막연한 기다림이 아니라, 오늘 주어진 삶의 자리에서 성령으로 충만하여 깨어 있는 것입니다.</p>
+                            <p><strong>2. 행위 심판과 은혜:</strong> 양과 염소의 비유는 구원이 행위로 얻어진다는 뜻이 아니라, 참된 믿음은 반드시 사랑의 열매로 증명된다는 것을 보여줍니다. 성도의 선행은 구원의 조건이 아니라 구원받은 생명의 필연적 결과입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_25.html" data-title="마태복음 25장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_25" data-title="마태복음 25장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 에스더 2장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>에스더 2장</h3>
+                            <h3>에스더 2장: 에스더의 왕후 간택과 모르드개의 공로</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">하나님께서 하만의 음모가 시작되기도 전에 에스더를 왕후의 자리에 앉히신 것은 섭리적 관점에서 무엇을 의미합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>에스더 2장의 주요 내용을 설명합니다.</p>
+                            <p>아하수에로 왕이 와스디를 폐위한 후 새 왕후를 찾습니다. 유다인 모르드개의 사촌 동생 에스더가 후보로 발탁되어 수산 궁에 들어갑니다. 에스더는 자신의 민족을 밝히지 않은 채 정해진 규례를 따르며, 마침내 왕의 사랑을 입어 왕후가 됩니다. 한편 모르드개는 대궐 문에 앉았다가 왕을 암살하려는 음모를 알게 되어 에스더를 통해 고발하고, 이 일이 궁중 일기에 기록됩니다. 이 모든 과정은 훗날 유다인을 구원할 결정적 발판이 됩니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_02.html" data-title="에스더 2장">본문 보기 (2장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="EST_2" data-title="에스더 2장">성경 듣기 (2장)</button> </div>
+                            <p><strong>1. 선제적 섭리 (Prevenient Providence):</strong> 하나님은 위기가 닥치기 전에 이미 구원의 길을 예비하십니다. 에스더의 미모, 왕의 호감, 모르드개의 발견 등 사소해 보이는 사건들이 거대한 구속사의 퍼즐 조각으로 맞춰지고 있습니다. 하나님은 역사보다 앞서 가시는 분입니다.</p>
+                            <p><strong>2. 숨겨진 정체성과 때:</strong> 에스더가 민족을 숨긴 것은 비겁함이 아니라 하나님의 때를 기다리는 지혜였습니다. 때로는 하나님의 일을 위해 침묵하며 준비해야 할 시기가 있음을 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_02.html" data-title="에스더 2장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EST_2" data-title="에스더 2장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 25장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 25장</h3>
+                            <h3>사도행전 25장: 바울의 가이사 상소</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">바울이 예루살렘 재판을 거부하고 로마 황제(가이사)에게 상소한 것은 단순한 생존 전략이었습니까, 아니면 선교적 결단이었습니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 25장의 주요 내용을 설명합니다.</p>
+                            <p>베스도가 새 총독으로 부임하자 유대인들은 다시 바울을 고소하며 예루살렘으로 옮기기를 청합니다(길에 매복하여 죽이고자 함). 베스도는 유대인의 환심을 사려고 바울에게 예루살렘 행을 제안하지만, 바울은 이를 거절하고 <span class="scripture-quote">내가 가이사의 재판 자리 앞에 섰으니... 가이사께 상소하노라</span>(11절)고 선언합니다. 이후 아그립바 왕이 방문했을 때 베스도는 바울의 사건을 설명하며 그가 죽을 죄를 범하지 않았음을 인정합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_25.html" data-title="사도행전 25장">본문 보기 (25장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_25" data-title="사도행전 25장">성경 듣기 (25장)</button> </div>
+                            <p><strong>1. 로마를 향한 비전의 실현:</strong> 바울의 상소는 로마 시민권자로서의 권리 행사였지만, 본질적으로는 "로마에서도 증언하여야 하리라"(행 23:11)는 주님의 말씀을 성취하기 위한 전략적 선택이었습니다. 그는 죄수의 신분을 이용해서라도 제국의 심장부에 복음을 전하려 했습니다.</p>
+                            <p><strong>2. 무죄함의 증명:</strong> 베스도와 아그립바 왕 앞에서의 심문 과정은 기독교가 로마법이나 사회 질서를 파괴하는 반사회적 종교가 아님을 공적으로 입증하는 변증적 가치를 지닙니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_25.html" data-title="사도행전 25장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_25" data-title="사도행전 25장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 미래를 예비하시는 하나님과 준비하는 성도</h4>
+                            
+                            <p>오늘의 네 본문은 하나님께서 자기 백성의 미래를 얼마나 치밀하게 예비하시는지를 보여주며, 그에 합당한 성도의 반응을 가르칩니다. <strong>창세기 26장</strong>과 <strong>에스더 2장</strong>에서 하나님은 흉년과 민족 말살이라는 위기가 닥치기 전에 미리 이삭에게 축복을 주시고 에스더를 왕후로 세우셨습니다. 하나님의 섭리는 언제나 우리의 위기보다 한발 앞서가십니다.</p>
+                            
+                            <p>이러한 하나님의 선제적 은혜 앞에서 우리는 어떻게 살아야 합니까? <strong>마태복음 25장</strong>은 등불에 기름을 준비하고, 맡겨진 달란트로 충성하며, 지극히 작은 자를 섬기는 '깨어 있는 삶'을 요구합니다. <strong>사도행전 25장</strong>의 바울처럼 눈앞의 안위가 아닌 하나님이 주신 비전(로마 선교)을 향해 담대히 결단하며 나아가야 합니다. 준비하시는 하나님을 신뢰하며, 오늘을 충성스럽게 살아내는 지혜로운 성도가 되시기를 바랍니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +211,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +242,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 24일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 24일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 25장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 25장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 24장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">에스더 1장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 24장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 25장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 25장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_25.html" data-title="창세기 25장">본문 보기 (25장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_25" data-title="창세기 25장">성경 듣기 (25장)</button> </div>
+                            <h3>1월 24일: 역사의 시작과 끝을 주관하시는 하나님</h3>
+                            <h4>오늘의 길잡이: 선택하시고 섭리하시며 심판하시는 주권자</h4>
+                            <p>오늘의 성경 읽기는 역사의 미세한 부분부터 우주적인 종말까지를 아우르는 하나님의 주권을 웅장하게 보여줍니다. <strong>창세기 25장</strong>은 아브라함의 죽음 이후, 하나님께서 태중에서부터 야곱을 선택하심으로 언약의 계보를 이어가시는 주권적 선택을 다룹니다. 이는 인간의 조건이 아닌 하나님의 뜻이 역사를 이끌어감을 보여줍니다.</p>
+                            <p><strong>에스더 1장</strong>은 페르시아 왕궁의 사건을 통해, 하나님의 이름이 드러나지 않는 곳에서도 당신의 백성을 위해 은밀히 역사하시는 섭리를 보여줍니다. <strong>마태복음 24장</strong>은 이러한 역사의 끝에 있을 종말과 심판을 예고하며 깨어 있을 것을 명합니다. 마지막으로 <strong>사도행전 24장</strong>은 이 종말론적 소망(부활과 심판)을 가진 바울이 세상 권력 앞에서도 어떻게 담대할 수 있는지를 증거합니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 25장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 25장: 아브라함의 죽음과 야곱의 선택</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">"큰 자가 어린 자를 섬기리라"는 말씀과 야곱의 팥죽 사건은 하나님의 선택 교리에 대해 무엇을 가르쳐줍니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>아브라함이 175세에 죽어 막벨라 굴에 장사됩니다. 이삭의 아내 리브가가 임신하지 못하므로 이삭이 간구하자 하나님이 응답하십니다. 태중에서 쌍둥이가 싸울 때, 하나님은 <span class="scripture-quote">큰 자가 어린 자를 섬기리라</span>(23절)고 말씀하십니다. 에서와 야곱이 태어나고, 장성한 에서는 팥죽 한 그릇에 장자의 명분을 야곱에게 팔아넘깁니다. 성경은 에서가 장자의 명분을 가볍게 여겼다고 평가합니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 무조건적 선택 (Unconditional Election):</strong> 야곱과 에서가 태어나기도 전, 무슨 선이나 악을 행하지 아니한 때에 하나님은 야곱을 택하셨습니다(롬 9:11). 이는 구원과 언약의 계승이 인간의 행위나 혈통적 우선권(장자)이 아닌, 부르시는 이의 주권적인 뜻에 달려 있음을 보여줍니다.</p>
+                            <p><strong>2. 망령된 자, 에서:</strong> 하나님은 야곱을 선택하셨지만, 에서의 유기(Reprobation) 또한 그의 책임임을 보여줍니다. 에서는 영적인 축복(장자권)보다 당장의 육체적 만족(팥죽)을 우선시했습니다. 이는 언약 밖의 사람들이 갖는 전형적인 세속적 가치관입니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_25.html" data-title="창세기 25장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_25" data-title="창세기 25장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 24장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 24장</h3>
+                            <h3>마태복음 24장: 종말의 징조와 깨어있음</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">예루살렘 성전 파괴 예언과 세상 끝날의 징조를 함께 말씀하신 이유는 무엇이며, 성도는 이를 어떻게 대비해야 합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 24장의 주요 내용을 설명합니다.</p>
+                            <p>제자들이 성전의 웅장함을 자랑할 때 예수님은 돌 하나도 돌 위에 남지 않을 것을 예언하십니다. 감람산에서 제자들이 종말의 징조를 묻자, 주님은 미혹, 난리, 기근, 지진, 박해를 예고하시며 <span class="scripture-quote">끝까지 견디는 자는 구원을 얻으리라</span>(13절)고 말씀하십니다. 그 날과 그 때는 아무도 모르기에, 노아의 때와 같이 먹고 마시는 세상 속에서 깨어 준비하고 있으라고 충성된 종과 악한 종의 비유로 경고하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_24.html" data-title="마태복음 24장">본문 보기 (24장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_24" data-title="마태복음 24장">성경 듣기 (24장)</button> </div>
+                            <p><strong>1. 종말론적 긴장 (Already, Not Yet):</strong> 예수님의 예언은 일차적으로 AD 70년 예루살렘 멸망을 가리키면서, 궁극적으로는 우주적 종말을 내다봅니다. 성도는 이미 시작된 종말의 시대를 살아가면서, 아직 오지 않은 완성을 기다리는 '깨어있는 삶'을 살아야 합니다.</p>
+                            <p><strong>2. 성도의 인내:</strong> 난리와 미혹 속에서도 복음은 모든 민족에게 증언되어야 합니다. 참된 믿음은 환난 중에 사라지는 것이 아니라, 끝까지 견디며 복음 전파의 사명을 감당하는 것으로 증명됩니다(성도의 견인).</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_24.html" data-title="마태복음 24장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_24" data-title="마태복음 24장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 에스더 1장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>에스더 1장</h3>
+                            <h3>에스더 1장: 아하수에로 왕의 잔치와 섭리</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">하나님의 이름이 등장하지 않는 왕후 와스디의 폐위 사건은 어떻게 구속사의 흐름을 준비합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>에스더 1장의 주요 내용을 설명합니다.</p>
+                            <p>페르시아 왕 아하수에로가 127 지방을 다스리는 권세를 과시하며 180일 동안 잔치를 베풉니다. 잔치 마지막에 술이 거하게 취한 왕은 왕후 와스디의 아름다움을 자랑하고자 그녀를 부르지만, 와스디는 왕명을 거역합니다. 이에 분노한 왕은 신하들의 조언을 따라 와스디를 폐위하고 조서를 내려 온 나라에 알립니다. 이 사건은 훗날 유다인을 구원할 에스더가 왕후가 되는 길을 예비합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_01.html" data-title="에스더 1장">본문 보기 (1장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="EST_1" data-title="에스더 1장">성경 듣기 (1장)</button> </div>
+                            <p><strong>1. 은밀한 섭리 (Hidden Providence):</strong> 에스더서에는 하나님의 이름이 명시되지 않지만, 세상 군왕의 교만, 부부 싸움, 정치적 결정 배후에 역사하시는 하나님의 손길을 가장 강력하게 보여줍니다. 와스디의 폐위는 우연이 아니라, 자기 백성을 구원하기 위한 하나님의 사전 정지 작업이었습니다.</p>
+                            <p><strong>2. 세상 영광의 허무함:</strong> 180일간의 호화로운 잔치는 세상 권력의 정점을 보여주지만, 왕비 한 사람 마음대로 하지 못하는 왕의 무력함과 분노는 세상 영광의 허망함을 역설적으로 드러냅니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_01.html" data-title="에스더 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EST_1" data-title="에스더 1장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 24장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 24장</h3>
+                            <h3>사도행전 24장: 벨릭스 앞의 바울</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">바울이 총독 벨릭스에게 전한 "의와 절제와 장차 오는 심판"은 복음의 어떤 측면을 강조합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 24장의 주요 내용을 설명합니다.</p>
+                            <p>바울은 벨릭스 총독 앞에서 대제사장과 변호사 더둘로의 고발을 받습니다. 바울은 자신이 성전을 더럽힌 적이 없으며, 조상의 하나님을 섬기고 율법과 선지자를 믿으며 <span class="scripture-quote">하나님께 향한 소망 곧 의인과 악인의 부활</span>(15절)을 믿는다고 변론합니다. 이후 바울은 벨릭스에게 '의와 절제와 장차 오는 심판'을 강론하고, 벨릭스는 두려워하면서도 뇌물을 바라고 바울을 구류해 둡니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_24.html" data-title="사도행전 24장">본문 보기 (24장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_24" data-title="사도행전 24장">성경 듣기 (24장)</button> </div>
+                            <p><strong>1. 부활 신앙의 핵심:</strong> 바울 변론의 핵심은 언제나 '부활'입니다. 기독교는 도덕 훈련이 아니라, 죽은 자가 살아나고 그에 따른 심판이 있다는 종말론적 사실에 근거합니다. 이것이 그가 세상 권력 앞에서도 담대할 수 있었던 이유입니다.</p>
+                            <p><strong>2. 죄에 대한 책망과 복음:</strong> 바울은 부도덕한 삶을 살던 벨릭스에게 듣기 좋은 말이 아닌 '의와 절제와 심판'을 전했습니다. 참된 복음 선포는 죄를 지적하여 회개를 촉구하는 예언자적 기능을 포함합니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_24.html" data-title="사도행전 24장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_24" data-title="사도행전 24장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 주권자의 섭리와 종말론적 소망</h4>
+                            
+                            <p>오늘의 본문들은 역사의 시작(선택)과 과정(섭리), 그리고 끝(심판)을 주관하시는 하나님의 절대 주권을 선포합니다. <strong>창세기 25장</strong>에서 하나님은 인간의 조건을 보지 않으시고 야곱을 택하셨으며, <strong>에스더 1장</strong>에서는 페르시아 왕궁의 은밀한 일들을 주관하사 구원의 역사를 준비하셨습니다. 이는 역사가 우연이 아닌 하나님의 섭리 안에 있음을 보여줍니다.</p>
+                            
+                            <p>이러한 섭리의 하나님은 <strong>마태복음 24장</strong>에서 역사의 끝, 곧 종말과 심판이 반드시 있음을 경고하십니다. 성도는 이 땅의 영광에 취해 사는 자들이 아니라, 주님이 오실 날을 예비하며 깨어 있는 자들입니다. <strong>사도행전 24장</strong>의 바울처럼, 우리는 세상의 권력과 유혹 앞에서도 '부활과 심판'의 소망을 붙들고 의와 진리를 담대히 증거해야 합니다.</p>
+                            
+                            <p>오늘 하루, 보이지 않는 손길로 내 삶을 인도하시는 하나님을 신뢰하며, 다시 오실 주님을 기다리는 거룩한 긴장감을 가지고 살아가시기를 축복합니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

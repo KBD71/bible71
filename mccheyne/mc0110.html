@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 10일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 10일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 11장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 11장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 10장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">에스라 10장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 10장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 11장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 11장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_11.html" data-title="창세기 11장">본문 보기 (11장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_11" data-title="창세기 11장">성경 듣기 (11장)</button> </div>
+                            <h3>1월 10일: 흩으심의 심판과 모으심의 은혜</h3>
+                            <h4>오늘의 길잡이: 바벨의 혼란을 넘어 복음의 연합으로</h4>
+                            <p>오늘 성경 읽기는 인간의 교만이 가져온 분열과 하나님의 은혜가 가져온 연합을 대조적으로 보여줍니다. <strong>창세기 11장</strong>의 바벨탑 사건은 인간이 하나님 없이 스스로 이름을 내려고 할 때 일어나는 심판과 흩으심을 기록합니다. 반면 <strong>사도행전 10장</strong>은 하나님께서 베드로와 고넬료를 만나게 하심으로, 바벨탑 이후 나뉘었던 유대인과 이방인의 장벽을 허무시고 하나 되게 하시는 구속사의 대전환을 보여줍니다.</p>
+                            <p>한편, <strong>마태복음 10장</strong>은 제자들을 세상으로 파송하며 박해 속에서도 복음을 전하여 택한 자들을 모으게 하시는 왕의 명령을, <strong>에스라 10장</strong>은 거룩한 공동체가 되기 위해 죄와 철저히 분리하는 결단을 보여줍니다. 흩어진 자들을 다시 모으시고 거룩하게 하시는 삼위일체 하나님의 열심을 묵상하시기 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 11장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 11장: 바벨탑 심판과 셈의 족보</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">인간이 "우리의 이름을 내고 흩어짐을 면하자"라고 결의한 것이 왜 하나님 보시기에 악한 일이었습니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>온 땅의 언어가 하나였을 때, 사람들은 시날 평지에서 벽돌로 탑을 쌓아 하늘에 닿게 하고 자신들의 이름을 내려 했습니다. 하나님은 이를 보시고 그들의 언어를 혼잡하게 하여 그들을 온 지면에 흩으셨습니다(바벨). 이후 성경은 셈의 족보를 통해 아브라함까지 이어지는 계보를 소개합니다. 이는 심판 중에도 구원자를 보내실 하나님의 은밀한 준비가 진행되고 있음을 보여줍니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 인간 중심주의의 허망함:</strong> 바벨탑 사건의 핵심은 <span class="scripture-quote">우리의 이름을 내고</span>(4절)라는 표현에 있습니다. 이는 하나님의 영광을 가로채고 스스로 신이 되려는 인간의 원초적 교만입니다. 하나님 없는 연합은 결국 심판과 혼란으로 귀결될 수밖에 없음을 보여줍니다.</p>
+                            <p><strong>2. 흩으심과 택하심:</strong> 하나님은 교만한 인류를 흩으시는 심판을 행하셨지만, 동시에 셈의 족보를 보존하시고 데라의 아들 아브라함을 준비시키십니다. 이는 인류의 역사 속에 흐르는 하나님의 구속 경륜(Economy of Redemption)이 중단되지 않음을 증거합니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_11.html" data-title="창세기 11장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_11" data-title="창세기 11장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 10장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 10장</h3>
+                            <h3>마태복음 10장: 제자 파송과 제자도</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">예수님께서 제자들을 세상에 보내시며 "양을 이리 가운데로 보냄과 같다"고 하신 말씀의 의미는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 10장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 열두 제자를 부르시고 권능을 주시며 이스라엘 집의 잃어버린 양에게로 보내십니다. 주님은 복음 전파의 여정이 평탄하지 않을 것임을 예고하시며, 박해와 미움을 받을 것이나 두려워하지 말라고 격려하십니다. 참새 한 마리도 하나님의 허락 없이 떨어지지 않음을 상기시키며, <span class="scripture-quote">자기 십자가를 지고 나를 따르지 않는 자도 내게 합당하지 아니하니라</span>(38절)고 참된 제자도를 가르치십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_10.html" data-title="마태복음 10장">본문 보기 (10장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_10" data-title="마태복음 10장">성경 듣기 (10장)</button> </div>
+                            <p><strong>1. 사도적 권위의 위임:</strong> 예수님은 제자들에게 귀신을 쫓아내고 병을 고치는 권능을 주셨습니다. 이는 교회의 기초가 될 사도들이 그리스도의 대리자로서 왕국을 확장할 권한을 부여받았음을 의미합니다. 그러나 이 권능은 자신의 영광이 아닌, 오직 복음 전파를 위해 사용되어야 합니다.</p>
+                            <p><strong>2. 제자도의 비용과 하나님의 주권:</strong> 제자의 길은 필연적으로 고난을 동반합니다. 세상의 가치관과 충돌하기 때문입니다. 그러나 <span class="scripture-quote">몸은 죽여도 영혼은 능히 죽이지 못하는 자들을 두려워하지 말라</span>(28절)는 말씀은 성도의 생명이 하나님의 절대 주권 아래 보호받고 있음을 확신하게 합니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_10.html" data-title="마태복음 10장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_10" data-title="마태복음 10장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 에스라 10장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>에스라 10장</h3>
+                            <h3>에스라 10장: 거룩을 위한 뼈아픈 개혁</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">이방 아내와 자녀를 떠나보내는 에스라의 개혁이 오늘날 우리에게 주는 영적 교훈은 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>에스라 10장의 주요 내용을 설명합니다.</p>
+                            <p>에스라의 회개 기도에 감동한 백성들은 자신들의 죄를 자복하고 이방 아내를 내보내기로 맹세합니다. 모든 백성이 예루살렘에 모여 큰 비를 맞으며 떨고 있을 때, 에스라는 그들에게 하나님의 율법대로 행할 것을 촉구합니다. 제사장부터 일반 백성에 이르기까지 이방 여인을 취한 자들의 명단이 공개되며, 그들은 뼈를 깎는 아픔을 감수하고 언약의 거룩함을 지키기 위해 결단합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_15_EZR_10.html" data-title="에스라 10장">본문 보기 (10장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="EZR_10" data-title="에스라 10장">성경 듣기 (10장)</button> </div>
+                            <p><strong>1. 거룩을 위한 급진적 단절:</strong> 이 사건은 현대적 관점에서 비인도적으로 보일 수 있으나, 구속사적 맥락에서는 '거룩한 씨'(메시아 계보)의 보존을 위한 필수적인 조치였습니다. 죄와의 타협은 공동체 전체를 영적 죽음으로 이끌기에, 참된 회개는 죄의 원인을 제거하는 구체적인 행동(Mortification)을 수반해야 합니다.</p>
+                            <p><strong>2. 공동체적 책임과 회복:</strong> 개혁은 지도자 한 사람의 힘이 아닌, 공동체 전체가 죄를 직시하고 함께 책임을 질 때 가능합니다. 스가냐의 고백처럼 <span class="scripture-quote">아직도 이스라엘에게 소망이 있나니</span>(2절)라는 말은, 철저한 회개가 있을 때 하나님께서 다시 회복의 기회를 주신다는 은혜의 원리를 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_15_EZR_10.html" data-title="에스라 10장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EZR_10" data-title="에스라 10장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 10장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 10장</h3>
+                            <h3>사도행전 10장: 이방인에게 열린 구원의 문</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">베드로의 환상과 고넬료의 회심 사건은 "하나님은 사람을 외모로 취하지 않으신다"는 진리를 어떻게 확증합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 10장의 주요 내용을 설명합니다.</p>
+                            <p>가이사랴의 이방인 백부장 고넬료와 욥바의 베드로에게 각각 환상이 임합니다. 하나님은 베드로에게 부정한 짐승을 잡아먹으라는 환상을 통해 이방인을 향한 혐오를 깨뜨리십니다. 베드로가 고넬료의 집에 가서 말씀을 전할 때 성령이 듣는 모든 사람에게 내려오십니다. 이에 베드로는 <span class="scripture-quote">하나님은 사람의 외모를 보지 아니하시고... 하나님을 경외하며 의를 행하는 사람은 다 받으시는 줄 깨달았도다</span>(34-35절)라고 고백하며 세례를 베풉니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_10.html" data-title="사도행전 10장">본문 보기 (10장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_10" data-title="사도행전 10장">성경 듣기 (10장)</button> </div>
+                            <p><strong>1. 이방인의 오순절:</strong> 고넬료 가정에 임한 성령 강림은 '이방인의 오순절'이라 불릴 만큼 중요한 구속사적 사건입니다. 이는 복음이 유대인의 전유물이 아니라 만민을 위한 것임을 성령께서 친히 인치신 사건이며, 바벨탑 이후 나뉘었던 인류가 그리스도 안에서 한 성령으로 연합됨을 보여줍니다.</p>
+                            <p><strong>2. 율법의 완성과 장벽 철폐:</strong> 베드로가 거부했던 '속되다'는 개념은 그리스도의 십자가로 인해 폐기되었습니다. 하나님께서 깨끗하게 하신 것을 사람이 속되다 할 수 없습니다(15절). 이는 복음 안에서 인종적, 문화적 장벽이 무너지고 보편적 교회가 탄생했음을 알리는 신호탄입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_10.html" data-title="사도행전 10장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_10" data-title="사도행전 10장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 바벨의 흩으심을 역전시키는 복음의 연합</h4>
+                            
+                            <p>오늘의 본문들은 흩어짐과 모으심, 그리고 거룩한 구별이라는 주제를 통해 하나님의 구원 역사를 파노라마처럼 보여줍니다. <strong>창세기 11장</strong>의 바벨탑 사건은 인간의 교만이 낳은 심판으로 인류가 언어의 혼잡과 함께 흩어지는 비극을 초래했습니다. 그러나 하나님은 그 흩어짐 속에서도 아브라함을 준비하시며 구원을 계획하셨습니다.</p>
+                            
+                            <p>이 계획은 신약에 와서 놀랍게 성취됩니다. <strong>사도행전 10장</strong>에서 하나님은 베드로와 고넬료를 통해 유대인과 이방인의 장벽을 허무시고, 성령 안에서 흩어진 열방을 하나로 모으셨습니다. 이는 바벨탑의 저주를 역전시키는 복음의 능력입니다. 또한 <strong>마태복음 10장</strong>의 제자 파송은 이 복음을 들고 세상 끝까지 나아가 잃어버린 자들을 모으라는 왕의 명령입니다.</p>
+                            
+                            <p>하지만 이 연합은 죄와의 타협이 아닙니다. <strong>에스라 10장</strong>이 보여주듯, 하나님 백성의 연합은 죄와의 철저한 단절과 거룩함 위에서만 가능합니다. 우리는 세상에서 부르심을 받은 거룩한 교회로서, 십자가 복음으로 세상을 치유하고 하나 되게 하는 사명을 감당해야 합니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

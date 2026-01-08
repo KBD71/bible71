@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 11일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 11일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 12장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 12장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 11장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 1장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 11장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 12장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 12장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_12.html" data-title="창세기 12장">본문 보기 (12장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_12" data-title="창세기 12장">성경 듣기 (12장)</button> </div>
+                            <h3>1월 11일: 부르심, 멍에, 그리고 참된 안식</h3>
+                            <h4>오늘의 길잡이: 은혜로 시작하여 영광으로 나아가다</h4>
+                            <p>오늘의 성경 읽기는 '하나님의 주권적인 부르심'과 그 안에 담긴 '회복의 약속'을 중심으로 전개됩니다. <strong>창세기 12장</strong>은 우상 숭배의 땅에서 아브라함을 불러내어 믿음의 조상으로 세우시는 구속사의 웅장한 서막을 엽니다. 이는 <strong>사도행전 11장</strong>에서 이방인 고넬료의 회심이 예루살렘 교회에 수용되고, 안디옥 교회가 세워짐으로써 '모든 족속에게 복이 되리라'는 약속이 성취되는 것과 연결됩니다.</p>
+                            <p>한편, <strong>느헤미야 1장</strong>은 무너진 성벽 앞에서 눈물로 기도하는 한 사람을 통해 회복의 역사가 어떻게 시작되는지를 보여줍니다. 그리고 <strong>마태복음 11장</strong>은 이 모든 부르심의 목적이 결국 수고하고 무거운 짐 진 자들을 그리스도의 멍에 아래 참된 안식으로 초대하는 것임을 선포합니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 12장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 12장: 아브라함 언약의 시작</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">하나님께서 아브라함에게 "본토 친척 아비 집을 떠나라"고 명령하신 영적 의미는 무엇입니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>하나님께서는 아브람에게 고향과 친척과 아버지의 집을 떠나 보여줄 땅으로 가라고 명령하십니다. 이와 함께 큰 민족을 이루고, 이름을 창대하게 하며, 땅의 모든 족속이 너로 말미암아 복을 얻을 것이라는 놀라운 약속을 주십니다(아브라함 언약). 아브람은 말씀에 순종하여 가나안 땅에 들어갔으나, 기근을 만나 애굽으로 내려가 아내를 누이라고 속이는 연약함을 보이기도 합니다. 그러나 하나님은 바로를 징치하심으로 언약 백성을 보호하십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 주권적 선택과 은혜:</strong> 아브라함이 하나님을 찾은 것이 아니라, 하나님께서 갈대아 우르의 우상 숭배자였던 그를 찾아오셨습니다. "너는 복이 될지라"(2절)는 명령은 인간의 자격이 아닌, 오직 하나님의 주권적인 선택(Unconditional Election)에 근거한 은혜의 선포입니다.</p>
+                            <p><strong>2. 복의 근원이신 그리스도:</strong> <span class="scripture-quote">땅의 모든 족속이 너로 말미암아 복을 얻을 것이라</span>(3절)는 약속은 궁극적으로 아브라함의 자손(Seed)으로 오실 예수 그리스도를 가리킵니다(갈 3:16). 그리스도를 통해서만 열방이 죄의 저주에서 벗어나 참된 구원의 복을 누릴 수 있습니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_12.html" data-title="창세기 12장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_12" data-title="창세기 12장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 11장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 11장</h3>
+                            <h3>마태복음 11장: 참된 안식으로의 초대</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">예수님의 멍에를 메는 것이 어떻게 우리에게 쉼이 됩니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 11장의 주요 내용을 설명합니다.</p>
+                            <p>옥에 갇힌 세례 요한이 제자들을 보내 "오실 그이가 당신입니까"라고 묻자, 예수님은 맹인이 보며 나병환자가 깨끗함을 받는 사역으로 답하십니다. 주님은 이 세대의 완악함을 장터의 아이들에 비유하여 책망하시고, 권능을 행한 고을들이 회개하지 않음을 탄식하십니다. 그러나 곧이어 <span class="scripture-quote">수고하고 무거운 짐 진 자들아 다 내게로 오라... 나는 마음이 온유하고 겸손하니 나의 멍에를 메고 내게 배우라</span>(28-29절)고 초청하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_11.html" data-title="마태복음 11장">본문 보기 (11장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_11" data-title="마태복음 11장">성경 듣기 (11장)</button> </div>
+                            <p><strong>1. 계시의 주권성:</strong> 예수님은 <span class="scripture-quote">이것을 지혜롭고 슬기 있는 자들에게는 숨기시고 어린 아이들에게는 나타내심을 감사하나이다</span>(25절)라고 기도하십니다. 구원의 진리는 인간의 지성으로 발견하는 것이 아니라, 아들이 소원대로 계시해 주시는 자만이 알 수 있음을 보여줍니다.</p>
+                            <p><strong>2. 그리스도의 멍에:</strong> 율법주의의 짐은 무겁고 고통스럽지만, 그리스도의 멍에는 쉽고 가볍습니다. 이는 율법 폐기가 아니라, 그리스도와의 연합을 통해 성령의 능력으로 율법의 요구를 이루어가는 은혜의 삶을 의미합니다. 참된 안식은 그리스도께 전적으로 의존할 때 주어집니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_11.html" data-title="마태복음 11장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_11" data-title="마태복음 11장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 1장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 1장</h3>
+                            <h3>느헤미야 1장: 무너진 성벽과 중보 기도</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">페르시아 왕궁의 평안한 삶을 누리던 느헤미야가 예루살렘 소식을 듣고 울며 금식한 이유는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 1장의 주요 내용을 설명합니다.</p>
+                            <p>수산 궁에 있던 느헤미야는 동생 하나니로부터 예루살렘 성벽이 무너지고 성문이 불탔다는 비참한 소식을 듣습니다. 그는 수일 동안 울며 금식하고 하나님께 기도합니다. 그는 <span class="scripture-quote">나와 내 아버지의 집이 범죄하여 주를 향하여 크게 악을 행하여... 계명과 율례와 규례를 지키지 아니하였나이다</span>(6-7절)라고 회개하며, 하나님의 언약과 긍휼에 호소하여 형통함을 구합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_01.html" data-title="느헤미야 1장">본문 보기 (1장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_1" data-title="느헤미야 1장">성경 듣기 (1장)</button> </div>
+                            <p><strong>1. 언약적 연대감과 중보:</strong> 느헤미야는 예루살렘의 죄를 자신의 죄로 여기는 언약적 연대감을 가졌습니다. 참된 영적 리더십은 공동체의 아픔을 자신의 아픔으로 끌어안는 긍휼에서 시작됩니다. 이는 우리의 대제사장 되신 그리스도의 중보 사역을 예표합니다.</p>
+                            <p><strong>2. 언약에 근거한 기도:</strong> 느헤미야의 기도는 감정적인 호소가 아니라, 신명기의 언약(흩으셨을지라도 돌아오면 모으시리라)에 철저히 근거하고 있습니다. 하나님은 약속을 반드시 지키시는 신실하신 분임을 믿는 것이 기도의 가장 강력한 토대입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_01.html" data-title="느헤미야 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_1" data-title="느헤미야 1장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 11장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 11장</h3>
+                            <h3>사도행전 11장: 이방인 선교의 공인과 안디옥 교회</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">안디옥 교회에서 제자들이 비로소 '그리스도인'이라 일컬음을 받게 된 것의 역사적 의미는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 11장의 주요 내용을 설명합니다.</p>
+                            <p>베드로는 예루살렘에 올라가 할례자들의 비난에 맞서 고넬료 사건의 전말을 설명합니다. 그가 "하나님이 우리에게 주신 것과 같은 선물(성령)을 그들에게도 주셨다"고 증언하자, 성도들은 하나님께 영광을 돌리며 <span class="scripture-quote">하나님께서 이방인에게도 생명 얻는 회개를 주셨도다</span>(18절)라고 인정합니다. 이후 스데반의 일로 흩어진 자들이 안디옥에 이르러 복음을 전하고, 바나바와 사울이 가르치며 최초의 이방인 중심 교회인 안디옥 교회가 부흥하게 됩니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_11.html" data-title="사도행전 11장">본문 보기 (11장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_11" data-title="사도행전 11장">성경 듣기 (11장)</button> </div>
+                            <p><strong>1. 구원 역사의 보편성 확증:</strong> 예루살렘 교회가 이방인 선교를 공식적으로 인정한 것은 유대교의 틀을 완전히 벗어나 기독교가 세계적 종교로 나아가는 결정적 순간입니다. 이는 아브라함에게 주신 '모든 족속이 복을 얻으리라'는 언약의 성취입니다.</p>
+                            <p><strong>2. 그리스도인(Christian)의 정체성:</strong> '그리스도인'이라는 호칭은 그들이 전적으로 그리스도께 속한 자들이며, 그리스도를 따르는 삶의 방식이 세상과 구별되었음을 보여줍니다. 교회는 인종이나 혈통이 아닌, 오직 그리스도에 대한 신앙고백 위에 세워진 새 인류입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_11.html" data-title="사도행전 11장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_11" data-title="사도행전 11장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 부르심에 응답하는 믿음의 여정</h4>
+                            
+                            <p>오늘의 본문들은 하나님의 부르심이 어떻게 개인을 넘어 열방의 구원으로 확장되는지를 장엄하게 보여줍니다. <strong>창세기 12장</strong>에서 아브라함 한 사람을 부르신 사건은, <strong>사도행전 11장</strong>에 이르러 이방인들에게도 '생명 얻는 회개'가 주어짐으로써 그 약속이 성취되었음을 증거합니다. 하나님의 구원 계획은 결코 실패하지 않고 역사 속에서 반드시 이루어집니다.</p>
+                            
+                            <p>이 거대한 구속사 속에서 성도에게 요구되는 것은 무엇입니까? <strong>느헤미야 1장</strong>은 무너진 시대를 향한 '애통함과 중보 기도'를, <strong>마태복음 11장</strong>은 자신의 무력함을 인정하고 주님께 나아와 멍에를 메는 '겸손과 안식'을 가르칩니다.</p>
+                            
+                            <p>우리는 아브라함처럼 본토를 떠나는 결단을, 느헤미야처럼 무릎 꿇는 기도를, 그리고 안디옥 성도들처럼 세상 속에서 '그리스도인'이라 불리는 거룩한 삶을 살아야 합니다. 그때 비로소 주님이 주시는 참된 안식을 누리며 복의 통로로 쓰임 받게 될 것입니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

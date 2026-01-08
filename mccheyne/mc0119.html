@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 19일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 19일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 20장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 20장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 19장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 9장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 19장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 20장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 20장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_20.html" data-title="창세기 20장">본문 보기 (20장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_20" data-title="창세기 20장">성경 듣기 (20장)</button> </div>
+                            <h3>1월 19일: 인간의 한계와 하나님의 능력</h3>
+                            <h4>오늘의 길잡이: "사람으로는 할 수 없으나 하나님은 다 하실 수 있느니라"</h4>
+                            <p>오늘의 성경 읽기는 인간의 전적 무능력과 하나님의 전적 은혜를 깊이 묵상하게 합니다. <strong>창세기 20장</strong>에서 믿음의 조상 아브라함조차 두려움 때문에 반복해서 넘어지는 모습을 보지만, 하나님은 그 실수를 덮으시고 선지자의 위엄을 세워주십니다. <strong>마태복음 19장</strong>은 부자 청년의 이야기를 통해 구원이 인간의 도덕적 성취로 불가능하며, 오직 하나님의 능력으로만 가능함을 선포합니다.</p>
+                            <p><strong>느헤미야 9장</strong>은 이스라엘의 긴 역사를 회고하며 백성들의 끊임없는 반역에도 불구하고 은혜를 베푸신 '용서하시는 하나님'을 찬양합니다. <strong>사도행전 19장</strong>은 우상의 도시 에베소에서 인간의 마술이나 헛된 신들이 무너지고, 오직 주의 말씀만이 힘이 있어 흥왕하는 승리의 역사를 보여줍니다. 나의 연약함을 인정하고 하나님의 능력을 의지하는 하루가 되시기를 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 20장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 20장: 아브라함의 실수와 하나님의 보호</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">아브라함의 반복된 거짓말에도 불구하고 하나님께서 아비멜렉을 막으시고 사라를 보호하신 구속사적 이유는 무엇입니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>아브라함이 그랄로 이주하여 아내 사라를 누이라 속이자, 그랄 왕 아비멜렉이 사라를 취하려 합니다. 하나님은 밤에 꿈에 나타나 아비멜렉을 꾸짖으시고 그가 사라에게 손대지 못하게 막으십니다. 이는 아브라함의 도덕성이 탁월해서가 아니라, 약속된 자손(이삭)의 순수한 혈통을 보존하시려는 하나님의 주권적 간섭이었습니다. 결국 아브라함은 선지자로서 아비멜렉을 위해 기도하고, 하나님은 그 집의 태를 여십니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 언약 보존의 주체:</strong> 아브라함은 두려움 때문에 언약을 위태롭게 했으나, 하나님은 신실하게 언약을 지키셨습니다. 구속사는 인간의 위대함이 아니라, 실패하는 인간을 붙드시는 하나님의 열심으로 진행됩니다.</p>
+                            <p><strong>2. 선지자의 직무:</strong> 비록 아브라함이 범죄했지만, 하나님은 그를 '선지자'(7절)로 부르시며 그의 기도를 통해 이방 왕이 살 수 있다고 말씀하십니다. 이는 직분이 개인의 자격이 아닌 하나님의 소명에 근거함을 보여줍니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_20.html" data-title="창세기 20장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_20" data-title="창세기 20장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 19장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 19장</h3>
+                            <h3>마태복음 19장: 구원의 불가능성과 하나님의 가능성</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">"부자가 천국에 들어가기가 낙타가 바늘귀로 들어가는 것보다 어렵다"는 말씀이 제자들에게 충격을 준 이유는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 19장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 이혼 문제에 대해 하나님의 창조 질서를 강조하시며 마음의 완악함을 책망하십니다. 어린아이들을 용납하시고 안수하신 후, 영생을 묻는 부자 청년에게 계명을 지키라 하시고 소유를 팔아 따르라 명하십니다. 청년이 근심하며 떠나자 주님은 부자의 구원이 얼마나 어려운지 말씀하시며, <span class="scripture-quote">사람으로는 할 수 없으나 하나님으로서는 다 하실 수 있느니라</span>(26절)고 구원의 은혜성을 선포하십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_19.html" data-title="마태복음 19장">본문 보기 (19장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_19" data-title="마태복음 19장">성경 듣기 (19장)</button> </div>
+                            <p><strong>1. 율법의 기능:</strong> 부자 청년은 율법을 다 지켰다고 자부했으나, "소유를 팔라"는 명령 앞에서 탐심이라는 우상을 드러냈습니다. 율법의 참된 기능은 죄를 깨닫게 하여 자신의 의로는 구원받을 수 없음을 알게 하는 것입니다.</p>
+                            <p><strong>2. 전적 은혜 (Sola Gratia):</strong> 구원은 인간의 성취나 소유로 얻는 것이 아니라, 전적인 하나님의 선물입니다. 낙타가 바늘귀를 통과하는 불가능한 일이 하나님의 기적으로(거듭남) 가능해지는 것이 바로 구원입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_19.html" data-title="마태복음 19장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_19" data-title="마태복음 19장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 9장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 9장</h3>
+                            <h3>느헤미야 9장: 언약적 회개와 역사 회고</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">이스라엘 백성이 금식하며 창조부터 포로기까지의 긴 역사를 기도문에 담아 고백한 이유는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 9장의 주요 내용을 설명합니다.</p>
+                            <p>초막절 후 백성들이 모여 금식하며 굵은 베 옷을 입고 죄를 자복합니다. 레위 사람들은 창조주 하나님을 찬양하며, 아브라함의 선택, 출애굽, 광야 생활, 가나안 정복, 사사 시대, 왕정 시대를 거쳐 현재에 이르기까지 이스라엘의 배역과 하나님의 긍휼을 대조하며 기도합니다. 그들은 <span class="scripture-quote">주께서는 용서하시는 하나님이시라 은혜로우시며 긍휼히 여기시며...</span>(17절)라고 고백하며 다시 언약을 굳게 세웁니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_09.html" data-title="느헤미야 9장">본문 보기 (9장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_9" data-title="느헤미야 9장">성경 듣기 (9장)</button> </div>
+                            <p><strong>1. 죄의 연대성과 역사적 고백:</strong> 참된 회개는 현재의 죄뿐만 아니라 조상들로부터 이어진 죄의 뿌리를 직시하는 것입니다. 이스라엘의 역사는 '인간의 반역'과 '하나님의 인내'가 반복되는 패턴이며, 이를 인정할 때 오직 하나님의 은혜만을 의지하게 됩니다.</p>
+                            <p><strong>2. 공의와 긍휼의 조화:</strong> 그들은 현재 당하는 고난이 주의 공의로운 심판임을 인정하면서도(33절), 동시에 주의 크신 긍휼에 호소하여 구원을 요청합니다. 이것이 언약 백성의 올바른 기도 자세입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_09.html" data-title="느헤미야 9장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_9" data-title="느헤미야 9장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 19장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 19장</h3>
+                            <h3>사도행전 19장: 에베소의 부흥과 영적 전쟁</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">에베소에서 마술 책을 불사르고 우상 숭배가 무너진 사건은 하나님 나라가 어떻게 세상 나라를 정복하는지 보여줍니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 19장의 주요 내용을 설명합니다.</p>
+                            <p>바울이 에베소에서 요한의 세례만 알던 제자들에게 안수하자 성령이 임합니다. 두란노 서원에서 2년 동안 말씀을 강론할 때 놀라운 능력이 나타나, 마술을 행하던 자들이 책을 모아 불사르며 회개합니다. 이에 위기를 느낀 은장색 데메드리오가 소동을 일으키지만, <span class="scripture-quote">이와 같이 주의 말씀이 힘이 있어 흥왕하여 세력을 얻으니라</span>(20절)는 기록처럼 복음은 거침없이 확장됩니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_19.html" data-title="사도행전 19장">본문 보기 (19장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_19" data-title="사도행전 19장">성경 듣기 (19장)</button> </div>
+                            <p><strong>1. 말씀의 능력과 문화 변혁:</strong> 복음은 개인의 영혼 구원에 그치지 않고, 사회의 악한 문화와 구조(우상 산업)를 뒤흔드는 능력이 있습니다. 마술 책을 태운 것은 거짓된 영적 세력과의 단절과 그리스도의 주권에 대한 전적인 복종을 의미합니다.</p>
+                            <p><strong>2. 성령과 말씀의 조화:</strong> 에베소 사역은 성령의 강력한 역사(방언, 예언, 치유)와 두란노 서원에서의 철저한 말씀 교육이 조화를 이룬 모델입니다. 건강한 부흥은 말씀의 기초 위에 성령의 능력이 나타날 때 지속됩니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_19.html" data-title="사도행전 19장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_19" data-title="사도행전 19장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 인간의 실패를 덮으시는 하나님의 신실하심</h4>
+                            
+                            <p>오늘의 네 본문은 인간의 전적인 타락과 하나님의 전적인 은혜를 극명하게 대조합니다. <strong>창세기 20장</strong>의 아브라함은 두려움으로 또다시 넘어졌고, <strong>느헤미야 9장</strong>의 이스라엘 역사는 끊임없는 배반의 연속이었습니다. <strong>마태복음 19장</strong>의 부자 청년은 스스로 의롭다 했으나 결국 재물을 포기하지 못했습니다.</p>
+                            
+                            <p>그러나 성경은 "사람으로는 할 수 없으나 하나님은 다 하실 수 있다"고 선언합니다. 하나님은 아브라함의 실수를 덮어 선지자로 세우셨고, 패역한 이스라엘을 버리지 않고 용서하셨으며, <strong>사도행전 19장</strong>의 우상 도시 에베소에서도 말씀의 능력으로 승리하셨습니다.</p>
+                            
+                            <p>우리의 구원은 우리의 도덕적 성취나 결단에 달려 있지 않습니다. 오직 실패하지 않으시는 하나님의 언약적 신실하심(Hesed)만이 우리의 소망입니다. 오늘 하루, 나의 연약함을 인정하고 "주님만이 하실 수 있습니다"라고 고백하는 믿음으로 나아가십시오.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

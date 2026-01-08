@@ -5,85 +5,205 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 26일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 26일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 27장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 27장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 26장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">에스더 3장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 26장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 27장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 27장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_27.html" data-title="창세기 27장">본문 보기 (27장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_27" data-title="창세기 27장">성경 듣기 (27장)</button> </div>
+                            <h3>1월 26일: 인간의 흉계와 하나님의 주권적 섭리</h3>
+                            <h4>오늘의 길잡이: 죄악을 넘어 성취되는 구원의 뜻</h4>
+                            <p>오늘의 성경 읽기는 인간의 죄악과 음모조차 하나님의 뜻을 이루는 도구가 됨을 보여줍니다. <strong>창세기 27장</strong>에서 이삭은 육체의 욕망을 따라, 야곱은 속임수를 써서 축복을 얻으려 합니다. 인간의 허물에도 불구하고 언약은 하나님의 작정대로 야곱에게 계승됩니다. <strong>마태복음 26장</strong>은 예수님을 죽이려는 음모와 제자의 배반이 극에 달하지만, 이 모든 것이 인류 구원을 위한 십자가의 길을 여는 과정임을 보여줍니다.</p>
+                            <p><strong>에스더 3장</strong>은 하만의 악한 흉계로 유다 민족이 멸절 위기에 처하지만, 하나님은 이미 그들을 구원할 섭리를 가동하고 계십니다. <strong>사도행전 26장</strong>에서 바울은 세상의 재판정에서 오히려 복음의 진리를 변증하며, 약속의 성취이신 부활의 주님을 증거합니다. 역사의 주관자는 악인이 아니라 하나님이심을 묵상하는 하루가 되시기를 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 27장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 27장: 이삭의 축복과 야곱의 속임수</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">야곱이 거짓말로 축복을 받은 사건은 하나님의 선택 교리와 인간의 책임에 대해 무엇을 가르쳐줍니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>나이 들어 눈이 어두운 이삭은 죽기 전에 에서를 축복하려 합니다. 이를 엿들은 리브가는 야곱을 에서처럼 꾸며 이삭에게 보냅니다. 야곱은 아버지를 속이고 장자의 축복을 받아냅니다. 뒤늦게 온 에서는 통곡하며 축복을 구하지만, 이삭은 축복을 번복할 수 없음을 선언합니다. 이 일로 에서는 야곱을 죽이려 하고, 야곱은 밧단아람으로 도망쳐야 하는 처지가 됩니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 주권적 선택의 성취:</strong> "큰 자가 어린 자를 섬기리라"(창 25:23)는 하나님의 작정은 인간의 방해(이삭의 육신적 선호)나 인간의 꾀(야곱의 속임수)와 상관없이 반드시 성취됩니다. 야곱의 방법은 죄악 되었으나, 하나님은 그 상황을 통해서도 언약의 복이 택함 받은 자에게 흘러가게 하셨습니다.</p>
+                            <p><strong>2. 징계와 연단:</strong> 하나님은 야곱의 선택은 취소하지 않으시지만, 그의 속임수에 대해서는 혹독한 대가(20년의 타향살이와 속임 당함)를 치르게 하십니다. 이는 은혜가 죄를 조장하지 않으며, 성화의 과정을 통해 거룩하게 빚어가심을 보여줍니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_27.html" data-title="창세기 27장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_27" data-title="창세기 27장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 26장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 26장</h3>
+                            <h3>마태복음 26장: 십자가의 길과 언약의 피</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">겟세마네 동산에서 "내 뜻대로 마시옵고 아버지의 뜻대로 하옵소서"라는 기도는 대속 사역의 본질을 어떻게 보여줍니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 26장의 주요 내용을 설명합니다.</p>
+                            <p>예수님은 십자가 죽음을 예고하시고, 베다니에서 한 여인의 헌신(향유 옥합)을 받으십니다. 유다는 은 30에 예수를 팔기로 공모합니다. 최후의 만찬에서 주님은 떡과 포도주로 새 언약을 제정하십니다. 겟세마네에서 땀이 핏방울 되도록 기도하신 후, 체포되어 공회 앞에 서십니다. 베드로는 주님을 세 번 부인하고 통곡합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_26.html" data-title="마태복음 26장">본문 보기 (26장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_26" data-title="마태복음 26장">성경 듣기 (26장)</button> </div>
+                            <p><strong>1. 새 언약의 제정:</strong> 예수님은 유월절 식사를 통해 자신의 죽음을 '언약의 피'(28절)로 해석하셨습니다. 이는 십자가가 단순한 비극이 아니라, 죄 사함을 위해 하나님께서 창세 전부터 계획하신 구속 언약의 성취임을 보여줍니다.</p>
+                            <p><strong>2. 능동적 순종 (Active Obedience):</strong> 겟세마네의 기도는 예수님이 십자가를 억지로 지신 것이 아니라, 아버지의 뜻에 전적으로 복종하여 자발적으로 지셨음을 보여줍니다. 둘째 아담이신 그리스도의 순종으로 불순종한 죄인들이 의롭게 됩니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_26.html" data-title="마태복음 26장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_26" data-title="마태복음 26장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 에스더 3장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>에스더 3장</h3>
+                            <h3>에스더 3장: 하만의 음모와 영적 전쟁</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">하만이 모르드개 한 사람을 넘어 유다 민족 전체를 진멸하려 한 배후에는 어떤 영적 대립이 있습니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>에스더 3장의 주요 내용을 설명합니다.</p>
+                            <p>아하수에로 왕이 아각 사람 하만의 지위를 높이자 모든 신하가 그에게 절합니다. 그러나 유다인 모르드개는 절하지 않습니다. 이에 분노한 하만은 모르드개뿐만 아니라 그의 민족인 유다인 전체를 멸하기로 작정합니다. 제비(부르)를 뽑아 날짜를 정하고, 왕의 허락을 받아 조서를 전국에 반포합니다. 수산 성은 혼란에 빠집니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_03.html" data-title="에스더 3장">본문 보기 (3장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="EST_3" data-title="에스더 3장">성경 듣기 (3장)</button> </div>
+                            <p><strong>1. 여자의 후손과 뱀의 후손의 전쟁:</strong> 하만은 아말렉 왕 아각의 후손입니다(삼상 15장). 아말렉은 출애굽 때부터 이스라엘을 대적했던 세력입니다. 하만의 음모는 단순한 개인적 원한이 아니라, 메시아가 오실 통로인 유다 민족을 끊으려는 사탄의 영적 공격입니다.</p>
+                            <p><strong>2. 세상 속의 성도:</strong> 모르드개가 하만에게 무릎 꿇지 않은 것은 세상 권세보다 하나님의 주권을 더 높이는 신앙의 절개였습니다. 이는 세상 나라 속에서 하나님 나라 백성이 겪는 필연적인 갈등을 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_17_EST_03.html" data-title="에스더 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EST_3" data-title="에스더 3장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 26장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 26장</h3>
+                            <h3>사도행전 26장: 아그립바 왕 앞의 증언</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">바울이 자신의 결박된 것 외에는 왕도 자신과 같이 되기를 원한다고 말한 담대함의 근원은 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 26장의 주요 내용을 설명합니다.</p>
+                            <p>바울은 아그립바 왕 앞에서 자신을 변호합니다. 그는 자신이 엄격한 바리새인으로 살았으며, 지금 심문을 받는 것은 조상들에게 주신 '하나님의 약속(소망)' 때문이라고 말합니다. 바울은 다메섹 도상에서 부활하신 예수님을 만난 간증을 상세히 전하며, 이방인에게 복음을 전하는 것이 하늘에서 보이신 뜻에 순종하는 것임을 천명합니다. 베스도는 바울을 미쳤다고 하나, 바울은 참된 말을 하고 있음을 역설합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_26.html" data-title="사도행전 26장">본문 보기 (26장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_26" data-title="사도행전 26장">성경 듣기 (26장)</button> </div>
+                            <p><strong>1. 약속의 성취로서의 복음:</strong> 바울은 기독교를 유대교와 단절된 새로운 종교가 아니라, 구약의 약속이 그리스도의 고난과 부활을 통해 성취된 완성으로 소개합니다. 복음은 이스라엘 소망의 정점입니다.</p>
+                            <p><strong>2. 증인의 삶:</strong> 바울은 죄수의 신분이었으나 영적으로는 왕보다 더 자유롭고 당당했습니다. "결박된 것 외에는 나와 같이 되기를 원하나이다"(29절)라는 고백은 복음이 주는 최고의 자유와 확신을 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_26.html" data-title="사도행전 26장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_26" data-title="사도행전 26장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 악을 선으로 바꾸시는 하나님의 구원</h4>
+                            
+                            <p>오늘의 본문들은 인간의 악한 의도가 하나님의 선하신 뜻을 결코 꺾을 수 없음을 웅변합니다. <strong>창세기 27장</strong>에서 야곱의 속임수는 가정의 비극을 낳았지만, 하나님은 이를 통해 언약의 복을 계승시키셨습니다. <strong>마태복음 26장</strong>에서 유다의 배반과 종교 지도자들의 살해 음모는 극에 달했지만, 이는 도리어 인류를 구원할 유월절 어린 양의 희생을 준비하는 길이 되었습니다.</p>
+                            
+                            <p><strong>에스더 3장</strong>의 하만은 유다인을 진멸하려 했으나, 하나님은 이미 구원의 반전을 준비하고 계셨습니다. <strong>사도행전 26장</strong>의 바울은 쇠사슬에 매였으나, 그 결박은 오히려 복음이 왕들과 이방인에게 증거되는 통로가 되었습니다. 우리는 오늘 말씀을 통해, 세상의 악과 위협 앞에서도 두려워하지 않고 역사를 주관하시는 하나님의 절대 주권을 신뢰해야 합니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +211,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +242,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>

@@ -16,7 +16,10 @@
     --integration-color: #5f6368;
 }
 
-html { scroll-behavior: smooth; }
+html { 
+    scroll-behavior: smooth; 
+    font-size: 16px;
+}
 
 body {
     font-family: var(--font-main);
@@ -48,7 +51,18 @@ header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--co
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-.tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+.tab-btn { 
+    font-family: var(--font-heading); 
+    padding: 10px 20px; 
+    border: 1px solid var(--color-border); 
+    border-radius: 25px; 
+    background-color: var(--color-card-bg); 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    font-weight: 600; 
+    position: relative;
+    min-height: 2.75rem;
+}
 .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
 .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
 .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
@@ -85,7 +99,7 @@ header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--co
     margin-top: 2.5rem; 
     margin-bottom: 1.5rem; 
 }
-.card-content p { font-size: 17px; margin-bottom: 1.5em; }
+.card-content p { font-size: 1.0625rem; margin-bottom: 1.5em; }
 /* --- MODIFIED: strong tag styles enhanced --- */
 .card-content p > strong:first-child, .card-content li > strong:first-child { 
     color: #1a5c9a; 
@@ -96,7 +110,7 @@ header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--co
 .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
 .scripture-quote::before { content: " “"; }
 .scripture-quote::after { content: "” "; }
-.card-content ul { padding-left: 20px; font-size: 17px; }
+.card-content ul { padding-left: 20px; font-size: 1.0625rem; }
 .card-content li { margin-bottom: 1em; }
 
 .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;}
@@ -147,15 +161,89 @@ footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px 
 .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; background: #f8f9fa; }
 .nav-info { margin: 0 4px; font-size: 12px; color: #6c757d; font-weight: 600; min-width: 30px; text-align: center; font-family: var(--font-heading); }
 
+
+/* Tablet - Medium screens */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container { padding: 1.5rem; }
+    header h1 { font-size: 2.25rem; }
+    .card-content { padding: 1.75rem; }
+    .card-content h3 { font-size: 1.65rem; }
+    .card-content p, .card-content ul { font-size: 1rem; }
+    .modal-content { width: 92%; max-width: 750px; }
+    .floating-nav { bottom: 15px; right: 15px; }
+}
 @media (max-width: 768px) {
     body { padding: 1rem; }
     header h1 { font-size: 2rem; }
     .tabs { margin: 0 -10px 1.5rem -10px; }
-    .tab-btn { padding: 8px 15px; font-size: 0.9rem; }
+    .tab-btn { 
+        padding: 0.625rem 1.125rem; 
+        font-size: 0.9rem;
+        min-height: 2.75rem;
+    }
     .card-content { padding: 1.5rem; }
     .card-content h3 { font-size: 1.5rem; }
     .floating-nav { right: 15px; padding: 6px 10px; }
-    .nav-btn { width: 32px; height: 32px; font-size: 12px; }
+    .nav-btn { width: 2rem; height: 2rem; font-size: 0.75rem; }
     .audio-player { padding: 10px 15px; }
     .audio-player-info { max-width: calc(100vw - 120px); }
+}
+
+/* Small Mobile - Extra small screens */
+@media (max-width: 480px) {
+    html { font-size: 14px; }
+    
+    .container { padding: 1rem 0.75rem; }
+    header { margin-bottom: 2rem; }
+    header h1 { font-size: 1.75rem; }
+    header h4 { font-size: 0.8rem; }
+    
+    .tabs { 
+        gap: 0.5rem; 
+        padding: 0.5rem;
+        margin: 0 -0.5rem 1rem -0.5rem;
+    }
+    
+    .tab-btn { 
+        padding: 0.5rem 1rem; 
+        font-size: 0.85rem;
+        border-radius: 1.25rem;
+    }
+    
+    .chapter-card, .integration-card { 
+        margin-bottom: 1.5rem;
+        border-left-width: 5px;
+    }
+    
+    .card-content { padding: 1.25rem; }
+    .card-content h3 { font-size: 1.35rem; margin-bottom: 1rem; }
+    .card-content h4 { font-size: 1.1rem; margin-top: 2rem; }
+    .card-content p, .card-content ul { font-size: 1rem; line-height: 1.7; }
+    .card-content ul { padding-left: 1.25rem; }
+    
+    .button-group { gap: 0.75rem; margin-top: 1.5rem; }
+    .btn { 
+        padding: 0.625rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .floating-nav { 
+        bottom: 10px; 
+        right: 10px;
+        padding: 0.375rem 0.625rem;
+        gap: 0.5rem;
+    }
+    .nav-btn { width: 1.875rem; height: 1.875rem; font-size: 0.7rem; }
+    .nav-info { font-size: 0.7rem; min-width: 25px; }
+    
+    .audio-player { padding: 0.625rem 1rem; }
+    .audio-player-info { font-size: 0.8rem; max-width: calc(100vw - 100px); }
+    .audio-player-controls { gap: 0.75rem; }
+    .audio-player-controls button { font-size: 1.1rem; padding: 0.25rem; }
+    
+    footer { 
+        margin-top: 3rem; 
+        padding: 1.5rem 0; 
+        font-size: 0.8rem; 
+    }
 }

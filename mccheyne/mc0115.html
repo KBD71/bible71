@@ -5,85 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1월 15일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 오디오 버튼 숨김 처리 (절대 규칙) */
+        .listen-audio-btn { display: none !important; }
+
+        /* 전체 개요 탭 버튼 스타일 */
+        .tab-btn[data-color="overview"] { 
+            background-color: #343a40; 
+            color: #fff;
+            border-color: #343a40;
+        }
+        .tab-btn.active[data-color="overview"] { 
+            background-color: #212529; 
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 전체 개요 카드 스타일 */
+        .card-overview { 
+            border-color: #343a40; 
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+        .card-overview h3 { color: #343a40; }
+
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 5px solid #495057;
+            padding: 1.2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        .key-question-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .key-question-text {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
     <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
                 <h4>M'Cheyne Bible Reading Plan</h4>
                 <h1>1월 15일</h1>
             </header>
+
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-book1" data-color="book1">창세기 16장</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 16장</button>
                 <button class="tab-btn" data-target="content-book2" data-color="book2">마태복음 15장</button>
                 <button class="tab-btn" data-target="content-book3" data-color="book3">느헤미야 5장</button>
                 <button class="tab-btn" data-target="content-book4" data-color="book4">사도행전 15장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">통합 묵상</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
             </nav>
+
             <main>
-                <div id="content-book1" class="tab-content active">
-                    <article class="chapter-card card-book1">
+                <!-- 1. 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>창세기 16장</h3>
-                            <h4>상세 개요</h4>
-                            <p>창세기 16장의 주요 내용을 설명합니다.</p>
-                            <h4>심층 신학적 해설</h4>
-                            <p>하나님의 언약과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_16.html" data-title="창세기 16장">본문 보기 (16장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="GEN_16" data-title="창세기 16장">성경 듣기 (16장)</button> </div>
+                            <h3>1월 15일: 율법의 멍에를 넘어 은혜의 자유로</h3>
+                            <h4>오늘의 길잡이: 인내하지 못하는 인간과 감찰하시는 하나님</h4>
+                            <p>오늘의 본문은 인간의 연약함과 조급함에도 불구하고 구원의 역사를 이루어 가시는 하나님의 긍휼을 보여줍니다. <strong>창세기 16장</strong>은 하나님의 약속을 기다리지 못하고 인간적인 방법을 쓴 아브람 가정의 불화를 보여주지만, 하나님은 도망친 여종 하갈조차 '감찰하시는 분'으로 찾아오십니다. <strong>마태복음 15장</strong>에서 예수님은 전통에 얽매인 바리새인들을 꾸짖으시고, 이방 여인의 믿음을 칭찬하시며 복음의 은혜가 모든 경계를 넘어서는 것임을 보여주십니다.</p>
+                            <p><strong>느헤미야 5장</strong>은 가난한 형제들을 착취하는 내부의 부조리를 개혁하며 공동체의 정의를 세우는 모습을, <strong>사도행전 15장</strong>은 이방인에게 할례와 율법의 멍에를 지우지 않고 오직 믿음으로 구원받음을 선포하는 예루살렘 공의회의 결정을 다룹니다. 오늘 말씀을 통해 형식과 율법주의를 넘어, 참된 경건과 은혜의 자유를 묵상하시기 바랍니다.</p>
                         </div>
                     </article>
                 </div>
+
+                <!-- 2. 창세기 16장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>창세기 16장: 하갈과 엘 로이 하나님</h3>
+                            
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">하나님의 약속을 신뢰하지 못하고 인간적인 방법(하갈)을 취했을 때, 그 결과는 가정과 역사에 어떤 영향을 미쳤습니까?</p>
+                            </div>
+
+                            <h4>상세 개요</h4>
+                            <p>자녀가 없던 사래는 자신의 여종 하갈을 아브람에게 첩으로 주어 대를 잇게 하려 합니다. 그러나 임신한 하갈이 여주인을 멸시하자 가정에 불화가 생기고, 하갈은 사래의 학대를 피해 광야로 도망칩니다. 여호와의 사자가 샘물 곁에서 하갈을 만나 위로하고 돌아갈 것을 명하십니다. 하갈은 자신을 살피시는 하나님을 만나고 <span class="scripture-quote">나를 살피시는 하나님(엘 로이)</span>(13절)이라 고백하며 이스마엘을 낳습니다.</p>
+                            
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 믿음의 인내와 인간의 조급함:</strong> 아브람과 사래의 행동은 당시의 관습으로는 합리적이었으나, 하나님의 약속을 끝까지 기다리지 못한 불신앙의 소산이었습니다. 약속의 자녀(이삭)가 아닌 육체의 자녀(이스마엘)를 낳은 결과는 가정의 불화뿐 아니라 훗날 이스라엘 역사의 고통의 씨앗이 되었습니다.</p>
+                            <p><strong>2. 감찰하시는 하나님 (El Roi):</strong> 하나님은 언약 밖의 인물처럼 보이는 하갈의 고통까지도 보고 계셨습니다. 이는 하나님의 눈길이 소외된 자들에게도 미치며, 그분의 섭리가 인간의 실수와 갈등 속에서도 멈추지 않고 작동함을 보여줍니다.</p>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_16.html" data-title="창세기 16장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_16" data-title="창세기 16장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 마태복음 15장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>마태복음 15장</h3>
+                            <h3>마태복음 15장: 입술의 공경과 마음의 믿음</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">예수님께서 가나안 여인에게 처음에는 침묵하시고 냉대하신 듯한 태도를 보이신 영적 의도는 무엇입니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>마태복음 15장의 주요 내용을 설명합니다.</p>
+                            <p>바리새인들이 장로들의 전통(손 씻기)을 들어 제자들을 비난하자, 예수님은 그들이 사람의 계명으로 하나님의 말씀을 폐한다고 책망하십니다. 주님은 입으로 들어가는 것이 아니라 마음에서 나오는 악한 생각들이 사람을 더럽게 한다고 가르치십니다. 이후 두로와 시돈 지방에서 가나안 여인의 딸을 고치시며 <span class="scripture-quote">여자여 네 믿음이 크도다</span>(28절)라고 칭찬하십니다. 또한 칠병이어의 기적으로 사천 명을 먹이십니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>예수 그리스도의 가르침과 사역이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_15.html" data-title="마태복음 15장">본문 보기 (15장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="MAT_15" data-title="마태복음 15장">성경 듣기 (15장)</button> </div>
+                            <p><strong>1. 내적 성결의 중요성:</strong> 예수님은 종교적 형식보다 마음의 중심을 보십니다. <span class="scripture-quote">입술로는 나를 공경하되 마음은 내게서 멀도다</span>(8절)라는 말씀은 현대의 형식주의 신앙에 대한 엄중한 경고입니다. 참된 경건은 씻지 않은 손이 아니라, 회개하지 않은 마음을 씻는 데 있습니다.</p>
+                            <p><strong>2. 이방인을 향한 구원의 예고:</strong> 가나안 여인은 "개들도 제 주인의 상에서 떨어지는 부스러기를 먹나이다"라는 겸손한 믿음으로 은혜를 입었습니다. 이는 유대인의 배척 속에서 구원의 은혜가 이방인에게로 흘러갈 것을 보여주는 예표적 사건입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_40_MAT_15.html" data-title="마태복음 15장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAT_15" data-title="마태복음 15장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 4. 느헤미야 5장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>느헤미야 5장</h3>
+                            <h3>느헤미야 5장: 공동체 정의와 하나님 경외</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">느헤미야가 총독의 녹을 받지 않고 자비량으로 섬긴 이유는 무엇이며, 이는 지도자에게 어떤 본이 됩니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>느헤미야 5장의 주요 내용을 설명합니다.</p>
+                            <p>흉년과 과중한 세금으로 인해 백성들 사이에 원망이 터져 나옵니다. 귀족들이 가난한 형제들에게 높은 이자를 받아 땅과 자녀를 담보로 잡았기 때문입니다. 느헤미야는 크게 노하여 귀족들을 꾸짖고, 이자를 받지 말 것과 저당 잡은 것을 돌려주라고 명령합니다. 그는 자신이 12년 동안 총독의 녹을 먹지 않았음을 밝히며, <span class="scripture-quote">나는 하나님을 경외하므로 이같이 행하지 아니하고</span>(15절)라고 고백합니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>하나님의 회복과 섭리가 이 장에서 어떻게 드러나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_05.html" data-title="느헤미야 5장">본문 보기 (5장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="NEH_5" data-title="느헤미야 5장">성경 듣기 (5장)</button> </div>
+                            <p><strong>1. 사회 정의와 언약 공동체:</strong> 느헤미야의 개혁은 단순한 복지 정책이 아니라, 형제를 노예로 삼지 말라는 레위기 율법(레 25:39-43)의 실천이었습니다. 하나님 나라의 백성은 경제적 이익보다 형제 사랑과 공의를 우선해야 합니다.</p>
+                            <p><strong>2. 하나님 경외의 증거:</strong> 느헤미야의 청렴함은 사람의 평판이 아닌 '하나님 경외'에서 비롯되었습니다. 참된 신앙은 예배당 안에서만이 아니라, 돈과 권력을 사용하는 방식에서 증명됩니다. 지도자의 희생과 솔선수범은 공동체 회복의 핵심 동력입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_16_NEH_05.html" data-title="느헤미야 5장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NEH_5" data-title="느헤미야 5장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 5. 사도행전 15장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>사도행전 15장</h3>
+                            <h3>사도행전 15장: 예루살렘 공의회와 복음의 자유</h3>
+
+                            <div class="key-question-box">
+                                <span class="key-question-title">Core Question</span>
+                                <p class="key-question-text">"우리 조상과 우리도 능히 메지 못하던 멍에"란 무엇이며, 베드로는 구원의 조건을 무엇으로 규정합니까?</p>
+                            </div>
+
                             <h4>상세 개요</h4>
-                            <p>사도행전 15장의 주요 내용을 설명합니다.</p>
+                            <p>어떤 사람들이 안디옥에 내려와 이방인들도 할례를 받아야 구원받는다고 가르쳐 큰 다툼이 일어납니다. 이에 예루살렘에서 사도와 장로들이 모여 회의를 엽니다. 베드로는 하나님이 이방인에게도 성령을 주셨음을 증거하며, <span class="scripture-quote">주 예수의 은혜로 구원 받는 줄을 믿노라</span>(11절)고 선언합니다. 야고보는 이방인들에게 율법의 짐을 지우지 말고, 다만 우상의 더러운 것과 음행 등을 피하게 하자는 결론을 내립니다.</p>
+
                             <h4>심층 신학적 해설</h4>
-                            <p>초대교회의 사역과 복음의 확장이 이 장에서 어떻게 나타나는지 살펴봅니다.</p>
-                            <div class="button-group"><button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_15.html" data-title="사도행전 15장">본문 보기 (15장)</button> <button class="btn btn-secondary listen-audio-btn" data-key="ACT_15" data-title="사도행전 15장">성경 듣기 (15장)</button> </div>
+                            <p><strong>1. 오직 은혜(Sola Gratia):</strong> 예루살렘 공의회는 기독교가 유대교의 분파가 아님을 확증한 역사적 사건입니다. 구원은 율법 준수나 할례가 아닌, 오직 예수 그리스도를 믿는 믿음으로 말미암아 은혜로 주어집니다. 이는 율법주의의 사슬을 끊고 복음의 자유를 선포한 대헌장입니다.</p>
+                            <p><strong>2. 본질과 비본질의 조화:</strong> 공의회는 구원의 본질(믿음)에 대해서는 타협하지 않았으나, 유대인과 이방인의 평화로운 공존을 위해 비본질적인 덕목(우상 제물 금지 등)에 대해서는 사랑으로 배려할 것을 권면했습니다. 이는 교회가 진리 안에서 하나 되기 위한 지혜를 보여줍니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_44_ACT_15.html" data-title="사도행전 15장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ACT_15" data-title="사도행전 15장">성경 듣기</button>
+                            </div>
                         </div>
                     </article>
                 </div>
+
+                <!-- 6. 주제 중심 신학적 종합 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>통합 묵상</h3>
-                            <h4>관통하는 주제</h4>
-                            <p>오늘의 본문들을 관통하는 하나님의 구속 계획을 살펴봅니다.</p>
-                            <h4>핵심 개념 및 상호 참조</h4>
-                            <p>각 본문의 핵심 개념과 상호 연결성을 분석합니다.</p>
-                            <h4>핵심 단어 연구</h4>
-                            <p>오늘 본문의 핵심 히브리어/헬라어 단어를 연구합니다.</p>
-                            <h4>구속사적 결론</h4>
-                            <p>오늘의 본문들이 구속사에서 어떤 의미를 지니는지 정리합니다.< /p>
-                            <h4>신학적 종합과 전망</h4>
-                            <p>오늘의 묵상을 통한 신학적 적용과 실천 방향을 제시합니다.</p>
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 율법의 멍에를 벗고 은혜의 자유로</h4>
+                            
+                            <p>오늘의 네 본문은 인간의 노력이나 율법적 행위가 아닌, 오직 하나님의 은혜만이 참된 구원과 회복을 가져옴을 증거합니다. <strong>창세기 16장</strong>에서 인간의 조급한 노력(하갈)은 실패했지만, 감찰하시는 하나님의 은혜는 여전히 유효했습니다. <strong>마태복음 15장</strong>의 바리새인들은 율법의 껍데기를 붙들었으나, 이방 여인은 부스러기 은혜를 붙들어 구원을 얻었습니다.</p>
+                            
+                            <p>이 은혜의 원리는 <strong>사도행전 15장</strong>에서 절정을 이룹니다. 예루살렘 공의회는 "우리도 능히 메지 못하던 멍에(율법)"를 벗어버리고 "오직 주 예수의 은혜"로 구원받음을 선포했습니다. 그리고 <strong>느헤미야 5장</strong>은 이 은혜를 입은 자들이 어떻게 살아야 하는지를 보여줍니다. 그들은 형제를 착취하지 않고, 하나님을 경외함으로 사랑을 실천하는 삶을 살았습니다.</p>
+                            
+                            <p>우리는 오늘 말씀을 통해, 율법주의적 신앙을 경계하고, 우리를 자유케 하시는 그리스도의 은혜 안에 굳게 서야 합니다. 또한 그 은혜에 감사하여 이웃을 사랑하는 참된 경건의 삶으로 나아가야 할 것입니다.</p>
+                            
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -91,22 +213,27 @@
                     </article>
                 </div>
             </main>
+
             <footer>
                 <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
             </footer>
         </div>
     </div>
+
+    <!-- 모달 및 스크립트 요소 -->
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
             <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
             <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
         </div>
     </div>
+    
     <div class="floating-nav" id="floating-nav">
         <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/5</span></div>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
         <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
+
     <div class="audio-player" id="audio-player">
         <div class="audio-player-content">
             <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
@@ -117,6 +244,7 @@
         </div>
     </div>
     <div id="player-container"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>
