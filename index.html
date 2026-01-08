@@ -857,6 +857,9 @@
             // Controls
             playPauseBtn.onclick = () => {
                 // Modified: Trigger content audio if player is not ready
+                // Show loading immediately
+                playPauseBtn.classList.add('loading');
+
                 if (ytPlayer && typeof ytPlayer.getPlayerState === 'function' && [1, 2, 3, 5].includes(ytPlayer.getPlayerState())) {
                     const state = ytPlayer.getPlayerState();
                     if (state === 1) { // Playing
@@ -871,21 +874,24 @@
                         const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
 
                         // 1. McCheyne: Active Tab Audio
+                        let clicked = false;
                         const activeTab = doc.querySelector('.tab-content.active');
                         if (activeTab) {
                             const audioBtn = activeTab.querySelector('.listen-audio-btn');
                             if (audioBtn) {
                                 console.log("Global: Clicking McCheyne Audio");
                                 audioBtn.click();
-                                return;
+                                clicked = true;
                             }
                         }
 
                         // 2. Daily Bible / Sermon
-                        const listenBtn = doc.getElementById('listen-btn');
-                        if (listenBtn) {
-                            console.log("Global: Clicking DailyBible Audio");
-                            listenBtn.click();
+                        if (!clicked) {
+                            const listenBtn = doc.getElementById('listen-btn');
+                            if (listenBtn) {
+                                console.log("Global: Clicking DailyBible Audio");
+                                listenBtn.click();
+                            }
                         }
 
                         // Force play after a short delay to ensure playback starts
@@ -897,6 +903,7 @@
 
                     } catch (e) {
                         console.warn("Global Play trigger failed", e);
+                        playPauseBtn.classList.remove('loading');
                     }
                 }
             };
@@ -974,7 +981,8 @@
 
                     if (state === 3) { // Buffering
                         playBtn.classList.add('loading');
-                    } else {
+                    } else if (state === 1 || state === 2 || state === 0) { // Playing, Paused, Ended
+                        // Only remove loading if we are definitely in a playback or stopped state
                         playBtn.classList.remove('loading');
                     }
 
