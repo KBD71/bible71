@@ -56,6 +56,24 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+
+    // --- 부모 창 플레이어 제목 업데이트 함수 ---
+    function updateParentPlayerTitle(title) {
+        try {
+            // iframe에서 실행 중인지 확인하고 부모 창의 playerTitle 업데이트
+            if (window.parent && window.parent !== window) {
+                const parentPlayerTitle = window.parent.document.getElementById('player-title');
+                if (parentPlayerTitle) {
+                    parentPlayerTitle.textContent = title;
+                    console.log('Parent player title updated:', title);
+                }
+            }
+        } catch (e) {
+            // Cross-origin 이슈 등으로 접근 불가능한 경우 무시
+            console.warn('Cannot update parent player title:', e);
+        }
+    }
+
     // --- 데이터 로딩 및 파싱 ---
     async function loadAudioKeys() {
         try {
@@ -145,8 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const h1 = doc.querySelector('h1');
                 if (h1) h1.style.display = 'none';
 
-                // 2. 폰트 사이즈 적용 (부모 창의 함수 호출)
-                if (window.parent && typeof window.parent.applyFontSize === 'function') {
+                // 2. 폰트 사이즈 적용 (부모 창에서 currentFontSize 가져오기)
+                if (window.parent && window.parent.currentFontSize) {
+                    const fontSize = 16 * (window.parent.currentFontSize / 100);
+                    doc.documentElement.style.fontSize = fontSize + 'px';
+                    doc.body.style.fontSize = fontSize + 'px';
+                } else if (window.parent && typeof window.parent.applyFontSize === 'function') {
+                    // Fallback: 부모 창의 함수 호출
                     window.parent.applyFontSize();
                 }
             } catch (e) {
@@ -312,7 +335,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // 원래 타이틀 유지를 원하면 아래와 같이:
             // playerInfo.textContent = `재생 중: ${document.querySelector('.listen-audio-btn[data-key="'+ ... +'"]').dataset.title}`;
             // 하지만 여기서는 간단히:
-            playerInfo.textContent = `재생 중... (${currentPlayIndex + 1}/${playlist.length})`;
+            const displayTitle = `${item.title} (${currentPlayIndex + 1}/${playlist.length})`;
+            playerInfo.textContent = displayTitle;
+
+            // 부모 창의 플레이어 제목 업데이트
+            updateParentPlayerTitle(item.title);
 
             currentPlayIndex++;
         } else {
