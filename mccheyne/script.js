@@ -143,13 +143,16 @@
         modalIframe.src = button.dataset.path;
         modalOverlay.classList.add('visible');
 
+        // 오디오 플레이어가 표시 중이면 body 스크롤 잠금 건너뛰기 (모달 스크롤 허용)
+        const isAudioPlaying = audioPlayerBar.classList.contains('visible');
+
         // 모바일에서 스크롤 문제 방지를 위한 개선된 방법
-        if (window.innerWidth <= 768) {
-            // 모바일에서는 body만 고정하고 position 조정
+        if (window.innerWidth <= 768 && !isAudioPlaying) {
+            // 모바일에서는 body만 고정하고 position 조정 (오디오 미재생 시에만)
             document.body.style.position = 'fixed';
             document.body.style.top = `-${window.scrollY}px`;
             document.body.style.width = '100%';
-        } else {
+        } else if (window.innerWidth > 768) {
             // 데스크톱에서는 기존 방식 유지
             document.documentElement.style.overflow = 'hidden';
         }
@@ -226,7 +229,24 @@
 
     function playAudio(button, retryCount = 0) {
         const MAX_RETRIES = 10;
-        
+
+        // 버튼에 로딩 상태 표시
+        if (retryCount === 0) {
+            button.classList.add('loading');
+            button.disabled = true;
+            button.dataset.originalText = button.textContent;
+            button.textContent = '로딩 중...';
+        }
+
+        // 로딩 상태 해제 함수
+        const clearLoading = () => {
+            button.classList.remove('loading');
+            button.disabled = false;
+            if (button.dataset.originalText) {
+                button.textContent = button.dataset.originalText;
+            }
+        };
+
         // Wait for player to be ready
         if (!isPlayerReady) {
             if (retryCount < MAX_RETRIES) {
@@ -234,11 +254,12 @@
                 setTimeout(() => playAudio(button, retryCount + 1), 500);
                 return;
             } else {
+                clearLoading();
                 alert('오디오 플레이어가 준비되지 않았습니다. 페이지를 새로고침해주세요.');
                 return;
             }
         }
-        
+
         // Wait for audio keys to be loaded
         if (audioKeyMap.size === 0) {
             if (retryCount < MAX_RETRIES) {
@@ -246,10 +267,14 @@
                 setTimeout(() => playAudio(button, retryCount + 1), 500);
                 return;
             } else {
+                clearLoading();
                 alert('오디오 정보를 불러오지 못했습니다. 페이지를 새로고침해주세요.');
                 return;
             }
         }
+
+        // 로딩 완료, 상태 해제
+        clearLoading();
 
         const key = button.dataset.key; // e.g., "GEN_9_10" or "GEN_9"
         const title = button.dataset.title;
