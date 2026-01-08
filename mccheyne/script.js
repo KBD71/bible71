@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     // --- 전역 변수 및 객체 ---
     let ytPlayer, isPlayerReady = false;
     const audioKeyMap = new Map();
@@ -224,8 +224,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function playAudio(button) {
-        if (!isPlayerReady) { alert('오디오 플레이어가 아직 준비되지 않았습니다.'); return; }
+    function playAudio(button, retryCount = 0) {
+        const MAX_RETRIES = 10;
+        
+        // Wait for player to be ready
+        if (!isPlayerReady) {
+            if (retryCount < MAX_RETRIES) {
+                console.log(`Player not ready, waiting... (attempt ${retryCount + 1}/${MAX_RETRIES})`);
+                setTimeout(() => playAudio(button, retryCount + 1), 500);
+                return;
+            } else {
+                alert('오디오 플레이어가 준비되지 않았습니다. 페이지를 새로고침해주세요.');
+                return;
+            }
+        }
+        
+        // Wait for audio keys to be loaded
+        if (audioKeyMap.size === 0) {
+            if (retryCount < MAX_RETRIES) {
+                console.log(`Audio keys not loaded, waiting... (attempt ${retryCount + 1}/${MAX_RETRIES})`);
+                setTimeout(() => playAudio(button, retryCount + 1), 500);
+                return;
+            } else {
+                alert('오디오 정보를 불러오지 못했습니다. 페이지를 새로고침해주세요.');
+                return;
+            }
+        }
 
         const key = button.dataset.key; // e.g., "GEN_9_10" or "GEN_9"
         const title = button.dataset.title;

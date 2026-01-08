@@ -856,55 +856,85 @@
 
             // Controls
             playPauseBtn.onclick = () => {
-                // Modified: Trigger content audio if player is not ready
-                // Show loading immediately
+                // Restore player UI if hidden
+                const playerUI = document.getElementById('global-player');
+                if (playerUI.style.display === 'none') {
+                    playerUI.style.display = 'block';
+                    setTimeout(() => playerUI.classList.remove('translate-y-full'), 10);
+                    startPlayerSync();
+                }
+
+                // Try to refresh ytPlayer reference from iframe
+                if (!ytPlayer) {
+                    const contentIframe = document.getElementById('content-iframe');
+                    if (contentIframe && contentIframe.contentWindow && contentIframe.contentWindow.player) {
+                        ytPlayer = contentIframe.contentWindow.player;
+                        console.log("Refreshed ytPlayer from iframe");
+                    }
+                }
+
+                // If player ready, toggle play/pause
+                if (ytPlayer && typeof ytPlayer.getPlayerState === 'function') {
+                    try {
+                        const state = ytPlayer.getPlayerState();
+                        if (state === 1) { // Playing
+                            ytPlayer.pauseVideo();
+                            return;
+                        } else if ([0, 2, 5].includes(state)) { // Ended, Paused, Cued
+                            ytPlayer.playVideo();
+                            return;
+                        }
+                    } catch (e) {
+                        console.warn("Player state check failed:", e);
+                    }
+                }
+
+                // Player not ready - trigger content audio
                 playPauseBtn.classList.add('loading');
 
-                if (ytPlayer && typeof ytPlayer.getPlayerState === 'function' && [1, 2, 3, 5].includes(ytPlayer.getPlayerState())) {
-                    const state = ytPlayer.getPlayerState();
-                    if (state === 1) { // Playing
-                        ytPlayer.pauseVideo();
-                    } else {
-                        ytPlayer.playVideo();
-                    }
-                } else {
-                    // Try to trigger content audio
-                    try {
-                        const contentIframe = document.getElementById('content-iframe');
-                        const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
+                // Safety timeout to clear loading after 5 seconds
+                setTimeout(() => {
+                    playPauseBtn.classList.remove('loading');
+                }, 5000);
 
-                        // 1. McCheyne: Active Tab Audio
-                        let clicked = false;
-                        const activeTab = doc.querySelector('.tab-content.active');
-                        if (activeTab) {
-                            const audioBtn = activeTab.querySelector('.listen-audio-btn');
-                            if (audioBtn) {
-                                console.log("Global: Clicking McCheyne Audio");
-                                audioBtn.click();
-                                clicked = true;
-                            }
+                try {
+                    const contentIframe = document.getElementById('content-iframe');
+                    const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
+
+                    // 1. McCheyne: Active Tab Audio
+                    let clicked = false;
+                    const activeTab = doc.querySelector('.tab-content.active');
+                    if (activeTab) {
+                        const audioBtn = activeTab.querySelector('.listen-audio-btn');
+                        if (audioBtn) {
+                            console.log("Global: Clicking McCheyne Audio");
+                            audioBtn.click();
+                            clicked = true;
                         }
-
-                        // 2. Daily Bible / Sermon
-                        if (!clicked) {
-                            const listenBtn = doc.getElementById('listen-btn');
-                            if (listenBtn) {
-                                console.log("Global: Clicking DailyBible Audio");
-                                listenBtn.click();
-                            }
-                        }
-
-                        // Force play after a short delay to ensure playback starts
-                        setTimeout(() => {
-                            if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
-                                ytPlayer.playVideo();
-                            }
-                        }, 500);
-
-                    } catch (e) {
-                        console.warn("Global Play trigger failed", e);
-                        playPauseBtn.classList.remove('loading');
                     }
+
+                    // 2. Daily Bible / Sermon
+                    if (!clicked) {
+                        const listenBtn = doc.getElementById('listen-btn');
+                        if (listenBtn) {
+                            console.log("Global: Clicking DailyBible Audio");
+                            listenBtn.click();
+                        }
+                    }
+
+                    // Retry getting player reference and playing
+                    setTimeout(() => {
+                        if (!ytPlayer && contentIframe.contentWindow && contentIframe.contentWindow.player) {
+                            ytPlayer = contentIframe.contentWindow.player;
+                        }
+                        if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+                            ytPlayer.playVideo();
+                        }
+                    }, 1000);
+
+                } catch (e) {
+                    console.warn("Global Play trigger failed", e);
+                    playPauseBtn.classList.remove('loading');
                 }
             };
 
@@ -936,14 +966,14 @@
             };
 
             closeBtn.onclick = () => {
-                // Stop audio and hide player, but keep content
+                // Pause audio and hide player, but keep content and player reference
                 if (playerInterval) clearInterval(playerInterval);
                 playerInterval = null;
 
-                if (ytPlayer && typeof ytPlayer.stopVideo === 'function') {
-                    ytPlayer.stopVideo();
+                if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+                    ytPlayer.pauseVideo();  // Use pauseVideo instead of stopVideo to allow resumption
                 }
-                ytPlayer = null;
+                // Keep ytPlayer reference for restoration
 
                 const playerUI = document.getElementById('global-player');
                 if (playerUI) {
