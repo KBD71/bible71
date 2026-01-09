@@ -142,53 +142,179 @@
     let savedScrollY = 0;
 
     function openTextModal(button) {
-        modalTitle.innerText = button.dataset.title;
-        modalIframe.src = button.dataset.path;
+        const paths = button.dataset.path.split(',').map(p => p.trim());
+        const title = button.dataset.title;
+        
+        modalTitle.innerText = title;
         modalOverlay.classList.add('visible');
 
         // 현재 스크롤 위치 저장
         savedScrollY = window.scrollY;
 
-        // 배경 스크롤 방지 (모바일/데스크톱 공통) - overflow 방식 사용
+        // 배경 스크롤 방지 (모바일/데스크톱 공통)
         document.body.style.overflow = 'hidden';
         document.body.style.position = 'fixed';
         document.body.style.top = `-${savedScrollY}px`;
         document.body.style.left = '0';
         document.body.style.right = '0';
 
-        // iframe 로딩 완료 후 처리
-        modalIframe.onload = () => {
-            try {
-                const doc = modalIframe.contentDocument || modalIframe.contentWindow.document;
+        // 단일 경로이면서 부분 절 지정이 없는 경우: 기존 iframe 방식
+        if (paths.length === 1 && !paths[0].includes('#')) {
+            modalIframe.src = paths[0];
+            modalIframe.style.display = 'block';
+            
+            modalIframe.onload = () => {
+                applyIframeStyles(modalIframe);
+            };
+        } 
+        // 다중 경로 또는 부분 절 지정이 있는 경우: fetch로 콘텐츠 합치기
+        else {
+            loadAndMergeContent(paths);
+        }
+    }
 
-                // 1. 중복 타이틀 숨기기
-                const h1 = doc.querySelector('h1');
-                if (h1) h1.style.display = 'none';
+    // iframe 스타일 적용 헬퍼 함수
+    function applyIframeStyles(iframe) {
+        try {
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
 
-                // 2. 폰트 사이즈 적용 (부모 창에서 currentFontSize 가져오기)
-                if (window.parent && window.parent.currentFontSize) {
-                    const fontSize = 16 * (window.parent.currentFontSize / 100);
-                    doc.documentElement.style.fontSize = fontSize + 'px';
-                    doc.body.style.fontSize = fontSize + 'px';
-                } else if (window.parent && typeof window.parent.applyFontSize === 'function') {
-                    // Fallback: 부모 창의 함수 호출
-                    window.parent.applyFontSize();
-                }
+            // 1. 중복 타이틀 숨기기
+            const h1 = doc.querySelector('h1');
+            if (h1) h1.style.display = 'none';
 
-                // 3. iframe 내부 body 스크롤 강제 활성화
-                doc.body.style.overflow = 'auto';
-                doc.body.style.overflowY = 'scroll';
-                doc.body.style.webkitOverflowScrolling = 'touch';
-            } catch (e) {
-                console.warn('Cannot access iframe content:', e);
+            // 2. 폰트 사이즈 적용
+            if (window.parent && window.parent.currentFontSize) {
+                const fontSize = 16 * (window.parent.currentFontSize / 100);
+                doc.documentElement.style.fontSize = fontSize + 'px';
+                doc.body.style.fontSize = fontSize + 'px';
             }
 
-            // 모바일에서 터치 이벤트 활성화
-            modalIframe.style.pointerEvents = 'auto';
-            modalIframe.style.touchAction = 'pan-y';
-            modalIframe.style.overflowY = 'auto';
-            modalIframe.style.webkitOverflowScrolling = 'touch';
-        };
+            // 3. iframe 내부 body 스크롤 강제 활성화
+            doc.body.style.overflow = 'auto';
+            doc.body.style.overflowY = 'scroll';
+            doc.body.style.webkitOverflowScrolling = 'touch';
+        } catch (e) {
+            console.warn('Cannot access iframe content:', e);
+        }
+
+        iframe.style.pointerEvents = 'auto';
+        iframe.style.touchAction = 'pan-y';
+        iframe.style.overflowY = 'auto';
+        iframe.style.webkitOverflowScrolling = 'touch';
+    }
+
+    // 다중 URL의 콘텐츠를 가져와 합치는 함수
+    async function loadAndMergeContent(paths) {
+        try {
+            const contentPromises = paths.map(async (pathWithHash) => {
+                // URL과 절 범위 분리 (예: url#1-15)
+                const [url, verseRange] = pathWithHash.split('#');
+                
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`Failed to fetch: ${url}`);
+                const html = await response.text();
+                
+                // HTML 파싱
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const bibleContent = doc.querySelector('.bible-content');
+                const chapterTitle = doc.querySelector('h1');
+                
+                if (!bibleContent) return '';
+                
+                // 부분 절 필터링
+                if (verseRange) {
+                    const [startVerse, endVerse] = verseRange.split('-').map(Number);
+                    const paragraphs = bibleContent.querySelectorAll('p');
+                    
+                    paragraphs.forEach(p => {
+                        const verseSpan = p.querySelector('.verse-number');
+                        if (verseSpan) {
+                            const verseNum = parseInt(verseSpan.textContent, 10);
+                            if (verseNum < startVerse || verseNum > endVerse) {
+                                p.style.display = 'none';
+                            }
+                        }
+                    });
+                    
+                    // 범위 밖의 소제목도 숨기기
+                    const subtitles = bibleContent.querySelectorAll('.subtitle');
+                    subtitles.forEach(subtitle => {
+                        const nextP = subtitle.nextElementSibling;
+                        if (nextP && nextP.style.display === 'none') {
+                            subtitle.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // 장 제목 추가 (여러 장을 합칠 때 구분용)
+                let result = '';
+                if (chapterTitle && paths.length > 1) {
+                    result += `<div class="chapter-divider" style="font-size: 1.5em; font-weight: 600; color: #343a40; border-bottom: 2px solid #dee2e6; padding: 1rem 0; margin: 2rem 0 1rem 0;">${chapterTitle.textContent}</div>`;
+                }
+                result += bibleContent.innerHTML;
+                
+                return result;
+            });
+
+            const contents = await Promise.all(contentPromises);
+            const mergedContent = contents.join('');
+            
+            // 폰트 사이즈 계산
+            let fontSize = '1.15em';
+            if (window.parent && window.parent.currentFontSize) {
+                fontSize = (16 * (window.parent.currentFontSize / 100)) + 'px';
+            }
+
+            // 합친 콘텐츠를 iframe에 동적으로 삽입
+            const fullHtml = `
+                <!DOCTYPE html>
+                <html lang="ko">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>
+                        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap');
+                        body {
+                            font-family: 'Noto Serif KR', serif;
+                            line-height: 2;
+                            background-color: #f8f9fa;
+                            color: #212529;
+                            margin: 0;
+                            padding: 2.5rem;
+                            font-size: ${fontSize};
+                            overflow-y: scroll;
+                            -webkit-overflow-scrolling: touch;
+                        }
+                        .container { max-width: 800px; margin: 0 auto; }
+                        .bible-content p { font-size: 1.15em; margin-top: 0; margin-bottom: 0.5rem; }
+                        .verse-number { font-size: 0.7em; font-weight: 600; color: #868e96; vertical-align: super; margin-right: 0.5em; }
+                        .subtitle { font-size: 1.1em; font-weight: 600; color: #dc3545; margin: 1.5rem 0 0.8rem 0; padding: 0.3rem 0; border-left: 4px solid #dc3545; padding-left: 1rem; background-color: #f8f9fa; }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="bible-content">${mergedContent}</div>
+                    </div>
+                </body>
+                </html>
+            `;
+
+            // iframe에 동적 콘텐츠 로드
+            modalIframe.style.display = 'block';
+            modalIframe.srcdoc = fullHtml;
+            
+            modalIframe.onload = () => {
+                modalIframe.style.pointerEvents = 'auto';
+                modalIframe.style.touchAction = 'pan-y';
+                modalIframe.style.overflowY = 'auto';
+                modalIframe.style.webkitOverflowScrolling = 'touch';
+            };
+
+        } catch (error) {
+            console.error('콘텐츠 로드 실패:', error);
+            modalIframe.srcdoc = `<html><body style="padding: 2rem; font-family: sans-serif;"><h2>콘텐츠를 불러올 수 없습니다.</h2><p>${error.message}</p></body></html>`;
+        }
     }
 
     function closeModal() {
