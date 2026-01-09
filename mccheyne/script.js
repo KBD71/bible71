@@ -144,9 +144,12 @@
     function openTextModal(button) {
         const paths = button.dataset.path.split(',').map(p => p.trim());
         const title = button.dataset.title;
-        
+
         modalTitle.innerText = title;
         modalOverlay.classList.add('visible');
+
+        // 이전 콘텐츠 초기화 (srcdoc가 src보다 우선순위가 높으므로 반드시 제거)
+        modalIframe.removeAttribute('srcdoc');
 
         // 현재 스크롤 위치 저장
         savedScrollY = window.scrollY;
@@ -162,11 +165,11 @@
         if (paths.length === 1 && !paths[0].includes('#')) {
             modalIframe.src = paths[0];
             modalIframe.style.display = 'block';
-            
+
             modalIframe.onload = () => {
                 applyIframeStyles(modalIframe);
             };
-        } 
+        }
         // 다중 경로 또는 부분 절 지정이 있는 경우: fetch로 콘텐츠 합치기
         else {
             loadAndMergeContent(paths);
@@ -209,24 +212,24 @@
             const contentPromises = paths.map(async (pathWithHash) => {
                 // URL과 절 범위 분리 (예: url#1-15)
                 const [url, verseRange] = pathWithHash.split('#');
-                
+
                 const response = await fetch(url);
                 if (!response.ok) throw new Error(`Failed to fetch: ${url}`);
                 const html = await response.text();
-                
+
                 // HTML 파싱
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 const bibleContent = doc.querySelector('.bible-content');
                 const chapterTitle = doc.querySelector('h1');
-                
+
                 if (!bibleContent) return '';
-                
+
                 // 부분 절 필터링
                 if (verseRange) {
                     const [startVerse, endVerse] = verseRange.split('-').map(Number);
                     const paragraphs = bibleContent.querySelectorAll('p');
-                    
+
                     paragraphs.forEach(p => {
                         const verseSpan = p.querySelector('.verse-number');
                         if (verseSpan) {
@@ -236,7 +239,7 @@
                             }
                         }
                     });
-                    
+
                     // 범위 밖의 소제목도 숨기기
                     const subtitles = bibleContent.querySelectorAll('.subtitle');
                     subtitles.forEach(subtitle => {
@@ -246,20 +249,20 @@
                         }
                     });
                 }
-                
+
                 // 장 제목 추가 (여러 장을 합칠 때 구분용)
                 let result = '';
                 if (chapterTitle && paths.length > 1) {
                     result += `<div class="chapter-divider" style="font-size: 1.5em; font-weight: 600; color: #343a40; border-bottom: 2px solid #dee2e6; padding: 1rem 0; margin: 2rem 0 1rem 0;">${chapterTitle.textContent}</div>`;
                 }
                 result += bibleContent.innerHTML;
-                
+
                 return result;
             });
 
             const contents = await Promise.all(contentPromises);
             const mergedContent = contents.join('');
-            
+
             // 폰트 사이즈 계산
             let fontSize = '1.15em';
             if (window.parent && window.parent.currentFontSize) {
@@ -303,7 +306,7 @@
             // iframe에 동적 콘텐츠 로드
             modalIframe.style.display = 'block';
             modalIframe.srcdoc = fullHtml;
-            
+
             modalIframe.onload = () => {
                 modalIframe.style.pointerEvents = 'auto';
                 modalIframe.style.touchAction = 'pan-y';
@@ -330,8 +333,9 @@
         // 스크롤 위치 복원
         window.scrollTo(0, savedScrollY);
 
-        // iframe 초기화
+        // iframe 초기화 (srcdoc가 src보다 우선순위가 높으므로 반드시 함께 초기화해야 함)
         modalIframe.onload = null;
+        modalIframe.removeAttribute('srcdoc');  // srcdoc 속성 제거 (중요!)
         modalIframe.src = 'about:blank';
         setTimeout(() => modalIframe.src = '', 100);
     }
