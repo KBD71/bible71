@@ -3,232 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1월 13일: 성경의 충족성</title>
+    <title>날마다 읽는 교리 - 1월 13일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: 'Noto Serif KR', serif;
-            line-height: 1.8;
-            color: #2d3748;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
         }
-        .keep-all {
+        .prose-custom {
+            line-height: 1.75;
             word-break: keep-all;
-            word-wrap: break-word;
-        }
-        .text-justify {
-            text-align: justify;
-        }
-        /* 스크롤바 커스텀 */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e0;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a0aec0;
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="antialiased min-h-screen flex flex-col items-center py-8 px-4">
 
-    <div class="max-w-3xl mx-auto bg-white shadow-xl min-h-screen relative">
-        
-        <!-- 1. Header Section -->
-        <header class="bg-gradient-to-b from-blue-900 to-blue-800 text-white p-8 pb-12 relative overflow-hidden">
-            <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
-                <i class="fas fa-book-bible text-9xl"></i>
-            </div>
-            <div class="relative z-10 text-center">
-                <span class="inline-block px-3 py-1 bg-blue-700/50 rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
-                    1월 13일
-                </span>
-                <h1 class="text-3xl md:text-4xl font-bold mb-3 keep-all leading-tight">
-                    성경의 충족성
-                </h1>
-                <p class="text-blue-100 text-sm md:text-base font-light opacity-90">
-                    웨스트민스터 신앙고백서 제1장 6항
-                </p>
-            </div>
+    <main class="w-full max-w-2xl space-y-6">
+
+        <header class="text-center space-y-2 mb-8">
+            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold tracking-wide">1월 13일</span>
+            <h1 class="text-3xl font-bold text-gray-900 break-keep">성경 계시의 해석의 규칙</h1>
         </header>
 
-        <!-- 2. AI Summary Section (Hidden) -->
-        <section class="hidden mx-6 -mt-8 relative z-20 mb-8">
-            <div class="bg-white rounded-xl shadow-lg border border-blue-100 overflow-hidden">
-                <div class="bg-blue-50 px-5 py-3 border-b border-blue-100 flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                        <span class="text-blue-800 font-bold text-sm">AI 요약 & 듣기</span>
-                    </div>
-                    <i class="fas fa-headphones text-blue-400"></i>
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+                AI요약 듣기
+            </h2>
+            
+            <div id="player-container" class="space-y-4">
+                <div id="youtube-player" class="w-full aspect-video rounded-lg overflow-hidden hidden"></div>
+                
+                <div id="player-controls" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
+                    <button id="play-button" disabled class="group relative flex items-center justify-center w-16 h-16 bg-white border-2 border-blue-500 rounded-full shadow-md hover:bg-blue-50 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="교리 오디오 재생/일시정지">
+                        <svg id="play-icon" class="w-8 h-8 text-blue-600 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg id="loading-icon" class="w-8 h-8 text-blue-600 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    </button>
+                    <p id="player-status" class="mt-3 text-sm text-gray-500 font-medium">오디오 로딩 중...</p>
                 </div>
-                <div class="p-5">
-                    <div class="flex items-center gap-4 mb-4 bg-gray-50 rounded-lg p-3">
-                        <button class="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full text-white shadow-md hover:bg-blue-700 transition-colors shrink-0">
-                            <i class="fas fa-play text-sm ml-1"></i>
-                        </button>
-                        <div class="flex-1">
-                            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full w-1/3 bg-blue-500 rounded-full"></div>
-                            </div>
-                            <div class="flex justify-between text-xs text-gray-400 mt-1">
-                                <span>04:12</span>
-                                <span>12:45</span>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm leading-relaxed keep-all">
-                        성경은 하나님의 영광과 인간의 구원에 필요한 모든 뜻을 담고 있습니다. 새로운 계시는 필요하지 않으며, 오직 성령의 조명을 통해 성경을 바르게 이해할 수 있습니다. 예배와 교회 정치의 일부 상황은 이성과 일반적인 규범에 따라 결정될 수 있습니다.
-                    </p>
+
+                <div id="error-message" class="hidden p-4 bg-red-50 text-red-600 text-sm rounded-lg text-center"></div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">말씀 요절</h2>
+            <div class="space-y-4 text-gray-700 prose-custom">
+                <div class="p-4 bg-gray-50 rounded-lg">
+                    <p class="font-serif">"하나님이 처음으로 이방인 중에서 자기 이름을 위할 백성을 취하시려고 그들을 돌보신 것을 시므온이 말하였으니 선지자들의 말씀이 이와 일치하도다 기록된 바 이 후에 내가 돌아와서 다윗의 무너진 장막을 다시 지으며 또 그 허물어진 것을 다시 지어 일으키리니 이는 그 남은 사람들과 내 이름으로 일컬음을 받는 모든 이방인들로 주를 찾게 하려 함이라 하셨으니 즉 예로부터 이것을 알게 하시는 주의 말씀이라 함과 같으니라"</p>
+                    <p class="text-right text-sm font-bold text-gray-500 mt-2">- 사도행전 15:14-18</p>
+                </div>
+                <div>
+                    <p class="font-serif">"먼저 알 것은 성경의 모든 예언은 사사로이 풀 것이 아니니 예언은 언제든지 사람의 뜻으로 낸 것이 아니요 오직 성령의 감동하심을 받은 사람들이 하나님께 받아 말한 것임이라"</p>
+                    <p class="text-right text-sm font-bold text-gray-500 mt-2">- 베드로후서 1:20-21</p>
                 </div>
             </div>
         </section>
 
-        <!-- Main Content Container -->
-        <main class="px-6 py-8 space-y-10">
-
-            <!-- 3. Confession Text Section -->
-            <section>
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-1 h-6 bg-blue-800"></div>
-                    <h2 class="text-xl font-bold text-gray-800">신앙고백서 본문</h2>
-                </div>
-                <div class="bg-white border-l-4 border-blue-600 shadow-sm p-6 rounded-r-lg bg-gradient-to-r from-blue-50/30 to-transparent">
-                    <p class="text-gray-700 text-lg leading-relaxed text-justify keep-all">
-                        <span class="text-blue-800 font-bold text-xl mr-1">6.</span>
-                        하나님의 영광과 사람의 구원과 신앙과 생활에 필요한 모든 것에 관한 하나님의 전모(whole counsel)는 성경에 명백히 기록되어 있거나, 선하고 필연적인 결과로 성경에서 이끌어 낼 수 있다. 이 성경에는 어느 때를 막론하고 성령의 새로운 계시에 의해서든, 사람들의 전통에 의해서든, 아무것도 더해질 수 없다. <sup class="text-blue-600 font-bold text-xs">[1]</sup>
-                        <br><br>
-                        그렇지만 말씀 계시된 것들을 구원에 이르게끔 이해하기 위해서는 하나님의 성령의 내적인 조명이 필수적이라는 것을 우리는 인정한다. <sup class="text-blue-600 font-bold text-xs">[2]</sup>
-                        <br><br>
-                        또한 예배와 교회 정치에 관한 어떤 정황들은 사람의 행동과 사회에 공통된 것으로서, 항상 지켜져야 할 말씀의 일반 법칙들을 따라 본성의 빛과 그리스도인의 신중함에 의하여 규정되어야 한다는 것을 인정한다. <sup class="text-blue-600 font-bold text-xs">[3]</sup>
-                    </p>
-                </div>
-            </section>
-
-            <!-- 4. Related Catechism Section (Added) -->
-            <section>
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-1 h-6 bg-emerald-600"></div>
-                    <h2 class="text-xl font-bold text-gray-800">관련 요리문답</h2>
-                </div>
-                <div class="bg-emerald-50 border border-emerald-100 rounded-lg p-5">
-                    <div class="mb-4">
-                        <span class="inline-block px-2 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded mb-2">대요리문답 제3문</span>
-                        <h3 class="font-bold text-gray-800 mb-2">하나님의 말씀은 무엇입니까?</h3>
-                        <p class="text-gray-700 text-sm leading-relaxed text-justify">
-                            답: 구약과 신약 성경이 하나님의 말씀이며, 신앙과 순종의 유일한 규칙입니다.
-                        </p>
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">신앙고백서</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-indigo-50 p-5 rounded-xl">
+                    <h3 class="font-bold text-indigo-900 mb-2">신앙고백서 1.9</h3>
+                    <div class="prose-custom text-gray-700 space-y-2">
+                        <p>성경 해석의 <strong class="text-indigo-700">무오한 규칙은 성경 자체</strong>이다. 그러므로 어떤 성경이든지 참되며 완전한 의미에 대해 의문이 있을 때는 (그 의미는 여러 가지가 아니라 단지 하나뿐인데), <strong class="text-blue-600">더 분명하게 말씀하고 있는 다른 곳들을 연구하여 알아낼 수 있다.</strong></p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- 5. Related Scripture Section -->
-            <section class="bg-slate-50 rounded-xl p-6 border border-slate-100">
-                <div class="flex items-center gap-2 mb-4">
-                    <i class="fas fa-book-open text-blue-600"></i>
-                    <h3 class="font-bold text-gray-700">관련 말씀</h3>
-                </div>
-                <ul class="space-y-3">
-                    <li class="flex gap-3 items-start">
-                        <span class="shrink-0 w-6 h-6 flex items-center justify-center bg-blue-100 text-blue-600 text-xs font-bold rounded-full mt-1">1</span>
-                        <p class="text-gray-600 text-sm leading-relaxed">
-                            <strong class="text-gray-800">디모데후서 3:15-17</strong> 또 어려서부터 성경을 알았나니 성경은 능히 너로 하여금 그리스도 예수 안에 있는 믿음으로 말미암아 구원에 이르는 지혜가 있게 하느니라 모든 성경은 하나님의 감동으로 된 것으로... 하나님의 사람으로 온전하게 하며 모든 선한 일을 행할 능력을 갖추게 하려 함이라
-                        </p>
-                    </li>
-                    <li class="flex gap-3 items-start">
-                        <span class="shrink-0 w-6 h-6 flex items-center justify-center bg-blue-100 text-blue-600 text-xs font-bold rounded-full mt-1">2</span>
-                        <p class="text-gray-600 text-sm leading-relaxed">
-                            <strong class="text-gray-800">갈라디아서 1:8</strong> 그러나 우리나 혹은 하늘로부터 온 천사라도 우리가 너희에게 전한 복음 외에 다른 복음을 전하면 저주를 받을지어다
-                        </p>
-                    </li>
-                </ul>
-            </section>
-
-            <!-- 6. Commentary Section -->
-            <section class="space-y-6">
-                <div class="flex items-center gap-3">
-                    <div class="w-1 h-6 bg-gray-400"></div>
-                    <h2 class="text-xl font-bold text-gray-800">교리 해설</h2>
-                </div>
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">교리 해설</h2>
+            <div class="prose-custom text-gray-700 space-y-4">
                 
-                <div class="prose prose-blue max-w-none">
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        신앙고백서 1장 6항은 성경의 충족성(sufficiency)을 다룹니다. 이는 성경이 우리의 구원과 신앙 생활에 필요한 모든 지식을 충분히 담고 있다는 교리입니다.
-                    </p>
+                <h3 class="font-bold text-lg text-gray-900 mt-2">1. 성경 해석의 특수성: 일반 서적과는 다릅니다</h3>
+                <p>
+                    일반적인 책들은 인간의 공통된 경험을 바탕으로 쓰이기에, 문법과 논리의 흐름만 파악하면 이해하는 데 큰 장애물이 없습니다. 그러나 성경은 다릅니다. 성경은 일상의 경험을 넘어서는 하나님의 속성, 구원의 신비, 예언과 성취 등 <strong class="text-indigo-700">초월적인 사실</strong>을 담고 있습니다. 따라서 성경 66권 전체를 관통하는 신학적 통일성과 그리스도 중심적인 맥락을 이해하지 못하면 올바른 해석에 도달할 수 없습니다.
+                </p>
 
-                    <!-- Commentary Point 1 -->
-                    <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm mb-6 transition hover:shadow-md">
-                        <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center gap-2">
-                            <i class="fas fa-check-circle text-blue-500 text-sm"></i>
-                            성경 외에 다른 계시는 필요 없습니다
-                        </h3>
-                        <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                            성경은 하나님의 전체적인 뜻(whole counsel)을 담고 있습니다. 이는 명시적으로 기록된 말씀뿐만 아니라, 올바른 추론을 통해 이끌어 낼 수 있는 내용까지 포함합니다. 따라서 성령의 새로운 계시나 인간의 전통을 성경에 더해서는 안 됩니다. 소위 '직통 계시'나 교회의 권위로 성경을 보완하려는 시도는 모두 배격됩니다.
-                        </p>
-                    </div>
+                <h3 class="font-bold text-lg text-gray-900 mt-4">2. 사사로운 해석의 위험과 '성경의 유비'</h3>
+                <p>
+                    성경을 읽을 때 자신의 필요나 시대적 사조(예: 기복신앙, 번영신학, 해방신학, 퀴어신학 등)에 맞추어 임의로 해석하는 것은 성경의 교훈을 왜곡하는 것입니다. 이러한 오류를 피하기 위한 절대적인 원칙이 바로 <strong class="text-blue-600">'성경의 유비(Analogy of Scripture)'</strong>입니다. 이는 "성경 해석의 무오한 규칙은 성경 자체"라는 원리로, 의미가 불분명하거나 어려운 구절을 만났을 때, 더 명확하게 말씀하고 있는 다른 성경 구절들을 근거로 하여 해석하는 것입니다. 성경 밖의 어떤 열쇠(Key)나 관점을 가지고 들어와서 성경을 규정하려 해서는 안 됩니다.
+                </p>
 
-                    <!-- Commentary Point 2 -->
-                    <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-5 shadow-sm mb-6 transition hover:shadow-md">
-                        <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center gap-2">
-                            <i class="fas fa-lightbulb text-yellow-500 text-sm"></i>
-                            성령의 내적 조명이 필수적입니다
-                        </h3>
-                        <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                            성경이 완전하다고 해서 인간의 지성만으로 모든 것을 깨달을 수 있는 것은 아닙니다. 죄로 어두워진 인간의 지성이 성경의 진리를 구원에 이르도록 깨닫기 위해서는 성령님의 내적인 조명(illumination)이 반드시 필요합니다. 말씀은 객관적인 진리이고, 성령은 주관적인 깨달음을 주십니다. 말씀과 성령은 분리될 수 없습니다.
-                        </p>
-                    </div>
+                <h3 class="font-bold text-lg text-gray-900 mt-4">3. 신앙의 유비: 전체와 조화를 이루는 해석</h3>
+                <p>
+                    올바른 해석을 위해서는 <strong class="text-blue-600">'신앙의 유비(Analogy of Faith)'</strong>를 따라야 합니다. 예를 들어, '임마누엘'이라는 주제는 창조(누림) → 타락(상실) → 구원(회복) → 종말(완성)이라는 거대한 구속사의 흐름 속에서 전개됩니다. 부분적인 구절에만 매몰되어 성경 전체가 말하는 복음과 신앙의 교훈에 어긋나는 편향된 주장을 해서는 안 되며, 전체적인 신학적 통일성과 조화를 이루는 해석을 해야 합니다.
+                </p>
+            </div>
+        </section>
 
-                    <!-- Commentary Point 3 -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 shadow-sm transition hover:shadow-md">
-                        <h3 class="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">
-                            <i class="fas fa-scale-balanced text-gray-500 text-sm"></i>
-                            본성의 빛과 기독교적 신중함
-                        </h3>
-                        <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                            예배의 장소, 시간, 순서나 교회 정치의 세부적인 행정 절차 등은 성경에 일일이 기록되어 있지 않습니다. 이러한 '정황들'은 일반적인 상식(본성의 빛)과 신자들의 지혜(신중함)를 사용하여 결정합니다. 단, 이때에도 항상 "모든 것을 품위 있게 하고 질서 있게 하라"(고전 14:40)는 성경의 일반 법칙을 따라야 합니다.
-                        </p>
-                    </div>
-                </div>
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">적용 질문</h2>
+            <ul class="list-none space-y-4 text-gray-700">
+                <li class="flex gap-3">
+                    <span class="font-bold text-blue-600 flex-shrink-0">1.</span>
+                    <p>여러분은 성경을 읽으면서 그 의미가 무엇인지 어려움을 겪을 때 어떻게 하십니까?</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold text-blue-600 flex-shrink-0">2.</span>
+                    <p>성경 구절에 대한 해석이 이런 것이었나 싶게 특이한 해석을 주장하는 경우를 만나면 어떻게 하는 것이 좋겠습니까?</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold text-blue-600 flex-shrink-0">3.</span>
+                    <p>만일 히브리 사람들이 출애굽한 사건은 가혹한 노동 때문에 애굽에 저항했던 노동 운동과 같은 것이라고 주장하는 해석을 만나게 된다면, 여러분은 어떻게 판단하시겠습니까?</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold text-blue-600 flex-shrink-0">4.</span>
+                    <p>사도행전 15장에서 하나님께서 이방인 중에서 구원받을 백성을 이끌어 내셨다는 베드로의 증언을 아모스 9장 말씀의 성취라고 설명한 야고보의 해석은 성경 해석에 있어서 어떠한 원칙을 보여줍니까?</p>
+                </li>
+            </ul>
+        </section>
 
-                <!-- Footer Message -->
-                <div class="mt-8 text-center">
-                    <p class="text-sm text-gray-400 italic">
-                        "성경은 하나님을 아는 지식에 있어 조금도 부족함이 없습니다."
-                    </p>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-8 text-center mt-12">
-            <p class="text-gray-400 text-xs mb-2">Westminster Confession of Faith</p>
-            <p class="text-gray-500 text-[10px]">&copy; 2024 날마다 교리. All rights reserved.</p>
+        <footer class="text-center text-xs text-gray-400 mt-8 pb-4">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
 
-    </div>
+    </main>
 
-    <!-- Script Configuration -->
     <script>
-        // 날짜 키 설정 (MMDD 형식)
-        const DATE_KEY = '0113';
-
-        // 날짜 확인 및 콘텐츠 로깅 (디버깅용)
-        console.log(`Current Content Date: ${DATE_KEY}`);
+        // --- Configuration ---
+        const DATE_ID = "0113"; // January 13th
+        const ADDR_FILE = "../address/dcaddr.txt";
         
-        // 오디오 플레이어 로직 (필요시 활성화)
-        document.addEventListener('DOMContentLoaded', () => {
-            // hidden 클래스가 있는 섹션은 자동으로 숨겨집니다.
-            // 필요 시 스크립트로 제어 가능
-        });
+        // --- Elements ---
+        const playerContainer = document.getElementById('youtube-player');
+        const playButton = document.getElementById('play-button');
+        const playIcon = document.getElementById('play-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+        const statusText = document.getElementById('player-status');
+        const errorMsg = document.getElementById('error-message');
+        const controlsDiv = document.getElementById('player-controls');
+
+        let player;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        // --- Logic ---
+
+        // 1. Fetch Video ID
+        async function fetchVideoId() {
+            try {
+                const response = await fetch(ADDR_FILE);
+                if (!response.ok) throw new Error("주소 파일을 불러올 수 없습니다.");
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                const todayLine = lines.find(line => line.trim().startsWith(DATE_ID));
+                
+                if (!todayLine) {
+                    throw new Error("TODAY_NOT_FOUND");
+                }
+
+                // Extract URL (assuming format: MMDD URL)
+                const urlPart = todayLine.replace(DATE_ID, '').trim();
+                
+                // Parse Video ID using Regex
+                const regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                const match = urlPart.match(regExp);
+
+                if (match && match[1]) {
+                    return match[1];
+                } else {
+                    throw new Error("INVALID_URL");
+                }
+
+            } catch (error) {
+                console.error("Video Fetch Error:", error);
+                if (error.message === "TODAY_NOT_FOUND") {
+                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
+                } else {
+                    showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
+                }
+                return null;
+            }
+        }
+
+        // 2. UI Helper Functions
+        function showError(msg) {
+            statusText.style.display = 'none';
+            playButton.style.display = 'none';
+            errorMsg.textContent = msg;
+            errorMsg.classList.remove('hidden');
+        }
+
+        function setButtonLoading(isLoading) {
+            playButton.disabled = isLoading;
+            if (isLoading) {
+                playIcon.classList.add('hidden');
+                loadingIcon.classList.remove('hidden');
+                statusText.textContent = "플레이어 준비 중...";
+            } else {
+                playIcon.classList.remove('hidden');
+                loadingIcon.classList.add('hidden');
+                statusText.textContent = "재생하기";
+            }
+        }
+
+        // 3. Initialize YouTube API
+        function loadYoutubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // 4. Player Setup (Called by API)
+        function onYouTubeIframeAPIReady() {
+            if (!videoId) return;
+
+            player = new YT.Player('youtube-player', {
+                height: '360',
+                width: '640',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            setButtonLoading(false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; // Pause icon
+                statusText.textContent = "재생 중";
+                playButton.setAttribute('aria-label', '일시정지');
+                
+                // Show player, hide large button if desired, or keep as toggle
+                playerContainer.classList.remove('hidden');
+                controlsDiv.classList.add('hidden'); // Hide big button once playing starts
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; // Play icon
+                statusText.textContent = "일시정지됨";
+                playButton.setAttribute('aria-label', '재생');
+            }
+        }
+
+        // 5. Main Execution
+        (async function init() {
+            setButtonLoading(true);
+            videoId = await fetchVideoId();
+            
+            if (videoId) {
+                loadYoutubeAPI();
+                
+                playButton.addEventListener('click', () => {
+                    if (isPlayerReady) {
+                        playerContainer.classList.remove('hidden');
+                        player.playVideo();
+                    }
+                });
+            }
+        })();
+
     </script>
 </body>
 </html>
