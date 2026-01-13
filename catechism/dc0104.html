@@ -35,7 +35,7 @@
                 AI요약 듣기
             </h2>
             
-            <div id="player-container" class="space-y-4">
+            <div id="audio-player-container" class="space-y-4">
                 <div id="youtube-player" class="w-full aspect-video rounded-lg overflow-hidden hidden"></div>
                 
                 <div id="player-controls" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
@@ -179,7 +179,7 @@
         const errorMsg = document.getElementById('error-message');
         const controlsDiv = document.getElementById('player-controls');
 
-        let player;
+        window.player = null;
         let videoId = null;
         let isPlayerReady = false;
 
@@ -256,7 +256,7 @@
         function onYouTubeIframeAPIReady() {
             if (!videoId) return;
 
-            player = new YT.Player('youtube-player', {
+            window.player = new YT.Player('youtube-player', {
                 height: '360',
                 width: '640',
                 videoId: videoId,
@@ -304,7 +304,7 @@
                 playButton.addEventListener('click', () => {
                     if (isPlayerReady) {
                         playerContainer.classList.remove('hidden');
-                        player.playVideo();
+                        window.player.playVideo();
                     }
                 });
             }

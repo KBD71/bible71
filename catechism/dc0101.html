@@ -125,7 +125,7 @@
         const btnText = document.getElementById('btn-text');
         const statusMessage = document.getElementById('status-message');
         const playerContainer = document.getElementById('audio-player-container');
-        let player;
+        window.player = null;
         let videoId = null;
         let isPlayerReady = false;
 
@@ -199,7 +199,7 @@
 
         // API Ready Callback
         window.onYouTubeIframeAPIReady = function() {
-            player = new YT.Player('player', {
+            window.player = new YT.Player('player', {
                 height: '100%',
                 width: '100%',
                 videoId: videoId,
@@ -237,17 +237,17 @@
         playBtn.addEventListener('click', () => {
             if (!isPlayerReady) return;
 
-            const playerState = player.getPlayerState();
+            const playerState = window.player.getPlayerState();
             
             // Show player container if hidden
             if (playerContainer.classList.contains('hidden')) {
                 playerContainer.classList.remove('hidden');
-                player.playVideo();
+                window.player.playVideo();
             } else {
                 if (playerState == YT.PlayerState.PLAYING) {
-                    player.pauseVideo();
+                    window.player.pauseVideo();
                 } else {
-                    player.playVideo();
+                    window.player.playVideo();
                 }
             }
         });
