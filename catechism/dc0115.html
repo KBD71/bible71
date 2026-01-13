@@ -3,220 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1월 15일: 성경의 보존과 번역</title>
+    <title>날마다 읽는 교리 - 1월 15일</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: 'Noto Serif KR', serif;
-            line-height: 1.8;
-            color: #2d3748;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
         }
-        .keep-all {
+        .prose-custom {
+            line-height: 1.75;
             word-break: keep-all;
-            word-wrap: break-word;
-        }
-        .text-justify {
-            text-align: justify;
-        }
-        /* 스크롤바 커스텀 */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e0;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a0aec0;
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="antialiased min-h-screen flex flex-col items-center py-8 px-4">
 
-    <div class="max-w-3xl mx-auto bg-white shadow-xl min-h-screen relative">
-        
-        <!-- 1. Header Section -->
-        <header class="bg-gradient-to-b from-blue-900 to-blue-800 text-white p-8 pb-12 relative overflow-hidden">
-            <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
-                <i class="fas fa-language text-9xl"></i>
-            </div>
-            <div class="relative z-10 text-center">
-                <span class="inline-block px-3 py-1 bg-blue-700/50 rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
-                    1월 15일
-                </span>
-                <h1 class="text-3xl md:text-4xl font-bold mb-3 keep-all leading-tight">
-                    성경의 보존과 번역
-                </h1>
-                <p class="text-blue-100 text-sm md:text-base font-light opacity-90">
-                    웨스트민스터 신앙고백서 제1장 8항
-                </p>
-            </div>
+    <main class="w-full max-w-2xl space-y-6">
+
+        <header class="text-center space-y-2 mb-8">
+            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold tracking-wide">1월 15일</span>
+            <h1 class="text-3xl font-bold text-gray-900 break-keep">성경의 요약</h1>
         </header>
 
-        <!-- 2. AI Summary Section (Hidden) -->
-        <section class="hidden mx-6 -mt-8 relative z-20 mb-8">
-            <div class="bg-white rounded-xl shadow-lg border border-blue-100 overflow-hidden">
-                <div class="bg-blue-50 px-5 py-3 border-b border-blue-100 flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                        <span class="text-blue-800 font-bold text-sm">AI 요약 & 듣기</span>
-                    </div>
-                    <i class="fas fa-headphones text-blue-400"></i>
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+                AI요약 듣기
+            </h2>
+            
+            <div id="player-container" class="space-y-4">
+                <div id="youtube-player" class="w-full aspect-video rounded-lg overflow-hidden hidden"></div>
+                
+                <div id="player-controls" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
+                    <button id="play-button" disabled class="group relative flex items-center justify-center w-16 h-16 bg-white border-2 border-blue-500 rounded-full shadow-md hover:bg-blue-50 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="교리 오디오 재생/일시정지">
+                        <svg id="play-icon" class="w-8 h-8 text-blue-600 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg id="loading-icon" class="w-8 h-8 text-blue-600 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    </button>
+                    <p id="player-status" class="mt-3 text-sm text-gray-500 font-medium">오디오 로딩 중...</p>
                 </div>
-                <div class="p-5">
-                    <div class="flex items-center gap-4 mb-4 bg-gray-50 rounded-lg p-3">
-                        <button class="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full text-white shadow-md hover:bg-blue-700 transition-colors shrink-0">
-                            <i class="fas fa-play text-sm ml-1"></i>
-                        </button>
-                        <div class="flex-1">
-                            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full w-1/3 bg-blue-500 rounded-full"></div>
-                            </div>
-                            <div class="flex justify-between text-xs text-gray-400 mt-1">
-                                <span>04:12</span>
-                                <span>12:45</span>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm leading-relaxed keep-all">
-                        구약(히브리어)과 신약(헬라어) 원문은 하나님의 영감으로 기록되고 섭리로 보존되었기에 최종적인 권위를 가집니다. 그러나 모든 성도가 원어를 알 수 없으므로, 누구나 읽고 이해할 수 있도록 각 나라의 모국어로 번역되어야 합니다.
+
+                <div id="error-message" class="hidden p-4 bg-red-50 text-red-600 text-sm rounded-lg text-center"></div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">말씀 요절</h2>
+            <div class="space-y-4 text-gray-700 prose-custom">
+                <div class="p-4 bg-gray-50 rounded-lg">
+                    <p class="font-serif">"믿음이 없이는 하나님을 기쁘시게 하지 못하나니 하나님께 나아가는 자는 반드시 그가 계신 것과 또한 그가 자기를 찾는 자들에게 상 주시는 이심을 믿어야 할지니라"</p>
+                    <p class="text-right text-sm font-bold text-gray-500 mt-2">- 히브리서 11:6</p>
+                </div>
+                <div>
+                    <p class="font-serif">"과연 헤롯과 본디오 빌라도는 이방인과 이스라엘 백성과 합세하여 하나님께서 기름 부으신 거룩한 종 예수를 거슬러 하나님의 권능과 뜻대로 이루려고 예정하신 그것을 행하려고 이 성에 모였나이다"</p>
+                    <p class="text-right text-sm font-bold text-gray-500 mt-2">- 사도행전 4:27-28</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">대요리문답</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-indigo-50 p-5 rounded-xl">
+                    <h3 class="font-bold text-indigo-900 mb-2">대요리문답 6문</h3>
+                    <p class="font-semibold text-gray-800 mb-2">Q. 성경은 하나님에 대하여 무엇을 알려줍니까?</p>
+                    <p class="text-gray-700 leading-relaxed">
+                        A. 성경은 <strong class="text-indigo-700">하나님이 어떤 분이신지, 하나님의 위격들과 작정, 그리고 그 작정의 실행</strong>에 대하여 알려줍니다.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- Main Content Container -->
-        <main class="px-6 py-8 space-y-10">
-
-            <!-- 3. Confession Text Section -->
-            <section>
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-1 h-6 bg-blue-800"></div>
-                    <h2 class="text-xl font-bold text-gray-800">신앙고백서 본문</h2>
-                </div>
-                <div class="bg-white border-l-4 border-blue-600 shadow-sm p-6 rounded-r-lg bg-gradient-to-r from-blue-50/30 to-transparent">
-                    <p class="text-gray-700 text-lg leading-relaxed text-justify keep-all">
-                        <span class="text-blue-800 font-bold text-xl mr-1">8.</span>
-                        옛 언약의 구약성경은 (하나님의 옛 백성의 모국어인) 히브리어로, 새 언약의 신약성경은 (기록될 당시에 여러 민족에게 가장 널리 통용되던) 헬라어로 하나님에 의해 직접 영감되었고, 그의 독특한 배려와 섭리로 모든 시대에 순수하게 보존되었다. 그러므로 그 성경들은 믿을 만하다(authentic). 따라서 종교적인 논쟁이 일어날 때, 교회는 최종적으로 이 성경들에 호소해야 한다. <sup class="text-blue-600 font-bold text-xs">[1]</sup>
-                        <br><br>
-                        그러나 이 원어들이 하나님께 나아갈 권리가 있고 또 나아가야 할 흥미를 가진 모든 하나님의 백성에게 알려져 있는 것은 아니다. 그럼에도 그들은 하나님을 경외하는 가운데 성경을 읽고 묵상하라는 명령을 받고 있다. <sup class="text-blue-600 font-bold text-xs">[2]</sup>
-                        <br><br>
-                        그러므로 성경은 성경이 도달하는 모든 나라의 통용되는 언어(vulgar language)로 번역되어야 한다. <sup class="text-blue-600 font-bold text-xs">[3]</sup> 그리하여 하나님의 말씀이 모든 사람 안에 풍성히 거하여 그들이 합당한 방식으로 하나님을 예배하며, 성경의 위로를 통해 소망을 가지게 하려 함이다. <sup class="text-blue-600 font-bold text-xs">[4]</sup>
-                    </p>
-                </div>
-            </section>
-
-            <!-- 4. Related Scripture Section -->
-            <section class="bg-slate-50 rounded-xl p-6 border border-slate-100">
-                <div class="flex items-center gap-2 mb-4">
-                    <i class="fas fa-book-open text-blue-600"></i>
-                    <h3 class="font-bold text-gray-700">관련 말씀</h3>
-                </div>
-                <ul class="space-y-3">
-                    <li class="flex gap-3 items-start">
-                        <span class="shrink-0 w-6 h-6 flex items-center justify-center bg-blue-100 text-blue-600 text-xs font-bold rounded-full mt-1">1</span>
-                        <p class="text-gray-600 text-sm leading-relaxed">
-                            <strong class="text-gray-800">마태복음 5:18</strong> 진실로 너희에게 이르노니 천지가 없어지기 전에는 율법의 일점 일획도 결코 없어지지 아니하고 다 이루리라
-                        </p>
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">교리 해설</h2>
+            <div class="prose-custom text-gray-700 space-y-4">
+                
+                <h3 class="font-bold text-lg text-gray-900 mt-2">1. 성경이 말하는 네 가지 핵심 사실</h3>
+                <p>
+                    성경을 읽으면 우리는 하나님에 대하여 크게 네 가지 사실을 알게 됩니다.
+                </p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>
+                        <strong>하나님의 존재와 속성:</strong> 하나님이 어떤 분이시며 무엇을 행하셨고 행하시는지를 알게 됩니다.
                     </li>
-                    <li class="flex gap-3 items-start">
-                        <span class="shrink-0 w-6 h-6 flex items-center justify-center bg-blue-100 text-blue-600 text-xs font-bold rounded-full mt-1">2</span>
-                        <p class="text-gray-600 text-sm leading-relaxed">
-                            <strong class="text-gray-800">고린도전서 14:11</strong> 그러므로 내가 그 소리의 뜻을 알지 못하면 내가 말하는 자에게 외국인이 되고 말하는 자도 내게 외국인이 되리니
-                        </p>
+                    <li>
+                        <strong>삼위일체의 신비:</strong> 하나님은 한 분이시지만 동시에 세 위격(성부, 성자, 성령)으로 계신다는 놀라운 존재의 신비를 계시합니다.
                     </li>
-                    <li class="flex gap-3 items-start">
-                        <span class="shrink-0 w-6 h-6 flex items-center justify-center bg-blue-100 text-blue-600 text-xs font-bold rounded-full mt-1">3</span>
-                        <p class="text-gray-600 text-sm leading-relaxed">
-                            <strong class="text-gray-800">골로새서 3:16</strong> 그리스도의 말씀이 너희 속에 풍성히 거하여 모든 지혜로 피차 가르치며 권면하고 시와 찬송과 신령한 노래를 부르며 감사하는 마음으로 하나님을 찬양하고
-                        </p>
+                    <li>
+                        <strong>하나님의 작정(Decrees):</strong> 하나님께서 이 세상을 창조하시고 다스리시는 모든 일을 영원 안에서 이미 계획하셨다는 사실입니다.
+                    </li>
+                    <li>
+                        <strong>하나님의 섭리(Providence):</strong> 하나님께서 그 작정을 따라 이 세상을 만드시고 또한 다스리시며 실행하고 계신다는 사실입니다.
                     </li>
                 </ul>
-            </section>
 
-            <!-- 5. Commentary Section -->
-            <section class="space-y-6">
-                <div class="flex items-center gap-3">
-                    <div class="w-1 h-6 bg-gray-400"></div>
-                    <h2 class="text-xl font-bold text-gray-800">교리 해설</h2>
-                </div>
-                
-                <div class="prose prose-blue max-w-none">
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        신앙고백서 1장 8항은 성경의 원본(Original Texts)이 가진 절대적인 권위와, 이를 바탕으로 한 번역 성경의 필요성을 다루고 있습니다.
-                    </p>
+                <h3 class="font-bold text-lg text-gray-900 mt-4">2. 믿음: 성경을 읽는 첫 관문</h3>
+                <p>
+                    성경은 "하나님이 정말로 계신가?"라는 질문에 대해 철학적인 논쟁을 제공하지 않습니다. 성경은 자연과 양심, 그리고 성경 자체에 하나님이 계시되고 있음을 선포하며, <strong class="text-blue-600">하나님이 계신다는 사실을 믿음으로 받아들일 것</strong>을 전제합니다. 믿음이 없는 눈으로는 하나님이 계신다는 어떤 증거도 찾지 못할 것입니다. 그러나 믿음으로 나아가는 자는 하나님이 나타내신 계시를 통해 그 증거를 분명히 보게 됩니다.
+                </p>
 
-                    <!-- Commentary Point 1 -->
-                    <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm mb-6 transition hover:shadow-md">
-                        <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center gap-2">
-                            <i class="fas fa-scroll text-blue-500 text-sm"></i>
-                            원어 성경의 최종적 권위
-                        </h3>
-                        <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                            하나님께서는 구약은 히브리어로, 신약은 헬라어로 기록하게 하셨습니다. 이 원어 성경만이 하나님의 직접적인 영감을 받은 최종 권위를 가집니다. 따라서 신학적인 논쟁이 발생했을 때, 교회는 번역본이 아닌 원어 성경(히브리어와 헬라어 본문)을 최종적인 판단의 근거로 삼아야 합니다.
-                        </p>
-                    </div>
+                <h3 class="font-bold text-lg text-gray-900 mt-4">3. 무신론의 어두움과 신앙의 합리성</h3>
+                <p>
+                    하나님이 계신다는 믿음이 없으면 우주의 창조, 인간의 존귀와 타락, 구원과 종말에 대한 모든 비밀은 알 수 없는 어둠에 묻히고 맙니다. 성경은 마음에 하나님이 없다고 하는 자를 가리켜 <strong class="text-red-600">'어리석은 자'</strong>라고 규정합니다(시 14:1). 이는 증거가 부족해서가 아니라, 믿음을 거부하는 그들의 어리석음 때문입니다. 하나님이 보이시는 증거를 받아들이는 믿음은 불합리하지 않으며, 오히려 참된 합리성을 포함합니다. 반면, 명백한 증거 앞에서도 눈을 감는 불신앙이야말로 합리성을 전적으로 부인하는 태도입니다.
+                </p>
+            </div>
+        </section>
 
-                    <!-- Commentary Point 2 -->
-                    <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-5 shadow-sm mb-6 transition hover:shadow-md">
-                        <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center gap-2">
-                            <i class="fas fa-shield-alt text-blue-500 text-sm"></i>
-                            하나님의 섭리에 의한 보존
-                        </h3>
-                        <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                            원본(자필 원고)은 현재 남아있지 않지만, 하나님께서는 당신의 '독특한 배려와 섭리'로 사본들을 통해 성경 본문이 모든 시대에 순수하게 보존되도록 역사하셨습니다. 우리는 현재 우리가 가진 원어 성경이 하나님의 말씀을 정확하게 담고 있음을 신뢰할 수 있습니다(authentic).
-                        </p>
-                    </div>
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100">적용 질문</h2>
+            <ul class="list-none space-y-4 text-gray-700">
+                <li class="flex gap-3">
+                    <span class="font-bold text-blue-600 flex-shrink-0">1.</span>
+                    <p>여러분은 하나님이 계신다는 사실을 무엇을 통해서 아십니까?</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold text-blue-600 flex-shrink-0">2.</span>
+                    <p>하나님이 계신다는 것을 믿고 성경을 읽는 것과 그렇지 않은 것의 차이를 설명해보시기 바랍니다. 여러분 스스로 이러한 차이를 경험하신 적은 없습니까?</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold text-blue-600 flex-shrink-0">3.</span>
+                    <p>여러분은 사람들로부터 하나님이 믿어지지 않으니 내게 증거를 보여달라는 요구를 받아보신 적이 있으십니까? 무엇이라고 말해주어야 하겠습니까?</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold text-blue-600 flex-shrink-0">4.</span>
+                    <p>하나님이 계신다는 것이 결국 믿음의 영역이라면, 그것은 객관적이지 않고 다만 주관적일 뿐일까요? 만일 주관적이라면 하나님은 우리 마음에 계실 뿐, 이 세상과 역사와는 상관이 없는 것이지 않을까요? 하나님이 살아계심을 믿는다는 고백의 의미를 설명해 보셔요.</p>
+                </li>
+            </ul>
+        </section>
 
-                    <!-- Commentary Point 3 -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 shadow-sm transition hover:shadow-md">
-                        <h3 class="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">
-                            <i class="fas fa-globe text-gray-500 text-sm"></i>
-                            모국어 번역의 필요성
-                        </h3>
-                        <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                            모든 성도가 히브리어와 헬라어를 알 수 있는 것은 아닙니다. 그러나 하나님은 모든 백성이 말씀을 읽고 묵상하여 예배하기를 원하십니다. 그러므로 성경은 반드시 각 나라의 통용되는 언어(모국어)로 번역되어야 합니다. 로마 가톨릭이 라틴어 성경만을 고집했던 것과 달리, 개혁교회는 성도들이 이해할 수 있는 언어로 된 성경을 손에 들려주는 것을 사명으로 여깁니다.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Footer Message -->
-                <div class="mt-8 text-center">
-                    <p class="text-sm text-gray-400 italic">
-                        "하나님의 말씀이 모든 사람 안에 풍성히 거하게 하라."
-                    </p>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-8 text-center mt-12">
-            <p class="text-gray-400 text-xs mb-2">Westminster Confession of Faith</p>
-            <p class="text-gray-500 text-[10px]">&copy; 2024 날마다 교리. All rights reserved.</p>
+        <footer class="text-center text-xs text-gray-400 mt-8 pb-4">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
 
-    </div>
+    </main>
 
-    <!-- Script Configuration -->
     <script>
-        // 날짜 키 설정 (MMDD 형식)
-        const DATE_KEY = '0115';
-
-        // 날짜 확인 및 콘텐츠 로깅 (디버깅용)
-        console.log(`Current Content Date: ${DATE_KEY}`);
+        // --- Configuration ---
+        const DATE_ID = "0115"; // January 15th
+        const ADDR_FILE = "../address/dcaddr.txt";
         
-        // 오디오 플레이어 로직 (필요시 활성화)
-        document.addEventListener('DOMContentLoaded', () => {
-            // hidden 클래스가 있는 섹션은 자동으로 숨겨집니다.
-        });
+        // --- Elements ---
+        const playerContainer = document.getElementById('youtube-player');
+        const playButton = document.getElementById('play-button');
+        const playIcon = document.getElementById('play-icon');
+        const loadingIcon = document.getElementById('loading-icon');
+        const statusText = document.getElementById('player-status');
+        const errorMsg = document.getElementById('error-message');
+        const controlsDiv = document.getElementById('player-controls');
+
+        let player;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        // --- Logic ---
+
+        // 1. Fetch Video ID
+        async function fetchVideoId() {
+            try {
+                const response = await fetch(ADDR_FILE);
+                if (!response.ok) throw new Error("주소 파일을 불러올 수 없습니다.");
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                const todayLine = lines.find(line => line.trim().startsWith(DATE_ID));
+                
+                if (!todayLine) {
+                    throw new Error("TODAY_NOT_FOUND");
+                }
+
+                // Extract URL (assuming format: MMDD URL)
+                const urlPart = todayLine.replace(DATE_ID, '').trim();
+                
+                // Parse Video ID using Regex
+                const regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                const match = urlPart.match(regExp);
+
+                if (match && match[1]) {
+                    return match[1];
+                } else {
+                    throw new Error("INVALID_URL");
+                }
+
+            } catch (error) {
+                console.error("Video Fetch Error:", error);
+                if (error.message === "TODAY_NOT_FOUND") {
+                    showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
+                } else {
+                    showError("오디오 정보를 불러오는 중 오류가 발생했습니다.");
+                }
+                return null;
+            }
+        }
+
+        // 2. UI Helper Functions
+        function showError(msg) {
+            statusText.style.display = 'none';
+            playButton.style.display = 'none';
+            errorMsg.textContent = msg;
+            errorMsg.classList.remove('hidden');
+        }
+
+        function setButtonLoading(isLoading) {
+            playButton.disabled = isLoading;
+            if (isLoading) {
+                playIcon.classList.add('hidden');
+                loadingIcon.classList.remove('hidden');
+                statusText.textContent = "플레이어 준비 중...";
+            } else {
+                playIcon.classList.remove('hidden');
+                loadingIcon.classList.add('hidden');
+                statusText.textContent = "재생하기";
+            }
+        }
+
+        // 3. Initialize YouTube API
+        function loadYoutubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // 4. Player Setup (Called by API)
+        function onYouTubeIframeAPIReady() {
+            if (!videoId) return;
+
+            player = new YT.Player('youtube-player', {
+                height: '360',
+                width: '640',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            setButtonLoading(false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; // Pause icon
+                statusText.textContent = "재생 중";
+                playButton.setAttribute('aria-label', '일시정지');
+                
+                // Show player, hide large button if desired, or keep as toggle
+                playerContainer.classList.remove('hidden');
+                controlsDiv.classList.add('hidden'); // Hide big button once playing starts
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; // Play icon
+                statusText.textContent = "일시정지됨";
+                playButton.setAttribute('aria-label', '재생');
+            }
+        }
+
+        // 5. Main Execution
+        (async function init() {
+            setButtonLoading(true);
+            videoId = await fetchVideoId();
+            
+            if (videoId) {
+                loadYoutubeAPI();
+                
+                playButton.addEventListener('click', () => {
+                    if (isPlayerReady) {
+                        playerContainer.classList.remove('hidden');
+                        player.playVideo();
+                    }
+                });
+            }
+        })();
+
     </script>
 </body>
 </html>
