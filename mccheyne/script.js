@@ -75,6 +75,15 @@
     }
 
     // --- 데이터 로딩 및 파싱 ---
+    // mcbible.txt와 HTML 파일 간의 책 코드 불일치를 해결하기 위한 매핑
+    // mcbible.txt (오디오 소스) → bible_html (본문 파일) 형식으로 변환
+    const bookCodeMapping = {
+        "MRK": "MAR",  // 마가복음: mcbible.txt는 MRK, bible_html은 MAR 사용
+        "JHN": "JOH",  // 요한복음: mcbible.txt는 JHN, bible_html은 JOH 사용
+        "PHP": "PHI",  // 빌립보서: mcbible.txt는 PHP, bible_html은 PHI 사용
+        "JAS": "JAM"   // 야고보서: mcbible.txt는 JAS, bible_html은 JAM 사용
+    };
+
     async function loadAudioKeys() {
         try {
             const response = await fetch('https://kbd71.github.io/bible71/address/mcbible.txt');
@@ -89,8 +98,10 @@
                         const keyParts = longKey.split('_');
                         if (keyParts.length >= 3) {
                             const book = keyParts[2];
+                            // 책 코드 매핑 적용 (MRK → MAR 등)
+                            const mappedBook = bookCodeMapping[book] || book;
                             const chapter = parseInt(keyParts.at(-1), 10);
-                            const shortKey = `${book}_${chapter}`;
+                            const shortKey = `${mappedBook}_${chapter}`;
                             audioKeyMap.set(shortKey, url);
                         }
                     }
