@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 22일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        
+        /* 성경 듣기 버튼 숨김 처리 */
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 22일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 5장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 9장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 20장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 9장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 22일: 언약적 긴장과 사역자의 자기 부인</h3>
+                            <h4>오늘의 길잡이: 약속과 현실 사이의 광야</h4>
+                            <p>오늘 우리가 마주하는 본문들은 하나님의 약속이 역사 속에서 집행될 때 발생하는 거센 저항과 그에 대응하는 성도의 자세를 다룹니다. 출애굽기 5장은 모세가 하나님의 명령에 순종하여 바로 앞에 섰으나, 상황은 오히려 악화되는 역설적인 위기를 보여줍니다.</p>
+                            <p>누가복음 9장에서는 그리스도의 영광스러운 정체성과 그분을 따르는 제자들이 져야 할 십자가의 무게가 교차하며, 고린도전서 9장은 복음 전파를 위해 사도적 권리를 스스로 포기하는 바울의 실천적 고백을 제시합니다. 욥기 20장은 인과응보의 논리로 고난을 난도질하는 세상을 보여줌으로써, 우리의 시선이 땅의 결과가 아닌 하나님의 주권에 머물러야 함을 역설합니다. 오늘 하루, 약속의 성취를 향한 과정 속에 있는 '인내'와 '포기'의 신학을 묵상하시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">첫 번째 본문으로 이동</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 5장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">모세의 순종에도 불구하고 이스라엘의 학대가 심해진 상황은 하나님의 통치에 대해 무엇을 시사합니까?</span>
+                            </div>
+                            <h3>출애굽기 5장: 바로의 거역과 가중되는 고난</h3>
+                            <h4>상세 개요</h4>
+                            <p>모세와 아론은 바로를 찾아가 이스라엘의 해방을 요구하나, 바로는 <span class="scripture-quote">여호와가 누구이기에 내가 그의 목소리를 듣고 이스라엘을 보내겠느냐</span>(2절)라고 오만하게 대답합니다. 바로는 오히려 백성들의 노역을 가중시켜 짚을 주지 않고도 같은 양의 벽돌을 구워내라고 명령합니다. 고통에 처한 백성들은 모세를 원망하고, 모세는 낙심하여 하나님께 호소합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 세상 권세의 저항과 하나님의 작정:</strong> 바로의 완악함은 하나님의 통치를 거부하는 타락한 인류의 전형을 보여줍니다. 그러나 이 위기는 하나님의 실패가 아니라, 애굽의 우상들을 심판하고 여호와가 유일하신 주님이심을 만천하에 드러내기 위한 주권적 작정의 서막입니다.</p>
+                            <p><strong>2. 중보자의 낙심과 섭리적 훈련:</strong> 모세는 순종하면 즉각적인 해방이 올 것이라 기대했으나 현실은 정반대였습니다. 이는 사역자가 자기 확신이 아닌 오직 하나님의 약속만을 의지하도록 만드시는 광야 훈련의 일환입니다. 하나님의 시간표는 인간의 조급함을 넘어 더 거대하고 완전한 구원을 향해 나아갑니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_05.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 9장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">예수께서 베드로의 고백 이후 즉시 고난과 죽음을 예고하신 이유는 무엇입니까?</span>
+                            </div>
+                            <h3>누가복음 9장: 그리스도의 영광과 십자가 제자도</h3>
+                            <h4>상세 개요</h4>
+                            <p>예수님은 열두 제자를 파송하시고 오천 명을 먹이시는 권능을 보이십니다. 베드로의 신앙 고백을 받으신 직후 주님은 자신의 고난과 죽음을 예고하시며, 나를 따르려거든 자기를 부인하고 날마다 제 십자가를 져야 함을 가르치십니다. 변화산에서의 영광스러운 변모 이후에도 제자들의 불신앙과 명예욕을 책망하시며, 예루살렘을 향한 고난의 길을 굳게 결심하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 기독론적 정체성과 비하(Humiliation):</strong> 베드로는 예수님을 '하나님의 그리스도'로 고백했으나, 그 승리의 메시아가 고난받는 종이어야 한다는 사실은 이해하지 못했습니다. 예수님은 승귀(Exaltation)에 이르기 전 반드시 비하의 길을 통과해야 함을 강조하심으로, 구속사가 인간의 영광이 아닌 하나님의 희생으로 성취됨을 보여줍니다.</p>
+                            <p><strong>2. 날마다 지는 십자가의 성격:</strong> 제자도는 일회적인 결단이 아니라 <span class="scripture-quote">날마다 제 십자가를 지고</span>(23절) 주를 따르는 성화의 과정입니다. 이는 세상을 향해 죽고 그리스도 안에서 사는 자만이 소유할 수 있는 하나님 나라 시민의 역설적인 생명력을 의미합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_09.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 20장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">나아마 사람 소발이 주장하는 악인의 운명론은 왜 욥에게 위로가 아닌 정죄가 됩니까?</span>
+                            </div>
+                            <h3>욥기 20장: 소발의 재공격과 인과응보의 독설</h3>
+                            <h4>상세 개요</h4>
+                            <p>소발은 욥의 항변에 분노하며 두 번째 변론을 시작합니다. 그는 악인의 이김은 잠시뿐이며 불경건한 자의 즐거움은 잠깐이라고 주장합니다. 악인이 하늘까지 높아질지라도 결국 자기 똥처럼 멸망할 것이며, 그가 불의하게 취한 재물은 독이 되어 그를 죽일 것이라고 잔인하게 묘사합니다. 소발은 욥이 처한 고난을 악인이 당할 당연한 분복으로 단정 짓습니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 율법주의적 인과율의 한계:</strong> 소발은 하나님이 악인을 심판하신다는 보편적 진리를 욥의 개별적 고난에 기계적으로 대입합니다. 이는 하나님의 주권적 섭리를 인간의 협소한 윤리 체계 안에 가두려는 시도이며, 고난을 통해 자기 백성을 정금같이 만드시는 하나님의 은혜로운 연단을 전혀 이해하지 못한 소치입니다.</p>
+                            <p><strong>2. 은혜 없는 공의의 폭력성:</strong> <span class="scripture-quote">이것이 악인이 하나님께 받을 분복이요</span>(29절). 소발의 논리는 논리적으로는 견고해 보이나 긍휼이 결여되어 있습니다. 복음이 없는 신학은 고통받는 자를 세우는 도구가 아니라 죽이는 흉기가 될 수 있음을 경고하는 개혁주의적 교훈입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_20.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 9장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 사도로서의 정당한 권리를 스스로 포기한 가장 궁극적인 목적은 무엇입니까?</span>
+                            </div>
+                            <h3>고린도전서 9장: 복음의 진보를 위한 권리의 포기</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 자신이 사도임을 변호하며 복음 전파자가 생활의 후원을 받을 권리가 있음을 논리적으로 증명합니다. 그러나 그는 복음에 아무 장애가 없게 하기 위해 이 권리를 하나도 쓰지 않았다고 선언합니다. 바울은 모든 사람에게 자유로우나 스스로 모든 사람의 종이 된 것은 더 많은 사람을 얻고자 함이며, 상을 얻기 위해 달음질하는 선수처럼 자신의 몸을 쳐 복종시킨다고 고백합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 기독교적 자유와 자발적 예속:</strong> <span class="scripture-quote">내가 모든 사람에게서 자유로우나 스스로 모든 사람에게 종이 된 것은 더 많은 사람을 얻고자 함이라</span>(19절). 바울에게 자유는 자신의 권리를 주장하는 수단이 아니라, 영혼 구원을 위해 기꺼이 권리를 내려놓는 사랑의 근거입니다. 이는 그리스도의 비하를 사도적 삶에서 재현한 것입니다.</p>
+                            <p><strong>2. 상급론과 성도의 견인:</strong> 바울은 복음을 전한 후 자신이 도리어 버림받을까 두려워하여 자신을 쳐 복종시킵니다. 이는 구원 탈락에 대한 공포가 아니라, 부르심의 상을 향해 끝까지 달려가는 성화의 치열함을 보여줍니다. 하나님은 은혜로 우리를 부르시지만, 그 은혜를 아는 자는 경주자처럼 최선을 다해 하나님을 영화롭게 합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_09.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 십자가의 역설과 약속의 신실함</h4>
+                            <p>오늘의 네 본문은 **'하나님의 영광스러운 목적이 역사 속에서 어떻게 비천함과 고난을 통과하여 성취되는가'**라는 구속사적 신비를 연결합니다. 출애굽기 5장에서 모세의 순종 뒤에 찾아온 학대는 절망의 신호가 아니라, 인간의 모든 가능성이 끊어진 자리에서 일하시는 하나님의 전능하심을 드러내기 위한 필연적 과정이었습니다. 이는 누가복음 9장에서 예수께서 변화산의 영광을 경험하신 후 곧바로 '예루살렘의 고난'을 향해 얼굴을 굳게 하신 것과 일맥상통합니다.</p>
+                            <p>이러한 신학적 흐름은 고린도전서 9장의 바울을 통해 실천적으로 계승됩니다. 바울은 복음의 진보를 위해 사도적 영광(권리)을 포기하고 스스로 종의 자리에 처합니다. 이는 욥기 20장에서 소발이 주장하는 '성공 지향적 인과응보'의 가치관을 정면으로 거부하는 것입니다. 소발은 땅의 결과로 신앙의 진위를 판단하려 했으나, 성경은 고난과 포기가 하나님의 더 큰 영광을 담는 거룩한 그릇임을 역설합니다.</p>
+                            <p><strong>구속사적 결론:</strong> 하나님의 주권적 역사는 고난을 우회하지 않고 도리어 고난을 통과하여 하나님의 능력을 입증합니다. 모세의 위기는 출애굽의 위대한 승리를 위한 발판이었고, 그리스도의 죽음은 부활의 전제였습니다. 우리는 오늘 우리에게 주어진 십자가와 권리 포기를 실패로 여기지 말고, 그 너머에서 일하시는 하나님의 신실하신 통치를 신뢰하며 경주를 계속해야 합니다. (Soli Deo Gloria)</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
