@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 26일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        
+        /* 성경 듣기 버튼 숨김 처리 */
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 26일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 9장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 13장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 24장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 13장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 26일: 공의로운 심판과 사랑의 실체</h3>
+                            <h4>오늘의 길잡이: 스스로를 계신 분의 이름이 전파되는 역설</h4>
+                            <p>오늘 우리가 묵상할 본문들은 하나님의 공의로운 심판과 그 심판의 목적, 그리고 그 모든 법의 완성인 사랑을 조명합니다. 출애굽기 9장은 애굽의 경제적 기초와 우상들을 파괴하는 재앙들을 통해 여호와의 이름이 온 천하에 전파되게 하시는 하나님의 주권적 작정을 보여줍니다.</p>
+                            <p>누가복음에서는 회개하지 않는 자를 향한 심판의 경고와 동시에, 열매 없는 나무를 기다려 주시는 하나님의 인내를 다룹니다. 욥기 24장은 악인의 일시적 형통 앞에서 하나님의 심판 시기를 묻는 욥의 탄식을, 고린도전서 13장은 모든 신령한 은사보다 우월한 하나님 나라의 본질인 사랑을 선포합니다. 오늘 읽기를 통해 심판하시는 하나님의 거룩하심과 우리를 인내로 이끄시는 사랑의 깊이를 함께 묵상하시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">출애굽기 9장부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 9장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">하나님께서 바로를 세우시고 재앙을 내리시는 궁극적인 목적은 무엇이라고 말씀하십니까?</span>
+                            </div>
+                            <h3>출애굽기 9장: 거듭되는 재앙과 하나님의 이름 전파</h3>
+                            <h4>상세 개요</h4>
+                            <p>다섯 번째(가축의 죽음), 여섯 번째(악질), 일곱 번째(우박) 재앙이 애굽 전역에 임합니다. 하나님께서는 재앙 중에도 이스라엘의 가축은 구별하여 보호하십니다. 특히 우박 재앙 전에 바로에게 말씀하시기를, 그를 세운 목적이 하나님의 능력을 보이고 하나님의 이름이 온 천하에 전파되게 하려 함이라고 선포하십니다. 바로는 일시적으로 죄를 인정하는 듯하나, 비가 그치자 다시 마음을 완악하게 합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 주권적 작정과 선택적 심판:</strong> 가축의 죽음과 우박 재앙에서 이스라엘이 거주하는 고센 땅을 구별하신 것은 하나님의 주권적 선택을 보여줍니다. 심판은 무차별적인 파괴가 아니라, 자기 백성을 보호하시고 세상을 정화하시는 하나님의 질서 정연한 작정의 집행입니다.</p>
+                            <p><strong>2. 하나님의 이름의 영광:</strong> <span class="scripture-quote">내가 너를 세웠음은 나의 능력을 네게 보이고 내 이름이 온 천하에 전파되게 하려 하였음이니라</span>(16절). 바로의 완악함조차 하나님의 영광을 드러내는 도구로 사용됩니다. 이는 개혁주의 예정론의 중요한 관점으로, 인간의 거부조차 하나님의 절대적 통치 아래 있음을 시사합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_09.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 13장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">실로암 망대 사건을 통해 주님께서 가르치시는 '고난과 죄'의 관계에 대한 개혁주의적 교훈은 무엇입니까?</span>
+                            </div>
+                            <h3>누가복음 13장: 회개의 촉구와 겨자씨 같은 하나님 나라</h3>
+                            <h4>상세 개요</h4>
+                            <p>예수께서는 빌라도에 의해 죽임당한 갈릴리 사람들과 실로암 망대 사고로 죽은 자들을 언급하시며, 그들이 죄가 더 많아서 죽은 것이 아니라 모든 이가 회개하지 않으면 이와 같이 망할 것이라고 경고하십니다. 이어 열매 없는 무화과나무의 비유를 통해 하나님의 인내를 가르치시고, 안식일에 꼬부라진 여인을 고치시며 안식일의 참된 의미를 회복하십니다. 하나님 나라가 겨자씨와 누룩처럼 확장될 것을 선포하시며 좁은 문으로 들어가기를 힘쓰라고 말씀하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 보편적 전적 타락과 회개의 긴박성:</strong> 주님은 고난을 특정 개인의 죄에 대한 인과응보로만 보는 유대적 관점을 교정하십니다. 모든 인간은 하나님 앞에 심판받을 죄인이며, 타인의 고난은 나 자신의 회개를 촉구하는 하나님의 일반적인 경고임을 가르치십니다. 이는 인간의 전적 부패와 하나님의 거부할 수 없는 은혜의 필요성을 역설합니다.</p>
+                            <p><strong>2. 하나님 나라의 역동적 확장:</strong> 겨자씨와 누룩의 비유는 하나님 나라가 비가시적이고 은밀하게 시작되나, 결국 온 세상을 변화시킬 주권적 능력을 가지고 있음을 보여줍니다. 이는 성도의 삶 속에 심긴 복음의 씨앗이 하나님의 정하신 때에 반드시 열매 맺을 것임을 확증하는 성도의 견인 교리와 연결됩니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_13.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 24장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">욥이 제기한 "어찌하여 전능자는 때를 정해 놓지 아니하셨는고"라는 질문은 어떤 신학적 실존을 반영합니까?</span>
+                            </div>
+                            <h3>욥기 24장: 불의한 세상과 하나님의 침묵에 대한 고뇌</h3>
+                            <h4>상세 개요</h4>
+                            <p>욥은 왜 하나님께서 불의를 심판하실 정한 시간을 보이지 않으시는지 질문합니다. 그는 땅의 경계표를 옮기고 빈민을 학대하며 고아의 물건을 탈취하는 악인들의 행태를 적나라하게 묘사합니다. 악인들이 어둠 속에서 범죄하며 살아가고 있음에도 하나님이 그들을 즉각 심판하지 않으시는 상황에 대해 욥은 고통스러워합니다. 그러나 그는 결국 악인들도 물 위의 거품처럼 사라질 것이며 하나님의 공의로운 판단 아래 있게 될 것임을 암시합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 일반 은총 하의 악의 허용:</strong> 욥의 탄식은 악인의 형통이라는 난제를 다룹니다. 하나님은 당신의 작정된 때가 이르기까지 일반 은총의 영역에서 악인의 행위를 내버려 두시기도 합니다. 이는 심판이 지체되는 것이 아니라, 하나님의 거룩한 시간표 안에서 가장 완벽한 공의를 실현하기 위한 과정임을 보여줍니다.</p>
+                            <p><strong>2. 보이지 않는 주권에 대한 신뢰:</strong> 욥은 비록 하나님의 '때'를 알 수 없으나, 하나님의 '공의' 자체를 부정하지는 않습니다. 이는 개혁주의 신앙이 고백하는 '이해되지 않는 섭리' 앞에서도 하나님의 선하심을 붙드는 성숙한 신앙의 태도를 요구합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_24.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 13장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 모든 신령한 은사보다 '사랑'을 가장 뛰어난 길로 제시한 신학적 근거는 무엇입니까?</span>
+                            </div>
+                            <h3>고린도전서 13장: 사랑의 찬가와 은사의 완성</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 방언, 예언, 지식, 믿음 등 모든 신령한 은사가 있을지라도 사랑이 없으면 아무것도 아니라고 선포합니다. 사랑의 속성(오래 참음, 온유함 등)을 나열하며, 사랑은 결코 떨어지지 않고 영원히 지속될 것임을 강조합니다. 예언도 폐하고 방언도 그치겠으나, 온전한 것이 올 때에는 부분적으로 하던 것들이 폐해질 것입니다. 결국 믿음, 소망, 사랑 중 제일은 사랑이라고 결론짓습니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님 성품으로서의 사랑(Agapē):</strong> 여기서의 사랑은 단순한 감정이 아니라 하나님의 성품 그 자체입니다. 모든 은사는 하나님 나라를 세우기 위한 도구(Means)일 뿐이지만, 사랑은 하나님 나라의 본질(Essence)입니다. 따라서 사랑은 은사를 사용하는 원동력이자 최종적인 목적지가 됩니다.</p>
+                            <p><strong>2. 종말론적 유효성:</strong> 지식과 예언은 이 세상의 유한함 속에서만 필요하지만, 사랑은 하나님과 영원히 대면할 그 나라에서도 여전히 지속됩니다. <span class="scripture-quote">지금은 우리가 거울로 보는 것 같이 희미하나 그 때에는 얼굴과 얼굴을 대하여 볼 것이요</span>(12절). 이는 성도가 이 땅에서 실천하는 사랑이 곧 하나님 나라를 미리 맛보는(Foretaste) 것임을 의미합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_13.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 심판의 공의와 사랑의 영원성</h4>
+                            <p>오늘의 네 본문은 **'하나님의 공의로운 심판이 지향하는 궁극적인 목적은 무엇인가'**라는 주제로 유기적으로 연결됩니다. 출애굽기 9장에서 애굽을 향한 재앙은 단순한 파괴가 아니라, 온 천하에 하나님의 이름을 전파하며 창조주의 주권을 회복하는 거룩한 과정입니다. 이는 누가복음 13장에서 주님이 선포하신 회개의 메시지와 궤를 같이합니다. 심판의 경고는 멸망이 목적이 아니라, 열매 맺는 삶으로 돌이키게 하시려는 하나님의 자비로운 초대입니다.</p>
+                            
+                            <p>욥기 24장은 악인의 형통과 심판의 지체라는 현실 속에서 우리가 던지는 질문에 답합니다. 하나님의 심판은 인간의 조급함에 매여 있지 않으며, 하나님의 작정된 때에 가장 공의롭게 실현될 것입니다. 이러한 심판과 통치의 기초 위에서 성도가 붙들어야 할 최고의 가치는 고린도전서 13장이 선포하는 '사랑'입니다. 하나님의 심판은 사랑 없는 세상을 심판하시는 것이며, 하나님의 구원은 사랑이 통치하는 나라를 완성하시는 것입니다.</p>
+
+                            <p><strong>구속사적 결론:</strong> 하나님은 재앙을 통해 거짓 신들을 파하시고(출애굽기), 회개를 통해 우리를 하나님 나라로 부르시며(누가복음), 심판의 지체 속에서도 공의를 포기하지 않으십니다(욥기). 그리고 이 모든 율법과 심판의 완성으로서 그리스도의 사랑을 우리에게 부어주셨습니다. 우리는 오늘 하나님의 공의로운 심판을 경외하는 동시에, 영원히 변치 않을 그분의 사랑 안에서 하나님 나라의 지체로 살아가야 합니다. (Soli Deo Gloria)</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
