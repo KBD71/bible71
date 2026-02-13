@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 14일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky;
+            top: 0;
+            background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            padding: 10px;
+            margin: 0 -10px 2rem -10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 14일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 47장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 1장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 12장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 1장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 14일: 언약적 신실하심과 구속의 서막</h3>
+                            <h4>오늘의 길잡이: 약속의 성취를 향한 역사의 행보</h4>
+                            <p>오늘의 읽기표는 구속사적으로 매우 중요한 전환점들을 포함하고 있습니다. 구약의 야곱 가족이 애굽 고센 땅에 안착하며 큰 민족을 이룰 준비를 마치는 장면(창세기), 그리고 신약의 서막을 알리며 그리스도의 탄생을 예고하는 누가복음의 웅장한 시작이 교차합니다.</p>
+                            <p>또한, 인간의 고통 속에서 하나님의 절대 주권을 고백하는 욥의 변론과, 세상의 지혜를 폐하고 십자가의 도로 새로운 지혜를 세우시는 바울의 선포가 이어집니다. 독자께서는 오늘 본문을 통해 하나님께서 어떻게 자기 백성을 돌보시며, 그리스도를 통해 그분의 영광을 드러내시는지 묵상하시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1', 'book1')">창세기 47장 읽기 시작</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 창세기 47장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">나그네 인생을 고백하는 야곱이 애굽의 통치자 바로를 축복할 수 있었던 근거는 무엇입니까?</span>
+                            </div>
+                            <h3>창세기 47장: 나그네 인생과 언약적 안식</h3>
+                            <h4>상세 개요</h4>
+                            <p>요셉의 가족들이 애굽 왕 바로를 만나 고센 땅에 거주할 허락을 받습니다. 야곱은 바로 앞에 서서 자신의 인생을 <span class="scripture-quote">나그네 길의 세월</span>(9절)이라 칭하며 축복합니다. 기근이 극심해지자 요셉은 애굽의 모든 토지를 바로의 소유로 삼는 행정적 지혜를 발휘하며 백성을 보존합니다. 임종이 가까워진 야곱은 요셉에게 자신을 애굽이 아닌 조상의 묘지에 장사할 것을 맹세시킵니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 나그네 정체성과 하나님의 도성:</strong> 야곱의 고백은 히브리서 11장이 증언하듯 이 땅에 영구한 도성이 없음을 아는 신앙의 표현입니다. 바로를 축복하는 야곱의 모습은, 비록 현실에서는 기근을 피한 나그네일지라도 영적으로는 하나님의 언약을 소유한 왕 같은 제사장의 권위를 보여줍니다.</p>
+                            <p><strong>2. 약속의 땅을 향한 신실함:</strong> 야곱이 애굽의 고센 땅에 안착했음에도 불구하고 가나안 매장을 고집한 것은 하나님의 약속에 대한 강력한 신뢰입니다. 이는 애굽이 성도의 최종 목적지가 아니며, 하나님께서 약속하신 안식의 땅이 반드시 주어질 것임을 바라보는 종말론적 신앙의 표본입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_47.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 1장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">침례 요한과 예수 그리스도의 탄생 예고는 하나님의 구원 역사가 어떻게 성취되고 있음을 보여줍니까?</span>
+                            </div>
+                            <h3>누가복음 1장: 은혜의 방문과 성취되는 약속</h3>
+                            <h4>상세 개요</h4>
+                            <p>누가는 데오빌로에게 예수 그리스도의 생애를 체계적으로 기록하여 보냅니다. 제사장 사가랴에게 천사가 나타나 침례 요한의 탄생을 예고하고, 가브리엘 천사는 나사렛 마리아에게 성령으로 말미암은 그리스도의 수태를 고지합니다. 마리아는 엘리사벳을 방문하여 찬양(Magnificat)을 드리고, 사가랴 또한 요한이 탄생하자 입이 열려 하나님의 구원을 찬송합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 구약의 완성으로서의 복음:</strong> 사가랴와 마리아의 찬가는 모두 아브라함과 다윗에게 주셨던 언약을 상기시킵니다. <span class="scripture-quote">그 종 이스라엘을 도우사 긍휼히 여기시고 기억하시되</span>(54절)라는 고백은, 침묵의 시간을 깨고 하나님께서 친히 인간의 역사 속에 개입하셔서 구원의 작정을 집행하시기 시작했음을 선포합니다.</p>
+                            <p><strong>2. 성령의 사역과 동정녀 탄생:</strong> 마리아의 수태 고지는 그리스도의 인성과 신성이 신비롭게 연합되는 성육신의 교리를 담고 있습니다. 이는 인간의 혈통이나 노력으로 구원을 이룰 수 없으며, 오직 성령의 초자연적인 역사와 하나님의 전권적인 은혜로만 구원이 가능함을 시사합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_01.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 12장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">욥이 친구들의 지식을 비판하며 만물의 주권이 하나님께 있음을 강조하는 이유는 무엇입니까?</span>
+                            </div>
+                            <h3>욥기 12장: 하나님의 절대 지혜와 주권</h3>
+                            <h4>상세 개요</h4>
+                            <p>소발의 비판에 대해 욥이 응답합니다. 그는 친구들이 가진 지식이 특별한 것이 아니며, 들짐승과 공중의 새조차도 만물이 여호와의 손에 있음을 알고 있다고 일갈합니다. 욥은 하나님의 지혜와 권능이 무궁하여 왕들을 폐하시기도 하고 민족들을 멸하시기도 하는 등, 모든 세상의 질서와 생명이 하나님의 절대적인 통치 아래 있음을 장엄하게 서술합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 일반 계시를 통한 주권 선포:</strong> 욥은 자연 만물을 인용하여 하나님의 통치가 보편적임을 강조합니다. <span class="scripture-quote">모든 생물의 생명과 모든 사람의 육신의 목숨이 다 그의 손에 있느니라</span>(10절)는 고백은, 인간의 협소한 윤리 체계나 인과응보 논리로 하나님의 섭리를 다 이해할 수 없음을 선포하는 개혁주의적 주권론의 기초입니다.</p>
+                            <p><strong>2. 창조주의 자유와 작정:</strong> 욥은 하나님께서 세우기도 하시고 허물기도 하시는 분임을 역설합니다. 이는 고난의 한복판에서 인간의 의로움을 증명하기보다, 창조주 하나님께서 당신의 기쁘신 뜻대로 행하시는 절대적인 자유와 작정을 신뢰하겠다는 신앙적 항복의 의미를 담고 있습니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_12.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 1장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">세상의 지혜가 미련하게 여기는 '십자가의 도'가 믿는 자에게 하나님의 능력이 되는 이유는 무엇입니까?</span>
+                            </div>
+                            <h3>고린도전서 1장: 십자가의 지혜와 부르심</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 고린도 교회에 문안하며 그들이 그리스도 안에서 풍성한 은혜를 받았음을 상기시킵니다. 그러나 교회 내에 파벌이 형성되었다는 소식을 듣고 책망하며, 그리스도께서 나뉘지 않았음을 강조합니다. 그는 십자가의 도가 멸망하는 자들에게는 미련한 것이나 구원을 받는 우리에게는 하나님의 능력임을 선포하며, 하나님께서 세상의 약하고 미련한 것들을 택하셨음을 밝힙니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 십자가 지혜의 역설:</strong> 유대인은 표적을 구하고 헬라인은 지혜를 찾으나, 복음은 거리끼는 것이요 미련한 것인 '십자가'를 제시합니다. 이는 인간의 이성이나 공로로 구원에 이를 수 없음을 분명히 하며, 오직 그리스도의 대속 사역만이 하나님께 이르는 유일한 길임을 확증하는 기독론적 정수입니다.</p>
+                            <p><strong>2. 전적 은혜와 선택의 원리:</strong> 하나님께서 세상의 천한 것들과 없는 것들을 택하신 이유는 <span class="scripture-quote">아무 육체도 하나님 앞에서 자랑하지 못하게 하려 하심</span>(29절)입니다. 이는 구원의 원천이 인간의 조건에 있지 않고 하나님의 거부할 수 없는 은혜와 주권적 선택에 있음을 보여주는 구원론적 원리입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_01.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 하나님의 주권적 경륜과 은혜의 방문</h4>
+                            <p>오늘의 네 본문은 **'인간의 한계를 넘어서는 하나님의 주권적인 구원 계획'**이라는 거대한 신학적 주제로 수렴됩니다. 야곱의 나그네 인생이 고센 땅에서 민족의 보존으로 이어지듯, 하나님은 때로 기근과 시련을 통해 당신의 언약을 신실하게 집행하십니다. 이러한 구약의 예표적 보존은 누가복음 1장에서 그리스도의 탄생 예고를 통해 우주적 구원 사건으로 확장됩니다.</p>
+                            <p>욥기 12장은 인간의 좁은 지혜가 하나님의 광대한 섭리를 다 이해할 수 없음을 선언하며, 고린도전서 1장은 그 정점이 바로 세상이 미련하게 여기는 '십자가'에 있음을 확증합니다. 인간은 표적과 지혜를 구하며 자신의 의를 세우려 하지만, 하나님은 가장 수치스러운 십자가를 통해 가장 영광스러운 구원을 이루십니다.</p>
+                            <p>결론적으로, 구속사는 인간의 탁월함이 아닌 하나님의 낮아지심(비하)과 주권적 선택을 통해 진행됩니다. 야곱의 가족을 애굽으로 보내 보존하신 분이, 때가 차매 자기 아들을 이 땅에 보내어 십자가의 도로 우리를 부르셨습니다. 이 모든 과정에서 성도는 자랑할 것이 없으며, 오직 하나님께만 영광(Soli Deo Gloria)을 돌려야 함을 오늘의 본문들은 강력하게 시사합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId, color) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
