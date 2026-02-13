@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 27일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        /* 탭 활성화 컬러 */
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        
+        /* 성경 듣기 버튼 숨김 처리 */
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 27일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 10장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 14장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 25장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 14장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 27일: 하나님의 주권적 다스림과 거룩한 질서</h3>
+                            <h4>오늘의 길잡이: 스스로를 계시하시는 하나님과 그분의 부르심</h4>
+                            <p>오늘 우리가 묵상할 네 본문은 창조주 하나님의 절대적인 주권과 그분의 통치 아래 있는 백성들이 갖추어야 할 마땅한 자세를 조명합니다. 출애굽기 10장은 메뚜기 재앙과 흑암 재앙을 통해 애굽의 우상들을 심판하시는 하나님의 강력한 손을 보여줍니다. 이는 누가복음 14장에서 하나님 나라의 잔치 초대를 거절하는 완악함과 대조를 이룹니다.</p>
+                            <p>또한 욥기 25장은 빌닷의 마지막 발언을 통해 거룩하신 하나님 앞에 선 인간의 비천함을 역설하며, 고린도전서 14장은 성령의 은사가 공동체의 질서와 덕을 세우기 위해 어떻게 사용되어야 하는지를 가르칩니다. 오늘 읽기를 통해, 만유의 주재이신 하나님을 경외하며 그분의 나라를 위한 질서에 순복하는 은혜를 누리시길 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">출애굽기 10장부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 10장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">하나님께서 바로의 마음을 완악하게 하시고 재앙을 거듭 내리시는 목적은 이스라엘 자손들에게 무엇을 가르치기 위함입니까?</span>
+                            </div>
+                            <h3>출애굽기 10장: 흑암을 이기시는 여호와의 권능</h3>
+                            <h4>상세 개요</h4>
+                            <p>하나님께서는 여덟 번째 메뚜기 재앙과 아홉 번째 흑암 재앙을 애굽에 내리십니다. 메뚜기 떼는 애굽의 남은 채소와 열매를 모두 먹어 치우고, 삼일 동안 지속된 흑암은 애굽 전역을 덮습니다. 바로는 메뚜기 재앙 앞에서 일시적으로 항복하는 듯하나 다시 마음이 완악해지며, 흑암 재앙 후에도 양과 소는 두고 가라는 타협안을 제시합니다. 그러나 모세는 하나님의 제사를 위해 단 한 마리도 남길 수 없음을 선포하며 바로의 거절을 직면합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 우상 파괴와 여호와의 계시:</strong> 흑암 재앙은 애굽인들이 최고의 신으로 숭배하던 태양신 '라(Ra)'를 직접적으로 심판하시는 사건입니다. 하나님은 온 땅의 빛과 어둠을 주관하시는 유일한 주권자이심을 증명하십니다. <span class="scripture-quote">내가 애굽에서 행한 일들을 네 아들과 네 자손의 귀에 전하기 위함이라</span>(2절)는 말씀은, 이 심판이 후대 언약 백성들에게 여호와 신앙의 기초를 세우기 위한 구속사적 교육임을 시사합니다.</p>
+                            <p><strong>2. 바로의 유기와 하나님의 작정:</strong> 바로가 마음을 완악하게 하는 것은 하나님의 주권적 작정 안에 있습니다. 이는 하나님께서 바로를 악하게 창조하셨다는 뜻이 아니라, 그의 완고한 죄성을 그대로 내버려 두심(유기)으로써 하나님의 공의와 권능을 더욱 극명하게 드러내는 도구로 사용하신다는 개혁주의 예정론적 관점을 보여줍니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_10.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 14장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">예수께서 말씀하신 '큰 잔치의 비유'에서 처음 초대받은 자들이 거절한 핑계들은 무엇이며, 이것이 시사하는 영적 상태는 어떠합니까?</span>
+                            </div>
+                            <h3>누가복음 14장: 잔치의 초대와 제자도의 대가</h3>
+                            <h4>상세 개요</h4>
+                            <p>예수께서는 안식일에 수종병 든 자를 고치시며 안식일의 참뜻을 교훈하십니다. 이어 청함을 받은 자들에게 낮은 자리에 앉으라고 가르치시며 겸손을 강조하십니다. '큰 잔치의 비유'를 통해 유대인들의 거절과 이방인들을 향한 구원의 확장을 보여주시고, 주님을 따르려거든 자기 십자가를 지고 자신의 모든 소유를 버려야 한다는 엄중한 제자도의 기준을 선포하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 은혜의 불가항력성과 인간의 책임:</strong> 잔치의 비유에서 처음 초대받은 자들은 밭, 소, 장가 등 세상의 일들을 핑계로 거절합니다. 이는 복음의 초청 앞에 선 인간의 전적 부패를 보여줍니다. 그러나 주인은 '강권하여 데려다가 내 집을 채우라'고 명령하십니다. 이는 구원이 인간의 응답에 달린 것이 아니라, 하나님께서 택하신 자들을 강권적으로 이끄시는 은혜에 근거함을 보여줍니다.</p>
+                            <p><strong>2. 제자도의 급진성:</strong> 주님은 부모나 처자, 심지어 자기 목숨까지 미워하지 않으면 제자가 될 수 없다고 말씀하십니다. 이는 문자적 미움이 아니라 우선순위의 문제입니다. 성도는 그리스도의 주권을 인정하며 세상의 그 어떤 가치보다 복음을 우위에 두는 성화의 치열한 삶으로 부름받았습니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_14.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 25장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">빌닷이 강조한 하나님의 거룩하심과 대조되는 인간의 비천함(구더기, 지렁이)은 어떤 신학적 인간관을 반영합니까?</span>
+                            </div>
+                            <h3>욥기 25장: 창조주의 광휘 앞에 선 피조물의 비천함</h3>
+                            <h4>상세 개요</h4>
+                            <p>친구들 중 빌닷의 마지막 변론입니다. 그는 하나님의 주권과 광명을 찬양하며, 그분의 눈앞에서는 달이나 별조차 깨끗하지 못하다고 주장합니다. 하물며 벌레 같은 사람, 구더기 같은 인생이 어찌 하나님 앞에 의롭다 하겠느냐며 인간의 전적인 비천함을 선포합니다. 이는 욥의 무죄 주장에 대한 가장 극단적인 신론적 반박입니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 창조주와 피조물의 질적 차이:</strong> 빌닷의 논지는 개혁주의 신학이 강조하는 '창조주와 피조물의 무한한 간격'을 보여줍니다. 하나님의 절대적 거룩하심과 영광 앞에 인간은 본질적으로 의롭지 못한 존재입니다. 비록 빌닷이 욥의 고난을 위로하지는 못했으나, 그가 말하는 하나님의 초월적 주권은 우리가 경외해야 할 진리입니다.</p>
+                            <p><strong>2. 율법의 정죄 기능:</strong> <span class="scripture-quote">사람이 어찌 하나님 앞에서 의롭다 하며</span>(4절). 이 질문은 오직 예수 그리스도의 대속적 의를 통해서만 대답될 수 있습니다. 빌닷의 정죄는 인간 스스로의 의로는 결코 구원에 이를 수 없음을 역설적으로 증명하며, 오직 외부로부터 오는 의(Extra Nos)의 필요성을 시사합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_25.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 14장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 예언을 방언보다 우위에 둔 가장 중요한 기준은 공동체 내의 무엇을 세우기 위함입니까?</span>
+                            </div>
+                            <h3>고린도전서 14장: 예배의 품격과 공동체의 덕을 세움</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 성령의 은사 중 특히 예언을 사모하라고 권면합니다. 알아듣지 못하는 방언보다 깨달은 마음으로 가르치는 예언이 교회의 덕을 세우는 데 더 유익하기 때문입니다. 그는 예배 시 방언을 하려거든 통역할 자를 세우고, 예언도 질서 있게 순서를 지켜 행하라고 가르칩니다. 하나님은 무질서의 하나님이 아니요 오직 화평의 하나님이심을 선포하며 모든 것을 적당하고 질서 있게 할 것을 명령합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 교회 건설(Edification)의 원리:</strong> 은사의 목적은 개인의 영적 만족이 아니라 교회의 '세움(덕)'에 있습니다. <span class="scripture-quote">모든 것을 덕을 세우기 위하여 하라</span>(26절). 이는 개혁주의 예배학의 핵심 원리로, 예배의 모든 요소는 성도들이 진리를 깨닫고 하나님을 영화롭게 하는 데 집중되어야 함을 의미합니다.</p>
+                            <p><strong>2. 하나님 성품과 질서:</strong> 하나님은 질서의 하나님이십니다. 따라서 그분의 영에 감동된 자들의 집회 역시 혼란이 아닌 질서와 화평 속에 있어야 합니다. 이는 주관적 체험보다 객관적 말씀의 질서를 중시하는 개혁주의적 은사론과 일맥상통합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_14.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 주권적 영광 앞에 선 성도의 경외와 질서</h4>
+                            <p>오늘의 네 본문은 **'하나님의 절대 주권적 영광과 그 앞에 선 인간의 합당한 반응'**이라는 주제로 유기적으로 연결됩니다. 출애굽기 10장에서 애굽을 덮은 흑암은 창조주의 주권을 무시하는 세상을 향한 준엄한 심판입니다. 이는 욥기 25장에서 빌닷이 고백한 하나님의 찬란한 광휘와 대비되는 어둠입니다. 거룩하신 하나님의 빛 앞에 선 인간은 본질적으로 비천하며 스스로 의를 이룰 수 없는 존재입니다.</p>
+                            
+                            <p>이러한 하나님의 주권은 누가복음 14장에서 하나님 나라의 잔치 초대로 나타납니다. 인간의 완악함은 이 초대를 거절하지만, 주권적인 주인은 강권하여 잔치를 채우십니다. 이렇게 부름받은 은혜의 공동체(교회)는 고린도전서 14장의 교훈처럼 하나님의 성품을 반영하는 '질서'를 유지해야 합니다. 하나님의 주권을 아는 자는 무질서하게 자신을 드러내지 않고, 공동체의 덕을 세우기 위해 기꺼이 자신의 은사를 질서 아래 굴복시킵니다.</p>
+
+                            <p><strong>구속사적 결론:</strong> 하나님은 어둠(출애굽기)을 통해 빛의 주권을 보이셨고, 벌레 같은 인간(욥기)을 찾아오셔서 잔치(누가복음)로 초대하셨습니다. 이제 구원받은 우리는 그분의 통치를 반영하는 거룩한 질서(고린도전서) 안에 거해야 합니다. 창조-타락-구속-완성의 도식 속에서, 우리는 오늘 우리를 부르신 주권자 하나님의 영광을 위해 우리의 모든 삶과 예배를 정돈해야 함을 알 수 있습니다. 오직 하나님께만 영광(Soli Deo Gloria)을 돌리는 것이 우리 삶의 최종 목적입니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
