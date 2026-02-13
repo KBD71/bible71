@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 24일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-target="content-overview"][data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-target="content-book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-target="content-book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-target="content-book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-target="content-book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-target="content-integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        
+        /* 성경 듣기 버튼 숨김 처리 */
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 24일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 7장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 11장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 22장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 11장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 24일: 주권적 표징과 하늘의 질서</h3>
+                            <h4>오늘의 길잡이: 스스로를 증명하시는 하나님</h4>
+                            <p>오늘 우리가 묵상할 네 본문은 하나님의 영광스러운 자기 증명과 그분의 백성이 갖추어야 할 마땅한 질서를 보여줍니다. 출애굽기 7장은 애굽의 우상들을 심판하시는 하나님의 첫 번째 재앙을 통해, 누가 참된 창조주요 주권자인지를 선포하십니다. 이는 누가복음 11장에서 '하나님의 손가락'으로 귀신을 쫓아내시며 하나님 나라의 임재를 확증하시는 예수 그리스도의 사역으로 연결됩니다.</p>
+                            <p>반면, 욥기 22장은 하나님의 주권을 오해하여 인과응보의 논리로 타인을 정죄하는 엘리바스의 오류를 통해, 인간 중심적 신학의 위험성을 경고합니다. 마지막으로 고린도전서 11장은 그리스도께서 세우신 성찬의 질서를 통해 언약 백성이 가져야 할 거룩한 태도를 가르칩니다. 오늘 읽기를 통해, 만유의 주재이신 하나님께서 세우신 거룩한 질서 안에 거하는 은혜를 누리시길 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">첫 번째 본문으로 이동</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 7장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">나일 강을 피로 변하게 하신 첫 번째 재앙은 애굽의 우상 숭배 시스템에 대한 어떤 신학적 심판을 의미합니까?</span>
+                            </div>
+                            <h3>출애굽기 7장: 재앙의 시작과 여호와의 자기 계시</h3>
+                            <h4>상세 개요</h4>
+                            <p>하나님께서는 모세를 바로에게 신 같이 되게 하시고 아론을 그의 대언자로 세우십니다. 바로의 완악함을 예고하시며, 애굽에 큰 재앙을 내려 이스라엘을 인도해 내실 것을 명령하십니다. 아론의 지팡이가 뱀이 되어 애굽 요술사들의 지팡이를 삼키는 이적에 이어, 나일 강물이 피로 변하는 첫 번째 재앙이 임합니다. 애굽인들의 생명줄인 나일 강이 죽음의 상징인 피로 변했음에도 바로는 마음을 완악하게 하여 듣지 않습니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 우상 숭배에 대한 창조주의 선전포고:</strong> 나일 강은 애굽인들에게 생명을 주는 신(Hapi)으로 숭배되었습니다. 하나님이 강물을 피로 바꾸신 것은 창조물 중 하나일 뿐인 자연이 결코 신이 될 수 없음을 선포하시는 것입니다. 이는 <span class="scripture-quote">애굽 사람이 나를 여호와인 줄 알리라</span>(5절)는 말씀처럼, 모든 신론적 질서 위에 계신 유일하신 여호와를 계시하는 사건입니다.</p>
+                            <p><strong>2. 바로의 완악함과 주권적 유기:</strong> 바로가 마음을 완악하게 한 것은 하나님의 강제적 조작이라기보다, 죄인의 완고한 본성을 그대로 내버려 두신(유기) 결과입니다. 재앙이 거듭될수록 바로의 죄성은 더욱 극명하게 드러나며, 이는 결국 하나님의 공의로운 심판을 정당화하는 구속사적 배경이 됩니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_07.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 11장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">예수께서 '하나님의 손가락'을 언급하며 귀신을 쫓아내신 것과 하나님 나라의 도래는 어떤 유기적 관계가 있습니까?</span>
+                            </div>
+                            <h3>누가복음 11장: 하나님 나라의 기도와 영적 전쟁</h3>
+                            <h4>상세 개요</h4>
+                            <p>예수께서는 제자들에게 기도의 모범(주기도문)을 가르치시며, 강청하는 친구의 비유를 통해 구하고 찾고 두드리는 기도의 끈기를 강조하십니다. 말 못 하게 하는 귀신을 쫓아내시자 무리가 바알세불의 힘을 빌렸다고 비난하나, 주님은 '하나님의 손가락'으로 귀신을 쫓는 것이 곧 하나님 나라의 임재임을 천명하십니다. 요나의 표적 외에는 보일 것이 없음을 말씀하시며, 빛의 자녀로서 행할 것과 형식적인 바리새인들의 위선을 책망하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 손가락과 통치권:</strong> <span class="scripture-quote">내가 만일 하나님의 손가락을 힘입어 귀신을 쫓아낸다면 하나님의 나라가 이미 너희에게 임하였느니라</span>(20절). 여기서 '하나님의 손가락'은 출애굽기 8장 19절에서 애굽 술사들이 하나님의 권능을 인정할 때 사용한 표현을 상기시킵니다. 즉, 예수님은 출애굽의 하나님께서 지금 이곳에서 사단의 세력을 꺾고 계심을 선포하시는 것입니다.</p>
+                            <p><strong>2. 성령, 최고의 응답:</strong> 주님은 구하는 자에게 '성령'을 주시지 않겠느냐고 반문하십니다. 이는 성도가 구해야 할 가장 본질적인 복이 육체적 필요를 넘어, 하나님의 통치를 대행하며 우리 안에 거하시는 성령님임을 가르치는 개혁주의 성령론의 핵심입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_11.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 22장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">엘리바스가 욥을 향해 퍼부은 구체적인 죄목들은 사실에 근거한 것입니까, 아니면 자신의 신학적 틀에 맞춘 추측입니까?</span>
+                            </div>
+                            <h3>욥기 22장: 엘리바스의 세 번째 변론과 교리적 오용</h3>
+                            <h4>상세 개요</h4>
+                            <p>엘리바스는 세 번째 변론에서 더욱 노골적으로 욥을 정죄합니다. 그는 인간의 의로움이 하나님께 유익을 주지 못한다고 전제하면서, 욥이 당하는 고난은 반드시 그의 큰 악함 때문일 것이라고 단정합니다. 그는 욥이 빈민을 학대하고 과부와 고아를 외면했다는 근거 없는 추측으로 죄목을 나열합니다. 마지막으로 하나님과 화목하고 평안하라고 권면하며, 그러면 다시 회복될 것이라는 조건적 축복론을 제시합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 인과응보의 잔인한 도그마:</strong> 엘리바스는 "하나님은 악인을 심판하신다"는 일반 계시적 진리를 "고난받는 너는 악인이다"라는 정죄의 도구로 오용합니다. 이는 하나님의 주권적 작정과 섭리의 신비를 인간의 협소한 논리로 재단하려는 시도입니다. 은혜 없는 신학이 어떻게 고통받는 자에게 폭력이 될 수 있는지를 보여줍니다.</p>
+                            <p><strong>2. 인간 중심적 회복론의 허구:</strong> 엘리바스는 욥에게 <span class="scripture-quote">너는 하나님과 화목하고 평안하라</span>(21절)고 말합니다. 그러나 그가 말하는 화목은 하나님의 주권을 인정하는 항복이 아니라, 벌을 면하기 위한 거래에 가깝습니다. 이는 개혁주의가 경계하는 율법주의적 경건의 전형입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_22.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 11장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 성찬을 행하기 전 '자신을 살피라'고 경고한 목적은 공동체의 거룩함과 어떤 관련이 있습니까?</span>
+                            </div>
+                            <h3>고린도전서 11장: 언약 공동체의 질서와 성찬의 거룩함</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 공적 예배 시 머리 덮개 사용과 관련하여 창조의 질서를 설명하며 교회의 덕을 세울 것을 가르칩니다. 이어 고린도 교회의 무질서한 성찬 습관을 엄하게 책망합니다. 부유한 자들이 먼저 먹고 취하여 가난한 지체들을 소외시키는 행위는 주의 몸을 범하는 죄임을 지적합니다. 바울은 주의 성찬의 유래를 전하며, 주님이 오실 때까지 그분의 죽으심을 전파하는 성찬의 본질을 일깨우고 자신을 살피고 먹으라고 권고합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 성찬, 주권적 기념과 연합:</strong> <span class="scripture-quote">이것은 너희를 위하는 내 몸이니 이것을 행하여 나를 기념하라</span>(24절). 성찬은 단순한 상징을 넘어, 그리스도의 단번에 이루신 대속 사역을 믿음으로 영적으로 먹고 마시는 '영적 임재'의 시간입니다. 이는 언약 백성이 그리스도와 한 몸임을 확인하는 거룩한 연합의 표지입니다.</p>
+                            <p><strong>2. 공동체적 거룩과 자기 성찰:</strong> 바울은 주의 몸을 분별하지 못하고 먹고 마시는 자는 자기의 죄를 먹고 마시는 것이라고 경고합니다. 이는 개혁주의 교회가 중요하게 여기는 '권징'의 근거 중 하나입니다. 성찬에 참여하는 자는 지체와의 관계와 자신의 영적 상태를 살핌으로써, 교회의 가시적 거룩함을 보존해야 할 책임이 있습니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_11.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 하나님의 거룩한 질서와 주권적 현존</h4>
+                            <p>오늘의 네 본문은 **'세상의 질서를 압도하는 하나님의 주권적 통치와 그분의 백성이 갖추어야 할 마땅한 질서'**라는 주제로 긴밀하게 연결됩니다. 출애굽기 7장에서 나일 강을 피로 바꾸신 하나님의 재앙은 세상의 풍요와 권력이 결코 하나님의 주권을 넘설 수 없음을 보여주는 '심판적 질서'의 회복입니다. 이 권능은 누가복음 11장에서 '하나님의 손가락'을 통해 사단의 결박을 끊어내시는 예수 그리스도의 사역에서 절정에 달합니다. 예수님은 친히 새 출애굽의 주역으로서 어둠의 나라를 몰아내고 하나님 나라의 질서를 수립하십니다.</p>
+                            
+                            <p>이러한 하나님의 주권은 성도의 삶과 예배 속에서 오해 없이 고백되어야 합니다. 욥기 22장의 엘리바스는 하나님의 공의를 자신의 좁은 신학적 도식(인과응보) 안에 가두어, 고난당하는 이웃을 정죄하는 '무질서한 신학'의 오류를 보여줍니다. 반면 고린도전서 11장은 그리스도의 보혈로 세워진 '언약적 질서'인 성찬을 다룹니다. 성찬은 하나님의 주권적인 대속 은혜를 기억하는 동시에, 그 은혜 아래 부름받은 성도들이 서로를 존중하며 거룩함을 지켜야 할 책임을 부여합니다.</p>
+
+                            <p><strong>구속사적 결론:</strong> 하나님은 재앙과 이적을 통해 당신의 존재를 증명하셨고(출애굽기), 그리스도는 그 권능을 통해 사단을 정복하셨습니다(누가복음). 우리는 인간의 협소한 지혜로 하나님을 규정하려는 교만(욥기)을 버리고, 주의 몸 된 교회가 세운 거룩한 성찬의 질서(고린도전서) 안에서 자기를 살피며 살아야 합니다. 만유의 주재이신 하나님께서 지금도 그분의 손가락으로 우리 삶을 통치하고 계심을 신뢰하는 것이 오늘 우리의 사명입니다.</p>
+                            
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
