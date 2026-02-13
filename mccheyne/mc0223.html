@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 23일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-target="content-overview"][data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-target="content-book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-target="content-book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-target="content-book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-target="content-book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-target="content-integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 23일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 6장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 10장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 21장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 10장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 23일: 언약의 신실하심과 하나님 나라의 사명</h3>
+                            <h4>오늘의 길잡이: 약속의 주체이신 여호와를 바라보기</h4>
+                            <p>오늘의 읽기표는 하나님의 약속이 지체되는 것처럼 보이는 순간, 우리를 다시 일으켜 세우시는 하나님의 강력한 주권적 현존을 다룹니다. 바로의 저항으로 낙심한 모세에게 하나님은 아브라함에게 주셨던 언약을 상기시키며 당신의 이름 '여호와'를 선포하십니다. 이는 하나님이 약속하신 바를 반드시 성취하시는 분임을 확증하는 기초가 됩니다.</p>
+                            <p>신약에서는 하나님 나라의 복음을 전파하기 위해 보냄을 받은 70명의 제자들과 사마리아인의 비유를 통해, 복음이 어떻게 실제적인 사랑으로 나타나야 하는지 보여줍니다. 또한 욥의 탄식을 통해 악인의 형통이라는 난제를 직면하고, 광야 이스라엘의 실패를 경계로 삼아 오직 하나님의 영광을 위해 살 것을 권면하는 바울의 목소리를 듣게 됩니다. 오늘 우리는 현실의 고난 너머에서 일하시는 신실하신 하나님을 발견하게 될 것입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">첫 번째 본문으로 이동</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 6장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">하나님께서 모세에게 당신을 '여호와'로 다시 알리신 것은 언약의 성취와 관련하여 어떤 의미를 가집니까?</span>
+                            </div>
+                            <h3>출애굽기 6장: 언약의 재확인과 여호와의 이름</h3>
+                            <h4>상세 개요</h4>
+                            <p>모세가 바로의 거절과 백성들의 원망으로 낙심하자, 하나님은 다시 나타나셔서 당신의 주권을 선포하십니다. 하나님은 아브라함과 이삭과 야곱에게 '전능의 하나님'으로 나타나셨으나, 이제는 약속을 집행하시는 '여호와'로서 그들을 인도해 내실 것을 맹세하십니다. 본문은 모세와 아론의 족보를 나열하며, 이 구원 역사가 조상들의 언약에 근거한 정통성 있는 사건임을 확증합니다. 그럼에도 모세는 자신의 입이 둔함을 이유로 여전히 주저합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 여호와, 언약 성취의 이름:</strong> 하나님이 <span class="scripture-quote">나는 여호와이니라</span>(2절)라고 말씀하신 것은, 당신이 단순히 존재하시는 분일 뿐만 아니라 약속을 반드시 '수행'하시는 분임을 강조합니다. 개혁주의 신학에서 여호와라는 이름은 하나님의 불변성과 신실하심의 상징이며, 모든 구원 계획이 하나님의 작정 아래 있음을 보여줍니다.</p>
+                            <p><strong>2. 전적 부패와 하나님의 설득:</strong> 모세의 반복되는 거절은 타락한 인간의 본질적인 무능력과 불신앙을 드러냅니다. 그러나 하나님은 그를 포기하지 않으시고 계속해서 당신의 성품을 계시하십니다. 이는 구원이 인간의 탁월함이 아닌, 하나님의 거부할 수 없는 은혜와 주권적 선택에 의해 진행됨을 증명합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_06.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 10장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">70명의 제자들이 돌아와 귀신들이 항복하는 것을 기뻐할 때, 예수께서 제시하신 더 본질적인 기쁨의 이유는 무엇입니까?</span>
+                            </div>
+                            <h3>누가복음 10장: 제자 파송과 하나님 나라의 현존</h3>
+                            <h4>상세 개요</h4>
+                            <p>예수님은 70명의 제자를 세워 둘씩 앞서 보내시며 복음을 전파하게 하십니다. 제자들이 돌아와 사역의 권능을 기뻐하자, 주님은 그들의 이름이 하늘에 기록된 것을 기뻐하라고 교훈하십니다. 이어 선한 사마리아인의 비유를 통해 율법의 핵심인 사랑의 실천을 가르치시고, 마르다와 마리아의 집을 방문하여 '좋은 편'인 말씀 듣는 자리의 중요성을 강조하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 선택의 신비와 구원의 기쁨:</strong> 제자들의 참된 기쁨의 근거는 사역의 성공이 아니라 <span class="scripture-quote">너희 이름이 하늘에 기록된 것</span>(20절)에 있습니다. 이는 개혁주의 구원론의 핵심인 '무조건적 선택'을 시사합니다. 구원은 땅에서 이루어낸 성과가 아니라, 창세 전 하늘에서 작정된 은혜의 결과입니다.</p>
+                            <p><strong>2. 그리스도 중심적 율법 해석:</strong> 선한 사마리아인의 비유는 자기 의를 세우려는 율법사에게 참된 이웃 사랑이 무엇인지 보여줍니다. 이는 궁극적으로 죄로 인해 강도 만난 자와 같은 인류를 찾아오셔서 자기 몸을 주신 예수 그리스도의 자비(Mercy)를 예표하며, 성도는 그 은혜에 기반하여 이웃을 사랑해야 함을 가르칩니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_10.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 21장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">욥이 친구들의 인과응보적 논리에 대항하여 제시한 '악인의 형통'이라는 현실은 하나님의 주권에 대해 어떤 질문을 던집니까?</span>
+                            </div>
+                            <h3>욥기 21장: 악인의 형통과 신비로운 섭리</h3>
+                            <h4>상세 개요</h4>
+                            <p>욥은 친구들의 천편일률적인 정죄에 대해 반론을 제기합니다. 친구들은 악인이 즉각적으로 심판받는다고 주장했으나, 욥은 현실에서 악인들이 번성하고 자손들이 잘되며 평안히 죽음에 이르는 경우를 나열합니다. 욥은 하나님의 통치가 인간이 만든 협소한 인과율의 도식에 갇히지 않음을 역설하며, 친구들의 위로가 헛된 거짓임을 폭로합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 일반 계시의 한계와 섭리의 신비:</strong> 욥은 눈에 보이는 결과로 신앙의 진위를 판단하려는 시도를 비판합니다. 개혁주의 섭리론에서 하나님은 당신의 기쁘신 뜻에 따라 때로 악인의 형통을 허락하시기도 하며, 의인의 고난을 작정하시기도 합니다. 이는 하나님의 지혜가 인간의 이성을 초월함을 보여주는 '신비'의 영역입니다.</p>
+                            <p><strong>2. 최후 심판에 대한 소망:</strong> 욥은 악인이 이 땅에서 평안을 누릴지라도 그것이 최종적인 결론이 아님을 암시합니다. 당장의 보상이 주어지지 않는 현실은, 오히려 모든 행위를 공의로 판단하실 마지막 심판의 날을 대망하게 만듭니다. 성도는 현실의 불합리에 매몰되지 않고 주권자의 최종적 판단을 신뢰해야 합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_21.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 10장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 광야 이스라엘의 실패를 거론하며 '본보기'로 삼으라고 한 이유는 무엇이며, 시험을 당할 때 성도가 붙들어야 할 하나님의 속성은 무엇입니까?</span>
+                            </div>
+                            <h3>고린도전서 10장: 광야의 경계와 하나님의 영광</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 출애굽한 조상들이 모두 구름과 바다 아래서 세례를 받고 신령한 음식을 먹었으나, 그들 대다수가 하나님을 기쁘시게 하지 못하여 광야에서 멸망했음을 상기시킵니다. 이를 통해 우상 숭배와 간음을 경계하며 선 줄로 생각하는 자는 넘어질까 조심하라고 권면합니다. 오직 미쁘신 하나님께서 감당치 못할 시험을 허락지 않으심을 선포하며, 먹든지 마시든지 무엇을 하든지 하나님의 영광을 위해 할 것을 명령합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 성례의 유효성과 성화의 책임:</strong> 조상들은 신령한 음료인 '그리스도'로부터 마셨음에도 불구하고 멸망했습니다. 이는 은혜의 방편(성례)을 소유했다는 사실이 성화의 열매 없는 삶을 정당화하지 못함을 보여줍니다. 개혁주의 신앙은 하나님의 신실하신 '견인'을 믿는 동시에, 성도가 거룩함을 추구해야 할 엄중한 의무를 가짐을 가르칩니다.</p>
+                            <p><strong>2. 하나님 영광을 위한 삶(Soli Deo Gloria):</strong> <span class="scripture-quote">그런즉 너희가 먹든지 마시든지 무엇을 하든지 다 하나님의 영광을 위하여 하라</span>(31절). 이는 웨스트민스터 소요리문답 제1문의 실천적 결론입니다. 성도의 모든 행위는 자신의 유익이나 권리 주장이 아니라, 하나님의 이름이 높여지는가에 초점이 맞춰져야 합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_10.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 주권적 약속의 성취와 성도의 마땅한 반응</h4>
+                            <p>오늘의 네 본문은 **'인간의 연약함과 환경의 불합리함 속에서도 당신의 이름을 위하여 일하시는 하나님의 신실하심'**이라는 주제로 수렴됩니다. 출애굽기 6장에서 여호와 하나님은 낙심한 모세에게 당신의 불변하는 이름을 계시하시며 언약의 집행을 선언하십니다. 이 '여호와의 이름'은 구속사 전체를 지탱하는 든든한 반석이며, 누가복음 10장에서 제자들이 기뻐해야 할 본질적 이유인 '하늘에 기록된 이름'의 근거가 됩니다.</p>
+                            <p>욥기 21장은 이러한 하나님의 주권이 때로는 악인의 형통이라는 이해하기 어려운 섭리로 나타날 수도 있음을 보여주며, 우리의 시야를 지엽적인 인과응보에서 우주적인 주권으로 확장시킵니다. 이러한 거대한 은혜와 주권 아래 부름받은 성도는 고린도전서 10장의 권면처럼, 과거의 실패를 본보기 삼아 자신을 과신하지 말고 오직 하나님의 미쁘심을 의지해야 합니다.</p>
+                            <p>결론적으로, 구원은 하나님의 '이름'(여호와)으로 시작되어, 성도의 '이름'(하늘에 기록됨)을 보존하며, 종국에는 성도의 모든 삶을 통해 하나님의 '영광'을 드러내는 과정입니다. 창조-타락-구속-완성의 도식 속에서, 우리는 오늘 우리를 인도하시는 여호와 하나님의 신실하신 손길을 신뢰하며, 모든 삶의 자리에서 "오직 하나님께만 영광(Soli Deo Gloria)"을 돌리는 삶을 살아야 합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
