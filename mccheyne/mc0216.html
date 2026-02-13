@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 16일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky;
+            top: 0;
+            background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            padding: 10px;
+            margin: 0 -10px 2rem -10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 16일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 49장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 3장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 14장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 3장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 16일: 영원한 유업의 약속과 견고한 기초</h3>
+                            <h4>오늘의 길잡이: 흔들리지 않는 하나님의 기초</h4>
+                            <p>오늘의 본문은 장차 오실 메시아에 대한 예언과 그 성취, 그리고 성도가 서 있어야 할 견고한 기초를 보여줍니다. 야곱은 임종을 앞두고 유다 지파를 통해 오실 통치자를 예언하며 구약의 구속사를 미래지향적으로 엽니다. 이는 신약에서 그리스도께서 공생애를 시작하심으로 실체화됩니다.</p>
+                            <p>인생의 덧없음 앞에서 부활의 소망을 갈망하는 욥의 고뇌는, 오직 예수 그리스도라는 터 위에 세워져야 할 교회의 정체성으로 응답받습니다. 오늘 읽기를 통해 인간의 연약함 속에 깃든 하나님의 강력한 약속과 그 기초를 발견하시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">창세기 49장 읽기 시작</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 창세기 49장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">야곱이 유다에게 축복한 '규가 유다를 떠나지 아니하며 실로가 오시기까지'라는 예언은 누구를 가리킵니까?</span>
+                            </div>
+                            <h3>창세기 49장: 열두 지파를 향한 예언적 유언</h3>
+                            <h4>상세 개요</h4>
+                            <p>야곱은 임종 직전 열두 아들을 불러 그들의 장래를 예언합니다. 장자 르우벤은 부도덕함으로 권위를 잃고, 시므온과 레위는 잔인함으로 흩어짐의 판결을 받습니다. 그러나 유다에게는 통치자의 권위(규)가 약속되며, 만민이 복종할 메시아적 인물인 '실로'가 그에게서 나올 것이 선포됩니다. 요셉은 '무성한 가지'로서 하나님의 전능하신 도우심을 약속받습니다. 야곱은 가나안 막벨라 굴에 장사될 것을 유언한 후 숨을 거둡니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 유다 지파와 메시아적 통치:</strong> 유다에게 주어진 축복은 단순한 지파의 번영을 넘어섭니다. <span class="scripture-quote">규가 유다를 떠나지 아니하며... 실로가 오시기까지 이르리니</span>(10절)라는 말씀은 유다의 혈통을 통해 오실 영원한 왕, 예수 그리스도를 가리킵니다. 이는 구원이 인간의 혈통적 장자가 아닌 하나님의 주권적 선택과 메시아적 계보를 통해 이루어짐을 보여줍니다.</p>
+                            <p><strong>2. 언약의 전승과 종말론적 소망:</strong> 야곱이 죽음 앞에서 가나안 땅 매장을 명한 것은 하나님의 약속이 반드시 성취될 것임을 믿는 부활 신앙의 고백입니다. 그는 죽음을 끝이 아닌, 하나님이 약속하신 기업으로 들어가는 통로로 인식하며 다음 세대에게 언약을 전승합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_49.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 3장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">누가가 기록한 예수님의 족보가 아담을 넘어 '하나님'까지 거슬러 올라가는 이유는 무엇입니까?</span>
+                            </div>
+                            <h3>누가복음 3장: 주의 길을 예비함과 아들의 선포</h3>
+                            <h4>상세 개요</h4>
+                            <p>침례 요한이 요단강 부근에서 회개의 침례를 전파하며 이사야의 예언대로 주의 길을 예비합니다. 그는 독사의 자식들에게 회개에 합당한 열매를 맺으라고 강력히 촉구합니다. 예수께서 침례를 받으실 때 하늘이 열리고 성령이 비둘기같이 강림하시며 "너는 내 사랑하는 아들"이라는 하나님의 음성이 들립니다. 누가는 이어지는 족보를 통해 예수님이 아담의 후손이자 하나님의 아들이심을 증거합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 회개와 보편적 구원의 선포:</strong> 요한의 사역은 <span class="scripture-quote">모든 육체가 하나님의 구원하심을 보리라</span>(6절)는 이사야 40장의 성취입니다. 이는 구원이 유대인이라는 혈통적 특권이 아니라, 오직 죄를 회개하고 메시아를 영접하는 자에게 주어지는 보편적 은혜임을 천명합니다.</p>
+                            <p><strong>2. 제2의 아담으로서의 그리스도:</strong> 누가복음의 족보는 마태복음과 달리 아담을 넘어 <span class="scripture-quote">그 위는 하나님이시니라</span>(38절)까지 올라갑니다. 이는 예수 그리스도께서 첫 사람 아담의 실패를 회복하고 온 인류를 하나님과 화목케 하실 '마지막 아담'이자 참된 하나님의 아들이심을 보여주는 기독론적 선포입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_03.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 14장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">나무는 찍혀도 다시 싹이 나지만 사람은 소멸된다고 탄식하는 욥이 간절히 기다리는 '놓아주심'은 무엇을 의미합니까?</span>
+                            </div>
+                            <h3>욥기 14장: 인생의 허무와 부활을 향한 갈망</h3>
+                            <h4>상세 개요</h4>
+                            <p>욥은 여인에게서 태어난 인생이 짧고 걱정이 가득하며 꽃과 같이 시든다고 탄식합니다. 그는 나무는 베일지라도 물 기운에 다시 움이 돋지만, 사람은 죽으면 소멸되어 다시 일어나지 못한다고 절망합니다. 그러나 깊은 고통 속에서도 욥은 하나님께서 자신을 기억해 주시기를 간구하며, 죽음 이후에 존재가 갱신되는 부활의 소망을 희미하게나마 노래합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 전적 타락과 죽음의 실존:</strong> 욥은 <span class="scripture-quote">누가 깨끗한 것을 더러운 것 가운데에서 낼 수 있으리이까</span>(4절)라고 반문합니다. 이는 인간의 전적 부패를 인정하는 것이며, 죽음이 죄의 필연적 결과임을 암시합니다. 인간 스스로는 이 절망의 굴레를 벗어날 수 없음을 고발합니다.</p>
+                            <p><strong>2. 희미한 부활의 소망과 중보자의 필요:</strong> 욥이 고백하는 <span class="scripture-quote">나는 나의 풀려날 때를 기다리겠나이다</span>(14절)는 고백은 그리스도의 부활을 통해 비로소 완전한 대답을 얻게 됩니다. 성도는 죽음이라는 한계를 넘어, 하나님이 자기 백성을 위해 마련하신 영원한 생명을 소망해야 함을 보여줍니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_14.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 3장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 강조한 교회의 '유일한 터'는 무엇이며, 사역자들의 공력은 어떻게 시험받게 됩니까?</span>
+                            </div>
+                            <h3>고린도전서 3장: 교회의 유일한 터와 하나님의 성전</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 여전히 육신에 속하여 파당을 짓는 고린도 교인들을 책망합니다. 사역자는 단지 심고 물 주는 자일 뿐, 자라게 하시는 이는 오직 하나님이심을 강조합니다. 바울은 오직 예수 그리스도라는 유일한 터 위에 각자가 어떻게 집을 짓는지 주의하라고 경고하며, 최후의 날에 불로써 각자의 공력이 시험받을 것임을 선포합니다. 또한 성도가 하나님의 성전임을 상기시킵니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 솔라 크리스투스(Sola Christus):</strong> <span class="scripture-quote">이 닦아 둔 것 외에 능히 다른 터를 닦아 둘 자가 없으니 이 터는 곧 예수 그리스도라</span>(11절). 교회와 성도의 신앙은 인간 지도자나 철학 위에 세워질 수 없습니다. 오직 그리스도의 대속 사역과 그분의 통치만이 유일하고 견고한 기초가 됩니다.</p>
+                            <p><strong>2. 거룩함과 공력의 시험:</strong> 성도는 하나님의 성전으로서 거룩함을 지켜야 합니다. 또한 성도의 모든 사역은 세상의 인정이 아닌 하나님의 기준(불)으로 평가받게 됩니다. 이는 구원 이후의 삶이 하나님의 영광을 위해 얼마나 충성스럽게 드려졌는가에 대한 책임을 묻는 개혁주의적 성화론을 담고 있습니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_03.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 약속된 통치자와 영원한 기초</h4>
+                            <p>오늘의 네 본문은 **'하나님께서 세우시는 영원한 나라의 기초와 그 통치자'**를 중심으로 웅장하게 연결됩니다. 창세기 49장에서 야곱은 유다 지파를 통해 오실 통치자(실로)를 예언하며 구약의 구속사를 미래지향적으로 엽니다. 이는 누가복음 3장에서 그 예언의 실체이신 예수 그리스도께서 하나님의 아들로서 공생애를 시작하심으로 구체화됩니다.</p>
+                            <p>욥기 14장은 죽음 앞에서 절망하는 인간의 실존을 보여주며, 나무가 다시 싹이 트듯 인생에게도 부활의 소망이 절실함을 역설합니다. 이 간절한 질문에 대한 답은 고린도전서 3장에서 주어집니다. 욥이 갈망하던 그 생명의 기초는 바로 '예수 그리스도'라는 터입니다. 교회는 썩어질 육체의 영광이 아니라, 불로 태워도 남을 영원한 기초이신 그리스도 위에 세워진 하나님의 성전입니다.</p>
+                            <p>결론적으로, 하나님은 예언(창세기)과 성취(누가복음)를 통해 당신의 아들을 보내셨고, 그 아들은 죽음의 절망(욥기)을 이기는 부활의 소망이 되시며, 오늘날 성도와 교회를 지탱하는 유일하고 견고한 터(고린도전서)가 되십니다. 모든 영광은 이 터를 닦으시고 자라게 하시는 하나님께만 돌려야 합니다(Soli Deo Gloria).</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
