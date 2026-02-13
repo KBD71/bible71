@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 18일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky;
+            top: 0;
+            background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            padding: 10px;
+            margin: 0 -10px 2rem -10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 18일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 1장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 5장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 16장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 5장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 18일: 언약의 신실하심과 거룩한 부르심</h3>
+                            <h4>오늘의 길잡이: 고난 속에서 세워지는 하나님 나라</h4>
+                            <p>오늘의 읽기표는 구약의 새로운 서막인 출애굽기와 신약의 본격적인 사역을 다루는 누가복음, 그리고 고난과 거룩함의 문제를 다루는 욥기와 고린도전서로 구성됩니다. 창세기가 요셉의 죽음으로 끝났다면, 출애굽기는 요셉을 알지 못하는 새 왕의 등극과 이스라엘의 고난으로 시작됩니다. 이는 하나님의 약속이 위기에 처한 듯 보이지만, 오히려 고난 중에 민족이 번성하는 역설적인 보존을 보여줍니다.</p>
+                            <p>신약에서는 예수께서 제자들을 부르시며 죄인을 구원하시는 권능을 나타내시고, 사도 바울은 교회 공동체의 거룩함을 지키기 위한 징계의 필요성을 역설합니다. 욥은 인간의 위로가 아닌 하늘의 증인을 갈망하며 구속자를 바라봅니다. 오늘 읽기를 통해, 어떠한 환경에서도 자기 백성을 거룩하게 보존하시고 부르시는 하나님의 주권을 묵상하시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">출애굽기 1장 읽기 시작</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 1장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">이스라엘 자손이 학대를 받을수록 더욱 번성하게 된 원동력은 무엇이며, 산파들의 행위가 갖는 신앙적 의미는 무엇입니까?</span>
+                            </div>
+                            <h3>출애굽기 1장: 고난 중의 번성과 하나님의 보존</h3>
+                            <h4>상세 개요</h4>
+                            <p>야곱과 함께 애굽에 이른 이스라엘 자손들은 생육하고 번성하여 온 땅에 가득하게 됩니다. 그러나 요셉을 알지 못하는 새 왕이 등극하여 이스라엘의 번성을 두려워하게 되고, 그들을 노예로 삼아 혹독한 노동으로 학대합니다. 바로는 히브리 산파들에게 남자 아이들을 죽이라고 명령하지만, 하나님을 경외한 산파들은 왕의 명령을 거역합니다. 결국 바로는 모든 아들을 나일 강에 던지라는 최후의 칙령을 내립니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 언약적 축복의 실현:</strong> 이스라엘의 번성은 아브라함에게 주셨던 <span class="scripture-quote">네 자손이 하늘의 별과 같이 많게 하리라</span>(창 22:17)는 언약적 약속의 역사적 성취입니다. 세상 권세가 이를 막으려 학대하지만, 하나님의 작정은 인간의 방해를 넘어 오히려 고난 중에 더욱 강력하게 실현됨을 보여줍니다.</p>
+                            <p><strong>2. 하나님 경외와 주권적 보상:</strong> 산파 십브라와 부아가 세상 왕의 서슬 퍼런 명령보다 하나님의 법을 우선시한 것은 '신전 의식(Coram Deo)'의 표본입니다. 하나님께서는 이들의 믿음을 통해 이스라엘의 대를 보존하시며, 이들의 집안을 흥왕하게 하심으로 하나님의 주권을 인정하는 자들을 향한 신실하신 보상을 나타내십니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_01.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 5장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">베드로가 고기를 많이 잡은 후 "주여 나를 떠나소서 나는 죄인이로소이다"라고 고백한 이유는 무엇이며, 예수께서 오신 목적은 무엇입니까?</span>
+                            </div>
+                            <h3>누가복음 5장: 죄인을 부르시는 거룩하신 권능</h3>
+                            <h4>상세 개요</h4>
+                            <p>예수께서 베드로의 배에서 말씀을 전하신 후 깊은 데로 가서 그물을 내리게 하십니다. 기적적인 수확 앞에 베드로는 자신의 죄인됨을 고백하며 주님을 따르게 됩니다. 주님은 나병 환자를 고치시고 중풍병자의 죄를 사하심으로 신성을 나타내시며, 세리 레위(마태)를 부르십니다. 바리새인들의 비난에 주님은 건강한 자가 아닌 병든 자에게 의사가 필요하듯, 죄인을 불러 회개시키러 오셨음을 선언하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 신성 앞에 선 인간의 전적 타락:</strong> 베드로의 고백은 거룩하신 하나님을 대면한 피조물의 정직한 반응입니다. 인간은 하나님의 영광(신성)의 빛 아래서만 자신의 비참한 죄 실존을 깨닫게 됩니다. 예수님은 단순한 교사가 아니라 죄를 사하시는 권세를 가진 성자 하나님이심이 이 고백을 통해 확증됩니다.</p>
+                            <p><strong>2. 구속적 부르심의 원리:</strong> 주님은 세리와 죄인들과 함께 식사하십니다. 이는 복음이 '자칭 의인'이 아닌 '자기 죄를 깨닫는 자'에게 임함을 보여줍니다. <span class="scripture-quote">내가 의인을 부르러 온 것이 아니요 죄인을 불러 회개시키러 왔노라</span>(32절)는 말씀은 모든 구원의 주도권이 하나님의 은혜에 있음을 보여주는 개혁주의 구원론의 핵심입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_05.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 16장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">욥이 친구들의 위로를 '재난을 주는 위로자'로 규정하며 하늘에 호소한 '증인'과 '중보자'는 누구를 예표합니까?</span>
+                            </div>
+                            <h3>욥기 16장: 인간의 파산과 하늘의 증인</h3>
+                            <h4>상세 개요</h4>
+                            <p>욥은 친구들의 변론을 '재난을 주는 위로'라고 일축하며 그들의 무자비함을 비판합니다. 그는 하나님께서 자신을 대적하시며 화살받이로 삼으신 듯한 극심한 고통을 서술합니다. 그러나 이 절망의 심연에서 욥은 자신의 결백을 증명해 줄 '증인'이 하늘에 계시고, 자신의 '중보자'가 높은 데 계심을 고백하며 하나님께 눈물을 흘립니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 일반 계시적 위로의 한계:</strong> 친구들은 인과응보라는 일반적 원리로 욥을 정죄합니다. 고난받는 자에게 인간적인 신학 지식은 도리어 재앙이 됩니다. 이는 참된 위로가 땅의 지혜가 아닌 하늘의 계시, 즉 그리스도의 복음으로부터만 올 수 있음을 시사합니다.</p>
+                            <p><strong>2. 하늘의 중보자 갈망:</strong> <span class="scripture-quote">지금 나의 증인이 하늘에 계시고 나의 중보자가 높은 데 계시니라</span>(19절). 욥은 스스로의 무죄를 증명할 수 없는 상황에서 하나님 자신이 자신의 변호인이 되어 주시기를 구합니다. 이는 장차 오셔서 우리의 영원한 대언자가 되실 예수 그리스도를 바라보는 구속사적 소망의 단초입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_16.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 5장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">교회 내의 음행을 방치하지 말고 출교시키라는 바울의 명령은 교회의 어떤 신학적 정체성을 지키기 위함입니까?</span>
+                            </div>
+                            <h3>고린도전서 5장: 교회의 거룩함과 징계의 필요성</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 고린도 교회 내에 발생한 근친상간의 소식을 듣고 큰 충격을 표합니다. 그는 교회가 이를 방치하고 교만해진 것을 책망하며, 그러한 죄를 범한 자를 사단에게 내주어(출교) 영을 구원하게 하라고 명령합니다. 적은 누룩이 온 덩이에 퍼지는 법을 상기시키며, 옛 누룩을 내버리고 유월절 양이신 그리스도 안에서 순전함과 진실함으로 절기를 지키라고 권고합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 가시적 교회의 거룩성(Purity):</strong> 교회는 세상과 구별된 거룩한 공동체입니다. 죄를 용납하는 것은 사랑이 아니라 교회의 본질을 훼손하는 방종입니다. 징계는 범죄자의 영혼을 구원하고, 교회 전체가 죄에 물들지 않도록 보호하는 하나님의 사랑의 공의로운 방편입니다.</p>
+                            <p><strong>2. 유월절 양 그리스도와 성화:</strong> <span class="scripture-quote">우리의 유월절 양 곧 그리스도께서 희생되셨느니라</span>(7절). 그리스도의 죽음은 우리를 단순히 죄의 형벌에서 건진 것뿐만 아니라, 죄의 권세로부터 분리시켜 거룩한 삶으로 부르신 것입니다. 성도는 그리스도의 희생에 합당한 '누룩 없는 떡'과 같은 성화의 삶을 살아야 합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_05.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 고난과 부패 속에서 일하시는 하나님의 거룩한 작정</h4>
+                            <p>오늘의 네 본문은 **'어떠한 환경에서도 자기 백성을 보존하시고 거룩하게 세우시는 하나님의 주권적 역사'**라는 주제로 긴밀하게 연결됩니다. 출애굽기 1장에서 이스라엘이 세상 권세의 학대 속에서도 번성하는 것은 하나님의 언약적 작정이 인간의 악을 압도함을 보여줍니다. 이는 요셉이 고백했던 '악을 선으로 바꾸시는 하나님'의 역사가 민족 단위로 확장되는 장면입니다.</p>
+                            <p>누가복음 5장에서 예수님이 베드로와 레위를 부르시는 장면은, 하나님의 나라가 인간의 공로나 자격이 아닌 전적인 은혜의 부르심으로 세워짐을 확증합니다. 거룩하신 주님 앞에 선 베드로의 고백은 출애굽기에서 하나님을 경외했던 산파들의 모습과 결을 같이하며, 하나님의 주권 앞에 굴복하는 성도의 마땅한 자세를 보여줍니다.</p>
+                            <p>욥기 16장과 고린도전서 5장은 각각 '개인'과 '공동체'가 고난과 죄의 문제를 어떻게 다루어야 하는지를 조명합니다. 욥은 인간의 위로가 파산한 자리에서 하늘의 중보자를 바라봄으로써 복음의 핵심인 그리스도를 예표합니다. 반면 고린도전서는 그렇게 부름받은 공동체가 그리스도의 희생(유월절 양)에 합당한 거룩함을 유지하기 위해 죄와 단절해야 함을 가르칩니다.</p>
+                            <p>결론적으로, 구속사는 하나님의 신실하신 보존(출애굽기), 은혜로운 부르심(누가복음), 고통 중의 중보(욥기), 그리고 공동체의 거룩한 정화(고린도전서)를 통해 진행됩니다. 성도는 우리를 부르시고 보존하시는 하나님의 주권을 신뢰하며, 그리스도의 대속의 공로 의지하여 날마다 거룩함으로 나아가야 합니다(Soli Deo Gloria).</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
