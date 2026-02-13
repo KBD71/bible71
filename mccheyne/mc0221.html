@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 21일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        /* 탭 컬러 설정 */
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        
+        /* 성경 듣기 버튼 숨김 처리 */
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 21일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 4장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 8장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 19장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 8장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 21일: 사명으로의 부름과 구속주의 현존</h3>
+                            <h4>오늘의 길잡이: 역설적인 환경 속에서 일하시는 하나님</h4>
+                            <p>오늘 우리가 묵상할 본문들은 하나님의 백성이 처한 다양한 위기와 그 위기를 돌파하게 하시는 하나님의 권능을 조명합니다. 출애굽기 4장은 부르심 앞에서 주저하는 모세를 권능으로 무장시키시는 하나님을 보여줍니다. 이는 누가복음 8장에서 자연과 영적 세계, 질병과 죽음까지도 다스리시는 그리스도의 주권으로 이어집니다.</p>
+                            <p>또한, 극한의 고통과 소외 속에서도 "살아계신 구속주"를 바라보는 욥의 고백(욥기 19장)은, 성도가 이 세상의 지식보다 앞세워야 할 사랑의 가치(고린도전서 8장)가 무엇인지 가르쳐 줍니다. 오늘 말씀을 통해 우리 삶의 폭풍우 속에서도 여전히 역사하시는 하나님의 주권적인 손길을 발견하시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">첫 번째 본문으로 이동</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 4장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">사명을 주저하는 모세에게 하나님께서 주신 세 가지 표징은 그의 무능력을 어떻게 하나님의 능력으로 대체합니까?</span>
+                            </div>
+                            <h3>출애굽기 4장: 권능의 부여와 언약적 훈련</h3>
+                            <h4>상세 개요</h4>
+                            <p>모세는 자신의 무능력을 핑계로 부르심을 거부하나, 하나님께서는 지팡이가 뱀이 되는 이적, 손에 나병이 생겼다 치유되는 이적, 나일강 물이 피가 되는 표징을 보여주십니다. 또한 말을 못 한다는 모세에게 형 아론을 대변인으로 세워주십니다. 애굽으로 향하던 길에 '피 남편' 사건을 통해 하나님께서는 언약의 증표인 할례의 엄중함을 가르치시고, 모세는 마침내 백성들의 장로들을 만나 사역을 시작합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 중보자의 무능력과 하나님의 전능:</strong> 하나님께서는 모세의 '없음'을 책망하기보다 그분의 '있음'을 계시하십니다. <span class="scripture-quote">누가 사람의 입을 지었느냐</span>(11절)라는 선언은 모든 창조와 사역의 주권이 하나님께 있음을 확증합니다. 이는 직분자가 의지해야 할 것이 자신의 탁월함이 아니라 부르시는 분의 신실함임을 보여줍니다.</p>
+                            <p><strong>2. 할례와 피의 언약:</strong> 모세가 사역지로 가던 중 죽음의 위기를 겪은 것은 공적인 사역자가 되기 전 먼저 언약적 질서(할례) 안에 바로 서야 함을 시사합니다. 이는 구원 사역이 인간의 열심이 아닌, 오직 피의 언약과 거룩함의 토대 위에서만 가능함을 보여주는 구속사적 교훈입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_04.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 8장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">예수께서 광풍을 꾸짖으시고 죽은 아이를 살리시는 일련의 사건들은 그분의 '말씀'에 어떤 권위가 있음을 계시합니까?</span>
+                            </div>
+                            <h3>누가복음 8장: 만유를 통치하시는 하나님 나라의 왕</h3>
+                            <h4>상세 개요</h4>
+                            <p>예수께서는 씨 뿌리는 비유를 통해 하나님 나라의 비밀을 가르치시고, 말씀의 열매를 맺는 '착하고 좋은 마음'을 강조하십니다. 이후 배를 타고 갈릴리 호수를 건너시다 광풍을 잔잔케 하시고, 거라사 지방에서 군대 귀신 들린 자를 치유하십니다. 다시 돌아오셔서 혈루증 앓는 여인을 고치시고 회당장 야이로의 죽은 딸을 "달리다굼"의 권세로 살려내심으로 생명의 주권자임을 보이십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 말씀의 수단성과 권능:</strong> 누가복음 8장은 모든 이적의 중심에 '말씀'이 있음을 강조합니다. <span class="scripture-quote">하나님의 말씀은 씨요</span>(11절). 광풍도, 귀신도, 질병과 죽음도 예수님의 말씀 한마디에 굴복합니다. 이는 그리스도께서 창조주로서의 신성을 가지셨으며, 하나님 나라의 통치가 그분의 입에서 나오는 말씀으로 실현됨을 입증합니다.</p>
+                            <p><strong>2. 구원하시는 믿음의 성격:</strong> 혈루증 여인과 야이로의 신앙은 단순히 이적을 바라는 기복이 아니라, 그리스도의 절대적 주권을 신뢰하는 믿음입니다. 주님은 <span class="scripture-quote">네 믿음이 너를 구원하였으니</span>(48절)라고 말씀하심으로, 구원이 그리스도와의 인격적 연합과 그분의 통치를 받아들임에 있음을 선포하십니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_08.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 19장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">욥이 고백한 "내가 알기에는 나의 대속자가 살아 계시니"라는 선언은 그의 고난 해석에 어떤 전환을 가져옵니까?</span>
+                            </div>
+                            <h3>욥기 19장: 절망의 심연에서 솟아오른 부활의 신앙</h3>
+                            <h4>상세 개요</h4>
+                            <p>욥은 친구들의 정죄로 인해 입은 상처와 하나님께서 자신을 대적하시는 듯한 상황에 대해 비통함을 토로합니다. 가족과 친지들로부터도 완전히 소외된 욥은 철저한 고독에 처합니다. 그러나 이 절망의 끝에서 욥은 자신의 구속자가 살아계시며, 마지막 날에 그가 땅 위에 서실 것과 자신이 육체 밖에서 하나님을 보게 될 것이라는 웅장한 신앙 고백을 선포합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. '고엘(Goel)'로서의 구속주:</strong> 욥이 말하는 <span class="scripture-quote">나의 대속자</span>(25절)는 히브리어로 '고엘'입니다. 이는 억울한 자의 권리를 되찾아주는 친족 구속자를 의미합니다. 욥은 땅에서 소망이 끊어진 자리에 하늘의 중보자를 요청하며, 이는 오직 그리스도의 대속 사역을 통해서만 온전히 성취될 구속적 신비의 예표입니다.</p>
+                            <p><strong>2. 종말론적 소망과 부활:</strong> <span class="scripture-quote">내 가죽이 벗김을 당한 뒤에도 내가 육체 밖에서 하나님을 보리라</span>(26절). 욥은 현재의 고난이 최종적인 결론이 아님을 알았습니다. 그는 죽음을 넘어서는 생명의 회복과 하나님의 공의로운 판단을 바라봄으로써, 개혁주의 신앙이 고수하는 '성도의 견인'과 '영광스러운 부활'의 원리를 미리 맛보고 있습니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_19.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 8장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 우상의 제물 문제를 다루며 "지식은 교만하게 하며 사랑은 덕을 세운다"고 말한 신학적 이유는 무엇입니까?</span>
+                            </div>
+                            <h3>고린도전서 8장: 지식의 한계와 사랑의 윤리</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 우상의 제물을 먹는 문제로 갈등하는 고린도 교회에 답합니다. 우상은 아무것도 아니라는 '지식' 자체는 옳지만, 그 지식만으로 행할 때 믿음이 약한 형제를 넘어뜨릴 수 있음을 경고합니다. 바울은 한 분 하나님과 한 분 주 예수 그리스도에 대한 신앙을 재확인하면서도, 지식보다 사랑의 원리를 우선하여 형제를 실족시키지 않는 것이 참된 그리스도인의 자유임을 역설합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 유일신 신앙과 기독론적 적용:</strong> <span class="scripture-quote">우리에게는 한 하나님 곧 아버지가 계시고... 또한 한 주 예수 그리스도께서 계시니</span>(6절). 바울은 쉐마(신 6:4)를 그리스도 중심으로 재해석합니다. 만물이 그로 말미암아 존재한다는 이 장엄한 지식은 성도의 삶의 기초가 되지만, 이 지식은 머리에만 머무는 것이 아니라 공동체를 세우는 사랑으로 발현되어야 합니다.</p>
+                            <p><strong>2. 기독교적 자유와 자기 절제:</strong> 개혁주의 윤리는 '모든 것이 가하나 모든 것이 유익한 것은 아니다'라는 원리에 기초합니다. 참된 지혜를 가진 자는 자신의 권리를 주장하기보다 연약한 지체를 위해 기꺼이 자신의 자유를 제약합니다. 이는 그리스도께서 우리를 위해 자신을 비우신 '비하(Humiliation)'의 본을 따르는 삶입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_08.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 탭 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 주권적 권능의 현존과 사랑의 순종</h4>
+                            <p>오늘의 본문들은 **'하나님의 절대 주권이 어떻게 성도의 삶의 현장에 가시적으로 나타나는가'**라는 거대한 질문에 답합니다. 출애굽기 4장에서 모세에게 부여된 권능은 단순한 개인의 능력이 아니라, 하나님께서 그분의 백성을 구원하시려는 의지의 표명입니다. 이 주권적 권능은 누가복음 8장에서 그리스도의 말씀 한마디에 폭풍이 멎고 죽은 자가 살아나는 우주적 통치권으로 절정에 달합니다.</p>
+                            <p>이러한 하나님의 강력한 통치는 고난 중에 있는 성도에게 소망의 근거가 됩니다. 욥기 19장에서 욥이 소망했던 '살아계신 대속자'는 바로 누가복음이 증언하는 예수 그리스도이십니다. 땅 위의 모든 위로가 파산한 자리에서도 구속주가 계시다는 확신은 성도를 죽음 너머의 소망으로 견인합니다. 이는 하나님의 주권이 미래적 승리뿐 아니라 현재의 고통을 견디게 하는 힘임을 보여줍니다.</p>
+                            <p>마지막으로, 고린도전서 8장은 이러한 하나님 나라의 지식(유일하신 하나님과 주 예수)을 소유한 백성이 공동체 내에서 어떻게 살아야 하는지를 가르칩니다. 하나님의 주권을 아는 참된 지식은 교만을 낳는 것이 아니라, 그리스도께서 사신 연약한 지체를 사랑으로 배려하는 '자기 비움'의 윤리로 나타나야 합니다. 결국 구속사는 하나님의 주권적 권능(Power)으로 시작되어 성도의 사랑의 덕(Love)으로 열매 맺는 과정임을 알 수 있습니다.</p>
+                            <h4>구속사적 결론</h4>
+                            <p>창조-타락-구속-완성의 관점에서 볼 때, 오늘의 말씀은 구속의 성취를 향한 역동적인 흐름을 보여줍니다. 출애굽기의 모세는 그리스도의 모형으로서 백성을 해방하러 가며, 누가복음의 그리스도는 실체로서 만유를 통치하십니다. 욥은 그 완성의 날을 소망하며 견디고, 성도는 그 나라의 윤리를 사랑으로 실천합니다. 우리는 오직 "살아계신 대속자"의 권능을 의지하여, 지식보다 앞선 사랑으로 하나님 나라를 일구어 가야 합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
