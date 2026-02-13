@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 25일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 25일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 8장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 12장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 23장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 12장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 25일: 주권적 권능과 거룩한 연합</h3>
+                            <h4>오늘의 길잡이: 스스로 계신 분의 손가락과 그 나라의 질서</h4>
+                            <p>오늘의 읽기는 하나님의 절대 주권이 역사와 개인, 그리고 공동체 안에서 어떻게 나타나는지를 조명합니다. 애굽의 신들을 하나씩 파괴하며 여호와의 유일성을 확증하시는 '하나님의 손가락'은, 신약에서 염려를 넘어 하나님 나라를 구하라는 주님의 명령으로 이어집니다.</p>
+                            <p>고난의 심연에서 하나님의 작정을 신뢰하며 정금같이 빚어지기를 소망하는 욥의 고백은, 성령 안에서 각기 다른 은사를 받았으나 한 몸을 이루는 교회의 영광스러운 질서로 완성됩니다. 독자 여러분께서는 오늘 본문들을 통해 세상을 통치하시는 하나님의 큰 손과, 우리를 각 지체로 부르신 세심한 은혜를 함께 목격하시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">출애굽기 8장부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 8장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">애굽의 요술사들조차 고백할 수밖에 없었던 '하나님의 권능(손가락)'은 세상의 거짓 권세와 어떻게 대조됩니까?</span>
+                            </div>
+                            <h3>출애굽기 8장: 하나님의 손가락과 심판의 전개</h3>
+                            <h4>상세 개요</h4>
+                            <p>하나님께서는 바로에게 두 번째(개구리), 세 번째(이), 네 번째(파리) 재앙을 내리십니다. 애굽의 요술사들은 개구리 재앙까지는 흉내 내었으나, 티끌이 이가 되는 재앙 앞에서는 <span class="scripture-quote">이는 하나님의 권능(Finger of God)이니이다</span>(19절)라고 고백하며 자신들의 한계를 인정합니다. 특히 파리 재앙부터는 이스라엘이 거주하는 고센 땅을 구별하여 재앙이 임하지 않게 하심으로, 하나님이 온 땅의 주권자이심을 확증하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 우상 숭배의 무능력 폭로:</strong> 개구리(Heqet), 이, 파리 등은 모두 애굽인들이 숭배하던 자연 신들과 밀접한 관련이 있습니다. 하나님께서는 그들이 복이라고 여겼던 자연물을 재앙으로 바꾸심으로써, 피조물은 결코 경배의 대상이 될 수 없음을 선포하십니다. 이는 인간이 의지하는 모든 세상적 가치가 하나님의 주권 아래 있음을 보여줍니다.</p>
+                            <p><strong>2. 구별하시는 은혜(Particular Grace):</strong> 고센 땅을 구별하신 사건은 심판 중에도 자기 백성을 보존하시는 하나님의 작정을 보여줍니다. 이는 마지막 때에 세상을 향한 진노 중에서도 그리스도 안에 있는 자들을 보호하시는 구속사적 은혜의 예표입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_08.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 12장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">어리석은 부자의 비유와 들풀의 교훈을 통해 주님께서 강조하신 '하나님께 대하여 부요한 자'는 어떤 삶을 의미합니까?</span>
+                            </div>
+                            <h3>누가복음 12장: 하나님 나라를 구하는 제자의 삶</h3>
+                            <h4>상세 개요</h4>
+                            <p>예수께서는 외식하는 바리새인들을 경계하시며, 육신을 죽이는 자가 아닌 영혼을 다스리시는 하나님을 두려워하라고 가르치십니다. 한 부자의 비유를 통해 탐심의 어리석음을 지적하시고, 까마귀와 백합화를 돌보시는 하나님을 신뢰하여 의식주에 대한 염려를 버리라고 권면하십니다. 대신 '그의 나라'를 구하는 자에게 모든 것을 더하실 것을 약속하시며, 주인이 언제 올지 모르는 종처럼 깨어 있을 것을 명령하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 일반 섭리와 특별 섭리의 조화:</strong> 주님은 창조 세계를 돌보시는 하나님의 일반 섭리를 근거로, 자기 백성을 향한 세심한 특별 섭리를 신뢰하라고 말씀하십니다. <span class="scripture-quote">너희 아버지께서는 이런 것이 너희에게 있어야 할 것을 아시느니라</span>(30절). 이는 성도가 세상의 결핍에 함몰되지 않고 하나님의 통치를 먼저 구할 수 있는 신학적 토대가 됩니다.</p>
+                            <p><strong>2. 종말론적 긴장과 청지기 정신:</strong> 깨어 있는 종의 비유는 신자가 '이미와 아직' 사이의 긴장 속에서 살아야 함을 가르칩니다. 우리에게 맡겨진 모든 자원은 하나님 나라를 위한 도구이며, 우리는 마지막 날 주권적인 주인 앞에 서게 될 청지기임을 자각해야 합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_12.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 23장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">하나님이 보이지 않는 부재의 고통 속에서도 욥이 고백한 '나의 가는 길'에 대한 확신은 어디에 근거합니까?</span>
+                            </div>
+                            <h3>욥기 23장: 단련하시는 하나님과 신뢰의 고백</h3>
+                            <h4>상세 개요</h4>
+                            <p>욥은 하나님께 나아가 자신의 정당함을 변호하고 싶으나, 앞으로 가도 뒤로 가도 그분을 만날 수 없는 부재의 고통을 호소합니다. 그러나 그는 자신이 처한 상황이 하나님의 주권적 작정 아래 있음을 고백하며, 하나님이 자신을 단련하신 후에는 순금 같이 되어 나올 것임을 확신합니다. 비록 하나님이 두렵고 떨릴지라도, 그는 하나님의 뜻이 일정하시며 그분이 작정하신 일을 반드시 이루실 것임을 신뢰합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 성화의 풀무불과 견인:</strong> <span class="scripture-quote">그러나 내가 가는 길을 그가 아시나니 그가 나를 단련하신 후에는 내가 순금 같이 되어 나오리라</span>(10절). 욥은 고난을 형벌이 아닌 '단련(Refining)'으로 이해하기 시작합니다. 이는 개혁주의 성화론의 핵심으로, 하나님은 성도의 믿음을 견고하게 하시기 위해 주권적으로 고난을 도구로 사용하신다는 진리를 담고 있습니다.</p>
+                            <p><strong>2. 불변하시는 작정(Immutable Decree):</strong> 욥은 하나님의 뜻이 일정(Unchangeable)하시다고 고백합니다. 이는 인간의 상황에 따라 변덕스럽게 반응하시는 분이 아니라, 영원 전부터 세우신 선하신 계획을 신실하게 성취하시는 하나님의 속성을 노래하는 것입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_23.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 12장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">성령의 은사가 공동체의 유익을 위해 '한 몸'으로 유기적으로 연결되어야 하는 신학적 이유는 무엇입니까?</span>
+                            </div>
+                            <h3>고린도전서 12장: 성령의 은사와 그리스도의 몸</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 신령한 은사에 대해 가르치며, 모든 은사의 근원이 한 성령이심을 강조합니다. 성령은 각 사람에게 그 뜻대로 은사를 나누어 주시며, 이는 공동체의 유익을 위함입니다. 몸에 여러 지체가 있으나 한 몸인 것처럼, 교회도 그리스도의 몸으로서 다양한 지체들이 서로를 필요로 하며 유기적으로 연결되어 있습니다. 바울은 지체 간의 우열을 부정하고, 서로를 돌보며 더 큰 은사인 사랑을 사모하라고 권면합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 주권적 배분(Sovereign Distribution):</strong> <span class="scripture-quote">이 모든 일은 같은 한 성령이 행하사 그의 뜻대로 각 사람에게 나누어 주시는 것이니라</span>(11절). 은사는 개인의 탁월함에 대한 보상이 아니라 하나님의 주권적 선물입니다. 따라서 은사는 자랑의 근거가 될 수 없으며 오직 하나님의 주권을 찬양하는 제목이 되어야 합니다.</p>
+                            <p><strong>2. 그리스도 중심적 공동체론:</strong> 교회는 단순한 사회적 조직이 아니라 '그리스도의 몸'입니다. 이는 성도가 그리스도와 신비적으로 연합(Mystical Union)되어 있음을 뜻합니다. 지체들 간의 연합은 선택 사항이 아니라 교회의 본질적인 속성이며, 한 지체의 고통은 몸 전체의 고통으로 이어진다는 공동체적 연대성을 가집니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_12.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 하나님의 주권적 통치와 거룩한 유기체</h4>
+                            <p>오늘의 네 본문은 **'하나님의 주권적인 손길이 역사와 개인, 그리고 공동체를 어떻게 다스리시는가'**라는 주제로 긴밀하게 연결됩니다. 출애굽기 8장에서 애굽의 요술사들이 고백한 '하나님의 손가락'은 자연 세계를 통제하시는 하나님의 가시적 권능을 보여줍니다. 이 권능은 누가복음 12장에서 참새와 백합화까지 돌보시는 세밀한 섭리로 나타나며, 성도가 세상의 염려를 이기고 하나님 나라를 구해야 할 신학적 근거가 됩니다.</p>
+                            
+                            <p>이러한 하나님의 통치는 때로 욥기 23장과 같이 '하나님의 부재'라는 고통의 시험을 통과하게 합니다. 그러나 욥은 하나님의 작정이 일정하며, 그 풀무불이 자신을 순금으로 빚기 위한 거룩한 도구임을 고백합니다. 이는 하나님의 주권이 단순히 외부적인 권능에 머무는 것이 아니라, 성도의 내면을 갱신하시는 성화의 사역임을 보여줍니다.</p>
+
+                            <p>마지막으로 고린도전서 12장은 이 주권적 권능을 행하시는 한 성령께서 교회 공동체 안에 다양한 은사를 나누어 주셨음을 확증합니다. 출애굽의 하나님이 고센 땅을 구별하셨듯, 성령님은 우리를 각 지체로 부르셔서 그리스도의 몸이라는 거룩한 유기체를 이루게 하셨습니다. 지체 간의 다양성은 혼란이 아니라, 한 성령의 주권적인 배분 아래 완성되는 영광스러운 통일성입니다.</p>
+
+                            <p><strong>구속사적 결론:</strong> 하나님은 재앙으로 세상을 심판하시고(출애굽기), 사랑으로 자기 백성을 공급하시며(누가복음), 연단으로 성도를 순금 만드시고(욥기), 은사로 교회를 세우십니다(고린도전서). 우리는 오늘 우리를 다스리시는 '하나님의 손가락'을 신뢰하며, 각자의 자리에서 한 몸 된 지체로서의 사명을 감당해야 합니다. (Soli Deo Gloria)</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
