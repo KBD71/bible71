@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 19일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky;
+            top: 0;
+            background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            padding: 10px;
+            margin: 0 -10px 2rem -10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 19일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 2장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 6장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 17장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 6장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 19일: 구속의 준비와 천국 시민의 삶</h3>
+                            <h4>오늘의 길잡이: 역설적인 섭리와 구별된 거룩함</h4>
+                            <p>오늘 우리가 묵상할 본문들은 하나님의 오묘한 준비와 그 나라 백성의 정체성을 보여줍니다. 바로의 억압 속에서도 구원자 모세를 준비하시는 하나님의 지혜(출애굽기)와, 안식일의 참된 의미를 회복하시며 제자들을 부르시는 그리스도의 통치(누가복음)를 목격하게 됩니다.</p>
+                            <p>또한 죽음의 문턱에서 하늘의 담보를 갈망하는 욥의 처절한 탄식(욥기)은, 그리스도의 피로 값 주고 사신 우리 몸을 어떻게 거룩하게 보존해야 하는가에 대한 바울의 권면(고린도전서)으로 응답받습니다. 인간의 위기와 절망의 한복판에서 하나님이 어떻게 구원의 길을 예비하시는지 주목하시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">출애굽기 2장부터 읽기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 2장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">하나님께서는 대적 바로의 살해 명령 속에서 어떻게 구원자 모세를 보호하고 준비시키셨습니까?</span>
+                            </div>
+                            <h3>출애굽기 2장: 구원자의 탄생과 섭리적 훈련</h3>
+                            <h4>상세 개요</h4>
+                            <p>레위 가족 중 한 아기가 태어나나 바로의 명령으로 죽을 위기에 처합니다. 갈대 상자에 담겨 나일 강에 띄워진 아기는 바로의 딸에 의해 건져져 '모세'라 이름 지어지고 왕궁에서 자랍니다. 성인이 된 모세는 동족 히브리인을 돕기 위해 애굽인을 죽이나, 이 일이 탄로나 미디안 광야로 도망합니다. 거기서 십보라와 결혼하여 나그네의 삶을 살게 되며, 하나님께서는 고통 속에 부르짖는 이스라엘의 언약을 기억하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 원수의 손을 통한 구원:</strong> 하나님은 이스라엘을 억압하는 바로의 딸을 사용하여 장차 애굽을 심판할 모세를 보호하십니다. 이는 하나님의 주권적 섭리가 인간의 악한 의도까지도 구원의 도구로 사용하심을 보여주는 역설적인 은혜입니다.</p>
+                            <p><strong>2. 광야 학교와 준비의 시간:</strong> 모세는 왕궁의 지혜를 배웠으나, 하나님은 그를 광야로 보내 '나그네(게르솜)'의 신분을 경험하게 하십니다. 이는 교만한 인간의 힘을 빼고 오직 하나님의 도구로 다듬으시는 구속사적 훈련의 과정입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_02.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 6장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">예수께서 자신을 '안식일의 주인'이라 선포하신 것은 율법의 정신에 대해 무엇을 가르치시는 것입니까?</span>
+                            </div>
+                            <h3>누가복음 6장: 안식일의 주인과 하나님 나라의 윤리</h3>
+                            <h4>상세 개요</h4>
+                            <p>예수께서는 안식일에 밀 이삭을 잘라 먹는 제자들을 변호하시며 인자가 안식일의 주인임을 선언하십니다. 열두 제자를 택하여 세우신 후 평지에서 말씀을 전하시며 복과 화에 대해 선포하십니다. 원수를 사랑하고 비판하지 말라는 하나님 나라의 높은 윤리를 가르치시고, 듣고 행하는 자는 반석 위에 집을 지은 지혜로운 자와 같다고 말씀하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 안식일의 완성자 그리스도:</strong> <span class="scripture-quote">인자는 안식일의 주인이니라</span>(5절). 예수님은 안식일을 폐하러 오신 것이 아니라, 형식주의에 빠진 안식일에 생명 구원의 본질을 회복하러 오셨습니다. 그리스도 자신이 곧 성도의 영원한 안식이 되십니다.</p>
+                            <p><strong>2. 전복적인 하나님 나라의 가치:</strong> 가난하고 주린 자가 복이 있다는 선언은 세상의 가치관을 뒤집는 것입니다. 이는 성령으로 거듭난 자들만이 소유할 수 있는 새로운 시민권의 특징이며, 인간의 공로가 아닌 은혜의 통치를 받는 백성의 열매를 강조합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_06.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 17장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">욥이 "주께서 친히 나의 담보물이 되어 주소서"라고 간구한 배경과 의미는 무엇입니까?</span>
+                            </div>
+                            <h3>욥기 17장: 절망의 심연과 하늘의 보증</h3>
+                            <h4>상세 개요</h4>
+                            <p>욥은 자신의 기운이 다하고 죽음이 임박했음을 느낍니다. 친구들의 조롱과 오해 속에서 소망이 끊어진 상태를 탄식하며, 오직 하나님께서 친히 자신의 결백을 보증해 주시는 담보물이 되어 주시기를 간구합니다. 그는 자신의 소망이 스올(무덤)로 내려가고 썩음이 자신의 부모와 자매가 되는 처참한 상황을 묘사하며 하나님의 긍휼을 호소합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 유일한 보증자 하나님:</strong> 욥은 인간 친구들에게서 어떤 소망도 발견하지 못합니다. <span class="scripture-quote">주께서 친히 나의 담보물이 되어 주소서</span>(3절)라는 요청은, 심판자이신 하나님이 동시에 고난당하는 자의 변호자가 되어달라는 신앙적 도약입니다.</p>
+                            <p><strong>2. 죽음 앞에서의 정직한 실존:</strong> 욥은 거짓된 위로를 거부하고 죽음의 실체를 직시합니다. 이러한 인간적 소망의 완전한 파산은, 오직 하나님만이 주실 수 있는 초자연적인 소망(그리스도의 대속적 보증)을 간절히 예표하는 역할을 합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_17.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 6장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 성도의 몸을 '성령의 전'이라 부르며 음행을 경계한 신학적 근거는 무엇입니까?</span>
+                            </div>
+                            <h3>고린도전서 6장: 값으로 사신 몸과 성령의 전</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 성도들이 세상 법정에 서로를 고발하는 행태를 책망하며 교회 내부의 분별력을 촉구합니다. 또한 불의한 자는 하나님 나라를 유업으로 받지 못함을 상기시키고, 특히 음행에 대해 강력히 경고합니다. 우리 몸은 우리 자신의 것이 아니라 하나님께서 피 값으로 사신 성령의 전이므로, 몸으로 하나님께 영광을 돌려야 함을 선포합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 구원받은 자의 새로운 소유권:</strong> <span class="scripture-quote">너희는 너희 자신의 것이 아니라 값으로 산 것이 되었으니</span>(19-20절). 그리스도의 대속적 죽음은 우리를 죄에서 해방했을 뿐만 아니라 우리의 소유권을 사단에서 하나님께로 옮겼습니다. 따라서 성화는 이 새로운 소유권에 합당하게 사는 과정입니다.</p>
+                            <p><strong>2. 성전인 몸의 신학:</strong> 성도의 몸은 단순히 물질적인 껍데기가 아니라 성령께서 거하시는 지성소입니다. 따라서 성도의 거룩함은 영적인 영역에만 국한되지 않고 육체적인 순결과 사회적 공의(법정 문제 등)를 모두 포함하는 포괄적인 것입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_06.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 주권적 준비와 대속된 백성의 거룩함</h4>
+                            <p>오늘의 네 본문은 **'하나님의 신비로운 구원 준비와 그로 인해 부름받은 자들의 삶'**이라는 주제로 긴밀하게 연결됩니다. 출애굽기 2장에서 하나님은 바로의 억압이라는 가장 어두운 시간에 모세를 준비하셨습니다. 이는 욥기 17장에서 욥이 간절히 구했던 '하늘의 담보물'에 대한 역사적이고 예표적인 응답의 시작이기도 합니다.</p>
+                            <p>누가복음 6장에서 예수님은 안식일의 주인으로서 참된 안식과 복을 선포하시며 하나님 나라의 새로운 질서를 수립하십니다. 이 새로운 질서의 핵심은 고린도전서 6장에서 더욱 구체화됩니다. 그리스도라는 '담보물'을 통해 값으로 사신 바 된 성도의 삶은 이제 자신의 욕망을 따르는 것이 아니라, 자신의 몸을 성령의 전으로 구별하여 거룩함으로 드리는 삶이어야 합니다.</p>
+                            <p>결론적으로, 구속사는 하나님의 은밀한 섭리(모세)로 시작하여 그리스도의 통치(누가복음)를 지나, 성령의 전이 된 성도의 거룩한 삶(고린도전서)으로 완성되어 갑니다. 우리는 인생의 광야와 고난 속에서도 우리를 위해 '담보물'이 되신 그리스도를 신뢰하며, 그분이 주신 거룩한 신분을 지켜가야 합니다(Soli Deo Gloria).</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
