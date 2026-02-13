@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 17일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky;
+            top: 0;
+            background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            padding: 10px;
+            margin: 0 -10px 2rem -10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 17일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">창세기 50장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 4장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 15장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 4장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 17일: 주권적 섭리와 사역자의 충성</h3>
+                            <h4>오늘의 길잡이: 고난을 선으로 바꾸시는 하나님</h4>
+                            <p>오늘 우리가 마주하는 본문들은 인간의 이해를 뛰어넘는 하나님의 거대한 섭리를 다룹니다. 야곱의 장례와 요셉의 죽음을 통해 창세기가 마무리되며, 고난을 선으로 바꾸시는 하나님의 주권이 선포됩니다. 동시에 신약에서는 사단의 시험을 물리치고 공생애를 시작하시는 예수님의 사역을 통해 하나님의 나라가 어떻게 침노해 들어오는지 보여줍니다.</p>
+                            <p>고통 속에서도 하나님의 공의를 오해하는 친구의 변론과, 사도로서 비천에 처하면서도 오직 하나님만을 판단자로 삼는 바울의 고백은 오늘날 성도가 견지해야 할 믿음의 태도를 가르쳐 줍니다. 하나님의 거대한 구속 역사가 개인과 교회를 어떻게 이끌어가시는지 주목하시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">창세기 50장 읽기 시작</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 창세기 50장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">요셉이 형들에게 고백한 "하나님은 그것을 선으로 바꾸셨다"는 말씀은 그의 생애를 관통하는 어떤 신학적 확신을 드러냅니까?</span>
+                            </div>
+                            <h3>창세기 50장: 창세기의 마침과 신실하신 섭리</h3>
+                            <h4>상세 개요</h4>
+                            <p>야곱이 죽자 요셉은 애굽의 관례대로 장례를 치르고, 바로의 허락을 받아 가나안 땅 막벨라 굴에 야곱을 장사합니다. 야곱의 사후 보복을 두려워하는 형들에게 요셉은 하나님께서 악을 선으로 바꾸어 생명을 구원하셨음을 고백하며 그들을 위로합니다. 요셉 또한 임종을 맞이하며 하나님께서 반드시 이스라엘을 인도해 내실 것을 예언하고, 자신의 해골을 메고 나갈 것을 맹세시킵니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 악을 선으로 바꾸시는 주권:</strong> 요셉의 위대한 고백인 <span class="scripture-quote">당신들은 나를 해하려 하였으나 하나님은 그것을 선으로 바꾸사</span>(20절)는 하나님의 절대 주권에 대한 개혁주의 신학의 정수입니다. 인간의 자유의지와 악한 행동조차 하나님의 작정(Decree)을 이루는 도구가 되며, 궁극적으로 자기 백성의 구원을 위해 사용된다는 섭리의 신비를 보여줍니다.</p>
+                            <p><strong>2. 죽음을 넘어서는 언약적 신앙:</strong> 요셉이 자신의 유골을 가나안으로 가져가 달라고 한 것은 그가 애굽의 총리였음에도 불구하고 그곳을 안식처로 삼지 않았음을 의미합니다. 이는 장차 올 출애굽을 예견한 것이며, 하나님이 약속하신 본향을 바라는 종말론적 신앙의 표현입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_50.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 4장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">예수께서 광야의 시험을 오직 '기록된 말씀'으로 이기신 것은 오늘날 성도에게 어떤 영적 원리를 가르쳐 줍니까?</span>
+                            </div>
+                            <h3>누가복음 4장: 시험을 이기신 승리와 희년의 선포</h3>
+                            <h4>상세 개요</h4>
+                            <p>성령에 이끌려 광야로 가신 예수님은 40일간 사단에게 세 가지 시험을 받으시나 모두 말씀으로 물리치십니다. 이후 갈릴리 사역을 시작하시며 고향 나사렛 회당에서 이사야의 예언을 인용하여 자신이 '주의 은혜의 해(희년)'를 선포하러 오신 메시아임을 밝히십니다. 그러나 고향 사람들은 그를 배척하고, 예수님은 가버나움에서 귀신을 쫓아내시며 각종 병자를 고치심으로 하나님 나라의 능력을 나타내십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 두 번째 아담의 승리:</strong> 첫 사람 아담은 풍요로운 에덴에서 사단의 유혹에 실패했으나, 예수님은 굶주린 광야에서 사단을 이기셨습니다. 이는 그리스도께서 인류의 새로운 대표자로서 율법을 온전히 성취하시고 사단의 권세를 굴복시키시는 구속사적 승리를 의미합니다.</p>
+                            <p><strong>2. 희년의 실체이신 그리스도:</strong> <span class="scripture-quote">주의 성령이 내게 임하셨으니 이는 가난한 자에게 복음을 전하게 하시려고</span>(18절). 예수님은 단순히 육체적 질병을 고치는 분이 아니라, 죄와 사단에 매인 자들에게 참된 자유와 안식을 주시는 '희년의 실체'로 오셨습니다. 복음은 곧 모든 결박으로부터의 해방입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_04.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 15장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">엘리바스가 욥을 정죄하는 논리의 핵심인 '인과응보'의 원리가 왜 욥의 상황에서는 신학적 폭력이 됩니까?</span>
+                            </div>
+                            <h3>욥기 15장: 엘리바스의 두 번째 변론과 굳어진 정죄</h3>
+                            <h4>상세 개요</h4>
+                            <p>데만 사람 엘리바스가 두 번째 변론을 시작합니다. 그는 욥의 말이 헛된 지식이며 하나님 경외하는 일을 그만두게 한다고 비난합니다. 엘리바스는 인간이 하나님 앞에 결코 깨끗할 수 없음을 강조하며, 악인은 반드시 고통을 당하고 그 집이 적막하게 될 것이라는 전통적인 인과응보의 논리를 더욱 강력하게 주장함으로써 고난 중에 있는 욥을 정죄합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 도식화된 신학의 위험성:</strong> 엘리바스는 하나님이 악인을 심판하신다는 보편적 진리를 욥이라는 특수한 고난에 기계적으로 대입합니다. 이는 하나님의 오묘한 섭리를 인간의 좁은 지혜 안에 가두려는 시도이며, 은혜 없는 신학이 어떻게 고통받는 자에게 폭력이 될 수 있는지를 보여줍니다.</p>
+                            <p><strong>2. 인간의 부패와 하나님의 초월성:</strong> 엘리바스는 <span class="scripture-quote">사람이 어찌 깨끗하겠느냐</span>(14절)라고 말하며 인간의 전적 부패를 언급합니다. 이 진술 자체는 옳으나, 그 목적이 욥의 고난을 죄의 결과로 단정 짓기 위함이라는 데 문제가 있습니다. 올바른 교리라도 잘못된 맥락에서 사용될 때 복음의 본질을 훼손할 수 있음을 경계해야 합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_15.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 4장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">사도 바울이 '판단하실 이는 주님뿐'이라고 고백하며 자신을 비하한 이유는 무엇입니까?</span>
+                            </div>
+                            <h3>고린도전서 4장: 그리스도의 일꾼과 사도의 비하</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 사역자들을 '그리스도의 일꾼'이자 '하나님의 비밀을 맡은 자'로 규정하며, 맡은 자에게 구할 것은 오직 충성이라고 선언합니다. 그는 다른 사람의 판단이나 자기 자신의 판단에 연연하지 않고 오직 주님의 판단만을 기다립니다. 또한 교만해진 고린도 교인들과 대조적으로, 굶주리고 매 맞으며 세상의 구경거리가 된 사도들의 고난을 서술하며 그들을 영적 아비의 마음으로 훈계합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 직분자의 자세와 오직 하나님께 영광:</strong> <span class="scripture-quote">맡은 자들에게 구할 것은 충성이니라</span>(2절). 사역자의 가치는 사람의 평판이 아니라 하나님의 명령에 대한 신실함에 있습니다. 바울은 모든 판단의 권한을 하나님께 돌림으로써(Soli Deo Gloria), 교회 내의 파당과 자랑을 원천적으로 차단합니다.</p>
+                            <p><strong>2. 십자가의 길과 사도의 표지:</strong> 바울은 사도들이 <span class="scripture-quote">세상의 더러운 것과 만물의 찌꺼기</span>(13절)같이 되었다고 고백합니다. 이는 그리스도의 비하(Humiliation)를 따르는 삶이며, 참된 권위는 세상적 화려함이 아니라 복음을 위해 기꺼이 낮아지고 고난받는 모습에서 나옴을 강조합니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_04.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 주권적 섭리와 그리스도의 승리</h4>
+                            <p>오늘의 네 본문은 **'하나님의 주권적인 다스림이 인간의 고난과 역사를 어떻게 선으로 인도하시는가'**라는 주제로 수렴됩니다. 창세기 50장에서 요셉이 형들의 악을 선으로 바꾸시는 하나님을 찬양하며 구약의 한 시대를 마무리한 것은, 모든 역사가 하나님의 작정 아래 있음을 확증합니다. 이는 누가복음 4장에서 사단의 시험을 물리치고 진정한 해방(희년)을 선포하시는 예수님의 사역을 통해 구체적인 승리로 나타납니다.</p>
+                            <p>욥기 15장은 이러한 하나님의 깊은 지혜를 인과응보라는 좁은 틀로 해석하려는 인간의 오만을 경고합니다. 하나님의 섭리는 우리가 다 이해할 수 없는 신비 속에 있으며, 때로는 의인의 고난을 통해서도 영광을 받으십니다. 이에 대해 고린도전서 4장은 사도가 세상의 찌꺼기처럼 낮아지는 고난을 당할지라도, 오직 하나님의 판단만을 신뢰하며 충성하는 모습을 보여줌으로써 성도가 지녀야 할 마땅한 반응을 제시합니다.</p>
+                            <p>결론적으로, 구속사는 인간의 계획이나 사단의 방해에 의해 좌우되지 않습니다. 하나님은 요셉을 통해 이스라엘을 보존하셨고, 그리스도를 통해 사단을 꺾으셨으며, 바울과 같은 충성된 일꾼들을 통해 교회를 세워 가십니다. 우리는 고난 속에서도 "선으로 바꾸시는 하나님"을 신뢰하며, 각자에게 맡겨진 직분에 충성함으로 하나님의 영광을 드러내야 합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
