@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2월 28일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; position: relative; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        
+        /* 탭 활성화 컬러 */
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .card-integration { border-color: var(--integration-color); } .card-integration h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        /* 핵심 질문 박스 스타일 */
+        .key-question-box { background-color: #f1f3f5; border: 1px solid #ced4da; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 500; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        
+        /* 성경 듣기 버튼 숨김 처리 */
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>2월 28일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 11-12장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 15장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 27장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도전서 15장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>2월 28일: 대속의 어린 양과 영원한 승리</h3>
+                            <h4>오늘의 길잡이: 심판을 넘어서는 생명의 역사</h4>
+                            <p>오늘 우리가 묵상할 네 본문은 구속사의 핵심인 '대속'과 '부활'을 관통합니다. 출애굽기 11장과 12장은 애굽의 모든 처음 난 것들이 죽임을 당하는 준엄한 심판 속에서, 어린 양의 피로 보호받는 언약 백성의 출애굽 사건을 다룹니다. 이는 인류 역사상 가장 위대한 구속적 예표입니다.</p>
+                            <p>누가복음 15장은 잃어버린 자를 끝까지 찾아내시는 하나님의 긍휼과 기쁨을 선포하며, 욥기 27장은 고난 중에서도 하나님의 공의를 신뢰하는 성도의 무너지지 않는 신앙 고백을 보여줍니다. 마지막으로 고린도전서 15장은 사망을 삼키고 승리하신 그리스도의 부활을 통해 우리 소망의 실체를 확증합니다. 오늘 읽기를 통해, 죽음의 흑암을 뚫고 솟아오른 생명의 빛을 경험하시길 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="showTab('content-book1')">출애굽기부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 11:1-12:21 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">죽음의 사자가 지나갈 때, 왜 반드시 어린 양의 피가 문설주에 발라져 있어야만 했습니까?</span>
+                            </div>
+                            <h3>출애굽기 11:1-12:21: 유월절, 어린 양의 피와 구원</h3>
+                            <h4>상세 개요</h4>
+                            <p>하나님께서는 애굽에 내릴 마지막 재앙인 장자의 죽음을 선포하십니다. 이 재앙은 바로의 장자로부터 가축의 처음 난 것까지 예외 없이 임하게 될 것입니다. 그러나 하나님께서는 이스라엘 백성을 위해 유월절을 제정하십니다. 흠 없는 어린 양을 잡아 그 피를 문 좌우 설주와 인방에 바르고, 그 고기를 구워 먹으며 허리에 띠를 띠고 급히 먹으라고 명령하십니다. 여호와께서 피를 보실 때에 그 집을 넘어가시며(Passover), 재앙이 그들에게 내려 멸하지 않게 하실 것입니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 대속적 희생의 원리:</strong> 유월절 사건은 개혁주의 속죄론의 기초가 됩니다. 심판은 모든 인류에게 마땅한 것이나, 하나님께서는 어린 양이라는 제물을 통해 심판을 우회(유월)하게 하셨습니다. 이는 장차 오실 <span class="scripture-quote">세상 죄를 지고 가는 하나님의 어린 양</span>(요 1:29)이신 예수 그리스도의 보혈에 대한 강력한 예표입니다.</p>
+                            <p><strong>2. 언약적 구별과 표지:</strong> 어린 양의 피는 하나님의 백성임을 나타내는 가시적 표지입니다. 구원은 이스라엘 백성의 윤리적 우월함 때문이 아니라, 오직 하나님이 정하신 피의 언약에 근거합니다. 이는 구원이 인간의 공로가 아닌 하나님의 주권적 작정과 은혜에 달려 있음을 보여줍니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_11.html" target="_blank" class="btn btn-primary">본문 보기 (11장)</a>
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_12.html" target="_blank" class="btn btn-primary">본문 보기 (12장)</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 15장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">둘째 아들이 돌아왔을 때 아버지가 보여준 반응은 죄인을 향한 하나님의 어떤 성품을 계시합니까?</span>
+                            </div>
+                            <h3>누가복음 15장: 잃은 자를 찾으시는 하나님의 기쁨</h3>
+                            <h4>상세 개요</h4>
+                            <p>세리와 죄인들을 영접하시는 예수님을 바리새인들이 비난하자, 주님은 세 가지 비유(잃은 양, 잃은 드라크마, 잃은 아들)를 말씀하십니다. 아흔아홉 마리 양보다 길 잃은 한 마리를 찾는 목자의 심정, 잃은 동전을 찾기 위해 온 집안을 쓰는 여인의 정성, 그리고 재산을 탕진하고 돌아온 아들을 맨발로 마중 나가는 아버지의 사랑을 통해 하나님 나라에서 죄인 한 사람이 회개할 때의 거대한 기쁨을 선포하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 거부할 수 없는 은혜와 찾으심:</strong> 잃어버린 양과 동전은 스스로를 구원할 능력이 없습니다. 목자와 여인이 능동적으로 찾아 나선 것처럼, 구원은 하나님의 주권적이고 능동적인 '찾아오심'입니다. 이는 개혁주의가 고백하는 전적 부패한 인간을 향한 '불가항력적 은혜'의 현장입니다.</p>
+                            <p><strong>2. 조건 없는 용납과 양자 됨:</strong> 아버지는 아들의 신분을 회복시키기 위해 제일 좋은 옷을 입히고 가락지를 끼웁니다. 이는 죄인이 그리스도와 연합할 때 부여받는 '칭의'와 '양자 됨(Adoption)'의 신학적 의미를 담고 있습니다. 하나님은 우리의 자격이 아닌, 회개하는 자를 향한 당신의 사랑 때문에 우리를 영접하십니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_15.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 27장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">욥이 자신의 '온전함(Integrity)'을 결코 버리지 않겠다고 선언한 신앙적 근거는 무엇입니까?</span>
+                            </div>
+                            <h3>욥기 27장: 변치 않는 신앙의 절개와 하나님의 공의</h3>
+                            <h4>상세 개요</h4>
+                            <p>욥은 자신의 정당함을 물리치신 하나님과 영혼을 괴롭게 하신 전능자의 사심을 두고 맹세합니다. 그는 친구들이 자신을 정죄하려 함에도 불구하고, 자신의 호흡이 살아 있는 한 결코 거짓을 말하지 않으며 자신의 온전함을 버리지 않겠다고 선언합니다. 또한 악인의 분복은 결국 멸망이며, 그들이 모은 재물은 의인이 입게 되고 하나님은 그들을 향해 손뼉 치며 조롱하실 것이라고 선포합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 성도의 견인(Perseverance):</strong> 욥의 고백은 개혁주의 성도의 견인 교리를 잘 보여줍니다. 비록 하나님이 자신을 괴롭게 하시는 것처럼 느껴질지라도, 성령으로 인치심을 받은 신앙은 환경에 굴하지 않고 하나님 앞에서의 정직함을 유지합니다. 욥은 자신의 의를 주장하는 것이 아니라, 하나님을 향한 신뢰의 끈을 놓지 않겠다고 고백하는 것입니다.</p>
+                            <p><strong>2. 악인에 대한 최후의 공의:</strong> 욥은 악인이 잠시 형통할지라도 하나님의 주권적 심판을 피할 수 없음을 확신합니다. 이는 하나님의 공의가 이 땅에서 즉각적으로 나타나지 않더라도, 하나님의 작정된 때에 반드시 성취될 것임을 믿는 종말론적 신앙의 승리입니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_27.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도전서 15장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">그리스도의 부활이 없다면 우리의 믿음이 왜 헛되며, 부활은 성도의 현재적 삶에 어떤 능력을 줍니까?</span>
+                            </div>
+                            <h3>고린도전서 15장: 부활, 구속사의 찬란한 완성</h3>
+                            <h4>상세 개요</h4>
+                            <p>바울은 복음의 핵심인 그리스도의 죽으심과 부활을 재확인합니다. 만일 그리스도가 다시 살아나지 못하셨다면 우리의 전파하는 것도, 믿음도 다 헛것이며 우리는 여전히 죄 가운데 있을 것이라고 선언합니다. 그러나 그리스도는 잠자는 자들의 첫 열매가 되셨으며, 아담 안에서 모든 사람이 죽은 것 같이 그리스도 안에서 모든 사람이 삶을 얻게 됩니다. 바울은 부활의 몸의 신비와 최후의 승리를 노래하며, 그러므로 견고하며 흔들리지 말고 주의 일에 더욱 힘쓰라고 권면합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 대표성의 원리(Federal Headship):</strong> 아담이 인류의 타락을 가져온 대표자였듯, 그리스도는 인류의 부활과 생명을 가져온 새로운 대표자이십니다. <span class="scripture-quote">아담 안에서 모든 사람이 죽은 것 같이 그리스도 안에서 모든 사람이 삶을 얻으리라</span>(22절). 이는 전가(Imputation) 교리를 통해 우리의 죄가 그리스도께, 그리스도의 부활 생명이 우리에게 주어졌음을 확증합니다.</p>
+                            <p><strong>2. 사망을 삼킨 승리:</strong> 부활은 단순히 영적 불멸을 뜻하는 것이 아니라, 육체를 포함한 전 인격의 완전한 회복입니다. 이는 하나님의 창조 세계가 죄와 사망의 저주로부터 완전히 해방될 것임을 선포하는 종말론적 정점입니다. 성도는 이 승리를 미리 맛보며 현재의 고난을 넉넉히 이길 수 있습니다.</p>
+                            <div class="button-group">
+                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_15.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 신학적 종합 탭 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 죽음을 삼킨 생명, 대속의 신비와 영원한 승리</h4>
+                            <p>오늘의 네 본문은 **'죽음의 저주를 넘어 생명의 영광으로 나아가는 구속사적 도정'**을 완벽하게 보여줍니다. 출애굽기 11-12장에서 어린 양의 피로 장자의 죽음을 면한 사건은, 죄의 삯은 사망이나 하나님의 은혜는 대속을 통해 생명을 주신다는 구원론적 원리의 시작입니다. 이 피의 언약은 누가복음 15장에서 죄인 한 사람을 찾기 위해 모든 것을 거시는 하나님의 긍휼로 구체화됩니다. 하나님은 심판자가 되실 뿐만 아니라, 잃어버린 자를 찾아내어 잔치를 베푸시는 사랑의 아버지이십니다.</p>
+                            
+                            <p>욥기 27장은 이러한 하나님의 성품을 아는 성도가 극한의 고난(사망의 음침한 골짜기) 속에서도 자신의 신앙을 어떻게 지켜내는지(온전함)를 보여줍니다. 욥의 인내는 단순히 개인의 의지가 아니라, 보이지 않는 곳에서 일하시는 하나님의 신실하심을 신뢰하는 성령의 역사입니다. 마지막으로 고린도전서 15장은 이 모든 구속의 사역이 그리스도의 부활을 통해 완성되었음을 선포합니다. 유월절 어린 양의 죽음은 그리스도의 부활로 말미암아 사망을 영원히 삼킨 승리가 되었습니다.</p>
+
+                            <p><strong>구속사적 결론:</strong> 하나님은 피의 언약으로 죽음을 물리치셨고(출애굽기), 잃은 자를 찾아 기쁨을 회복하셨으며(누가복음), 고난 중에도 자기 백성을 견인하십니다(욥기). 그리고 이 모든 일의 결과로 우리에게 썩지 아니할 부활의 소망(고린도전서)을 주셨습니다. 창조-타락-구속-완성의 관점에서, 우리는 오늘 사망의 쏘는 것이 사라진 부활의 승리를 살아가고 있습니다. "우리 주 예수 그리스도로 말미암아 우리에게 승리를 주시는 하나님께 감사하노니"(고전 15:57). 오직 하나님께만 영광을 돌립니다. (Soli Deo Gloria)</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function showTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                showTab(target);
+            });
+        });
+    </script>
+</body>
+</html>
