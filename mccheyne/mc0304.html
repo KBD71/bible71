@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3월 4일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #673ab7;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background-color: var(--color-background); color: var(--color-text); line-height: 1.8; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 10px; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card, .overview-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        .overview-card { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); }
+        .integration-card { border-color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #adb5bd; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-style: italic; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        
+        .floating-nav { position: fixed; bottom: 20px; right: 20px; display: flex; align-items: center; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>3월 4일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 15장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 19장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 30장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도후서 3장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">종합 정리</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="overview-card">
+                        <div class="card-content">
+                            <h3>3월 4일: 찬송과 탄식, 그리고 영광스러운 새 언약</h3>
+                            <h4>오늘의 길잡이: 구원의 감격 뒤에 찾아오는 현실, 그리고 성령의 법</h4>
+                            <p>오늘 우리는 구속사의 역동적인 전환점들을 마주하게 됩니다. 출애굽기 15장은 홍해를 건넌 이스라엘의 장엄한 승전가로 시작하지만, 곧이어 마라의 쓴물이라는 광야의 현실에 직면합니다. 이는 구원이 단순히 고통으로부터의 탈출이 아니라, 하나님을 전적으로 신뢰하는 훈련의 시작임을 보여줍니다.</p>
+                            <p>누가복음 19장에서는 잃어버린 자를 찾아오신 주님이 삭개오를 변화시키시고 예루살렘으로 입성하시며 하나님 나라의 긴박성을 선포하십니다. 반면 욥기 30장은 이전의 영광을 뒤로하고 가장 낮은 자들에게까지 멸시받는 욥의 탄식을 통해, 고난 중의 성도가 겪는 철저한 자기 부인과 하나님의 침묵을 다룹니다.</p>
+                            <p>마지막으로 고린도후서 3장은 이 모든 역사적 사건과 개인의 고난을 관통하는 복음의 정수를 제시합니다. 그것은 돌판이 아닌 마음판에 새겨진 성령의 법이며, 수건을 벗고 주를 바라보는 자에게 임하는 영광스러운 새 언약의 은혜입니다. 오늘 읽기를 통해 눈에 보이는 현실 너머에 있는 성령의 영광을 발견하시기를 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab('content-book1', 'book1')">첫 번째 본문 읽기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 15장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>출애굽기 15장: 모세의 노래와 마라의 쓴물</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">모세의 노래에서 하나님은 어떤 분으로 묘사되며, 마라의 쓴물이 단물로 변한 사건은 어떤 영적 교훈을 줍니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>홍해를 건넌 모세와 이스라엘 자손은 여호와를 찬양합니다. 하나님은 '용사'이시며 그 위엄이 지극하신 분으로 노래됩니다. 미리암과 여인들도 소고를 치며 화답합니다. 그러나 기쁨도 잠시, 사흘 길을 걸어 도착한 마라의 물이 써서 마시지 못하자 백성들은 즉시 원망합니다. 하나님께서는 한 나무를 지시하시어 물을 달게 하시고, 자신을 "치료하는 여호와"로 계시하시며 법도와 율례를 정하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 여호와는 용사시니(The Lord is a Warrior):</strong> 모세의 노래는 하나님의 주권적인 승리를 선포합니다. <span class="scripture-quote">여호와는 용사시니 여호와는 그의 이름이시로다</span>(3절). 이는 구원이 인간의 노력이 아닌 하나님의 전능하신 힘으로 이루어졌음을 입증합니다. 승리의 영광은 오직 하나님께만 돌려져야 함을 보여줍니다.</p>
+                            <p><strong>2. 시험하시는 하나님과 여호와 라파:</strong> 마라의 사건은 구속받은 백성을 향한 하나님의 '시험'입니다. <span class="scripture-quote">거기서 여호와께서 그들을 위하여 법도와 율례를 정하시고 그들을 시험하실새</span>(25절). 쓴물을 단물로 바꾸신 하나님은 우리 영혼의 질병을 고치시는 분입니다. 이는 육체적 치유를 넘어, 원망하는 죄악된 본성을 은혜로 변화시키시는 복음의 역사를 예표합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_15.html" data-title="출애굽기 15장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 19장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>누가복음 19장: 삭개오의 회개와 왕의 입성</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">삭개오의 변화와 '열 므나 비유'를 통해 알 수 있는 하나님 나라 백성의 책임은 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>예수님께서 여리고의 세리장 삭개오를 찾아가십니다. 삭개오는 주님을 영접한 후 소유의 절반을 가난한 자들에게 주고 속여 빼앗은 것은 네 갑절이나 갚겠다고 결단합니다. 주님은 이 집에 구원이 임했음을 선포하시며 '인자가 온 것은 잃어버린 자를 찾아 구원하려 함'이라고 말씀하십니다. 이어 열 므나 비유를 통해 주인이 올 때까지 충성할 것을 가르치시고, 나귀를 타시고 예루살렘에 입성하시며 성전을 정결하게 하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 구원의 즉각적 열매:</strong> 삭개오의 회개는 단순한 감정적 변화가 아니라 구체적인 삶의 돌이킴(Restitution)으로 나타납니다. <span class="scripture-quote">오늘 구원이 이 집에 이르렀으니</span>(9절)라는 주님의 선포는 삭개오의 행위가 구원의 근거가 아니라, 그가 이미 아브라함의 자손으로서 하나님의 은혜를 입었음을 확증하는 증거입니다.</p>
+                            <p><strong>2. 하나님 나라의 청지기직:</strong> 열 므나 비유는 왕이 부재한 동안 종들이 받은 은사를 어떻게 사용해야 하는지를 보여줍니다. 하나님 나라는 정체된 것이 아니라 활동적이며, 주신 은혜를 사용하여 주인의 유익을 구하는 자에게 더 큰 책임과 영광이 주어집니다. 이는 종말을 기다리는 성도가 가져야 할 성실한 삶의 태도를 요구합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_19.html" data-title="누가복음 19장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 30장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>욥기 30장: 무시당하는 욥의 처절한 고통</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">욥이 겪는 사회적 지위의 역전과 육체적 고통 속에서, 그가 하나님께 던지는 가장 뼈아픈 탄식은 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>욥은 이전의 존경받던 지위를 잃고, 이제는 사회의 가장 밑바닥에 있는 청년들에게조차 조롱을 당합니다. 그들은 욥에게 침을 뱉고 그를 대적합니다. 욥은 극심한 육체적 고통과 밤낮 없는 번민에 시달리며, 하나님께서 자신을 진흙 가운데 던지셨고 자신의 부르짖음에 응답하지 않으신다고 호소합니다. 그의 하프는 애곡이 되었고 피리는 울음소리가 되었습니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 사회적 전복과 신자의 모욕:</strong> 욥이 겪는 고난은 단순한 경제적 손실을 넘어 인격적 파멸에 이릅니다. <span class="scripture-quote">이제는 나보다 젊은 자들이 나를 비웃는구나</span>(1절). 이는 그리스도께서 십자가에서 당하신 수치와 모욕을 미리 보여주는 구속사적 예표입니다. 의인이 악인과 비천한 자들에게 고난당하는 신비는 오직 십자가에서만 온전히 해석됩니다.</p>
+                            <p><strong>2. 하나님의 침묵이라는 고통:</strong> 욥의 가장 큰 고통은 하나님의 부재 경험입니다. <span class="scripture-quote">내가 주께 부르짖으나 주께서 대답하지 아니하시며</span>(20절). 이는 하나님의 주권적 섭리 안에서 신자가 겪는 '어두운 밤'입니다. 하나님은 때로 성도의 모든 의지할 곳을 끊어버리심으로 오직 하나님 한 분만을 바라는 순전한 신앙으로 우리를 연단하십니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_30.html" data-title="욥기 30장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도후서 3장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>고린도후서 3장: 새 언약의 일꾼과 성령의 영광</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">율법의 영광과 복음의 영광을 비교할 때, 바울이 강조하는 '새 언약'의 탁월함은 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>바울은 자신의 추천서가 바로 성도들의 마음속에 새겨진 그리스도의 편지라고 선언합니다. 그는 정죄의 직분(율법)도 영광이 있었으나, 의의 직분(복음)의 영광은 더욱 크고 영원하다고 가르칩니다. 모세가 수건으로 얼굴을 가렸던 것과 달리, 그리스도 안에서 수건이 벗겨진 성도들은 주의 영광을 보며 주와 같은 형상으로 변화되어 갑니다. "주는 영이시니 주의 영이 계신 곳에는 자유가 있느니라"고 선포합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 마음판에 쓴 편지:</strong> 개혁주의 신학에서 복음은 외적인 규문이 아니라 내적인 생명의 능력입니다. <span class="scripture-quote">오직 살아 계신 하나님의 영으로 쓴 것이며 또 돌판에 쓴 것이 아니요 오직 육의 마음판에 쓴 것이라</span>(3절). 이는 에스겔의 예언처럼 굳은 마음을 제하고 부드러운 마음을 주시는 성령의 중생 사역을 의미합니다.</p>
+                            <p><strong>2. 점진적 성화와 주의 형상:</strong> 복음의 영광은 단순히 죄 사함에 머물지 않고 우리를 변화시킵니다. <span class="scripture-quote">그와 같은 형상으로 변화하여 영광에서 영광에 이르니</span>(18절). 수건을 벗고 주를 바라보는 것(Contemplation)이 성화의 핵심 동력입니다. 성령님은 우리 안에서 그리스도의 형상을 빚어 가시며, 그 영광은 율법이 결코 줄 수 없었던 완전한 자유를 보장합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_03.html" data-title="고린도후서 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 외적 구원에서 내적 영광으로의 전진</h4>
+                            <p>오늘의 네 본문은 하나님의 구원 역사가 어떻게 외적인 사건에서 인간의 내면을 변화시키는 영광스러운 실재로 전진하는지를 입증합니다.</p>
+                            <p><strong>1. 구원의 서사: 찬송과 연단 (출 15장, 욥 30장)</strong><br>
+                            이스라엘의 찬송(출 15장)은 홍해라는 거대한 외적 구원을 배경으로 합니다. 그러나 마라의 쓴물과 욥의 처절한 탄식(욥 30장)은 그 구원의 하나님이 보이지 않을 때에도 그분을 신뢰할 수 있는지 묻습니다. 하나님은 때로 우리를 마라로, 혹은 욥의 재더미로 인도하십니다. 이는 우리 입술의 찬양이 환경에 따른 것이 아니라 하나님의 존재 자체에 근거하게 하려는 섭리적 훈련입니다.</p>
+                            <p><strong>2. 구원의 실재: 회개와 청지기직 (눅 19장)</strong><br>
+                            예수 그리스도의 찾아오심은 삭개오라는 한 개인의 가치관을 완전히 전복시켰습니다. 삭개오의 변화는 고린도후서 3장이 말하는 '마음판에 새겨진 그리스도의 편지'가 구체적으로 어떻게 세상 속에서 읽히는지를 보여주는 실례입니다. 구원받은 자는 므나를 받은 종처럼, 주신 은혜를 사용하여 주님의 영광을 드러내는 삶의 열매를 맺어야 합니다.</p>
+                            <p><strong>3. 구원의 완성: 성령 안에서의 자유와 영광 (고후 3장)</strong><br>
+                            바울은 이 모든 구속사의 결론을 '새 언약의 영광'으로 요약합니다. 모세가 시내산에서 받은 율법(정죄의 직분)보다 그리스도의 복음(의의 직분)이 탁월한 이유는 그것이 우리를 주님의 형상으로 변화시키기 때문입니다. 성령님은 우리 안에서 역사하시어 마라의 쓴물 같은 인생을 단물로 바꾸시고, 욥의 탄식을 영광의 찬송으로 승화시키십니다.</p>
+                            <p><strong>신학적 결론:</strong><br>
+                            우리는 홍해를 건넌 자들입니다. 그러나 광야의 길에서 마라를 만날 때 우리 마음의 수건은 다시 덮이기 쉽습니다. 그때 우리는 다시 주를 바라보아야 합니다. 수건을 벗고 거울을 보는 것 같이 주의 영광을 볼 때, 우리는 비로소 고난 중에도 자유하며, 삭개오처럼 아낌없이 나누고, 모세처럼 장엄하게 찬송할 수 있습니다. 성령의 법이 지배하는 오늘 하루가 되시기를 소망합니다.</p>
+                            <div class="button-group">
+                                <a href="#" class="btn btn-primary" onclick="window.scrollTo(0,0); return false;">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved. 개혁주의 신학 기반 성경읽기 가이드.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 모달 -->
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">본문 보기</h2>
+                <button class="close-modal" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="modal-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 플로팅 네비게이션 -->
+    <div class="floating-nav">
+        <button class="nav-btn" id="prev-btn">◀</button>
+        <div class="nav-info" id="nav-counter">1/6</div>
+        <button class="nav-btn" id="next-btn">▶</button>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+        const navCounter = id => document.getElementById(id);
+        const tabList = ['content-overview', 'content-book1', 'content-book2', 'content-book3', 'content-book4', 'content-integration'];
+        
+        function switchTab(targetId) {
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            const activeTab = document.querySelector(`[data-target="${targetId}"]`);
+            if(activeTab) activeTab.classList.add('active');
+            document.getElementById(targetId).classList.add('active');
+            
+            const index = tabList.indexOf(targetId) + 1;
+            document.getElementById('nav-counter').innerText = `${index}/${tabList.length}`;
+            window.scrollTo(0, 0);
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                switchTab(tab.dataset.target);
+            });
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            const current = document.querySelector('.tab-content.active').id;
+            const nextIdx = (tabList.indexOf(current) + 1) % tabList.length;
+            switchTab(tabList[nextIdx]);
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            const current = document.querySelector('.tab-content.active').id;
+            const prevIdx = (tabList.indexOf(current) - 1 + tabList.length) % tabList.length;
+            switchTab(tabList[prevIdx]);
+        });
+
+        const modal = document.getElementById('text-modal');
+        const iframe = document.getElementById('modal-iframe');
+        const modalTitle = document.getElementById('modal-title');
+
+        document.querySelectorAll('.view-text-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalTitle.innerText = btn.dataset.title;
+                iframe.src = btn.dataset.path;
+                modal.style.display = 'flex';
+            });
+        });
+
+        document.getElementById('modal-close').addEventListener('click', () => {
+            modal.style.display = 'none';
+            iframe.src = '';
+        });
+
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                iframe.src = '';
+            }
+        };
+    </script>
+</body>
+</html>
