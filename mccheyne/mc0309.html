@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3월 9일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #673ab7;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background-color: var(--color-background); color: var(--color-text); line-height: 1.8; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 10px; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card, .overview-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        .overview-card { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); }
+        .integration-card { border-color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #adb5bd; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-style: italic; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        
+        .floating-nav { position: fixed; bottom: 20px; right: 20px; display: flex; align-items: center; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 95%; max-width: 900px; height: 85%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; overflow: hidden; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>3월 9일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 20장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 24장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 35장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도후서 8장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">종합 정리</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="overview-card">
+                        <div class="card-content">
+                            <h3>3월 9일: 거룩한 법과 부활의 생명</h3>
+                            <h4>오늘의 길잡이: 언약의 법에서 완성의 영광까지</h4>
+                            <p>오늘 성경 읽기는 하나님 나라 백성의 삶의 규범인 십계명(출애굽기 20장)과 그 모든 율법의 완성이자 성취이신 그리스도의 부활(누가복음 24장)을 동시에 조명합니다. 시내산에서 엄중하게 선포된 율법은 우리를 그리스도께로 인도하는 몽학선생이 되며, 빈 무덤에서 확인된 부활은 그 율법의 정죄로부터 우리를 해방하신 하나님의 권능을 선포합니다.</p>
+                            <p>욥기 35장에서 엘리후는 하나님의 초월성을 강조하며 인간의 의로움이 하나님께 어떤 유익을 드리는 것이 아님을 역설합니다. 이는 고린도후서 8장의 연보에 관한 가르침과 연결되어, 우리가 하나님께 드리는 모든 헌신이 실상은 주권적인 은혜에 대한 감사의 반응임을 깨닫게 합니다.</p>
+                            <p>오늘의 본문들을 통해 거룩한 법의 요구를 온전히 이루시고 우리에게 부활의 산 소망을 주신 그리스도의 은혜를 깊이 묵상하시기를 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab('content-book1')">첫 번째 본문 읽기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 20장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>출애굽기 20장: 십계명 선포와 여호와의 위엄</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">하나님께서 십계명을 주시기 전, 자신을 어떻게 소개하셨습니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>하나님께서 시내산에서 모든 백성이 듣는 가운데 직접 십계명을 선포하십니다. 하나님을 향한 네 계명과 사람을 향한 여섯 계명을 통해 언약 백성의 삶의 원리를 제시하십니다. 백성들은 번개와 나팔 소리와 산의 연기를 보고 두려워 떨며 모세에게 중보를 요청합니다. 하나님은 우상 숭배를 금지하시고 하나님을 예배할 제단에 관한 규례를 덧붙이십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 구원 서문에 기초한 율법:</strong> 십계명은 <span class="scripture-quote">나는 너를 애굽 땅, 종 되었던 집에서 인도하여 낸 네 하나님 여호와니라</span>(2절)는 구원의 선포로 시작합니다. 율법은 구원을 얻기 위한 조건이 아니라, 이미 구원받은 백성이 하나님과의 관계 속에서 누려야 할 삶의 질서(Norma vivendi)입니다.</p>
+                            <p><strong>2. 율법의 세 가지 용도 중 '제3용도':</strong> 개혁주의 신학은 율법이 성도의 성화 과정에서 여전히 유효한 가이드라인이 됨을 강조합니다. 십계명은 하나님을 사랑하고 이웃을 사랑하는 구체적인 방법이며, 그리스도 안에서 새로운 피조물이 된 성도가 기쁨으로 순종해야 할 거룩한 표준입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_20.html" data-title="출애굽기 20장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 24장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>누가복음 24장: 부활의 확증과 구속사의 완성</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">부활하신 예수님께서 엠마오로 가는 제자들에게 구약 성경 전체를 어떻게 설명하셨습니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>안식 후 첫날 새벽, 여인들이 빈 무덤을 발견하고 천사로부터 부활 소식을 듣습니다. 엠마오로 가던 두 제자는 부활하신 주님을 만나 성경이 증언하는 메시아의 고난과 영광을 깨닫고 예루살렘으로 돌아갑니다. 주님은 열한 제자에게 나타나 손과 발을 보이시며 구약의 예언이 자신을 가리키는 것임을 가르치시고, 죄 사함을 얻게 하는 회개가 모든 족속에게 전파될 것을 명하신 후 승천하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 기독론적 성경 해석의 기초:</strong> 주님은 <span class="scripture-quote">모세와 모든 선지자의 글로 시작하여 모든 성경에 쓴 바 자기에 관한 것을 자세히 설명하시니라</span>(27절)고 말씀하십니다. 이는 성경의 중심이 예수 그리스도임을 확증하는 '구속사적 해석'의 대강령입니다. 구약의 제사와 절기와 법들은 모두 그리스도의 죽음과 부활을 가리키는 모형이었습니다.</p>
+                            <p><strong>2. 성령을 통한 마음의 열림:</strong> 제자들은 성경을 알고 있었으나 주님이 <span class="scripture-quote">그들의 마음을 열어 성경을 깨닫게</span>(45절) 하실 때 비로소 복음의 진리를 알게 되었습니다. 이는 조명(Illumination) 사역으로, 기록된 말씀이 성령의 역사로 말미암아 우리 영혼에 생명력 있게 다가와야 함을 보여줍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_24.html" data-title="누가복음 24장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 35장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>욥기 35장: 엘리후의 변론 - 하나님의 자충성</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">엘리후는 인간의 의로움이나 죄악이 하나님께 어떠한 영향을 미친다고 주장합니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>엘리후는 욥이 "내가 의로운 것이 하나님께 무엇이 유익하랴"고 말한 것을 비판하며 변론을 이어갑니다. 그는 하늘과 구름의 높이를 보라고 말하며, 하나님은 인간의 범죄로 인해 해를 받지도 않으시고 인간의 의로움으로 인해 무언가를 얻으시는 분도 아니심을 강조합니다. 하나님은 인간의 항변이나 부르짖음에 즉각 대답하지 않으실 수 있는데, 이는 인간의 교만과 헛된 태도 때문이라고 지적합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 자충성(Aseity):</strong> 엘리후의 핵심 논지는 하나님의 독립성과 초월성입니다. <span class="scripture-quote">네가 의로운들 하나님께 무엇을 드리겠으며 그가 네 손에서 무엇을 받으시겠느냐</span>(7절). 하나님은 피조물에게 의존하지 않으시는 분입니다. 우리의 순종은 하나님의 부족함을 채우는 것이 아니라, 오직 우리의 복을 위한 것임을 시사합니다.</p>
+                            <p><strong>2. 은혜의 일방성:</strong> 하나님이 우리에게 법을 주시고 헌신을 요구하시는 것은 그분이 무언가 필요해서가 아니라, 우리를 자신의 영광에 참여시키기 위함입니다. 엘리후의 변론은 인간의 자기 의(self-righteousness)가 얼마나 허무한 것인지를 폭로하며, 오직 하나님의 주권적인 자비만을 바라보게 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_35.html" data-title="욥기 35장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도후서 8장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>고린도후서 8장: 풍성한 연보와 그리스도의 희생</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 권면하는 연보의 가장 궁극적인 모델은 누구입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>바울은 마게도냐 교회들이 극심한 가난 속에서도 기쁨으로 예루살렘 성도들을 위한 연보에 참여한 '은혜'를 소개합니다. 그는 고린도 교회도 이 은혜의 사역에 풍성하기를 권면하며, 억지로가 아닌 자원하는 마음으로 행할 것을 요청합니다. 특히 우리 주 예수 그리스도의 은혜를 언급하며, 부요하신 분이 우리를 위해 가난하게 되심으로 우리를 부요하게 하셨음을 상기시킵니다. 연보의 투명한 관리를 위해 디도와 다른 형제를 보냅니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 은혜로서의 연보:</strong> 바울은 연보를 의무나 세금이 아니라 <span class="scripture-quote">하나님께서... 주신 은혜</span>(1절)라고 부릅니다. 성도가 재물을 드리는 행위는 자신의 소유를 나누는 공로가 아니라, 이미 받은 하나님의 은혜가 밖으로 흘러넘치는 현상입니다. 이는 개혁주의의 청지기 정신을 잘 보여줍니다.</p>
+                            <p><strong>2. 비하(Humiliation)와 승귀(Exaltation)의 원리:</strong> <span class="scripture-quote">부요하신 이로서 너희를 위하여 가난하게 되심은 그의 가난함으로 말미암아 너희를 부요하게 하려 하심이라</span>(9절). 그리스도의 성육신과 십자가 고난은 우리의 영적 부요를 위한 자발적 가난이었습니다. 이 구속적 교환(Wonderful Exchange)을 깨달은 자만이 진정한 헌신의 자리로 나아갈 수 있습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_08.html" data-title="고린도후서 8장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 언약의 법과 복음의 완성, 그리고 은혜의 반응</h4>
+                            <p>오늘의 네 본문은 하나님의 거룩한 법이 어떻게 부활하신 그리스도를 통해 완성되었으며, 그 은혜를 입은 자들이 어떠한 삶의 양식으로 응답해야 하는지를 입증합니다.</p>
+                            <p><strong>1. 율법의 목적과 그리스도의 성취 (출 20장, 눅 24장)</strong><br>
+                            시내산에서 선포된 십계명은 인간이 결코 스스로 지킬 수 없는 거룩한 표준입니다(출 20장). 그러나 부활하신 주님은 엠마오 제자들에게 성경 전체가 자신을 가리킨다고 말씀하시며, 율법의 모든 요구와 예언을 자신의 죽음과 부활로 성취하셨음을 보여주셨습니다(눅 24장). 율법은 정죄의 수단에서, 그리스도 안에서 자유를 얻은 자들의 감사의 규범으로 승화되었습니다.</p>
+                            <p><strong>2. 하나님의 초월성과 인간의 헌신 (욥 35장, 고후 8장)</strong><br>
+                            엘리후의 변론(욥 35장)은 하나님이 인간의 의로움이나 예물에 의해 부요해지는 분이 아님을 상기시킵니다. 이는 고린도후서 8장의 연보가 결코 하나님을 매수하거나 자신의 공로를 쌓는 도구가 아님을 증명합니다. 헌신은 하나님의 부족함을 채우는 것이 아니라, 부요하신 그리스도가 우리를 위해 가난하게 되신 그 '놀라운 교환'의 은혜를 맛본 자들의 자발적인 사랑의 고백입니다.</p>
+                            <p><strong>3. 구속사적 결론: 부활의 생명으로 사는 나라</strong><br>
+                            우리는 십계명을 주신 거룩한 하나님을 경외함과 동시에, 그 법의 저주를 담당하시고 부활하신 주님 안에서 평강을 누리는 자들입니다. 그리스도께서 우리의 마음을 열어 성경을 깨닫게 하실 때, 우리는 재물을 포함한 삶의 모든 영역에서 하나님의 주권을 인정하는 '은혜의 청지기'로 살아가게 됩니다.</p>
+                            <p><strong>결론:</strong><br>
+                            오늘 하루, 시내산의 엄중한 법 앞에 우리 자신을 비추어 보되, 그 법을 온전히 이루시고 빈 무덤에서 부활하신 그리스도를 바라보십시오. 그분이 주시는 부활의 생명이 우리 안에 역사할 때, 우리는 마게도냐 교인들처럼 기쁨으로 헌신하며, 엠마오 제자들처럼 마음이 뜨거워져 복음의 증인으로 살아가게 될 것입니다. 오직 하나님의 영광만을 위하여 사는 복된 날 되시기를 소망합니다.</p>
+                            <div class="button-group">
+                                <a href="#" class="btn btn-primary" onclick="window.scrollTo(0,0); return false;">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved. 개혁주의 신학 기반 성경읽기 가이드.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 모달 -->
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">본문 보기</h2>
+                <button class="close-modal" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="modal-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 플로팅 네비게이션 -->
+    <div class="floating-nav">
+        <button class="nav-btn" id="prev-btn">◀</button>
+        <div class="nav-info" id="nav-counter">1/6</div>
+        <button class="nav-btn" id="next-btn">▶</button>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+        const tabList = ['content-overview', 'content-book1', 'content-book2', 'content-book3', 'content-book4', 'content-integration'];
+        
+        function switchTab(targetId) {
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            const activeTab = document.querySelector(`[data-target="${targetId}"]`);
+            if(activeTab) activeTab.classList.add('active');
+            document.getElementById(targetId).classList.add('active');
+            
+            const index = tabList.indexOf(targetId) + 1;
+            document.getElementById('nav-counter').innerText = `${index}/${tabList.length}`;
+            window.scrollTo(0, 0);
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => switchTab(tab.dataset.target));
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            const current = document.querySelector('.tab-content.active').id;
+            const nextIdx = (tabList.indexOf(current) + 1) % tabList.length;
+            switchTab(tabList[nextIdx]);
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            const current = document.querySelector('.tab-content.active').id;
+            const prevIdx = (tabList.indexOf(current) - 1 + tabList.length) % tabList.length;
+            switchTab(tabList[prevIdx]);
+        });
+
+        const modal = document.getElementById('text-modal');
+        const iframe = document.getElementById('modal-iframe');
+        const modalTitle = document.getElementById('modal-title');
+
+        document.querySelectorAll('.view-text-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalTitle.innerText = btn.dataset.title;
+                iframe.src = btn.dataset.path;
+                modal.style.display = 'flex';
+            });
+        });
+
+        document.getElementById('modal-close').addEventListener('click', () => {
+            modal.style.display = 'none';
+            iframe.src = '';
+        });
+
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                iframe.src = '';
+            }
+        };
+    </script>
+</body>
+</html>
