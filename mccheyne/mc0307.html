@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3월 7일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #673ab7;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background-color: var(--color-background); color: var(--color-text); line-height: 1.8; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 10px; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card, .overview-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        .overview-card { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); }
+        .integration-card { border-color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        
+        .key-question-box { background-color: #f1f3f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #adb5bd; margin-bottom: 2rem; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; display: block; margin-bottom: 0.5rem; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-style: italic; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        
+        .floating-nav { position: fixed; bottom: 20px; right: 20px; display: flex; align-items: center; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 95%; max-width: 900px; height: 85%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; overflow: hidden; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>3월 7일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 18장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">누가복음 22장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 33장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고린도후서 6장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">종합 정리</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="overview-card">
+                        <div class="card-content">
+                            <h3>3월 7일: 권위의 위임과 새 언약의 제정</h3>
+                            <h4>오늘의 길잡이: 함께 세워가는 나라</h4>
+                            <p>오늘의 성경 읽기는 하나님 나라의 외적 질서와 내적 생명력이 어떻게 조화를 이루는지 보여줍니다. 출애굽기 18장은 모세가 장인 이드로의 조언을 받아들여 행정적 권위를 위임하는 장면을 다룹니다. 이는 홀로 모든 짐을 지는 것이 아니라, 동역을 통해 공동체를 견고히 세워가는 지혜를 가르칩니다.</p>
+                            <p>신약의 누가복음 22장은 구속사의 절정인 최후의 만찬과 겟세마네 기도를 다룹니다. 그리스도께서는 자신의 피로 '새 언약'을 세우심으로 우리를 하나님 나라의 상속자로 삼으셨습니다. 욥기 33장은 침묵하던 인간의 지혜를 넘어, 고난 속에서 말씀하시는 하나님의 소통 방식을 엘리후의 입을 통해 전합니다.</p>
+                            <p>마지막으로 고린도후서 6장은 은혜의 때를 사는 성도가 어떠한 정결함과 인내로 복음을 증거해야 하는지를 선포합니다. 오늘 말씀을 통해 구속받은 백성으로서 마땅히 지켜야 할 질서와 거룩함을 깊이 묵상해 보시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab('content-book1')">첫 번째 본문 읽기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 18장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>출애굽기 18장: 이드로의 조언과 동역의 원리</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">이드로가 모세에게 제안한 '천부장, 백부장' 제도의 근본적인 목적은 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>모세의 장인 이드로가 모세의 아내와 두 아들을 데리고 광야에 있는 모세를 찾아옵니다. 이드로는 하나님께서 이스라엘을 구원하신 일을 듣고 여호와를 찬송하며 제사를 드립니다. 이튿날 이드로는 모세가 홀로 온종일 백성을 재판하며 지쳐가는 모습을 보고, 능력 있는 자들을 택하여 천부장, 백부장, 오십부장, 십부장을 삼아 작은 일은 그들이 재판하게 하고 큰일만 모세가 맡으라고 조언합니다. 모세는 이 조언을 따라 질서를 세웁니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 은사의 다양성과 동역:</strong> 모세는 탁월한 지도자였으나 모든 짐을 홀로 지는 것은 하나님의 뜻이 아니었습니다. <span class="scripture-quote">네가 혼자 할 수 없으리라</span>(18절). 이는 신약의 교회론적 원리인 '그리스도의 몸된 지체' 사상과 연결됩니다. 하나님은 공동체 안에 다양한 은사를 주셔서 서로의 짐을 나누게 하십니다.</p>
+                            <p><strong>2. 직분자의 자격:</strong> 이드로가 제안한 지도자의 자격은 <span class="scripture-quote">능력 있는 사람들 곧 하나님을 두려워하며 진실하며 불의한 이익을 미워하는 자</span>(21절)였습니다. 이는 오늘날 교회의 항존직분을 세우는 성경적 기준의 모형이 됩니다. 권위는 기술적인 능력이 아니라 하나님 앞에서의 경건과 성품에서 나옴을 보여줍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_18.html" data-title="출애굽기 18장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 누가복음 22장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>누가복음 22장: 성찬의 제정과 고난의 길</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">유월절 식사 자리에서 예수님께서 선포하신 '새 언약'의 근거는 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>유다의 배신 모의와 함께 유월절이 다가옵니다. 예수님은 제자들과 마지막 만찬을 나누시며 떡과 포도주로 자신의 몸과 피를 기념하게 하시고 새 언약을 선포하십니다. 누가 큰가 하는 제자들의 다툼에 섬기는 자의 자세를 가르치시고, 베드로의 부인을 예고하십니다. 이어 겟세마네 동산에서 땀방울이 핏방울이 되도록 기도하시며 아버지의 뜻에 순복하십니다. 마침내 체포되어 대제사장의 집으로 끌려가시고, 베드로는 예수를 부인하며 통곡합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 피로 세운 새 언약:</strong> <span class="scripture-quote">이 잔은 내 피로 세우는 새 언약이니 곧 너희를 위하여 붓는 것이라</span>(20절). 이는 예레미야 31장의 예언의 성취입니다. 옛 언약이 짐승의 피로 세워졌다면, 새 언약은 흠 없는 하나님의 어린 양의 피로 영원히 단번에 성취되었습니다. 이 성찬은 그리스도와의 연합을 의미하는 은혜의 방편입니다.</p>
+                            <p><strong>2. 주권적 섭리와 인간의 책임:</strong> 가룟 유다의 배신에 대해 <span class="scripture-quote">인자는 이미 정해진 대로 가거니와</span>(22절)라고 말씀하심으로 하나님의 작정을 보여주시나, 동시에 배신한 자에게는 화가 있을 것임을 선언하심으로 인간의 책임을 강조하십니다. 이는 개혁주의의 신적 작정과 인간적 책임의 조화를 잘 보여줍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_22.html" data-title="누가복음 22장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 33장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>욥기 33장: 엘리후의 변론 - 말씀하시는 하나님</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">엘리후가 주장하는 하나님께서 사람에게 말씀하시는 두 가지 주요 방식은 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>엘리후는 욥에게 자신의 말을 들어달라고 요청하며 변론을 이어갑니다. 그는 욥이 "나는 깨끗하여 죄가 없다"고 말한 것과 하나님을 원수로 여기는 태도를 비판합니다. 엘리후는 하나님이 사람보다 크시기에 일일이 대답하지 않으실 수 있으나, 사실 하나님은 여러 방식으로 말씀하신다고 주장합니다. 꿈이나 환상을 통해, 또는 고통과 질병을 통해 사람의 교만을 꺾고 영혼을 구덩이에서 건지시려 한다는 관점을 제시합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 고난의 교육적/구속적 목적:</strong> 엘리후는 고난을 단순히 죄에 대한 징벌로만 보지 않고, 하나님의 '계시적 도구'로 봅니다. <span class="scripture-quote">하나님은 한 번 말씀하시고 다시 말씀하시되 사람은 관심이 없도다</span>(14절). 고난은 인간의 귀를 열어 하나님의 훈계에 귀 기울이게 하며, 멸망으로 가는 발걸음을 멈추게 하시는 하나님의 은혜로운 개입입니다.</p>
+                            <p><strong>2. 중보자의 필요성:</strong> 엘리후는 천 명 중의 하나인 '중보자'가 있어 하나님과 사람 사이를 화목하게 하면 하나님이 그를 긍휼히 여기실 것이라고 말합니다(23절). 이는 욥이 갈망하던 '판결자'에 대한 대답이자, 장차 오실 완전한 중보자 예수 그리스도를 향한 신학적 요청입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_33.html" data-title="욥기 33장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도후서 6장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>고린도후서 6장: 은혜의 때와 성결한 삶</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 고린도 교인들을 향해 '마음을 넓히라'고 호소하며 강조한 성도의 구별됨의 근거는 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>바울은 하나님의 은혜를 헛되이 받지 말라고 권면하며, 지금이 바로 '은혜받을 만한 때요 구원의 날'임을 선포합니다. 그는 복음 사역자로서 겪는 수많은 환난과 역설적인 상황(무명한 자 같으나 유명한 자요, 죽은 자 같으나 살아 있는 자 등)을 나열하며 자신의 진실함을 증명합니다. 이어 믿지 않는 자와 멍에를 함께 메지 말라고 경고하며, 우리는 살아 계신 하나님의 성전이기에 우상으로부터 자신을 깨끗하게 구별해야 함을 강조합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 역설적인 승리의 삶:</strong> 복음 사역자의 삶은 세상의 눈에는 비천해 보이나 하나님의 능력 안에서는 부요합니다. <span class="scripture-quote">아무것도 없는 자 같으나 모든 것을 가진 자로다</span>(10절). 이는 그리스도와 연합된 자가 누리는 영적 부요함의 실재를 보여줍니다. 고난은 복음의 진리성을 훼손하는 것이 아니라 오히려 증명하는 통로가 됩니다.</p>
+                            <p><strong>2. 성전된 성도의 거룩함:</strong> <span class="scripture-quote">우리는 살아 계신 하나님의 성전이라</span>(16절). 구약의 성막과 성전이 하나님의 임재 장소였듯이, 이제 성령이 거하시는 신자의 몸이 하나님의 처소입니다. 그러므로 거룩하신 하나님과 조화될 수 없는 세상의 부정한 가치와 우상으로부터 자신을 구별하는 것은 언약 백성의 필연적 의무입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_06.html" data-title="고린도후서 6장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 주제 중심 신학적 종합 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 대속의 피로 맺은 새 언약과 그 나라의 청지기들</h4>
+                            <p>오늘의 네 본문은 하나님의 나라가 어떻게 세워지고 보존되며, 그 백성이 어떠한 삶의 양식을 가져야 하는지를 구속사적 관점에서 통합하여 보여줍니다.</p>
+                            <p><strong>1. 십자가로 세워진 새로운 질서 (누가복음 22장)</strong><br>
+                            모든 질서의 근원은 예수 그리스도의 '새 언약'에 있습니다. 유월절의 성취로 오신 주님은 자신의 피로 우리를 하나님 나라의 상속자로 인치셨습니다. 이 언약은 단순히 법적인 계약을 넘어, 주님이 겟세마네에서 보여주신 전적인 순종과 대속적 죽음을 기초로 합니다. 성도는 이 은혜의 기초 위에서만 참된 생명을 누립니다.</p>
+                            <p><strong>2. 위임된 권위와 은사의 동역 (출애굽기 18장)</strong><br>
+                            새 언약의 백성들이 모인 공동체(교회)는 질서 있게 세워져야 합니다. 모세가 이드로의 조언을 따라 권위를 위임한 것은 하나님 나라가 독점적 권력이 아닌, 성령의 은사를 통한 유기적 협력을 통해 확장됨을 보여줍니다. 이는 주님이 제자들에게 직분을 맡기시고 섬김의 본을 보이신 것과 일맥상통합니다.</p>
+                            <p><strong>3. 고난을 통한 하나님의 세밀한 음성 (욥기 33장)</strong><br>
+                            공동체의 질서와 개인의 삶에 때로 이해할 수 없는 고난이 닥칠 때, 엘리후의 변론은 중요한 통찰을 줍니다. 고난은 침묵하시는 하나님의 또 다른 말씀 방식입니다. 하나님은 우리를 구덩이(죽음)에서 건져 생명의 빛을 비추시기 위해 고난을 허용하시며, 우리로 하여금 완전한 중보자이신 그리스도를 갈망하게 하십니다.</p>
+                            <p><strong>4. 은혜의 때를 사는 성도의 구별됨 (고린도후서 6장)</strong><br>
+                            그리스도의 피로 성전 된 우리는 이제 이 세상 속에서 역설적인 승리를 사는 자들입니다. 바울의 고백처럼 아무것도 없는 자 같으나 모든 것을 가진 자로서, 거룩한 성전의 품격에 맞게 세상과 구별된 삶을 살아야 합니다. 이것이 새 언약의 은혜를 헛되이 받지 않는 청지기적 삶의 모습입니다.</p>
+                            <p><strong>결론:</strong><br>
+                            오늘 하루, 우리를 위해 핏방울을 흘리시며 새 언약을 맺으신 그리스도를 기억하십시오. 그분이 우리에게 맡기신 직분과 사명을 질서 있게 감당하며, 때로 다가오는 고난 속에서도 우리를 연단하시는 하나님의 세밀한 음성을 듣고, 하나님의 성전답게 거룩한 향기를 풍기는 복된 성도가 되시기를 소망합니다.</p>
+                            <div class="button-group">
+                                <a href="#" class="btn btn-primary" onclick="window.scrollTo(0,0); return false;">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved. 개혁주의 신학 기반 성경읽기 가이드.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 모달 -->
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">본문 보기</h2>
+                <button class="close-modal" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="modal-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 플로팅 네비게이션 -->
+    <div class="floating-nav">
+        <button class="nav-btn" id="prev-btn">◀</button>
+        <div class="nav-info" id="nav-counter">1/6</div>
+        <button class="nav-btn" id="next-btn">▶</button>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+        const tabList = ['content-overview', 'content-book1', 'content-book2', 'content-book3', 'content-book4', 'content-integration'];
+        
+        function switchTab(targetId) {
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            const activeTab = document.querySelector(`[data-target="${targetId}"]`);
+            if(activeTab) activeTab.classList.add('active');
+            document.getElementById(targetId).classList.add('active');
+            
+            const index = tabList.indexOf(targetId) + 1;
+            document.getElementById('nav-counter').innerText = `${index}/${tabList.length}`;
+            window.scrollTo(0, 0);
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => switchTab(tab.dataset.target));
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            const current = document.querySelector('.tab-content.active').id;
+            const nextIdx = (tabList.indexOf(current) + 1) % tabList.length;
+            switchTab(tabList[nextIdx]);
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            const current = document.querySelector('.tab-content.active').id;
+            const prevIdx = (tabList.indexOf(current) - 1 + tabList.length) % tabList.length;
+            switchTab(tabList[prevIdx]);
+        });
+
+        const modal = document.getElementById('text-modal');
+        const iframe = document.getElementById('modal-iframe');
+        const modalTitle = document.getElementById('modal-title');
+
+        document.querySelectorAll('.view-text-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalTitle.innerText = btn.dataset.title;
+                iframe.src = btn.dataset.path;
+                modal.style.display = 'flex';
+            });
+        });
+
+        document.getElementById('modal-close').addEventListener('click', () => {
+            modal.style.display = 'none';
+            iframe.src = '';
+        });
+
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                iframe.src = '';
+            }
+        };
+    </script>
+</body>
+</html>
