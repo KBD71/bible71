@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3월 16일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #673ab7;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        body { font-family: var(--font-main); background-color: var(--color-background); color: var(--color-text); line-height: 1.8; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px; margin-bottom: 2rem;
+            border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card, .overview-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); }
+        .integration-card { border-color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2rem; }
+        
+        .key-question-box { background-color: #f1f3f5; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; border-left: 4px solid #495057; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #1a5c9a; display: block; margin-bottom: 0.5rem; }
+        .key-question-text { font-size: 1.1rem; font-weight: 600; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .listen-audio-btn { display: none !important; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-overview { background-color: var(--overview-color); color: white; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>3월 16일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 27장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">요한복음 7장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 42장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">갈라디아서 2장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="overview-card card-overview">
+                        <div class="card-content">
+                            <h3>3월 16일: 거룩한 임재와 믿음의 실재</h3>
+                            <h4>오늘의 길잡이: 휘장 안으로 나아가는 길</h4>
+                            <p>오늘의 본문들은 하나님께서 죄인들 가운데 거하시기 위해 세우신 구속의 장치들과, 그 실체이신 그리스도를 통해 누리는 참된 생명을 조명합니다.</p>
+                            <p>출애굽기 27장에서는 성막의 중심인 제단과 뜰의 설계를 통해 거룩함의 경계를 보여주십니다. 요한복음 7장에서는 초막절에 선포된 생수의 강, 즉 성령의 약속을 마주하게 됩니다. 욥기 42장은 인간 지혜의 파산을 선포하며 하나님을 대면한 자의 참된 회개를, 갈라디아서 2장은 인간의 행위가 아닌 오직 믿음으로 의롭다 함을 얻는 복음의 핵심을 증언합니다. 이 본문들을 통해 우리는 외적인 의식과 인간의 노력을 넘어, 그리스도 안에서 하나님을 대면하는 은혜의 자리에 서게 될 것입니다.</p>
+                            <a href="javascript:void(0)" onclick="document.querySelector('[data-target=content-book1]').click();" class="btn btn-overview">출애굽기 27장 읽기</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>출애굽기 27장: 번제단과 성막의 뜰</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">성막 뜰 입구에 놓인 번제단이 하나님께 나아가는 이들에게 가르쳐주는 영적 교훈은 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>하나님께서는 조각목으로 만들고 놋으로 싼 번제단의 설계도를 주십니다. 이는 희생 제사가 드려지는 곳입니다. 또한 세마포로 둘러진 성막 뜰과 그 기둥, 그리고 등불을 관리하는 규례를 통해 하나님의 거룩한 처소가 어떻게 유지되어야 하는지를 명시하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 대속의 장소로서의 번제단:</strong> 성막 입구에 제단이 있다는 것은 죄인이 거룩하신 하나님께 나아가기 위해 반드시 피 흘림의 제사가 선행되어야 함을 의미합니다. 이는 단번에 자신을 드리신 어린 양 그리스도를 바라보게 하는 구속사적 모형입니다.</p>
+                            <p><strong>2. 구별된 영역과 영원한 등불:</strong> 세마포 울타리는 거룩함과 세속을 구분합니다. 동시에 <span class="scripture-quote">끊이지 않게 등불을 켜되</span>(20절)라는 명령은, 어두운 세상 가운데 성령의 빛으로 자기 백성을 인도하시는 하나님의 끊임없는 돌보심을 상징합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="window.open('https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_27.html')">본문 보기</button>
+                                <button class="btn listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>요한복음 7장: 생수의 강과 진리의 갈등</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">예수님께서 초막절 끝날에 외치신 '생수의 강'은 구체적으로 무엇을 의미합니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>초막절을 맞아 예수님께서는 예루살렘에서 가르치십니다. 무리 사이에는 예수님의 정체에 대한 심한 논쟁이 일어나고, 당국자들은 그를 잡으려 합니다. 명절 끝날, 예수님은 누구든지 목마른 자는 내게로 와서 마시라고 선포하시며 믿는 자가 받을 성령을 약속하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 내주하시는 성령의 약속:</strong> 예수님은 <span class="scripture-quote">그 배에서 생수의 강이 흘러나오리라</span>(38절)고 말씀하십니다. 이는 그리스도의 영광(십자가와 부활) 이후 믿는 자 안에 거하실 성령의 풍성함을 의미하며, 광야에서 반석을 쳐서 물을 낸 사건의 신령한 성취입니다.</p>
+                            <p><strong>2. 사람의 영광과 하나님의 영광:</strong> 예수님은 자기의 영광을 구하는 자와 보내신 이의 영광을 구하는 자를 대조하십니다. 참된 진리는 인간의 지적 탐구가 아닌, 하나님의 뜻을 행하려는 겸손한 순종을 통해 비로소 깨달아지게 됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="window.open('https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_07.html')">본문 보기</button>
+                                <button class="btn listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>욥기 42장: 회개와 갑절의 회복</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">욥이 "눈으로 주를 뵈옵나이다"라고 고백한 뒤에 나타난 가장 큰 변화는 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>욥기 전체의 위대한 결말입니다. 욥은 하나님의 광대하심 앞에 자신의 무지를 인정하며 티끌 가운데서 회개합니다. 하나님은 욥의 친구들을 책망하시고 욥의 기도를 통해 그들을 용서하시며, 욥에게 이전보다 갑절의 복을 더하셔서 그의 삶을 온전히 회복시키십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 이론에서 실제적 대면으로:</strong> 욥은 <span class="scripture-quote">귀로 듣기만 하였사오나 이제는 눈으로 주를 뵈옵나이다</span>(5절)라고 고백합니다. 이는 고난을 통과한 성도가 도달하는 최고의 신앙적 경지로, 하나님을 인격적이고 실제적으로 경험한 자의 겸손한 굴복을 의미합니다.</p>
+                            <p><strong>2. 중보와 회복의 원리:</strong> 하나님은 욥이 친구들을 위해 기도할 때 그의 곤경을 돌이키셨습니다. 이는 성도의 회복이 자기 연민을 넘어서는 사랑과 중보를 통해 완성됨을 보여주며, 우리를 위해 중보하시는 대제사장 그리스도를 예표합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="window.open('https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_42.html')">본문 보기</button>
+                                <button class="btn listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>갈라디아서 2장: 오직 믿음으로 말미암는 의</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 안디옥에서 베드로를 공적으로 책망한 이유는 복음의 어떤 진리를 수호하기 위함이었습니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>바울은 자신의 사도권과 복음이 예루살렘 사도들에게 인정받았음을 밝힙니다. 그러나 안디옥에서 베드로가 외식하는 모습을 보였을 때, 그는 복음의 진리를 위해 이를 공적으로 책망합니다. 그는 인간이 율법의 행위가 아닌 오직 그리스도를 믿음으로 의롭다 함을 얻는다는 이신칭의를 선포합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 이신칭의(Justification by Faith):</strong> 바울은 <span class="scripture-quote">사람이 의롭게 되는 것은 율법의 행위로 말미암음이 아니요 오직 예수 그리스도를 믿음으로 말미암는 줄 알므로</span>(16절)라고 선언합니다. 이는 종교개혁의 핵심 교리이자 성경 전체의 구원론적 정점입니다.</p>
+                            <p><strong>2. 그리스도와의 연합:</strong> <span class="scripture-quote">내가 그리스도와 함께 십자가에 못 박혔나니</span>(20절)라는 고백은 복음의 능력을 보여줍니다. 이제 성도는 자신의 의지가 아닌, 자기 안에 사시는 그리스도의 생명으로 살아가는 존재임을 확증합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="window.open('https://kbd71.github.io/bible71/bible_html/NT/NT_48_GAL_02.html')">본문 보기</button>
+                                <button class="btn listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>관통하는 주제: 희생 제사에서 그리스도와의 연합으로</h4>
+                            <p>오늘의 네 본문은 구속사의 거대한 흐름인 '하나님과의 관계 회복'을 입체적으로 보여줍니다.</p>
+                            <p><strong>1. 연결 고리 발견:</strong> 출애굽기의 번제단은 죄 사함을 위한 외적 의식의 장소입니다. 이 모형은 요한복음의 생수의 강(성령)을 통해 성도의 내면에 실체화됩니다. 욥기가 보여주는 인간 지혜의 한계와 회개는 갈라디아서에서 인간의 행위(율법)를 부인하고 오직 그리스도의 의만을 의지하게 하는 '믿음'의 필연적 배경이 됩니다. 욥이 하나님을 대면한 것과 바울이 그리스도와 연합된 것은 동일한 구속의 열매입니다.</p>
+                            <p><strong>2. 구속사적 결론:</strong> 구약의 제단에 뿌려진 놋은 심판을 의미했으나, 그 심판을 그리스도께서 십자가에서 대신 받으셨습니다. 이제 우리는 욥처럼 처절한 고통의 현장 속에서도 우리를 위해 일하시는 하나님을 신뢰할 수 있습니다. 율법의 행위로 점수를 따려던 헛된 노력을 그치고, 내 안에 사시는 그리스도의 생명으로 새롭게 창조된 자의 자유를 누리는 것이 복음의 완성입니다.</p>
+                            <p><strong>3. 교리적 정리:</strong> 개혁주의는 '전적 타락'(욥의 회개)과 '이신칭의'(갈라디아서)를 신앙의 기초로 삼습니다. 성막 뜰의 기둥들이 견고히 서야 했듯이, 우리의 구원 역시 하나님의 주권적인 작정과 그리스도의 완전한 순종 위에 견고히 서 있습니다. 오늘 말씀을 통해 우리는 그리스도 안에서 하나님을 대면하며, 그분이 주시는 마르지 않는 생수의 기쁨을 누려야 합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved. 본 해설은 개혁주의 신학 관점에서 작성되었습니다.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.target).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
