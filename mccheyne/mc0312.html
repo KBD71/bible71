@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3월 12일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #6c757d;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #c89200;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background-color: var(--color-background); color: var(--color-text); line-height: 1.8; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            position: sticky; top: 4px; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
+        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card, .overview-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        .overview-card { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .integration-card { border-color: var(--integration-color); } .integration-card h3 { color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin: 0 0 1.5rem 0; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin: 2rem 0 1rem 0; }
+        
+        .key-question-box { background-color: #f1f3f5; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid #adb5bd; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; margin-bottom: 0.5rem; display: block; }
+        .key-question-text { font-style: italic; color: #495057; }
+
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+        
+        .card-content p > strong:first-child { color: #1a5c9a; font-weight: 700; margin-right: 0.3em; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-primary:hover { background-color: #212529; }
+        
+        .listen-audio-btn { display: none !important; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 850px; height: 85%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 1100; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4285F4, #DB4437, #F4B400, #0F9D58); width: 0%; transition: width 0.3s ease; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); }
+    </style>
+</head>
+<body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>3월 12일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 23장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">요한복음 3장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">욥기 38장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">고후 11장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="overview-card">
+                        <div class="card-content">
+                            <h3>3월 12일: 창조주의 권능과 중보자의 은혜</h3>
+                            <h4>오늘의 길잡이: 스스로를 낮추시는 하나님과 높임 받으실 그리스도</h4>
+                            <p>오늘의 성경 읽기는 인간의 유한함과 하나님의 무한하심을 극명하게 대조하며 보여줍니다. 욥기 38장에서 창조주 하나님은 마침내 폭풍 가운데 나타나셔서 인간이 결코 도달할 수 없는 지혜의 영역을 선포하십니다. 이는 피조물이 창조주 앞에서 가져야 할 마땅한 겸손이 무엇인지를 일깨워줍니다.</p>
+                            <p>동시에 요한복음 3장은 그 위대하신 하나님께서 독생자를 보내시기까지 우리를 사랑하셨음을 증거합니다. 거듭남의 신비와 십자가의 복음은 인간의 노력이 아닌 전적인 하나님의 은혜임을 보여줍니다. 출애굽기 23장의 언약 백성을 향한 구체적인 삶의 지침과 고린도후서 11장의 복음의 순수성을 지키려는 사도의 분투를 통해, 우리는 하나님의 주권 아래 있는 성도의 삶이 어떠해야 하는지를 묵상하게 됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="document.querySelector('[data-target=\'content-book1\']').click()">첫 번째 본문으로 이동</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 23장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>출애굽기 23장: 공의로운 사회와 거룩한 절기</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">하나님께서는 원수의 짐승을 만났을 때 어떻게 행동하라고 명령하셨으며, 그 신학적 이유는 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>본장은 공의로운 재판과 사회적 약자 보호, 안식년과 안식일 준수, 그리고 이스라엘의 세 가지 주요 절기(무교절, 맥추절, 수장절)에 관한 규례를 다룹니다. 또한 가나안 입성을 앞두고 하나님의 사자가 앞서 행하실 것과 우상 숭배를 엄격히 금지하는 약속의 말씀을 담고 있습니다. 이는 언약 백성이 약속의 땅에서 유지해야 할 거룩한 질서를 의미합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 원수 사랑의 구약적 원형:</strong><span class="scripture-quote">네 원수의 길 잃은 소나 나귀를 보거든 반드시 그 사람에게로 돌릴지며</span>(4절). 율법은 단순히 처벌을 위한 것이 아니라 관계의 회복을 지향합니다. 사적인 감정을 넘어 공의와 자비를 실천하게 함으로써, 하나님의 성품이 백성의 삶 속에 투영되도록 하십니다.</p>
+                            <p><strong>2. 절기와 언약적 헌신:</strong>세 절기는 이스라엘의 구원과 공급하심을 기억하는 장치입니다. <span class="scripture-quote">빈 손으로 내 앞에 나오지 말지니라</span>(15절)는 명령은 모든 소유가 하나님께로부터 왔음을 고백하는 신앙의 고백입니다. 또한 가나안 정복이 인간의 힘이 아닌, 하나님이 보내신 '사자'와 '왕벌'의 주권적 역사임을 명시하여 오직 하나님만을 의뢰하게 하십니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_23.html" data-title="출애굽기 23장">본문 보기</button>
+                                <button class="btn listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 요한복음 3장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>요한복음 3장: 위로부터의 출생과 십자가의 사랑</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">예수께서 '거듭남'을 성령의 바람에 비유하신 것은 인간의 의지와 구원의 관계를 어떻게 설명합니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>밤에 찾아온 니고데모에게 예수께서는 하나님 나라를 보기 위한 필수 조건으로 '거듭남'을 제시하십니다. 성령의 주권적 역사를 통한 새 생명을 설명하신 후, 인자가 들려야 할 십자가 사건과 하나님의 세상을 향한 지극한 사랑을 선포하십니다. 후반부에서는 세례 요한의 마지막 증언을 통해 "그는 흥하여야 하겠고 나는 쇠하여야 하리라"는 사역자의 참된 자세가 나타납니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 성령의 단독 사역(Monergism):</strong><span class="scripture-quote">바람이 임의로 불매... 성령으로 난 사람도 다 그러하니라</span>(8절). 거듭남은 인간의 결단이나 혈통이 아닌, 하나님의 전적인 주권에 달린 사건입니다. 성령께서 죽은 영혼을 살려놓으셔야만 비로소 인간은 믿음으로 응답할 수 있습니다. 이는 개혁주의 구원론의 핵심인 '전적 타락'과 '무조건적 선택'을 뒷받침합니다.</p>
+                            <p><strong>2. 구속사의 정점, 요한복음 3:16:</strong>광야의 놋뱀 사건을 인용하시며 예수께서는 구원의 유일한 근거가 자신의 대속적 죽음임을 밝히십니다. <span class="scripture-quote">하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니</span>(16절). 이 사랑은 추상적인 감정이 아니라, 아들을 죽음에 내어주시는 실질적인 언약적 사랑(Hesed)의 완성입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_03.html" data-title="요한복음 3장">본문 보기</button>
+                                <button class="btn listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 욥기 38장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>욥기 38장: 폭풍 속에서 말씀하시는 창조주</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">하나님께서는 왜 욥의 고난에 대한 직접적인 이유 대신 '창조의 신비'를 질문하십니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>드디어 여호와께서 폭풍우 가운데 욥에게 응답하십니다. 그러나 그것은 설명이 아닌 질문의 형태입니다. 하나님은 땅의 기초를 세울 때, 바다의 경계를 정할 때, 그리고 별들의 운행과 기상 현상을 다스릴 때 욥이 어디 있었느냐고 물으십니다. 이를 통해 피조물인 인간이 창조주의 광대한 지혜와 섭리를 다 이해할 수 없음을 명확히 하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 창조주와 피조물의 질적 차이:</strong><span class="scripture-quote">내가 땅의 기초를 놓을 때에 네가 어디 있었느냐</span>(4절). 하나님의 질문은 욥을 굴복시키기 위함이 아니라, 욥의 시각을 고난이라는 좁은 틀에서 창조 세계 전체라는 광대한 틀로 확장시키기 위함입니다. 인간의 유한한 이성으로 무한하신 하나님의 공의를 재단할 수 없다는 '하나님의 불가해성'을 선포하시는 것입니다.</p>
+                            <p><strong>2. 우주적 섭리와 개별적 돌봄:</strong>하나님은 단지 거시적인 우주만을 다스리시는 것이 아니라, 광야의 비를 내리시고 들짐승의 먹이를 챙기시는 분입니다. 만물을 다스리시는 그 세밀한 손길이 고난당하는 욥의 삶도 여전히 붙들고 계심을 역설적으로 보여주십니다. 이는 성도가 고난 중에 가져야 할 궁극적인 위로의 근거가 됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_38.html" data-title="욥기 38장">본문 보기</button>
+                                <button class="btn listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 고린도후서 11장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>고린도후서 11장: 사도의 열심과 고난의 목록</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">바울이 '어리석은 자랑'을 자처하면서까지 자신의 고난을 열거한 목적은 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>바울은 거짓 사도들에게 미혹된 고린도 교회 성도들을 향해 거룩한 질투를 느낍니다. 그는 정결한 처녀로 교회를 그리스도께 중매하려 합니다. 바울은 거짓 사도들의 화려한 외양과 대조되는 자신의 비천함과 무수한 고난의 목록을 제시합니다. 매 맞음, 갇힘, 난파, 굶주림 등의 시련은 그가 복음을 위해 지불한 대가이며, 그의 사도권이 세상적인 영광이 아닌 십자가의 흔적에 있음을 증명합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 교회의 순결과 복음의 변질 방지:</strong><span class="scripture-quote">뱀이 그 간계로 하와를 미혹한 것 같이 너희 마음이 그리스도를 향하는 진실함과 깨끗함에서 떠나 부패할까 두려워하노라</span>(3절). 사도의 가장 큰 근심은 성도가 복음의 본질에서 멀어지는 것입니다. 바울은 인간의 영광을 구하는 거짓 가르침에 맞서 복음의 배타적 순수성을 지키고자 분투합니다.</p>
+                            <p><strong>2. 약함의 신학(Theologia Crucis):</strong>바울의 고난 목록은 세상의 관점에서는 실패의 기록이지만, 하나님 나라의 관점에서는 승리의 훈장입니다. <span class="scripture-quote">내가 부득불 자랑할진대 내가 약한 것을 자랑하리라</span>(30절). 그리스도의 능력이 머물게 하기 위해 자신의 약함을 노출시키는 사도의 태도는, 영광의 신학을 추구하는 현대인들에게 큰 도전이 됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_11.html" data-title="고린도후서 11장">본문 보기</button>
+                                <button class="btn listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 통합 묵상 탭 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 주제: 무한하신 창조주의 자기 비하와 구속의 경륜</h4>
+                            <p>오늘의 네 본문은 <strong>'창조주 하나님의 초월성'</strong>과 <strong>'구속주 하나님의 내재성'</strong>이라는 장엄한 신학적 긴장을 보여줍니다. 욥기 38장에서 선포된 하나님의 광대하심은 피조물인 인간이 결코 감히 범접할 수 없는 공포와 경외의 대상입니다. 그러나 요한복음 3장은 그 전능하신 하나님이 독생자를 내어주시는 '사랑의 하나님'으로 우리에게 다가오셨음을 계시합니다.</p>
+                            
+                            <p><strong>1. 지혜와 사랑의 합일:</strong> 욥기에서 하나님은 만물의 이치를 묻는 질문을 통해 자신의 지혜를 나타내셨습니다. 그런데 그 지혜의 정점은 바로 십자가(요한복음)입니다. 인간의 머리로는 이해할 수 없는 하나님의 섭리가, 아들을 내어주시는 구속 사역을 통해 명확히 드러난 것입니다. 욥이 폭풍 속에서 만난 하나님은, 바로 니고데모가 밤에 만난 그분의 아버님이십니다.</p>
+                            
+                            <p><strong>2. 거룩한 백성의 삶과 사도적 분투:</strong> 출애굽기 23장의 법규들은 하나님의 거룩함을 닮아가는 백성의 윤리를 보여줍니다. 이 윤리는 단순히 도덕적인 수준을 넘어, 하나님을 경외하는 마음에서 비롯됩니다. 바울(고린도후서 11장)은 이 거룩한 복음의 가치를 지키기 위해 자신의 생명을 내어놓는 고난을 자처했습니다. 그는 창조주의 권능을 알았기에, 그리스도를 위한 약함을 기꺼이 자랑할 수 있었습니다.</p>
+                            
+                            <p><strong>결론적 함의:</strong> 개혁주의 신학은 하나님의 절대 주권을 고백합니다. 욥이 고백한 창조주의 위엄 앞에 무릎 꿇는 겸손(Coram Deo)과, 니고데모에게 선포된 거듭남의 은혜를 붙드는 확신은 성도의 삶의 두 기둥입니다. 세상의 화려한 자랑을 배격하고(고린도후서), 하나님의 공의로운 법도를 즐거워하며(출애굽기), 날마다 성령으로 거듭난 삶을 사는 것이 우리에게 주어진 소명입니다. 오늘 하루, 창조주이자 구속주이신 하나님의 광대하심 속에 깊이 침잠하시기를 축원합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved. <br>전통적 개혁주의 신학의 관점에서 서술되었습니다.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 모달 창 -->
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">본문 보기</h2>
+                <button class="close-btn" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="modal-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+        const progressBar = document.getElementById('reading-progress');
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.target).classList.add('active');
+                
+                const progress = ((index + 1) / tabs.length) * 100;
+                progressBar.style.width = progress + '%';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        const modal = document.getElementById('text-modal');
+        const modalIframe = document.getElementById('modal-iframe');
+        const modalTitle = document.getElementById('modal-title');
+        const modalClose = document.getElementById('modal-close');
+
+        document.querySelectorAll('.view-text-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const path = btn.dataset.path;
+                const title = btn.dataset.title;
+                modalTitle.innerText = title;
+                modalIframe.src = path;
+                modal.classList.add('visible');
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('visible');
+            modalIframe.src = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('visible');
+                modalIframe.src = '';
+            }
+        });
+    </script>
+</body>
+</html>
