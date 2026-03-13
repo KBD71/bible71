@@ -16,7 +16,7 @@
             --color-card-bg: #ffffff;
             --color-border: #dee2e6;
             
-            --overview-color: #673ab7;
+            --overview-color: #6c757d;
             --book1-color: #4285F4;
             --book2-color: #DB4437;
             --book3-color: #c89200;
@@ -24,6 +24,7 @@
             --integration-color: #5f6368;
         }
 
+        html { scroll-behavior: smooth; }
         body { font-family: var(--font-main); background-color: var(--color-background); color: var(--color-text); line-height: 1.8; margin: 0; padding: 0; display: flex; justify-content: center; }
         .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
         .content-wrapper { max-width: 800px; margin: 0 auto; }
@@ -34,11 +35,13 @@
 
         .tabs { 
             display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-            position: sticky; top: 0; background: rgba(248, 249, 250, 0.95);
-            backdrop-filter: blur(8px); z-index: 1000; padding: 10px; margin-bottom: 2rem;
-            border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky; top: 4px; background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px); z-index: 1000; padding: 10px;
+            margin: 0 -10px 2rem -10px; border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .tab-btn { font-family: var(--font-heading); padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
+        .tab-btn:hover { background-color: #e9ecef; transform: translateY(-2px); }
         .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
         .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
         .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
@@ -51,35 +54,53 @@
         .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .chapter-card, .integration-card, .overview-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; }
-        .card-overview { border-color: var(--overview-color); }
-        .card-book1 { border-color: var(--book1-color); }
-        .card-book2 { border-color: var(--book2-color); }
-        .card-book3 { border-color: var(--book3-color); }
-        .card-book4 { border-color: var(--book4-color); }
-        .integration-card { border-color: var(--integration-color); }
+        .chapter-card, .integration-card, .overview-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; transition: all 0.3s ease; }
+        .overview-card { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); } .card-book1 h3 { color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); } .card-book2 h3 { color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); } .card-book3 h3 { color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); } .card-book4 h3 { color: var(--book4-color); }
+        .integration-card { border-color: var(--integration-color); } .integration-card h3 { color: var(--integration-color); }
 
         .card-content { padding: 2rem; }
-        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
-        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin: 0 0 1.5rem 0; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin: 2rem 0 1rem 0; }
         
-        .key-question-box { background-color: #f1f3f5; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; border-left: 4px solid #495057; }
-        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #1a5c9a; display: block; margin-bottom: 0.5rem; }
-        .key-question-text { font-size: 1.1rem; font-weight: 600; }
+        .key-question-box { background-color: #f1f3f5; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid #adb5bd; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; margin-bottom: 0.5rem; display: block; }
+        .key-question-text { font-style: italic; color: #495057; }
 
         .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
         .scripture-quote::before { content: " “"; }
         .scripture-quote::after { content: "” "; }
+        
+        .card-content p > strong:first-child { color: #1a5c9a; font-weight: 700; margin-right: 0.3em; }
 
-        .listen-audio-btn { display: none !important; }
-        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
         .btn-primary { background-color: #495057; color: white; }
-        .btn-overview { background-color: var(--overview-color); color: white; }
+        .btn-primary:hover { background-color: #212529; }
+        
+        /* 성경 듣기 버튼 숨김 처리 */
+        .listen-audio-btn { display: none !important; }
 
-        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 850px; height: 85%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background-color: rgba(0,0,0,0.1); z-index: 1100; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4285F4, #DB4437, #F4B400, #0F9D58); width: 0%; transition: width 0.3s ease; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); }
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -97,111 +118,122 @@
             </nav>
 
             <main>
+                <!-- 전체 개요 탭 -->
                 <div id="content-overview" class="tab-content active">
-                    <article class="overview-card card-overview">
+                    <article class="overview-card">
                         <div class="card-content">
-                            <h3>3월 16일: 거룩한 임재와 믿음의 실재</h3>
-                            <h4>오늘의 길잡이: 휘장 안으로 나아가는 길</h4>
-                            <p>오늘의 본문들은 하나님께서 죄인들 가운데 거하시기 위해 세우신 구속의 장치들과, 그 실체이신 그리스도를 통해 누리는 참된 생명을 조명합니다.</p>
-                            <p>출애굽기 27장에서는 성막의 중심인 제단과 뜰의 설계를 통해 거룩함의 경계를 보여주십니다. 요한복음 7장에서는 초막절에 선포된 생수의 강, 즉 성령의 약속을 마주하게 됩니다. 욥기 42장은 인간 지혜의 파산을 선포하며 하나님을 대면한 자의 참된 회개를, 갈라디아서 2장은 인간의 행위가 아닌 오직 믿음으로 의롭다 함을 얻는 복음의 핵심을 증언합니다. 이 본문들을 통해 우리는 외적인 의식과 인간의 노력을 넘어, 그리스도 안에서 하나님을 대면하는 은혜의 자리에 서게 될 것입니다.</p>
-                            <a href="javascript:void(0)" onclick="document.querySelector('[data-target=content-book1]').click();" class="btn btn-overview">출애굽기 27장 읽기</a>
+                            <h3>3월 16일: 거룩한 제단과 생명의 성령</h3>
+                            <h4>오늘의 길잡이: 희생을 통한 화목과 성령의 약속</h4>
+                            <p>오늘의 성경 읽기는 하나님과 인간 사이의 깨어진 관계를 회복하는 '길'과 그 길을 완성하시는 '그리스도'를 조망합니다. 출애굽기 27장은 성소의 뜰에 놓일 번제단과 등불 관리에 대해 상술하며, 하나님께 나아가는 첫 관문이 반드시 '희생'임을 가르칩니다.</p>
+                            <p>요한복음 7장은 초막절의 정점에서 예수 그리스도께서 영원한 생명의 근원이 되시는 성령의 임재를 선포하시는 장면을 다룹니다. 또한 욥기 42장에서 마침내 하나님을 대면하고 철저히 회개한 욥에게 주어지는 갑절의 회복을 묵상하며, 갈라디아서 2장에서 복음의 진리를 지키기 위해 베드로의 외식을 꾸짖는 바울의 결단을 통해 오직 믿음으로 얻는 의를 확인합니다. 오늘 하루, 제단의 불을 끄지 않듯 우리 안에 성령의 생수가 끊이지 않기를 소망합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="document.querySelector('[data-target=\'content-book1\']').click()">첫 번째 본문으로 이동</button>
+                            </div>
                         </div>
                     </article>
                 </div>
 
+                <!-- 출애굽기 27장 -->
                 <div id="content-book1" class="tab-content">
                     <article class="chapter-card card-book1">
                         <div class="card-content">
                             <h3>출애굽기 27장: 번제단과 성막의 뜰</h3>
                             <div class="key-question-box">
                                 <span class="key-question-title">핵심 질문</span>
-                                <span class="key-question-text">성막 뜰 입구에 놓인 번제단이 하나님께 나아가는 이들에게 가르쳐주는 영적 교훈은 무엇입니까?</span>
+                                <span class="key-question-text">성막의 뜰에 위치한 '놋 제단'은 하나님께 나아가는 과정에서 어떤 의미를 가집니까?</span>
                             </div>
                             <h4>상세 개요</h4>
-                            <p>하나님께서는 조각목으로 만들고 놋으로 싼 번제단의 설계도를 주십니다. 이는 희생 제사가 드려지는 곳입니다. 또한 세마포로 둘러진 성막 뜰과 그 기둥, 그리고 등불을 관리하는 규례를 통해 하나님의 거룩한 처소가 어떻게 유지되어야 하는지를 명시하십니다.</p>
+                            <p>하나님께서는 조각목으로 만들고 놋으로 입힌 번제단의 규격을 지시하십니다. 이 제단은 성막 뜰 입구에 위치하여, 죄인이 하나님을 만나기 위해 반드시 거쳐야 할 '희생의 장소'입니다. 또한 성막을 둘러싼 뜰의 휘장과 기둥들, 그리고 성소의 등불을 끄지 않고 계속 켜두어야 하는 규례를 통해 하나님의 임재가 지속되는 방식을 설명하십니다.</p>
                             <h4>심층 신학적 해설</h4>
-                            <p><strong>1. 대속의 장소로서의 번제단:</strong> 성막 입구에 제단이 있다는 것은 죄인이 거룩하신 하나님께 나아가기 위해 반드시 피 흘림의 제사가 선행되어야 함을 의미합니다. 이는 단번에 자신을 드리신 어린 양 그리스도를 바라보게 하는 구속사적 모형입니다.</p>
-                            <p><strong>2. 구별된 영역과 영원한 등불:</strong> 세마포 울타리는 거룩함과 세속을 구분합니다. 동시에 <span class="scripture-quote">끊이지 않게 등불을 켜되</span>(20절)라는 명령은, 어두운 세상 가운데 성령의 빛으로 자기 백성을 인도하시는 하나님의 끊임없는 돌보심을 상징합니다.</p>
+                            <p><strong>1. 희생과 대속의 기초:</strong><span class="scripture-quote">너는 조각목으로 길이가 다섯 규빗, 너비가 다섯 규빗의 제단을 만들되</span>(1절). 제단은 하나님의 공의가 만족되는 장소입니다. 죄인은 자신의 생명 대신 제물의 피를 흘림으로써 거룩하신 하나님 앞에 설 수 있는 자격을 얻습니다. 이는 단번에 자신을 제물로 드리신 예수 그리스도의 십자가 사역을 예표하는 가장 선명한 그림자입니다.</p>
+                            <p><strong>2. 끊이지 않는 등불의 사명:</strong><span class="scripture-quote">이스라엘 자손에게 명령하여... 등불을 끊이지 않게 켜되</span>(20절). 등불은 하나님의 임재와 그분의 말씀의 빛을 상징합니다. 제사장이 아침저녁으로 이를 관리하듯, 성도는 세상의 어둠 속에서 성령의 기름으로 믿음의 빛을 계속해서 밝혀야 함을 가르칩니다.</p>
                             <div class="button-group">
-                                <button class="btn btn-primary" onclick="window.open('https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_27.html')">본문 보기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_27.html" data-title="출애굽기 27장">본문 보기</button>
                                 <button class="btn listen-audio-btn">성경 듣기</button>
                             </div>
                         </div>
                     </article>
                 </div>
 
+                <!-- 요한복음 7장 -->
                 <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>요한복음 7장: 생수의 강과 진리의 갈등</h3>
+                            <h3>요한복음 7장: 초막절의 외침과 생수의 강</h3>
                             <div class="key-question-box">
                                 <span class="key-question-title">핵심 질문</span>
-                                <span class="key-question-text">예수님께서 초막절 끝날에 외치신 '생수의 강'은 구체적으로 무엇을 의미합니까?</span>
+                                <span class="key-question-text">명절 끝날에 예수께서 선포하신 '생수의 강'은 구체적으로 무엇을 의미합니까?</span>
                             </div>
                             <h4>상세 개요</h4>
-                            <p>초막절을 맞아 예수님께서는 예루살렘에서 가르치십니다. 무리 사이에는 예수님의 정체에 대한 심한 논쟁이 일어나고, 당국자들은 그를 잡으려 합니다. 명절 끝날, 예수님은 누구든지 목마른 자는 내게로 와서 마시라고 선포하시며 믿는 자가 받을 성령을 약속하십니다.</p>
+                            <p>예수께서는 초막절 명절 중에 은밀히 예루살렘에 올라가 성전에서 가르치십니다. 무리는 그가 메시아인지 아닌지에 대해 쟁론하며, 종교 지도자들은 그를 잡으려 합니다. 명절 가장 큰 날에 예수께서는 누구든지 목마르거든 내게로 와서 마시라고 외치시며, 믿는 자들이 받을 성령에 대해 예언하십니다. 사람들의 반응은 갈라지고, 니고데모는 율법의 원칙을 들어 예수를 변호하려 합니다.</p>
                             <h4>심층 신학적 해설</h4>
-                            <p><strong>1. 내주하시는 성령의 약속:</strong> 예수님은 <span class="scripture-quote">그 배에서 생수의 강이 흘러나오리라</span>(38절)고 말씀하십니다. 이는 그리스도의 영광(십자가와 부활) 이후 믿는 자 안에 거하실 성령의 풍성함을 의미하며, 광야에서 반석을 쳐서 물을 낸 사건의 신령한 성취입니다.</p>
-                            <p><strong>2. 사람의 영광과 하나님의 영광:</strong> 예수님은 자기의 영광을 구하는 자와 보내신 이의 영광을 구하는 자를 대조하십니다. 참된 진리는 인간의 지적 탐구가 아닌, 하나님의 뜻을 행하려는 겸손한 순종을 통해 비로소 깨달아지게 됩니다.</p>
+                            <p><strong>1. 성령의 약속과 구속사적 시점:</strong><span class="scripture-quote">나를 믿는 자는 성경에 이름과 같이 그 배에서 생수의 강이 흘러나오리라</span>(38절). 초막절은 광야 생활의 인도와 물의 공급을 감사하는 절기입니다. 예수께서는 자신이 그 모든 은혜의 실체임을 선포하십니다. 이는 그리스도의 영광(죽음과 부활) 이후에 임할 오순절 성령 강림을 미리 내다보는 장엄한 약속입니다.</p>
+                            <p><strong>2. 불신과 무지의 장벽:</strong>유대인들은 예수의 출신 배경과 인간적인 조건을 근거로 그를 판단합니다. 그들은 성경을 연구하면서도 정작 성경이 가리키는 그리스도를 보지 못합니다. 이는 인간의 이성과 전통이 하나님의 계시를 가로막는 장애물이 될 수 있음을 보여주며, 오직 하나님이 열어주셔야만 진리를 볼 수 있다는 '불가항력적 은혜'의 필요성을 역설합니다.</p>
                             <div class="button-group">
-                                <button class="btn btn-primary" onclick="window.open('https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_07.html')">본문 보기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_07.html" data-title="요한복음 7장">본문 보기</button>
                                 <button class="btn listen-audio-btn">성경 듣기</button>
                             </div>
                         </div>
                     </article>
                 </div>
 
+                <!-- 욥기 42장 -->
                 <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
                             <h3>욥기 42장: 회개와 갑절의 회복</h3>
                             <div class="key-question-box">
                                 <span class="key-question-title">핵심 질문</span>
-                                <span class="key-question-text">욥이 "눈으로 주를 뵈옵나이다"라고 고백한 뒤에 나타난 가장 큰 변화는 무엇입니까?</span>
+                                <span class="key-question-text">하나님을 직접 대면한 욥이 가장 먼저 고백한 내용은 무엇입니까?</span>
                             </div>
                             <h4>상세 개요</h4>
-                            <p>욥기 전체의 위대한 결말입니다. 욥은 하나님의 광대하심 앞에 자신의 무지를 인정하며 티끌 가운데서 회개합니다. 하나님은 욥의 친구들을 책망하시고 욥의 기도를 통해 그들을 용서하시며, 욥에게 이전보다 갑절의 복을 더하셔서 그의 삶을 온전히 회복시키십니다.</p>
+                            <p>욥기 전체의 결론부입니다. 욥은 하나님의 광대하심 앞에 자신의 무지를 철저히 인정하고 티끌과 재 가운데서 회개합니다. 하나님께서는 욥을 비난했던 세 친구를 꾸짖으시고 욥의 중보 기도를 통해 그들을 용서하십니다. 이후 욥에게 이전 모든 소유의 갑절을 주시고, 자녀를 주시며, 장수의 복을 허락하심으로 욥의 고난의 여정을 영광스럽게 마무리하십니다.</p>
                             <h4>심층 신학적 해설</h4>
-                            <p><strong>1. 이론에서 실제적 대면으로:</strong> 욥은 <span class="scripture-quote">귀로 듣기만 하였사오나 이제는 눈으로 주를 뵈옵나이다</span>(5절)라고 고백합니다. 이는 고난을 통과한 성도가 도달하는 최고의 신앙적 경지로, 하나님을 인격적이고 실제적으로 경험한 자의 겸손한 굴복을 의미합니다.</p>
-                            <p><strong>2. 중보와 회복의 원리:</strong> 하나님은 욥이 친구들을 위해 기도할 때 그의 곤경을 돌이키셨습니다. 이는 성도의 회복이 자기 연민을 넘어서는 사랑과 중보를 통해 완성됨을 보여주며, 우리를 위해 중보하시는 대제사장 그리스도를 예표합니다.</p>
+                            <p><strong>1. 지식에서 만남으로:</strong><span class="scripture-quote">내가 주께 대하여 귀로 듣기만 하였사오나 이제는 눈으로 주를 뵈옵나이다</span>(5절). 욥의 고난의 궁극적 유익은 하나님에 대한 '개념적 지식'이 '인격적 경험'으로 승화된 데 있습니다. 개혁주의 신학은 성경 지식에 머물지 않고 그 지식이 가리키는 하나님을 실제로 경외하는 자리까지 나아가는 것을 참된 신앙의 정점으로 봅니다.</p>
+                            <p><strong>2. 중보와 회복의 원리:</strong>하나님은 욥이 그를 괴롭혔던 친구들을 위해 기도할 때 그의 곤경을 돌이키셨습니다(10절). 이는 그리스도의 중보 사역을 닮은 모습입니다. 하나님은 고난받는 의인을 통해 세상을 축복하시며, 고난 끝에 주어지는 보상은 단순히 물질적 보상이 아니라 하나님의 주권적 선하심이 증명되는 최종적 승리입니다.</p>
                             <div class="button-group">
-                                <button class="btn btn-primary" onclick="window.open('https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_42.html')">본문 보기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_42.html" data-title="욥기 42장">본문 보기</button>
                                 <button class="btn listen-audio-btn">성경 듣기</button>
                             </div>
                         </div>
                     </article>
                 </div>
 
+                <!-- 갈라디아서 2장 -->
                 <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>갈라디아서 2장: 오직 믿음으로 말미암는 의</h3>
+                            <h3>갈라디아서 2장: 이신칭의와 복음의 진리</h3>
                             <div class="key-question-box">
                                 <span class="key-question-title">핵심 질문</span>
-                                <span class="key-question-text">바울이 안디옥에서 베드로를 공적으로 책망한 이유는 복음의 어떤 진리를 수호하기 위함이었습니까?</span>
+                                <span class="key-question-text">바울이 안디옥에서 베드로를 공적으로 책망한 이유는 무엇입니까?</span>
                             </div>
                             <h4>상세 개요</h4>
-                            <p>바울은 자신의 사도권과 복음이 예루살렘 사도들에게 인정받았음을 밝힙니다. 그러나 안디옥에서 베드로가 외식하는 모습을 보였을 때, 그는 복음의 진리를 위해 이를 공적으로 책망합니다. 그는 인간이 율법의 행위가 아닌 오직 그리스도를 믿음으로 의롭다 함을 얻는다는 이신칭의를 선포합니다.</p>
+                            <p>바울은 자신의 사도직이 다른 사도들에게 인정받았음을 설명하며, 이방인에게 할례를 강요하는 율법주의자들에 맞서 싸웁니다. 특히 안디옥에서 베드로가 외식하는 태도를 보였을 때 그를 꾸짖으며 복음의 진리를 수호합니다. 그는 인간이 의롭게 되는 것은 율법의 행위가 아니라 오직 예수 그리스도를 믿는 믿음으로 말미암는다는 이신칭의(Justification by Faith)의 대강령을 선포합니다.</p>
                             <h4>심층 신학적 해설</h4>
-                            <p><strong>1. 이신칭의(Justification by Faith):</strong> 바울은 <span class="scripture-quote">사람이 의롭게 되는 것은 율법의 행위로 말미암음이 아니요 오직 예수 그리스도를 믿음으로 말미암는 줄 알므로</span>(16절)라고 선언합니다. 이는 종교개혁의 핵심 교리이자 성경 전체의 구원론적 정점입니다.</p>
-                            <p><strong>2. 그리스도와의 연합:</strong> <span class="scripture-quote">내가 그리스도와 함께 십자가에 못 박혔나니</span>(20절)라는 고백은 복음의 능력을 보여줍니다. 이제 성도는 자신의 의지가 아닌, 자기 안에 사시는 그리스도의 생명으로 살아가는 존재임을 확증합니다.</p>
+                            <p><strong>1. 그리스도와 함께 죽고 사는 삶:</strong><span class="scripture-quote">내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라</span>(20절). 개혁주의 성화론의 기초입니다. 의롭다 하심을 받은 자는 자신의 의지가 아닌 내주하시는 그리스도의 통치 아래 삽니다. 이제 우리가 육체 가운데 사는 것은 나를 사랑하사 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것입니다.</p>
+                            <p><strong>2. 복음의 순수성과 타협 없는 자세:</strong>바울은 베드로라는 권위 앞에서도 '복음의 진리'가 훼손될 때 물러서지 않았습니다. 구원에 있어서 율법의 행위를 조금이라도 더하려는 시도는 그리스도의 죽음을 헛되게 만드는 것입니다. 이는 종교개혁의 가장 중요한 기치인 '오직 믿음'이 왜 그렇게 치열하게 수호되어야 했는지를 잘 보여줍니다.</p>
                             <div class="button-group">
-                                <button class="btn btn-primary" onclick="window.open('https://kbd71.github.io/bible71/bible_html/NT/NT_48_GAL_02.html')">본문 보기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_48_GAL_02.html" data-title="갈라디아서 2장">본문 보기</button>
                                 <button class="btn listen-audio-btn">성경 듣기</button>
                             </div>
                         </div>
                     </article>
                 </div>
 
+                <!-- 주제 중심 신학적 종합 탭 -->
                 <div id="content-integration" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
                             <h3>주제 중심 신학적 종합</h3>
-                            <h4>관통하는 주제: 희생 제사에서 그리스도와의 연합으로</h4>
-                            <p>오늘의 네 본문은 구속사의 거대한 흐름인 '하나님과의 관계 회복'을 입체적으로 보여줍니다.</p>
-                            <p><strong>1. 연결 고리 발견:</strong> 출애굽기의 번제단은 죄 사함을 위한 외적 의식의 장소입니다. 이 모형은 요한복음의 생수의 강(성령)을 통해 성도의 내면에 실체화됩니다. 욥기가 보여주는 인간 지혜의 한계와 회개는 갈라디아서에서 인간의 행위(율법)를 부인하고 오직 그리스도의 의만을 의지하게 하는 '믿음'의 필연적 배경이 됩니다. 욥이 하나님을 대면한 것과 바울이 그리스도와 연합된 것은 동일한 구속의 열매입니다.</p>
-                            <p><strong>2. 구속사적 결론:</strong> 구약의 제단에 뿌려진 놋은 심판을 의미했으나, 그 심판을 그리스도께서 십자가에서 대신 받으셨습니다. 이제 우리는 욥처럼 처절한 고통의 현장 속에서도 우리를 위해 일하시는 하나님을 신뢰할 수 있습니다. 율법의 행위로 점수를 따려던 헛된 노력을 그치고, 내 안에 사시는 그리스도의 생명으로 새롭게 창조된 자의 자유를 누리는 것이 복음의 완성입니다.</p>
-                            <p><strong>3. 교리적 정리:</strong> 개혁주의는 '전적 타락'(욥의 회개)과 '이신칭의'(갈라디아서)를 신앙의 기초로 삼습니다. 성막 뜰의 기둥들이 견고히 서야 했듯이, 우리의 구원 역시 하나님의 주권적인 작정과 그리스도의 완전한 순종 위에 견고히 서 있습니다. 오늘 말씀을 통해 우리는 그리스도 안에서 하나님을 대면하며, 그분이 주시는 마르지 않는 생수의 기쁨을 누려야 합니다.</p>
+                            <h4>전체를 관통하는 주제: 희생의 단을 넘어 성령의 생명으로</h4>
+                            <p>오늘의 네 본문은 <strong>'하나님께 나아가는 유일한 길과 그 길의 영광스러운 결말'</strong>을 통합적으로 보여줍니다. 출애굽기 27장의 번제단이 하나님께 나아가는 첫 관문인 '죽음과 희생'을 상징한다면, 요한복음 7장의 생수의 강은 그 희생의 결과로 주어지는 '생명과 성령'을 상징합니다. 욥기 42장과 갈라디아서 2장은 이 생명의 길로 들어선 인간이 가져야 할 태도, 곧 '철저한 자기 부인'과 '오직 믿음'의 확신을 가르칩니다.</p>
+                            
+                            <p><strong>1. 대속의 필요성과 성령의 역사:</strong> 제단 위에서 제물이 죽어야만 등불이 켜질 수 있듯이, 그리스도의 대속적 죽음(번제단)이 없이는 성령의 강림(생수의 강)도 없습니다. 욥이 티끌 가운데서 자신을 부인했을 때 비로소 하나님의 더 깊은 영광을 보게 된 것은, 갈라디아서 2장 20절의 고백처럼 '자아의 죽음'이 곧 '그리스도의 사심'으로 연결된다는 영적 원리를 입증합니다.</p>
+                            
+                            <p><strong>2. 은혜의 완결성:</strong> 욥에게 주어진 갑절의 회복은 인간의 인내에 대한 보상이 아니라 하나님의 주권적 긍휼의 승리입니다. 이와 같이 우리가 의롭게 되는 것은 율법의 행위라는 우리의 공로가 아니라, 오직 그리스도의 완벽한 의를 믿음으로 전가받는 전적인 은혜입니다. 바울이 베드로를 책망하면서까지 지키려 했던 복음의 순수성이 바로 이것입니다.</p>
+                            
+                            <p><strong>결론적 함의:</strong> 개혁주의 신학은 우리를 번제단 앞에 먼저 세웁니다. 우리의 죄가 죽어야만 거룩하신 하나님과 화목할 수 있기 때문입니다. 그러나 복음은 제단에 머물지 않고 우리를 생수의 강으로 이끕니다. 우리는 욥처럼 "눈으로 주를 뵈옵나이다"라고 고백하는 인격적 만남을 사모해야 하며, 바울처럼 "내 안에 그리스도께서 사신다"는 믿음의 확신 속에서 흔들림 없이 행해야 합니다. 오늘 하루, 번제단의 불로 우리를 정결케 하시고 성령의 생수로 우리를 충만케 하시는 하나님의 주권적 은혜 속에 거하시기를 소망합니다.</p>
                             <div class="button-group">
                                 <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
@@ -211,19 +243,67 @@
             </main>
 
             <footer>
-                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved. 본 해설은 개혁주의 신학 관점에서 작성되었습니다.</p>
+                <p>&copy; 2025 MacCheyne 5.0. All Rights Reserved. <br>전통적 개혁주의 신학의 관점에서 서술되었습니다.</p>
             </footer>
         </div>
     </div>
 
+    <!-- 모달 창 -->
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">본문 보기</h2>
+                <button class="close-btn" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="modal-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById(btn.dataset.target).classList.add('active');
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+        const progressBar = document.getElementById('reading-progress');
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.target).classList.add('active');
+                
+                const progress = ((index + 1) / tabs.length) * 100;
+                progressBar.style.width = progress + '%';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
+        });
+
+        const modal = document.getElementById('text-modal');
+        const modalIframe = document.getElementById('modal-iframe');
+        const modalTitle = document.getElementById('modal-title');
+        const modalClose = document.getElementById('modal-close');
+
+        document.querySelectorAll('.view-text-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const path = btn.dataset.path;
+                const title = btn.dataset.title;
+                modalTitle.innerText = title;
+                modalIframe.src = path;
+                modal.classList.add('visible');
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('visible');
+            modalIframe.src = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('visible');
+                modalIframe.src = '';
+            }
         });
     </script>
 </body>
