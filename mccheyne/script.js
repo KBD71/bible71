@@ -362,13 +362,14 @@
         updateFloatingNav();
         setTimeout(updateReadingProgress, 150);
 
-        // 오디오 플레이어가 활성화된 상태라면 탭 이동 시 해당 탭의 오디오로 자동 전환
-        if (audioPlayerBar.classList.contains('visible')) {
-            const activeContent = tabContents[index];
-            const audioBtn = activeContent.querySelector('.listen-audio-btn');
-            if (audioBtn) {
-                playAudio(audioBtn);
-            }
+        // 성경본문 탭(book1~book4) 선택 시 해당 오디오 자동 재생
+        const activeContent = tabContents[index];
+        const audioBtn = activeContent.querySelector('.listen-audio-btn');
+        if (audioBtn) {
+            playAudio(audioBtn);
+        } else {
+            // 개요/통합 탭 등 오디오 없는 탭 → 오디오 플레이어 닫기
+            closeAudioPlayer();
         }
     }
 
