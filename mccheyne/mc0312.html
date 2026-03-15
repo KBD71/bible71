@@ -81,7 +81,7 @@
         .btn-primary { background-color: #495057; color: white; }
         .btn-primary:hover { background-color: #212529; }
         
-        .listen-audio-btn { display: none !important; }
+        .listen-audio-btn { }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
         .modal-overlay.visible { opacity: 1; visibility: visible; }
@@ -95,6 +95,9 @@
         .progress-bar { height: 100%; background: linear-gradient(90deg, #4285F4, #DB4437, #F4B400, #0F9D58); width: 0%; transition: width 0.3s ease; }
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); }
+    
+        #audio-player.visible { transform: translateY(0) !important; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
     </style>
 </head>
 <body>
@@ -148,7 +151,7 @@
                             <p><strong>2. 절기와 언약적 헌신:</strong>세 절기는 이스라엘의 구원과 공급하심을 기억하는 장치입니다. <span class="scripture-quote">빈 손으로 내 앞에 나오지 말지니라</span>(15절)는 명령은 모든 소유가 하나님께로부터 왔음을 고백하는 신앙의 고백입니다. 또한 가나안 정복이 인간의 힘이 아닌, 하나님이 보내신 '사자'와 '왕벌'의 주권적 역사임을 명시하여 오직 하나님만을 의뢰하게 하십니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_23.html" data-title="출애굽기 23장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="EXO_23" data-title="출애굽기 23장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -170,7 +173,7 @@
                             <p><strong>2. 구속사의 정점, 요한복음 3:16:</strong>광야의 놋뱀 사건을 인용하시며 예수께서는 구원의 유일한 근거가 자신의 대속적 죽음임을 밝히십니다. <span class="scripture-quote">하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니</span>(16절). 이 사랑은 추상적인 감정이 아니라, 아들을 죽음에 내어주시는 실질적인 언약적 사랑(Hesed)의 완성입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_03.html" data-title="요한복음 3장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="JOH_3" data-title="요한복음 3장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -192,7 +195,7 @@
                             <p><strong>2. 우주적 섭리와 개별적 돌봄:</strong>하나님은 단지 거시적인 우주만을 다스리시는 것이 아니라, 광야의 비를 내리시고 들짐승의 먹이를 챙기시는 분입니다. 만물을 다스리시는 그 세밀한 손길이 고난당하는 욥의 삶도 여전히 붙들고 계심을 역설적으로 보여주십니다. 이는 성도가 고난 중에 가져야 할 궁극적인 위로의 근거가 됩니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_38.html" data-title="욥기 38장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="JOB_38" data-title="욥기 38장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -214,7 +217,7 @@
                             <p><strong>2. 약함의 신학(Theologia Crucis):</strong>바울의 고난 목록은 세상의 관점에서는 실패의 기록이지만, 하나님 나라의 관점에서는 승리의 훈장입니다. <span class="scripture-quote">내가 부득불 자랑할진대 내가 약한 것을 자랑하리라</span>(30절). 그리스도의 능력이 머물게 하기 위해 자신의 약함을 노출시키는 사도의 태도는, 영광의 신학을 추구하는 현대인들에게 큰 도전이 됩니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_11.html" data-title="고린도후서 11장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="2CO_11" data-title="고린도후서 11장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -260,50 +263,19 @@
         </div>
     </div>
 
-    <script>
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-        const progressBar = document.getElementById('reading-progress');
+    <script src="script.js"></script>
 
-        tabs.forEach((tab, index) => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-                tab.classList.add('active');
-                document.getElementById(tab.dataset.target).classList.add('active');
-                
-                const progress = ((index + 1) / tabs.length) * 100;
-                progressBar.style.width = progress + '%';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
+    <!-- YouTube Player Container (hidden) -->
+    <div id="player-container"></div>
 
-        const modal = document.getElementById('text-modal');
-        const modalIframe = document.getElementById('modal-iframe');
-        const modalTitle = document.getElementById('modal-title');
-        const modalClose = document.getElementById('modal-close');
-
-        document.querySelectorAll('.view-text-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const path = btn.dataset.path;
-                const title = btn.dataset.title;
-                modalTitle.innerText = title;
-                modalIframe.src = path;
-                modal.classList.add('visible');
-            });
-        });
-
-        modalClose.addEventListener('click', () => {
-            modal.classList.remove('visible');
-            modalIframe.src = '';
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('visible');
-                modalIframe.src = '';
-            }
-        });
-    </script>
+    <!-- 오디오 플레이어 바 -->
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+    <script src="../chatbot-trigger.js"></script>
 </body>
 </html>

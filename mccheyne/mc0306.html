@@ -78,7 +78,7 @@
         .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
         .btn-primary { background-color: #495057; color: white; }
         .btn-secondary { background-color: #e9ecef; color: #495057; }
-        .listen-audio-btn { display: none !important; }
+        .listen-audio-btn { }
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
         
@@ -92,9 +92,13 @@
         .modal-body { flex-grow: 1; margin-top: 10px; overflow: hidden; }
         .modal-body iframe { width: 100%; height: 100%; border: none; }
         .close-modal { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+    
+        #audio-player.visible { transform: translateY(0) !important; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
     </style>
 </head>
 <body>
+    <div id="reading-progress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#4263eb,#7c3aed);z-index:9999;transition:width 0.3s;width:0%;"></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -144,7 +148,7 @@
                             <p><strong>2. 기도의 승리, 여호와 닛시:</strong> 아말렉과의 전쟁은 군사력의 대결이 아닌 기도의 대결이었습니다. 모세의 손이 내려가지 않도록 아론과 훌이 붙들어준 것은 교회 공동체의 중보 기도의 중요성을 시사합니다. <span class="scripture-quote">여호와 닛시</span>(15절)는 승리가 여호와께 속해 있음을 선포하는 신앙 고백입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_17.html" data-title="출애굽기 17장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_17" data-title="출애굽기 17장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -166,7 +170,7 @@
                             <p><strong>2. 종말론적 인내:</strong> 주님은 환난 중에도 <span class="scripture-quote">너희의 인내로 너희 영혼을 얻으리라</span>(19절)고 말씀하십니다. 이는 성도의 견인(Perseverance of the Saints) 교리와 연결됩니다. 세상의 질서가 흔들리고 박해가 임할 때, 성도는 두려워하는 것이 아니라 머리를 들고 구속의 완성을 소망하며 깨어 기도해야 합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_21.html" data-title="누가복음 21장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LUK_21" data-title="누가복음 21장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -188,7 +192,7 @@
                             <p><strong>2. 하나님을 정당화하려는 열정:</strong> 엘리후의 분노는 하나님의 공의가 인간의 논리에 의해 훼손되는 것에 대한 거룩한 분노였습니다. 그는 욥이 자신의 고난을 정당화하기 위해 하나님의 주권을 침해하는 것을 경계합니다. 이는 신앙의 초점이 '나의 억울함 해소'가 아닌 '하나님의 영광 보존'에 있어야 함을 교훈합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_32.html" data-title="욥기 32장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_32" data-title="욥기 32장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -210,7 +214,7 @@
                             <p><strong>2. 대리적 형벌과 화목의 신학:</strong> 하나님께서 죄를 알지도 못하신 그리스도를 우리를 대신하여 죄로 삼으신 것은 우리로 하여금 하나님의 의가 되게 하려 하심입니다(21절). 이것이 '이중 전가'(Double Imputation)의 교리입니다. 이 복음의 은혜를 받은 자는 이제 세상을 하나님과 화목하게 하는 '그리스도의 사절'로 부름받았습니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_05.html" data-title="고린도후서 5장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="2CO_5" data-title="고린도후서 5장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -260,68 +264,24 @@
 
     <!-- 플로팅 네비게이션 -->
     <div class="floating-nav">
-        <button class="nav-btn" id="prev-btn">◀</button>
-        <div class="nav-info" id="nav-counter">1/6</div>
-        <button class="nav-btn" id="next-btn">▶</button>
+        <button class="nav-btn" id="prev-tab">◀</button>
+        <div class="nav-info" id="current-tab-info">1/6</div>
+        <button class="nav-btn" id="next-tab">▶</button>
     </div>
 
-    <script>
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-        const tabList = ['content-overview', 'content-book1', 'content-book2', 'content-book3', 'content-book4', 'content-integration'];
-        
-        function switchTab(targetId) {
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
-            
-            const activeTab = document.querySelector(`[data-target="${targetId}"]`);
-            if(activeTab) activeTab.classList.add('active');
-            document.getElementById(targetId).classList.add('active');
-            
-            const index = tabList.indexOf(targetId) + 1;
-            document.getElementById('nav-counter').innerText = `${index}/${tabList.length}`;
-            window.scrollTo(0, 0);
-        }
+    <script src="script.js"></script>
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => switchTab(tab.dataset.target));
-        });
+    <!-- YouTube Player Container (hidden) -->
+    <div id="player-container"></div>
 
-        document.getElementById('next-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const nextIdx = (tabList.indexOf(current) + 1) % tabList.length;
-            switchTab(tabList[nextIdx]);
-        });
-
-        document.getElementById('prev-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const prevIdx = (tabList.indexOf(current) - 1 + tabList.length) % tabList.length;
-            switchTab(tabList[prevIdx]);
-        });
-
-        const modal = document.getElementById('text-modal');
-        const iframe = document.getElementById('modal-iframe');
-        const modalTitle = document.getElementById('modal-title');
-
-        document.querySelectorAll('.view-text-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                modalTitle.innerText = btn.dataset.title;
-                iframe.src = btn.dataset.path;
-                modal.style.display = 'flex';
-            });
-        });
-
-        document.getElementById('modal-close').addEventListener('click', () => {
-            modal.style.display = 'none';
-            iframe.src = '';
-        });
-
-        window.onclick = (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-                iframe.src = '';
-            }
-        };
-    </script>
+    <!-- 오디오 플레이어 바 -->
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+    <script src="../chatbot-trigger.js"></script>
 </body>
 </html>

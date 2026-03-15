@@ -78,7 +78,7 @@
         .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
         .btn-primary { background-color: #495057; color: white; }
         .btn-secondary { background-color: #e9ecef; color: #495057; }
-        .listen-audio-btn { display: none !important; }
+        .listen-audio-btn { }
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
         
@@ -92,9 +92,13 @@
         .modal-body { flex-grow: 1; margin-top: 10px; }
         .modal-body iframe { width: 100%; height: 100%; border: none; }
         .close-modal { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+    
+        #audio-player.visible { transform: translateY(0) !important; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
     </style>
 </head>
 <body>
+    <div id="reading-progress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#4263eb,#7c3aed);z-index:9999;transition:width 0.3s;width:0%;"></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -144,7 +148,7 @@
                             <p><strong>2. 시험하시는 하나님과 여호와 라파:</strong> 마라의 사건은 구속받은 백성을 향한 하나님의 '시험'입니다. <span class="scripture-quote">거기서 여호와께서 그들을 위하여 법도와 율례를 정하시고 그들을 시험하실새</span>(25절). 쓴물을 단물로 바꾸신 하나님은 우리 영혼의 질병을 고치시는 분입니다. 이는 육체적 치유를 넘어, 원망하는 죄악된 본성을 은혜로 변화시키시는 복음의 역사를 예표합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_15.html" data-title="출애굽기 15장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_15" data-title="출애굽기 15장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -166,7 +170,7 @@
                             <p><strong>2. 하나님 나라의 청지기직:</strong> 열 므나 비유는 왕이 부재한 동안 종들이 받은 은사를 어떻게 사용해야 하는지를 보여줍니다. 하나님 나라는 정체된 것이 아니라 활동적이며, 주신 은혜를 사용하여 주인의 유익을 구하는 자에게 더 큰 책임과 영광이 주어집니다. 이는 종말을 기다리는 성도가 가져야 할 성실한 삶의 태도를 요구합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_19.html" data-title="누가복음 19장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LUK_19" data-title="누가복음 19장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -188,7 +192,7 @@
                             <p><strong>2. 하나님의 침묵이라는 고통:</strong> 욥의 가장 큰 고통은 하나님의 부재 경험입니다. <span class="scripture-quote">내가 주께 부르짖으나 주께서 대답하지 아니하시며</span>(20절). 이는 하나님의 주권적 섭리 안에서 신자가 겪는 '어두운 밤'입니다. 하나님은 때로 성도의 모든 의지할 곳을 끊어버리심으로 오직 하나님 한 분만을 바라는 순전한 신앙으로 우리를 연단하십니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_30.html" data-title="욥기 30장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_30" data-title="욥기 30장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -210,7 +214,7 @@
                             <p><strong>2. 점진적 성화와 주의 형상:</strong> 복음의 영광은 단순히 죄 사함에 머물지 않고 우리를 변화시킵니다. <span class="scripture-quote">그와 같은 형상으로 변화하여 영광에서 영광에 이르니</span>(18절). 수건을 벗고 주를 바라보는 것(Contemplation)이 성화의 핵심 동력입니다. 성령님은 우리 안에서 그리스도의 형상을 빚어 가시며, 그 영광은 율법이 결코 줄 수 없었던 완전한 자유를 보장합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_03.html" data-title="고린도후서 3장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="2CO_3" data-title="고린도후서 3장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -260,71 +264,24 @@
 
     <!-- 플로팅 네비게이션 -->
     <div class="floating-nav">
-        <button class="nav-btn" id="prev-btn">◀</button>
-        <div class="nav-info" id="nav-counter">1/6</div>
-        <button class="nav-btn" id="next-btn">▶</button>
+        <button class="nav-btn" id="prev-tab">◀</button>
+        <div class="nav-info" id="current-tab-info">1/6</div>
+        <button class="nav-btn" id="next-tab">▶</button>
     </div>
 
-    <script>
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-        const navCounter = id => document.getElementById(id);
-        const tabList = ['content-overview', 'content-book1', 'content-book2', 'content-book3', 'content-book4', 'content-integration'];
-        
-        function switchTab(targetId) {
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
-            
-            const activeTab = document.querySelector(`[data-target="${targetId}"]`);
-            if(activeTab) activeTab.classList.add('active');
-            document.getElementById(targetId).classList.add('active');
-            
-            const index = tabList.indexOf(targetId) + 1;
-            document.getElementById('nav-counter').innerText = `${index}/${tabList.length}`;
-            window.scrollTo(0, 0);
-        }
+    <script src="script.js"></script>
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                switchTab(tab.dataset.target);
-            });
-        });
+    <!-- YouTube Player Container (hidden) -->
+    <div id="player-container"></div>
 
-        document.getElementById('next-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const nextIdx = (tabList.indexOf(current) + 1) % tabList.length;
-            switchTab(tabList[nextIdx]);
-        });
-
-        document.getElementById('prev-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const prevIdx = (tabList.indexOf(current) - 1 + tabList.length) % tabList.length;
-            switchTab(tabList[prevIdx]);
-        });
-
-        const modal = document.getElementById('text-modal');
-        const iframe = document.getElementById('modal-iframe');
-        const modalTitle = document.getElementById('modal-title');
-
-        document.querySelectorAll('.view-text-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                modalTitle.innerText = btn.dataset.title;
-                iframe.src = btn.dataset.path;
-                modal.style.display = 'flex';
-            });
-        });
-
-        document.getElementById('modal-close').addEventListener('click', () => {
-            modal.style.display = 'none';
-            iframe.src = '';
-        });
-
-        window.onclick = (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-                iframe.src = '';
-            }
-        };
-    </script>
+    <!-- 오디오 플레이어 바 -->
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+    <script src="../chatbot-trigger.js"></script>
 </body>
 </html>

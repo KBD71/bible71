@@ -82,7 +82,7 @@
         .btn-primary:hover { background-color: #212529; }
         
         /* 성경 듣기 버튼 숨김 처리 */
-        .listen-audio-btn { display: none !important; }
+        .listen-audio-btn { }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
         .modal-overlay.visible { opacity: 1; visibility: visible; }
@@ -101,6 +101,9 @@
             header h1 { font-size: 2rem; }
             .card-content { padding: 1.5rem; }
         }
+    
+        #audio-player.visible { transform: translateY(0) !important; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
     </style>
 </head>
 <body>
@@ -154,7 +157,7 @@
                             <p><strong>2. 공의와 대속의 원리:</strong><span class="scripture-quote">생명은 생명으로, 눈은 눈으로</span>(23-24절)라는 '동태복수법(Lex Talionis)'은 복수를 조장하는 것이 아니라, 과도한 보복을 금지하고 범죄에 상응하는 공정한 대가를 치르게 함으로써 사회적 정의를 유지하기 위함입니다. 이는 훗날 우리 죄의 대가를 친히 담당하신 그리스도의 대속적 죽음의 필요성을 역설적으로 보여줍니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_21.html" data-title="출애굽기 21장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="EXO_21" data-title="출애굽기 21장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -176,7 +179,7 @@
                             <p><strong>2. 성육신(Incarnation)의 은혜:</strong><span class="scripture-quote">말씀이 육신이 되어 우리 가운데 거하시매</span>(14절). 여기서 '거하시다'는 구약의 성막(Tabernacle)을 의미하는 단어와 연결됩니다. 하나님께서 멀리 계시지 않고 우리 곁에 텐트를 치고 찾아오신 것입니다. 이는 율법으로 정죄받을 우리를 구원하시기 위해 하나님의 영광이 낮고 천한 인간의 몸을 입으신 최고의 비하(Humiliation)이자 은혜입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_01.html" data-title="요한복음 1장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="JOH_1" data-title="요한복음 1장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -198,7 +201,7 @@
                             <p><strong>2. 고난을 통한 훈련(Sanctification):</strong><span class="scripture-quote">하나님은 곤고한 자를 그 곤고할 즈음에 구원하시며 학대당할 즈음에 그의 귀를 여시나니</span>(15절). 엘리후의 변론은 욥의 친구들보다는 한 차원 높습니다. 고난을 단순히 죄에 대한 형벌로만 보는 것이 아니라, 성도를 연단하고 하나님의 음성에 귀 기울이게 만드는 도구로 이해합니다. 이는 고난 중에 소망을 갖게 하는 성화의 원리를 담고 있습니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_36.html" data-title="욥기 36장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="JOB_36" data-title="욥기 36장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -220,7 +223,7 @@
                             <p><strong>2. 하나님의 충만한 공급:</strong>바울은 하나님이 모든 은혜를 넘치게 하셔서 성도로 하여금 <span class="scripture-quote">모든 착한 일을 넘치게 하게 하려 하심</span>(8절)이라고 설명합니다. 우리가 드리는 것은 우리의 공로가 아니라, 하나님이 주신 씨와 양식을 나누는 것뿐입니다. 결국 연보는 드리는 자와 받는 자 모두가 하나님의 지극한 은혜를 인하여 찬송하게 만드는 신령한 사역입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_09.html" data-title="고린도후서 9장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="2CO_9" data-title="고린도후서 9장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -314,5 +317,19 @@
             }
         });
     </script>
+
+    <!-- YouTube Player Container (hidden) -->
+    <div id="player-container"></div>
+
+    <!-- 오디오 플레이어 바 -->
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="../chatbot-trigger.js"></script>
 </body>
 </html>

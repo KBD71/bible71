@@ -78,7 +78,7 @@
         .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
         .btn-primary { background-color: #495057; color: white; }
         .btn-secondary { background-color: #e9ecef; color: #495057; }
-        .listen-audio-btn { display: none !important; }
+        .listen-audio-btn { }
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
         
@@ -92,9 +92,13 @@
         .modal-body { flex-grow: 1; margin-top: 10px; }
         .modal-body iframe { width: 100%; height: 100%; border: none; }
         .close-modal { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+    
+        #audio-player.visible { transform: translateY(0) !important; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
     </style>
 </head>
 <body>
+    <div id="reading-progress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#4263eb,#7c3aed);z-index:9999;transition:width 0.3s;width:0%;"></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -144,7 +148,7 @@
                             <p><strong>2. 세례의 모형으로서의 홍해 도하:</strong> 바울은 고린도전서 10장에서 이 사건을 '조상들이 구름과 바다 아래서 모세에게 속하여 세례를 받은 것'으로 해석합니다. 이는 옛 자아(애굽의 종)가 죽고 새 인류(하나님의 백성)로 태어나는 구속사적 전환점입니다. 홍해는 이스라엘에게는 생명의 길이었으나, 불신앙의 애굽인들에게는 심판의 장소가 되었습니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_14.html" data-title="출애굽기 14장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_14" data-title="출애굽기 14장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -166,7 +170,7 @@
                             <p><strong>2. 하나님 나라와 어린 아이의 마음:</strong> 하나님 나라는 인간의 공로나 자격으로 쟁취하는 곳이 아닙니다. 어린 아이와 같이 전적으로 부모를 의지하는 것처럼, 하나님을 절대적으로 의존하는 자들만이 들어갈 수 있습니다. 부자 관원이 슬퍼하며 돌아간 이유는 그의 재물이 그로 하여금 하나님을 의지하는 것을 가로막았기 때문입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_18.html" data-title="누가복음 18장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LUK_18" data-title="누가복음 18장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -188,7 +192,7 @@
                             <p><strong>2. 섭리적 상실과 신앙의 긴장:</strong> 욥은 이 모든 영광의 근원이 하나님께 있었음을 고백합니다. 그러나 하나님께서는 그 은총의 수단들을 일시에 거두어가셨습니다. 이는 성도의 삶에 주어지는 축복과 고난이 모두 하나님의 주권적 섭리 아래 있으며, 때로는 그 이유를 알 수 없는 상실을 통해서도 하나님의 선하신 뜻이 이루어지고 있음을 신뢰해야 함을 시사합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_29.html" data-title="욥기 29장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_29" data-title="욥기 29장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -210,7 +214,7 @@
                             <p><strong>2. 그리스도의 향기(Bonus Odor Christi):</strong> 바울은 복음을 전하는 자들을 개선 행진 중에 향을 피우는 자들에 비유합니다. 이 향기는 믿는 자들에게는 생명에 이르는 향기요, 거절하는 자들에게는 사망에 이르는 향기입니다. 성도의 삶과 메시지는 하나님 앞에서 <span class="scripture-quote">그리스도의 향기</span>(15절)입니다. 이는 우리의 존재 자체가 그리스도의 승리와 복음의 진리성을 드러내는 매개체임을 의미합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_02.html" data-title="고린도후서 2장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="2CO_2" data-title="고린도후서 2장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -260,75 +264,24 @@
 
     <!-- 플로팅 네비게이션 -->
     <div class="floating-nav">
-        <button class="nav-btn" id="prev-btn">◀</button>
-        <div class="nav-info" id="nav-counter">1/6</div>
-        <button class="nav-btn" id="next-btn">▶</button>
+        <button class="nav-btn" id="prev-tab">◀</button>
+        <div class="nav-info" id="current-tab-info">1/6</div>
+        <button class="nav-btn" id="next-tab">▶</button>
     </div>
 
-    <script>
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-        const navCounter = id => document.getElementById(id);
-        const tabList = ['content-overview', 'content-book1', 'content-book2', 'content-book3', 'content-book4', 'content-integration'];
-        
-        function switchTab(targetId, color) {
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
-            
-            const activeTab = document.querySelector(`[data-target="${targetId}"]`);
-            if(activeTab) activeTab.classList.add('active');
-            document.getElementById(targetId).classList.add('active');
-            
-            const index = tabList.indexOf(targetId) + 1;
-            navCounter('nav-counter').innerText = `${index}/${tabList.length}`;
-            window.scrollTo(0, 0);
-        }
+    <script src="script.js"></script>
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                switchTab(tab.dataset.target, tab.dataset.color);
-            });
-        });
+    <!-- YouTube Player Container (hidden) -->
+    <div id="player-container"></div>
 
-        // 네비게이션 버튼
-        document.getElementById('next-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const nextIdx = (tabList.indexOf(current) + 1) % tabList.length;
-            const nextTab = document.querySelector(`[data-target="${tabList[nextIdx]}"]`);
-            if (nextTab) switchTab(tabList[nextIdx], nextTab.dataset.color);
-        });
-
-        document.getElementById('prev-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const prevIdx = (tabList.indexOf(current) - 1 + tabList.length) % tabList.length;
-            const prevTab = document.querySelector(`[data-target="${tabList[prevIdx]}"]`);
-            if (prevTab) switchTab(tabList[prevIdx], prevTab.dataset.color);
-        });
-
-        // 모달 제어
-        const modal = document.getElementById('text-modal');
-        const iframe = document.getElementById('modal-iframe');
-        const modalTitle = document.getElementById('modal-title');
-
-        document.querySelectorAll('.view-text-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                modalTitle.innerText = btn.dataset.title;
-                iframe.src = btn.dataset.path;
-                modal.style.display = 'flex';
-            });
-        });
-
-        document.getElementById('modal-close').addEventListener('click', () => {
-            modal.style.display = 'none';
-            iframe.src = '';
-        });
-
-        window.onclick = (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-                iframe.src = '';
-            }
-        };
-    </script>
+    <!-- 오디오 플레이어 바 -->
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+    <script src="../chatbot-trigger.js"></script>
 </body>
 </html>

@@ -82,7 +82,7 @@
         .btn-primary:hover { background-color: #212529; }
         
         /* 성경 듣기 버튼 숨김 처리 */
-        .listen-audio-btn { display: none !important; }
+        .listen-audio-btn { }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
         .modal-overlay.visible { opacity: 1; visibility: visible; }
@@ -96,6 +96,9 @@
         .progress-bar { height: 100%; background: linear-gradient(90deg, #4285F4, #DB4437, #F4B400, #0F9D58); width: 0%; transition: width 0.3s ease; }
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); }
+    
+        #audio-player.visible { transform: translateY(0) !important; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
     </style>
 </head>
 <body>
@@ -149,7 +152,7 @@
                             <p><strong>2. 끊이지 않는 등불의 사명:</strong><span class="scripture-quote">이스라엘 자손에게 명령하여... 등불을 끊이지 않게 켜되</span>(20절). 등불은 하나님의 임재와 그분의 말씀의 빛을 상징합니다. 제사장이 아침저녁으로 이를 관리하듯, 성도는 세상의 어둠 속에서 성령의 기름으로 믿음의 빛을 계속해서 밝혀야 함을 가르칩니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_27.html" data-title="출애굽기 27장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="EXO_27" data-title="출애굽기 27장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -171,7 +174,7 @@
                             <p><strong>2. 불신과 무지의 장벽:</strong>유대인들은 예수의 출신 배경과 인간적인 조건을 근거로 그를 판단합니다. 그들은 성경을 연구하면서도 정작 성경이 가리키는 그리스도를 보지 못합니다. 이는 인간의 이성과 전통이 하나님의 계시를 가로막는 장애물이 될 수 있음을 보여주며, 오직 하나님이 열어주셔야만 진리를 볼 수 있다는 '불가항력적 은혜'의 필요성을 역설합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_07.html" data-title="요한복음 7장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="JOH_7" data-title="요한복음 7장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -193,7 +196,7 @@
                             <p><strong>2. 중보와 회복의 원리:</strong>하나님은 욥이 그를 괴롭혔던 친구들을 위해 기도할 때 그의 곤경을 돌이키셨습니다(10절). 이는 그리스도의 중보 사역을 닮은 모습입니다. 하나님은 고난받는 의인을 통해 세상을 축복하시며, 고난 끝에 주어지는 보상은 단순히 물질적 보상이 아니라 하나님의 주권적 선하심이 증명되는 최종적 승리입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_42.html" data-title="욥기 42장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="JOB_42" data-title="욥기 42장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -215,7 +218,7 @@
                             <p><strong>2. 복음의 순수성과 타협 없는 자세:</strong>바울은 베드로라는 권위 앞에서도 '복음의 진리'가 훼손될 때 물러서지 않았습니다. 구원에 있어서 율법의 행위를 조금이라도 더하려는 시도는 그리스도의 죽음을 헛되게 만드는 것입니다. 이는 종교개혁의 가장 중요한 기치인 '오직 믿음'이 왜 그렇게 치열하게 수호되어야 했는지를 잘 보여줍니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_48_GAL_02.html" data-title="갈라디아서 2장">본문 보기</button>
-                                <button class="btn listen-audio-btn">성경 듣기</button>
+                                <button class="btn listen-audio-btn" data-key="GAL_2" data-title="갈라디아서 2장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -261,50 +264,19 @@
         </div>
     </div>
 
-    <script>
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-        const progressBar = document.getElementById('reading-progress');
+    <script src="script.js"></script>
 
-        tabs.forEach((tab, index) => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-                tab.classList.add('active');
-                document.getElementById(tab.dataset.target).classList.add('active');
-                
-                const progress = ((index + 1) / tabs.length) * 100;
-                progressBar.style.width = progress + '%';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
+    <!-- YouTube Player Container (hidden) -->
+    <div id="player-container"></div>
 
-        const modal = document.getElementById('text-modal');
-        const modalIframe = document.getElementById('modal-iframe');
-        const modalTitle = document.getElementById('modal-title');
-        const modalClose = document.getElementById('modal-close');
-
-        document.querySelectorAll('.view-text-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const path = btn.dataset.path;
-                const title = btn.dataset.title;
-                modalTitle.innerText = title;
-                modalIframe.src = path;
-                modal.classList.add('visible');
-            });
-        });
-
-        modalClose.addEventListener('click', () => {
-            modal.classList.remove('visible');
-            modalIframe.src = '';
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('visible');
-                modalIframe.src = '';
-            }
-        });
-    </script>
+    <!-- 오디오 플레이어 바 -->
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+    <script src="../chatbot-trigger.js"></script>
 </body>
 </html>

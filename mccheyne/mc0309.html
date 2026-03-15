@@ -78,7 +78,7 @@
         .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
         .btn-primary { background-color: #495057; color: white; }
         .btn-secondary { background-color: #e9ecef; color: #495057; }
-        .listen-audio-btn { display: none !important; }
+        .listen-audio-btn { }
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
         
@@ -92,9 +92,13 @@
         .modal-body { flex-grow: 1; margin-top: 10px; overflow: hidden; }
         .modal-body iframe { width: 100%; height: 100%; border: none; }
         .close-modal { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+    
+        #audio-player.visible { transform: translateY(0) !important; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
     </style>
 </head>
 <body>
+    <div id="reading-progress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#4263eb,#7c3aed);z-index:9999;transition:width 0.3s;width:0%;"></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -144,7 +148,7 @@
                             <p><strong>2. 율법의 세 가지 용도 중 '제3용도':</strong> 개혁주의 신학은 율법이 성도의 성화 과정에서 여전히 유효한 가이드라인이 됨을 강조합니다. 십계명은 하나님을 사랑하고 이웃을 사랑하는 구체적인 방법이며, 그리스도 안에서 새로운 피조물이 된 성도가 기쁨으로 순종해야 할 거룩한 표준입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_20.html" data-title="출애굽기 20장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_20" data-title="출애굽기 20장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -166,7 +170,7 @@
                             <p><strong>2. 성령을 통한 마음의 열림:</strong> 제자들은 성경을 알고 있었으나 주님이 <span class="scripture-quote">그들의 마음을 열어 성경을 깨닫게</span>(45절) 하실 때 비로소 복음의 진리를 알게 되었습니다. 이는 조명(Illumination) 사역으로, 기록된 말씀이 성령의 역사로 말미암아 우리 영혼에 생명력 있게 다가와야 함을 보여줍니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_24.html" data-title="누가복음 24장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LUK_24" data-title="누가복음 24장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -188,7 +192,7 @@
                             <p><strong>2. 은혜의 일방성:</strong> 하나님이 우리에게 법을 주시고 헌신을 요구하시는 것은 그분이 무언가 필요해서가 아니라, 우리를 자신의 영광에 참여시키기 위함입니다. 엘리후의 변론은 인간의 자기 의(self-righteousness)가 얼마나 허무한 것인지를 폭로하며, 오직 하나님의 주권적인 자비만을 바라보게 합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_35.html" data-title="욥기 35장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_35" data-title="욥기 35장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -210,7 +214,7 @@
                             <p><strong>2. 비하(Humiliation)와 승귀(Exaltation)의 원리:</strong> <span class="scripture-quote">부요하신 이로서 너희를 위하여 가난하게 되심은 그의 가난함으로 말미암아 너희를 부요하게 하려 하심이라</span>(9절). 그리스도의 성육신과 십자가 고난은 우리의 영적 부요를 위한 자발적 가난이었습니다. 이 구속적 교환(Wonderful Exchange)을 깨달은 자만이 진정한 헌신의 자리로 나아갈 수 있습니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_08.html" data-title="고린도후서 8장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="2CO_8" data-title="고린도후서 8장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -260,68 +264,24 @@
 
     <!-- 플로팅 네비게이션 -->
     <div class="floating-nav">
-        <button class="nav-btn" id="prev-btn">◀</button>
-        <div class="nav-info" id="nav-counter">1/6</div>
-        <button class="nav-btn" id="next-btn">▶</button>
+        <button class="nav-btn" id="prev-tab">◀</button>
+        <div class="nav-info" id="current-tab-info">1/6</div>
+        <button class="nav-btn" id="next-tab">▶</button>
     </div>
 
-    <script>
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-        const tabList = ['content-overview', 'content-book1', 'content-book2', 'content-book3', 'content-book4', 'content-integration'];
-        
-        function switchTab(targetId) {
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
-            
-            const activeTab = document.querySelector(`[data-target="${targetId}"]`);
-            if(activeTab) activeTab.classList.add('active');
-            document.getElementById(targetId).classList.add('active');
-            
-            const index = tabList.indexOf(targetId) + 1;
-            document.getElementById('nav-counter').innerText = `${index}/${tabList.length}`;
-            window.scrollTo(0, 0);
-        }
+    <script src="script.js"></script>
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => switchTab(tab.dataset.target));
-        });
+    <!-- YouTube Player Container (hidden) -->
+    <div id="player-container"></div>
 
-        document.getElementById('next-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const nextIdx = (tabList.indexOf(current) + 1) % tabList.length;
-            switchTab(tabList[nextIdx]);
-        });
-
-        document.getElementById('prev-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const prevIdx = (tabList.indexOf(current) - 1 + tabList.length) % tabList.length;
-            switchTab(tabList[prevIdx]);
-        });
-
-        const modal = document.getElementById('text-modal');
-        const iframe = document.getElementById('modal-iframe');
-        const modalTitle = document.getElementById('modal-title');
-
-        document.querySelectorAll('.view-text-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                modalTitle.innerText = btn.dataset.title;
-                iframe.src = btn.dataset.path;
-                modal.style.display = 'flex';
-            });
-        });
-
-        document.getElementById('modal-close').addEventListener('click', () => {
-            modal.style.display = 'none';
-            iframe.src = '';
-        });
-
-        window.onclick = (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-                iframe.src = '';
-            }
-        };
-    </script>
+    <!-- 오디오 플레이어 바 -->
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+    <script src="../chatbot-trigger.js"></script>
 </body>
 </html>

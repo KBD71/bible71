@@ -78,7 +78,7 @@
         .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
         .btn-primary { background-color: #495057; color: white; }
         .btn-secondary { background-color: #e9ecef; color: #495057; }
-        .listen-audio-btn { display: none !important; }
+        .listen-audio-btn { }
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
         
@@ -92,9 +92,13 @@
         .modal-body { flex-grow: 1; margin-top: 10px; overflow: hidden; }
         .modal-body iframe { width: 100%; height: 100%; border: none; }
         .close-modal { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+    
+        #audio-player.visible { transform: translateY(0) !important; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
     </style>
 </head>
 <body>
+    <div id="reading-progress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#4263eb,#7c3aed);z-index:9999;transition:width 0.3s;width:0%;"></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -144,7 +148,7 @@
                             <p><strong>2. 직분자의 자격:</strong> 이드로가 제안한 지도자의 자격은 <span class="scripture-quote">능력 있는 사람들 곧 하나님을 두려워하며 진실하며 불의한 이익을 미워하는 자</span>(21절)였습니다. 이는 오늘날 교회의 항존직분을 세우는 성경적 기준의 모형이 됩니다. 권위는 기술적인 능력이 아니라 하나님 앞에서의 경건과 성품에서 나옴을 보여줍니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_18.html" data-title="출애굽기 18장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_18" data-title="출애굽기 18장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -166,7 +170,7 @@
                             <p><strong>2. 주권적 섭리와 인간의 책임:</strong> 가룟 유다의 배신에 대해 <span class="scripture-quote">인자는 이미 정해진 대로 가거니와</span>(22절)라고 말씀하심으로 하나님의 작정을 보여주시나, 동시에 배신한 자에게는 화가 있을 것임을 선언하심으로 인간의 책임을 강조하십니다. 이는 개혁주의의 신적 작정과 인간적 책임의 조화를 잘 보여줍니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_22.html" data-title="누가복음 22장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LUK_22" data-title="누가복음 22장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -188,7 +192,7 @@
                             <p><strong>2. 중보자의 필요성:</strong> 엘리후는 천 명 중의 하나인 '중보자'가 있어 하나님과 사람 사이를 화목하게 하면 하나님이 그를 긍휼히 여기실 것이라고 말합니다(23절). 이는 욥이 갈망하던 '판결자'에 대한 대답이자, 장차 오실 완전한 중보자 예수 그리스도를 향한 신학적 요청입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_33.html" data-title="욥기 33장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_33" data-title="욥기 33장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -210,7 +214,7 @@
                             <p><strong>2. 성전된 성도의 거룩함:</strong> <span class="scripture-quote">우리는 살아 계신 하나님의 성전이라</span>(16절). 구약의 성막과 성전이 하나님의 임재 장소였듯이, 이제 성령이 거하시는 신자의 몸이 하나님의 처소입니다. 그러므로 거룩하신 하나님과 조화될 수 없는 세상의 부정한 가치와 우상으로부터 자신을 구별하는 것은 언약 백성의 필연적 의무입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_47_2CO_06.html" data-title="고린도후서 6장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="2CO_6" data-title="고린도후서 6장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -262,68 +266,24 @@
 
     <!-- 플로팅 네비게이션 -->
     <div class="floating-nav">
-        <button class="nav-btn" id="prev-btn">◀</button>
-        <div class="nav-info" id="nav-counter">1/6</div>
-        <button class="nav-btn" id="next-btn">▶</button>
+        <button class="nav-btn" id="prev-tab">◀</button>
+        <div class="nav-info" id="current-tab-info">1/6</div>
+        <button class="nav-btn" id="next-tab">▶</button>
     </div>
 
-    <script>
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-        const tabList = ['content-overview', 'content-book1', 'content-book2', 'content-book3', 'content-book4', 'content-integration'];
-        
-        function switchTab(targetId) {
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
-            
-            const activeTab = document.querySelector(`[data-target="${targetId}"]`);
-            if(activeTab) activeTab.classList.add('active');
-            document.getElementById(targetId).classList.add('active');
-            
-            const index = tabList.indexOf(targetId) + 1;
-            document.getElementById('nav-counter').innerText = `${index}/${tabList.length}`;
-            window.scrollTo(0, 0);
-        }
+    <script src="script.js"></script>
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => switchTab(tab.dataset.target));
-        });
+    <!-- YouTube Player Container (hidden) -->
+    <div id="player-container"></div>
 
-        document.getElementById('next-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const nextIdx = (tabList.indexOf(current) + 1) % tabList.length;
-            switchTab(tabList[nextIdx]);
-        });
-
-        document.getElementById('prev-btn').addEventListener('click', () => {
-            const current = document.querySelector('.tab-content.active').id;
-            const prevIdx = (tabList.indexOf(current) - 1 + tabList.length) % tabList.length;
-            switchTab(tabList[prevIdx]);
-        });
-
-        const modal = document.getElementById('text-modal');
-        const iframe = document.getElementById('modal-iframe');
-        const modalTitle = document.getElementById('modal-title');
-
-        document.querySelectorAll('.view-text-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                modalTitle.innerText = btn.dataset.title;
-                iframe.src = btn.dataset.path;
-                modal.style.display = 'flex';
-            });
-        });
-
-        document.getElementById('modal-close').addEventListener('click', () => {
-            modal.style.display = 'none';
-            iframe.src = '';
-        });
-
-        window.onclick = (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-                iframe.src = '';
-            }
-        };
-    </script>
+    <!-- 오디오 플레이어 바 -->
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+    <script src="../chatbot-trigger.js"></script>
 </body>
 </html>
