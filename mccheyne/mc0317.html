@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3월 17일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
+
+        :root {
+            --font-main: 'KoPub Batang', serif;
+            --font-heading: 'Pretendard', sans-serif;
+            --color-text: #343a40;
+            --color-grey: #868e96;
+            --color-background: #f8f9fa;
+            --color-card-bg: #ffffff;
+            --color-border: #dee2e6;
+            
+            --overview-color: #673ab7;
+            --book1-color: #4285F4;
+            --book2-color: #DB4437;
+            --book3-color: #F4B400;
+            --book4-color: #0F9D58;
+            --integration-color: #5f6368;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background-color: var(--color-background); color: var(--color-text); line-height: 1.8; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 800px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
+
+        .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; position: sticky; top: 0; background: rgba(248, 249, 250, 0.95); backdrop-filter: blur(8px); z-index: 1000; padding: 10px; margin-bottom: 2rem; border-radius: 12px; }
+        .tab-btn { font-family: var(--font-heading); padding: 10px 16px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; font-size: 0.9rem; }
+        .tab-btn:hover { background-color: #e9ecef; }
+        .tab-btn.active { color: white; border-color: transparent; }
+        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
+        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
+        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
+        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
+        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
+        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-book1 { border-color: var(--book1-color); }
+        .card-book2 { border-color: var(--book2-color); }
+        .card-book3 { border-color: var(--book3-color); }
+        .card-book4 { border-color: var(--book4-color); }
+        .integration-card { border-color: var(--integration-color); }
+
+        .card-content { padding: 2rem; }
+        .card-content h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 0; margin-bottom: 1.5rem; }
+        .card-content h4 { font-family: var(--font-heading); font-size: 1.25rem; color: #343a40; font-weight: 700; border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        .card-content p { font-size: 17px; margin-bottom: 1.5em; }
+        .card-content strong { color: #1a5c9a; }
+        .scripture-quote { font-style: italic; font-weight: 600; color: #005A9C; }
+        .scripture-quote::before { content: " “"; }
+        .scripture-quote::after { content: "” "; }
+
+        .key-question-box { background-color: #f1f3f5; border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; border-left: 4px solid #adb5bd; }
+        .key-question-title { font-family: var(--font-heading); font-weight: 700; color: #495057; font-size: 0.95rem; margin-bottom: 0.5rem; display: block; }
+        .key-question-text { font-size: 1.1rem; color: #212529; font-weight: 600; }
+
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-block; }
+        .btn-primary { background-color: #495057; color: white; }
+        .btn-secondary { background-color: #e9ecef; color: #495057; }
+        .listen-audio-btn { display: none !important; }
+
+        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1050; opacity: 0; visibility: hidden; }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 900px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; margin-bottom: 10px; }
+        .modal-body { flex-grow: 1; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .modal-close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .card-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>3월 17일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 28장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">요한복음 8장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">잠언 1장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">갈라디아서 3장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <!-- 전체 개요 탭 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>3월 17일: 거룩한 부르심과 언약의 지혜</h3>
+                            <h4>오늘의 길잡이: 숲을 조망하기</h4>
+                            <p>오늘의 본문들은 하나님의 백성이 세상과 구별되어 거룩한 정체성을 어떻게 소유하고 유지하는지를 보여줍니다. 구약의 제사법에서 시작하여 잠언의 지혜, 그리고 복음서와 서신서에서 나타나는 그리스도의 사역과 믿음의 원리는 하나의 거대한 구속사적 흐름을 형성합니다.</p>
+                            <p>출애굽기에서는 하나님께 나아가는 제사장의 거룩한 의복을 통해 '성별'의 가시적 모형을 배웁니다. 잠언은 이 거룩함이 삶의 현장에서 '여호와 경외'라는 지혜로 나타나야 함을 가르칩니다. 한편, 요한복음에서는 진리이신 그리스도께서 우리를 죄의 종노릇에서 해방시키시는 실제적인 구원을 선포하며, 갈라디아서는 이 모든 은혜가 오직 믿음으로 말미암는 아브라함의 복임을 확증합니다.</p>
+                            <p>오늘 말씀을 읽으실 때, 제사장의 옷이 상징하는 거룩함이 어떻게 그리스도의 의로 완성되었으며, 그 은혜를 입은 우리가 어떠한 지혜로 세상을 살아가야 할지 묵상해 보시기 바랍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab('content-book1')">첫 번째 본문으로 이동</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 출애굽기 28장 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>출애굽기 28장: 제사장의 거룩한 옷과 중보의 영광</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">대제사장의 판결 흉패 위에 이스라엘 아들들의 이름을 새겨 여호와 앞에 있게 한 이유는 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>본문은 하나님을 섬기는 아론과 그의 아들들을 위해 구별된 거룩한 옷의 제작 과정을 상세히 기록합니다. 에봇, 판결 흉패, 겉옷, 관 등 제사장의 의복은 단순히 권위를 세우기 위함이 아니라, 하나님의 임재 앞에 나아가는 자의 '거룩함'과 이스라엘 전체를 어깨와 가슴에 메고 나아가는 '중보'의 직무를 시각적으로 상징합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 그리스도의 의를 예표하는 의복:</strong> 제사장의 옷은 <span class="scripture-quote">영화롭고 아름답게</span>(2절) 제작되었습니다. 이는 인간 제사장의 공로가 아니라, 장차 오실 완전한 대제사장 예수 그리스도의 흠 없는 의와 영광을 예표합니다. 우리가 하나님 앞에 설 수 있는 근거는 오직 그리스도께서 입혀주신 거룩한 의의 옷임을 보여줍니다.</p>
+                            <p><strong>2. 중보자의 어깨와 가슴:</strong> 대제사장은 견대와 흉패에 이스라엘 열두 지표의 이름을 새기고 성소에 들어갔습니다. 이는 우리의 중보자이신 그리스도께서 자기 백성의 이름을 결코 잊지 않으시고, 그들의 연약함을 담당하며 하나님 앞에 항상 나타나신다는 히브리서의 중보 사역과 깊이 연결됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_28.html" data-title="출애굽기 28장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 요한복음 8장 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>요한복음 8장: 세상의 빛이신 진리와 참된 자유</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">예수님께서 자신을 아브라함보다 먼저 계신 '에고 에이미(I AM)'로 계시하신 의도는 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>초막절 배경에서 예수님은 자신을 '세상의 빛'으로 선포하십니다. 이어지는 유대인들과의 논쟁에서 주님은 죄의 종노릇 하는 인간의 실상을 폭로하시며, 오직 아들이신 그리스도만이 참된 자유를 주실 수 있음을 강조하십니다. 본문의 절정은 주님께서 스스로를 영원하신 하나님(I AM)으로 계시하시는 장면입니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 진리와 자유의 상관관계:</strong> 주님은 <span class="scripture-quote">진리를 알지니 진리가 너희를 자유롭게 하리라</span>(32절)고 말씀하십니다. 여기서 진리는 단순한 정보가 아니라 '인격체이신 예수 그리스도'를 의미합니다. 죄에 대한 종노릇(Sinful Bondage)은 오직 그리스도의 대속과 그분과의 연합을 통해서만 해결될 수 있다는 개혁주의 구원론의 핵심이 담겨 있습니다.</p>
+                            <p><strong>2. 선선재(Pre-existence)와 신성:</strong> 유대인들이 돌을 들어 치려 했던 이유는 예수님께서 <span class="scripture-quote">아브라함이 나기 전부터 내가 있느니라</span>(58절)고 하셨기 때문입니다. 이는 출애굽기 3장의 여호와 하나님의 성호와 일치하며, 그리스도께서 영원 전부터 성부와 함께 계신 성자 하나님이심을 강력하게 천명하는 대목입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_08.html" data-title="요한복음 8장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 잠언 1장 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>잠언 1장: 지혜의 근본, 여호와 경외</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">지혜가 성문 어귀와 광장에서 소리를 높여 사람들을 부르는 이유는 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>잠언의 서론인 1장은 지혜서의 기록 목적과 핵심 대강령을 제시합니다. 솔로몬은 지혜의 근본이 지식의 축적이 아니라 '여호와를 경외함'에 있음을 분명히 합니다. 또한 지혜를 의인화하여, 어리석은 자들에게 경고하고 지혜의 초청에 응할 것을 강력히 촉구합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 지혜의 정의와 방향성:</strong> 성경적 지혜는 <span class="scripture-quote">여호와를 경외하는 것이 지식의 근본</span>(7절)이라는 선언에서 시작됩니다. 이는 하나님과의 올바른 관계 설정이 모든 가치 판단과 삶의 기술의 기초가 됨을 의미합니다. 개혁주의 신학에서 말하는 '코람 데오(Coram Deo)'의 삶이 곧 잠언이 추구하는 지혜의 실체입니다.</p>
+                            <p><strong>2. 지혜의 편재성과 책임:</strong> 지혜가 길거리와 광장에서 외친다는 것은 하나님의 계시가 도처에 있음을 의미합니다(일반 계시와 특별 계시의 조화). 따라서 지혜를 거절한 자의 멸망은 하나님 탓이 아니라 <span class="scripture-quote">자기 행위의 열매를 먹으며</span>(31절) 살기로 선택한 인간의 책임임을 명시합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_20_PRO_01.html" data-title="잠언 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 갈라디아서 3장 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>갈라디아서 3장: 믿음의 유업과 율법의 역할</h3>
+                            <div class="key-question-box">
+                                <span class="key-question-title">핵심 질문</span>
+                                <span class="key-question-text">율법이 약속보다 430년이나 뒤에 주어졌음에도 불구하고 약속을 폐기하지 못하는 근거는 무엇입니까?</span>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>바울은 성령을 받은 체험과 아브라함의 사례를 들어 구원이 율법의 행위가 아닌 믿음으로 말미암음을 변증합니다. 율법은 약속을 대체하는 것이 아니라, 그리스도께로 인도하는 초등교사(몽학선생) 역할을 하며, 그리스도 안에서 우리가 아브라함의 자손이자 약속의 유업을 이을 자임을 선포합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 율법의 용도와 한계:</strong> 바울은 율법이 생명을 주는 것이 아니라 <span class="scripture-quote">죄 아래에 가두는</span>(22절) 역할을 한다고 설명합니다. 이는 인간이 스스로의 힘으로 구원받을 수 없음을 깨닫게 하여, 오직 밖으로부터 오는 의(External Righteousness)인 그리스도를 바라보게 하는 개혁주의의 '율법의 제1용도'를 잘 보여줍니다.</p>
+                            <p><strong>2. 언약의 연속성과 통일성:</strong> 아브라함에게 주신 약속은 율법에 의해 취소될 수 없는 영원한 언약입니다. <span class="scripture-quote">너희가 그리스도의 것이면 곧 아브라함의 자손이요</span>(29절)라는 선언은 구약과 신약이 동일한 은혜 언약(Covenant of Grace) 아래 있음을 확증하는 신학적 정점입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_48_GAL_03.html" data-title="갈라디아서 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 신학적 종합 탭 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>전체를 관통하는 신학적 주제: 하나님의 거룩한 임재와 믿음의 기업</h4>
+                            <p>오늘의 네 본문은 '하나님의 거룩함'이라는 신적 성품이 인간의 역사와 삶 속에 어떻게 구체화되는지를 체계적으로 보여줍니다. <strong>출애굽기 28장</strong>의 제사장 의복은 하나님께 나아가는 자가 갖추어야 할 외적이고 모형적인 거룩함을 강조합니다. 그러나 이 외적 거룩함은 인간의 죄성으로 인해 결코 완성될 수 없었습니다.</p>
+                            <p>이 지점에서 <strong>요한복음 8장</strong>은 외적 형식이 아닌 본질적 진리이신 그리스도께서 오심으로 죄의 결박을 끊으셨음을 선포합니다. 제사장의 흉패에 새겨진 이름들이 상징했던 중보 사역이 그리스도의 신성(I AM)과 십자가를 통해 성취된 것입니다. 이는 <strong>갈라디아서 3장</strong>이 증언하듯, 율법의 정죄 아래 있던 자들이 아브라함의 믿음을 따라 하나님의 아들이 되는 '양자됨(Adoption)'의 은혜로 이어집니다.</p>
+                            <p>결론적으로, 이 거룩한 은혜를 입은 성도의 마땅한 반응은 <strong>잠언 1장</strong>이 가르치는 '여호와 경외'입니다. 구원받은 백성에게 지혜란 세상의 지략이 아니라, 나를 위해 영원한 대제사장이 되신 그리스도를 신뢰하며 그분의 통치 아래 거하는 것입니다. 오늘 우리는 그리스도의 의를 옷 입고(갈라디아), 세상의 빛 가운데 거하며(요한), 여호와를 경외하는 지혜(잠언)를 통해 하나님을 영화롭게 하는 제사장의 삶(출애굽기)으로 부름받았습니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2025 MacCheyne Bible Plan 5.0. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal for Text -->
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">성경 본문</h2>
+                <button class="modal-close-btn" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="modal-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+            const activeBtn = document.querySelector(`.tab-btn[data-target="${tabId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                switchTab(target);
+            });
+        });
+
+        // Modal logic
+        const modal = document.getElementById('text-modal');
+        const iframe = document.getElementById('modal-iframe');
+        const modalTitle = document.getElementById('modal-title');
+
+        document.querySelectorAll('.view-text-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const path = btn.getAttribute('data-path');
+                const title = btn.getAttribute('data-title');
+                modalTitle.innerText = title;
+                iframe.src = path;
+                modal.classList.add('visible');
+            });
+        });
+
+        document.getElementById('modal-close').addEventListener('click', () => {
+            modal.classList.remove('visible');
+            iframe.src = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('visible');
+                iframe.src = '';
+            }
+        });
+    </script>
+</body>
+</html>
