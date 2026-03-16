@@ -351,8 +351,22 @@
         setTimeout(() => modalIframe.src = '', 100);
     }
 
-    function switchTab(index) {
+    // switchTab: 숫자 인덱스 또는 문자열(data-target ID) 모두 지원
+    function switchTab(indexOrTarget) {
+        let index;
+        if (typeof indexOrTarget === 'string') {
+            // 문자열이면 data-target으로 탭 버튼 찾기 (3월 파일 호환)
+            const targetBtn = document.querySelector(`.tab-btn[data-target="${indexOrTarget}"]`);
+            if (targetBtn) {
+                index = Array.from(tabButtons).indexOf(targetBtn);
+            } else {
+                return;
+            }
+        } else {
+            index = indexOrTarget;
+        }
         if (index < 0 || index >= tabButtons.length) return;
+
         currentTabIndex = index;
         tabButtons.forEach(btn => btn.classList.remove('active'));
         tabContents.forEach(content => { content.classList.remove('active'); });
@@ -361,6 +375,16 @@
         window.scrollTo({ top: 0, behavior: 'auto' });
         updateFloatingNav();
         setTimeout(updateReadingProgress, 150);
+
+        // 부모 창(index.html)에 탭 변경 알림
+        try {
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'mccheyneTabChange',
+                    title: tabButtons[index].textContent
+                }, '*');
+            }
+        } catch (e) { }
 
         // 성경본문 탭(book1~book4) 선택 시 해당 오디오 자동 재생
         const activeContent = tabContents[index];
@@ -372,6 +396,8 @@
             closeAudioPlayer();
         }
     }
+    // 전역에서 접근 가능하도록 (3월 파일의 onclick에서 호출)
+    window.switchTab = switchTab;
 
     function playAudio(button, retryCount = 0) {
         const MAX_RETRIES = 10;
@@ -535,6 +561,16 @@
 
             // 부모 창의 플레이어 제목 업데이트
             updateParentPlayerTitle(item.title);
+
+            // postMessage로도 부모창에 알림 (더 안정적인 통신)
+            try {
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({
+                        type: 'mccheyneAudioPlay',
+                        title: item.title
+                    }, '*');
+                }
+            } catch (e) { }
 
             currentPlayIndex++;
         } else {

@@ -901,16 +901,23 @@
                     const contentIframe = document.getElementById('content-iframe');
                     const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
 
-                    // 1. McCheyne: Active Tab Audio
+                    // 1. McCheyne: Active Tab Audio (개요 탭 폴백 포함)
                     let clicked = false;
                     const activeTab = doc.querySelector('.tab-content.active');
-                    if (activeTab) {
-                        const audioBtn = activeTab.querySelector('.listen-audio-btn');
-                        if (audioBtn) {
-                            console.log("Global: Clicking McCheyne Audio");
-                            audioBtn.click();
-                            clicked = true;
-                        }
+                    let audioBtn = activeTab ? activeTab.querySelector('.listen-audio-btn') : null;
+                    // 개요 탭이 활성일 경우 book1에서 찾기
+                    if (!audioBtn) {
+                        const book1 = doc.getElementById('content-book1');
+                        if (book1) audioBtn = book1.querySelector('.listen-audio-btn');
+                    }
+                    // 그래도 없으면 전체에서 찾기
+                    if (!audioBtn) {
+                        audioBtn = doc.querySelector('.listen-audio-btn');
+                    }
+                    if (audioBtn) {
+                        console.log("Global: Clicking McCheyne Audio");
+                        audioBtn.click();
+                        clicked = true;
                     }
 
                     // 2. Daily Bible / Sermon
@@ -1304,6 +1311,25 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             updatePageForDate(currentDate);
+
+            // iframe(맥체인 등)에서 보내는 탭 변경/오디오 재생 메시지 수신
+            window.addEventListener('message', (event) => {
+                try {
+                    const data = event.data;
+                    if (data && data.type === 'mccheyneTabChange') {
+                        const playerTitle = document.getElementById('player-title');
+                        if (playerTitle && data.title) {
+                            playerTitle.textContent = data.title;
+                        }
+                    }
+                    if (data && data.type === 'mccheyneAudioPlay') {
+                        const playerTitle = document.getElementById('player-title');
+                        if (playerTitle && data.title) {
+                            playerTitle.textContent = data.title;
+                        }
+                    }
+                } catch (e) { }
+            });
 
             document.getElementById('prev-day').addEventListener('click', () => {
                 currentDate.setDate(currentDate.getDate() - 1);
