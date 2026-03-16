@@ -1152,16 +1152,28 @@
                     // We just need to ensure the global player picks it up.
                     if (url.includes('mc')) {
                         // McCheyne specific logic
+                        // 개요(overview) 탭이 첫 번째일 수 있으므로,
+                        // 활성 탭에 오디오 버튼이 없으면 첫 번째 book 탭에서 찾음
                         const attemptLoad = () => {
                             try {
                                 const doc = contentIframe.contentDocument || contentIframe.contentWindow.document;
+                                // 1차: 활성 탭에서 오디오 버튼 찾기
                                 const activeContent = doc.querySelector('.tab-content.active');
-                                if (activeContent) {
-                                    const listenBtn = activeContent.querySelector('.listen-audio-btn');
-                                    if (listenBtn) {
-                                        console.log("Auto-loading McCheyne video (paused)...");
-                                        listenBtn.click();
+                                let listenBtn = activeContent ? activeContent.querySelector('.listen-audio-btn') : null;
+                                // 2차: 활성 탭에 없으면 content-book1에서 찾기
+                                if (!listenBtn) {
+                                    const book1Content = doc.getElementById('content-book1');
+                                    if (book1Content) {
+                                        listenBtn = book1Content.querySelector('.listen-audio-btn');
                                     }
+                                }
+                                // 3차: 그래도 없으면 페이지 전체에서 첫 번째 오디오 버튼 찾기
+                                if (!listenBtn) {
+                                    listenBtn = doc.querySelector('.listen-audio-btn');
+                                }
+                                if (listenBtn) {
+                                    console.log("Auto-loading McCheyne video (paused)...");
+                                    listenBtn.click();
                                 }
                             } catch (e) { }
                         };
