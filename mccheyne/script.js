@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (audioKeyMap.size === 0) {
             if (retryCount < MAX_RETRIES) {
                 console.log(`Audio keys not loaded, waiting... (attempt ${retryCount + 1}/${MAX_RETRIES})`);
-                setTimeout(() => playAudio(button, retryCount + 1), 500);
+                setTimeout(() => playAudio(button, retryCount + 1, cueOnly), 500);
                 return;
             } else {
                 clearLoading();
@@ -600,10 +600,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentPlayIndex < playlist.length) {
             const item = playlist[currentPlayIndex];
             const isCueing = currentCueOnly;
+            
+            console.log(`Playing/Cueing: ${item.title} (CueOnly: ${isCueing})`);
+
             // 큐에 넣고 재생 (cueOnly가 true면 대기만 함)
-            if (currentCueOnly) {
+            if (isCueing) {
                 ytPlayer.cueVideoById(item.videoId);
-                currentCueOnly = false; // 첫 곡만 대기, 다음 곡부터는 자동 재생(연속 재생 시)
+                // Note: currentCueOnly is reset inside playAudio before calling playNextVideo 
+                // but we ensure it's handled here correctly for the first item.
             } else {
                 ytPlayer.loadVideoById(item.videoId);
             }
