@@ -390,7 +390,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const activeContent = tabContents[index];
         const audioBtn = activeContent.querySelector('.listen-audio-btn');
         if (audioBtn) {
-            playAudio(audioBtn);
+            playAudio(audioBtn, 0, true);
+
         } else {
             // 개요/통합 탭 등 오디오 없는 탭 → 오디오 플레이어 닫기
             closeAudioPlayer();
@@ -399,7 +400,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 전역에서 접근 가능하도록 (3월 파일의 onclick에서 호출)
     window.switchTab = switchTab;
 
-    function playAudio(button, retryCount = 0) {
+    let currentCueOnly = false;
+
+    function playAudio(button, retryCount = 0, cueOnly = false) {
+
         const MAX_RETRIES = 10;
 
         // 버튼에 로딩 상태 표시
@@ -447,6 +451,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 로딩 완료, 상태 해제
         clearLoading();
+
+        currentCueOnly = cueOnly;
 
         const key = button.dataset.key; // e.g., "GEN_9_10" or "GEN_9"
         const title = button.dataset.title;
@@ -552,10 +558,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function playNextVideo() {
         if (currentPlayIndex < playlist.length) {
             const item = playlist[currentPlayIndex];
-            // 큐에 넣고 바로 재생
-            ytPlayer.loadVideoById(item.videoId);
-            // loadVideoById는 자동으로 재생됨. cueVideoById는 대기만 함.
-            // 연속 재생을 위해서는 loadVideoById가 적절함.
+            const isCueing = currentCueOnly;
+            // 큐에 넣고 재생 (cueOnly가 true면 대기만 함)
+            if (currentCueOnly) {
+                ytPlayer.cueVideoById(item.videoId);
+                currentCueOnly = false; // 첫 곡만 대기, 다음 곡부터는 자동 재생(연속 재생 시)
+            } else {
+                ytPlayer.loadVideoById(item.videoId);
+            }
 
             // 전체 타이틀 표시 (현재 몇 번째인지 표시해주는 것도 좋음)
             // playerInfo.textContent = `재생 중: ${item.title}`; 
@@ -572,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 if (window.parent && window.parent !== window) {
                     window.parent.postMessage({
-                        type: 'mccheyneAudioPlay',
+                        type: isCueing ? 'mccheyneTabChange' : 'mccheyneAudioPlay',
                         title: item.title
                     }, '*');
                 }
