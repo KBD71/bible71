@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // --- 전역 변수 및 객체 ---
     let ytPlayer, isPlayerReady = false;
     const audioKeyMap = new Map();
@@ -458,13 +458,13 @@
         const parts = key.split('_');
 
         // Case A: Composite Key (e.g., GEN_9_10) - Existing Logic
-        // Check if key has more than 2 parts (BOOK_CH1_CH2...) OR if it explicitly has multiple chapters
         if (parts.length > 2) {
             const bookCode = parts[0]; // 'GEN'
             const chapters = parts.slice(1);
 
             chapters.forEach(chapterStr => {
-                const singleChapterKey = `${bookCode}_${chapterStr}`;
+                const chapterNum = parseInt(chapterStr, 10);
+                const singleChapterKey = `${bookCode}_${chapterNum}`;
                 const url = audioKeyMap.get(singleChapterKey);
 
                 if (url) {
@@ -472,7 +472,7 @@
                     if (videoId) {
                         playlist.push({
                             videoId: videoId,
-                            title: `${title} (${chapterStr}장)`
+                            title: `${title} (${chapterNum}장)`
                         });
                     }
                 } else {
@@ -480,7 +480,7 @@
                 }
             });
         }
-        // Case B: Single Key (e.g., GEN_9) - New Logic for Separate Buttons
+        // Case B: Single Key (e.g., GEN_9 or EXO_03) - New Logic for Separate Buttons
         else {
             // Check for sibling buttons in the same card
             const cardContent = button.closest('.card-content');
@@ -495,9 +495,11 @@
 
                         // Parse key to get chapter number for title (assuming BOOK_CHAPTER format)
                         const siblingParts = siblingKey.split('_');
-                        const chapterStr = siblingParts.length >= 2 ? siblingParts[1] : '';
+                        const bookCode = siblingParts[0];
+                        const chapterNum = siblingParts.length >= 2 ? parseInt(siblingParts[1], 10) : '';
+                        const normalizedSiblingKey = siblingParts.length >= 2 ? `${bookCode}_${chapterNum}` : siblingKey;
 
-                        const url = audioKeyMap.get(siblingKey);
+                        const url = audioKeyMap.get(normalizedSiblingKey);
                         if (url) {
                             const videoId = getYouTubeID(url);
                             if (videoId) {
@@ -518,7 +520,11 @@
 
             // If playlist is still empty (no siblings or single button), add the clicked button
             if (playlist.length === 0) {
-                const url = audioKeyMap.get(key);
+                const bookCode = parts[0];
+                const chapterNum = parts.length >= 2 ? parseInt(parts[1], 10) : '';
+                const normalizedKey = parts.length >= 2 ? `${bookCode}_${chapterNum}` : key;
+                
+                const url = audioKeyMap.get(normalizedKey);
                 if (url) {
                     const videoId = getYouTubeID(url);
                     if (videoId) {
