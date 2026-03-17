@@ -37,23 +37,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- YouTube API 관련 ---
     function initYouTubeAPI() {
+        // 이미 YT 객체가 있으면 바로 초기화 진행 시도
+        if (window.YT && window.YT.Player) {
+            onYouTubeIframeAPIReady();
+            return;
+        }
+
+        // 스크립트가 이미 로드 중인지 확인
+        if (document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+            // 이미 로드 중인 경우 onYouTubeIframeAPIReady가 호출될 때까지 대기
+            const originalReady = window.onYouTubeIframeAPIReady;
+            window.onYouTubeIframeAPIReady = () => {
+                if (originalReady) originalReady();
+                createPlayer();
+            };
+            return;
+        }
+
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         document.head.appendChild(tag);
-        window.onYouTubeIframeAPIReady = () => {
-            ytPlayer = new YT.Player('player-container', {
-                height: '0', width: '0',
-                playerVars: { 'autoplay': 0, 'controls': 0, 'rel': 0, 'fs': 0 },
-                events: {
-                    'onReady': (event) => {
-                        isPlayerReady = true;
-                        // Expose player to window for global control from index.html
-                        window.player = ytPlayer;
-                    },
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        };
+        
+        window.onYouTubeIframeAPIReady = createPlayer;
+    }
+
+    function createPlayer() {
+        if (!document.getElementById('player-container')) {
+            console.warn('player-container not found, creating one...');
+            const div = document.createElement('div');
+            div.id = 'player-container';
+            div.style.display = 'none';
+            document.body.appendChild(div);
+        }
+
+        ytPlayer = new YT.Player('player-container', {
+            height: '0', width: '0',
+            playerVars: { 'autoplay': 0, 'controls': 0, 'rel': 0, 'fs': 0 },
+            events: {
+                'onReady': (event) => {
+                    isPlayerReady = true;
+                    // Expose player to window for global control from index.html
+                    window.player = ytPlayer;
+                    console.log('YT Player Ready (Internal)');
+                },
+                'onStateChange': onPlayerStateChange
+            }
+        });
     }
 
 
@@ -146,6 +175,18 @@ document.addEventListener('DOMContentLoaded', () => {
             lastScrollY = currentScrollY < 0 ? 0 : currentScrollY;
         }, { passive: true });
         window.addEventListener('resize', updateReadingProgress);
+
+        // 부모 창으로부터의 명령 수신 (재생/일시정지 제어)
+        window.addEventListener('message', (event) => {
+            const data = event.data;
+            if (data && data.type === 'mccheyneCommand') {
+                if (data.command === 'play' && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+                    ytPlayer.playVideo();
+                } else if (data.command === 'pause' && ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+                    ytPlayer.pauseVideo();
+                }
+            }
+        });
     }
 
     // --- 기능별 함수 ---
@@ -427,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isPlayerReady) {
             if (retryCount < MAX_RETRIES) {
                 console.log(`Player not ready, waiting... (attempt ${retryCount + 1}/${MAX_RETRIES})`);
-                setTimeout(() => playAudio(button, retryCount + 1), 500);
+                setTimeout(() => playAudio(button, retryCount + 1, cueOnly), 500);
                 return;
             } else {
                 clearLoading();

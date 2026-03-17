@@ -864,28 +864,27 @@
                     startPlayerSync();
                 }
 
-                // Try to refresh ytPlayer reference from iframe
-                if (!ytPlayer) {
-                    const contentIframe = document.getElementById('content-iframe');
-                    if (contentIframe && contentIframe.contentWindow && contentIframe.contentWindow.player) {
-                        ytPlayer = contentIframe.contentWindow.player;
-                        console.log("Refreshed ytPlayer from iframe");
-                    }
+                // Try to refresh ytPlayer reference from iframe (for syncing UI)
+                const contentIframe = document.getElementById('content-iframe');
+                if (!ytPlayer && contentIframe && contentIframe.contentWindow && contentIframe.contentWindow.player) {
+                    ytPlayer = contentIframe.contentWindow.player;
+                    console.log("Refreshed ytPlayer from iframe");
                 }
 
-                // If player ready, toggle play/pause
+                // If player ready, toggle play/pause via postMessage (more robust)
                 if (ytPlayer && typeof ytPlayer.getPlayerState === 'function') {
                     try {
                         const state = ytPlayer.getPlayerState();
+                        const iframeWindow = contentIframe.contentWindow;
                         if (state === 1) { // Playing
-                            ytPlayer.pauseVideo();
+                            iframeWindow.postMessage({ type: 'mccheyneCommand', command: 'pause' }, '*');
                             return;
                         } else if ([0, 2, 5].includes(state)) { // Ended, Paused, Cued
-                            ytPlayer.playVideo();
+                            iframeWindow.postMessage({ type: 'mccheyneCommand', command: 'play' }, '*');
                             return;
                         }
                     } catch (e) {
-                        console.warn("Player state check failed:", e);
+                        console.warn("Player state check/postMessage failed:", e);
                     }
                 }
 
