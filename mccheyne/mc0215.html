@@ -101,9 +101,36 @@
         
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 9999; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4263eb, #7c3aed); width: 0%; transition: width 0.3s; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-overlay.visible { display: flex; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal, .modal-close-btn { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+
+        .floating-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; transition: all 0.3s; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .audio-player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 1001; color: white; font-family: var(--font-heading); transform: translateY(100%); transition: transform 0.3s; }
+        .audio-player.visible { transform: translateY(0) !important; }
+        .audio-player-content { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .audio-player-info { font-size: 0.9rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .audio-player-controls { display: flex; gap: 12px; align-items: center; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; }
+
+        .listen-audio-btn { }
+
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -151,8 +178,8 @@
                             <p><strong>1. 신성한 주권과 서열의 역전:</strong> 야곱이 에브라임을 므낫세보다 앞세운 것은 하나님의 주권적 선택을 상징합니다. 이는 이스마엘 대신 이삭을, 에서 대신 야곱을 택하신 하나님의 은혜의 원리를 재확인하는 것입니다. 구원은 인간의 서열이나 공로가 아니라 오직 하나님의 자유로운 기쁘신 뜻에 근거함을 보여줍니다.</p>
                             <p><strong>2. 목자 되신 하나님에 대한 고백:</strong> 야곱은 하나님을 <span class="scripture-quote">나의 출생으로부터 지금까지 나를 기르신 하나님</span>(15절)이라고 고백합니다. 이는 일평생 험악한 세월을 보낸 야곱이 마침내 깨달은 언약적 확신입니다. 하나님은 자기 백성을 일시적으로 돕는 분이 아니라, 출생부터 임종까지 신실하게 인도하시는 참된 목자이심을 증거합니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_48.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_48.html" data-title="창세기 48장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_48" data-title="창세기 48장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -173,8 +200,8 @@
                             <p><strong>1. 만유의 주재의 비하와 평화:</strong> 하늘에는 영광이요 땅에는 기뻐하심을 입은 사람들 중에 평화라는 찬송은 그리스도의 이중적 성격을 보여줍니다. 만유의 주인이신 하나님이 가장 낮은 자의 모습으로 오신 것은, 죄로 인해 깨어진 하나님과 인간 사이의 평화를 회복하기 위한 대속적 비하의 시작입니다.</p>
                             <p><strong>2. 이스라엘의 영광과 이방의 빛:</strong> 시므온의 찬가(Nunc Dimittis)는 복음의 보편성을 선포합니다. 그리스도는 유대인만을 위한 메시아가 아니라 <span class="scripture-quote">이방을 비추는 빛</span>(32절)으로 오셨습니다. 이는 구약의 예언이 성취되어 하나님의 구원이 온 인류에게 가시적으로 나타났음을 확증하는 구속사적 정점입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_02.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_02.html" data-title="누가복음 2장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LUK_02" data-title="누가복음 2장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -195,8 +222,8 @@
                             <p><strong>1. 참된 신앙의 저항:</strong> 욥은 친구들의 '거짓된 경건'에 저항합니다. 그들은 신학적 교리를 무기로 고난당하는 자를 정죄하나, 욥은 <span class="scripture-quote">너희는 거짓말을 지어내는 자요 다 쓸모 없는 의원</span>(4절)이라 일갈합니다. 이는 형식적인 종교 논리보다 하나님 앞에서의 정직한 단독자로서의 고백이 더 가치 있음을 시사합니다.</p>
                             <p><strong>2. 죽음을 넘어서는 신뢰:</strong> <span class="scripture-quote">그가 나를 죽이시리니 내가 희망이 없노라 그러나 그의 앞에서 내 행위를 변죄하리라</span>(15절)는 고백은 개혁주의 신앙의 정수를 보여줍니다. 하나님의 섭리가 때로 죽음처럼 가혹해 보일지라도, 성도는 그분의 공의와 선하심을 포기하지 않고 그분께만 소망을 두어야 함을 보여줍니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_13.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_13.html" data-title="욥기 13장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_13" data-title="욥기 13장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -217,7 +244,7 @@
                             <p><strong>1. 오직 성령의 조명(Illumination):</strong> 복음의 신비는 인간의 이성적 탐구로 도달할 수 있는 영역이 아닙니다. <span class="scripture-quote">하나님의 일도 하나님의 영 외에는 아무도 알지 못하느니라</span>(11절)는 말씀은 성령의 조명 사역의 절대성을 강조합니다. 이는 구원과 진리 깨달음이 전적으로 성령의 역사에 의존한다는 개혁주의 지성론을 뒷받침합니다.</p>
                             <p><strong>2. 그리스도의 마음을 가진 공동체:</strong> 바울은 성도가 <span class="scripture-quote">그리스도의 마음을 가졌느니라</span>(16절)고 선포합니다. 이는 신비주의적 합일이 아니라, 성령을 통해 그리스도의 관점과 가치관으로 세상을 보고 판단하게 되었음을 의미합니다. 교회는 세상 지혜의 탁월함이 아닌, 성령의 지도를 받는 영적 분별력 위에 세워져야 합니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_02.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_02.html" data-title="고린도전서 2장">본문 보기</button>
                                 <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
                             </div>
                         </div>
@@ -247,28 +274,30 @@
         </div>
     </div>
 
-    <script>
-        function showTab(targetId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(targetId).classList.add('active');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
+        <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = button.getAttribute('data-target');
-                showTab(target);
-            });
-        });
-    </script>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                <button id="close-player-btn" title="닫기">✕</button>
+            </div>
+        </div>
+    </div>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

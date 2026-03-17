@@ -97,14 +97,37 @@
         .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
         .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
         .btn-primary { background-color: #495057; color: white; }
-        .btn-secondary { background-color: #e9ecef; color: #495057; }
-        
-        /* 성경 듣기 버튼 숨김 처리 */
+        .btn-secondary { background-color: #e9ecef; color: #495057; }footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 9999; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4263eb, #7c3aed); width: 0%; transition: width 0.3s; }
 
-        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-overlay.visible { display: flex; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal, .modal-close-btn { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+
+        .floating-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; transition: all 0.3s; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .audio-player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 1001; color: white; font-family: var(--font-heading); transform: translateY(100%); transition: transform 0.3s; }
+        .audio-player.visible { transform: translateY(0) !important; }
+        .audio-player-content { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .audio-player-info { font-size: 0.9rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .audio-player-controls { display: flex; gap: 12px; align-items: center; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; }
+
+        .listen-audio-btn { }
+
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -152,8 +175,8 @@
                             <p><strong>1. 하나님의 동행과 언약적 연속성:</strong> 야곱의 애굽 행은 단순한 기근 피난이 아니라, <span class="scripture-quote">네 자손이 이방에서 객이 되어 그들을 섬기겠고</span>(창 15:13)라고 하신 아브라함 언약의 구체적인 성취 과정입니다. 하나님은 브엘세바에서 나타나셔서 장소를 초월하여 일하시는 당신의 통치를 확증하심으로써, 야곱이 두려움 없이 하나님의 섭리에 순응하게 하십니다.</p>
                             <p><strong>2. 대가족의 명단과 거룩한 씨의 보전:</strong> 본문에 상세히 기록된 70명의 명단은 하나님께서 아브라함에게 약속하신 자손의 복이 어떻게 가시적으로 성취되고 있는지를 보여줍니다. 이 70명은 훗날 출애굽의 거대한 민족적 토대가 되며, 하나님께서 자기 백성 한 사람 한 사람을 기억하시고 보존하신다는 구속론적 관심을 반영합니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_46.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_46.html" data-title="창세기 46장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_46" data-title="창세기 46장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -174,8 +197,8 @@
                             <p><strong>1. 부활의 역사적 실재와 승귀:</strong> 마가는 제자들의 의심을 숨기지 않음으로써 부활이 인간의 조작이 아닌 역사적 사실임을 역설적으로 증명합니다. 죽음을 이기신 그리스도는 이제 하나님 우편에 앉으심(승귀)으로써 온 우주의 주권적 통치자가 되셨으며, 이는 구약의 모든 언약이 완성되었음을 선포하는 사건입니다.</p>
                             <p><strong>2. 복음 전파의 위임과 주권적 동행:</strong> 복음은 예루살렘의 경계를 넘어 만민에게로 향합니다. 제자들의 연약함에도 불구하고 주님은 그들에게 복음을 맡기시며, 하늘 보좌에 계심에도 불구하고 <span class="scripture-quote">주께서 함께 역사하사</span>(20절) 지상 사역을 친히 이끄십니다. 이는 교회의 선교가 하나님의 열심과 주권에 근거하고 있음을 보여줍니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_41_MAR_16.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_41_MAR_16.html" data-title="마가복음 16장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="MAR_16" data-title="마가복음 16장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -196,8 +219,8 @@
                             <p><strong>1. 인과응보 신학의 폭력성:</strong> 소발은 하나님을 경외하는 듯 보이나, 실제로는 하나님의 주권적인 작정을 인간의 도덕적 인과율이라는 좁은 틀 안에 가두고 있습니다. <span class="scripture-quote">하나님의 오묘함을 어찌 능히 측량하며</span>(7절)라고 말하면서도, 정작 욥의 고난을 죄의 결과로 단정 짓는 모순을 범합니다. 이는 고난 속에 숨겨진 하나님의 선한 섭리와 연단을 이해하지 못한 결과입니다.</p>
                             <p><strong>2. 율법주의적 회개의 한계:</strong> 소발이 제시하는 회개는 하나님의 은혜에 기초한 것이 아니라, 형벌을 면하기 위한 조건적 행위에 가깝습니다. 이는 개혁주의 관점에서 볼 때 하나님의 절대 주권과 인간의 전적 부패를 간과한 전형적인 종교적 합리주의의 오류를 보여주는 본문입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_11.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_11.html" data-title="욥기 11장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_11" data-title="욥기 11장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -218,8 +241,8 @@
                             <p><strong>1. 구속사적 언약 공동체의 실체:</strong> 이 긴 문안 인사는 복음이 추상적 이론이 아니라 실제적인 공동체(교회)를 형성함을 보여줍니다. 유대인과 이방인, 남성과 여성, 자유인과 종이 그리스도 안에서 하나 되어 서로를 <span class="scripture-quote">나의 동역자</span>, <span class="scripture-quote">나의 사랑하는 자</span>로 부르는 것은, 구속사의 열매가 어떻게 가시적 교회로 나타나는지를 증거합니다.</p>
                             <p><strong>2. 계시된 신비와 만국을 향한 복음:</strong> 바울은 복음을 <span class="scripture-quote">영원 전부터 감추어졌다가 이제는 나타내신 바 된 신비</span>(25-26절)라고 정의합니다. 이 신비는 모든 민족이 믿어 순종하게 하기 위한 하나님의 영원한 작정입니다. 이는 구원론적 예정과 역사적 선포가 하나님의 주권 아래 완벽하게 조화됨을 찬양하는 개혁주의 신학의 정점입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_45_ROM_16.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_45_ROM_16.html" data-title="로마서 16장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ROM_16" data-title="로마서 16장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -248,33 +271,30 @@
         </div>
     </div>
 
-    <script>
-        function showTab(targetId, color) {
-            // 모든 탭 콘텐츠 숨기기
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            // 선택된 탭 콘텐츠 보이기
-            document.getElementById(targetId).classList.add('active');
-            
-            // 모든 버튼 비활성화
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            // 클릭된 버튼 활성화
-            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
+        <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = button.getAttribute('data-target');
-                const color = button.getAttribute('data-color');
-                showTab(target, color);
-            });
-        });
-    </script>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                <button id="close-player-btn" title="닫기">✕</button>
+            </div>
+        </div>
+    </div>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

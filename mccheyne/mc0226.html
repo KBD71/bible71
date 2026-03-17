@@ -89,14 +89,37 @@
 
         .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
         .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
-        .btn-primary { background-color: #495057; color: white; }
-        
-        /* 성경 듣기 버튼 숨김 처리 */
+        .btn-primary { background-color: #495057; color: white; }footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 9999; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4263eb, #7c3aed); width: 0%; transition: width 0.3s; }
 
-        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-overlay.visible { display: flex; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal, .modal-close-btn { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+
+        .floating-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; transition: all 0.3s; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .audio-player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 1001; color: white; font-family: var(--font-heading); transform: translateY(100%); transition: transform 0.3s; }
+        .audio-player.visible { transform: translateY(0) !important; }
+        .audio-player-content { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .audio-player-info { font-size: 0.9rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .audio-player-controls { display: flex; gap: 12px; align-items: center; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; }
+
+        .listen-audio-btn { }
+
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -144,8 +167,8 @@
                             <p><strong>1. 주권적 작정과 선택적 심판:</strong> 가축의 죽음과 우박 재앙에서 이스라엘이 거주하는 고센 땅을 구별하신 것은 하나님의 주권적 선택을 보여줍니다. 심판은 무차별적인 파괴가 아니라, 자기 백성을 보호하시고 세상을 정화하시는 하나님의 질서 정연한 작정의 집행입니다.</p>
                             <p><strong>2. 하나님의 이름의 영광:</strong> <span class="scripture-quote">내가 너를 세웠음은 나의 능력을 네게 보이고 내 이름이 온 천하에 전파되게 하려 하였음이니라</span>(16절). 바로의 완악함조차 하나님의 영광을 드러내는 도구로 사용됩니다. 이는 개혁주의 예정론의 중요한 관점으로, 인간의 거부조차 하나님의 절대적 통치 아래 있음을 시사합니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_09.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_09.html" data-title="출애굽기 9장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_09" data-title="출애굽기 9장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -166,8 +189,8 @@
                             <p><strong>1. 보편적 전적 타락과 회개의 긴박성:</strong> 주님은 고난을 특정 개인의 죄에 대한 인과응보로만 보는 유대적 관점을 교정하십니다. 모든 인간은 하나님 앞에 심판받을 죄인이며, 타인의 고난은 나 자신의 회개를 촉구하는 하나님의 일반적인 경고임을 가르치십니다. 이는 인간의 전적 부패와 하나님의 거부할 수 없는 은혜의 필요성을 역설합니다.</p>
                             <p><strong>2. 하나님 나라의 역동적 확장:</strong> 겨자씨와 누룩의 비유는 하나님 나라가 비가시적이고 은밀하게 시작되나, 결국 온 세상을 변화시킬 주권적 능력을 가지고 있음을 보여줍니다. 이는 성도의 삶 속에 심긴 복음의 씨앗이 하나님의 정하신 때에 반드시 열매 맺을 것임을 확증하는 성도의 견인 교리와 연결됩니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_13.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_13.html" data-title="누가복음 13장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LUK_13" data-title="누가복음 13장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -188,8 +211,8 @@
                             <p><strong>1. 일반 은총 하의 악의 허용:</strong> 욥의 탄식은 악인의 형통이라는 난제를 다룹니다. 하나님은 당신의 작정된 때가 이르기까지 일반 은총의 영역에서 악인의 행위를 내버려 두시기도 합니다. 이는 심판이 지체되는 것이 아니라, 하나님의 거룩한 시간표 안에서 가장 완벽한 공의를 실현하기 위한 과정임을 보여줍니다.</p>
                             <p><strong>2. 보이지 않는 주권에 대한 신뢰:</strong> 욥은 비록 하나님의 '때'를 알 수 없으나, 하나님의 '공의' 자체를 부정하지는 않습니다. 이는 개혁주의 신앙이 고백하는 '이해되지 않는 섭리' 앞에서도 하나님의 선하심을 붙드는 성숙한 신앙의 태도를 요구합니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_24.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_24.html" data-title="욥기 24장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_24" data-title="욥기 24장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -210,7 +233,7 @@
                             <p><strong>1. 하나님 성품으로서의 사랑(Agapē):</strong> 여기서의 사랑은 단순한 감정이 아니라 하나님의 성품 그 자체입니다. 모든 은사는 하나님 나라를 세우기 위한 도구(Means)일 뿐이지만, 사랑은 하나님 나라의 본질(Essence)입니다. 따라서 사랑은 은사를 사용하는 원동력이자 최종적인 목적지가 됩니다.</p>
                             <p><strong>2. 종말론적 유효성:</strong> 지식과 예언은 이 세상의 유한함 속에서만 필요하지만, 사랑은 하나님과 영원히 대면할 그 나라에서도 여전히 지속됩니다. <span class="scripture-quote">지금은 우리가 거울로 보는 것 같이 희미하나 그 때에는 얼굴과 얼굴을 대하여 볼 것이요</span>(12절). 이는 성도가 이 땅에서 실천하는 사랑이 곧 하나님 나라를 미리 맛보는(Foretaste) 것임을 의미합니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_13.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_13.html" data-title="고린도전서 13장">본문 보기</button>
                                 <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
                             </div>
                         </div>
@@ -242,28 +265,30 @@
         </div>
     </div>
 
-    <script>
-        function showTab(targetId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(targetId).classList.add('active');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
+        <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = button.getAttribute('data-target');
-                showTab(target);
-            });
-        });
-    </script>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                <button id="close-player-btn" title="닫기">✕</button>
+            </div>
+        </div>
+    </div>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

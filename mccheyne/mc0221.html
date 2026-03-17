@@ -92,14 +92,37 @@
 
         .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
         .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
-        .btn-primary { background-color: #495057; color: white; }
-        
-        /* 성경 듣기 버튼 숨김 처리 */
+        .btn-primary { background-color: #495057; color: white; }footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 9999; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4263eb, #7c3aed); width: 0%; transition: width 0.3s; }
 
-        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-overlay.visible { display: flex; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal, .modal-close-btn { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+
+        .floating-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; transition: all 0.3s; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .audio-player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 1001; color: white; font-family: var(--font-heading); transform: translateY(100%); transition: transform 0.3s; }
+        .audio-player.visible { transform: translateY(0) !important; }
+        .audio-player-content { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .audio-player-info { font-size: 0.9rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .audio-player-controls { display: flex; gap: 12px; align-items: center; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; }
+
+        .listen-audio-btn { }
+
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -147,7 +170,7 @@
                             <p><strong>1. 중보자의 무능력과 하나님의 전능:</strong> 하나님께서는 모세의 '없음'을 책망하기보다 그분의 '있음'을 계시하십니다. <span class="scripture-quote">누가 사람의 입을 지었느냐</span>(11절)라는 선언은 모든 창조와 사역의 주권이 하나님께 있음을 확증합니다. 이는 직분자가 의지해야 할 것이 자신의 탁월함이 아니라 부르시는 분의 신실함임을 보여줍니다.</p>
                             <p><strong>2. 할례와 피의 언약:</strong> 모세가 사역지로 가던 중 죽음의 위기를 겪은 것은 공적인 사역자가 되기 전 먼저 언약적 질서(할례) 안에 바로 서야 함을 시사합니다. 이는 구원 사역이 인간의 열심이 아닌, 오직 피의 언약과 거룩함의 토대 위에서만 가능함을 보여주는 구속사적 교훈입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_04.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_04.html" data-title="출애굽기 4장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -168,7 +191,7 @@
                             <p><strong>1. 말씀의 수단성과 권능:</strong> 누가복음 8장은 모든 이적의 중심에 '말씀'이 있음을 강조합니다. <span class="scripture-quote">하나님의 말씀은 씨요</span>(11절). 광풍도, 귀신도, 질병과 죽음도 예수님의 말씀 한마디에 굴복합니다. 이는 그리스도께서 창조주로서의 신성을 가지셨으며, 하나님 나라의 통치가 그분의 입에서 나오는 말씀으로 실현됨을 입증합니다.</p>
                             <p><strong>2. 구원하시는 믿음의 성격:</strong> 혈루증 여인과 야이로의 신앙은 단순히 이적을 바라는 기복이 아니라, 그리스도의 절대적 주권을 신뢰하는 믿음입니다. 주님은 <span class="scripture-quote">네 믿음이 너를 구원하였으니</span>(48절)라고 말씀하심으로, 구원이 그리스도와의 인격적 연합과 그분의 통치를 받아들임에 있음을 선포하십니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_08.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_08.html" data-title="누가복음 8장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -189,7 +212,7 @@
                             <p><strong>1. '고엘(Goel)'로서의 구속주:</strong> 욥이 말하는 <span class="scripture-quote">나의 대속자</span>(25절)는 히브리어로 '고엘'입니다. 이는 억울한 자의 권리를 되찾아주는 친족 구속자를 의미합니다. 욥은 땅에서 소망이 끊어진 자리에 하늘의 중보자를 요청하며, 이는 오직 그리스도의 대속 사역을 통해서만 온전히 성취될 구속적 신비의 예표입니다.</p>
                             <p><strong>2. 종말론적 소망과 부활:</strong> <span class="scripture-quote">내 가죽이 벗김을 당한 뒤에도 내가 육체 밖에서 하나님을 보리라</span>(26절). 욥은 현재의 고난이 최종적인 결론이 아님을 알았습니다. 그는 죽음을 넘어서는 생명의 회복과 하나님의 공의로운 판단을 바라봄으로써, 개혁주의 신앙이 고수하는 '성도의 견인'과 '영광스러운 부활'의 원리를 미리 맛보고 있습니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_19.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_19.html" data-title="욥기 19장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -210,7 +233,7 @@
                             <p><strong>1. 유일신 신앙과 기독론적 적용:</strong> <span class="scripture-quote">우리에게는 한 하나님 곧 아버지가 계시고... 또한 한 주 예수 그리스도께서 계시니</span>(6절). 바울은 쉐마(신 6:4)를 그리스도 중심으로 재해석합니다. 만물이 그로 말미암아 존재한다는 이 장엄한 지식은 성도의 삶의 기초가 되지만, 이 지식은 머리에만 머무는 것이 아니라 공동체를 세우는 사랑으로 발현되어야 합니다.</p>
                             <p><strong>2. 기독교적 자유와 자기 절제:</strong> 개혁주의 윤리는 '모든 것이 가하나 모든 것이 유익한 것은 아니다'라는 원리에 기초합니다. 참된 지혜를 가진 자는 자신의 권리를 주장하기보다 연약한 지체를 위해 기꺼이 자신의 자유를 제약합니다. 이는 그리스도께서 우리를 위해 자신을 비우신 '비하(Humiliation)'의 본을 따르는 삶입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_08.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_08.html" data-title="고린도전서 8장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -241,28 +264,30 @@
         </div>
     </div>
 
-    <script>
-        function showTab(targetId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(targetId).classList.add('active');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
+        <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = button.getAttribute('data-target');
-                showTab(target);
-            });
-        });
-    </script>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                <button id="close-player-btn" title="닫기">✕</button>
+            </div>
+        </div>
+    </div>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

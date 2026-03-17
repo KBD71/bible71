@@ -94,9 +94,36 @@
         
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 9999; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4263eb, #7c3aed); width: 0%; transition: width 0.3s; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-overlay.visible { display: flex; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal, .modal-close-btn { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+
+        .floating-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; transition: all 0.3s; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .audio-player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 1001; color: white; font-family: var(--font-heading); transform: translateY(100%); transition: transform 0.3s; }
+        .audio-player.visible { transform: translateY(0) !important; }
+        .audio-player-content { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .audio-player-info { font-size: 0.9rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .audio-player-controls { display: flex; gap: 12px; align-items: center; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; }
+
+        .listen-audio-btn { }
+
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -144,7 +171,7 @@
                             <p><strong>1. 하나님의 자존성(Aseity)과 언약:</strong> 하나님이 계시하신 <span class="scripture-quote">에흐예 아쉐르 에흐예</span>(I AM WHO I AM)는 그분이 누구에게도 의존하지 않으시는 자존자이심을 뜻합니다. 동시에 이 이름은 언약 백성의 역사 속에 친히 현존하며 약속을 성취하시는 역동적인 신실함을 내포합니다. 이는 구원이 인간의 조건이 아닌, 하나님의 존재론적 속성에서 기인함을 확증합니다.</p>
                             <p><strong>2. 거룩과 신전 의식(Coram Deo):</strong> "신을 벗으라"는 명령은 죄인이 거룩하신 하나님 앞에 서기 위해 필요한 자기 부인과 경외를 상징합니다. 구속사의 사역은 자신의 능력을 확인하는 자가 아니라, 하나님의 거룩하심 앞에 압도되어 그분의 주권을 인정하는 자를 통해 시작됨을 보여줍니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_03.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_03.html" data-title="출애굽기 3장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -165,7 +192,7 @@
                             <p><strong>1. 말씀의 절대적 권위와 이방인의 믿음:</strong> 백부장은 군대의 체계처럼 영적 세계에서도 예수님의 말씀이 곧 법임을 간파했습니다. 이는 하나님 나라의 통치가 물리적 접촉이 아닌 주권적 선포(Declarative Authority)에 있음을 신뢰하는 고차원적 신앙입니다. 이방인의 이 믿음은 선민 의식에 갇힌 이스라엘의 불신앙을 대조적으로 고발합니다.</p>
                             <p><strong>2. 대속과 탕감의 비유:</strong> 빚 탕감의 비유를 통해 주님은 죄 사함의 은혜가 어떻게 더 큰 사랑을 낳는지 설명하십니다. 구원은 공로의 보상이 아니라 전적인 탕감(Grace)이며, 이 은혜를 깊이 깨닫는 자일수록 주님을 향한 헌신과 사랑이 깊어짐을 보여주는 구원론적 원리입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_07.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_07.html" data-title="누가복음 7장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -186,7 +213,7 @@
                             <p><strong>1. 도식화된 신학의 위험성:</strong> 빌닷의 논리는 "악인은 망한다"는 보편적 원리에 기초하지만, 이를 욥의 특수한 상황에 기계적으로 대입하는 오류를 범합니다. 이는 하나님의 주권적인 연단(Sanctification)과 섭리의 신비를 간과한 채, 인간의 짧은 지혜로 하나님의 공의를 도구화하는 신학적 교만입니다.</p>
                             <p><strong>2. 은혜 없는 공의의 폭력성:</strong> 빌닷의 말에는 고난당하는 자를 향한 긍휼이나 하나님의 오묘한 뜻에 대한 경외가 없습니다. 오직 차가운 인과율만이 존재합니다. 이는 개혁주의가 경계하는 율법주의적 독단이 어떻게 성도의 고통을 가중시킬 수 있는지를 보여주는 반면교사입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_18.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_18.html" data-title="욥기 18장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -207,7 +234,7 @@
                             <p><strong>1. 종말론적 유보와 삶의 태도:</strong> <span class="scripture-quote">세상 외형은 지나감이니라</span>(31절). 바울은 세상의 제도(결혼, 소유, 신분)에 함몰되지 않는 '마치 ~하지 않은 것처럼'(As if not)의 태도를 강조합니다. 이는 성도가 영원한 하나님 나라를 소망하며 현재의 삶을 도구적으로 사용하는 종말론적 지혜를 보여줍니다.</p>
                             <p><strong>2. 부르심의 보편성과 자족:</strong> 바울은 외적인 환경을 바꾸는 것보다, 그 환경 속에서 하나님과의 관계를 유지하는 것이 본질임을 역설합니다. <span class="scripture-quote">각 사람은 부르심을 받은 그 부르심 그대로 지내라</span>(20절)는 말씀은 모든 직업과 처소가 하나님의 주권적 작정 아래 있으며, 거기서 하나님을 영화롭게 해야 한다는 개혁주의 소명론의 근거가 됩니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_07.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_07.html" data-title="고린도전서 7장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -236,28 +263,30 @@
         </div>
     </div>
 
-    <script>
-        function showTab(targetId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(targetId).classList.add('active');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
+        <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = button.getAttribute('data-target');
-                showTab(target);
-            });
-        });
-    </script>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                <button id="close-player-btn" title="닫기">✕</button>
+            </div>
+        </div>
+    </div>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

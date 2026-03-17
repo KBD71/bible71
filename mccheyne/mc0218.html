@@ -100,9 +100,36 @@
         
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 9999; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4263eb, #7c3aed); width: 0%; transition: width 0.3s; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-overlay.visible { display: flex; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal, .modal-close-btn { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+
+        .floating-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; transition: all 0.3s; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .audio-player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 1001; color: white; font-family: var(--font-heading); transform: translateY(100%); transition: transform 0.3s; }
+        .audio-player.visible { transform: translateY(0) !important; }
+        .audio-player-content { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .audio-player-info { font-size: 0.9rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .audio-player-controls { display: flex; gap: 12px; align-items: center; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; }
+
+        .listen-audio-btn { }
+
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -150,8 +177,8 @@
                             <p><strong>1. 언약적 축복의 실현:</strong> 이스라엘의 번성은 아브라함에게 주셨던 <span class="scripture-quote">네 자손이 하늘의 별과 같이 많게 하리라</span>(창 22:17)는 언약적 약속의 역사적 성취입니다. 세상 권세가 이를 막으려 학대하지만, 하나님의 작정은 인간의 방해를 넘어 오히려 고난 중에 더욱 강력하게 실현됨을 보여줍니다.</p>
                             <p><strong>2. 하나님 경외와 주권적 보상:</strong> 산파 십브라와 부아가 세상 왕의 서슬 퍼런 명령보다 하나님의 법을 우선시한 것은 '신전 의식(Coram Deo)'의 표본입니다. 하나님께서는 이들의 믿음을 통해 이스라엘의 대를 보존하시며, 이들의 집안을 흥왕하게 하심으로 하나님의 주권을 인정하는 자들을 향한 신실하신 보상을 나타내십니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_01.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_01.html" data-title="출애굽기 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_01" data-title="출애굽기 1장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -172,8 +199,8 @@
                             <p><strong>1. 신성 앞에 선 인간의 전적 타락:</strong> 베드로의 고백은 거룩하신 하나님을 대면한 피조물의 정직한 반응입니다. 인간은 하나님의 영광(신성)의 빛 아래서만 자신의 비참한 죄 실존을 깨닫게 됩니다. 예수님은 단순한 교사가 아니라 죄를 사하시는 권세를 가진 성자 하나님이심이 이 고백을 통해 확증됩니다.</p>
                             <p><strong>2. 구속적 부르심의 원리:</strong> 주님은 세리와 죄인들과 함께 식사하십니다. 이는 복음이 '자칭 의인'이 아닌 '자기 죄를 깨닫는 자'에게 임함을 보여줍니다. <span class="scripture-quote">내가 의인을 부르러 온 것이 아니요 죄인을 불러 회개시키러 왔노라</span>(32절)는 말씀은 모든 구원의 주도권이 하나님의 은혜에 있음을 보여주는 개혁주의 구원론의 핵심입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_05.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_05.html" data-title="누가복음 5장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LUK_05" data-title="누가복음 5장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -194,8 +221,8 @@
                             <p><strong>1. 일반 계시적 위로의 한계:</strong> 친구들은 인과응보라는 일반적 원리로 욥을 정죄합니다. 고난받는 자에게 인간적인 신학 지식은 도리어 재앙이 됩니다. 이는 참된 위로가 땅의 지혜가 아닌 하늘의 계시, 즉 그리스도의 복음으로부터만 올 수 있음을 시사합니다.</p>
                             <p><strong>2. 하늘의 중보자 갈망:</strong> <span class="scripture-quote">지금 나의 증인이 하늘에 계시고 나의 중보자가 높은 데 계시니라</span>(19절). 욥은 스스로의 무죄를 증명할 수 없는 상황에서 하나님 자신이 자신의 변호인이 되어 주시기를 구합니다. 이는 장차 오셔서 우리의 영원한 대언자가 되실 예수 그리스도를 바라보는 구속사적 소망의 단초입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_16.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_16.html" data-title="욥기 16장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_16" data-title="욥기 16장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -216,7 +243,7 @@
                             <p><strong>1. 가시적 교회의 거룩성(Purity):</strong> 교회는 세상과 구별된 거룩한 공동체입니다. 죄를 용납하는 것은 사랑이 아니라 교회의 본질을 훼손하는 방종입니다. 징계는 범죄자의 영혼을 구원하고, 교회 전체가 죄에 물들지 않도록 보호하는 하나님의 사랑의 공의로운 방편입니다.</p>
                             <p><strong>2. 유월절 양 그리스도와 성화:</strong> <span class="scripture-quote">우리의 유월절 양 곧 그리스도께서 희생되셨느니라</span>(7절). 그리스도의 죽음은 우리를 단순히 죄의 형벌에서 건진 것뿐만 아니라, 죄의 권세로부터 분리시켜 거룩한 삶으로 부르신 것입니다. 성도는 그리스도의 희생에 합당한 '누룩 없는 떡'과 같은 성화의 삶을 살아야 합니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_05.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_05.html" data-title="고린도전서 5장">본문 보기</button>
                                 <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
                             </div>
                         </div>
@@ -247,28 +274,30 @@
         </div>
     </div>
 
-    <script>
-        function showTab(targetId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(targetId).classList.add('active');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
+        <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = button.getAttribute('data-target');
-                showTab(target);
-            });
-        });
-    </script>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                <button id="close-player-btn" title="닫기">✕</button>
+            </div>
+        </div>
+    </div>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

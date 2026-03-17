@@ -100,9 +100,36 @@
         
 
         footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 9999; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4263eb, #7c3aed); width: 0%; transition: width 0.3s; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-overlay.visible { display: flex; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal, .modal-close-btn { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+
+        .floating-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; transition: all 0.3s; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .audio-player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 1001; color: white; font-family: var(--font-heading); transform: translateY(100%); transition: transform 0.3s; }
+        .audio-player.visible { transform: translateY(0) !important; }
+        .audio-player-content { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .audio-player-info { font-size: 0.9rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .audio-player-controls { display: flex; gap: 12px; align-items: center; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; }
+
+        .listen-audio-btn { }
+
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -150,8 +177,8 @@
                             <p><strong>1. 유다 지파와 메시아적 통치:</strong> 유다에게 주어진 축복은 단순한 지파의 번영을 넘어섭니다. <span class="scripture-quote">규가 유다를 떠나지 아니하며... 실로가 오시기까지 이르리니</span>(10절)라는 말씀은 유다의 혈통을 통해 오실 영원한 왕, 예수 그리스도를 가리킵니다. 이는 구원이 인간의 혈통적 장자가 아닌 하나님의 주권적 선택과 메시아적 계보를 통해 이루어짐을 보여줍니다.</p>
                             <p><strong>2. 언약의 전승과 종말론적 소망:</strong> 야곱이 죽음 앞에서 가나안 땅 매장을 명한 것은 하나님의 약속이 반드시 성취될 것임을 믿는 부활 신앙의 고백입니다. 그는 죽음을 끝이 아닌, 하나님이 약속하신 기업으로 들어가는 통로로 인식하며 다음 세대에게 언약을 전승합니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_49.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_01_GEN_49.html" data-title="창세기 49장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GEN_49" data-title="창세기 49장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -172,8 +199,8 @@
                             <p><strong>1. 회개와 보편적 구원의 선포:</strong> 요한의 사역은 <span class="scripture-quote">모든 육체가 하나님의 구원하심을 보리라</span>(6절)는 이사야 40장의 성취입니다. 이는 구원이 유대인이라는 혈통적 특권이 아니라, 오직 죄를 회개하고 메시아를 영접하는 자에게 주어지는 보편적 은혜임을 천명합니다.</p>
                             <p><strong>2. 제2의 아담으로서의 그리스도:</strong> 누가복음의 족보는 마태복음과 달리 아담을 넘어 <span class="scripture-quote">그 위는 하나님이시니라</span>(38절)까지 올라갑니다. 이는 예수 그리스도께서 첫 사람 아담의 실패를 회복하고 온 인류를 하나님과 화목케 하실 '마지막 아담'이자 참된 하나님의 아들이심을 보여주는 기독론적 선포입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_03.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_03.html" data-title="누가복음 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LUK_03" data-title="누가복음 3장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -194,8 +221,8 @@
                             <p><strong>1. 전적 타락과 죽음의 실존:</strong> 욥은 <span class="scripture-quote">누가 깨끗한 것을 더러운 것 가운데에서 낼 수 있으리이까</span>(4절)라고 반문합니다. 이는 인간의 전적 부패를 인정하는 것이며, 죽음이 죄의 필연적 결과임을 암시합니다. 인간 스스로는 이 절망의 굴레를 벗어날 수 없음을 고발합니다.</p>
                             <p><strong>2. 희미한 부활의 소망과 중보자의 필요:</strong> 욥이 고백하는 <span class="scripture-quote">나는 나의 풀려날 때를 기다리겠나이다</span>(14절)는 고백은 그리스도의 부활을 통해 비로소 완전한 대답을 얻게 됩니다. 성도는 죽음이라는 한계를 넘어, 하나님이 자기 백성을 위해 마련하신 영원한 생명을 소망해야 함을 보여줍니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_14.html" target="_blank" class="btn btn-primary">본문 보기</a>
-                                <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_14.html" data-title="욥기 14장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOB_14" data-title="욥기 14장">성경 듣기</button>
                             </div>
                         </div>
                     </article>
@@ -216,7 +243,7 @@
                             <p><strong>1. 솔라 크리스투스(Sola Christus):</strong> <span class="scripture-quote">이 닦아 둔 것 외에 능히 다른 터를 닦아 둘 자가 없으니 이 터는 곧 예수 그리스도라</span>(11절). 교회와 성도의 신앙은 인간 지도자나 철학 위에 세워질 수 없습니다. 오직 그리스도의 대속 사역과 그분의 통치만이 유일하고 견고한 기초가 됩니다.</p>
                             <p><strong>2. 거룩함과 공력의 시험:</strong> 성도는 하나님의 성전으로서 거룩함을 지켜야 합니다. 또한 성도의 모든 사역은 세상의 인정이 아닌 하나님의 기준(불)으로 평가받게 됩니다. 이는 구원 이후의 삶이 하나님의 영광을 위해 얼마나 충성스럽게 드려졌는가에 대한 책임을 묻는 개혁주의적 성화론을 담고 있습니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_03.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_03.html" data-title="고린도전서 3장">본문 보기</button>
                                 <button class="btn btn-secondary listen-audio-btn">성경 듣기</button>
                             </div>
                         </div>
@@ -246,28 +273,30 @@
         </div>
     </div>
 
-    <script>
-        function showTab(targetId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(targetId).classList.add('active');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
+        <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = button.getAttribute('data-target');
-                showTab(target);
-            });
-        });
-    </script>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                <button id="close-player-btn" title="닫기">✕</button>
+            </div>
+        </div>
+    </div>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

@@ -91,14 +91,37 @@
 
         .button-group { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
         .btn { font-family: var(--font-heading); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
-        .btn-primary { background-color: #495057; color: white; }
-        
-        /* 성경 듣기 버튼 숨김 처리 */
+        .btn-primary { background-color: #495057; color: white; }footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+    
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 9999; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4263eb, #7c3aed); width: 0%; transition: width 0.3s; }
 
-        footer { text-align: center; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); font-size: 0.9rem; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-overlay.visible { display: flex; }
+        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 800px; height: 80%; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
+        .modal-body { flex-grow: 1; margin-top: 10px; }
+        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .close-modal, .modal-close-btn { cursor: pointer; font-size: 1.5rem; background: none; border: none; }
+
+        .floating-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 25px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000; gap: 8px; transition: all 0.3s; }
+        .floating-nav.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); pointer-events: none; }
+        .nav-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f8f9fa; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .nav-info { font-family: var(--font-heading); font-size: 12px; color: #6c757d; font-weight: 600; min-width: 35px; text-align: center; }
+
+        .audio-player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 1001; color: white; font-family: var(--font-heading); transform: translateY(100%); transition: transform 0.3s; }
+        .audio-player.visible { transform: translateY(0) !important; }
+        .audio-player-content { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .audio-player-info { font-size: 0.9rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .audio-player-controls { display: flex; gap: 12px; align-items: center; }
+        .audio-player-controls button { background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; }
+
+        .listen-audio-btn { }
+
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -146,7 +169,7 @@
                             <p><strong>1. 우상 숭배에 대한 창조주의 선전포고:</strong> 나일 강은 애굽인들에게 생명을 주는 신(Hapi)으로 숭배되었습니다. 하나님이 강물을 피로 바꾸신 것은 창조물 중 하나일 뿐인 자연이 결코 신이 될 수 없음을 선포하시는 것입니다. 이는 <span class="scripture-quote">애굽 사람이 나를 여호와인 줄 알리라</span>(5절)는 말씀처럼, 모든 신론적 질서 위에 계신 유일하신 여호와를 계시하는 사건입니다.</p>
                             <p><strong>2. 바로의 완악함과 주권적 유기:</strong> 바로가 마음을 완악하게 한 것은 하나님의 강제적 조작이라기보다, 죄인의 완고한 본성을 그대로 내버려 두신(유기) 결과입니다. 재앙이 거듭될수록 바로의 죄성은 더욱 극명하게 드러나며, 이는 결국 하나님의 공의로운 심판을 정당화하는 구속사적 배경이 됩니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_07.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_07.html" data-title="출애굽기 7장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -167,7 +190,7 @@
                             <p><strong>1. 하나님의 손가락과 통치권:</strong> <span class="scripture-quote">내가 만일 하나님의 손가락을 힘입어 귀신을 쫓아낸다면 하나님의 나라가 이미 너희에게 임하였느니라</span>(20절). 여기서 '하나님의 손가락'은 출애굽기 8장 19절에서 애굽 술사들이 하나님의 권능을 인정할 때 사용한 표현을 상기시킵니다. 즉, 예수님은 출애굽의 하나님께서 지금 이곳에서 사단의 세력을 꺾고 계심을 선포하시는 것입니다.</p>
                             <p><strong>2. 성령, 최고의 응답:</strong> 주님은 구하는 자에게 '성령'을 주시지 않겠느냐고 반문하십니다. 이는 성도가 구해야 할 가장 본질적인 복이 육체적 필요를 넘어, 하나님의 통치를 대행하며 우리 안에 거하시는 성령님임을 가르치는 개혁주의 성령론의 핵심입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_11.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_42_LUK_11.html" data-title="누가복음 11장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -188,7 +211,7 @@
                             <p><strong>1. 인과응보의 잔인한 도그마:</strong> 엘리바스는 "하나님은 악인을 심판하신다"는 일반 계시적 진리를 "고난받는 너는 악인이다"라는 정죄의 도구로 오용합니다. 이는 하나님의 주권적 작정과 섭리의 신비를 인간의 협소한 논리로 재단하려는 시도입니다. 은혜 없는 신학이 어떻게 고통받는 자에게 폭력이 될 수 있는지를 보여줍니다.</p>
                             <p><strong>2. 인간 중심적 회복론의 허구:</strong> 엘리바스는 욥에게 <span class="scripture-quote">너는 하나님과 화목하고 평안하라</span>(21절)고 말합니다. 그러나 그가 말하는 화목은 하나님의 주권을 인정하는 항복이 아니라, 벌을 면하기 위한 거래에 가깝습니다. 이는 개혁주의가 경계하는 율법주의적 경건의 전형입니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_22.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_18_JOB_22.html" data-title="욥기 22장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -209,7 +232,7 @@
                             <p><strong>1. 성찬, 주권적 기념과 연합:</strong> <span class="scripture-quote">이것은 너희를 위하는 내 몸이니 이것을 행하여 나를 기념하라</span>(24절). 성찬은 단순한 상징을 넘어, 그리스도의 단번에 이루신 대속 사역을 믿음으로 영적으로 먹고 마시는 '영적 임재'의 시간입니다. 이는 언약 백성이 그리스도와 한 몸임을 확인하는 거룩한 연합의 표지입니다.</p>
                             <p><strong>2. 공동체적 거룩과 자기 성찰:</strong> 바울은 주의 몸을 분별하지 못하고 먹고 마시는 자는 자기의 죄를 먹고 마시는 것이라고 경고합니다. 이는 개혁주의 교회가 중요하게 여기는 '권징'의 근거 중 하나입니다. 성찬에 참여하는 자는 지체와의 관계와 자신의 영적 상태를 살핌으로써, 교회의 가시적 거룩함을 보존해야 할 책임이 있습니다.</p>
                             <div class="button-group">
-                                <a href="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_11.html" target="_blank" class="btn btn-primary">본문 보기</a>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_46_1CO_11.html" data-title="고린도전서 11장">본문 보기</button>
                             </div>
                         </div>
                     </article>
@@ -241,28 +264,30 @@
         </div>
     </div>
 
-    <script>
-        function showTab(targetId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(targetId).classList.add('active');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
+        <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = button.getAttribute('data-target');
-                showTab(target);
-            });
-        });
-    </script>
+    <div class="audio-player" id="audio-player">
+        <div class="audio-player-content">
+            <div class="audio-player-info" id="player-info">오디오를 선택하세요</div>
+            <div class="audio-player-controls">
+                <button id="play-pause-btn" title="재생/일시정지">▶</button>
+                <button id="close-player-btn" title="닫기">✕</button>
+            </div>
+        </div>
+    </div>
+    <div id="player-container"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
