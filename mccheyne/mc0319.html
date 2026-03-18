@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3월 19일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 맥체인 5.0 추가 스타일 */
+        :root {
+            --overview-color: #6c757d;
+        }
+        
+        /* 로컬 오디오 버튼 숨김 (전역 플레이어 사용) */
+        .listen-audio-btn { display: none !important; }
+        
+        /* 전체 개요 탭 스타일 */
+        .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-overview h3 { color: var(--overview-color); }
+
+        /* 핵심 질문 박스 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 4px solid #495057;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+        .key-question-box p {
+            margin: 0;
+            font-weight: 600;
+            color: #212529;
+            font-style: italic;
+        }
+
+        /* 전역 플레이어 노출 애니메이션 */
+        #audio-player.visible { transform: translateY(0) !important; }
+        
+        .synthesis-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>3월 19일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1">출애굽기 30장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2">요한복음 10장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3">잠언 3장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4">갈라디아서 5장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration">신학적 종합</button>
+            </nav>
+
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>오늘의 읽기 가이드</h3>
+                            <p>오늘의 본문은 <strong>'하나님께 나아가는 거룩한 통로와 그 안에 거하는 성도의 삶'</strong>을 조명합니다. 출애굽기는 성소의 기구들을 통해 하나님과의 교제를, 요한복음은 참된 목자이신 그리스도를 통한 구원을 보여줍니다. 잠언은 지혜를 신뢰하는 성도의 태도를, 갈라디아서는 성령 안에서 누리는 참된 자유를 다룹니다.</p>
+                            <ul>
+                                <li><strong>출애굽기 30장:</strong> 기도로 나아가는 성소의 향단과 대속의 생명전.</li>
+                                <li><strong>요한복음 10장:</strong> 양들을 위하여 목숨을 버리시는 선한 목자 그리스도.</li>
+                                <li><strong>잠언 3장:</strong> 명철을 의지하지 않고 여호와를 신뢰하는 지혜.</li>
+                                <li><strong>갈라디아서 5장:</strong> 율법의 멍에를 벗고 사랑으로 종노릇하는 성령의 열매.</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="document.querySelector('[data-target=\'content-book1\']').click()">첫 번째 본문 읽기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>출애굽기 30장: 거룩한 제사와 대속의 원리</h3>
+                            <div class="key-question-box">
+                                <p>질문: 분향단에서 피워 올리는 향과 생명의 속전은 그리스도의 어떤 사역을 예표합니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>본문은 성막 기구 중 분향단, 물두멍, 그리고 거룩한 관유와 향의 제조법을 설명합니다. 특히 인구 조사 시 바쳐야 하는 '생명의 속전'을 통해 하나님의 백성으로 계수되는 자는 반드시 대속의 대가를 지불해야 함을 강조합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 중보 기도의 향연:</strong> 성소 휘장 앞에 놓인 분향단에서 끊이지 않고 피어오르는 향은 성도의 기도이자, 무엇보다 하늘 지성소에서 우리를 위해 영원히 간구하시는 그리스도의 중보 사역을 상징합니다(히 7:25).</p>
+                            <p><strong>2. 대속의 평등성:</strong> 속전은 부자나 가난한 자나 동일하게 반 세겔을 내게 하셨습니다(15절). 이는 영혼을 대속하는 은혜 앞에 모든 인간이 동일한 죄인이며, 오직 그리스도의 보혈이라는 단 하나의 대가만이 유효함을 보여줍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_30.html" data-title="출애굽기 30장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_30" data-title="출애굽기 30장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>요한복음 10장: 선한 목자와 영원한 안전</h3>
+                            <div class="key-question-box">
+                                <p>질문: 그리스도께서 '양들을 위하여 목숨을 버린다'는 선언은 개혁주의 구원론의 어떤 핵심을 담고 있습니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>예수님은 자신을 '양의 문'이자 '선한 목자'로 계시하십니다. 삯꾼 목자와 달리 선한 목자는 양들을 알고 그들을 위해 목숨을 버리며, 그들에게 영원한 생명을 주어 결코 멸망하지 않게 하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 제한적 속죄의 근거:</strong> 예수님은 세상 모든 인류가 아니라 <span class="scripture-quote">내 양을 위하여 목숨을 버리노라</span>(15절)고 말씀하십니다. 이는 창세 전 선택된 자들을 향한 그리스도의 확정적이고 실제적인 구속 사역을 의미합니다.</p>
+                            <p><strong>2. 성도의 견인(Perseverance):</strong> <span class="scripture-quote">내 손에서 빼앗을 사람이 없느니라</span>(28절)는 약속은 구원의 탈락 가능성을 부정합니다. 구원은 인간의 의지가 아니라 성부와 성자의 전능하신 손에 붙들려 있기에 영원히 안전합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_10.html" data-title="요한복음 10장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOH_10" data-title="요한복음 10장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>잠언 3장: 여호와를 신뢰하는 자의 복</h3>
+                            <div class="key-question-box">
+                                <p>질문: '범사에 그를 인정하라'는 권면은 하나님의 주권과 어떤 관계가 있습니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>하나님을 신뢰하고 그분의 징계를 달게 받으며, 지혜를 얻는 것이 세상의 어떤 재물보다 귀함을 강조합니다. 하나님은 겸손한 자에게 은혜를 베푸시고 지혜로운 자에게 영광을 주십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 전적인 신뢰와 주권:</strong> <span class="scripture-quote">너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라</span>(5절)는 말씀은 인간 이성의 한계를 인정하고 하나님의 절대 주권을 삶의 모든 영역에서 시인하는 개혁주의적 삶의 태도입니다.</p>
+                            <p><strong>2. 징계의 언약적 성격:</strong> 하나님이 사랑하시는 자를 징계하심(12절)은 우리가 정죄 아래 있지 않고 하나님의 친자녀로 양육받고 있음을 확증하는 은혜의 방편입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_20_PRO_03.html" data-title="잠언 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PRO_3" data-title="잠언 3장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>갈라디아서 5장: 자유를 위한 부르심과 성령의 열매</h3>
+                            <div class="key-question-box">
+                                <p>질문: 복음 안에서 얻은 자유와 방종은 어떻게 구별됩니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>바울은 그리스도께서 우리를 자유롭게 하셨으니 다시는 율법의 종노릇하지 말라고 선포합니다. 진정한 자유는 육체의 기회를 삼는 것이 아니라 성령을 따라 행함으로써 사랑으로 서로 종노릇하는 것입니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 칭의에서 성화로:</strong> 할례나 율법의 행위는 구원에 아무 효력이 없습니다. 오직 <span class="scripture-quote">사랑으로써 역사하는 믿음</span>(6절)뿐입니다. 이는 믿음으로 의롭다 함을 얻은 자의 삶에 반드시 성화의 열매가 뒤따름을 보여줍니다.</p>
+                            <p><strong>2. 성령의 주도적 사역:</strong> 성화는 인간의 결단이 아닌, 성령과 육체의 소욕 사이의 갈등 속에서 성령을 따라 행할 때 맺어지는 '열매'입니다(22-23절). 이는 성화 과정에서도 하나님의 은혜가 주도적임을 확증합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_48_GAL_05.html" data-title="갈라디아서 5장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="GAL_5" data-title="갈라디아서 5장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>관통하는 주제: 구속받은 자의 거룩한 사귐과 성령의 동행</h4>
+                            <p>오늘의 네 본문은 <strong>'그리스도의 대속을 통해 하나님과의 사귐에 들어온 자들이 누리는 영적 질서와 열매'</strong>를 통합적으로 보여줍니다.</p>
+                            <p>출애굽기의 향단과 속전은 우리가 하나님께 나아가는 데 필요한 '중보'와 '대속'의 가치를 가르칩니다. 이것은 요한복음에서 자기 목숨을 내어주어 양들을 구원하시고 영원한 안전을 보장하시는 선한 목자 예수 그리스도의 사역으로 완성됩니다.</p>
+                            <p>이 은혜를 입은 성도는 이제 세상의 명철이나 율법의 조문에 매이지 않습니다. 잠언이 말하는 것처럼 모든 주권을 하나님께 맡기고 그분을 신뢰하며(주권적 신앙), 갈라디아서가 강조하듯 성령의 인도하심을 따라 사랑의 열매를 맺는 삶(성화의 삶)으로 나아가게 됩니다. 결국 성경은 우리에게 구원의 근거(대속)와 구원의 방편(목자), 구원의 태도(신뢰), 구원의 목적(성령의 열매)을 오늘 하루의 읽기를 통해 일관되게 선포하고 있습니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved. 본 콘텐츠는 개혁주의 신학 관점에서 작성되었습니다.</p>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
+
+    <div id="player-container"></div>
+
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
