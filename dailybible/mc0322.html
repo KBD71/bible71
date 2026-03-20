@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3월 22일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 맥체인 5.0 추가 스타일 */
+        :root {
+            --overview-color: #6c757d;
+        }
+        
+        /* 로컬 오디오 버튼 숨김 (전역 플레이어 사용) */
+        .listen-audio-btn { display: none !important; }
+        
+        /* 전체 개요 탭 스타일 */
+        .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-overview h3 { color: var(--overview-color); }
+
+        /* 핵심 질문 박스 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 4px solid #495057;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+        .key-question-box p {
+            margin: 0;
+            font-weight: 600;
+            color: #212529;
+            font-style: italic;
+        }
+
+        /* 전역 플레이어 노출 애니메이션 */
+        #audio-player.visible { transform: translateY(0) !important; }
+        
+        .synthesis-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>3월 22일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">출애굽기 33장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">요한복음 13장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">잠언 6장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">에베소서 2장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">신학적 종합</button>
+            </nav>
+
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>오늘의 읽기 가이드</h3>
+                            <p>오늘의 본문은 <strong>'하나님의 임재와 거룩한 동행'</strong>을 핵심 주제로 다룹니다[cite: 7]. 이스라엘의 범죄 이후 하나님의 동행을 간구하는 모세의 기도(출애굽기)는, 제자들의 발을 씻기시며 끝까지 사랑하시는 그리스도의 자기 비하와 서비스(요한복음)를 통해 더욱 깊어집니다[cite: 7]. 또한 지혜로운 자가 경계해야 할 죄의 실체를 조명하며(잠언), 허물과 죄로 죽었던 우리가 오직 은혜로 구원받아 하나님의 작품이 되었음을 선포합니다(에베소서)[cite: 7].</p>
+                            <ul>
+                                <li><strong>출애굽기 33장:</strong> 하나님의 임재를 구하는 모세의 중보와 여호와의 영광[cite: 7].</li>
+                                <li><strong>요한복음 13장:</strong> 발을 씻기시는 예수님과 새 계명인 사랑[cite: 7].</li>
+                                <li><strong>잠언 6장:</strong> 담보와 게으름, 그리고 여호와께서 미워하시는 일곱 가지 죄[cite: 7].</li>
+                                <li><strong>에베소서 2장:</strong> 은혜에 의한 구원과 그리스도 안에서 하나 된 새 인류[cite: 7].</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">첫 번째 본문 읽기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>출애굽기 33장: 하나님의 동행과 모세의 중보</h3>
+                            <div class="key-question-box">
+                                <p>질문: 하나님께서 친히 가지 않겠다고 말씀하셨을 때, 모세가 하나님의 동행을 끝까지 간구한 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>금송아지 사건 이후 하나님께서는 이스라엘과 함께 가지 않겠다고 하십니다. 모세는 회막에서 주님과 대면하여 기도하며, 주의 목전에서 은총을 입었음을 근거로 하나님의 친히 가심을 간구합니다. 하나님은 모세의 기도를 들으시고 자신의 영광을 그 앞에 지나가게 하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 임재의 절대적 가치:</strong> 언약 백성에게 하나님의 임재는 생명과도 같습니다. 모세는 가나안 땅이라는 '복'보다 그 복을 주시는 '하나님 자신'이 동행하시는 것이 이스라엘의 유일한 정체성임을 고백합니다.</p>
+                            <p><strong>2. 은혜의 주권적 계시:</strong> 하나님은 "은혜 베풀 자에게 은혜를 베풀고 긍휼히 여길 자에게 긍휼을 베푸느니라"고 말씀하십니다(19절). 이는 구원과 임재의 원인이 인간의 공로가 아닌 하나님의 주권적 의지에 있음을 명시하는 개혁주의적 은혜론의 핵심입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_33.html" data-title="출애굽기 33장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_33" data-title="출애굽기 33장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>요한복음 13장: 그리스도의 낮아지심과 새 계명</h3>
+                            <div class="key-question-box">
+                                <p>질문: 예수님께서 제자들의 발을 씻기신 행위는 그리스도의 구속 사역과 어떤 관계가 있습니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>유월절 전 예수님은 제자들의 발을 씻기시며 섬김의 본을 보이십니다. 이어 가룟 유다의 배반을 예고하시고, 제자들에게 "서로 사랑하라"는 새 계명을 주십니다. 또한 베드로가 주님을 부인할 것을 미리 말씀하십니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 성육신적 비하(Humiliation):</strong> 만유의 주께서 종의 형체를 입어 제자들의 발을 씻기신 것은 그리스도의 낮아지심을 상징적으로 보여줍니다. 이는 단번에 이루실 십자가 죽음을 통한 영혼의 씻음을 예표하는 구속사적 행위입니다.</p>
+                            <p><strong>2. 사랑, 제자의 표지:</strong> 주님이 우리를 사랑하신 것 같이 서로 사랑하는 것은 성도의 윤리적 선택이 아니라, 그리스도께 속한 자임을 증명하는 결정적 표지(Mark)입니다. 이 사랑은 인간적인 감정을 넘어 그리스도의 희생적 사랑에 근거합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_13.html" data-title="요한복음 13장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOH_13" data-title="요한복음 13장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>잠언 6장: 경계해야 할 삶의 함정들</h3>
+                            <div class="key-question-box">
+                                <p>질문: 여호와께서 미워하시는 일곱 가지 죄의 공통적인 속성은 무엇입니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>성급한 담보의 위험과 게으른 자를 향한 개미의 훈계를 통해 삶의 무절제를 경고합니다. 또한 하나님께서 가증히 여기시는 일곱 가지 죄를 열거하고, 음행의 치명적인 결과에 대해 강력하게 경고하며 거룩한 삶을 권고합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 성실과 청지기직:</strong> 게으름은 단순히 행동의 문제가 아니라 하나님의 시간을 낭비하는 불신앙의 문제입니다. 지혜자는 일상 속에서 근면함으로 하나님의 영광을 드러내는 청지기의 삶을 살아야 합니다.</p>
+                            <p><strong>2. 거룩하신 하나님의 혐오:</strong> 하나님은 단순히 죄를 싫어하시는 정도가 아니라 '미워하시며 가증히' 여기십니다(16절). 이는 하나님의 거룩하심이 불의와 결코 공존할 수 없음을 보여주며, 성도가 추구해야 할 성화의 방향을 제시합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_20_PRO_06.html" data-title="잠언 6장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PRO_6" data-title="잠언 6장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>에베소서 2장: 오직 은혜에 의한 구원과 화평</h3>
+                            <div class="key-question-box">
+                                <p>질문: 구원이 '우리의 행위'가 아닌 '하나님의 선물'인 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>허물과 죄로 죽었던 우리가 긍휼이 풍성하신 하나님의 은혜로 그리스도와 함께 살아났음을 선포합니다. 유대인과 이방인 사이의 막힌 담을 허무신 그리스도의 사역을 통해, 이제 우리가 하나님이 거하실 성전으로 지어져 가고 있음을 보여줍니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 전적 타락과 전적 은혜:</strong> 인간은 스스로를 구원할 수 없는 "죽었던" 상태였습니다. 구원은 죽은 자를 살리시는 하나님의 단독적인 주권적 행위(Monergism)이며, 이를 믿는 믿음조차 하나님의 선물입니다(8절).</p>
+                            <p><strong>2. 하나님의 작품(Poiema):</strong> 구원받은 성도는 선한 일을 위하여 그리스도 안에서 지으심을 받은 '하나님의 작품'입니다(10절). 이는 성도의 선한 행실이 구원의 조건이 아니라, 구원받은 결과임을 명확히 하는 개혁주의의 핵심 교리입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_49_EPH_02.html" data-title="에베소서 2장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EPH_2" data-title="에베소서 2장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>관통하는 주제: 구속적 동행과 거룩한 성전으로의 지어짐</h4>
+                            <p>오늘의 네 본문은 <strong>'거룩하신 하나님께서 죄인들 가운데 어떻게 거하시며 그들을 어떻게 빚어 가시는가'</strong>를 보여줍니다[cite: 7, 31].</p>
+                            <p>출애굽기 33장에서 모세가 간구했던 하나님의 동행은, 에베소서 2장에서 그리스도 안에서 성령이 거하실 거룩한 성전으로 완성됩니다[cite: 7]. 하나님은 범죄한 백성을 떠나지 않으시고, 요한복음 13장에서처럼 친히 낮아져 제자들의 발을 씻기시는 그리스도의 사역을 통해 우리를 정결하게 하십니다[cite: 7]. </p>
+                            <p>우리는 에베소서 2장이 선포하듯 본질상 진노의 자녀였으나, 긍휼이 풍성하신 하나님께서 우리를 살리셨고 하나님의 작품으로 삼으셨습니다[cite: 7]. 따라서 하나님의 임재 안에 거하는 성도는 잠언 6장이 경고하는 죄악들을 멀리하며, 그리스도께서 보여주신 사랑의 계명을 실천함으로 그분의 거룩하심을 닮아가는 삶을 살아야 합니다. 오늘 하루, 우리를 위해 중보하시는 그리스도의 은혜를 의지하며 하나님의 거룩한 처소로 지어져 가는 복된 여정이 되기를 소망합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved. 본 콘텐츠는 개혁주의 신학 관점에서 작성되었습니다.</p>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
+
+    <div id="player-container"></div>
+
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
