@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3월 27일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 맥체인 5.0 추가 스타일 */
+        :root {
+            --overview-color: #6c757d;
+        }
+        
+        /* 로컬 오디오 버튼 숨김 (전역 플레이어 사용) */
+        .listen-audio-btn { display: none !important; }
+        
+        /* 전체 개요 탭 스타일 */
+        .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-overview h3 { color: var(--overview-color); }
+
+        /* 핵심 질문 박스 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 4px solid #495057;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+        .key-question-box p {
+            margin: 0;
+            font-weight: 600;
+            color: #212529;
+            font-style: italic;
+        }
+
+        /* 전역 플레이어 노출 애니메이션 */
+        #audio-player.visible { transform: translateY(0) !important; }
+        
+        .synthesis-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>3월 27일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">출애굽기 38장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">요한복음 18장</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">잠언 11장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">빌립보서 1장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">신학적 종합</button>
+            </nav>
+
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>오늘의 읽기 가이드</h3>
+                            <p>오늘의 본문은 <strong>'하나님의 공의와 자기 백성을 향한 그리스도의 고난과 승리'</strong>를 조명합니다. 출애굽기는 성소 뜰의 기구들을 통해 하나님께 나아가는 유일한 길인 '제사'를 보여주며, 요한복음은 그 제사의 실체이신 그리스도께서 잡히시고 고난받으시는 현장을 기록합니다. 잠언은 정직한 자를 기뻐하시는 하나님의 공의를 선포하며, 빌립보서는 고난 중에도 복음의 진전과 그리스도의 존귀함을 찬양하는 성도의 기쁨을 노래합니다.</p>
+                            <ul>
+                                <li><strong>출애굽기 38장:</strong> 번제단과 물두멍, 성소 뜰의 제작 및 사용된 물자 계수.</li>
+                                <li><strong>요한복음 18장:</strong> 주님의 체포와 심문, 그리고 베드로의 부인.</li>
+                                <li><strong>잠언 11장:</strong> 정직과 성실이 가져오는 생명과 악인의 패망 대조.</li>
+                                <li><strong>빌립보서 1장:</strong> 복음 안에서의 교제와 고난 중에도 전파되는 그리스도.</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">첫 번째 본문 읽기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>출애굽기 38장: 번제단과 성막의 뜰</h3>
+                            <div class="key-question-box">
+                                <p>질문: 번제단과 물두멍이 성막 입구와 뜰에 배치된 것은 하나님께 나아가는 과정에 대해 무엇을 가르쳐 줍니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>브살렐은 조각목으로 번제단을 만들고 놋으로 입힙니다. 또한 회막 문에서 수종드는 여인들의 놋 거울로 물두멍을 만들고, 성막 뜰의 포장과 기둥들을 제작합니다. 마지막으로 성막 건축에 사용된 금, 은, 놋의 총량을 계수하며 모든 사역이 투명하고 정교하게 마무리되었음을 보여줍니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 대속의 우선성:</strong> 성막 문을 들어서자마자 만나는 번제단은 하나님께 나아가기 위해 반드시 희생 제사의 피 흘림이 있어야 함을 의미합니다. 이는 단번에 자신을 드리신 어린 양 그리스도의 대속 사역을 강력하게 예표합니다.</p>
+                            <p><strong>2. 성결의 필수성:</strong> 놋 거울로 만든 물두멍은 제사장들이 직무를 수행하기 전 손발을 씻는 곳입니다. 이는 중보의 피로 죄 씻음을 받은 성도가 매일의 삶에서 말씀의 거울 앞에 자신을 비추며 거룩함을 유지해야 함을 상징합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_02_EXO_38.html" data-title="출애굽기 38장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="EXO_38" data-title="출애굽기 38장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>요한복음 18장: 고난의 길을 걸으시는 진리의 왕</h3>
+                            <div class="key-question-box">
+                                <p>질문: "내 나라는 이 세상에 속한 것이 아니니라"는 주님의 선언은 하나님의 주권과 어떤 관계가 있습니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>예수님은 겟세마네 동산에서 잡히시고 안나스와 가야바, 빌라도 앞에서 심문을 받으십니다. 이 과정에서 베드로는 세 번 주님을 부인합니다. 빌라도는 예수님에게서 죄를 찾지 못하나, 유대인들은 바라바를 놓아주길 요구하며 주님을 십자가로 몰아넣습니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 자발적인 구속 사역:</strong> 주님은 권능으로 군대를 물리칠 수 있었으나, 아버지가 주신 잔을 마시기 위해 스스로 잡히셨습니다. 이는 창세 전 세워진 구속 언약을 성취하시려는 주권적 순종입니다.</p>
+                            <p><strong>2. 진리의 왕권:</strong> 빌라도의 통치 아래서도 주님은 진리의 왕으로서 위엄을 잃지 않으십니다. 주님의 나라는 칼과 무력의 나라가 아닌, 진리의 말씀으로 다스리는 영원한 하나님의 나라이며 그 나라는 오직 믿음으로만 참여할 수 있습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_43_JOH_18.html" data-title="요한복음 18장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="JOH_18" data-title="요한복음 18장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>잠언 11장: 공의와 정직의 보응</h3>
+                            <div class="key-question-box">
+                                <p>질문: 정직한 자의 성실이 그를 인도한다는 잠언의 교훈은 성화의 삶에서 어떤 역할을 합니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>속이는 저울을 미워하시고 공평한 추를 기뻐하시는 하나님의 공의를 선포합니다. 교만한 자에게는 욕이 오고 겸손한 자에게는 지혜가 있습니다. 정직한 자의 공의는 자기의 길을 곧게 하지만, 악인은 자기의 악으로 말미암아 넘어질 것임을 거듭 강조합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 통치 질서:</strong> 공의와 정직은 단순히 도덕적 덕목이 아니라 하나님의 성품을 반영하는 통치 원리입니다. 하나님은 공평과 진실을 기뻐하시며, 그 질서에 순응하는 자에게 생명의 복을 주십니다.</p>
+                            <p><strong>2. 구제와 풍성함의 역설:</strong> 흩어 구제하여도 더욱 부하게 되는 것은 하나님이 모든 공급의 근원이심을 신뢰하는 자가 누리는 은혜입니다. 이는 자기를 비워 남을 살리신 그리스도의 사랑을 실천하는 삶의 실제적인 모습입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_20_PRO_11.html" data-title="잠언 11장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PRO_11" data-title="잠언 11장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>빌립보서 1장: 고난 중에 누리는 복음의 기쁨</h3>
+                            <div class="key-question-box">
+                                <p>질문: 감옥에 갇힌 바울이 '그리스도가 전파되는 것'으로 기뻐할 수 있었던 신학적 근거는 무엇입니까?</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>바울은 감옥에서도 빌립보 교인들의 복음을 위한 참여를 기뻐하며 감사 기도를 드립니다. 자신의 매임이 오히려 복음 전파에 진전이 되었음을 선포하며, 살든지 죽든지 내 몸에서 그리스도가 존귀하게 되기를 소망합니다. 성도들에게는 복음에 합당하게 생활할 것과 그리스도를 위한 고난의 특권을 권면합니다.</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p><strong>1. 하나님의 섭리와 복음의 진전:</strong> 바울의 매임이라는 불행조차 하나님은 복음 전파의 도구로 사용하십니다. 이는 인간의 고난이 하나님의 주권적 계획 아래 있으며, 어떤 상황도 하나님의 목적을 막을 수 없음을 보여줍니다.</p>
+                            <p><strong>2. 그리스도 중심적 삶:</strong> "이는 내게 사는 것이 그리스도니 죽는 것도 유익함이라"는 고백은 성도의 존재 목적이 오직 그리스도께 있음을 선언합니다. 그리스도와 연합된 자에게 죽음은 단절이 아니라 주님과 더 깊이 함께하는 영광의 시작입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_50_PHI_01.html" data-title="빌립보서 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PHI_1" data-title="빌립보서 1장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합</h3>
+                            <h4>관통하는 주제: 대속의 제단에서 고난의 십자가로, 그리고 영광의 승리로</h4>
+                            <p>오늘의 네 본문은 <strong>'하나님의 거룩한 성소로 나아가기 위한 대속적 죽음과 그 은혜를 입은 자의 삶'</strong>을 증거합니다.</p>
+                            <p>출애굽기 38장의 번제단은 하나님께 나아가기 위해 반드시 피의 제사가 필요함을 보여줍니다. 이 제사의 실체이신 예수 그리스도께서는 요한복음 18장에서 친히 십자가의 길을 걸으심으로 영원한 대속의 제물이 되셨습니다. 주님은 불의한 재판과 제자의 배신 속에서도 진리의 왕으로서 묵묵히 사명을 완수하셨습니다.</p>
+                            <p>이 대속의 은혜를 입은 성도는 잠언 11장의 말씀처럼 세상의 속이는 저울을 멀리하고 정직과 공의의 삶을 살아야 합니다. 또한 빌립보서 1장에서 바울이 보여준 것처럼, 때로는 복음으로 인해 고난을 겪을지라도 우리 안에 계신 그리스도의 영광으로 인해 기뻐하며 "살든지 죽든지 그리스도가 존귀하게 되는 것"을 삶의 유일한 목표로 삼아야 합니다. 결국 성막의 번제단에서 시작된 구속의 드라마는 그리스도의 십자가 승리를 거쳐, 고난 중에도 찬양하는 성도의 삶을 통해 오늘날에도 장엄하게 계속되고 있습니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved. 본 콘텐츠는 개혁주의 신학 관점에서 작성되었습니다.</p>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
+
+    <div id="player-container"></div>
+
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>```
