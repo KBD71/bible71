@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // 전역에서 접근 가능하도록 (3월 파일의 onclick에서 호출)
     window.switchTab = switchTab;
+    window.playAudio = playAudio;
 
     let currentCueOnly = false;
 

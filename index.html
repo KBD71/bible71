@@ -1179,7 +1179,11 @@
                                 }
                                 if (listenBtn) {
                                     console.log("Auto-loading McCheyne video (paused)...");
-                                    listenBtn.click();
+                                    if (contentIframe.contentWindow && typeof contentIframe.contentWindow.playAudio === 'function') {
+                                        contentIframe.contentWindow.playAudio(listenBtn, 0, true);
+                                    } else {
+                                        listenBtn.click();
+                                    }
                                 }
                             } catch (e) { }
                         };
