@@ -871,15 +871,17 @@
                     console.log("Refreshed ytPlayer from iframe");
                 }
 
-                // If player ready, toggle play/pause via postMessage (more robust)
+                // If player ready, toggle play/pause
                 if (ytPlayer && typeof ytPlayer.getPlayerState === 'function') {
                     try {
                         const state = ytPlayer.getPlayerState();
                         const iframeWindow = contentIframe.contentWindow;
                         if (state === 1) { // Playing
+                            if (typeof ytPlayer.pauseVideo === 'function') ytPlayer.pauseVideo();
                             iframeWindow.postMessage({ type: 'mccheyneCommand', command: 'pause' }, '*');
                             return;
-                        } else if ([0, 2, 5].includes(state)) { // Ended, Paused, Cued
+                        } else if ([0, 2, 5, -1].includes(state)) { // Ended, Paused, Cued, Unstarted
+                            if (typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
                             iframeWindow.postMessage({ type: 'mccheyneCommand', command: 'play' }, '*');
                             return;
                         }
@@ -887,6 +889,7 @@
                         console.warn("Player state check/postMessage failed:", e);
                     }
                 }
+
 
                 // Player not ready - trigger content audio
                 playPauseBtn.classList.add('loading');
