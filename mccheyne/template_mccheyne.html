@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{M월 D일}} 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 맥체인 5.0 추가 스타일 */
+        :root {
+            --overview-color: #6c757d;
+        }
+        
+        /* 로컬 오디오 버튼 숨김 (전역 플레이어 사용) */
+        .listen-audio-btn { display: none !important; }
+        
+        /* 전체 개요 탭 스타일 */
+        .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-overview h3 { color: var(--overview-color); }
+
+        /* 핵심 질문 박스 */
+        .key-question-box {
+            background-color: #f1f3f5;
+            border-left: 4px solid #495057;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+        .key-question-box p {
+            margin: 0;
+            font-weight: 600;
+            color: #212529;
+            font-style: italic;
+        }
+
+        /* 전역 플레이어 노출 애니메이션 */
+        #audio-player.visible { transform: translateY(0) !important; }
+        
+        .synthesis-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>{{M월 D일}}</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">{{본문1 제목}}</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">{{본문2 제목}}</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">{{본문3 제목}}</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">{{본문4 제목}}</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">종합 묵상</button>
+            </nav>
+
+            <main>
+                <!-- 0. 전체 개요 -->
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>{{M월 D일}} 성경읽기 가이드</h3>
+                            <p>{{오늘의 읽기 전체 가이드 설명}}</p>
+                            <ul>
+                                <li><strong>{{본문1 이름}}:</strong> {{설명1}}</li>
+                                <li><strong>{{본문2 이름}}:</strong> {{설명2}}</li>
+                                <li><strong>{{본문3 이름}}:</strong> {{설명3}}</li>
+                                <li><strong>{{본문4 이름}}:</strong> {{설명4}}</li>
+                            </ul>
+                             <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">첫 번째 본문 읽기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 1. 첫 번째 본문 -->
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>{{본문1 제목}}: {{소주제1}}</h3>
+                            <div class="key-question-box">
+                                <p>질문: {{핵심질문1}}</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>{{상세개요1}}</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p>{{신학해설1}}</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="{{본문URL1}}" data-title="{{본문1 제목}}">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="{{AUDIO_KEY1}}" data-title="{{본문1 제목}}">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 2. 두 번째 본문 -->
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>{{본문2 제목}}: {{소주제2}}</h3>
+                            <div class="key-question-box">
+                                <p>질문: {{핵심질문2}}</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>{{상세개요2}}</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p>{{신학해설2}}</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="{{본문URL2}}" data-title="{{본문2 제목}}">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="{{AUDIO_KEY2}}" data-title="{{본문2 제목}}">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 3. 세 번째 본문 -->
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>{{본문3 제목}}: {{소주제3}}</h3>
+                            <div class="key-question-box">
+                                <p>질문: {{핵심질문3}}</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>{{상세개요3}}</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p>{{신학해설3}}</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="{{본문URL3}}" data-title="{{본문3 제목}}">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="{{AUDIO_KEY3}}" data-title="{{본문3 제목}}">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 4. 네 번째 본문 -->
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>{{본문4 제목}}: {{소주제4}}</h3>
+                            <div class="key-question-box">
+                                <p>질문: {{핵심질문4}}</p>
+                            </div>
+                            <h4>상세 개요</h4>
+                            <p>{{상세개요4}}</p>
+                            <h4>심층 신학적 해설</h4>
+                            <p>{{신학해설4}}</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="{{본문URL4}}" data-title="{{본문4 제목}}">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="{{AUDIO_KEY4}}" data-title="{{본문4 제목}}">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 5. 종합 묵상 -->
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합: "{{종합주제}}"</h3>
+                            <h4>관통하는 주제: {{핵심요약}}</h4>
+                            <p>{{종합해설}}</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+             </footer>
+        </div>
+    </div>
+
+    <!-- 모달 및 내비게이션 (필수) -->
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    </div>
+
+    <div id="player-container"></div>
+
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
