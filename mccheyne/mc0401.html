@@ -6,22 +6,26 @@
     <title>4월 1일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* 맥체인 5.0 추가 스타일 */
+        :root {
+            --overview-color: #6c757d;
+        }
+        
         /* 로컬 오디오 버튼 숨김 (전역 플레이어 사용) */
         .listen-audio-btn { display: none !important; }
         
-        /* 전체 개요 및 핵심 질문 스타일 추가 */
-        .tab-btn[data-color="overview"] { background-color: #6c757d; }
-        .tab-btn.active[data-color="overview"] { background-color: #495057; }
-        
-        .card-overview { border-color: #6c757d; }
-        .card-overview h3 { color: #495057; }
-        
+        /* 전체 개요 탭 스타일 */
+        .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-overview h3 { color: var(--overview-color); }
+
+        /* 핵심 질문 박스 */
         .key-question-box {
             background-color: #f1f3f5;
             border-left: 4px solid #495057;
             padding: 1.2rem;
             margin-bottom: 1.5rem;
-            border-radius: 0 8px 8px 0;
+            border-radius: 4px;
         }
         .key-question-box p {
             margin: 0;
@@ -29,8 +33,15 @@
             color: #212529;
             font-style: italic;
         }
-        
+
+        /* 전역 플레이어 노출 애니메이션 */
         #audio-player.visible { transform: translateY(0) !important; }
+        
+        .synthesis-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
     </style>
 </head>
 <body>
@@ -44,12 +55,12 @@
             </header>
 
             <nav class="tabs">
-                <button class="tab-btn active" data-target="content-overview" data-color="overview">전체 개요</button>
-                <button class="tab-btn" data-target="content-book1" data-color="book1">레위기 4장</button>
-                <button class="tab-btn" data-target="content-book2" data-color="book2">시편 1-2편</button>
-                <button class="tab-btn" data-target="content-book3" data-color="book3">잠언 19장</button>
-                <button class="tab-btn" data-target="content-book4" data-color="book4">골로새서 2장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration">종합 묵상</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">레위기 4장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">시편 1-2편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">잠언 19장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">골로새서 2장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">종합 묵상</button>
             </nav>
 
             <main>
@@ -65,8 +76,8 @@
                                 <li><strong>골로새서 2장:</strong> 그리스도만이 우리의 모든 결핍을 채우시는 충만이며, 율법의 실체이심을 증언합니다.</li>
                             </ul>
                             <p>오늘 말씀을 통해 우리 영혼의 속죄와 삶의 지혜가 오직 예수 그리스도 한 분에게서만 나옴을 확인하시기 바랍니다.</p>
-                            <div class="button-group">
-                                <button class="btn btn-primary" onclick="document.querySelector('[data-target=\'content-book1\']').click()">첫 번째 본문(레위기 4장) 읽기</button>
+                             <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">첫 번째 본문(레위기 4장) 읽기</button>
                             </div>
                         </div>
                     </article>
@@ -171,8 +182,21 @@
 
             <footer>
                 <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved. (Revised Edition)</p>
-            </footer>
+             </footer>
         </div>
+    </div>
+
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
+        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
     </div>
 
     <div id="player-container"></div>
