@@ -213,7 +213,30 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.left = '0';
         document.body.style.right = '0';
 
-        // 단일 경로이면서 부분 절 지정이 없는 경우: 기존 iframe 방식
+        // 단일 경로이면서 부분 절 지정이 없는 경우: 기존 iframe 방식 (동적 확장 확인 추가)
+        if (paths.length === 1 && !paths[0].includes('#')) {
+            const rangeMatch = title.match(/(\d+)\s*-\s*(\d+)/);
+            if (rangeMatch) {
+                const startCh = parseInt(rangeMatch[1], 10);
+                const endCh = parseInt(rangeMatch[2], 10);
+                const match = paths[0].match(/(.*?_0*[A-Z]+_)(\d+)(\.html)$/i);
+                if (match) {
+                    const prefix = match[1];
+                    const numString = match[2];
+                    const ext = match[3];
+                    const padLength = numString.length;
+                    
+                    if (parseInt(numString, 10) === startCh) {
+                        paths = [];
+                        for (let i = startCh; i <= endCh; i++) {
+                            const paddedNum = String(i).padStart(padLength, '0');
+                            paths.push(`${prefix}${paddedNum}${ext}`);
+                        }
+                    }
+                }
+            }
+        }
+
         if (paths.length === 1 && !paths[0].includes('#')) {
             modalIframe.src = paths[0];
             modalIframe.style.display = 'block';
@@ -572,14 +595,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 const chapterNum = parts.length >= 2 ? parseInt(parts[1], 10) : '';
                 const normalizedKey = parts.length >= 2 ? `${bookCode}_${chapterNum}` : key;
                 
-                const url = audioKeyMap.get(normalizedKey);
-                if (url) {
-                    const videoId = getYouTubeID(url);
-                    if (videoId) {
-                        playlist.push({
-                            videoId: videoId,
-                            title: title
-                        });
+                const rangeMatch = title.match(/(\d+)\s*-\s*(\d+)/);
+                if (rangeMatch && parts.length === 2 && chapterNum === parseInt(rangeMatch[1], 10)) {
+                    const startCh = parseInt(rangeMatch[1], 10);
+                    const endCh = parseInt(rangeMatch[2], 10);
+                    for (let i = startCh; i <= endCh; i++) {
+                        const singleChapterKey = `${bookCode}_${i}`;
+                        const url = audioKeyMap.get(singleChapterKey);
+                        if (url) {
+                            const videoId = getYouTubeID(url);
+                            if (videoId) {
+                                let itemTitle = title.replace(/\s*\d+\s*-\s*\d+/, ' ' + i);
+                                playlist.push({
+                                    videoId: videoId,
+                                    title: itemTitle
+                                });
+                            }
+                        }
+                    }
+                } else {
+                    const url = audioKeyMap.get(normalizedKey);
+                    if (url) {
+                        const videoId = getYouTubeID(url);
+                        if (videoId) {
+                            playlist.push({
+                                videoId: videoId,
+                                title: title
+                            });
+                        }
                     }
                 }
             }
