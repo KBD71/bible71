@@ -4,71 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4월 18일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* style.css 기반 핵심 스타일 */
-        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
-        :root {
-            --font-main: 'KoPub Batang', serif;
-            --font-heading: 'Pretendard', sans-serif;
-            --color-text: #343a40;
-            --color-grey: #868e96;
-            --color-background: #f8f9fa;
-            --color-card-bg: #ffffff;
-            --color-border: #dee2e6;
-            --book1-color: #4285F4;
-            --book2-color: #DB4437;
-            --book3-color: #c89200;
-            --book4-color: #0F9D58;
-            --integration-color: #5f6368;
-            --overview-color: #6c757d;
-        }
-        body { font-family: var(--font-main); background-color: var(--color-background); color: var(--color-text); line-height: 1.8; margin: 0; padding: 0; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
-        .content-wrapper { max-width: 800px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 3rem; }
-        header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-        header h4 { font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-top: 0; }
-        .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; position: sticky; top: 0; background: rgba(248, 249, 250, 0.95); backdrop-filter: blur(8px); z-index: 1000; padding: 10px; margin-bottom: 2rem; border-radius: 12px; }
-        .tab-btn { font-family: var(--font-heading); padding: 10px 18px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; font-size: 0.9rem; }
-        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
-        .tab-btn[data-color="overview"].active { background-color: var(--overview-color); }
-        .tab-btn[data-color="book1"].active { background-color: var(--book1-color); }
-        .tab-btn[data-color="book2"].active { background-color: var(--book2-color); }
-        .tab-btn[data-color="book3"].active { background-color: var(--book3-color); }
-        .tab-btn[data-color="book4"].active { background-color: var(--book4-color); }
-        .tab-btn[data-color="integration"].active { background-color: var(--integration-color); }
-        .tab-content { display: none; animation: fadeIn 0.5s ease-in-out; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 8px solid; overflow: hidden; }
+        /* 맥체인 5.0 추가 스타일 및 히브리어 레이아웃 */
+        :root { --overview-color: #6c757d; }
+        .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
         .card-overview { border-color: var(--overview-color); }
-        .card-book1 { border-color: var(--book1-color); }
-        .card-book2 { border-color: var(--book2-color); }
-        .card-book3 { border-color: var(--book3-color); }
-        .card-book4 { border-color: var(--book4-color); }
-        .card-integration { border-color: var(--integration-color); }
-        .card-content { padding: 2rem; }
-        .card-content h3 { font-family: var(--font-heading); font-size: 1.6rem; margin-top: 0; color: #212529; }
-        .card-content h4 { font-family: var(--font-heading); border-bottom: 2px solid var(--color-border); padding-bottom: 0.5rem; margin-top: 2rem; }
-        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.2rem; margin-bottom: 1.5rem; border-radius: 4px; font-style: italic; }
-        .button-group { display: flex; gap: 1rem; margin-top: 2rem; }
-        .btn { padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; text-decoration: none; }
-        .btn-primary { background-color: #495057; color: white; }
-        .listen-audio-btn { display: none !important; }
-        /* 히브리어 특화 스타일 */
-        .hebrew-container { direction: rtl; display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
-        .hebrew-card { direction: ltr; border: 1px solid #dee2e6; padding: 10px; border-radius: 8px; text-align: center; flex: 1; min-width: 120px; background: #fff; }
-        .hebrew-word { font-size: 1.8rem; font-weight: bold; color: #1a5c9a; margin-bottom: 5px; }
-        .hebrew-trans { font-size: 0.9rem; color: #666; }
-        .hebrew-mean { font-weight: bold; color: #d93025; }
-        /* 모달 및 플레이어 */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
-        .modal-content { background: white; width: 90%; max-width: 800px; height: 80%; border-radius: 12px; display: flex; flex-direction: column; }
-        #audio-player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); color: white; padding: 15px; display: flex; align-items: center; justify-content: space-between; transform: translateY(100%); transition: transform 0.3s; z-index: 2001; }
-        #audio-player.visible { transform: translateY(0); }
+        .card-overview h3 { color: var(--overview-color); }
+        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.2rem; margin-bottom: 1.5rem; border-radius: 4px; }
+        .key-question-box p { margin: 0; font-weight: 600; color: #212529; font-style: italic; }
+        .hebrew-container { direction: rtl; display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; justify-content: center; }
+        .hebrew-card { direction: ltr; border: 1px solid #dee2e6; padding: 12px; border-radius: 8px; text-align: center; flex: 1; min-width: 100px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .hebrew-word { font-size: 2rem; font-weight: bold; color: #1a5c9a; margin-bottom: 5px; }
+        .hebrew-trans { font-size: 0.85rem; color: #666; font-style: italic; }
+        .hebrew-mean { font-weight: bold; color: #d93025; font-size: 0.95rem; }
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+
     <div class="container">
         <div class="content-wrapper">
             <header>
@@ -77,222 +31,157 @@
             </header>
 
             <nav class="tabs">
-                <button class="tab-btn active" data-color="overview" onclick="switchTab(0)">전체 개요</button>
-                <button class="tab-btn" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
-                <button class="tab-btn" data-color="book1" onclick="switchTab(2)">레위기 22장</button>
-                <button class="tab-btn" data-color="book2" onclick="switchTab(3)">시편 28-29편</button>
-                <button class="tab-btn" data-color="book3" onclick="switchTab(4)">전도서 5장</button>
-                <button class="tab-btn" data-color="book4" onclick="switchTab(5)">디모데후서 1장</button>
-                <button class="tab-btn" data-color="integration" onclick="switchTab(6)">신학적 종합</button>
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">레위기 22장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 28-29편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">전도서 5장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">디모데후서 1장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">신학적 종합</button>
             </nav>
 
             <main>
-                <div id="tab-0" class="tab-content active">
+                <div id="content-overview" class="tab-content active">
                     <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>오늘의 성경읽기 안내</h3>
-                            <p>오늘은 거룩한 예배와 하나님의 장엄한 통치, 그리고 복음을 향한 신실한 태도를 묵상합니다. 구약의 제사법부터 신약의 복음 전수까지 관통하는 주제는 '하나님의 거룩하심'입니다.</p>
+                            <h3>4월 18일 성경읽기 가이드</h3>
+                            <p>오늘은 거룩한 성물을 다루는 법(레위기), 창조주의 권능에 대한 찬양(시편), 예배자의 마땅한 태도(전도서), 그리고 복음을 향한 신실함(디모데후서)을 통해 '하나님을 경외함'의 실천적 의미를 묵상합니다.</p>
                             <ul>
-                                <li><strong>레위기 22장:</strong> 성물에 대한 규례와 흠 없는 제물의 중요성을 다룹니다.</li>
-                                <li><strong>시편 28-29편:</strong> 간구에 응답하시는 하나님과 폭풍 가운데 임하는 여호와의 영광스러운 소리를 찬양합니다.</li>
-                                <li><strong>전도서 5장:</strong> 하나님 앞에서 경솔한 서원을 금하며 경외함으로 예배할 것을 권고합니다.</li>
-                                <li><strong>디모데후서 1장:</strong> 복음과 함께 고난을 받으라는 바울의 마지막 권면이 시작됩니다.</li>
+                                <li><strong>원어 깊이 읽기:</strong> 시편 29:2절을 통해 '이름에 합당한 영광'의 의미를 살핍니다.</li>
+                                <li><strong>레위기 22장:</strong> 흠 없는 제물과 제사장의 성결 규례를 다룹니다.</li>
+                                <li><strong>시편 28-29편:</strong> 부르짖음에 응답하시는 반석과 폭풍 속의 여호와를 찬양합니다.</li>
+                                <li><strong>전도서 5장:</strong> 하나님 앞에서 말을 삼가며 경외함으로 예배할 것을 권고합니다.</li>
+                                <li><strong>디모데후서 1장:</strong> 복음과 함께 고난을 받으며 신앙의 유산을 지키라고 권면합니다.</li>
                             </ul>
                         </div>
                     </article>
                 </div>
 
-                <div id="tab-1" class="tab-content">
+                <div id="content-hebrew" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>원어 깊이 읽기: 시편 29편 2절</h3>
-                            <div class="key-question-box">
-                                <p>“여호와께 그의 이름에 합당한 영광을 돌리며 거룩한 옷을 입고 여호와께 예배할지어다”</p>
-                            </div>
+                            <h3>시편 29:2 — 영광의 무게</h3>
+                            <div class="key-question-box"><p>“여호와께 그의 이름에 합당한 영광을 돌리며 거룩한 옷을 입고 여호와께 예배할지어다”</p></div>
                             <h4>[알파벳 가이드]</h4>
-                            <p>본 구절의 핵심 동사 <strong>'하부'(הָבוּ)</strong>는 '헤(ה)', '베트(ב)', '바브(ו)'로 구성됩니다. '헤'는 숨결과 존재를, '베트'는 집과 안식을 상징합니다. 하나님께 영광을 돌리는 행위가 우리 존재의 집을 짓는 근간임을 보여줍니다.</p>
-                            
+                            <p>핵심 동사 <strong>'하부'(הָבוּ)</strong>는 '헤(ה)', '베트(ב)', '바브(ו)'로 구성됩니다. 히브리어 알파벳 '베트'는 집(House)을 의미하며, 하나님께 영광을 돌리는 것이 우리 영혼의 안식처를 짓는 일임을 상징적으로 보여줍니다.</p>
                             <h4>[본문 전수 해부] *오른쪽(RTL)부터 읽으십시오</h4>
                             <div class="hebrew-container">
-                                <div class="hebrew-card">
-                                    <div class="hebrew-word">הָב֣וּ</div>
-                                    <div class="hebrew-trans">Havu</div>
-                                    <div class="hebrew-mean">돌릴지어다</div>
-                                </div>
-                                <div class="hebrew-card">
-                                    <div class="hebrew-word">לַֽיהוָה</div>
-                                    <div class="hebrew-trans">L'Adonai</div>
-                                    <div class="hebrew-mean">여호와께</div>
-                                </div>
-                                <div class="hebrew-card">
-                                    <div class="hebrew-word">כְּב֬וֹד</div>
-                                    <div class="hebrew-trans">K'vod</div>
-                                    <div class="hebrew-mean">영광을</div>
-                                </div>
-                                <div class="hebrew-card">
-                                    <div class="hebrew-word">שְׁמ֑וֹ</div>
-                                    <div class="hebrew-trans">Sh'mo</div>
-                                    <div class="hebrew-mean">그의 이름의</div>
-                                </div>
+                                <div class="hebrew-card"><div class="hebrew-word">הָב֣וּ</div><div class="hebrew-trans">Havu</div><div class="hebrew-mean">돌릴지어다</div></div>
+                                <div class="hebrew-card"><div class="hebrew-word">לַֽיהוָה</div><div class="hebrew-trans">L'Adonai</div><div class="hebrew-mean">여호와께</div></div>
+                                <div class="hebrew-card"><div class="hebrew-word">כְּב֬וֹ드</div><div class="hebrew-trans">K'vod</div><div class="hebrew-mean">영광을</div></div>
+                                <div class="hebrew-card"><div class="hebrew-word">שְׁמ֑וֹ</div><div class="hebrew-trans">Sh'mo</div><div class="hebrew-mean">그의 이름의</div></div>
                             </div>
-
-                            <h4>[구문 분석 및 개혁주의 적용]</h4>
-                            <p>히브리어 '카보드'(영광)는 '무겁다'는 어원에서 유래했습니다. 하나님을 예배한다는 것은 그분의 존재를 우리 삶에서 가장 무겁고 가치 있게 대우하는 것입니다. 시편 기자는 자연의 거대한 폭풍 속에서도 그 무게를 발견하라고 촉구합니다. 이는 칼빈이 말한 '우주의 극장'에서 하나님의 영광을 발견하는 개혁주의적 세계관과 일치합니다.</p>
+                            <h4>[신학적 해설]</h4>
+                            <p>'영광'(카보드)은 원래 '무겁다'는 뜻입니다. 하나님을 예배하는 것은 그분의 존재를 우리 삶의 가장 무거운 가치로 두는 것입니다. 다윗은 폭풍우 속에서도 그분의 영광을 발견합니다. 이는 모든 상황 속에서 하나님의 주권을 인정하는 개혁주의 신앙의 핵심입니다.</p>
                             <div class="button-group">
-                                <button class="btn btn-primary" onclick="playAudio('PSA_28_29', '시편 28-29편')">오디오와 함께 읽기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_28_29" data-title="시편 28-29편">오디오 재생</button>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <div id="tab-2" class="tab-content">
+                <div id="content-book1" class="tab-content">
                     <article class="chapter-card card-book1">
                         <div class="card-content">
-                            <h3>레위기 22장: 성물과 제물의 거룩함</h3>
-                            <div class="key-question-box">
-                                <p>질문: 왜 하나님은 신체적 결함이 있는 짐승을 제물로 드리지 못하게 하셨는가?</p>
-                            </div>
-                            <h4>역사적 문맥과 구속사적 연결</h4>
-                            <p>레위기 22장은 제사장들이 성물을 다룰 때의 정결 규례와 하나님께 드려질 제물의 자격 요건을 상세히 규정합니다. 제사장이 부정할 때 성물을 먹는 것은 성소를 더럽히는 행위로 간주되어 엄격히 금지되었습니다.</p>
-                            <p>특히 '흠 없는 것'을 드려야 한다는 규정은 장차 오실 단번의 영원한 제물이신 예수 그리스도를 예표합니다. 바울은 이 원리를 따라 우리 자신을 '거룩한 산 제물'로 드리라고 권면합니다. 이는 외적인 완벽함이 아니라, 우리 마음의 중심이 온전히 하나님께 구별되어야 함을 의미합니다.</p>
+                            <h3>레위기 22장: 흠 없는 제물</h3>
+                            <div class="key-question-box"><p>질문: 왜 결함 있는 짐승은 제물이 될 수 없었는가?</p></div>
+                            <h4>상세 개요</h4>
+                            <p>제사장들이 성물을 다룰 때의 정결함과 제물의 자격 규정을 다룹니다. 흠 있는 제물은 하나님께 가납되지 않음을 엄격히 명시합니다.</p>
+                            <h4>신학적 해설</h4>
+                            <p>제물의 완벽함은 장차 오실 '흠 없는 어린 양' 예수 그리스도를 예표합니다. 우리는 그리스도의 완벽한 의를 덧입어 하나님께 나아갈 수 있게 되었습니다. 이는 인간의 공로가 아닌 오직 은혜에 의한 구원을 가르칩니다.</p>
                             <div class="button-group">
-                                <button class="btn btn-primary" onclick="viewText('https://kbd71.github.io/bible71/bible_html/LEV_22.html', '레위기 22장')">본문 보기</button>
-                                <button class="btn btn-secondary" onclick="playAudio('LEV_22', '레위기 22장')">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/LEV_22.html" data-title="레위기 22장">본문 보기</button>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <div id="tab-3" class="tab-content">
+                <div id="content-book2" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>시편 28-29편: 간구의 확신과 말씀의 위엄</h3>
-                            <div class="key-question-box">
-                                <p>질문: '여호와의 소리'가 자연 만물을 진동시킨다는 표현이 주는 영적 위로는 무엇인가?</p>
-                            </div>
+                            <h3>시편 28-29편: 권능의 말씀</h3>
+                            <div class="key-question-box"><p>질문: '여호와의 소리'가 강조되는 이유는 무엇인가?</p></div>
+                            <h4>상세 개요</h4>
+                            <p>다윗은 개인적인 탄원에서 시작하여(28편), 만물을 진동시키는 하나님의 장엄한 통치에 대한 찬양으로 나아갑니다(29편).</p>
                             <h4>신학적 해설</h4>
-                            <p>28편에서 다윗은 침묵하시는 것 같은 하나님께 부르짖으며 '나의 반석'이 되어 주시길 간구합니다. 이는 성도가 고난 중에 가져야 할 신앙적 태도, 즉 오직 은혜의 보좌만을 바라보는 전적 의존을 보여줍니다.</p>
-                            <p>이어지는 29편은 분위기가 반전되어 대자연의 폭풍 속에서 들려오는 하나님의 권능을 노래합니다. '여호와의 소리'는 창조의 말씀이자 심판의 말씀입니다. 개혁주의 신학에서 강조하는 'Sola Scriptura'의 원형을 우리는 이 장엄한 소리에서 발견합니다. 만물을 복종시키시는 말씀의 능력은 결국 자기 백성에게 평강의 복을 주시는 것으로 귀결됩니다.</p>
+                            <p>'여호와의 소리'는 창조와 심판의 능력을 가진 말씀입니다. 말씀 한 마디로 만물을 통치하시는 하나님께서 자기 백성에게 평강을 주신다는 사실은 성도에게 가장 큰 위로가 됩니다.</p>
                             <div class="button-group">
-                                <button class="btn btn-primary" onclick="viewText('https://kbd71.github.io/bible71/bible_html/PSA_28.html,https://kbd71.github.io/bible71/bible_html/PSA_29.html', '시편 28-29편')">본문 보기</button>
-                                <button class="btn btn-secondary" onclick="playAudio('PSA_28_29', '시편 28-29편')">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/PSA_28.html,https://kbd71.github.io/bible71/bible_html/PSA_29.html" data-title="시편 28-29편">본문 보기</button>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <div id="tab-4" class="tab-content">
+                <div id="content-book3" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>전도서 5장: 하나님 앞에서의 태도</h3>
-                            <div class="key-question-box">
-                                <p>질문: '말을 적게 하라'는 전도자의 권고가 현대 예배자들에게 주는 교훈은?</p>
-                            </div>
+                            <h3>전도서 5장: 예배자의 경건</h3>
+                            <div class="key-question-box"><p>질문: '하나님 앞에서 말을 적게 하라'는 의미는?</p></div>
+                            <h4>상세 개요</h4>
+                            <p>성소에 들어갈 때의 조심성, 서원의 중요성, 그리고 재물의 허무함과 자족하는 삶에 대해 가르칩니다.</p>
                             <h4>신학적 해설</h4>
-                            <p>솔로몬은 하나님의 집에 들어갈 때 발을 삼가고, 함부로 입을 열어 서원하지 말라고 경고합니다. 이는 하나님과 인간 사이의 존재론적 간극, 즉 '하나님은 하늘에 계시고 너는 땅에 있음이니라'는 사실을 자각하라는 것입니다.</p>
-                            <p>또한 재물의 허무함을 지적하며, 하나님이 주신 몫에 자족하는 것이 인간의 복임을 강조합니다. 이는 웨스트민스터 소요리문답 제1문이 고백하듯, 인간의 제일 되는 목적이 하나님을 영화롭게 하고 영원토록 즐거워하는 것임을 일깨워줍니다. 재물은 도구일 뿐이며, 오직 하나님만이 우리의 만족이 되십니다.</p>
+                            <p>하나님은 하늘에 계시고 우리는 땅에 있다는 존재론적 질서를 자각하는 것이 예배의 시작입니다. 인간의 제일 되는 목적은 재물을 모으는 것이 아니라 하나님 안에서 즐거워하는 것입니다.</p>
                             <div class="button-group">
-                                <button class="btn btn-primary" onclick="viewText('https://kbd71.github.io/bible71/bible_html/ECC_05.html', '전도서 5장')">본문 보기</button>
-                                <button class="btn btn-secondary" onclick="playAudio('ECC_5', '전도서 5장')">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/ECC_05.html" data-title="전도서 5장">본문 보기</button>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <div id="tab-5" class="tab-content">
+                <div id="content-book4" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>디모데후서 1장: 복음의 유산과 전수</h3>
-                            <div class="key-question-box">
-                                <p>질문: 바울이 고난 중에 '부끄러워하지 말라'고 강조한 이유는 무엇인가?</p>
-                            </div>
+                            <h3>디모데후서 1장: 고난과 소명</h3>
+                            <div class="key-question-box"><p>질문: 디모데가 부끄러워하지 말아야 할 대상은 무엇인가?</p></div>
+                            <h4>상세 개요</h4>
+                            <p>바울은 디모데의 신앙 내력을 상기시키며, 두려워하는 마음을 버리고 성령의 능력으로 복음을 지키라고 권면합니다.</p>
                             <h4>신학적 해설</h4>
-                            <p>죽음을 앞둔 바울이 사랑하는 아들 디모데에게 보낸 마지막 서신입니다. 바울은 디모데의 외조모 로이스와 어머니 유니게로부터 전해 내려온 '거짓 없는 믿음'을 상기시키며 사역을 격려합니다. 이는 신앙의 계승이 언약 공동체 내에서 얼마나 중요한지를 보여줍니다.</p>
-                            <p>성령의 능력으로 복음과 함께 고난을 받으라는 바울의 외침은 개혁주의 성도가 세상 속에서 견지해야 할 '전투적 교회'의 모습입니다. 우리가 복음을 부끄러워하지 않을 수 있는 근거는 우리의 구원이 우리의 행위가 아닌 '하나님의 뜻과 은혜'에 근거했기 때문입니다.</p>
+                            <p>복음 전파에는 반드시 고난이 따르지만, 이는 하나님의 영원한 작정과 은혜에 근거한 것입니다. 성도는 자신의 능력이 아닌 우리 안에 거하시는 성령을 의지하여 소명을 완수해야 합니다.</p>
                             <div class="button-group">
-                                <button class="btn btn-primary" onclick="viewText('https://kbd71.github.io/bible71/bible_html/2TI_01.html', '디모데후서 1장')">본문 보기</button>
-                                <button class="btn btn-secondary" onclick="playAudio('2TI_1', '디모데후서 1장')">성경 듣기</button>
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/2TI_01.html" data-title="디모데후서 1장">본문 보기</button>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <div id="tab-6" class="tab-content">
-                    <article class="integration-card card-integration">
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
                         <div class="card-content">
-                            <h3>종합 묵상: "영광과 거룩의 질서"</h3>
-                            <h4>핵심 요약: 예배의 태도가 신앙의 본질을 결정합니다.</h4>
-                            <p>오늘의 본문들은 우리를 거룩하신 하나님 앞으로 초대합니다. 레위기와 전도서는 예배자의 정결과 경외함을 가르치며, 시편은 그 소리에 압도되어 영광을 돌리라고 외칩니다. 그리고 디모데후서는 그 거룩한 복음을 삶으로 살아내라고 권면합니다.</p>
-                            <p>우리는 흔히 예배를 감정적 만족으로 오해하지만, 성경은 '합당한 영광'을 돌리는 질서 있는 행위임을 명시합니다. 창조주와 피조물의 질서를 회복할 때, 우리는 비로소 대자연의 폭풍 속에서도 두려움이 아닌 평강의 복을 누릴 수 있습니다. 오늘 하루, 하나님 앞에 흠 없는 산 제물로 서는 은혜가 있기를 소망합니다.</p>
+                            <h3>주제 중심 신학적 종합: "하나님 경외의 회복"</h3>
+                            <h4>핵심요약: 예배의 정결함이 삶의 질서를 만듭니다.</h4>
+                            <p>오늘의 모든 본문은 '하나님을 어떻게 대우할 것인가'를 묻습니다. 흠 없는 제물을 드리는 마음, 하나님의 권능에 압도되는 찬양, 입을 조심하는 예배, 고난 중에도 굴하지 않는 복음의 확신은 모두 한 곳을 향합니다. 바로 하나님의 절대 주권에 대한 인정입니다. 우리가 하나님을 가장 가치 있게 대할 때, 세상의 헛된 재물과 두려움에서 자유로워질 수 있습니다.</p>
                             <div class="button-group">
-                                <a href="#" class="btn btn-primary" onclick="switchTab(0); return false;">처음으로 돌아가기</a>
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
                             </div>
                         </div>
                     </article>
                 </div>
             </main>
-
-            <footer>
-                <p>&copy; 2026 MacCheyne 5.0. 개혁주의 신학 성경읽기 가이드.</p>
-            </footer>
         </div>
     </div>
 
     <div class="modal-overlay" id="text-modal">
         <div class="modal-content">
-            <div style="padding: 15px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between;">
-                <h2 id="modal-title" style="margin:0;">성경 본문</h2>
-                <button onclick="closeModal()" style="font-size: 1.5rem; cursor: pointer; border:none; background:none;">&times;</button>
-            </div>
-            <iframe id="modal-iframe" style="flex:1; border:none;"></iframe>
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+    </div>
+
+    <div id="player-container"></div>
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
         </div>
     </div>
 
-    <div id="audio-player">
-        <span id="player-info">재생 대기 중...</span>
-        <div style="display:flex; gap:15px;">
-            <button id="play-pause" onclick="togglePlay()" style="background:none; border:none; color:white; font-size:1.2rem; cursor:pointer;">▶</button>
-            <button onclick="closePlayer()" style="background:none; border:none; color:#aaa; cursor:pointer;">✕</button>
-        </div>
-    </div>
-
-    <script>
-        function switchTab(index) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`tab-${index}`).classList.add('active');
-            document.querySelectorAll('.tab-btn')[index].classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function viewText(url, title) {
-            const modal = document.getElementById('text-modal');
-            const iframe = document.getElementById('modal-iframe');
-            document.getElementById('modal-title').innerText = title;
-            iframe.src = url.split(',')[0]; // 첫 번째 장 우선 표시
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('text-modal').style.display = 'none';
-        }
-
-        function playAudio(key, title) {
-            const player = document.getElementById('audio-player');
-            document.getElementById('player-info').innerText = title + " 재생 중...";
-            player.classList.add('visible');
-            // 실제 구현 시 유튜브 API 연동 구문 삽입 위치
-            console.log("Playing audio for key:", key);
-        }
-
-        function closePlayer() {
-            document.getElementById('audio-player').classList.remove('visible');
-        }
-
-        function togglePlay() {
-            const btn = document.getElementById('play-pause');
-            btn.innerText = btn.innerText === '▶' ? '⏸' : '▶';
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
