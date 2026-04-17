@@ -1,751 +1,258 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // --- 전역 변수 및 객체 ---
-    let ytPlayer, isPlayerReady = false;
-    const audioKeyMap = new Map();
-    let currentTabIndex = 0;
-    let playlist = [];
-    let currentPlayIndex = 0;
-
-    // --- DOM 요소 캐싱 ---
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    const floatingNav = document.getElementById('floating-nav');
-    const prevTabBtn = document.getElementById('prev-tab');
-    const nextTabBtn = document.getElementById('next-tab');
-    const currentTabInfo = document.getElementById('current-tab-info');
-    const progressBar = document.getElementById('reading-progress');
-
-    const modalOverlay = document.getElementById('text-modal');
-    const modalCloseBtn = document.getElementById('modal-close');
-    const modalTitle = document.getElementById('modal-title');
-    const modalIframe = document.getElementById('modal-iframe');
-
-    const audioPlayerBar = document.getElementById('audio-player');
-    const playerInfo = document.getElementById('player-info');
-    const playPauseBtn = document.getElementById('play-pause-btn');
-    const closePlayerBtn = document.getElementById('close-player-btn');
-
-    // --- 초기화 ---
-    function init() {
-        initYouTubeAPI();
-        loadAudioKeys();
-        setupEventListeners();
-        loadCompletionStatus();
-        updateFloatingNav();
-        updateReadingProgress();
-    }
-
-    // --- YouTube API 관련 ---
-    function initYouTubeAPI() {
-        // 이미 YT 객체가 있으면 바로 초기화 진행 시도
-        if (window.YT && window.YT.Player) {
-            onYouTubeIframeAPIReady();
-            return;
-        }
-
-        // 스크립트가 이미 로드 중인지 확인
-        if (document.querySelector('script[src*="youtube.com/iframe_api"]')) {
-            // 이미 로드 중인 경우 onYouTubeIframeAPIReady가 호출될 때까지 대기
-            const originalReady = window.onYouTubeIframeAPIReady;
-            window.onYouTubeIframeAPIReady = () => {
-                if (originalReady) originalReady();
-                createPlayer();
-            };
-            return;
-        }
-
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        document.head.appendChild(tag);
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4월 18일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --overview-color: #6c757d; }
+        .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-overview h3 { color: var(--overview-color); }
+        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
+        .key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
         
-        window.onYouTubeIframeAPIReady = createPlayer;
-    }
+        /* 원어 분석 심화 레이아웃 */
+        .hebrew-grid { display: flex; flex-direction: column; gap: 1.5rem; margin: 2rem 0; }
+        .hebrew-entry { background: #fff; border: 1px solid #dee2e6; border-radius: 12px; padding: 1.5rem; border-right: 6px solid #1a5c9a; direction: ltr; position: relative; }
+        .hebrew-word-row { display: flex; align-items: baseline; gap: 15px; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .h-word { font-size: 2.2rem; font-weight: bold; color: #1a5c9a; font-family: 'Times New Roman', serif; }
+        .h-label { font-size: 0.9rem; color: #888; font-weight: bold; text-transform: uppercase; }
+        .h-content { font-size: 1rem; line-height: 1.7; color: #333; margin-top: 5px; }
+        .h-content b { color: #d93025; }
+        .pronounce-btn { background: #f8f9fa; border: 1px solid #ddd; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 14px; position: absolute; right: 20px; top: 20px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .pronounce-btn:hover { background: #e9ecef; }
+        
+        .sentence-summary { background: #e7f3ff; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; border: 1px solid #b3d7ff; direction: ltr; }
+        .sentence-summary h5 { margin: 0 0 10px 0; font-size: 1.1rem; color: #0056b3; }
+        .original-verse { font-size: 1.5rem; font-weight: bold; color: #1a5c9a; margin-top: 10px; display: block; text-align: right; direction: rtl; }
+    </style>
+</head>
+<body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
-    function createPlayer() {
-        if (!document.getElementById('player-container')) {
-            console.warn('player-container not found, creating one...');
-            const div = document.createElement('div');
-            div.id = 'player-container';
-            div.style.display = 'none';
-            document.body.appendChild(div);
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>4월 18일</h1>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">레위기 22장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 28-29편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">전도서 5장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">디모데후서 1장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
+            </nav>
+
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>오늘의 성경적 권면</h3>
+                            <p>오늘은 거룩한 성물을 다루는 제사장의 성결함과 자연의 경이로움 속에 울려 퍼지는 하나님의 위엄 있는 소리, 그리고 복음을 지키기 위한 사도적 고난을 묵상합니다.</p>
+                            <ul>
+                                <li><strong>레위기 22장:</strong> 성결 규례와 흠 없는 제물의 의미를 살핍니다.</li>
+                                <li><strong>시편 28-29편:</strong> 간구에 응답하시는 반석과 폭풍 가운데 임하는 여호와의 소리를 찬양합니다.</li>
+                                <li><strong>전도서 5장:</strong> 하나님 앞에서 말을 삼가며 경외함으로 예배할 것을 배웁니다.</li>
+                                <li><strong>디모데후서 1장:</strong> 성령의 능력으로 복음과 함께 고난을 받으라는 권면을 듣습니다.</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-hebrew" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>원어 심층 분석: 시편 29편 2절</h3>
+                            <div class="key-question-box">
+                                <p>“여호와께 그의 이름에 합당한 영광을 돌리며 거룩한 옷을 입고 여호와께 예배할지어다”</p>
+                            </div>
+
+                            <div class="hebrew-grid">
+                                <div class="hebrew-entry">
+                                    <button class="pronounce-btn" onclick="speakHebrew('הָבוּ')">🔊</button>
+                                    <div class="hebrew-word-row">
+                                        <span class="h-word">הָבוּ</span>
+                                        <span class="h-label">(Havu)</span>
+                                    </div>
+                                    <p class="h-content"><strong>원래 뜻:</strong> '가져오다', '주다', '바치다'는 뜻을 가진 동사 '야합(יָהַב)'의 명령형입니다. 본래 다른 이에게 속한 정당한 몫을 되돌려주는 행위를 지칭합니다.</p>
+                                    <p class="h-content"><strong>신학적 해설:</strong> 예배는 우리가 새로운 영광을 하나님께 보태는 것이 아니라, 원래 하나님의 것인 영광을 <b>인정하여 돌려드리는 것</b>입니다. 이는 창조주에 대한 피조물의 당연한 의무를 선포합니다.</p>
+                                </div>
+
+                                <div class="hebrew-entry">
+                                    <button class="pronounce-btn" onclick="speakHebrew('כָּבוֹד')">🔊</button>
+                                    <div class="hebrew-word-row">
+                                        <span class="h-word">כָּבוֹד</span>
+                                        <span class="h-label">(Kavod)</span>
+                                    </div>
+                                    <p class="h-content"><strong>원래 뜻:</strong> '무겁다', '중량이 나가다'는 의미의 '카바드(כָּבַד)'에서 유래했습니다. 고대 세계에서 가치는 곧 무게로 측정되었기에 '풍요'와 '존귀'를 동시에 뜻합니다.</p>
+                                    <p class="h-content"><strong>신학적 해설:</strong> 하나님을 영광스럽게 하는 것은 그분을 우리 삶에서 <b>가장 무거운 분</b>으로 대우하는 것입니다. 세상을 가볍게 여기고 하나님을 가장 가치 있게 여기는 것이 경외함의 본질입니다.</p>
+                                </div>
+
+                                <div class="hebrew-entry">
+                                    <button class="pronounce-btn" onclick="speakHebrew('בְּהַדְרַת־קֹדֶשׁ')">🔊</button>
+                                    <div class="hebrew-word-row">
+                                        <span class="h-word">בְּהַדְרַת־קֹדֶשׁ</span>
+                                        <span class="h-label">(Be-hadrat-qodesh)</span>
+                                    </div>
+                                    <p class="h-content"><strong>원래 뜻:</strong> '아름다움' 혹은 '화려한 장식'을 뜻하는 '하다라'와 '구별됨'의 '코데쉬'가 결합했습니다. 성소의 거룩한 예복과 엄숙한 분위기를 뜻합니다.</p>
+                                    <p class="h-content"><strong>신학적 해설:</strong> 예배자는 외적인 화려함이 아니라 <b>하나님의 거룩함이라는 장식</b>을 입어야 합니다. 거룩함은 예배자가 갖추어야 할 유일하고도 필수적인 예복입니다.</p>
+                                </div>
+                            </div>
+
+                            <div class="sentence-summary">
+                                <h5>[심층 해설 및 원문]</h5>
+                                <p>이 구절은 여호와의 이름, 즉 그분의 모든 속성과 인격에 걸맞은 최고의 무게감을 인정하며 구별된 태도로 굴복할 것을 명령합니다. 이는 만물의 왕이신 하나님 앞에 서는 피조물의 정당한 반응입니다.</p>
+                                <span class="original-verse">הָב֣וּ לַ֭יהוָה כְּב֣וֹ드 שְׁמ֑וֹ הִשְׁתַּחֲו֥וּ לַ֝יהוָ֗ה בְּהַדְרַת־קֹֽדֶשׁ׃</span>
+                            </div>
+                            
+                            <div class="button-group">
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_28_29" data-title="시편 28-29편">오디오 재생</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>레위기 22장: 성결의 규례와 흠 없는 제물</h3>
+                            <div class="key-question-box">
+                                <p>질문: 왜 하나님은 흠 있는 짐승을 드리는 것을 가증하게 여기셨는가?</p>
+                            </div>
+                            <h4>역사적 배경과 제사장의 책임</h4>
+                            <p>레위기 22장은 제사장들이 거룩한 성물을 다룰 때 요구되는 엄격한 정결 규례를 명시합니다. 제사장은 부정한 상태에서 성물을 먹을 수 없었으며, 이는 하나님의 성호(聖號)를 욕되게 하지 않기 위함이었습니다. 하나님의 직분자가 먼저 정결해야 한다는 이 원리는 현대 교회의 지도자와 성도들에게 동일하게 적용됩니다.</p>
+                            <h4>흠 없는 제물의 구속사적 의미</h4>
+                            <p>하나님은 신체적 결함이 있는 짐승을 제물로 드리는 행위를 엄히 금하셨습니다. 이는 장차 우리의 죄를 대속하시기 위해 오실 <b>'흠 없고 점 없는 어린 양'</b>이신 예수 그리스도를 예표합니다. 우리가 드리는 최상의 제물이라 할지라도 결국 그리스도의 완벽한 의를 덧입지 않고서는 하나님께 열납될 수 없음을 가르칩니다.</p>
+                            <h4>신학적 적용</h4>
+                            <p>칼빈은 본문을 주해하며 예배자가 하나님께 나아갈 때 '남은 것'을 드리는 태도를 강력히 경계했습니다. 예배의 중심은 드리는 자의 정성 이전에, 하나님께서 요구하시는 거룩한 기준에 부합하는가에 있습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/LEV_22.html" data-title="레위기 22장">본문 보기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>시편 28-29편: 반석과 영광의 소리</h3>
+                            <div class="key-question-box">
+                                <p>질문: 자연의 거대한 폭풍 속에서 하나님의 영광을 어떻게 발견할 수 있는가?</p>
+                            </div>
+                            <h4>28편: 침묵을 뚫는 탄원</h4>
+                            <p>다윗은 침묵하시는 것 같은 하나님을 향해 부르짖습니다. 그에게 하나님은 '반석'이시며, 이 반석은 변하지 않는 하나님의 작정과 신실하심을 상징합니다. 개혁주의 신학에서 기도는 하나님의 계획을 바꾸는 것이 아니라, 기도자가 하나님의 신실한 통치(반석) 위로 옮겨지는 과정입니다.</p>
+                            <h4>29편: 폭풍우 속의 여호와</h4>
+                            <p>29편은 '여호와의 소리'가 일곱 번이나 반복되며 창조주의 장엄함을 선포합니다. 가나안 사람들이 폭풍을 바알의 위력으로 두려워할 때, 다윗은 그 폭풍의 근원이 여호와의 목소리라고 선포합니다. 만물을 복종시키시는 하나님의 말씀은 결국 자기 백성에게 평강을 주시는 구원의 방편이 됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/PSA_28.html,https://kbd71.github.io/bible71/bible_html/PSA_29.html" data-title="시편 28-29편">본문 보기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>전도서 5장: 예배자의 경외심과 자족의 지혜</h3>
+                            <div class="key-question-box">
+                                <p>질문: '하나님은 하늘에 계시고 너는 땅에 있음이니라'는 선언이 주는 교훈은 무엇인가?</p>
+                            </div>
+                            <h4>경거망동을 금하는 예배</h4>
+                            <p>전도자는 하나님의 집에 들어갈 때 발을 삼가라고 권고합니다. 예배는 많은 말을 쏟아붓는 시간이 아니라 하나님의 말씀을 경청하는 시간입니다. 인간의 유한함을 인정하고 하나님의 초월성을 경외하는 것이 참된 지혜의 시작입니다.</p>
+                            <h4>재물의 허무와 하나님의 선물</h4>
+                            <p>은을 사랑하는 자는 은으로 만족할 수 없습니다. 소유의 증가가 평안을 보장하지 않음을 강조하며, 하나님이 주신 몫을 기쁨으로 누리는 것 자체가 '하나님의 선물'임을 역설합니다. 이는 자본주의 사회 속에서도 신자가 누려야 할 자족의 개혁주의적 태도를 보여줍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/ECC_05.html" data-title="전도서 5장">본문 보기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>디모데후서 1장: 복음을 부끄러워하지 않는 믿음</h3>
+                            <div class="key-question-box">
+                                <p>질문: 사역자가 '두려워하는 마음'을 극복하는 유일한 길은 무엇인가?</p>
+                            </div>
+                            <h4>신앙의 유산과 성령의 능력</h4>
+                            <p>바울은 로이스와 유니게로부터 흐른 디모데의 신앙 유산을 상기시킵니다. 신앙은 성령의 능력 안에서 계승됩니다. 하나님이 주신 것은 두려워하는 마음이 아니라 오직 능력과 사랑과 절제하는 마음입니다. 우리는 우리 안에 거하시는 성령을 의지하여 복음의 아름다운 부탁을 지켜내야 합니다.</p>
+                            <h4>고난의 영광</h4>
+                            <p>바울은 쇠사슬에 매인 자신을 부끄러워하지 말고 오직 하나님의 능력을 따라 복음과 함께 고난을 받으라고 명령합니다. 복음의 가치를 발견한 자는 세상의 수치를 넉넉히 이길 수 있는 담대함을 얻게 됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/2TI_01.html" data-title="디모데후서 1장">본문 보기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>종합 묵상: "경외함으로 열리는 평강의 문"</h3>
+                            <p>오늘의 네 본문은 우리가 하나님을 '가장 무거운 분(영광)'으로 대우할 때 비로소 우리 삶의 질서가 바로 잡힘을 보여줍니다. 흠 없는 제물로 그분의 가치를 인정하고(레위기), 폭풍우 속에서도 그분의 목소리를 들으며(시편), 입을 닫고 그분의 광대하심을 경외하며(전도서), 그 영광스러운 복음을 위해 기꺼이 고난을 지는 것(디모데후서). 이것이 오늘 우리에게 요구되는 하나님 경외의 삶입니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+             </footer>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+    </div>
+
+    <div id="player-container"></div>
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+        </div>
+    </div>
+
+    <script>
+        // 히브리어 발음 기능
+        function speakHebrew(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'he-IL'; // 히브리어 설정
+                speechSynthesis.speak(utterance);
+            } else {
+                alert("이 브라우저는 발음 듣기를 지원하지 않습니다.");
+            }
         }
 
-        ytPlayer = new YT.Player('player-container', {
-            height: '0', width: '0',
-            playerVars: { 'autoplay': 0, 'controls': 0, 'rel': 0, 'fs': 0 },
-            events: {
-                'onReady': (event) => {
-                    isPlayerReady = true;
-                    // Expose player to window for global control from index.html
-                    window.player = ytPlayer;
-                    console.log('YT Player Ready (Internal)');
-                },
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    }
-
-
-    // --- 부모 창 플레이어 제목 업데이트 함수 ---
-    function updateParentPlayerTitle(title) {
-        try {
-            // iframe에서 실행 중인지 확인하고 부모 창의 playerTitle 업데이트
-            if (window.parent && window.parent !== window) {
-                const parentPlayerTitle = window.parent.document.getElementById('player-title');
-                if (parentPlayerTitle) {
-                    parentPlayerTitle.textContent = title;
-                    console.log('Parent player title updated:', title);
-                }
-            }
-        } catch (e) {
-            // Cross-origin 이슈 등으로 접근 불가능한 경우 무시
-            console.warn('Cannot update parent player title:', e);
-        }
-    }
-
-    // --- 데이터 로딩 및 파싱 ---
-    // mcbible.txt와 HTML 파일 간의 책 코드 불일치를 해결하기 위한 매핑
-    // mcbible.txt (오디오 소스) → bible_html (본문 파일) 형식으로 변환
-    const bookCodeMapping = {
-        "MRK": "MAR",  // 마가복음: mcbible.txt는 MRK, bible_html은 MAR 사용
-        "JHN": "JOH",  // 요한복음: mcbible.txt는 JHN, bible_html은 JOH 사용
-        "PHP": "PHI",  // 빌립보서: mcbible.txt는 PHP, bible_html은 PHI 사용
-        "JAS": "JAM"   // 야고보서: mcbible.txt는 JAS, bible_html은 JAM 사용
-    };
-
-    async function loadAudioKeys() {
-        try {
-            const response = await fetch('https://kbd71.github.io/bible71/address/mcbible.txt');
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const text = await response.text();
-            text.split('\n').forEach(line => {
-                if (line.trim()) {
-                    const parts = line.trim().split(/\s+/);
-                    const longKey = parts[0];
-                    const url = parts[1];
-                    if (longKey && url) {
-                        const keyParts = longKey.split('_');
-                        if (keyParts.length >= 3) {
-                            const book = keyParts[2];
-                            // 책 코드 매핑 적용 (MRK → MAR 등)
-                            const mappedBook = bookCodeMapping[book] || book;
-                            const chapter = parseInt(keyParts.at(-1), 10);
-                            const shortKey = `${mappedBook}_${chapter}`;
-                            audioKeyMap.set(shortKey, url);
-                        }
-                    }
-                }
+        // 본문 보기 디버깅용 이벤트 (기존 script.js와 충돌 방지를 위해 별도 정의)
+        document.querySelectorAll('.view-text-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const path = this.getAttribute('data-path');
+                console.log("요청된 성경 경로:", path);
             });
-        } catch (error) {
-            console.error("mcbible.txt 로드 실패:", error);
-        }
-    }
-
-    function getYouTubeID(url) {
-        const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-        const match = url.match(regex);
-        return match ? match[1] : null;
-    }
-
-    // --- 이벤트 리스너 설정 ---
-    function setupEventListeners() {
-        tabButtons.forEach((button, index) => button.addEventListener('click', () => switchTab(index)));
-        document.querySelectorAll('.view-text-btn').forEach(button => button.addEventListener('click', () => openTextModal(button)));
-        document.querySelectorAll('.listen-audio-btn').forEach(button => button.addEventListener('click', () => playAudio(button)));
-
-        modalCloseBtn.addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-
-        playPauseBtn.addEventListener('click', togglePlayPause);
-        closePlayerBtn.addEventListener('click', closeAudioPlayer);
-
-        prevTabBtn.addEventListener('click', () => switchTab(currentTabIndex - 1));
-        nextTabBtn.addEventListener('click', () => switchTab(currentTabIndex + 1));
-
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
-            updateReadingProgress();
-            checkReadingCompletion();
-            const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                if (!audioPlayerBar.classList.contains('visible')) floatingNav.classList.add('hidden');
-            } else {
-                floatingNav.classList.remove('hidden');
-            }
-            lastScrollY = currentScrollY < 0 ? 0 : currentScrollY;
-        }, { passive: true });
-        window.addEventListener('resize', updateReadingProgress);
-
-        // 부모 창으로부터의 명령 수신 (재생/일시정지 제어)
-        window.addEventListener('message', (event) => {
-            const data = event.data;
-            if (data && data.type === 'mccheyneCommand') {
-                if (data.command === 'play' && ytPlayer && typeof ytPlayer.playVideo === 'function') {
-                    ytPlayer.playVideo();
-                } else if (data.command === 'pause' && ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
-                    ytPlayer.pauseVideo();
-                }
-            }
         });
-    }
-
-    // --- 기능별 함수 ---
-    // 스크롤 위치 저장 변수
-    let savedScrollY = 0;
-
-    function openTextModal(button) {
-        const paths = button.dataset.path.split(',').map(p => p.trim());
-        const title = button.dataset.title;
-
-        modalTitle.innerText = title;
-        modalOverlay.classList.add('visible');
-
-        // 이전 콘텐츠 초기화 (srcdoc가 src보다 우선순위가 높으므로 반드시 제거)
-        modalIframe.removeAttribute('srcdoc');
-
-        // 현재 스크롤 위치 저장
-        savedScrollY = window.scrollY;
-
-        // 배경 스크롤 방지 (모바일/데스크톱 공통)
-        document.body.style.overflow = 'hidden';
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${savedScrollY}px`;
-        document.body.style.left = '0';
-        document.body.style.right = '0';
-
-        // 단일 경로이면서 부분 절 지정이 없는 경우: 기존 iframe 방식 (동적 확장 확인 추가)
-        if (paths.length === 1 && !paths[0].includes('#')) {
-            const rangeMatch = title.match(/(\d+)\s*-\s*(\d+)/);
-            if (rangeMatch) {
-                const startCh = parseInt(rangeMatch[1], 10);
-                const endCh = parseInt(rangeMatch[2], 10);
-                const match = paths[0].match(/(.*?_0*[A-Z]+_)(\d+)(\.html)$/i);
-                if (match) {
-                    const prefix = match[1];
-                    const numString = match[2];
-                    const ext = match[3];
-                    const padLength = numString.length;
-                    
-                    if (parseInt(numString, 10) === startCh) {
-                        paths = [];
-                        for (let i = startCh; i <= endCh; i++) {
-                            const paddedNum = String(i).padStart(padLength, '0');
-                            paths.push(`${prefix}${paddedNum}${ext}`);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (paths.length === 1 && !paths[0].includes('#')) {
-            modalIframe.src = paths[0];
-            modalIframe.style.display = 'block';
-
-            modalIframe.onload = () => {
-                applyIframeStyles(modalIframe);
-            };
-        }
-        // 다중 경로 또는 부분 절 지정이 있는 경우: fetch로 콘텐츠 합치기
-        else {
-            loadAndMergeContent(paths);
-        }
-    }
-
-    // iframe 스타일 적용 헬퍼 함수
-    function applyIframeStyles(iframe) {
-        try {
-            const doc = iframe.contentDocument || iframe.contentWindow.document;
-
-            // 1. 중복 타이틀 숨기기
-            const h1 = doc.querySelector('h1');
-            if (h1) h1.style.display = 'none';
-
-            // 2. 폰트 사이즈 적용
-            if (window.parent && window.parent.currentFontSize) {
-                const fontSize = 16 * (window.parent.currentFontSize / 100);
-                doc.documentElement.style.fontSize = fontSize + 'px';
-                doc.body.style.fontSize = fontSize + 'px';
-            }
-
-            // 3. iframe 내부 body 스크롤 강제 활성화
-            doc.body.style.overflow = 'auto';
-            doc.body.style.overflowY = 'scroll';
-            doc.body.style.webkitOverflowScrolling = 'touch';
-        } catch (e) {
-            console.warn('Cannot access iframe content:', e);
-        }
-
-        iframe.style.pointerEvents = 'auto';
-        iframe.style.touchAction = 'pan-y';
-        iframe.style.overflowY = 'auto';
-        iframe.style.webkitOverflowScrolling = 'touch';
-    }
-
-    // 다중 URL의 콘텐츠를 가져와 합치는 함수
-    async function loadAndMergeContent(paths) {
-        try {
-            const contentPromises = paths.map(async (pathWithHash) => {
-                // URL과 절 범위 분리 (예: url#1-15)
-                const [url, verseRange] = pathWithHash.split('#');
-
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`Failed to fetch: ${url}`);
-                const html = await response.text();
-
-                // HTML 파싱
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const bibleContent = doc.querySelector('.bible-content');
-                const chapterTitle = doc.querySelector('h1');
-
-                if (!bibleContent) return '';
-
-                // 부분 절 필터링
-                if (verseRange) {
-                    const [startVerse, endVerse] = verseRange.split('-').map(Number);
-                    const paragraphs = bibleContent.querySelectorAll('p');
-
-                    paragraphs.forEach(p => {
-                        const verseSpan = p.querySelector('.verse-number');
-                        if (verseSpan) {
-                            const verseNum = parseInt(verseSpan.textContent, 10);
-                            if (verseNum < startVerse || verseNum > endVerse) {
-                                p.style.display = 'none';
-                            }
-                        }
-                    });
-
-                    // 범위 밖의 소제목도 숨기기
-                    const subtitles = bibleContent.querySelectorAll('.subtitle');
-                    subtitles.forEach(subtitle => {
-                        const nextP = subtitle.nextElementSibling;
-                        if (nextP && nextP.style.display === 'none') {
-                            subtitle.style.display = 'none';
-                        }
-                    });
-                }
-
-                // 장 제목 추가 (여러 장을 합칠 때 구분용)
-                let result = '';
-                if (chapterTitle && paths.length > 1) {
-                    result += `<div class="chapter-divider" style="font-size: 1.5em; font-weight: 600; color: #343a40; border-bottom: 2px solid #dee2e6; padding: 1rem 0; margin: 2rem 0 1rem 0;">${chapterTitle.textContent}</div>`;
-                }
-                result += bibleContent.innerHTML;
-
-                return result;
-            });
-
-            const contents = await Promise.all(contentPromises);
-            const mergedContent = contents.join('');
-
-            // 폰트 사이즈 계산
-            let fontSize = '1.15em';
-            if (window.parent && window.parent.currentFontSize) {
-                fontSize = (16 * (window.parent.currentFontSize / 100)) + 'px';
-            }
-
-            // 합친 콘텐츠를 iframe에 동적으로 삽입
-            const fullHtml = `
-                <!DOCTYPE html>
-                <html lang="ko">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <style>
-                        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap');
-                        body {
-                            font-family: 'Noto Serif KR', serif;
-                            line-height: 2;
-                            background-color: #f8f9fa;
-                            color: #212529;
-                            margin: 0;
-                            padding: 2.5rem;
-                            font-size: ${fontSize};
-                            overflow-y: scroll;
-                            -webkit-overflow-scrolling: touch;
-                        }
-                        .container { max-width: 800px; margin: 0 auto; }
-                        .bible-content p { font-size: 1.15em; margin-top: 0; margin-bottom: 0.5rem; }
-                        .verse-number { font-size: 0.7em; font-weight: 600; color: #868e96; vertical-align: super; margin-right: 0.5em; }
-                        .subtitle { font-size: 1.1em; font-weight: 600; color: #dc3545; margin: 1.5rem 0 0.8rem 0; padding: 0.3rem 0; border-left: 4px solid #dc3545; padding-left: 1rem; background-color: #f8f9fa; }
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <div class="bible-content">${mergedContent}</div>
-                    </div>
-                </body>
-                </html>
-            `;
-
-            // iframe에 동적 콘텐츠 로드
-            modalIframe.style.display = 'block';
-            modalIframe.srcdoc = fullHtml;
-
-            modalIframe.onload = () => {
-                modalIframe.style.pointerEvents = 'auto';
-                modalIframe.style.touchAction = 'pan-y';
-                modalIframe.style.overflowY = 'auto';
-                modalIframe.style.webkitOverflowScrolling = 'touch';
-            };
-
-        } catch (error) {
-            console.error('콘텐츠 로드 실패:', error);
-            modalIframe.srcdoc = `<html><body style="padding: 2rem; font-family: sans-serif;"><h2>콘텐츠를 불러올 수 없습니다.</h2><p>${error.message}</p></body></html>`;
-        }
-    }
-
-    function closeModal() {
-        modalOverlay.classList.remove('visible');
-
-        // 배경 스크롤 복원
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-
-        // 스크롤 위치 복원
-        window.scrollTo(0, savedScrollY);
-
-        // iframe 초기화 (srcdoc가 src보다 우선순위가 높으므로 반드시 함께 초기화해야 함)
-        modalIframe.onload = null;
-        modalIframe.removeAttribute('srcdoc');  // srcdoc 속성 제거 (중요!)
-        modalIframe.src = 'about:blank';
-        setTimeout(() => modalIframe.src = '', 100);
-    }
-
-    // switchTab: 숫자 인덱스 또는 문자열(data-target ID) 모두 지원
-    function switchTab(indexOrTarget) {
-        let index;
-        if (typeof indexOrTarget === 'string') {
-            // 문자열이면 data-target으로 탭 버튼 찾기 (3월 파일 호환)
-            const targetBtn = document.querySelector(`.tab-btn[data-target="${indexOrTarget}"]`);
-            if (targetBtn) {
-                index = Array.from(tabButtons).indexOf(targetBtn);
-            } else {
-                return;
-            }
-        } else {
-            index = indexOrTarget;
-        }
-        if (index < 0 || index >= tabButtons.length) return;
-
-        currentTabIndex = index;
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => { content.classList.remove('active'); });
-        tabButtons[index].classList.add('active');
-        tabContents[index].classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'auto' });
-        updateFloatingNav();
-        setTimeout(updateReadingProgress, 150);
-
-        // 부모 창(index.html)에 탭 변경 알림
-        try {
-            if (window.parent && window.parent !== window) {
-                window.parent.postMessage({
-                    type: 'mccheyneTabChange',
-                    title: tabButtons[index].textContent
-                }, '*');
-            }
-        } catch (e) { }
-
-        // 성경본문 탭(book1~book4) 선택 시 해당 오디오 자동 재생
-        const activeContent = tabContents[index];
-        const audioBtn = activeContent.querySelector('.listen-audio-btn');
-        if (audioBtn) {
-            playAudio(audioBtn, 0, true);
-
-        } else {
-            // 개요/통합 탭 등 오디오 없는 탭 → 오디오 플레이어 닫기
-            closeAudioPlayer();
-        }
-    }
-    // 전역에서 접근 가능하도록 (3월 파일의 onclick에서 호출)
-    window.switchTab = switchTab;
-    window.playAudio = playAudio;
-
-    let currentCueOnly = false;
-
-    function playAudio(button, retryCount = 0, cueOnly = false) {
-
-        const MAX_RETRIES = 10;
-
-        // 버튼에 로딩 상태 표시
-        if (retryCount === 0) {
-            button.classList.add('loading');
-            button.disabled = true;
-            button.dataset.originalText = button.textContent;
-            button.textContent = '로딩 중...';
-        }
-
-        // 로딩 상태 해제 함수
-        const clearLoading = () => {
-            button.classList.remove('loading');
-            button.disabled = false;
-            if (button.dataset.originalText) {
-                button.textContent = button.dataset.originalText;
-            }
-        };
-
-        // Wait for player to be ready
-        if (!isPlayerReady) {
-            if (retryCount < MAX_RETRIES) {
-                console.log(`Player not ready, waiting... (attempt ${retryCount + 1}/${MAX_RETRIES})`);
-                setTimeout(() => playAudio(button, retryCount + 1, cueOnly), 500);
-                return;
-            } else {
-                clearLoading();
-                alert('오디오 플레이어가 준비되지 않았습니다. 페이지를 새로고침해주세요.');
-                return;
-            }
-        }
-
-        // Wait for audio keys to be loaded
-        if (audioKeyMap.size === 0) {
-            if (retryCount < MAX_RETRIES) {
-                console.log(`Audio keys not loaded, waiting... (attempt ${retryCount + 1}/${MAX_RETRIES})`);
-                setTimeout(() => playAudio(button, retryCount + 1, cueOnly), 500);
-                return;
-            } else {
-                clearLoading();
-                alert('오디오 정보를 불러오지 못했습니다. 페이지를 새로고침해주세요.');
-                return;
-            }
-        }
-
-        // 로딩 완료, 상태 해제
-        clearLoading();
-
-        currentCueOnly = cueOnly;
-
-        const key = button.dataset.key; // e.g., "GEN_9_10" or "GEN_9"
-        const title = button.dataset.title;
-
-        // 1. 키 파싱 및 재생 목록 생성
-        playlist = [];
-        currentPlayIndex = 0;
-
-        const parts = key.split('_');
-
-        // Case A: Composite Key (e.g., GEN_9_10) - Existing Logic
-        if (parts.length > 2) {
-            const bookCode = parts[0]; // 'GEN'
-            const chapters = parts.slice(1);
-
-            chapters.forEach(chapterStr => {
-                const chapterNum = parseInt(chapterStr, 10);
-                const singleChapterKey = `${bookCode}_${chapterNum}`;
-                const url = audioKeyMap.get(singleChapterKey);
-
-                if (url) {
-                    const videoId = getYouTubeID(url);
-                    if (videoId) {
-                        playlist.push({
-                            videoId: videoId,
-                            title: `${title} (${chapterNum}장)`
-                        });
-                    }
-                } else {
-                    console.warn(`오디오 정보를 찾을 수 없음: ${singleChapterKey}`);
-                }
-            });
-        }
-        // Case B: Single Key (e.g., GEN_9 or EXO_03) - New Logic for Separate Buttons
-        else {
-            // Check for sibling buttons in the same card
-            const cardContent = button.closest('.card-content');
-            if (cardContent) {
-                const siblingBtns = Array.from(cardContent.querySelectorAll('.listen-audio-btn'));
-
-                if (siblingBtns.length > 1) {
-                    // Build playlist from all siblings
-                    siblingBtns.forEach((btn, index) => {
-                        const siblingKey = btn.dataset.key;
-                        const siblingTitle = btn.dataset.title;
-
-                        // Parse key to get chapter number for title (assuming BOOK_CHAPTER format)
-                        const siblingParts = siblingKey.split('_');
-                        const bookCode = siblingParts[0];
-                        const chapterNum = siblingParts.length >= 2 ? parseInt(siblingParts[1], 10) : '';
-                        const normalizedSiblingKey = siblingParts.length >= 2 ? `${bookCode}_${chapterNum}` : siblingKey;
-
-                        const url = audioKeyMap.get(normalizedSiblingKey);
-                        if (url) {
-                            const videoId = getYouTubeID(url);
-                            if (videoId) {
-                                playlist.push({
-                                    videoId: videoId,
-                                    title: siblingTitle
-                                });
-                            }
-                        }
-
-                        // If this is the clicked button, set start index
-                        if (btn === button) {
-                            currentPlayIndex = playlist.length - 1;
-                        }
-                    });
-                }
-            }
-
-            // If playlist is still empty (no siblings or single button), add the clicked button
-            if (playlist.length === 0) {
-                const bookCode = parts[0];
-                const chapterNum = parts.length >= 2 ? parseInt(parts[1], 10) : '';
-                const normalizedKey = parts.length >= 2 ? `${bookCode}_${chapterNum}` : key;
-                
-                const rangeMatch = title.match(/(\d+)\s*-\s*(\d+)/);
-                if (rangeMatch && parts.length === 2 && chapterNum === parseInt(rangeMatch[1], 10)) {
-                    const startCh = parseInt(rangeMatch[1], 10);
-                    const endCh = parseInt(rangeMatch[2], 10);
-                    for (let i = startCh; i <= endCh; i++) {
-                        const singleChapterKey = `${bookCode}_${i}`;
-                        const url = audioKeyMap.get(singleChapterKey);
-                        if (url) {
-                            const videoId = getYouTubeID(url);
-                            if (videoId) {
-                                let itemTitle = title.replace(/\s*\d+\s*-\s*\d+/, ' ' + i);
-                                playlist.push({
-                                    videoId: videoId,
-                                    title: itemTitle
-                                });
-                            }
-                        }
-                    }
-                } else {
-                    const url = audioKeyMap.get(normalizedKey);
-                    if (url) {
-                        const videoId = getYouTubeID(url);
-                        if (videoId) {
-                            playlist.push({
-                                videoId: videoId,
-                                title: title
-                            });
-                        }
-                    }
-                }
-            }
-        }
-
-        if (playlist.length > 0) {
-            // 플레이어 UI 표시
-            floatingNav.classList.add('hidden');
-            audioPlayerBar.classList.add('visible');
-
-            // 첫 번째 영상 재생 (또는 클릭한 버튼에 해당하는 영상)
-            playNextVideo();
-        } else {
-            alert('재생할 오디오 정보를 찾을 수 없습니다. (Key: ' + key + ')');
-        }
-    }
-
-    function playNextVideo() {
-        if (currentPlayIndex < playlist.length) {
-            const item = playlist[currentPlayIndex];
-            const isCueing = currentCueOnly;
-            
-            console.log(`Playing/Cueing: ${item.title} (CueOnly: ${isCueing})`);
-
-            // 큐에 넣고 재생 (cueOnly가 true면 대기만 함)
-            if (isCueing) {
-                ytPlayer.cueVideoById(item.videoId);
-                // Note: currentCueOnly is reset inside playAudio before calling playNextVideo 
-                // but we ensure it's handled here correctly for the first item.
-            } else {
-                ytPlayer.loadVideoById(item.videoId);
-            }
-
-            // 전체 타이틀 표시 (현재 몇 번째인지 표시해주는 것도 좋음)
-            // playerInfo.textContent = `재생 중: ${item.title}`; 
-            // 원래 타이틀 유지를 원하면 아래와 같이:
-            // playerInfo.textContent = `재생 중: ${document.querySelector('.listen-audio-btn[data-key="'+ ... +'"]').dataset.title}`;
-            // 하지만 여기서는 간단히:
-            const displayTitle = `${item.title} (${currentPlayIndex + 1}/${playlist.length})`;
-            playerInfo.textContent = displayTitle;
-
-            // 부모 창의 플레이어 제목 업데이트
-            updateParentPlayerTitle(item.title);
-
-            // postMessage로도 부모창에 알림 (더 안정적인 통신)
-            try {
-                if (window.parent && window.parent !== window) {
-                    window.parent.postMessage({
-                        type: isCueing ? 'mccheyneTabChange' : 'mccheyneAudioPlay',
-                        title: item.title
-                    }, '*');
-                }
-            } catch (e) { }
-
-            currentPlayIndex++;
-        } else {
-            // 재생 목록 끝
-            closeAudioPlayer();
-        }
-    }
-
-    function togglePlayPause() {
-        if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
-        const playerState = ytPlayer.getPlayerState();
-        if (playerState === YT.PlayerState.PLAYING) {
-            ytPlayer.pauseVideo();
-        } else {
-            ytPlayer.playVideo();
-        }
-    }
-
-    function onPlayerStateChange(event) {
-        playPauseBtn.innerHTML = (event.data === YT.PlayerState.PLAYING) ? '❚❚' : '▶';
-
-        if (event.data === YT.PlayerState.ENDED) {
-            playNextVideo();
-        }
-    }
-
-    function closeAudioPlayer() {
-        if (ytPlayer && typeof ytPlayer.stopVideo === 'function') ytPlayer.stopVideo();
-        audioPlayerBar.classList.remove('visible');
-        floatingNav.classList.remove('hidden');
-    }
-
-    function updateFloatingNav() {
-        if (!currentTabInfo) return;
-        currentTabInfo.textContent = `${currentTabIndex + 1}/${tabButtons.length}`;
-        prevTabBtn.disabled = currentTabIndex === 0;
-        nextTabBtn.disabled = currentTabIndex === tabButtons.length - 1;
-    }
-
-    function updateReadingProgress() {
-        const activeContent = document.querySelector('.tab-content.active');
-        if (!activeContent) return;
-        const scrollableHeight = activeContent.scrollHeight - window.innerHeight;
-        const progress = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
-        progressBar.style.width = Math.min(100, progress) + '%';
-    }
-
-    function checkReadingCompletion() {
-        if (parseFloat(progressBar.style.width) >= 95) {
-            const currentTab = tabButtons[currentTabIndex];
-            if (currentTab && !currentTab.classList.contains('completed')) {
-                currentTab.classList.add('completed');
-                saveCompletionStatus();
-            }
-        }
-    }
-
-    function saveCompletionStatus() {
-        const dateKey = document.querySelector('h1').textContent;
-        const completed = Array.from(tabButtons).map((tab, index) => tab.classList.contains('completed') ? index : -1).filter(i => i !== -1);
-        localStorage.setItem(`completed_${dateKey}`, JSON.stringify(completed));
-    }
-
-    function loadCompletionStatus() {
-        const dateKey = document.querySelector('h1').textContent;
-        const completed = JSON.parse(localStorage.getItem(`completed_${dateKey}`) || '[]');
-        completed.forEach(index => {
-            if (tabButtons[index]) tabButtons[index].classList.add('completed');
-        });
-    }
-
-    init();
-});
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
