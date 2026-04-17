@@ -6,30 +6,29 @@
     <title>4월 18일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* 맥체인 5.0 추가 스타일 */
         :root { --overview-color: #6c757d; }
         .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
         .card-overview { border-color: var(--overview-color); }
         .card-overview h3 { color: var(--overview-color); }
-        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
-        .key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
         
         /* 히브리어 심화 레이아웃 */
         .hebrew-grid { display: flex; flex-direction: column; gap: 1.5rem; margin: 2rem 0; }
         .hebrew-entry { background: #fff; border: 1px solid #dee2e6; border-radius: 12px; padding: 1.5rem; border-right: 6px solid #1a5c9a; direction: ltr; position: relative; }
         .hebrew-word-row { display: flex; align-items: baseline; gap: 15px; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-        .h-word { font-size: 2.5rem; font-weight: bold; color: #1a5c9a; font-family: 'Times New Roman', serif; }
-        .h-label { font-size: 0.9rem; color: #888; font-weight: bold; }
+        .h-word { font-size: 2.8rem; font-weight: bold; color: #1a5c9a; font-family: 'Times New Roman', serif; }
+        .h-label { font-size: 0.95rem; color: #888; font-weight: bold; }
         .h-section { margin-top: 10px; }
-        .h-title { font-weight: 700; color: #444; margin-right: 5px; }
-        .h-desc { font-size: 1rem; line-height: 1.7; color: #333; }
+        .h-title { font-weight: 700; color: #444; margin-right: 8px; border-left: 3px solid #1a5c9a; padding-left: 8px; }
+        .h-desc { font-size: 1.05rem; line-height: 1.8; color: #333; }
         .h-desc b { color: #d93025; }
         
-        .pronounce-btn { background: #f8f9fa; border: 1px solid #ddd; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; position: absolute; right: 20px; top: 20px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-        .pronounce-btn:hover { background: #e9ecef; }
+        .pronounce-btn { background: #f8f9fa; border: 1px solid #ddd; border-radius: 50%; width: 42px; height: 42px; cursor: pointer; position: absolute; right: 20px; top: 20px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .pronounce-btn:hover { background: #e9ecef; transform: scale(1.1); }
         
-        .verse-footer { background: #e7f3ff; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; border: 1px solid #b3d7ff; direction: ltr; }
-        .original-text { font-size: 1.6rem; font-weight: bold; color: #1a5c9a; margin-top: 10px; display: block; text-align: right; direction: rtl; line-height: 1.5; }
-        .sentence-desc { font-size: 1.05rem; line-height: 1.8; color: #333; margin-top: 15px; }
+        .verse-footer { background: #fdfdfe; padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid #e0e0e0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
+        .original-text { font-size: 1.8rem; font-weight: bold; color: #1a5c9a; margin: 15px 0; display: block; text-align: right; direction: rtl; line-height: 1.6; font-family: 'SBL Hebrew', 'Times New Roman', serif; }
+        .sentence-desc { font-size: 1.1rem; line-height: 1.9; color: #444; margin-top: 20px; padding: 15px; background: #fff; border-radius: 8px; border-left: 5px solid #c89200; }
     </style>
 </head>
 <body>
@@ -53,25 +52,25 @@
             </nav>
 
             <main>
-                <div id="content-overview" class="tab-content active">
+                <div id="tab-0" class="tab-content active">
                     <article class="chapter-card card-overview">
                         <div class="card-content">
-                            <h3>4월 18일 성경읽기 안내 </h3>
-                            <p>오늘은 성결의 규례와 하나님의 엄위하신 소리, 예배자의 마땅한 경외심과 복음을 향한 사도적 소명을 묵상합니다.</p>
+                            <h3>오늘의 거룩한 여정</h3>
+                            <p>오늘은 성결의 규례와 하나님의 엄위하신 권능, 예배자의 경외심과 복음을 향한 사명을 묵상합니다. 구약의 제사법부터 신약의 복음 전수까지 관통하는 주제는 '하나님의 거룩한 주권'입니다.</p>
                             <ul>
-                                <li><strong>레위기 22장:</strong> 성물을 다루는 제사장의 성결과 흠 없는 제물의 규례[cite: 9].</li>
-                                <li><strong>시편 28-29편:</strong> 반석 되신 하나님을 향한 부르짖음과 폭풍 가운데 임하는 여호와의 소리[cite: 19].</li>
-                                <li><strong>전도서 5장:</strong> 하나님 앞에서 말을 삼가며, 재물의 허무를 깨닫고 하나님을 경외하는 지혜[cite: 19].</li>
-                                <li><strong>디모데후서 1장:</strong> 성령의 능력으로 복음과 함께 고난을 받으며 신앙의 유산을 지키라는 권면[cite: 19].</li>
+                                <li><strong>레위기 22장:</strong> 성물을 다루는 자의 성결과 제물의 완전성에 대하여.</li>
+                                <li><strong>시편 28-29편:</strong> 반석 되신 하나님을 향한 부르짖음과 만물을 진동시키는 여호와의 소리.</li>
+                                <li><strong>전도서 5장:</strong> 하나님 앞에서 말을 삼가며, 자족의 은혜를 누리는 지혜.</li>
+                                <li><strong>디모데후서 1장:</strong> 복음과 함께 고난을 받으며 신앙의 유산을 지키는 사명.</li>
                             </ul>
                         </div>
                     </article>
                 </div>
 
-                <div id="content-hebrew" class="tab-content">
+                <div id="tab-1" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>원어 심층 주해: 시편 29편 2절 [cite: 19]</h3>
+                            <h3>원어 심층 주해: 시편 29편 2절</h3>
                             <div class="key-question-box">
                                 <p>“여호와께 그의 이름에 합당한 영광을 돌리며 거룩한 옷을 입고 여호와께 예배할지어다”</p>
                             </div>
@@ -84,50 +83,51 @@
                                         <span class="h-label">(Havu)</span>
                                     </div>
                                     <div class="h-section">
-                                        <span class="h-title">[사전적 뜻]:</span>
-                                        <span class="h-desc">'가져오다', '주다', '바치다'를 뜻하는 동사 '야합(יָהַב)'의 명령형입니다[cite: 19].</span>
+                                        <span class="h-title">사전적 의미</span>
+                                        <span class="h-desc">'가져오다', '주다', '바치다'를 뜻하는 동사 '야합(יָהַב)'의 명령형입니다. 본래 상대방에게 속한 권리나 몫을 정당하게 되돌려주는 행위를 의미합니다.</span>
                                     </div>
                                     <div class="h-section">
-                                        <span class="h-title">[신학적 해설]:</span>
-                                        <span class="h-desc">예배는 인간이 하나님께 새로운 영광을 보태는 것이 아니라, <b>본래 하나님의 것인 주권과 가치</b>를 인정하여 다시 그분께 돌려드리는 행위입니다.</span>
+                                        <span class="h-title">신학적 해설</span>
+                                        <span class="h-desc">예배는 인간이 하나님께 새로운 가치를 부여하는 것이 아니라, <b>본래 하나님의 것인 주권과 영광</b>을 피조물이 마땅히 인정하여 그분께 귀속시키는 '신앙적 반환'입니다.</span>
                                     </div>
                                 </div>
 
                                 <div class="hebrew-entry">
-                                    <button class="pronounce-btn" onclick="speakHebrew('כָּבוֹד')">🔊</button>
+                                    <button class="pronounce-btn" onclick="speakHebrew('כָּבוֹ드')">🔊</button>
                                     <div class="hebrew-word-row">
-                                        <span class="h-word">כָּבוֹד</span>
+                                        <span class="h-word">כָּבוֹ드</span>
                                         <span class="h-label">(Kavod)</span>
                                     </div>
                                     <div class="h-section">
-                                        <span class="h-title">[사전적 뜻]:</span>
-                                        <span class="h-desc">'무거움', '중량'을 뜻하는 '카바드(כָּבַד)'에서 유래하여 '명예'와 '존귀'를 의미합니다[cite: 19].</span>
+                                        <span class="h-title">사전적 의미</span>
+                                        <span class="h-desc">'무거움', '중량'을 뜻하는 '카바드(כָּבַד)'에서 유래했습니다. 고대에는 가치 있는 것일수록 무거웠기에 '존귀', '부요', '영광'을 뜻합니다.</span>
                                     </div>
                                     <div class="h-section">
-                                        <span class="h-title">[신학적 해설]:</span>
-                                        <span class="h-desc">하나님을 영광스럽게 한다는 것은 그분을 우리 삶에서 <b>가장 무게감 있고 가치 있는 분</b>으로 대우하는 것입니다.</span>
+                                        <span class="h-title">신학적 해설</span>
+                                        <span class="h-desc">하나님을 영화롭게 한다는 것은 그분을 우리 삶에서 <b>가장 무겁고 가치 있는 분</b>으로 대우하는 것입니다. 세상을 가볍게 여기고 하나님을 가장 무겁게 대우하는 것이 경외함의 본질입니다.</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="verse-footer">
-                                <h5>[전체 문장 해설 및 원문]</h5>
-                                <span class="original-text">הָב֣וּ לַ֭יהוָה כְּב֣오ֹד שְׁמ֑וֹ הִשְׁתַּחֲו֥וּ לַ֝יהוָ֗ה בְּהַדְרַת־קֹֽדֶשׁ׃</span>
-                                <p class="sentence-desc">시편 기자는 만물을 향해 여호와의 이름, 즉 그분의 모든 성품에 걸맞은 최고의 무게감을 인정하며(Havu Kavod), 구별된 거룩함으로 그분 앞에 굴복할 것을 명령하고 있습니다[cite: 19].</p>
+                                <h5>[문장 주해 및 원문]</h5>
+                                <span class="original-text">הָב֣וּ לַ֭יהוָה כְּב֣וֹד שְׁמ֑וֹ הִשְׁתַּחֲו֥וּ לַ֝יהוָ֗회 בְּהַדְרַת־קֹֽדֶשׁ׃</span>
+                                <div class="sentence-desc">
+                                    본문은 여호와의 이름(성품과 인격)에 걸맞은 최고의 무게감을 인정하며(Havu Kavod), 구별된 거룩함의 예복을 입고 그분 앞에 전적으로 굴복할 것을 명령합니다. 이는 창조주를 향한 피조물의 가장 아름다운 질서입니다.
+                                </div>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <div id="content-book1" class="tab-content">
+                <div id="tab-2" class="tab-content">
                     <article class="chapter-card card-book1">
                         <div class="card-content">
-                            <h3>레위기 22장: 성물과 제물의 거룩함 [cite: 9]</h3>
-                            <div class="key-question-box"><p>질문: 흠 없는 제물은 우리에게 어떤 영적 완벽성을 요구하는가? [cite: 9]</p></div>
-                            <h4>역사적 문맥과 제사장의 정결</h4>
-                            <p>제사장들은 부정한 상태에서 성물을 먹을 수 없었으며, 이는 하나님의 성소를 더럽히지 않기 위한 엄격한 지침이었습니다[cite: 9]. 하나님께 가까이 나아가는 직분자일수록 더 높은 수준의 성결이 요구됨을 보여줍니다[cite: 9].</p>
-                            <h4>흠 없는 제물: 그리스도의 예표</h4>
-                            <p>신체적 결함이 있는 짐승은 결코 제물이 될 수 없었습니다[cite: 9]. 이는 장차 오실 <b>'흠 없고 점 없는 어린 양'</b>이신 예수 그리스도의 완전한 대속을 예표합니다[cite: 9]. 우리는 우리의 정성이 아닌 그리스도의 완전한 의를 힘입어 하나님께 나아갑니다.</p>
+                            <h3>레위기 22장: 성결의 규례와 흠 없는 제물</h3>
+                            <div class="key-question-box"><p>질문: 흠 있는 제물을 금지하신 원리는 오늘날 우리의 예배 태도에 어떤 도전을 주는가?</p></div>
+                            <p>레위기 22장은 제사장들이 거룩한 성물을 다룰 때 지켜야 할 엄격한 지침과 하나님께 드려질 제물의 자격을 규정합니다. 제사장이 부정할 때 성물을 먹는 행위는 하나님의 성호를 욕되게 하는 것으로 간주되었습니다. 이는 하나님께 가까이 나아가는 자일수록 더 높은 수준의 정결함이 요구됨을 보여줍니다.</p>
+                            <p>특히 신체적 결함이 있는 짐승을 제물로 드리지 못하게 하신 명령은 하나님은 '남는 것'이나 '병든 것'을 받으시는 분이 아님을 분명히 합니다. 이 '흠 없음'의 규례는 장차 오실 <b>'흠 없고 점 없는 어린 양'</b>이신 예수 그리스도를 예표합니다. 우리는 그리스도의 완전한 의를 덧입어 하나님께 나아갈 수 있습니다.</p>
+                            <p>개혁주의 신학은 이 본문을 통해 예배의 외적 형식보다 드리는 자의 마음이 하나님의 거룩한 기준에 부합하는지를 점검하게 합니다. 최상의 것을 드리는 것은 하나님을 하나님답게 인정하는 실제적인 고백입니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/LEV_22.html" data-title="레위기 22장">본문 보기</button>
                                 <button class="btn btn-secondary listen-audio-btn" data-key="LEV_22" data-title="레위기 22장">성경 듣기</button>
@@ -136,15 +136,14 @@
                     </article>
                 </div>
 
-                <div id="content-book2" class="tab-content">
+                <div id="tab-3" class="tab-content">
                     <article class="chapter-card card-book2">
                         <div class="card-content">
-                            <h3>시편 28-29편: 폭풍 속에 임재하시는 하나님 [cite: 19]</h3>
-                            <div class="key-question-box"><p>질문: 만물을 진동시키는 '여호와의 소리'가 성도에게 주는 평강은 무엇인가? [cite: 19]</p></div>
-                            <h4>28편: 반석을 향한 비명</h4>
-                            <p>다윗은 침묵하시는 것 같은 하나님을 향해 부르짖으며 '나의 반석'이 되어 주시길 간구합니다[cite: 19]. 성도의 기도는 하나님의 신실하심이라는 반석 위에 우리를 고정시키는 과정입니다[cite: 19].</p>
-                            <h4>29편: 영광의 하나님과 그 소리</h4>
-                            <p>'여호와의 소리'가 일곱 번 반복되며 폭풍우 속에서도 만물을 통치하시는 창조주의 위엄을 노래합니다[cite: 19]. 이 두려운 권능의 소리는 결국 자기 백성에게 평강의 복을 주시는 약속으로 귀결됩니다[cite: 19].</p>
+                            <h3>시편 28-29편: 반석과 권능의 소리</h3>
+                            <div class="key-question-box"><p>질문: 대자연의 폭풍 속에서 하나님의 영광을 발견하는 성도의 유익은 무엇인가?</p></div>
+                            <p>28편에서 다윗은 침묵하시는 것 같은 하나님을 향해 부르짖으며 '나의 반석'이 되어 주시길 간구합니다. 반석은 변하지 않는 하나님의 신실하심을 상징합니다. 기도는 하나님의 계획을 바꾸는 것이 아니라, 기도자가 하나님의 신실한 통치라는 반석 위에 자신을 견고히 세우는 과정입니다.</p>
+                            <p>이어지는 29편은 분위기가 반전되어 대자연의 폭풍 속에서 드러나는 하나님의 위엄을 찬양합니다. '여호와의 소리'가 일곱 번이나 반복되며 백향목을 꺾고 광야를 진동시키는 말씀의 능력을 형상화합니다. 가나안 사람들이 폭풍을 바알의 힘으로 두려워할 때, 다윗은 그 폭풍의 주관자가 바로 여호와이심을 선포합니다.</p>
+                            <p>장엄하고 두려운 하나님의 권능은 결국 '자기 백성에게 평강의 복을 주시리로다'라는 축복으로 귀결됩니다. 창조주를 경외하는 자만이 세상의 그 어떤 폭풍 속에서도 참된 안식을 누릴 수 있음을 가르쳐 줍니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/PSA_28.html,https://kbd71.github.io/bible71/bible_html/PSA_29.html" data-title="시편 28-29편">본문 보기</button>
                                 <button class="btn btn-secondary listen-audio-btn" data-key="PSA_28_29" data-title="시편 28-29편">성경 듣기</button>
@@ -153,15 +152,14 @@
                     </article>
                 </div>
 
-                <div id="content-book3" class="tab-content">
+                <div id="tab-4" class="tab-content">
                     <article class="chapter-card card-book3">
                         <div class="card-content">
-                            <h3>전도서 5장: 예배와 재물에 대한 지혜 [cite: 19]</h3>
-                            <div class="key-question-box"><p>질문: '하나님 앞에서 말을 적게 하라'는 권고는 어떤 경외심을 뜻하는가? [cite: 19]</p></div>
-                            <h4>예배자의 자세: 경청과 서원</h4>
-                            <p>하나님의 집에 들어갈 때 발을 삼가고 경솔한 서원을 금해야 합니다[cite: 19]. 예배는 나의 요구를 쏟아놓는 자리가 아니라, 하나님의 광대하심 앞에 우리를 굴복시키는 자리입니다[cite: 19].</p>
-                            <h4>재물의 허무와 하나님의 선물</h4>
-                            <p>은을 사랑하는 자는 만족이 없으나, 하나님이 주신 복을 누리고 즐거워하는 것은 하나님의 선물입니다[cite: 19]. 자족함은 소유의 양이 아닌 공급하시는 분과의 관계에서 옵니다[cite: 19].</p>
+                            <h3>전도서 5장: 예배와 재물에 관한 지혜</h3>
+                            <div class="key-question-box"><p>질문: '하나님은 하늘에 계시고 너는 땅에 있음이니라'는 사실이 예배자의 언어를 어떻게 변화시키는가?</p></div>
+                            <p>전도자는 하나님의 집에 들어갈 때 발을 삼가고, 함부로 입을 열어 서원하지 말라고 엄히 경고합니다. 예배는 나의 욕구를 관철시키는 자리가 아니라 하나님의 말씀을 듣는 자리입니다. 인간의 유한함과 하나님의 초월성을 인식하는 것이 예배의 시작이자 경외함의 본질입니다.</p>
+                            <p>또한 재물의 허무함을 통찰력 있게 묘사합니다. 은을 사랑하는 자는 은으로 만족하지 못하며, 소유의 증가는 오히려 근심을 더할 수 있습니다. 그러나 하나님은 자기가 수고한 것을 즐거워하는 마음을 '선물'로 주십니다. 재물 자체가 복이 아니라, 그것을 주신 분과의 관계에서 누리는 자족함이 진정한 복입니다.</p>
+                            <p>개혁주의적 관점에서 자족은 하나님의 주권적 공급을 신뢰하는 구체적인 신앙의 열매입니다. 우리는 땅의 소유보다 하늘의 풍성함을 사모하며 주어진 몫에 감사해야 합니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/ECC_05.html" data-title="전도서 5장">본문 보기</button>
                                 <button class="btn btn-secondary listen-audio-btn" data-key="ECC_5" data-title="전도서 5장">성경 듣기</button>
@@ -170,15 +168,14 @@
                     </article>
                 </div>
 
-                <div id="content-book4" class="tab-content">
+                <div id="tab-5" class="tab-content">
                     <article class="chapter-card card-book4">
                         <div class="card-content">
-                            <h3>디모데후서 1장: 복음과 함께 고난을 받으라 [cite: 19]</h3>
-                            <div class="key-question-box"><p>질문: 우리 안에 거하시는 성령은 복음을 지키는 데 어떤 역할을 하는가? [cite: 19]</p></div>
-                            <h4>신앙의 전수와 은사</h4>
-                            <p>바울은 디모데의 어머니와 외조모로부터 이어진 '거짓 없는 믿음'을 상기시키며 그 안의 은사를 다시 불붙이게 합니다[cite: 19]. 신앙은 언약적 가문과 공동체 내에서 성령의 능력으로 계승됩니다[cite: 19].</p>
-                            <h4>두려움을 이기는 사랑</h4>
-                            <p>하나님이 주신 것은 두려워하는 마음이 아니라 능력과 사랑과 절제하는 마음입니다[cite: 19]. 복음의 가치를 아는 자는 감옥에 갇힌 바울을 부끄러워하지 않고 복음과 함께 기꺼이 고난을 받습니다[cite: 19].</p>
+                            <h3>디모데후서 1장: 복음과 함께 받는 고난</h3>
+                            <div class="key-question-box"><p>질문: 성령의 능력이 신앙의 유산을 지키는 데 어떻게 역사하는가?</p></div>
+                            <p>바울은 감옥에서 죽음을 앞두고 사랑하는 아들 디모데에게 마지막 권면을 전합니다. 그는 디모데의 어머니와 외조모로부터 이어진 '거짓 없는 믿음'을 상기시킵니다. 이는 신앙의 전수가 언약적 가정 내에서 얼마나 중요한지를 보여줍니다. 바울은 안수를 통해 주어진 은사를 다시 불붙이듯 활성화하라고 독려합니다.</p>
+                            <p>하나님이 우리에게 주신 것은 두려워하는 마음이 아닙니다. 오직 능력과 사랑과 절제하는 마음입니다. 복음의 영광을 아는 자는 세상의 비난이나 고난을 부끄러워하지 않습니다. 바울은 오네시보로의 신실함을 칭찬하며, 진정한 충성이란 고난 중에 있는 형제를 외면하지 않는 것임을 증명합니다.</p>
+                            <p>우리는 우리 안에 거하시는 성령을 의지하여 복음의 아름다운 부탁을 지켜내야 합니다. 복음은 고난 없이 전수되지 않으며, 그 고난은 하나님의 은혜 안에서 영광으로 승화됩니다.</p>
                             <div class="button-group">
                                 <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/2TI_01.html" data-title="디모데후서 1장">본문 보기</button>
                                 <button class="btn btn-secondary listen-audio-btn" data-key="2TI_1" data-title="디모데후서 1장">성경 듣기</button>
@@ -187,13 +184,14 @@
                     </article>
                 </div>
 
-                <div id="content-integration" class="tab-content">
+                <div id="tab-6" class="tab-content">
                     <article class="integration-card">
                         <div class="card-content">
-                            <h3>종합 묵상: "영광의 무게 중심" </h3>
-                            <p>오늘의 모든 말씀은 우리 존재의 무게 중심을 하나님께 두라고 촉구합니다. 레위기는 예배의 성결을, 시편은 창조주의 권능을, 전도서는 예배자의 경외를, 디모데후서는 복음의 사명을 가르칩니다. 하나님을 가장 무거운 분(Kavod)으로 대우할 때, 우리 삶에 참된 평강이 임합니다.</p>
+                            <h3>종합 묵상: "하나님 경외의 회복"</h3>
+                            <p>오늘의 모든 본문은 우리 존재의 무게 중심을 하나님께 두라고 촉구합니다. 레위기는 예배의 성결을, 시편은 창조주의 권능을, 전도서는 예배자의 경외를, 디모데후서는 복음의 사명을 가르칩니다.</p>
+                            <p>우리가 하나님을 가장 무거운 분(Kavod)으로 대우할 때, 세상의 염려와 재물의 유혹은 가볍게 날아가게 됩니다. 오늘 하루, 하나님의 이름에 합당한 영광을 돌리며 우리 삶의 현장에서 거룩한 예배자로 살아가는 은혜가 있기를 소망합니다.</p>
                             <div class="button-group">
-                                <a href="#top" class="btn btn-primary" onclick="switchTab(0); return false;">맨 위로 돌아가기</a>
+                                <a href="#top" class="btn btn-primary" onclick="switchTab(0); return false;">처음으로 돌아가기</a>
                             </div>
                         </div>
                     </article>
@@ -223,22 +221,25 @@
     </div>
 
     <script>
-        // 탭 전환 시스템 (ID 정합성 해결)
+        // 탭 전환 시스템 (ID: tab-0 ~ tab-6)
         function switchTab(index) {
-            const tabs = [
-                'content-overview', 'content-hebrew', 'content-book1', 
-                'content-book2', 'content-book3', 'content-book4', 'content-integration'
-            ];
-            
+            // 모든 탭 숨기기
             document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+            // 모든 버튼 비활성화
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             
-            const targetId = tabs[index];
+            // 대상 탭 보이기
+            const targetId = 'tab-' + index;
             const targetContent = document.getElementById(targetId);
-            if(targetContent) targetContent.style.display = 'block';
+            if(targetContent) {
+                targetContent.style.display = 'block';
+            }
             
+            // 대상 버튼 활성화
             const targetBtn = document.querySelectorAll('.tab-btn')[index];
-            if(targetBtn) targetBtn.classList.add('active');
+            if(targetBtn) {
+                targetBtn.classList.add('active');
+            }
             
             window.scrollTo(0, 0);
         }
@@ -246,10 +247,10 @@
         // 본문 보기 모달 제어
         document.querySelectorAll('.view-text-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                const path = this.getAttribute('data-path').split(',')[0];
+                const paths = this.getAttribute('data-path').split(',');
                 const title = this.getAttribute('data-title');
                 document.getElementById('modal-title').innerText = title;
-                document.getElementById('modal-iframe').src = path;
+                document.getElementById('modal-iframe').src = paths[0]; // 첫 번째 장 우선 로드
                 document.getElementById('text-modal').style.display = 'flex';
             });
         });
@@ -259,7 +260,7 @@
             document.getElementById('modal-iframe').src = '';
         }
 
-        // 히브리어 발음 (Web Speech API)
+        // 히브리어 발음 기능
         function speakHebrew(text) {
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(text);
@@ -267,6 +268,11 @@
                 window.speechSynthesis.speak(utterance);
             }
         }
+        
+        // 초기 로드 시 탭 0 활성화 확인
+        window.onload = function() {
+            switchTab(0);
+        };
     </script>
     <script src="script.js"></script>
 </body>
