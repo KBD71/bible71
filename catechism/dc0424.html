@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Doctrine - April 24th</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #fdfaf6; }
+        .card { transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="text-slate-800 leading-relaxed antialiased">
+
+    <div class="max-w-4xl mx-auto px-5 py-12">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="inline-block px-4 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-full mb-4 tracking-widest uppercase">
+                April 24
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight text-balance">The Inability to Perfectly Keep the Commandments</h1>
+            <p class="text-lg text-slate-500 font-medium tracking-tight">Shorter Catechism 82; Larger Catechism 149</p>
+        </header>
+
+        <!-- Audio Player Section -->
+        <section id="audio-player-container" class="mb-12 bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+            <div id="player-ui" class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-5">
+                    <div class="w-14 h-14 bg-rose-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-rose-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-lg">Doctrine Audio Guide</h3>
+                        <p id="audio-status" class="text-sm text-slate-400">Syncing with audio server...</p>
+                    </div>
+                </div>
+                <button id="play-pause-btn" disabled class="w-full md:w-auto px-10 py-3.5 bg-slate-100 text-slate-400 font-bold rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 cursor-not-allowed" aria-label="Play doctrine audio">
+                    <span id="btn-text">Loading</span>
+                </button>
+            </div>
+            <div id="error-display" class="hidden mt-4 p-4 bg-red-50 text-red-600 rounded-2xl text-center font-medium border border-red-100 italic"></div>
+            <div id="youtube-player" class="hidden"></div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="space-y-10">
+            
+            <!-- Catechism Section -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <article class="card bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <h2 class="text-rose-600 font-black text-sm mb-6 flex items-center gap-2 uppercase tracking-widest">
+                        <span class="w-2 h-2 bg-rose-500 rounded-full"></span>
+                        W. Shorter Catechism 82
+                    </h2>
+                    <div class="space-y-4">
+                        <p class="font-bold text-slate-900 text-lg">Q: Is any man able perfectly to keep the commandments of God?</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            A: No mere man since the fall is able in this life <strong>perfectly to keep the commandments of God</strong>, but does daily break them in <strong>thought, word, and deed</strong>.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="card bg-slate-900 p-8 rounded-3xl shadow-xl border-b-8 border-rose-600">
+                    <h2 class="text-rose-400 font-black text-sm mb-6 flex items-center gap-2 uppercase tracking-widest">
+                        <span class="w-2 h-2 bg-rose-400 rounded-full"></span>
+                        W. Larger Catechism 149
+                    </h2>
+                    <div class="space-y-4">
+                        <p class="font-bold text-white text-lg text-pretty">Q: Is any man able perfectly to keep the commandments of God?</p>
+                        <p class="text-slate-300 leading-relaxed italic">
+                            A: No man is able, either of himself, or by any grace received in this life, <strong>perfectly to keep the commandments of God</strong>; but does daily break them in thought, word, and deed.
+                        </p>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Scripture Section -->
+            <section class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+                <h2 class="text-xl font-black text-slate-900 mb-8 flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    Key Scriptures
+                </h2>
+                <div class="grid gap-6 text-slate-700">
+                    <p class="pl-5 border-l-2 border-rose-200 italic">"Indeed, there is no one on earth who is righteous, no one who does what is right and <strong>never sins</strong>." <span class="text-slate-400 not-italic text-sm">(Ecclesiastes 7:20)</span></p>
+                    <p class="pl-5 border-l-2 border-rose-200 italic">"For I know that good itself does not dwell in me, that is, in my sinful nature. For I have the desire to do what is good, but <strong>I cannot carry it out</strong>." <span class="text-slate-400 not-italic text-sm">(Romans 7:18)</span></p>
+                    <p class="pl-5 border-l-2 border-rose-200 italic">"The Lord saw how great the wickedness of the human race had become... and that <strong>every inclination of the thoughts</strong> of the human heart was only evil all the time." <span class="text-slate-400 not-italic text-sm">(Genesis 6:5)</span></p>
+                </div>
+            </section>
+
+            <!-- Exposition Section -->
+            <section class="space-y-8">
+                <!-- Point 1 -->
+                <div class="card bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 class="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                        <span class="text-rose-500 font-mono text-3xl">01.</span>
+                        The Definition of <strong class="text-rose-600">Perfect Obedience</strong>
+                    </h3>
+                    <p class="text-slate-700 mb-6">
+                        To "perfectly keep" the commandments means to obey every single law, at every moment, in <strong>heart, thought, and action</strong>, motivated entirely by love for God.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex gap-4 items-start bg-slate-50 p-4 rounded-xl">
+                            <span class="flex-shrink-0 w-6 h-6 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center font-bold text-xs">!</span>
+                            <span>While Adam in his state of innocence had the ability to obey, no human since the Fall possesses this power.</span>
+                        </li>
+                        <li class="flex gap-4 items-start bg-slate-50 p-4 rounded-xl">
+                            <span class="flex-shrink-0 w-6 h-6 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center font-bold text-xs">!</span>
+                            <span>Even the most revered saints—Mary, Joseph, Peter, or Paul—could not achieve perfection. Their sincerity is unquestioned, but <strong>sincerity is not perfection</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="card bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 class="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                        <span class="text-rose-500 font-mono text-3xl">02.</span>
+                        Sin in <strong class="text-rose-600">Thought, Word, and Deed</strong>
+                    </h3>
+                    <p class="text-slate-700 mb-4 leading-relaxed">
+                        True obedience requires more than just avoiding outward "big sins." It demands a pure inner life.
+                    </p>
+                    <div class="p-6 bg-rose-50 rounded-2xl border border-rose-100">
+                        <p class="text-sm font-medium text-rose-900">
+                            Jesus taught that murder and adultery begin in the heart (Matthew 15:19). Because we still possess a fallen nature, <strong>evil thoughts</strong> often arise before they ever manifest in words or deeds. Therefore, even if a person could control their outward behavior, they would still fail the test of perfect holiness in their mind and spirit.
+                        </p>
+                    </div>
+                    <p class="mt-4 text-slate-600 text-sm italic">"If we claim to be without sin, we deceive ourselves and the truth is not in us." (1 John 1:8)</p>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="card bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 class="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                        <span class="text-rose-500 font-mono text-3xl">03.</span>
+                        The <strong class="text-rose-600">Residual Sin</strong> in the Believer
+                    </h3>
+                    <p class="text-slate-700 mb-4 leading-relaxed">
+                        A vital distinction must be made: the regenerate (born-again) person does not live in <strong>habitual, unrepentant sin</strong> (1 John 3:9), yet they are not sinless.
+                    </p>
+                    <ul class="list-disc list-inside space-y-3 text-slate-700 ml-2">
+                        <li><strong>Indwelling Sin:</strong> As the Apostle Paul lamented in Romans 7, even those who love God's law find a "law of sin" at work in their members. The desire to do good is present, but the performance is hampered by <strong>remaining corruption</strong>.</li>
+                        <li><strong>Inherited Nature:</strong> The fundamental reason for this inability is the <strong>original sin</strong> inherited from Adam. We are born with a bent toward autonomy and away from God.</li>
+                        <li><strong>Hope in Christ:</strong> This doctrine is not meant to discourage, but to point us away from self-righteousness and toward the <strong>perfect righteousness of Christ</strong>, which is our only plea before God.</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-20 py-10 border-t border-slate-200 text-center">
+            <p class="text-slate-400 text-sm font-medium tracking-tight">The textbook used is the Westminster Standard Doctrine (Youngumsa), read as daily food.</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        window.player = null;
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusText = document.getElementById('audio-status');
+        const errorBox = document.getElementById('error-display');
+        const playerUi = document.getElementById('player-ui');
+
+        function onYouTubeIframeAPIReady() {
+            fetch('../address/dcaddr.txt')
+                .then(res => {
+                    if (!res.ok) throw new Error();
+                    return res.text();
+                })
+                .then(data => {
+                    const today = "0424"; 
+                    const lines = data.split('\n');
+                    const targetLine = lines.find(l => l.trim().startsWith(today));
+
+                    if (!targetLine) {
+                        showError("Today's AI summary audio has not been uploaded yet.");
+                        return;
+                    }
+
+                    const videoIdMatch = targetLine.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
+                    if (videoIdMatch && videoIdMatch[1]) {
+                        initPlayer(videoIdMatch[1]);
+                    } else {
+                        showError("Failed to parse video ID.");
+                    }
+                })
+                .catch(() => showError("Connection error with audio database."));
+        }
+
+        function initPlayer(videoId) {
+            window.player = new YT.Player('youtube-player', {
+                height: '0', width: '0', videoId: videoId,
+                playerVars: { 'autoplay': 0, 'controls': 0, 'disablekb': 1 },
+                events: {
+                    'onReady': () => {
+                        playBtn.disabled = false;
+                        playBtn.classList.remove('bg-slate-100', 'text-slate-400', 'cursor-not-allowed');
+                        playBtn.classList.add('bg-rose-600', 'text-white', 'hover:bg-rose-700', 'shadow-lg');
+                        btnText.textContent = "Play Audio";
+                        statusText.textContent = "Audio is ready.";
+                    },
+                    'onStateChange': (e) => {
+                        if (e.data === YT.PlayerState.PLAYING) {
+                            btnText.textContent = "Pause";
+                            statusText.textContent = "Listening to the doctrine of Inability...";
+                        } else {
+                            btnText.textContent = "Play Audio";
+                            statusText.textContent = "Paused.";
+                        }
+                    }
+                }
+            });
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!window.player) return;
+            const state = window.player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
+                window.player.pauseVideo();
+            } else {
+                window.player.playVideo();
+            }
+        });
+
+        function showError(msg) {
+            playerUi.classList.add('hidden');
+            errorBox.textContent = msg;
+            errorBox.classList.remove('hidden');
+        }
+
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
+</html>
