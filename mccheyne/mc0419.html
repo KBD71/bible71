@@ -1,355 +1,221 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4월 19일 맥체인 성경읽기 - 맥체인 5.0</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=KoPub+Batang:wght@400;700&family=Pretendard:wght@400;600;700&display=swap');
-
-        :root {
-            --font-main: 'KoPub Batang', serif;
-            --font-heading: 'Pretendard', sans-serif;
-            --color-text: #343a40;
-            --color-grey: #868e96;
-            --color-background: #f8f9fa;
-            --color-card-bg: #ffffff;
-            --color-border: #dee2e6;
-            --book1-color: #4285F4;
-            --book2-color: #DB4437;
-            --book3-color: #c89200;
-            --book4-color: #0F9D58;
-            --hebrew-color: #673ab7;
-            --integration-color: #5f6368;
-            --overview-color: #495057;
-        }
-
-        body { font-family: var(--font-main); background-color: var(--color-background); color: var(--color-text); line-height: 1.8; margin: 0; padding: 0; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 1280px; padding: 2rem 1rem; }
-        .content-wrapper { max-width: 850px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 3rem; }
-        header h1 { font-family: var(--font-heading); font-size: 2.8rem; font-weight: 700; margin-bottom: 0.5rem; }
-        header h4 { font-family: var(--font-heading); font-size: 1rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 2px; margin-top: 0; }
-
-        .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; position: sticky; top: 10px; background: rgba(248, 249, 250, 0.95); backdrop-filter: blur(8px); z-index: 1000; padding: 12px; margin-bottom: 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .tab-btn { font-family: var(--font-heading); padding: 10px 18px; border: 1px solid var(--color-border); border-radius: 25px; background-color: var(--color-card-bg); cursor: pointer; transition: all 0.3s ease; font-weight: 600; font-size: 0.95rem; }
-        .tab-btn.active { color: white; border-color: transparent; transform: scale(1.05); }
-        .tab-btn.active[data-color="overview"] { background-color: var(--overview-color); }
-        .tab-btn.active[data-color="hebrew"] { background-color: var(--hebrew-color); }
-        .tab-btn.active[data-color="book1"] { background-color: var(--book1-color); }
-        .tab-btn.active[data-color="book2"] { background-color: var(--book2-color); }
-        .tab-btn.active[data-color="book3"] { background-color: var(--book3-color); }
-        .tab-btn.active[data-color="book4"] { background-color: var(--book4-color); }
-        .tab-btn.active[data-color="integration"] { background-color: var(--integration-color); }
-
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.6s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .chapter-card, .integration-card { background-color: var(--color-card-bg); border-radius: 16px; margin-bottom: 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 10px solid; overflow: hidden; }
-        .card-overview { border-color: var(--overview-color); }
-        .card-hebrew { border-color: var(--hebrew-color); }
-        .card-book1 { border-color: var(--book1-color); }
-        .card-book2 { border-color: var(--book2-color); }
-        .card-book3 { border-color: var(--book3-color); }
-        .card-book4 { border-color: var(--book4-color); }
-        .integration-card { border-color: var(--integration-color); }
-
-        .card-content { padding: 2.5rem; }
-        .card-content h3 { font-family: var(--font-heading); font-size: 2.1rem; margin-top: 0; margin-bottom: 1.5rem; letter-spacing: -0.5px; }
-        .card-content h4 { font-family: var(--font-heading); font-size: 1.35rem; color: #212529; font-weight: 700; border-bottom: 3px solid #eee; padding-bottom: 0.6rem; margin-top: 3rem; margin-bottom: 1.5rem; display: flex; align-items: center; }
-        
-        .key-question-box { background-color: #f8f9fa; border-left: 5px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; font-style: italic; font-weight: 600; color: #343a40; font-size: 1.1rem; }
-        
-        .word-card { background: #fff; border: 1px solid var(--color-border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.2rem; transition: transform 0.2s; }
-        .word-card:hover { transform: scale(1.02); border-color: var(--hebrew-color); }
-        .word-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-        .original-text { font-size: 1.8rem; font-weight: 700; color: var(--hebrew-color); }
-        .pronunciation { color: var(--color-grey); font-size: 1rem; }
-        .speaker-icon { cursor: pointer; font-size: 1.2rem; margin-left: 8px; vertical-align: middle; }
-
-        .btn { font-family: var(--font-heading); padding: 12px 24px; border-radius: 10px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-primary { background-color: #495057; color: white; }
-        .btn-secondary { background-color: #e9ecef; color: #495057; }
-        .button-group { display: flex; gap: 12px; margin-top: 2.5rem; flex-wrap: wrap; }
-
-        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 5px; background-color: rgba(0,0,0,0.05); z-index: 2000; }
-        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--book1-color), var(--book2-color), var(--book3-color), var(--book4-color)); width: 0%; transition: width 0.3s; }
-
-        .floating-nav { position: fixed; bottom: 30px; right: 30px; display: flex; align-items: center; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-radius: 30px; padding: 10px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); z-index: 1500; gap: 12px; }
-        .nav-btn { width: 42px; height: 42px; border: none; border-radius: 50%; background: #f1f3f5; color: #495057; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 1.1rem; }
-        .nav-btn:hover { background: #e9ecef; transform: scale(1.15); }
-        
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; z-index: 3000; opacity: 0; visibility: hidden; transition: 0.3s; }
-        .modal-overlay.visible { opacity: 1; visibility: visible; }
-        .modal-content { background-color: white; border-radius: 15px; width: 95%; max-width: 900px; height: 85%; overflow: hidden; display: flex; flex-direction: column; }
-        .modal-header { padding: 15px 25px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .modal-body { flex: 1; }
-        .modal-body iframe { width: 100%; height: 100%; border: none; }
-
-        footer { text-align: center; padding: 4rem 0; border-top: 1px solid var(--color-border); color: var(--color-grey); margin-top: 5rem; }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 2.2rem; }
-            .card-content { padding: 1.5rem; }
-            .tabs { padding: 8px; }
-            .tab-btn { padding: 8px 12px; font-size: 0.85rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4월 19일 맥체인 성경읽기</title>
+<link rel="stylesheet" href="style.css">
+<style>
+:root { --overview-color: #6c757d; }
+.tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
+.card-overview { border-color: var(--overview-color); }
+.card-overview h3 { color: var(--overview-color); }
+.key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
+.key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
+</style>
 </head>
 <body>
-    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+<div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
+<div class="container">
+<div class="content-wrapper">
+<header>
+<h4>M'Cheyne Bible Reading Plan</h4>
+<h1>4월 19일</h1>
+</header>
+<nav class="tabs">
+<button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+<button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+<button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">레위기 23장</button>
+<button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 30편</button>
+<button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">전도서 6장</button>
+<button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">디모데전서 1장</button>
+<button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
+</nav>
+<main>
+<div id="content-overview" class="tab-content active">
+<div class="card card-overview">
+<h3>Today's Reading Overview</h3>
+<p>오늘은 거룩한 절기를 통해 안식을 명하시는 하나님(레위기), 고난 뒤에 찾아오는 찬양의 기쁨(시편), 세상 부귀의 허무함(전도서), 그리고 복음의 핵심인 은혜와 직분을(디모데전서) 묵상합니다. 모든 본문은 우리 삶의 중심이 인간의 업적이나 소유가 아닌, 오직 하나님의 은혜와 그분의 영광에 있어야 함을 증거합니다.</p>
+</div>
+</div>
 
-    <div class="container">
-        <div class="content-wrapper">
-            <header>
-                <h4>MacCheyne Reading Plan 5.0</h4>
-                <h1>4월 19일</h1>
-            </header>
+            <div id="content-hebrew" class="tab-content" style="display:none;">
+                <div class="card card-book4">
+                    <h3>디모데전서 1:15 원어 강해</h3>
+                    <div class="key-question-box">
+                        <p>"미쁘다 모든 사람이 받을 만한 이 말이여 그리스도 예수께서 죄인을 구원하시려고 세상에 임하셨다 하였도다 죄인 중에 내가 괴수니라"</p>
+                    </div>
 
-            <nav class="tabs">
-                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
-                <button class="tab-btn" data-target="content-hebrew" data-color="hebrew" onclick="switchTab(1)">원어 심화</button>
-                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">레위기 23장</button>
-                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 30편</button>
-                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">전도서 6장</button>
-                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">디모데후서 2장</button>
-                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
-            </nav>
+                    <h4>① 헬라어 알파벳 가이드</h4>
+                    <p>본 구절의 핵심 단어인 <strong>πίστος(피스토스)</strong>에 사용된 <strong>π(피)</strong>는 영어의 P에 해당하며, 입술을 굳게 다물었다가 터뜨리는 소리입니다. 이는 하나님의 약속이 결코 흔들리지 않는 단단한 기초 위에 있음을 상징적으로 보여주는 듯한 강한 발음을 가집니다.</p>
 
-            <main>
-                <div id="content-overview" class="tab-content active">
-                    <article class="chapter-card card-overview">
-                        <div class="card-content">
-                            <h3>4월 19일 성경읽기 가이드</h3>
-                            <p>오늘의 읽기는 하나님의 거룩한 시간(절기)과 인간의 유한한 시간(헛됨), 그리고 그 사이를 관통하는 하나님의 은혜와 회복을 다룹니다. 레위기의 절기들이 가리키는 그리스도의 구속 사역이 디모데후서에서 어떻게 성도의 삶의 능력으로 나타나는지 묵상해 보십시오.</p>
-                            <ul>
-                                <li><strong>레위기 23장:</strong> 여호와의 절기들 - 이스라엘의 시간 속에 새겨진 구속의 파노라마입니다.</li>
-                                <li><strong>시편 30편:</strong> 슬픔이 춤이 되게 하시는 하나님 - 징계 중에도 은혜를 잊지 않으시는 왕의 노래입니다.</li>
-                                <li><strong>전도서 6장:</strong> 누리지 못하는 복의 허무함 - 소유보다 누림의 은혜가 중요함을 역설합니다.</li>
-                                <li><strong>디모데후서 2장:</strong> 그리스도 예수의 좋은 병사 - 고난 속에서도 변치 않는 은혜의 기초를 붙드는 삶입니다.</li>
-                            </ul>
-                            <div class="button-group">
-                                <button class="btn btn-primary" onclick="switchTab(1)">원어 심화 학습 시작하기</button>
-                            </div>
+                    <h4>② 전체 단어 개별 해부</h4>
+                    <div class="word-card-grid">
+                        <div class="word-card">
+                            <strong>Πιστὸς <span onclick="playOriginalAudio('Πιστὸς', 'el-GR')" style="cursor:pointer;">🔊</span></strong>
+                            <p>(피스토스) 미쁘다, 신실하다. 하나님의 성품에 기초한 절대적인 신뢰성을 의미합니다. 바울은 복음의 진리가 인간의 가설이 아닌 하나님의 신실하심에 근거함을 선포합니다.</p>
                         </div>
-                    </article>
-                </div>
-
-                <div id="content-hebrew" class="tab-content">
-                    <article class="chapter-card card-hebrew">
-                        <div class="card-content">
-                            <h3>헬라어 원어 심층 해부: 디모데후서 2장 1절</h3>
-                            <div class="key-question-box">
-                                <p>"내 아들아 그러므로 너는 그리스도 예수 안에 있는 은혜 가운데서 강하라"</p>
-                            </div>
-
-                            <h4>알파벳 가이드: 시그마(Σ, σ)와 엡실론(Ε, ε)</h4>
-                            <p>본문의 핵심 단어인 '은혜(Chariti)'와 '강하라(Endynamou)'에 쓰인 알파벳을 살펴봅니다. <strong>시그마(Σ)</strong>는 고대 페니키아 문자의 '신(Shin, 이빨)'에서 유래하여 '날카로움'과 '구별됨'을 상징합니다. 이는 복음의 진리가 세상과 구별되는 예리함을 가짐을 암시합니다. <strong>엡실론(Ε)</strong>은 '단순한 E'라는 뜻으로, 하나님의 은혜가 복잡한 철학이 아닌 단순하고 명료한 선물임을 상징적으로 보여줍니다.</p>
-
-                            <div class="word-card">
-                                <div class="word-header">
-                                    <span class="original-text">ἐνδυναμοῦ <span class="speaker-icon" onclick="playOriginalAudio('ἐνδυνα모ῦ', 'el-GR')">🔊</span></span>
-                                    <span class="pronunciation">en-dy-na-mou</span>
-                                </div>
-                                <p><strong>어원 및 분석:</strong> '안에'를 뜻하는 'en'과 '능력'을 뜻하는 'dynamis'의 합성어인 'endynamoō'의 현재 명령 수동태입니다.</p>
-                                <p><strong>신학적 의미:</strong> 이 단어는 '스스로 힘을 내라'는 뜻이 아니라 '외부로부터 힘을 공급받으라'는 의미입니다. 개혁주의적 관점에서 이는 성도의 견인이 자신의 의지가 아닌, 성령의 주권적인 공급하심에 근거함을 보여줍니다. 헬라어 수동태는 주체가 하나님의 은혜임을 명확히 합니다.</p>
-                            </div>
-
-                            <div class="word-card">
-                                <div class="word-header">
-                                    <span class="original-text">χάριτι <span class="speaker-icon" onclick="playOriginalAudio('χάριτι', 'el-GR')">🔊</span></span>
-                                    <span class="pronunciation">cha-ri-ti</span>
-                                </div>
-                                <p><strong>어원 및 분석:</strong> '카리스(charis)'의 여격 단수형입니다. '기쁨'과 '호의'를 뜻하는 'char'에서 유래했습니다.</p>
-                                <p><strong>신학적 의미:</strong> 여기서의 여격은 '수단' 또는 '영역'을 나타냅니다. 즉, 강해지는 유일한 통로가 '은혜'라는 것입니다. 칼빈은 이를 "우리의 공로가 완전히 배제된 오직 하나님의 값없는 자비"라고 설명했습니다. 이 은혜는 그리스도 예수라는 유기적 연합 안에서만 유효합니다.</p>
-                            </div>
-
-                            <h4>문장 전체 주석 분석</h4>
-                            <p><strong>Σὺ οὖν, τέκνον μου, ἐνδυναμοῦ ἐν τῇ χάριτι τῇ ἐν Χριστῷ Ἰησοῦ.</strong> <span class="speaker-icon" onclick="playOriginalAudio('Σὺ οὖν, τέκνον μου, ἐνδυναμοῦ ἐν τῇ χάριτι τῇ ἐν Χριστῷ Ἰησοῦ', 'el-GR')">🔊</span></p>
-                            <p>이 문장에서 'οὖν(그러므로)'은 1장의 고난과 복음을 연결합니다. 고난이 있기 때문에 은혜가 필요한 것이 아니라, 은혜가 있기 때문에 고난을 이길 수 있다는 논리적 순서를 가집니다. 'téknon mou(내 아들아)'라는 호칭은 언약적 계승의 친밀함을 나타내며, 이 명령이 강압이 아닌 사랑의 권면임을 보여줍니다.</p>
-
-                            <h4>언약 신학적 적용</h4>
-                            <p>우리는 흔히 신앙생활을 자신의 결단으로 유지하려 합니다. 그러나 본문의 '엔뒤나무'는 철저히 수동적입니다. 바울은 디모데에게 "하나님이 하시는 일에 너를 맡기라"고 말합니다. 이것이 개혁주의가 말하는 '은혜의 방도'입니다. 오늘 하루, 당신의 결단보다 하나님의 공급하심을 먼저 구하십시오.</p>
+                        <div class="word-card">
+                            <strong>ὁ <span onclick="playOriginalAudio('ὁ', 'el-GR')" style="cursor:pointer;">🔊</span></strong>
+                            <p>(호) 정관사 '그'. 뒤에 오는 명사를 한정하며, 바로 이 '말'이 유일하고 확실한 진리임을 강조하는 역할을 합니다.</p>
                         </div>
-                    </article>
-                </div>
-
-                <div id="content-book1" class="tab-content">
-                    <article class="chapter-card card-book1">
-                        <div class="card-content">
-                            <h3>레위기 23장: 거룩한 시간의 리듬, 여호와의 절기</h3>
-                            <div class="key-question-box">
-                                <p>질문: 이스라엘의 절기들이 단순한 행사가 아니라 '여호와의 성회'라고 불리는 이유는 무엇입니까?</p>
-                            </div>
-                            <h4>역사적 문맥과 구조</h4>
-                            <p>레위기 23장은 이스라엘의 종교적 달력을 총망라합니다. 안식일을 시작으로 유월절, 무교절, 초실절, 오순절, 나팔절, 속죄일, 그리고 초막절로 이어지는 이 주기는 이스라엘 백성이 가나안 땅에 들어가서 지켜야 할 삶의 규범입니다. 광야라는 결핍의 공간에서 약속의 땅이라는 풍요의 공간으로 이동할 때, 그 풍요가 하나님으로부터 왔음을 기억하게 하는 장치입니다.</p>
-                            <h4>핵심 신학과 구속사적 의미</h4>
-                            <p>각 절기는 그리스도의 사역을 예표합니다. 유월절은 그리스도의 죽음을, 초실절은 부활을, 오순절은 성령 강림을, 초막절은 장차 올 하나님 나라의 완성을 상징합니다. 하나님은 시간을 창조하셨을 뿐만 아니라, 그 시간 속에 구속의 점들을 찍어 가십니다. 이는 역사가 우연의 연속이 아니라 하나님의 작정(Decree) 아래 있음을 보여줍니다.</p>
-                            <h4>개혁주의 적용과 성도의 삶</h4>
-                            <p>현대 성도에게 안식과 절기는 '멈춤'의 훈련입니다. 칼빈은 안식일을 "우리의 일을 쉬고 하나님이 우리 안에서 일하시게 하는 날"이라고 정의했습니다. 분주한 세상 속에서 우리는 레위기의 절기 정신을 회복해야 합니다. 우리의 시간이 나의 야망을 위한 것이 아니라 하나님의 영광을 위한 '카이로스'가 되도록 삶의 우선순위를 재조정해야 합니다.</p>
-                            <div class="button-group">
-                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_03_LEV_23.html" data-title="레위기 23장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn" data-key="LEV_23" data-title="레위기 23장">성경 듣기</button>
-                            </div>
+                        <div class="word-card">
+                            <strong>λόγος <span onclick="playOriginalAudio('λό고스', 'el-GR')" style="cursor:pointer;">🔊</span></strong>
+                            <p>(로고스) 말씀, 도리. 단순히 내뱉는 말이 아니라 논리적이고 신학적인 체계를 갖춘 복음의 핵심 메시지를 지칭합니다.</p>
                         </div>
-                    </article>
-                </div>
-
-                <div id="content-book2" class="tab-content">
-                    <article class="chapter-card card-book2">
-                        <div class="card-content">
-                            <h3>시편 30편: 밤의 탄식을 새벽의 찬송으로</h3>
-                            <div class="key-question-box">
-                                <p>질문: 시인이 고백하는 '잠깐인 노염'과 '평생인 은총'의 대비가 우리의 고난 이해에 어떤 변화를 줍니까?</p>
-                            </div>
-                            <h4>역사적 문맥과 구조</h4>
-                            <p>이 시는 '성전 낙성가'라는 부제가 붙어 있습니다. 다윗이 인구 조사라는 교만의 죄로 징계를 받은 후, 오르난의 타작마당에서 회복을 경험하고 성전 터를 봉헌하며 지은 시로 알려져 있습니다. 죽음의 문턱(스올)까지 내려갔던 극적인 경험이 본문의 배경이 됩니다. 시는 개인적인 감사에서 시작하여 공동체적인 찬양으로 확대되는 구조를 가집니다.</p>
-                            <h4>핵심 신학과 구속사적 의미</h4>
-                            <p>"저녁에는 울음이 깃들일지라도 아침에는 기쁨이 오리로다"라는 선포는 복음의 핵심 패러다임입니다. 십자가의 고난(저녁) 뒤에 반드시 부활의 아침이 온다는 약속입니다. 하나님은 자기 백성을 징계하시나 버리지 않으십니다. 하나님의 진노는 거룩함을 위한 방편일 뿐, 그 본심은 평생의 은총에 있음을 시인은 통찰력 있게 노래합니다.</p>
-                            <h4>개혁주의 적용과 성도의 삶</h4>
-                            <p>성도는 '형통할 때'를 조심해야 합니다. 시인도 형통할 때 "영원히 흔들리지 아니하리라"고 장담했습니다(6절). 그러나 하나님이 얼굴을 가리시자 곧바로 두려움에 빠졌습니다. 우리의 안정감은 환경의 형통이 아니라 오직 하나님의 얼굴빛에 있어야 합니다. 고난 중에 있다면, 그것이 곧 춤으로 변할 하나님의 무대장치임을 믿고 인내하십시오.</p>
-                            <div class="button-group">
-                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_30.html" data-title="시편 30편">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_30" data-title="시편 30편">성경 듣기</button>
-                            </div>
+                        <div class="word-card">
+                            <strong>Χριστὸς <span onclick="playOriginalAudio('Χριστὸς', 'el-GR')" style="cursor:pointer;">🔊</span></strong>
+                            <p>(크리스토스) 그리스도, 기름 부음 받은 자. 구약의 모든 메시아 예언이 예수 안에서 성취되었음을 나타내는 직분명입니다.</p>
                         </div>
-                    </article>
-                </div>
-
-                <div id="content-book3" class="tab-content">
-                    <article class="chapter-card card-book3">
-                        <div class="card-content">
-                            <h3>전도서 6장: 소유를 넘어서는 누림의 신비</h3>
-                            <div class="key-question-box">
-                                <p>질문: 재물과 존귀를 가졌으나 먹지 못하는 사람의 불행은 우리에게 어떤 영적 경고를 줍니까?</p>
-                            </div>
-                            <h4>역사적 문맥과 구조</h4>
-                            <p>전도자는 5장에서 재물의 허무함을 다룬 데 이어, 6장에서는 재물이 있어도 그것을 향유(Enjoyment)하지 못하는 비극을 구체적으로 묘사합니다. 1,000년의 갑절을 산다 해도 마음의 낙을 누리지 못하면 낙태된 자보다 못하다는 파격적인 비유를 사용합니다. 이는 인간의 탐욕이 가진 무한성과 세상 자원의 유한성 사이의 괴리를 날카롭게 지적합니다.</p>
-                            <h4>핵심 신학과 구속사적 의미</h4>
-                            <p>본문은 '일반 은총'의 한계를 보여줍니다. 재물 자체는 하나님의 선물이지만, 그것을 누릴 수 있는 마음의 상태 역시 하나님의 특별한 배려가 필요합니다. 인간의 영혼은 세상의 어떤 것으로도 채울 수 없는 '영원'에 대한 갈망이 있기 때문입니다(전 3:11). 이는 결국 우리를 영원한 만족이신 그리스도께로 인도하는 몽학선생의 역할을 합니다.</p>
-                            <h4>개혁주의 적용과 성도의 삶</h4>
-                            <p>참된 만족은 '소유의 양'이 아니라 '하나님과의 관계'에서 옵니다. 칼빈주의는 청지기 정신을 강조합니다. 우리가 가진 것은 내 것이 아니라 잠시 위탁받은 것이며, 그것을 누리는 기쁨 또한 주님이 주셔야 가능합니다. 미래의 더 큰 소유를 위해 오늘의 감사를 유보하지 마십시오. 현재 주어진 소소한 은혜를 누리는 것이 하나님을 경외하는 구체적인 태도입니다.</p>
-                            <div class="button-group">
-                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_21_ECC_06.html" data-title="전도서 6장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn" data-key="ECC_6" data-title="전도서 6장">성경 듣기</button>
-                            </div>
+                        <div class="word-card">
+                            <strong>ἁμαρτωλοὺς <span onclick="playOriginalAudio('ἁ마르톨루스', 'el-GR')" style="cursor:pointer;">🔊</span></strong>
+                            <p>(하마르톨루스) 죄인들을. '과녁에서 벗어나다'라는 어원을 가집니다. 구원의 대상이 의인이 아닌, 하나님께로부터 완전히 돌아선 자들임을 명시합니다.</p>
                         </div>
-                    </article>
-                </div>
-
-                <div id="content-book4" class="tab-content">
-                    <article class="chapter-card card-book4">
-                        <div class="card-content">
-                            <h3>디모데후서 2장: 고난을 이기는 복음의 일꾼</h3>
-                            <div class="key-question-box">
-                                <p>질문: 바울이 제시한 '병사, 경기자, 농부'의 비유가 성도의 삶에 요구하는 공통적인 자세는 무엇입니까?</p>
-                            </div>
-                            <h4>역사적 문맥과 구조</h4>
-                            <p>로마 감옥에서 죽음을 앞둔 바울이 믿음의 아들 디모데에게 쓴 유언적 서신입니다. 당시 교회는 외부의 박해와 내부의 이단(후메내오와 빌레도 등)으로 인해 큰 위기에 처해 있었습니다. 바울은 이러한 상황에서 디모데가 흔들리지 않는 복음의 기초 위에 서서 다음 세대에게 진리를 위탁할 것을 강력히 권고합니다.</p>
-                            <h4>핵심 신학과 구속사적 의미</h4>
-                            <p>2장은 '그리스도의 신실하심'과 '인간의 충성'을 연결합니다. "우리는 미쁨이 없을지라도 주는 항상 미쁘시니"(13절)라는 선포는 구원의 서정에서 하나님의 견인이 얼마나 견고한지를 보여줍니다. 또한 '하나님의 견고한 터'에는 "자기 백성을 아신다"는 선택의 인침이 있습니다. 성도의 인내는 내 힘이 아닌, 신실하신 하나님께 근거합니다.</p>
-                            <h4>개혁주의 적용과 성도의 삶</h4>
-                            <p>성도는 '부끄러울 것이 없는 일꾼'으로 자신을 드려야 합니다. 이는 율법적인 노력이 아니라, 은혜에 감격한 자발적 헌신입니다. 정결한 그릇이 되어 주인의 쓰심에 합당하게 준비되는 삶, 망령되고 헛된 말을 버리고 진리의 말씀을 옳게 분별하는 태도가 요구됩니다. 고난은 피해야 할 장애물이 아니라, 그리스도의 영광에 참여하는 필수 과정임을 기억합시다.</p>
-                            <div class="button-group">
-                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_16_2TI_02.html" data-title="디모데후서 2장">본문 보기</button>
-                                <button class="btn btn-secondary listen-audio-btn" data-key="2TI_2" data-title="디모데후서 2장">성경 듣기</button>
-                            </div>
+                        <div class="word-card">
+                            <strong>πρῶτός <span onclick="playOriginalAudio('프로토스', 'el-GR')" style="cursor:pointer;">🔊</span></strong>
+                            <p>(프로토스) 첫째, 괴수. 단순히 순서상의 첫 번째가 아니라 비중과 정도에 있어 가장 극심함을 뜻합니다. 바울의 자기 인식을 보여줍니다.</p>
                         </div>
-                    </article>
+                    </div>
+
+                    <h4>③ 원어 구절 분석 및 직역</h4>
+                    <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; margin-top:1rem;">
+                        <p style="font-size:1.2rem; text-align:center;">
+                            <strong>Πιστὸς ὁ λόγος καὶ πάσης ἀποδοχῆς ἄξιος</strong> <span onclick="playOriginalAudio('Πιστὸς ὁ λόγος καὶ πάσης ἀ포도케스 악시오스', 'el-GR')" style="cursor:pointer;">🔊</span>
+                        </p>
+                        <hr>
+                        <p><strong>[직역 분석]</strong></p>
+                        <p>Πιστὸς(신실하다) / ὁ(그) / λόγος(말씀은) / καὶ(그리고) / πάσης(모든) / ἀποδοχῆς(받아들임에) / ἄξιος(합당하다)</p>
+                        <p><strong>[문법 해설]</strong> 본문에서 '피스토스'가 문두에 배치된 것은 이 선언의 확실성을 최우선으로 강조하기 위함입니다. '악시오스'는 저울의 무게가 맞다는 뜻으로, 이 복음이 인간의 모든 지성과 감성으로 수용하기에 조금의 부족함도 없음을 나타냅니다.</p>
+                    </div>
+
+                    <h4>④ 언약 묵상</h4>
+                    <p>바울은 자신을 '죄인의 괴수'라고 고백합니다. 이는 단순한 겸손의 수사가 아니라, 거룩하신 하나님 앞에서 자신의 실존을 발견한 자의 정직한 외침입니다. 그러나 그 깊은 절망의 자리에서 '미쁜 말씀'인 그리스도의 구속이 임합니다. 우리의 자격 없음이 오히려 하나님의 은혜를 더욱 빛나게 만드는 언약적 신비가 이 구절에 응축되어 있습니다.</p>
                 </div>
-
-                <div id="content-integration" class="tab-content">
-                    <article class="integration-card">
-                        <div class="card-content">
-                            <h3>주제 중심 신학적 종합: "은혜의 리듬 안에 거하는 삶"</h3>
-                            <h4>관통하는 주제: 구속적 시간 속에서 은혜로 빚어지는 성도</h4>
-                            <p>오늘의 네 본문은 서로 다른 시대와 상황에서 기록되었지만, **'하나님의 주권적 은혜'**라는 거대한 물줄기에서 만납니다. 레위기 23장의 절기들은 하나님이 정하신 구속의 시간표를 보여줍니다. 이 시간표는 인간의 의지와 상관없이 흐르며, 그리스도를 향해 나아갑니다. 전도서 6장은 그 시간 속에서 하나님을 떠난 인간의 노력이 얼마나 허무한지를 폭로하며, 오직 하나님만이 인간에게 참된 안식과 누림을 주실 수 있음을 역설합니다.</p>
-                            <p>시편 30편은 그 하나님의 주권을 개인의 삶에서 경험한 자의 노래입니다. 교만으로 인해 밤의 어둠을 경험했지만, 하나님의 신실하심이 아침의 기쁨을 가져왔음을 고백합니다. 이 고백은 디모데후서 2장에서 바울의 권면으로 이어집니다. 내 힘이 아닌 '그리스도 안에 있는 은혜' 안에서 강해지라는 외침입니다. 병사처럼 인내하고, 경기자처럼 규칙(진리)을 지키며, 농부처럼 수고하는 삶의 동력은 오직 '미쁘신 하나님'께로부터 나옵니다.</p>
-                            <p>결국 성도의 삶은 레위기의 절기처럼 하나님의 구속적 리듬에 자신을 맞추는 과정입니다. 내 삶의 허무(전도서)를 인정하고, 하나님의 징계마저도 은혜로 받으며(시편), 오직 복음을 위해 자신을 정결한 그릇으로 드리는 것(디모데후서), 이것이 오늘 우리가 걸어가야 할 은혜의 길입니다. 하나님은 우리를 아십니다. 그분의 인치심은 견고합니다.</p>
-                            <div class="button-group">
-                                <a href="#" class="btn btn-primary" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">맨 위로 돌아가기</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </main>
-
-            <footer>
-                <p>&copy; 2026 MacCheyne 5.0. 개혁주의 신학 기반 성경 읽기 가이드.</p>
-            </footer>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="text-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title" style="margin:0; font-family:var(--font-heading);"></h2>
-                <button style="background:none; border:none; font-size:2rem; cursor:pointer;" id="modal-close">&times;</button>
             </div>
-            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
-        </div>
+
+            <div id="content-book1" class="tab-content" style="display:none;">
+                <div class="card card-book1">
+                    <div class="card-header-flex">
+                        <h3>레위기 23장</h3>
+                        <button class="btn btn-audio listen-audio-btn" data-key="LEV_23">🎧 듣기</button>
+                    </div>
+                    <div class="key-question-box">
+                        <p>"이스라엘 자손에게 말하여 이르라 이것이 나의 절기들이니 너희가 성회로 공포할 여호와의 절기들이니라"</p>
+                    </div>
+                    <h4>역사적 문맥과 구조</h4>
+                    <p>레위기 23장은 이스라엘의 '거룩한 달력'을 제시합니다. 안식일을 시작으로 유월절, 무교절, 초실절, 오순절, 나팔절, 속죄일, 그리고 초막절에 이르기까지 일곱 절기를 규정합니다. 이는 광야 생활을 하는 이스라엘 백성들에게 그들의 시간 자체가 하나님의 주권 아래 있으며, 모든 일상이 예배와 연결되어 있음을 가르치기 위해 기록되었습니다.</p>
+                    <h4>핵심 신학과 구속사적 의미</h4>
+                    <p>각 절기는 장차 오실 그리스도의 사역을 예표합니다. 유월절 어린양은 십자가 죽음을, 초실절은 부활을, 오순절은 성령 강림을 예시합니다. 특히 '안식'의 개념은 인간의 노동이 멈추는 지점에서 하나님의 창조와 구원 사역이 완성됨을 선포하는 기독론적 의미를 담고 있습니다. 그리스도는 우리에게 영원한 안식을 주시는 참된 성취자이십니다.</p>
+                    <h4>개혁주의 적용과 성도의 삶</h4>
+                    <p>성도는 세속적 달력 속에 살면서도 동시에 '하나님의 시간'을 사는 자들입니다. 주일을 성수하고 예배의 리듬을 지키는 것은 단순히 율법적 의무가 아니라, 내 삶의 주인이 하나님이심을 고백하는 신앙 행위입니다. 바쁜 일상 속에서도 의도적으로 멈추어 하나님의 구원을 기억하는 '거룩한 정지'가 개혁주의 성도의 핵심적 삶의 양식입니다.</p>
+                    <button class="btn btn-primary view-text-btn" data-path="[https://kbd71.github.io/bible71/bible_html/OT/OT_03_LEV_23.html](https://kbd71.github.io/bible71/bible_html/OT/OT_03_LEV_23.html)" data-title="레위기 23장">본문 보기</button>
+                </div>
+            </div>
+
+            <div id="content-book2" class="tab-content" style="display:none;">
+                <div class="card card-book2">
+                    <div class="card-header-flex">
+                        <h3>시편 30편</h3>
+                        <button class="btn btn-audio listen-audio-btn" data-key="PSA_30">🎧 듣기</button>
+                    </div>
+                    <div class="key-question-box">
+                        <p>"주께서 나의 슬픔이 변하여 내게 춤이 되게 하시며 나의 베옷을 벗기고 기쁨으로 띠 띠우셨나이다"</p>
+                    </div>
+                    <h4>역사적 문맥과 구조</h4>
+                    <p>시편 30편은 '다윗의 시, 곧 성전 낙성가'라는 표제를 가집니다. 다윗이 자신의 교만함으로 인해 겪었던 고통(아마도 인구 조사 이후의 전염병 사건 등)에서 건짐을 받은 후, 하나님의 은혜를 찬양하며 지은 시입니다. 죽음의 문턱에서 생명으로 옮겨진 감격이 시 전체의 흐름을 주도하며, 슬픔에서 기쁨으로의 극적인 반전을 노래합니다.</p>
+                    <h4>핵심 신학과 구속사적 의미</h4>
+                    <p>"그의 노염은 잠깐이요 그의 은총은 평생이로다"라는 선언은 하나님의 본심이 심판이 아닌 회복에 있음을 보여줍니다. 이는 그리스도의 고난을 통해 영원한 기쁨을 얻게 될 성도의 운명을 미리 보여줍니다. 베옷(고난과 회개)을 벗기고 기쁨의 옷을 입히시는 하나님의 사역은 십자가를 통과하여 부활의 영광에 참여하는 구속사의 핵심 원리를 반영합니다.</p>
+                    <h4>개혁주의 적용과 성도의 삶</h4>
+                    <p>개혁주의 신학은 하나님의 주권을 강조합니다. 우리가 형통할 때 "영원히 흔들리지 아니하리라"고 장담하는 교만을 경계해야 합니다. 시련이 닥칠 때 그것이 하나님의 '얼굴을 가리심'일지라도, 성도는 밤을 지새우는 울음 뒤에 찾아올 아침의 기쁨을 신뢰해야 합니다. 고난 중에도 하나님의 신실하심을 의지하며 찬양의 이유를 찾는 것이 참된 신앙의 태도입니다.</p>
+                    <button class="btn btn-primary view-text-btn" data-path="[https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_30.html](https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_30.html)" data-title="시편 30편">본문 보기</button>
+                </div>
+            </div>
+
+            <div id="content-book3" class="tab-content" style="display:none;">
+                <div class="card card-book3">
+                    <div class="card-header-flex">
+                        <h3>전도서 6장</h3>
+                        <button class="btn btn-audio listen-audio-btn" data-key="ECC_06">🎧 듣기</button>
+                    </div>
+                    <div class="key-question-box">
+                        <p>"사람이 비록 백 명의 자녀를 낳고 또 장수하여 사는 날이 많을지라도... 행복을 누리지 못하면... 낙태된 자가 그보다 낫다 하노니"</p>
+                    </div>
+                    <h4>역사적 문맥과 구조</h4>
+                    <p>전도서 6장은 해 아래서 행해지는 인간의 허무한 노력을 계속해서 탐구합니다. 전반부에서는 재물과 부요를 가졌으나 그것을 누리지 못하는 비극을, 후반부에서는 많은 자녀와 장수가 줄 수 없는 근본적인 만족의 부재를 다룹니다. 인간이 소유한 모든 것이 결국 죽음이라는 한계 앞에서 어떻게 무력해지는지를 냉철하게 분석합니다.</p>
+                    <h4>핵심 신학과 구속사적 의미</h4>
+                    <p>전도자는 인간의 영혼이 세상의 것으로 결코 채워질 수 없음을 강조합니다("식욕은 채울 수 없느니라"). 이는 어거스틴의 고백처럼 "하나님 안에서 안식하기 전까지는 평안이 없다"는 진리를 가리킵니다. 해 아래의 허무는 해 위의 존재이신 그리스도를 갈망하게 만드는 그림자입니다. 참된 만족과 '누림'은 오직 창조주 하나님과의 바른 관계 안에서만 가능합니다.</p>
+                    <h4>개혁주의 적용과 성도의 삶</h4>
+                    <p>물질적 풍요가 곧 하나님의 복이라는 기복주의적 사고를 경계해야 합니다. 하나님은 우리에게 재물을 주시기도 하지만, 그것을 '누릴 수 있는 마음'도 주셔야 합니다. 소유보다 중요한 것은 자족하는 마음이며, 미래에 대한 인간의 헛된 지식보다 하나님의 섭리를 신뢰하는 지혜가 필요합니다. 오늘 주어진 소박한 일상 속에서 감사를 발견하는 것이 전도서가 제시하는 비결입니다.</p>
+                    <button class="btn btn-primary view-text-btn" data-path="[https://kbd71.github.io/bible71/bible_html/OT/OT_21_ECC_06.html](https://kbd71.github.io/bible71/bible_html/OT/OT_21_ECC_06.html)" data-title="전도서 6장">본문 보기</button>
+                </div>
+            </div>
+
+            <div id="content-book4" class="tab-content" style="display:none;">
+                <div class="card card-book4">
+                    <div class="card-header-flex">
+                        <h3>디모데전서 1장</h3>
+                        <button class="btn btn-audio listen-audio-btn" data-key="1TI_01">🎧 듣기</button>
+                    </div>
+                    <div class="key-question-box">
+                        <p>"우리 주 그리스도 예수께 내가 감사함은 나를 충성되이 여겨 내게 직분을 맡기심이니"</p>
+                    </div>
+                    <h4>역사적 문맥과 구조</h4>
+                    <p>바울이 에베소 교회에서 목회하는 젊은 동역자 디모데에게 보낸 첫 번째 편지입니다. 당시 에베소 교회에는 신화와 끝없는 족보에 몰두하는 거짓 가르침이 침투해 있었습니다. 바울은 이 편지의 서두에서 율법의 참된 용도를 바로잡고, 자신이 경험한 복음의 영광과 사도적 권위를 확증하며 교회의 질서를 세우고자 합니다.</p>
+                    <h4>핵심 신학과 구속사적 의미</h4>
+                    <p>본장의 핵심은 '복음의 직분'과 '은혜의 우선성'입니다. 율법은 죄를 깨닫게 하는 용도로 선한 것이지만, 구원은 오직 죄인을 구원하러 임하신 예수 그리스도를 통해서만 이루어집니다. 비방자요 박해자였던 바울이 사도가 된 사건은 하나님의 긍휼이 얼마나 크고 풍성한지를 보여주는 본보기입니다. 복음은 인간의 공로를 배제하고 오직 하나님의 자비만을 높입니다.</p>
+                    <h4>개혁주의 적용과 성도의 삶</h4>
+                    <p>모든 성도는 바울과 같은 고백을 가져야 합니다. 우리가 받은 직분이나 사명은 우리의 능력 때문이 아니라 하나님이 '충성되이 여겨 주셨기' 때문에 가능합니다. "죄인 중의 괴수"라는 자기 인식이 깊어질수록 우리에게 베풀어 주신 은혜의 크기는 더 크게 다가옵니다. 거짓 가르침에 흔들리지 않고 복음의 순전함을 지키며 각자의 처소에서 선한 싸움을 싸워야 합니다.</p>
+                    <button class="btn btn-primary view-text-btn" data-path="[https://kbd71.github.io/bible71/bible_html/NT/NT_54_1TI_01.html](https://kbd71.github.io/bible71/bible_html/NT/NT_54_1TI_01.html)" data-title="디모데전서 1장">본문 보기</button>
+                </div>
+            </div>
+
+            <div id="content-integration" class="tab-content" style="display:none;">
+                <div class="card card-integration">
+                    <h3>은혜의 리듬 속에 거하는 성도의 삶: 안식, 기쁨, 그리고 감사</h3>
+                    <p>오늘의 네 본문은 '하나님 중심적 삶의 회복'이라는 거대한 주제 아래 하나로 묶입니다. 레위기 23장의 절기들은 성도의 시간이 하나님께 속해 있음을 선포합니다. 우리가 세상을 살아가며 지치고 곤하여도, 하나님이 정하신 안식과 예배의 자리에 머물 때 우리는 진정한 정체성을 회복하게 됩니다. 이는 인간의 노동으로 얻는 성취보다 하나님의 공급하심이 우선임을 고백하는 행위입니다.</p>
+                    <p>시편 30편과 전도서 6장은 해 아래의 삶에서 겪는 감정의 기복과 소유의 허무를 대조적으로 보여줍니다. 세상의 부귀와 장수가 우리에게 영원한 만족을 주지 못한다는 전도서의 경고는, 오직 슬픔을 춤으로 바꾸시는 하나님의 구원 사역(시편)만이 인간 실존의 유일한 해답임을 역설합니다. 고난의 밤이 지나고 아침이 오면 찬양하게 하시는 하나님의 섭리는 우리의 형통함 뒤에 숨겨진 교만을 깨뜨리고 겸손하게 하나님만을 의지하게 만듭니다.</p>
+                    <p>마지막으로 디모데전서 1장은 이 모든 신앙의 기초가 '복음의 은혜'에 있음을 확증합니다. 절기를 지키고 찬양을 드리며 허무를 이기는 힘은 우리 자신에게서 나오지 않습니다. 죄인 중의 괴수였던 우리를 부르셔서 사명을 맡기신 하나님의 미쁘신 말씀, 즉 그리스도의 복음이 동력이 됩니다. 오늘 하루, 내게 주어진 시간(절기) 속에서, 헛된 소유가 아닌 주신 은혜에 만족하며(전도서/시편), 복음의 증인으로(디모데전서) 살아가는 복된 성도가 되기를 소망합니다.</p>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+        </footer>
     </div>
-
-    <div class="floating-nav" id="floating-nav">
-        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
-        <div style="font-family:var(--font-heading); font-weight:600; font-size:0.9rem;" id="tab-indicator">1 / 7</div>
-        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+</div>
+<div class="modal-overlay" id="text-modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+        <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
     </div>
-
-    <script>
-        let currentTabIndex = 0;
-        const totalTabs = 7;
-        const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
-
-        function switchTab(index) {
-            currentTabIndex = index;
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
-            
-            tabs[index].classList.add('active');
-            contents[index].classList.add('active');
-            
-            document.getElementById('tab-indicator').innerText = `${index + 1} / ${totalTabs}`;
-            document.getElementById('reading-progress').style.width = `${((index + 1) / totalTabs) * 100}%`;
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        document.getElementById('next-tab').onclick = () => {
-            if (currentTabIndex < totalTabs - 1) switchTab(currentTabIndex + 1);
-        };
-        document.getElementById('prev-tab').onclick = () => {
-            if (currentTabIndex > 0) switchTab(currentTabIndex - 1);
-        };
-
-        // 모달 제어
-        const modal = document.getElementById('text-modal');
-        document.querySelectorAll('.view-text-btn').forEach(btn => {
-            btn.onclick = () => {
-                document.getElementById('modal-title').innerText = btn.getAttribute('data-title');
-                document.getElementById('modal-iframe').src = btn.getAttribute('data-path');
-                modal.classList.add('visible');
-            };
-        });
-        document.getElementById('modal-close').onclick = () => modal.classList.remove('visible');
-
-        // TTS 기능
-        let audioUtterance = null;
-        function playOriginalAudio(text, langCode) {
-            if ('speechSynthesis' in window) {
-                if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
-                setTimeout(() => {
-                    audioUtterance = new SpeechSynthesisUtterance(text);
-                    audioUtterance.lang = langCode;
-                    audioUtterance.rate = 0.8;
-                    window.speechSynthesis.speak(audioUtterance);
-                }, 50);
-            } else {
-                alert('이 브라우저는 음성 합성 기능을 지원하지 않습니다.');
-            }
-        }
-    </script>
-    <script src="script.js"></script>
+</div>
+<div class="floating-nav" id="floating-nav">
+    <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+    <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+    <button class="nav-btn" id="next-tab"><span>▶</span></button>
+</div>
+<div id="player-container"></div>
+<div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
+    <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+    <div style="display:flex;gap:12px;align-items:center;">
+        <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+        <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
+    </div>
+</div>
+<script src="script.js"></script>
+<script>
+    let audioUtterance = null;
+    function playOriginalAudio(text, langCode) {
+        if ('speechSynthesis' in window) {
+            if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+            setTimeout(() => {
+                audioUtterance = new SpeechSynthesisUtterance(text);
+                audioUtterance.lang = langCode;
+                window.speechSynthesis.speak(audioUtterance);
+            }, 50);
+        } else alert('TTS 미지원 브라우저입니다.');
+    }
+</script>
 </body>
 </html>
