@@ -230,15 +230,29 @@
 
     <script src="script.js"></script>
     <script>
+        // 전역 변수로 선언하여 가비지 컬렉션(GC) 방지 및 버그 회피
+        let hebrewUtterance = null;
+
         // 히브리어 TTS 재생 함수
         function playHebrewAudio(text) {
             if ('speechSynthesis' in window) {
-                // 이전에 재생 중인 음성 취소
-                window.speechSynthesis.cancel();
+                // 음성이 재생 중이면 취소
+                if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+                    window.speechSynthesis.cancel();
+                }
                 
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'he-IL'; // 히브리어 설정
-                window.speechSynthesis.speak(utterance);
+                // cancel() 후 바로 speak() 호출 시 무시되는 브라우저 버그 방지를 위해 지연 실행
+                setTimeout(() => {
+                    hebrewUtterance = new SpeechSynthesisUtterance(text);
+                    hebrewUtterance.lang = 'he-IL'; // 히브리어 설정
+                    
+                    // 만약 지원되는 목소리가 있다면 부드러운 목소리로 고정할 수도 있음 (선택 사항)
+                    // const voices = window.speechSynthesis.getVoices();
+                    // const heVoice = voices.find(v => v.lang === 'he-IL');
+                    // if (heVoice) hebrewUtterance.voice = heVoice;
+                    
+                    window.speechSynthesis.speak(hebrewUtterance);
+                }, 50);
             } else {
                 alert('본 브라우저에서는 음성 합성(TTS) 기능을 지원하지 않습니다.');
             }
