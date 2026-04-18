@@ -3,232 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날마다 읽는 교리 - 4월 18일</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <title>4월 18일 맥체인 성경읽기</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; }
-        .card { transition: all 0.3s ease; }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1); }
+        /* [기술적 절대 준수] 맥체인 5.0 UI 테마 */
+        :root { --overview-color: #6c757d; }
+        .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
+        .card-overview { border-color: var(--overview-color); }
+        .card-overview h3 { color: var(--overview-color); }
+        
+        /* 히브리어 교육형 레이아웃 (RTL 대응) */
+        .hebrew-grid { display: flex; flex-direction: column; gap: 1.5rem; margin: 2rem 0; }
+        .hebrew-entry { 
+            background: #fff; border: 1px solid #dee2e6; border-radius: 12px; 
+            padding: 1.5rem; border-right: 6px solid #1a5c9a; direction: ltr; position: relative; 
+        }
+        .hebrew-word-row { display: flex; align-items: baseline; gap: 15px; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .h-word { font-size: 2.8rem; font-weight: bold; color: #1a5c9a; font-family: 'Times New Roman', serif; }
+        .h-label { font-size: 0.95rem; color: #888; font-weight: bold; }
+        .h-section { margin-top: 10px; }
+        .h-title { font-weight: 700; color: #444; margin-right: 8px; border-left: 3px solid #1a5c9a; padding-left: 8px; }
+        .h-desc { font-size: 1.05rem; line-height: 1.8; color: #333; }
+        .h-desc b { color: #d93025; }
+        
+        /* 발음 듣기 버튼 */
+        .pronounce-btn { 
+            background: #f8f9fa; border: 1px solid #ddd; border-radius: 50%; width: 42px; height: 42px; 
+            cursor: pointer; position: absolute; right: 20px; top: 20px; display: flex; align-items: center; justify-content: center; 
+            font-size: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        }
+        .pronounce-btn:hover { background: #e9ecef; transform: scale(1.1); }
+        
+        /* 원어 하단 요약 */
+        .verse-footer { background: #fdfdfe; padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid #e0e0e0; }
+        .original-text { font-size: 1.8rem; font-weight: bold; color: #1a5c9a; margin: 15px 0; display: block; text-align: right; direction: rtl; line-height: 1.6; }
+        .sentence-desc { font-size: 1.1rem; line-height: 1.9; color: #444; margin-top: 20px; padding: 15px; background: #f8f9fa; border-left: 5px solid #c89200; }
+        
+        /* 탭 가시성 제어 */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
-<body class="text-slate-800 leading-relaxed antialiased">
+<body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
 
-    <div class="max-w-4xl mx-auto px-4 py-12">
-        <!-- 헤더 -->
-        <header class="text-center mb-12">
-            <div class="inline-block px-4 py-1.5 bg-red-100 text-red-700 text-xs font-bold rounded-full mb-4 tracking-widest uppercase">
-                April 18
-            </div>
-            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">그리스도의 높아지심 – 심판의 재림</h1>
-            <p class="text-lg text-slate-500 font-medium tracking-tight">웨스트민스터 대요리문답 56</p>
-        </header>
+    <div class="container">
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>4월 18일</h1>
+            </header>
 
-        <!-- 오디오 플레이어 섹션 -->
-        <section id="audio-player-container" class="mb-12 bg-white rounded-3xl p-6 shadow-md border border-slate-100">
-            <div id="player-ui" class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex items-center gap-5">
-                    <div class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-7 h-7">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-slate-900 text-lg">교리 오디오 해설</h3>
-                        <p id="audio-status" class="text-sm text-slate-400">오디오 서버를 확인하고 있습니다...</p>
-                    </div>
-                </div>
-                <button id="play-pause-btn" disabled class="w-full md:w-auto px-10 py-3.5 bg-slate-100 text-slate-400 font-bold rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 cursor-not-allowed" aria-label="교리 오디오 재생">
-                    <span id="btn-text">로딩 중</span>
-                </button>
-            </div>
-            <div id="error-display" class="hidden mt-4 p-4 bg-red-50 text-red-600 rounded-2xl text-center font-medium border border-red-100"></div>
-            <div id="youtube-player" class="hidden"></div>
-        </section>
+            <nav class="tabs">
+                <button class="tab-btn active" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-color="book1" onclick="switchTab(2)">레위기 22장</button>
+                <button class="tab-btn" data-color="book2" onclick="switchTab(3)">시편 28-29편</button>
+                <button class="tab-btn" data-color="book3" onclick="switchTab(4)">전도서 5장</button>
+                <button class="tab-btn" data-color="book4" onclick="switchTab(5)">디모데후서 1장</button>
+                <button class="tab-btn" data-color="integration" onclick="switchTab(6)">신학적 종합</button>
+            </nav>
 
-        <!-- 주요 콘텐츠 -->
-        <main class="space-y-10">
-            
-            <!-- 대요리문답 카드 -->
-            <article class="card bg-slate-900 text-slate-50 rounded-3xl p-8 md:p-10 shadow-xl border-t-8 border-red-600">
-                <h2 class="text-red-400 font-black text-sm mb-6 flex items-center gap-2 uppercase tracking-widest">
-                    <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                    Westminster Larger Catechism 56
-                </h2>
-                <div class="space-y-6">
-                    <p class="text-xl font-bold leading-tight text-white">문: 그리스도께서 세상을 심판하러 다시 오심에서 어떻게 높아지셨습니까?</p>
-                    <p class="text-lg md:text-xl leading-relaxed italic text-slate-300 border-l-4 border-red-600 pl-6">
-                        답: 그리스도께서 세상을 심판하러 다시 오심에서 높아지심은, 악한 자들에게 불의하게 판단받고 정죄받으신 그분께서, 마지막 날에 <strong>큰 권능</strong>으로, 그리고 그분 자신의 <strong>영광</strong>과 아버지의 영광을 온전히 나타내시면서, 그분의 모든 거룩한 천사들과 함께, 큰 외침과 천사장의 호령과 <strong>하나님의 나팔소리</strong>와 함께 다시 오셔서 공의로 세상을 심판하심입니다.
-                    </p>
-                </div>
-            </article>
-
-            <!-- 말씀 요절 섹션 -->
-            <section class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
-                <h2 class="text-xl font-black text-slate-900 mb-8 flex items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    말씀 요절
-                </h2>
-                <div class="space-y-6 text-slate-700 italic border-l-4 border-red-200 pl-6">
-                    <p>“...인자가 구름을 타고 <strong>능력과 큰 영광</strong>으로 오는 것을 보리라” <span class="text-slate-400 not-italic text-sm">(마 24:30)</span></p>
-                    <p>“주께서 호령과 천사장의 소리와 하나님의 나팔 소리로 친히 <strong>하늘로부터 강림</strong>하시리니...” <span class="text-slate-400 not-italic text-sm">(살전 4:16)</span></p>
-                    <p>“이는 정하신 사람으로 하여금 천하를 <strong>공의로 심판할 날</strong>을 작정하시고...” <span class="text-slate-400 not-italic text-sm">(행 17:31)</span></p>
-                </div>
-            </section>
-
-            <!-- 심층 교리 해설 -->
-            <section class="space-y-8">
-                <!-- 해설 카드 1: 재림의 영광 -->
-                <div class="card bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-sm">
-                    <h3 class="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
-                        <span class="text-red-500 font-mono text-3xl">01.</span>
-                        승귀의 절정: <strong class="text-blue-600">영광스러운 재림</strong>
-                    </h3>
-                    <p class="mb-4">
-                        그리스도의 초림이 낮아지심(비하)의 상태였다면, 재림은 <strong class="text-blue-600">높아지심(승귀)의 최종적 완성</strong>입니다.
-                    </p>
-                    <ul class="space-y-4 text-slate-700 ml-2">
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 bg-red-400 rounded-full flex-shrink-0"></span>
-                            <span><strong>왕의 위용:</strong> 비천하게 오셨던 주님은 이제 만왕의 왕으로, 천사장의 호령과 하나님의 나팔소리와 함께 온 천하가 볼 수 있게 강림하십니다.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 bg-red-400 rounded-full flex-shrink-0"></span>
-                            <span><strong>공의로운 재판장:</strong> 불의한 재판관 빌라도에게 정죄받으셨던 주님이 이제는 세상을 공의로 판단하는 <strong>최종적 권위자</strong>로 서십니다.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- 해설 카드 2: 심판의 범위 -->
-                <div class="card bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-sm">
-                    <h3 class="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
-                        <span class="text-red-500 font-mono text-3xl">02.</span>
-                        <strong class="text-blue-600">사람과 천사</strong>를 향한 보편적 심판
-                    </h3>
-                    <p class="mb-4">
-                        주님의 심판대 앞에는 모든 인류뿐만 아니라 영적 존재인 천사들도 서게 됩니다.
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-4 mt-4">
-                        <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
-                            <h4 class="font-bold text-red-700 mb-2">천사들의 심판</h4>
-                            <p class="text-sm">타락한 천사들은 영원한 형벌에 처해지며, 선한 천사들은 하나님을 섬기는 영광의 직무를 영원히 확증받습니다.</p>
+            <main>
+                <div id="tab-0" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>오늘의 묵상 안내</h3>
+                            <p>오늘은 거룩한 예배와 하나님의 엄위하신 영광, 그리고 복음의 유산을 수호하는 신실한 삶을 묵상합니다. 하나님을 하나님답게 대우하는 '경외함'이 모든 본문의 핵심입니다.</p>
+                            <ul>
+                                <li><strong>레위기 22장:</strong> 성결 규례와 흠 없는 제물의 의미.</li>
+                                <li><strong>시편 28-29편:</strong> 반석 되신 하나님을 향한 부르짖음과 여호와의 소리.</li>
+                                <li><strong>전도서 5장:</strong> 하나님 앞에서 말을 삼가며 자족하는 지혜.</li>
+                                <li><strong>디모데후서 1장:</strong> 복음과 함께 고난을 받으라는 사도적 권면.</li>
+                            </ul>
                         </div>
-                        <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
-                            <h4 class="font-bold text-red-700 mb-2">인류의 심판</h4>
-                            <p class="text-sm">생명책의 기록 여부와 각자의 <strong>행위</strong>에 따라 영원한 복락과 둘째 사망(불못)으로 나뉘게 됩니다.</p>
+                    </article>
+                </div>
+
+                <div id="tab-1" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>원어 심층 주해: 시편 29편 2절</h3>
+                            <div class="key-question-box">
+                                <p>“여호와께 그의 이름에 합당한 영광을 돌리며 거룩한 옷을 입고 여호와께 예배할지어다”</p>
+                            </div>
+
+                            <div class="hebrew-grid">
+                                <div class="hebrew-entry">
+                                    <button class="pronounce-btn" onclick="speakHebrew('הָבוּ')">🔊</button>
+                                    <div class="hebrew-word-row">
+                                        <span class="h-word">הָבוּ</span>
+                                        <span class="h-label">(Havu)</span>
+                                    </div>
+                                    <div class="h-section">
+                                        <span class="h-title">사전적 의미</span>
+                                        <span class="h-desc">'가져오다', '주다'를 뜻하는 동사 '야합(יָהַב)'의 명령형으로, 본래 주인에게 속한 것을 되돌려주는 행위를 뜻합니다.</span>
+                                    </div>
+                                    <div class="h-section">
+                                        <span class="h-title">신학적 해설</span>
+                                        <span class="h-desc">예배는 인간이 하나님께 무언가를 보태는 것이 아니라, <b>본래 하나님의 것인 주권</b>을 인정하여 그분께 귀속시키는 '신앙적 반환'입니다.</span>
+                                    </div>
+                                </div>
+
+                                <div class="hebrew-entry">
+                                    <button class="pronounce-btn" onclick="speakHebrew('כָּבוֹד')">🔊</button>
+                                    <div class="hebrew-word-row">
+                                        <span class="h-word">כָּבוֹד</span>
+                                        <span class="h-label">(Kavod)</span>
+                                    </div>
+                                    <div class="h-section">
+                                        <span class="h-title">사전적 의미</span>
+                                        <span class="h-desc">'무거움'을 뜻하는 어원에서 유래하여, 존재의 중량감과 그로 인한 존귀함을 의미합니다.</span>
+                                    </div>
+                                    <div class="h-section">
+                                        <span class="h-title">신학적 해설</span>
+                                        <span class="h-desc">하나님을 영화롭게 한다는 것은 그분을 우리 삶에서 <b>가장 무겁고 가치 있는 분</b>으로 대우하는 것입니다.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="verse-footer">
+                                <h5>[문장 분석 및 원문]</h5>
+                                <span class="original-text">הָב֣וּ לַ֭יהוָה כְּב֣וֹ드 שְׁמ֑וֹ הִשְׁתַּחֲו֥וּ לַ֝יהוָ֗회 בְּהַדְרַת־קֹֽדֶשׁ׃</span>
+                                <div class="sentence-desc">
+                                    여호와의 이름(성품과 인격)에 걸맞은 최고의 무게감을 인정하며(Havu Kavod), 구별된 거룩함의 예복을 입고 그분 앞에 전적으로 굴복하라는 명령입니다.
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
 
-                <!-- 해설 카드 3: 신자와 불신자의 운명 -->
-                <div class="card bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-sm">
-                    <h3 class="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
-                        <span class="text-red-500 font-mono text-3xl">03.</span>
-                        신자의 <strong class="text-blue-600">상급</strong>과 불신자의 <strong class="text-blue-600">멸망</strong>
-                    </h3>
-                    <p class="mb-4 text-slate-700 leading-relaxed">
-                        재림은 신자에게는 최고의 소망이며, 불신자에게는 두려운 심판의 날입니다.
-                    </p>
-                    <ul class="list-disc list-inside space-y-3 text-slate-700 ml-2">
-                        <li><strong>불신자:</strong> 그리스도의 복음에 순종하지 않은 자들은 하나님의 영광을 떠나 영원한 멸망의 형벌을 받습니다.</li>
-                        <li><strong>신자:</strong> 그리스도 안에서 정죄함을 면하고, 성령을 따라 행한 <strong>선한 삶에 대한 영광의 상급</strong>을 받습니다. 이는 구원의 근거가 아니라 하나님께 받는 칭찬과 부요함입니다.</li>
-                        <li><strong>시기와 징조:</strong> 그 날은 도둑같이 임할 것이나, 깨어 있는 성도는 말씀의 징조를 통해 준비하며 기쁨으로 주를 맞이합니다.</li>
-                    </ul>
+                <div id="tab-2" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>레위기 22장: 성결의 규례와 흠 없는 제물</h3>
+                            <div class="key-question-box"><p>질문: 흠 있는 제물을 금하신 원리는 우리의 예배 태도에 어떤 도전을 주는가?</p></div>
+                            <p>레위기 22장은 제사장들이 거룩한 성물을 다룰 때 지켜야 할 엄격한 지침을 제공합니다. 제사장이 부정할 때 성물을 먹는 행위는 하나님의 성호를 욕되게 하는 것으로 간주되었습니다. 이는 하나님께 가까이 나아가는 자일수록 더 높은 수준의 정결함이 요구됨을 보여줍니다.</p>
+                            <p>특히 신체적 결함이 있는 짐승을 드리지 못하게 하신 명령은 하나님은 '남는 것'이나 '병든 것'을 받으시는 분이 아님을 분명히 합니다. 이 '흠 없음'의 규례는 장차 오실 <b>'흠 없고 점 없는 어린 양'</b>이신 예수 그리스도를 예표합니다.</p>
+                            <p>개혁주의 신학은 이 본문을 통해 예배의 외적 형식보다 드리는 자의 마음이 하나님의 거룩한 기준에 부합하는지를 점검하게 합니다. 최상의 것을 드리는 것은 하나님을 하나님답게 인정하는 고백입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/LEV_22.html" data-title="레위기 22장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LEV_22" data-title="레위기 22장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </section>
-        </main>
 
-        <!-- 푸터 -->
-        <footer class="mt-20 py-10 border-t border-slate-200 text-center">
-            <p class="text-slate-400 text-sm font-medium">교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
-        </footer>
+                <div id="tab-3" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>시편 28-29편: 반석과 권능의 소리</h3>
+                            <div class="key-question-box"><p>질문: 대자연의 폭풍 속에서 하나님의 영광을 발견하는 성도의 유익은 무엇인가?</p></div>
+                            <p>28편에서 다윗은 침묵하시는 것 같은 하나님을 향해 부르짖으며 '나의 반석'이 되어 주시길 간구합니다. 반석은 변하지 않는 하나님의 신실하심을 상징합니다. 기도는 하나님의 계획을 바꾸는 것이 아니라, 기도자가 하나님의 신실한 통치라는 반석 위에 자신을 견고히 세우는 과정입니다.</p>
+                            <p>이어지는 29편은 분위기가 반전되어 대자연의 폭풍 속에서 드러나는 하나님의 위엄을 찬양합니다. '여호와의 소리'가 일곱 번이나 반복되며 만물을 진동시키는 말씀의 능력을 형상화합니다. 가나안 사람들이 폭풍을 바알의 힘으로 두려워할 때, 다윗은 그 폭풍의 주관자가 바로 여호와이심을 선포합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/PSA_28.html,https://kbd71.github.io/bible71/bible_html/PSA_29.html" data-title="시편 28-29편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_28_29" data-title="시편 28-29편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="tab-4" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>전도서 5장: 예배와 재물에 관한 지혜</h3>
+                            <div class="key-question-box"><p>질문: '하나님은 하늘에 계시고 너는 땅에 있음이니라'는 사실이 예배자의 언어를 어떻게 변화시키는가?</p></div>
+                            <p>전도자는 하나님의 집에 들어갈 때 발을 삼가고, 함부로 입을 열어 서원하지 말라고 엄히 경고합니다. 예배는 나의 욕구를 관철시키는 자리가 아니라 하나님의 말씀을 듣는 자리입니다. 인간의 유한함과 하나님의 초월성을 인식하는 것이 예배의 시작입니다.</p>
+                            <p>또한 재물의 허무함을 통찰력 있게 묘사합니다. 은을 사랑하는 자는 은으로 만족하지 못하며, 소유의 증가는 오히려 근심을 더할 수 있습니다. 그러나 하나님은 자기가 수고한 것을 즐거워하는 마음을 '선물'로 주십니다. 자족함은 소유의 양이 아닌 공급하시는 분과의 관계에서 옵니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/ECC_05.html" data-title="전도서 5장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ECC_5" data-title="전도서 5장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="tab-5" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>디모데후서 1장: 복음과 함께 받는 고난</h3>
+                            <div class="key-question-box"><p>질문: 성령의 능력이 신앙의 유산을 지키는 데 어떻게 역사하는가?</p></div>
+                            <p>바울은 감옥에서 죽음을 앞두고 사랑하는 아들 디모데에게 마지막 권면을 전합니다. 그는 디모데의 어머니와 외조모로부터 이어진 '거짓 없는 믿음'을 상기시킵니다. 신앙의 전수는 언약적 가정 내에서 성령의 능력으로 계승됩니다.</p>
+                            <p>하나님이 주신 것은 두려워하는 마음이 아닙니다. 오직 능력과 사랑과 절제하는 마음입니다. 복음의 영광을 아는 자는 세상의 비난이나 고난을 부끄러워하지 않습니다. 우리는 우리 안에 거하시는 성령을 의지하여 복음의 아름다운 부탁을 지켜내야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/2TI_01.html" data-title="디모데후서 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="2TI_1" data-title="디모데후서 1장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="tab-6" class="tab-content">
+                    <article class="integration-card card-integration">
+                        <div class="card-content">
+                            <h3>신학적 종합: "영광의 무게 중심"</h3>
+                            <p>오늘의 모든 본문은 우리 존재의 무게 중심을 하나님께 두라고 촉구합니다. 레위기는 예배의 성결을, 시편은 창조주의 권능을, 전도서는 예배자의 경외를, 디모데후서는 복음의 사명을 가르칩니다.</p>
+                            <p>우리가 하나님을 가장 무거운 분(Kavod)으로 대우할 때, 세상의 염려와 재물의 유혹은 가볍게 날아가게 됩니다. 오늘 하루, 하나님의 이름에 합당한 영광을 돌리는 거룩한 예배자로 살아가는 은혜가 있기를 소망합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary" onclick="switchTab(0); return false;">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+             </footer>
+        </div>
     </div>
 
-    <!-- 오디오 제어 스크립트 -->
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
+    </div>
+    
+    <div id="player-container"></div>
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
+        <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+            <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
+            <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;" onclick="document.getElementById('audio-player').style.transform='translateY(100%)'">✕</button>
+        </div>
+    </div>
+
     <script>
-        window.player = null;
-        const playBtn = document.getElementById('play-pause-btn');
-        const btnText = document.getElementById('btn-text');
-        const statusText = document.getElementById('audio-status');
-        const errorBox = document.getElementById('error-display');
-        const playerUi = document.getElementById('player-ui');
-
-        function onYouTubeIframeAPIReady() {
-            fetch('../address/dcaddr.txt')
-                .then(res => {
-                    if (!res.ok) throw new Error();
-                    return res.text();
-                })
-                .then(data => {
-                    const today = "0418"; 
-                    const lines = data.split('\n');
-                    const targetLine = lines.find(l => l.trim().startsWith(today));
-
-                    if (!targetLine) {
-                        showError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
-                        return;
-                    }
-
-                    const videoIdMatch = targetLine.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
-                    if (videoIdMatch && videoIdMatch[1]) {
-                        initPlayer(videoIdMatch[1]);
-                    } else {
-                        showError("동영상 정보를 파싱하는 데 실패했습니다.");
-                    }
-                })
-                .catch(() => showError("오디오 설정 파일을 로드하는 중 오류가 발생했습니다."));
-        }
-
-        function initPlayer(videoId) {
-            window.player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
-                videoId: videoId,
-                playerVars: { 'autoplay': 0, 'controls': 0, 'disablekb': 1 },
-                events: {
-                    'onReady': () => {
-                        playBtn.disabled = false;
-                        playBtn.classList.remove('bg-slate-100', 'text-slate-400', 'cursor-not-allowed');
-                        playBtn.classList.add('bg-red-600', 'text-white', 'hover:bg-red-700', 'shadow-lg');
-                        btnText.textContent = "오디오 재생";
-                        statusText.textContent = "준비가 완료되었습니다.";
-                        playBtn.setAttribute('aria-label', '교리 오디오 재생');
-                    },
-                    'onStateChange': (e) => {
-                        if (e.data === YT.PlayerState.PLAYING) {
-                            btnText.textContent = "일시정지";
-                            statusText.textContent = "그리스도의 재림 교리 청취 중...";
-                        } else {
-                            btnText.textContent = "오디오 재생";
-                            statusText.textContent = "일시정지됨";
-                        }
-                    }
-                }
-            });
-        }
-
-        playBtn.addEventListener('click', () => {
-            if (!window.player) return;
-            const state = window.player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
-                window.player.pauseVideo();
-            } else {
-                window.player.playVideo();
+        // 1. 탭 전환 시스템 (ID: tab-0 ~ tab-6)
+        function switchTab(index) {
+            // 모든 탭 숨기기
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.remove('active'));
+            contents.forEach(el => el.style.display = 'none');
+            
+            // 모든 버튼 비활성화
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // 대상 탭 보이기
+            const targetId = 'tab-' + index;
+            const targetContent = document.getElementById(targetId);
+            if(targetContent) {
+                targetContent.classList.add('active');
+                targetContent.style.display = 'block';
             }
+            
+            // 대상 버튼 활성화
+            const targetBtn = document.querySelectorAll('.tab-btn')[index];
+            if(targetBtn) {
+                targetBtn.classList.add('active');
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        // 2. 본문 보기 모달 제어
+        document.querySelectorAll('.view-text-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const paths = this.getAttribute('data-path').split(',');
+                const title = this.getAttribute('data-title');
+                document.getElementById('modal-title').innerText = title;
+                document.getElementById('modal-iframe').src = paths[0]; 
+                document.getElementById('text-modal').style.display = 'flex';
+            });
         });
 
-        function showError(msg) {
-            playerUi.classList.add('hidden');
-            errorBox.textContent = msg;
-            errorBox.classList.remove('hidden');
+        function closeModal() {
+            document.getElementById('text-modal').style.display = 'none';
+            document.getElementById('modal-iframe').src = '';
         }
 
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // 3. 히브리어 발음 기능
+        function speakHebrew(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'he-IL';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+        
+        // 초기 로드 시 탭 0 강제 활성화
+        window.onload = function() {
+            switchTab(0);
+        };
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
