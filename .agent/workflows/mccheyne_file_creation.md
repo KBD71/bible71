@@ -35,10 +35,12 @@ This workflow ensures that new McCheyne reading files are compatible with the 5.
     - [ ] No `[cite: N]` artifacts in text
 
 3.  **Content Quality Check**
-    - [ ] Hebrew tab has: alphabet guide, ALL words of verse analyzed (not just 2-3), full sentence with word-by-word gloss, theology
-    - [ ] Each book tab has 3 `<h4>` sections: 역사적 문맥, 구속사적 의미, 개혁주의 적용
-    - [ ] Each `<h4>` section has at least 4-5 sentences
-    - [ ] Integration tab has 3+ paragraphs with overarching Reformed theme
+    - [ ] Hebrew tab has: alphabet guide, ALL words of verse analyzed (not just 2-3).
+    - [ ] Each word must have 3 sections: `본래 의미`, `문맥적 의미`, `신학적 의미`.
+    - [ ] `③ 원어 구절 전체 분석` must include the `[문법 해설]` explaining grammar and theology.
+    - [ ] `④ 언약 신학적 묵상` must contain at least 2 full paragraphs.
+    - [ ] Each book tab has 3 `<h4>` sections: 역사적 문맥, 구속사적 의미, 개혁주의 적용 (4-5 sentences each).
+    - [ ] Integration tab has 3+ paragraphs with overarching Reformed theme.
 
 4.  **Common data-path Examples**
     - 레위기 23장: `https://kbd71.github.io/bible71/bible_html/OT/OT_03_LEV_23.html`
