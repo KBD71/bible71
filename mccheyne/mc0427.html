@@ -6,171 +6,250 @@
     <title>4월 27일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --overview-color: #6c757d;
-        }
-        
-        /* 로컬 오디오 버튼 숨김 (전역 플레이어 연동) */
+        :root { --overview-color: #6c757d; }
         .listen-audio-btn { display: none !important; }
-        
-        /* 전체 개요 탭 스타일 */
         .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
         .card-overview { border-color: var(--overview-color); }
         .card-overview h3 { color: var(--overview-color); }
-
-        /* 핵심 질문 박스 스타일 */
-        .key-question-box {
-            background-color: #f8f9fa;
-            border-left: 5px solid #343a40;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-        }
-        .key-question-box p {
-            margin: 0;
-            font-weight: 700;
-            color: #212529;
-            font-style: italic;
-            line-height: 1.5;
-        }
+        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
+        .key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
-        <header>
-            <h1>4월 27일 맥체인 성경읽기</h1>
-            <div class="date-info">
-                <span>2024년 4월 27일</span>
-            </div>
-        </header>
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>4월 27일</h1>
+            </header>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">민수기 4장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 38편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">아가 2장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">히브리서 2장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
+            </nav>
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>4월 27일 성경읽기 가이드</h3>
+                            <p>오늘은 성막을 매고 광야를 걷는 레위인의 헌신과, 우리의 연약함을 체휼하시고 구원을 이루신 대제사장 예수 그리스도의 은혜를 묵상합니다. 죄로 인한 고통과 수치 속에서도 십자가의 사랑(골짜기의 백합화)을 의지할 때, 우리는 시험을 이기고 구원의 길을 온전히 걸어갈 수 있습니다.</p>
+                            <ul>
+                                <li><strong>민수기 4장:</strong> 성막을 운반할 책임을 맡은 고핫, 게르손, 므라리 자손의 구체적인 임무와 30세부터 50세까지 봉사할 자들의 계수를 다룹니다.</li>
+                                <li><strong>시편 38편:</strong> 죄로 인한 육체적 질병과 대적들의 공격 속에서, 자신의 연약함을 인정하며 오직 하나님의 구원을 바라는 다윗의 참회시입니다.</li>
+                                <li><strong>아가 2장:</strong> 샤론의 수선화요 골짜기의 백합화인 신랑과 신부의 순수한 사랑, 그리고 '겨울이 지나고 비도 그친' 영광스러운 회복의 봄을 노래합니다.</li>
+                                <li><strong>히브리서 2장:</strong> 흘러 떠내려가지 않도록 큰 구원을 굳게 붙잡을 것을 권면하며, 죽음을 이기시고 우리를 형제라 부르시기를 부끄러워하지 않으시는 대제사장 그리스도를 선포합니다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">원어 묵상부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
-        <nav class="tabs">
-            <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
-            <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">민수기 4장</button>
-            <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">시편 38편</button>
-            <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">아가 2장</button>
-            <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">히브리서 2장</button>
-            <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">신학적 종합</button>
-        </nav>
+                <div id="content-hebrew" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>원어 주해: 히브리서 2:18</h3>
+                            <div class="key-question-box">
+                                <p>"그가 시험을 받아 고난을 당하셨은즉 시험 받는 자들을 능히 도우실 수 있느니라"</p>
+                            </div>
 
-        <main class="content-wrapper">
-            <section id="content-overview" class="tab-content active">
-                <div class="card card-overview">
-                    <h3>오늘의 구속사적 가이드</h3>
-                    <p>오늘의 본문은 '하나님을 가까이함'과 '그리스도의 대속적 중보'를 중심으로 전개됩니다. 민수기는 성막 봉사를 위한 레위 자손들의 구체적인 직무를 통해 거룩한 예배의 질서를 가르칩니다. 시편은 죄의 비참함 속에서 하나님의 긍휼을 바라는 성도의 처절한 고백을 담고 있으며, 아가는 신랑과 신부의 친밀한 사랑을 통해 그리스도와 교회의 연합을 노래합니다. 히브리서는 천사보다 뛰어나신 아들이 왜 우리와 같은 인간이 되어 고난을 받으셔야 했는지를 해설합니다. 우리는 이 모든 말씀을 통해 우리를 형제라 부르기를 부끄러워하지 않으시는 그리스도의 은혜를 발견하게 됩니다.</p>
-                </div>
-            </section>
+                            <h4>① 헬라어 가이드</h4>
+                            <p><strong>π (피)</strong>: 입술소리인 '프' 발음입니다. 시험(페이라스모스)의 첫 글자입니다. <strong>π (파)</strong>: 고난(파스코)의 첫 글자입니다. <strong>β (베타)</strong>: '브' 발음으로 돕다(보에데오)의 첫 글자입니다.</p>
 
-            <section id="content-book1" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 성막의 가장 거룩한 기구들을 어깨에 메어 운반하는 고핫 자손들에게 주신 엄격한 규례는 무엇을 가르쳐 줍니까?</p>
-                </div>
-                <div class="card card-book1">
-                    <h3>민수기 4장: 레위 자손의 구체적인 직무와 성결</h3>
-                    <p>하나님께서는 고핫, 게르손, 므라리 자손의 인구를 다시 계수하시며 성막 운반을 위한 세분된 직무를 맡기십니다. 특히 지성소의 기구들을 다루는 고핫 자손은 기구를 직접 보거나 만지지 못하도록 엄히 경고받습니다. 이는 하나님의 거룩하심이 인간의 부주의나 경거망동으로 훼손될 수 없음을 보여줍니다.</p>
-                    <p>개혁주의 신학은 예배의 질서와 거룩함을 강조합니다. 하나님께 나아가는 길은 인간이 고안한 방식이 아니라, 하나님께서 정하신 방식대로 이루어져야 합니다. 구약의 복잡한 운반 규례는 오늘날 우리가 그리스도라는 유일한 중보자를 통해서만 안전하게 하나님께 나아갈 수 있음을 예표합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_04.html" data-title="민수기 4장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="NUM_4" data-title="민수기 4장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <h4>② 단어별 상세 해부</h4>
 
-            <section id="content-book2" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 다윗이 자신의 고통을 하나님의 징계로 인식하면서도 오직 여호와께만 소망을 두는 이유는 무엇입니까?</p>
-                </div>
-                <div class="card card-book2">
-                    <h3>시편 38편: 죄의 비참함과 구원의 호소</h3>
-                    <p>본시는 다윗의 참회시 중 하나로, 자신의 죄로 인해 육체적, 정신적 고통을 겪고 있는 시인의 비참한 상태를 묘사합니다. 다윗은 주의 진노와 징계 아래 있음을 고백하며, 친구들은 멀어지고 원수들은 해치려 하는 고립무원의 상황에 처해 있습니다. 그러나 그는 이 고통의 해결책이 오직 하나님께 있음을 믿고 "내 주여 나를 돕소서"라고 부르짖습니다.</p>
-                    <p>개혁주의 신학은 인간의 전적 부패와 하나님의 주권적 자비를 동시에 붙듭니다. 성도는 자신의 죄를 합리화하지 않고 하나님 앞에 정직히 드러내며, 우리의 연약함을 체휼하시는 그리스도의 중보를 의지하여 구원의 은혜를 구해야 합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_38.html" data-title="시편 38편">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="PSA_38" data-title="시편 38편">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    πέπονθεν <span onclick="playOriginalAudio('πέπονθεν', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(페폰덴)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 동사 '파스코(πάσχω, 고난을 겪다, 경험하다)'의 완료 능동태 직설법입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 예수 그리스도께서 십자가의 극심한 고통과 인간의 모든 한계를 이미 완벽하게 경험하셨고, 그 고난의 효력이 지금도 지속되고 있음을 나타냅니다(완료 시제의 의미).</p>
+                                <p><strong>신학적 의미:</strong> 영지주의자들은 신이 고통을 겪을 수 없다고 주장했으나, 본문은 성육신하신 그리스도의 철저한 인성(Humanity)과 대속적 고난의 실재를 강력히 변증합니다.</p>
+                            </div>
 
-            <section id="content-book3" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. "나의 사랑, 내 어여쁜 자야 일어나서 함께 가자"는 신랑의 부름이 성도에게 주는 위로와 격려는 무엇입니까?</p>
-                </div>
-                <div class="card card-book3">
-                    <h3>아가 2장: 사랑의 성숙과 연합의 즐거움</h3>
-                    <p>아가 2장은 겨울이 지나고 꽃이 피는 봄의 이미지를 통해 신랑과 신부의 깊어가는 사랑을 묘사합니다. 신부는 신랑의 그늘 아래 앉아 기뻐하며, 신랑은 신부를 향해 함께 일어날 것을 요청합니다. 또한 사랑을 방해하는 '작은 여우'를 잡으라는 경고는 연합의 순수성을 지켜야 함을 가르칩니다.</p>
-                    <p>이는 그리스도와 교회의 신비로운 연합을 상징합니다. 그리스도께서는 우리를 메마른 겨울 같은 죄의 상태에서 불러내어 생명의 잔치로 초대하십니다. 성도는 주님의 사랑 안에서 안식하며, 그분과의 교제를 방해하는 죄의 요인들을 단호히 제거해야 합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_22_SOS_02.html" data-title="아가 2장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="SOS_2" data-title="아가 2장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    πειρασθείς <span onclick="playOriginalAudio('πειρασθείς', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(페이라스데이스)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 동사 '페이라조(πειράζω, 시험하다, 시도하다)'의 과거 수동태 분사입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 마귀의 유혹과 세상의 핍박을 통한 모든 종류의 '시험'을 친히 받으셨음을 뜻합니다.</p>
+                                <p><strong>신학적 의미:</strong> 예수님의 시험받으심은 타락할 가능성이 있어서가 아니라, 아담이 실패했던 시험을 둘째 아담으로서 완벽하게 이기시고 자기 백성에게 승리를 전가하시기 위함입니다.</p>
+                            </div>
 
-            <section id="content-book4" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 하나님의 아들이 천사보다 잠시 못하게 하심을 입고 '피와 살'을 가진 인간이 되셔야 했던 근본적인 이유는 무엇입니까?</p>
-                </div>
-                <div class="card card-book4">
-                    <h3>히브리서 2장: 구원의 창시자이신 예수 그리스도</h3>
-                    <p>히브리서 기자는 우리가 들은 진리에서 흘러 떠내려가지 않도록 주의하라고 경고합니다. 천사보다 우월하신 아들은 죽음의 고난을 받으시기 위해 인간이 되셨습니다. 이는 죽음의 세력을 잡은 자 곧 마귀를 멸하시며, 죽음을 무서워하여 종노릇 하는 자들을 놓아주기 위함입니다. 그리스도는 우리의 고난을 친히 겪으심으로 자비하고 신실한 대제사장이 되셨습니다.</p>
-                    <p>그리스도의 비하(Humiliation)와 승귀(Exaltation)에 대한 핵심적인 본문입니다. 그리스도께서 우리와 같은 인간이 되신 것은(Incarnation) 우리의 죄를 속량하고 우리를 하나님의 자녀(형제)로 입양하시기 위한 주권적 은혜의 산물입니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_58_HEB_02.html" data-title="히브리서 2장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="HEB_2" data-title="히브리서 2장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    βοηθῆσαι <span onclick="playOriginalAudio('βοηθῆσαι', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(보에데사이)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 동사 '보에데오(βοηθέω, 부르짖음을 듣고 달려가 돕다)'의 과거 능동태 부정사입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 단순히 위에서 내려다보는 구경꾼의 도움이 아니라, 위험에 빠진 자의 절박한 비명을 듣고 즉시 현장으로 뛰어들어와 구출해 내는 적극적인 구조 행위를 말합니다.</p>
+                                <p><strong>신학적 의미:</strong> 우리 대제사장의 자비하심(Sympathy)입니다. 그분은 우리의 연약함을 체휼(동정)하시기에, 우리가 부르짖을 때 가장 정확하고 신속하게 은혜의 보좌로부터 달려오십니다.</p>
+                            </div>
 
-            <section id="content-integration" class="tab-content">
-                <div class="card card-integration">
-                    <h3>신학적 종합: 우리를 형제라 부르시는 대제사장</h3>
-                    <p>오늘의 말씀들은 거룩하신 하나님과 부패한 인간 사이의 간극이 그리스도를 통해 어떻게 메워지는지를 통합적으로 보여줍니다. 민수기의 레위 자손들이 성막의 질서를 지키며 하나님을 섬겼듯이, 히브리서의 그리스도는 하늘 성소의 참된 대제사장으로서 우리를 하나님께로 인도하십니다. 시편 38편의 비참한 탄식은 히브리서가 선포하는 '자비하고 신실한 대제사장' 안에서만 참된 위로와 해결을 얻습니다.</p>
-                    <p>아가서의 사랑 고백은 단순한 감성을 넘어, 그리스도께서 우리를 위해 죽기까지 사랑하셨다는 구속사적 사실에 기초합니다. 우리는 거룩하신 하나님을 두려워해야 할 존재들이지만, 그리스도께서 우리와 같은 '피와 살'을 입으시고 우리의 연약함을 체휼하셨기에 이제는 담대히 은혜의 보좌 앞으로 나아갈 수 있습니다. 오늘 하루, 우리를 형제라 부르기를 부끄러워하지 않으시는 그리스도의 사랑 안에서 참된 안식을 누리며 믿음의 길을 걸어갑시다.</p>
-                </div>
-            </section>
-        </main>
-    </div>
+                            <h4>③ 원어 구절 전체 분석</h4>
+                            <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; text-align:center;">
+                                <p style="font-size:1.4rem; font-weight:bold;">
+                                    ἐν ᾧ γὰρ πέπονθεν αὐτὸς πειρασθείς, δύναται τοῖς πειραζομένοις βοηθῆσαι
+                                    <span onclick="playOriginalAudio('ἐν ᾧ γὰρ πέπονθεν αὐτὸς πειρασθείς, δύναται τοῖς πειραζομένοις βοηθῆσαι', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                </p>
+                            </div>
+                            <p><strong>[단어별 음역 및 직역 병기]</strong></p>
+                            <p>ἐν ᾧ(엔 호: 그 안에서) γὰρ(가르: 왜냐하면) πέπονθεν(페폰덴: 고난을 당하셨기에) αὐτὸς(아우토스: 그 자신이) πειρασθείς(페이라스데이스: 시험을 받으시어), δύναται(뒤나타이: 그는 능력이 있으시다) τοῖς πειραζομένοις(토이스 페이라조메노이스: 시험받고 있는 자들을) βοηθῆσαι(보에데사이: 돕기에)</p>
+                            <p><strong>[직역]</strong> "왜냐하면 그 자신이 시험을 받으시어 고난을 겪으셨으므로, 그는 시험받고 있는 자들을 능히 (달려와서) 도우실 수 있기 때문입니다."</p>
 
-    <div class="modal-overlay" id="text-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">성경 본문</h2>
-                <button class="modal-close-btn" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="modal-iframe" src=""></iframe>
-            </div>
+                            <h4>④ 언약 신학적 묵상</h4>
+                            <p>하나님은 먼 하늘에서 우리에게 이래라저래라 명령만 하시는 분이 아닙니다. 친히 혈과 육을 지니시고(14절) 이 고통스러운 광야의 현장으로 내려오셨습니다. 배신, 가난, 수치, 그리고 죽음까지 모든 시험의 밑바닥을 경험하셨습니다. 그러므로 오늘 당신이 겪는 어떤 시험 앞에서도 절망하지 마십시오. 당신의 고통을 100% 이해하시고 십자가의 권능으로 달려오시는(보에데오) 대제사장이 곁에 계십니다. 이것이 배교의 위협을 이기는 가장 강력한 복음의 위로입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-secondary listen-audio-btn" data-key="HEB_2" data-title="히브리서 2장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>민수기 4장: 성물을 운반하는 거룩한 수고</h3>
+                            <div class="key-question-box">
+                                <p>질문: 성물을 만지거나 보지 말라는 엄격한 규례 속에 담긴 하나님의 거룩하심의 성격은 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>민수기 4장은 성막(회막)이 이동할 때 레위 지파의 세 가문(고핫, 게르손, 므라리)이 감당해야 할 구체적인 임무와, 30세부터 50세까지 봉사할 수 있는 자들의 수를 계수합니다. 고핫 자손(1-20절)은 지성소의 핵심 성물(언약궤, 상, 등잔대 등)을 포장하여 어깨에 메어 운반합니다. 게르손 자손(21-28절)은 성막의 앙장과 덮개들을 운반하고, 므라리 자손(29-33절)은 성막의 뼈대인 널판, 기둥, 받침들을 운반합니다. 34-49절은 각 가문별 계수 결과를 보고합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>가장 거룩한 지성소의 기물들을 운반하는 고핫 자손에게 엄격한 명령이 주어집니다. 제사장들이 먼저 철저히 덮어 씌운 후에야 멜 수 있었고, 성물을 직접 만지거나 눈으로 보면 죽임을 당했습니다(15, 20절). 이는 타락한 인간이 하나님의 거룩하심(지성소)에 중보자 없이 직접 접근할 수 없는 철저한 단절을 보여줍니다. 그러나 신약 시대에 예수 그리스도께서 자신의 육체(휘장)를 찢으심으로 이 단절을 허무셨고, 우리는 담대히 은혜의 보좌 앞으로 나아갈 수 있게 되었습니다(히 10:19-20).</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>레위인들의 임무는 화려하지 않은 수고로운 육체노동이었습니다. 므라리 자손은 무거운 널판과 은 받침대(약 4.5톤)를 끌고 광야를 걸어야 했습니다. 그러나 이 수고가 성막을 세우고 하나님의 임재를 모시는 거룩한 사역이었습니다. 교회 안에는 강단에서 말씀을 전하는 자(제사장)도 필요하지만, 보이지 않는 곳에서 무거운 짐을 메고 봉사하는 게르손과 므라리 같은 헌신자들이 필요합니다. 크고 작음이 아니라 직분의 거룩함(소명)을 깨닫고 각자의 위치에서 순종하는 것이 참된 교회의 질서입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_04.html" data-title="민수기 4장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NUM_4" data-title="민수기 4장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>시편 38편: 죄의 고통에서 부르짖는 참회시</h3>
+                            <div class="key-question-box">
+                                <p>질문: 다윗이 육신의 질병과 대적의 공격을 우연으로 여기지 않고 '나의 죄악'과 결부시킨 까닭은 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>시편 38편은 교회의 전통적인 '7대 참회시' 중 하나로, 표제에 '기념하는 시'라고 되어 있습니다. 다윗은 자신의 심각한 죄악으로 인해 임한 무서운 질병과 그로 인한 사회적 고립, 그리고 원수들의 조롱이라는 삼중고 속에서 고통받고 있습니다. 1-8절은 하나님의 징계로 인한 참담한 육체적 고통을, 9-14절은 친구들은 떠나고 원수들은 기회를 노리는 고립무원의 상태를, 15-22절은 자신의 무력함을 인정하고 오직 구원자 하나님께 소망을 두는 간절한 기도로 구성됩니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>"내 죄악이 내 머리에 넘쳐서 무거운 짐 같으니 내가 감당할 수 없나이다"(4절). 죄는 단순히 도덕적 실수가 아니라 영혼을 짓누르고 육체마저 병들게 하는 무거운 형벌입니다. 율법 앞에서 인간은 이 짐을 결코 스스로 벗어버릴 수 없습니다. 그러나 "수고하고 무거운 짐 진 자들아 다 내게로 오라"(마 11:28)고 부르신 예수 그리스도께서 십자가에서 우리의 이 무거운 죄 짐을 대신 짊어지시고 사망의 형벌을 끊어내셨습니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>성도는 고난이 찾아올 때 가장 먼저 하나님 앞에서의 자신을 성찰해야 합니다. 다윗은 자신의 고난을 회피하지 않고 "내가 내 죄악을 알리고 내 죄를 슬퍼함이니이다"(18절)라며 징계의 매를 달게 받습니다. 원수들의 비방 앞에서는 변명하려 애쓰지 않고 "나는 듣지 못하는 자 같고... 입에 반박할 말이 없는 자 같으니이다"(14절)라며 침묵합니다. 억울함을 스스로 풀려 하지 않고 "여호와여 내가 주를 바랐사오니 내 주 하나님이 내게 응답하시리이다"(15절)라는 믿음의 항복이 회복의 유일한 길입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_38.html" data-title="시편 38편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_38" data-title="시편 38편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>아가 2장: 골짜기의 백합화와 회복의 봄</h3>
+                            <div class="key-question-box">
+                                <p>질문: '겨울이 지나고 비도 그쳤으니 일어나서 함께 가자'는 신랑의 초청은 신앙의 여정에서 어떤 의미를 지닙니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>아가 2장은 신랑과 신부의 깊어지는 사랑의 교제를 서정적인 자연의 언어로 노래합니다. 1-3절은 서로를 들꽃(수선화, 백합화)과 사과나무에 비유하며 찬양하고, 4-7절은 잔칫집에서 누리는 사랑의 취함(안식)을 묘사합니다. 8-13절은 신부의 집에 찾아온 신랑이 겨울을 지나 봄이 왔음을 선포하며 함께 밖으로 나가자고 초청합니다. 14-17절은 포도원을 허는 작은 여우를 잡으라는 경계와 더 깊은 친밀함("내 사랑하는 자는 내게 속하였고")의 고백으로 이어집니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>신부는 자신을 평범하고 흔한 들꽃인 "샤론의 수선화요 골짜기의 백합화"(1절)로 낮추나, 신랑(그리스도)은 그녀를 "가시나무 가운데 백합화"(2절)로 높이십니다. 세상의 찔림과 고난(가시) 속에서도 성도의 순결은 그리스도의 사랑으로 인해 더욱 빛납니다. "겨울이 지나고... 새가 노래할 때가 이르렀다"(11-12절)는 구절은 율법과 정죄의 긴 겨울이 끝나고 십자가의 복음으로 말미암아 구원과 부활의 찬란한 봄(새 창조)이 시작되었음을 알리는 위대한 구속사적 선포입니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>신랑의 사랑 안에서 안식을 누리면서도(4절), 우리는 영적 긴장을 늦추지 말아야 합니다. "우리를 위하여 여우 곧 포도원을 허는 작은 여우를 잡으라"(15절). 부부의 관계나 교회의 친밀한 교제(포도원)를 무너뜨리는 것은 거대한 박해가 아니라, 교만, 불평, 이기심, 무관심 같은 '작은 죄(여우)'들입니다. 이 작은 죄들을 방치하면 꽃이 피고 열매 맺는 은혜의 포도원이 훼손됩니다. 우리는 십자가의 첫사랑을 기억하며 매일 내 안의 작은 죄악들을 회개로 잡아내야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_22_SOS_02.html" data-title="아가 2장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="SOS_2" data-title="아가 2장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>히브리서 2장: 큰 구원과 고난받으신 대제사장</h3>
+                            <div class="key-question-box">
+                                <p>질문: 영광의 광채이신 하나님의 아들이 천사보다 조금 못하게 되어(사람이 되어) 고난의 죽음을 맛보셔야 했던 필연적 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>1장에서 그리스도의 우월성을 논증한 히브리서 기자는 2장 초반(1-4절)에 첫 번째 경고를 발합니다. "우리가 이같이 큰 구원을 등한히 여기면 어찌 그 보응을 피하리요." 천사들이 전한 율법도 엄중하거늘 하물며 아들이 완성하신 복음을 저버리는 것은 파멸이라는 것입니다. 5-18절은 시편 8편을 인용하며, 만물의 통치자이신 분이 어째서 '인간의 몸'을 입고 수치와 죽음의 고난을 겪으셔야 했는지, 성육신(Incarnation)과 구속의 비밀을 깊이 있게 해설합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>예수님이 혈과 육을 지니신 이유는 명확합니다. "죽음을 통하여 죽음의 세력을 잡은 자 곧 마귀를 멸하시며 또 죽기를 무서워하므로 한평생 매여 종 노릇 하는 모든 자들을 놓아 주려 하심"(14-15절)입니다. 대제사장은 백성을 대표하여 피를 흘려야 하므로 천사가 아닌 '사람의 형상(범사에 형제들과 같이 되심)'을 입어야 했습니다. 이로써 십자가의 고난은 실패가 아니라, 하나님의 구원의 창시자(Captain of salvation)가 그 영광에 이르는 가장 '합당한(Fitting)' 길이 되었습니다(10절).</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>성도는 세상의 핍박이나 유혹 속에서 '흘러 떠내려가지 않도록'(1절) 들은 바 말씀에 더욱 유념해야 합니다. 우리는 죽음의 공포 때문에 마귀에게 종노릇 할 필요가 없습니다. 만물이 아직 우리에게 복종하는 것을 보지 못하는 고난의 현실 속에서도, 우리는 "오직 죽음의 고난 받으심으로 말미암아 영광과 존귀로 관을 쓰신 예수를 봅니다"(9절). 우리의 연약함을 체휼하시고 능히 도우시는 자비로운 대제사장 앞에 매 순간 은혜를 구하며 나아가십시오.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_58_HEB_02.html" data-title="히브리서 2장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="HEB_2" data-title="히브리서 2장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합: "고난의 광야에서 만나는 사랑의 대제사장"</h3>
+                            <h4>관통하는 주제: 우리의 연약함을 짊어지신 위대한 구원자의 사랑</h4>
+                            <p>오늘의 본문은 인간의 깊은 고통과 하나님의 더 깊은 구속의 사랑을 입체적으로 조명합니다. 민수기 4장의 레위인들은 보이지 않는 성물을 무거운 어깨에 메고 광야를 걸어야 했습니다. 그 수고로운 십자가의 짐을 궁극적으로 지신 분은 히브리서 2장이 증언하는 우리의 대제사장 예수 그리스도이십니다. 영광의 본체이신 그분이 천사보다 못한 인간의 몸을 입으시고 우리를 대신하여 고난(시험)과 죽음을 맛보셨습니다.</p>
+                            <p>우리는 시편 38편의 다윗처럼 내 죄악의 짐이 무거워 고통하며, 원수들의 비방 앞에 무력함을 느낄 때가 많습니다. 그때 우리를 절망의 겨울에서 건져내시는 분은 "겨울이 지나고 비도 그쳤으니 일어나 함께 가자"(아가 2장)고 손 내미시는 영혼의 신랑이십니다. 그분은 우리를 심판하지 않으시고, 도리어 우리의 시험과 연약함을 체휼하시며 "형제라 부르기를 부끄러워하지 아니하셨습니다"(히 2:11).</p>
+                            <p>이같이 큰 구원을 베푸신 은혜의 보좌가 우리 앞에 열려 있습니다(히 2:3). 그러므로 환난과 질병, 영적 침체 속에서도 흘러 떠내려가지 말고 진리의 닻을 굳게 내리십시오. 내 안의 작은 죄악(여우)들을 십자가 앞에 참회하며, 묵묵히 내게 주어진 거룩한 직분(레위인의 짐)을 감당할 때, 시험받는 자를 능히 도우시는 주님의 강력한 손길을 경험하게 될 것입니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
     </div>
-    
-    <div class="floating-nav" id="floating-nav">
-        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
-        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
     </div>
-
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+    </div>
     <div id="player-container"></div>
-    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
         <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
         <div style="display:flex;gap:12px;align-items:center;">
             <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
             <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
         </div>
     </div>
-
     <script src="script.js"></script>
     <script>
-        function switchTab(n) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const contents = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                tab.classList.toggle('active', index === n);
-            });
-            contents.forEach((content, index) => {
-                content.classList.toggle('active', index === n);
-            });
-            const info = document.getElementById('current-tab-info');
-            if(info) info.innerText = (n + 1) + '/6';
+        let audioUtterance = null;
+        function playOriginalAudio(text, langCode) {
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+                setTimeout(() => {
+                    audioUtterance = new SpeechSynthesisUtterance(text);
+                    audioUtterance.lang = langCode;
+                    window.speechSynthesis.speak(audioUtterance);
+                }, 50);
+            } else alert('TTS 미지원 브라우저입니다.');
         }
     </script>
 </body>

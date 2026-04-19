@@ -6,171 +6,290 @@
     <title>4월 28일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --overview-color: #6c757d;
-        }
-        
-        /* 로컬 오디오 버튼 숨김 (전역 플레이어 연동) */
+        :root { --overview-color: #6c757d; }
         .listen-audio-btn { display: none !important; }
-        
-        /* 전체 개요 탭 스타일 */
         .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
         .card-overview { border-color: var(--overview-color); }
         .card-overview h3 { color: var(--overview-color); }
-
-        /* 핵심 질문 박스 스타일 */
-        .key-question-box {
-            background-color: #f8f9fa;
-            border-left: 5px solid #343a40;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-        }
-        .key-question-box p {
-            margin: 0;
-            font-weight: 700;
-            color: #212529;
-            font-style: italic;
-            line-height: 1.5;
-        }
+        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
+        .key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
-        <header>
-            <h1>4월 28일 맥체인 성경읽기</h1>
-            <div class="date-info">
-                <span>2024년 4월 28일</span>
-            </div>
-        </header>
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>4월 28일</h1>
+            </header>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">민수기 5장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 39편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">아가 3장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">히브리서 3장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
+            </nav>
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>4월 28일 성경읽기 가이드</h3>
+                            <p>오늘은 공동체의 순결을 요구하시는 하나님의 거룩하심과, 인생의 유한함 속에서 오직 하나님께만 소망을 두는 참된 믿음을 묵상합니다. 신랑을 찾는 신부의 간절함으로 모세보다 뛰어나신 예수 그리스도의 음성에 순종하며, 완고한 마음을 버리고 영원한 안식을 향해 나아가는 하루가 되기를 소망합니다.</p>
+                            <ul>
+                                <li><strong>민수기 5장:</strong> 진영의 정결을 유지하기 위해 부정한 자를 진 밖으로 내보내는 규례와, 부부 사이의 신뢰를 무너뜨리는 의심의 영을 해결하는 규례를 다룹니다.</li>
+                                <li><strong>시편 39편:</strong> 혀로 범죄하지 않으려는 다윗의 고뇌와, 인간의 일생이 한 뼘 같고 그림자같이 헛됨을 깨닫고 오직 주님께만 소망을 두는 기도를 기록합니다.</li>
+                                <li><strong>아가 3장:</strong> 밤중에 신랑을 찾아 헤매는 신부의 열정적인 사랑과, 화려하게 장식된 솔로몬의 가마가 혼인 잔치를 위해 나아오는 장엄한 행렬을 묘사합니다.</li>
+                                <li><strong>히브리서 3장:</strong> 집의 사환이었던 모세와 집을 지으신 아들(그리스도)을 대조하며, 이스라엘처럼 마음을 완고하게 하여 안식에 들어가지 못하는 실패를 경계합니다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">원어 묵상부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
-        <nav class="tabs">
-            <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
-            <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">민수기 5장</button>
-            <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">시편 39편</button>
-            <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">아가 3장</button>
-            <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">히브리서 3장</button>
-            <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">신학적 종합</button>
-        </nav>
+                <div id="content-hebrew" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>원어 주해: 시편 39:7</h3>
+                            <div class="key-question-box">
+                                <p>"주여 이제 내가 무엇을 바라리요 나의 소망은 주께 있나이다"</p>
+                            </div>
 
-        <main class="content-wrapper">
-            <section id="content-overview" class="tab-content active">
-                <div class="card card-overview">
-                    <h3>오늘의 구속사적 가이드</h3>
-                    <p>오늘의 본문은 '하나님의 거룩하심 앞에 선 인간의 모습'과 '그리스도의 신실하심'을 조명합니다. 민수기는 진영의 정결을 통해 거룩하신 하나님이 거하시는 공동체의 성결을 명령하며, 시편은 인생의 덧없음 속에서 오직 하나님께만 소망을 두는 성도의 침묵과 기도를 보여줍니다. 아가는 신랑을 간절히 찾는 신부의 모습과 화려한 왕의 행차를 통해 그리스도와의 연합을 예표하며, 히브리서는 모세보다 우월하신 하나님의 아들 예수 그리스도께 끝까지 마음을 완고하게 하지 말고 충성할 것을 권면합니다. 우리는 이 말씀들을 통해 거룩한 하나님 나라의 백성으로서 우리의 소망이 어디에 있는지를 깨닫게 됩니다.</p>
-                </div>
-            </section>
+                            <h4>① 히브리어 가이드</h4>
+                            <p><strong>ו (바브)</strong>: '그리고'를 뜻하는 접속사입니다. <strong>ע (아인)</strong>: 목구멍에서 나는 후음입니다. <strong>מ (멤)</strong>: 물결 모양의 '므' 발음입니다. <strong>ק (코프)</strong>: 목구멍 깊은 곳의 '크' 발음입니다. <strong>ת (타브)</strong>: 십자가 모양에서 유래한 '트' 발음으로 마지막 알파벳입니다.</p>
 
-            <section id="content-book1" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 하나님께서 진영을 정결케 하시고 잘못에 대한 보상과 의심의 법을 주신 근본적인 이유는 무엇입니까?</p>
-                </div>
-                <div class="card card-book1">
-                    <h3>민수기 5장: 진영의 정결과 거룩한 공동체</h3>
-                    <p>하나님께서는 부정한 자들을 진영 밖으로 내보내게 하시고, 이웃에게 끼친 피해에 대해 철저히 보상하게 하십니다. 또한 부부 사이의 신뢰가 깨졌을 때 행하는 '의심의 법'을 제정하십니다. 이는 "내가 그 진영 중에 거하느니라"는 선언처럼, 거룩하신 하나님이 거하시는 처소는 죄와 부정으로부터 철저히 분리되어야 함을 가르칩니다.</p>
-                    <p>개혁주의적 관점에서 진영의 정결은 오늘날 교회의 권징과 거룩성을 예표합니다. 하나님과의 교제는 도덕적 성결과 이웃과의 화해 없이는 유지될 수 없으며, 이는 오직 우리를 정결하게 하시는 그리스도의 보혈을 힘입어 성화의 길을 걸어갈 때 가능합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_05.html" data-title="민수기 5장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="NUM_5" data-title="민수기 5장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <h4>② 단어별 상세 해부 (모든 단어 분석)</h4>
 
-            <section id="content-book2" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 시인이 인생의 허무함과 질병의 고통 속에서 "나의 소망은 주께 있나이다"라고 고백한 이유는 무엇입니까?</p>
-                </div>
-                <div class="card card-book2">
-                    <h3>시편 39편: 덧없는 인생과 영원한 소망</h3>
-                    <p>다윗은 고난 중에 말을 아끼며 침묵하지만, 그 안에서 인간 생명의 짧음과 허무함을 깊이 묵상합니다. 모든 사람이 든든히 선 때도 진실로 허사일 뿐이며, 인생은 그림자 같습니다. 이러한 비참한 실존 앞에서 다윗은 모든 소망을 이 세상이 아닌 주님께 둡니다. 그는 자신의 죄과에서 건져주시기를 구하며 나그네 같은 인생임을 고백합니다.</p>
-                    <p>개혁주의 신학은 이 고백을 통해 '천상적 소망'을 배웁니다. 인생의 유한함을 깨닫는 것은 절망이 아니라, 영원하신 하나님께 전적으로 의존하게 만드는 은혜의 방편입니다. 성도는 이 땅에서 나그네임을 자각할 때 비로소 하늘 시민권을 가진 자답게 살 수 있습니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_39.html" data-title="시편 39편">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="PSA_39" data-title="시편 39편">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    וְעַתָּה <span onclick="playOriginalAudio('וְעַתָּה', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(베아타)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 접속사 바브(וְ)와 '이제, 지금(עַתָּה)'의 결합으로 '그리고 이제', '그러므로 지금'을 뜻합니다.</p>
+                                <p><strong>문맥적 의미:</strong> 인생이 그림자같이 헛되고(6절) 재물을 쌓으나 누가 거둘지 모르는 허무함을 깨달은 뒤의 전환점을 알립니다.</p>
+                                <p><strong>신학적 의미:</strong> 세상의 헛됨을 직시한 성도가 도달해야 할 영적 결론의 출발점입니다. 과거의 무지에서 벗어나 '지금'부터의 새로운 방향 설정을 의미합니다.</p>
+                            </div>
 
-            <section id="content-book3" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 밤중에 사랑하는 자를 찾아 나선 신부의 열망과 솔로몬의 영광스러운 행차가 상징하는 영적 의미는 무엇입니까?</p>
-                </div>
-                <div class="card card-book3">
-                    <h3>아가 3장: 갈망하는 사랑과 왕의 영광</h3>
-                    <p>신부는 밤의 두려움 속에서도 사랑하는 자를 찾아 헤매다 결국 그를 만납니다. 이어지는 장면은 연기와 향품에 둘러싸인 솔로몬의 가마가 위풍당당하게 나아오는 모습입니다. 이는 신부(교회)가 신랑(그리스도)을 향해 가져야 할 간절한 사모함과, 마침내 승리하여 영광 중에 나타나실 왕의 위엄을 묘사합니다.</p>
-                    <p>신학적으로 이는 그리스도와 교회의 연합이 가진 역동성을 보여줍니다. 성도는 어두운 세상 속에서도 신랑 되신 그리스도를 간절히 구해야 하며, 마침내 우리를 영광스러운 잔치로 인도하실 만왕의 왕 예수 그리스도의 임재를 확신하며 기뻐해야 합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_22_SOS_03.html" data-title="아가 3장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="SOS_3" data-title="아가 3장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    מַה־ <span onclick="playOriginalAudio('מַה', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(마)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> '무엇을(What)'을 뜻하는 의문 대명사입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 뒤에 오는 동사와 결합하여 수사의문문을 만듭니다.</p>
+                                <p><strong>신학적 의미:</strong> 이 세상에서 진정으로 가치 있고 기대할 만한 것이 더 이상 없음을 강하게 묻는 질문입니다.</p>
+                            </div>
 
-            <section id="content-book4" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 예수가 모세보다 더욱 영광을 받을만한 이유는 무엇이며, 안식에 들어가지 못한 이스라엘의 전철을 밟지 않으려면 어떻게 해야 합니까?</p>
-                </div>
-                <div class="card card-book4">
-                    <h3>히브리서 3장: 모세보다 우월하신 아들 그리스도</h3>
-                    <p>히브리서 기자는 예수님을 우리가 믿는 도리의 사도시며 대제사장으로 깊이 생각하라고 촉구합니다. 모세는 하나님의 집에서 종으로서 신실했지만, 그리스도는 하나님의 집을 맡은 아들로서 신실하셨습니다. 이어 시편 95편을 인용하며, 광야에서 불순종하여 안식에 들어가지 못한 이스라엘처럼 마음을 완고하게 하지 말고 끝까지 확신을 붙잡으라고 경고합니다.</p>
-                    <p>개혁주의적 권면의 핵심입니다. 그리스도는 옛 언약의 중보자인 모세와 비교할 수 없는 본질적 우월성을 가지십니다. 구원은 전적 은혜로 주어지나, 참된 믿음은 끝까지 인내하며 순종하는 열매로 증명됩니다. 오늘이라는 시간에 서로 권면하여 죄의 유혹으로 완고해지지 않도록 주의해야 합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_58_HEB_03.html" data-title="히브리서 3장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="HEB_3" data-title="히브리서 3장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    קִּוִּיתִי <span onclick="playOriginalAudio('קִּוִּיתִי', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(키비티)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 동사 '카바(קָוָה, 기다리다, 소망하다, 줄을 팽팽하게 당기다)'의 1인칭 단수 완료형입니다.</p>
+                                <p><strong>문맥적 의미:</strong> '내가 무엇을 간절히 기다려왔는가?'라는 뜻으로, 영혼의 끈을 팽팽하게 당기며 갈망했던 대상을 묻습니다.</p>
+                                <p><strong>신학적 의미:</strong> 인간은 본질적으로 무언가를 갈망하며 기다리는(카바) 존재입니다. 세상의 헛된 것을 향해 당겼던 영혼의 줄을 끊고, 참된 대상을 향해 다시 조준하는 과정입니다.</p>
+                            </div>
 
-            <section id="content-integration" class="tab-content">
-                <div class="card card-integration">
-                    <h3>신학적 종합: 신실하신 아들과 정결한 백성</h3>
-                    <p>오늘의 본문들은 하나님의 백성이 마주하는 현실과 그들을 붙드시는 하나님의 신실하심을 통합하여 보여줍니다. 민수기가 요구하는 외적 성결과 시편 39편이 탄식하는 내면의 허무함은, 오직 히브리서가 선포하는 모세보다 우월하신 아들 예수 그리스도 안에서 해결됩니다. 그리스도는 우리를 정결하게 하시는 참된 성소의 주인이시며, 덧없는 인생의 유일한 영원한 소망이십니다.</p>
-                    <p>아가서의 신부가 사랑하는 자를 끝내 찾아내듯, 우리 또한 오늘이라는 시간에 마음을 완고하게 하지 말고 우리를 위해 신실하게 집을 맡으신 아들 예수를 깊이 생각해야 합니다. 광야 같은 세상에서 넘어지고 실패할지라도, 우리를 형제라 부르기를 부끄러워하지 않으시고 영원한 안식으로 인도하시는 그리스도를 끝까지 신뢰합시다. 그것이 바로 거룩한 진영 안에 거하며 왕의 영광스러운 행차에 참여하는 성도의 복된 길입니다.</p>
-                </div>
-            </section>
-        </main>
-    </div>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    אֲדֹנָי <span onclick="playOriginalAudio('אֲדֹנָי', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(아도나이)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> '나의 주님(My Lord)'을 뜻합니다.</p>
+                                <p><strong>문맥적 의미:</strong> 하나님을 삶의 절대적 주권자로 고백하며 호소하는 호칭입니다.</p>
+                                <p><strong>신학적 의미:</strong> 인생의 주인이 내가 아님을 고백합니다. 이 고백은 재물(6절)을 주인으로 섬기던 우상숭배에서 벗어나, 참된 주권자에게 영혼을 의탁하는 칭의적 선언입니다.</p>
+                            </div>
 
-    <div class="modal-overlay" id="text-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">성경 본문</h2>
-                <button class="modal-close-btn" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="modal-iframe" src=""></iframe>
-            </div>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    תּוֹחַלְתִּי <span onclick="playOriginalAudio('תּוֹחַלְתִּי', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(토할티)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 명사 '토헬레트(תּוֹחֶלֶת, 소망, 기대)'에 1인칭 단수 접미어가 붙어 '나의 소망'입니다. 동사 '야할(기다리다)'에서 파생되었습니다.</p>
+                                <p><strong>문맥적 의미:</strong> 내 삶을 지탱하는 유일한 근거, 내 영혼이 닻을 내리는 기대를 뜻합니다.</p>
+                                <p><strong>신학적 의미:</strong> 기독교의 소망은 막연한 낙관주의가 아니라 인격적인 대상(하나님)에 대한 언약적 기대입니다. 십자가의 은혜 위에서 영생을 확신하는 성도의 가장 강력한 무기입니다.</p>
+                            </div>
+
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    לְךָ <span onclick="playOriginalAudio('לְךָ', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(레카)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 전치사 '레(לְ, ~에게, ~를 향하여)'와 2인칭 단수 접미어의 결합으로 '당신에게'입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 소망의 방향이 철저히 하나님(You) 한 분만을 향하고 있음을 보여줍니다.</p>
+                                <p><strong>신학적 의미:</strong> 방향성의 전환(회개)입니다. 세상을 향하던 눈을 돌려, 유일한 중보자이신 그리스도만을 바라보게 되는 것이 참된 신앙의 방향입니다.</p>
+                            </div>
+
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    הִיא <span onclick="playOriginalAudio('הִיא', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(히)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 3인칭 여성 단수 대명사 '그녀(she, it)'입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 앞의 여성 명사 '소망(토할티)'을 받는 대명사로서, '그것은(소망은) 당신께 있습니다'라는 be동사 역할을 합니다.</p>
+                                <p><strong>신학적 의미:</strong> 문장을 확정 짓는 단어입니다. 내 소망의 거처가 다른 곳이 아닌 오직 주님(In Christ)이라는 사실을 못 박는 신앙의 확증입니다.</p>
+                            </div>
+
+                            <h4>③ 원어 구절 전체 분석</h4>
+                            <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; text-align:center;">
+                                <p style="font-size:1.4rem; font-weight:bold; direction:rtl;">
+                                    וְעַתָּה מַה־קִּוִּיתִי אֲדֹנָי תּוֹחַלְתִּי לְךָ הִיא
+                                    <span onclick="playOriginalAudio('וְעַתָּה מַה־קִּוִּיתִי אֲדֹנָי תּוֹחַלְתִּי לְךָ הִיא', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                </p>
+                            </div>
+                            <p><strong>[단어별 음역 및 직역 병기]</strong></p>
+                            <p>וְעַתָּה(베아타: 그리고 이제) מַה(마: 무엇을) קִּוִּיתִי(키비티: 내가 기다리리요) אֲדֹנָי(아도나이: 주여) תּוֹחַלְתִּי(토할티: 나의 소망은) לְךָ(레카: 주님을 향하여) הִיא(히: 그것이 있습니다)</p>
+                            <p><strong>[직역]</strong> "그러므로 이제 주여, 내가 무엇을 간절히 기다리겠습니까? 나의 소망, 그것은 오직 당신께 있습니다."</p>
+
+                            <h4>④ 언약 신학적 묵상</h4>
+                            <p>내 인생의 날이 한 뼘 길이에 불과하고, 든든히 서 있는 것 같으나 사실은 입김처럼 허무하다는 사실(5절)을 철저히 깨달은 자만이 터트릴 수 있는 위대한 신앙고백입니다. 세상의 어떤 재물도, 명예도 내 영혼의 안전을 보장하지 못합니다. 구원은 이 땅의 헛된 갈망(카바)의 줄을 끊어버리고, 예수 그리스도의 십자가라는 견고한 반석에 내 소망(토헬레트)의 닻을 내리는 것입니다. 고난 중에 있습니까? 이제, 오직 주님만이 소망임을 고백하십시오.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_39" data-title="시편 39편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>민수기 5장: 진영의 거룩과 신뢰의 회복</h3>
+                            <div class="key-question-box">
+                                <p>질문: 하나님께서 나병 환자나 부정한 자를 진영 밖으로 내보내라 명하신 것과, 의심의 법을 제정하신 공통된 목적은 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>민수기 1-4장이 군대의 외적 편성을 다루었다면, 5-6장은 진영의 내적인 정결(거룩)을 다룹니다. 1-4절은 전염성 피부병(나병) 환자와 유출병자, 주검에 접촉한 자를 진 밖으로 내보내는 규례입니다. 5-10절은 이웃에게 범죄했을 때 죄를 자복하고 죗값을 5분의 1을 더해 배상하는 규례를, 11-31절은 남편이 아내의 외도를 의심할 때 쓴 물을 마시게 하여 하나님의 판결을 구하는 '의심의 법'을 기록합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>하나님은 이스라엘 진영 '가운데' 거하시기 때문에(3절), 진영은 육체적으로나 도덕적으로 거룩해야 했습니다. 부정한 자를 밖으로 내보낸 것은 단순한 보건 목적을 넘어 죄의 전염성과 하나님의 거룩한 임재(Holy Presence)의 양립 불가능성을 시청각적으로 보여줍니다. 십자가에서 예수 그리스도는 우리의 모든 부정을 짊어지시고 "영문(진영) 밖에서 고난을 받으셨습니다"(히 13:12). 우리를 대신해 진 밖으로 쫓겨나심으로 우리를 거룩한 하나님 나라의 진영 안으로 들이셨습니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>하나님의 군대는 숫자의 많음보다 '거룩과 순결'로 싸우는 군대입니다. 교회 공동체 내에 숨겨진 죄나 깨어진 관계(이웃에게 범한 죄)를 방치해서는 안 됩니다. 특히 부부 사이의 신뢰가 깨어지는 것은 공동체의 기초를 흔드는 심각한 문제입니다. '의심의 법'은 의심을 증폭시키는 것이 아니라 무고한 자를 보호하고 하나님의 전지하신 판결에 억울함을 맡기는 장치입니다. 우리 마음에 숨겨진 의심과 미움을 십자가 앞에 온전히 드러내어 공동체의 영적 정결을 지켜내야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_05.html" data-title="민수기 5장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NUM_5" data-title="민수기 5장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>시편 39편: 인생의 한계와 유일한 소망</h3>
+                            <div class="key-question-box">
+                                <p>질문: 다윗이 악인 앞에서 입에 재갈을 물리고 침묵하려 했던 이유는 무엇이며, 그 침묵이 깨어지면서 터져 나온 기도는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>시편 39편은 '여두둔(찬양대장)의 형식에 따른 다윗의 시'입니다. 극심한 질병과 고통 속에서 다윗은 대적들 앞에서 불평이나 원망(입술의 범죄)을 하지 않으려고 굳게 결심하고 침묵합니다(1-3절). 그러나 마음속에 불붙는 고통을 참지 못하고 결국 하나님을 향해 기도를 터뜨립니다. 4-6절은 인생의 극단적인 유한함과 헛됨에 대한 깨달음을, 7-13절은 허무한 인생의 유일한 구원자이신 하나님께 죄의 용서와 치유를 간구하는 눈물의 호소를 담고 있습니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>인생의 날은 "한 뼘 길이(handbreadth)"에 불과하며, 든든히 서 있는 때에도 "입김(허무, 헤벨)"에 지나지 않습니다. 사람이 재물을 쌓으나 누가 거둘지 알지 못합니다(6절). 인간 스스로의 힘으로는 이 사망과 허무의 굴레(원죄의 결과)를 벗어날 수 없습니다. 이 절망의 심연에서 다윗은 "나의 소망은 주께 있나이다"(7절)라는 복음의 정수로 도약합니다. 부활이요 생명이신 그리스도만이 죽음의 그림자 아래 있는 우리를 영원한 생명의 빛으로 인도하시는 유일한 반석이십니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>고난 중에 성도가 가장 조심해야 할 것은 혀의 범죄입니다. 함부로 불평하거나 이웃을 비방하기보다, 하나님 앞에서 잠잠히 내 인생의 한계(나의 연약함)를 알게 해달라고 기도해야 합니다(4절). 우리의 안전보장은 통장의 잔고(재물)에 있지 않습니다. 우리는 이 땅에서 "모든 조상들처럼 나그네와 거류민"(12절)일 뿐입니다. 영원한 본향을 향해 걷는 나그네임을 잊지 않고, 오직 주님 한 분만으로 만족하며 십자가만을 자랑하는 거룩한 나그네의 삶을 살아냅시다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_39.html" data-title="시편 39편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_39" data-title="시편 39편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>아가 3장: 밤의 갈망과 혼인 잔치의 행렬</h3>
+                            <div class="key-question-box">
+                                <p>질문: 밤의 침상에서 신랑을 찾지 못해 거리를 헤매던 신부의 경험은 우리 신앙에 어떤 도전을 줍니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>아가 3장은 전반부(1-5절)와 후반부(6-11절)가 극적인 대조를 이룹니다. 전반부는 밤의 침상에서 신랑을 잃어버린 신부가 성의 거리와 큰 길을 헤매며 그를 애타게 찾다가 마침내 만나 어머니의 집으로 데려가는 열정적인 사랑의 여정을 그립니다. 후반부는 분위기가 반전되어, 광야에서 올라오는 웅장한 행렬, 곧 칼을 찬 60명의 용사들이 호위하는 화려한 솔로몬의 가마(혼인 행렬)와 시온의 딸들에게 왕을 보라고 초청하는 혼인 잔치의 영광을 묘사합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>신부가 밤에 신랑을 찾지 못한 것은 영적 침체나 하나님의 부재(Dark Night of the Soul)를 경험하는 성도의 모습입니다. 그러나 참된 교회는 거기에 머물지 않고 간절히 주님을 찾아 나섭니다(수동적 순종에서 능동적 갈망으로). 마침내 만난 그분을 붙잡고 놓지 않는 것은 언약적 연합의 확신입니다. 광야에서 올라오는 향기로운 솔로몬의 가마는 우리를 데리러 다시 오실 만왕의 왕 예수 그리스도의 영광스러운 재림과 어린 양의 혼인 잔치(계 19장)를 완벽하게 예표합니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>신앙 생활은 늘 평탄하지만은 않습니다. 때로는 주님의 임재가 느껴지지 않아 밤거리를 헤매는 듯한 영적 고독을 경험합니다. 그때 우리는 세상의 위로나 오락에서 답을 찾지 말고, 영혼의 파수꾼(말씀의 사역자들)에게 길을 물으며 끝까지 십자가의 주님을 갈망해야 합니다. 우리의 결론은 캄캄한 밤이 아니라 "그의 마음이 기쁠 때에"(11절) 쓰신 왕관의 영광입니다. 세상의 고난(광야)을 통과하여 재림하실 영광의 신랑을 사모하며, 오늘 내게 주어진 거룩한 신부의 순결을 지켜냅시다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_22_SOS_03.html" data-title="아가 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="SOS_3" data-title="아가 3장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>히브리서 3장: 모세보다 뛰어나신 하나님의 아들</h3>
+                            <div class="key-question-box">
+                                <p>질문: 집의 사환인 모세와 집을 지으신 아들 그리스도를 대조한 뒤, 성도들에게 완고함을 경계한 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>히브리서 기자는 유대인들이 가장 위대하게 여기는 영도자 모세와 예수 그리스도를 비교합니다(1-6절). 모세는 하나님의 온 집에서 신실한 '종(사환)'으로서 장래에 말할 것들을 증언한 반면, 그리스도는 집을 맡은 '아들'로서 교회를 친히 세우시고 통치하십니다. 7-19절은 시편 95편을 인용하여, 과거 출애굽 1세대가 광야에서 마음을 완고하게 하여 하나님의 음성에 순종하지 않음으로 가나안 안식에 들어가지 못한 실패를 거울삼아 오늘 믿음을 굳게 지킬 것을 경고합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>율법(모세)은 오실 그리스도의 그림자일 뿐, 구원을 완성할 실체(아들)가 아닙니다. 율법의 행위로는 결코 참된 안식에 들어갈 수 없습니다. "우리가 소망의 확신과 자랑을 끝까지 굳게 잡고 있으면 우리는 그의 집이라"(6절). 성도는 그리스도께서 지으시고 친히 거하시는 하나님의 집(성전)이 되었습니다. 성도의 성도 됨(견인)은 율법적 공로가 아니라, 그리스도의 피로 맺어진 언약을 끝까지 믿음으로 신뢰함에 있습니다. 불신앙이야말로 안식을 빼앗는 가장 악한 죄입니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>예수님을 믿으면서도 여전히 율법적 공로나 유대교적 전통으로 돌아가려는 유혹(배교)은 "살아 계신 하나님에게서 떨어질까"(12절) 두려워해야 할 무서운 범죄입니다. 광야 세대의 실패 원인은 환경의 열악함이 아니라, 말씀을 듣고도 '마음이 완고해진' 데 있었습니다. 우리는 '오늘'이라 일컫는 동안에 매일 피차 권면하여 죄의 유혹으로 완고해지지 않도록 영적 각성을 유지해야 합니다. 아들의 피가 완성하신 십자가의 복음만을 깊이 생각(Consider)하며 믿음의 경주를 완주합시다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_58_HEB_03.html" data-title="히브리서 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="HEB_3" data-title="히브리서 3장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합: "헛된 인생을 구원하시는 참된 소망"</h3>
+                            <h4>관통하는 주제: 죄와 허무를 극복하고 참된 집(안식)을 짓는 그리스도의 은혜</h4>
+                            <p>오늘의 네 본문은 영원하지 않은 것을 붙드는 인간의 허무함과, 우리에게 영원한 소망이 되시는 그리스도의 은혜를 교차하여 보여줍니다. 시편 39편의 다윗은 우리 인생이 그림자 같고 입김같이 헛되다는 한계를 처절하게 깨닫습니다. 아무리 스스로를 지키려 해도 혀의 범죄를 피할 수 없고, 결국 진 밖으로 쫓겨나야 할 부정한 자(민수기 5장)와 같은 것이 우리의 본질입니다.</p>
+                            <p>이 허무의 밤에 갇힌 인생들에게 유일한 소망은 아가서 3장의 신부처럼, 나를 찾아 광야를 넘어오시는 사랑의 왕(솔로몬의 가마)을 영접하는 것입니다. 그 영광의 왕은 곧 모세보다 뛰어나신 하나님의 아들 예수 그리스도이십니다(히브리서 3장). 모세는 율법으로 우리의 죄를 고발할 뿐이지만, 아들이신 예수님은 십자가에서 모든 죄(진영의 부정함)를 대속하시고 우리를 그분의 거룩한 집으로 지어가십니다.</p>
+                            <p>세상의 재물에 소망을 두지 마십시오. 오늘 우리 영혼에 "나의 소망은 주께 있나이다"라는 고백이 회복되기를 원합니다. 광야 세대처럼 눈앞의 환경 때문에 마음이 완고해지지 말고, '오늘' 내게 주시는 말씀의 음성을 청종하십시오. 나그네 같은 이 땅의 삶 속에서, 나를 흠 없는 신부로 부르시며 영원한 안식으로 인도하시는 위대한 대제사장 그리스도만을 끝까지 굳게 붙잡는 하루가 되기를 소망합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
     </div>
-    
-    <div class="floating-nav" id="floating-nav">
-        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
-        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
     </div>
-
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+    </div>
     <div id="player-container"></div>
-    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
         <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
         <div style="display:flex;gap:12px;align-items:center;">
             <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
             <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
         </div>
     </div>
-
     <script src="script.js"></script>
     <script>
-        function switchTab(n) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const contents = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                tab.classList.toggle('active', index === n);
-            });
-            contents.forEach((content, index) => {
-                content.classList.toggle('active', index === n);
-            });
-            const info = document.getElementById('current-tab-info');
-            if(info) info.innerText = (n + 1) + '/6';
+        let audioUtterance = null;
+        function playOriginalAudio(text, langCode) {
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+                setTimeout(() => {
+                    audioUtterance = new SpeechSynthesisUtterance(text);
+                    audioUtterance.lang = langCode;
+                    window.speechSynthesis.speak(audioUtterance);
+                }, 50);
+            } else alert('TTS 미지원 브라우저입니다.');
         }
     </script>
 </body>

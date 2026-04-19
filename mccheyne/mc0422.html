@@ -6,171 +6,250 @@
     <title>4월 22일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --overview-color: #6c757d;
-        }
-        
-        /* 로컬 오디오 버튼 숨김 (전역 플레이어 연동) */
+        :root { --overview-color: #6c757d; }
         .listen-audio-btn { display: none !important; }
-        
-        /* 전체 개요 탭 스타일 */
         .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
         .card-overview { border-color: var(--overview-color); }
         .card-overview h3 { color: var(--overview-color); }
-
-        /* 핵심 질문 박스 스타일 */
-        .key-question-box {
-            background-color: #f8f9fa;
-            border-left: 5px solid #343a40;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-        }
-        .key-question-box p {
-            margin: 0;
-            font-weight: 700;
-            color: #212529;
-            font-style: italic;
-            line-height: 1.5;
-        }
+        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
+        .key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
-        <header>
-            <h1>4월 22일 맥체인 성경읽기</h1>
-            <div class="date-info">
-                <span>2024년 4월 22일</span>
-            </div>
-        </header>
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>4월 22일</h1>
+            </header>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">레위기 26장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 33편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">전도서 9장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">디도서 1장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
+            </nav>
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>4월 22일 성경읽기 가이드</h3>
+                            <p>오늘은 언약적 축복과 저주를 통해 하나님의 거룩하심을 묵상하고, 말씀으로 세상을 창조하신 여호와를 찬양합니다. 인생의 유한함을 알기에 오늘 허락된 은혜를 기뻐하며, 교회 안팎의 거짓 교훈을 물리치고 바른 교훈의 터 위에 교회를 든든히 세워가는 지혜를 구합니다.</p>
+                            <ul>
+                                <li><strong>레위기 26장:</strong> 순종에 따르는 축복과 불순종에 임하는 언약적 저주를 선포하며, 징계 중에도 회개하면 언약을 기억하시는 하나님의 신실하심을 증언합니다.</li>
+                                <li><strong>시편 33편:</strong> 여호와의 말씀의 능력과 그분의 인자하심을 찬양하는 시입니다. 군대의 힘이나 사람의 지혜가 아닌 오직 하나님만이 참된 구원자이심을 노래합니다.</li>
+                                <li><strong>전도서 9장:</strong> 의인이나 악인이나 모두 한 가지 일(죽음)을 당한다는 허무한 현실 앞에서도, 낙심하지 않고 오늘 내게 주어진 삶(가정, 수고)을 기쁨으로 누리라고 권면합니다.</li>
+                                <li><strong>디도서 1장:</strong> 그레데 교회의 질서를 세우기 위해 디도를 남겨둔 바울의 서신으로, 교회의 영적 지도자인 장로(감독)의 자격과 거짓 교사들을 경계할 것을 명합니다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">원어 묵상부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
-        <nav class="tabs">
-            <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
-            <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">레위기 26장</button>
-            <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">시편 33편</button>
-            <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">전도서 9장</button>
-            <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">디도서 1장</button>
-            <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">신학적 종합</button>
-        </nav>
+                <div id="content-hebrew" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>원어 주해: 시편 33:6</h3>
+                            <div class="key-question-box">
+                                <p>"여호와의 말씀으로 하늘이 지음이 되었으며 그 만상을 그의 입기운으로 이루었도다"</p>
+                            </div>
 
-        <main class="content-wrapper">
-            <section id="content-overview" class="tab-content active">
-                <div class="card card-overview">
-                    <h3>오늘의 구속사적 가이드</h3>
-                    <p>오늘의 본문은 언약 백성을 향한 하나님의 주권적인 통치와 그 말씀에 대한 합당한 반응을 다룹니다. 레위기는 언약의 순종과 불순종에 따른 상벌을 통해 하나님의 공의를 선포하며, 시편은 만물을 말씀으로 창조하시고 다스리시는 여호와를 찬양하도록 성도를 초청합니다. 전도서는 인간이 통제할 수 없는 인생의 신비 속에서 창조주를 경외할 것을, 디도서는 진리의 말씀을 수호하며 교회 공동체를 바르게 세워가는 영적 질서의 중요성을 강조합니다. 모든 말씀은 역사의 주관자이신 하나님 앞에 겸손히 서야 함을 가르쳐 줍니다.</p>
-                </div>
-            </section>
+                            <h4>① 히브리어 가이드</h4>
+                            <p><strong>ד (달렛)</strong>: 문 모양에서 유래했으며 '드' 발음이 납니다. '말씀'을 뜻하는 다바르의 첫 글자입니다. <strong>ר (레쉬)</strong>: 머리 모양이며 '르' 발음입니다. <strong>ר (루아흐)</strong>: 영, 바람, 기운을 뜻하는 단어입니다. <strong>פ (페)</strong>: 입 모양에서 유래한 '프' 발음입니다.</p>
 
-            <section id="content-book1" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 하나님께서 언약의 상벌을 이토록 상세히 나열하신 이유는 무엇이며, 징계의 궁극적인 목적은 무엇입니까?</p>
-                </div>
-                <div class="card card-book1">
-                    <h3>레위기 26장: 언약의 복과 저주</h3>
-                    <p>본장은 시내산 언약의 결론부로, 하나님의 규례와 계명을 준행할 때 주어지는 풍성한 복과, 거역할 때 닥칠 엄중한 저주를 대조합니다. 특히 반복되는 징계의 경고는 백성들이 교만을 꺾고 하나님께로 돌이키게 하려는 자비로운 성격을 띱니다. 이 징계의 과정 속에서도 하나님은 조상들과 맺은 언약을 기억하시며 결코 자기 백성을 완전히 버리지 않으심을 약속하십니다.</p>
-                    <p>신학적으로 이는 인간의 전적 부패로 인해 율법의 저주 아래 놓일 수밖에 없는 우리를 보여줍니다. 동시에 이 모든 저주를 대신 짊어지시고 우리에게 언약의 복을 허락하신 예수 그리스도의 구속 사역의 필연성을 강조합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_03_LEV_26.html" data-title="레위기 26장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="LEV_26" data-title="레위기 26장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <h4>② 단어별 상세 해부</h4>
 
-            <section id="content-book2" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 시인이 군대나 힘이 아닌 "여호와를 자기 하나님으로 삼은 나라"가 복이 있다고 선포한 근거는 무엇입니까?</p>
-                </div>
-                <div class="card card-book2">
-                    <h3>시편 33편: 창조주와 통치자를 향한 찬양</h3>
-                    <p>시편 33편은 여호와의 말씀이 정직하며 그 행사가 진실함을 노래합니다. 하나님의 말씀 한 마디로 하늘과 만상이 지어졌으며, 그분의 계획은 영원히 섭리 가운데 진행됩니다. 세상 열방의 도모는 헛되나 여호와를 의지하는 백성은 그분의 돌보심 속에 안전합니다. 시인은 성도들에게 새 노래로 그분을 즐거이 찬양하며 소망을 오직 하나님께 둘 것을 촉구합니다.</p>
-                    <p>개혁주의적 관점에서 이는 하나님의 절대 주권과 일반 섭리를 명확히 보여줍니다. 역사의 모든 진행이 하나님의 작정 아래 있음을 믿는 성도는, 세상의 힘이 아닌 오직 하나님의 신실하심만을 기뻐하며 신뢰할 수 있습니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_33.html" data-title="시편 33편">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="PSA_33" data-title="시편 33편">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    בִּדְבַר <span onclick="playOriginalAudio('בִּדְבַר', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(비드바르)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 전치사 '베(בְּ, ~으로)'와 명사 '다바르(דָּבָר, 말씀)'의 연계형이 결합하여 '말씀으로'라는 뜻입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 천지 창조의 수단과 능력이 다른 어떤 도구가 아니라 오직 하나님의 말씀에 있음을 선포합니다.</p>
+                                <p><strong>신학적 의미:</strong> 다바르(말씀)는 신약의 로고스(Λόγος)와 연결됩니다. 말씀으로 세상을 지으셨다는 것은 창조 사역에 성자 하나님(말씀이신 그리스도)이 함께하셨다는 삼위일체적 창조를 암시합니다(요 1:3).</p>
+                            </div>
 
-            <section id="content-book3" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 모든 사람에게 임하는 '죽음'이라는 공통된 운명 속에서도 성도가 기쁘게 살아가야 할 신학적 이유는 무엇입니까?</p>
-                </div>
-                <div class="card card-book3">
-                    <h3>전도서 9장: 모든 이에게 임하는 일반적인 운명과 지혜</h3>
-                    <p>전도자는 의인과 악인, 깨끗한 자와 부정한 자 모두에게 임하는 '죽음'을 목격하며 인생의 불확실성을 토로합니다. 해 아래의 삶은 인간의 통제를 벗어나 있으며 때로는 부조리해 보입니다. 그러나 전도자는 이러한 허무 속에서도 하나님께서 허락하신 일상의 복(음식, 의복, 가정)을 기쁨으로 누리라고 권면합니다. 또한 힘없는 지혜자가 성을 구원하는 비유를 통해, 세상의 힘보다 지혜가 나음을 역설합니다.</p>
-                    <p>우리는 이 본문을 통해 하나님의 보편적 섭리 속에 담긴 신비를 배웁니다. 성도는 죽음의 권세를 이기신 그리스도 안에서, 해 아래의 허무를 극복하고 오늘이라는 시간을 하나님의 선물로 받아 누리는 참된 지혜를 소유해야 합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_21_ECC_09.html" data-title="전도서 9장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="ECC_9" data-title="전도서 9장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    וּבְרוּחַ <span onclick="playOriginalAudio('וּבְרוּחַ', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(우베루아흐)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 접속사 '바브(ו, 그리고)'와 전치사 '베(ב, ~으로)', 그리고 명사 '루아흐(רוּחַ, 호흡, 바람, 영)'가 결합되었습니다.</p>
+                                <p><strong>문맥적 의미:</strong> 하나님의 입에서 나오는 '입기운(호흡)'으로 해석되며, 앞의 '다바르(말씀)'와 평행을 이룹니다.</p>
+                                <p><strong>신학적 의미:</strong> '루아흐'는 구약에서 자주 '성령'을 뜻합니다. 말씀(성자)과 입기운(성령)이 함께 역사하여 만상을 이루었다는 것은 철저한 삼위일체 하나님의 협력 사역(Opera Trinitatis ad extra)을 보여줍니다.</p>
+                            </div>
 
-            <section id="content-book4" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 바울이 디도에게 장로의 자격을 엄격히 제시하고 거짓 교사들을 꾸짖으라고 명령한 이유는 무엇입니까?</p>
-                </div>
-                <div class="card card-book4">
-                    <h3>디도서 1장: 교회의 질서와 바른 교훈</h3>
-                    <p>바울은 그레데 섬에 남겨진 디도에게 교회의 지도자인 장로(감독)를 세울 것을 명령합니다. 지도자는 가정이 단정하고 책망할 것이 없어야 하며, 무엇보다 미쁜 말씀의 가르침을 그대로 지켜야 합니다. 이는 당시 헛된 말을 하며 속이는 거짓 교사들을 막고, 성도들을 믿음 안에서 온전하게 세우기 위함입니다.</p>
-                    <p>교회는 하나님의 집이며, 지도자는 하나님의 청지기입니다. 개혁주의 교회론은 '오직 성경'의 기초 위에서 바른 교리를 수호하는 것을 교회의 본질적인 표지로 삼습니다. 진리의 말씀만이 타락한 문화(그레데인들의 속성) 속에서 성도를 거룩하게 보존할 수 있습니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_56_TIT_01.html" data-title="디도서 1장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="TIT_1" data-title="디도서 1장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    צְבָאָם <span onclick="playOriginalAudio('צְבָאָם', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(체바암)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 명사 '차바(צָבָא, 군대, 무리, 만상)'에 3인칭 복수 접미어가 붙어 '그것들의 군대/만상'을 의미합니다.</p>
+                                <p><strong>문맥적 의미:</strong> 하늘에 있는 수많은 별들과 천체들을 하나님의 잘 정돈된 '군대'로 묘사합니다.</p>
+                                <p><strong>신학적 의미:</strong> 고대 근동에서 별들은 숭배의 대상인 신들로 여겨졌으나, 이스라엘은 그것들을 단지 하나님의 말씀의 호흡 한 번으로 지음받고 통제받는 피조물(군대)에 불과하다고 선언함으로 우상숭배를 배격합니다.</p>
+                            </div>
 
-            <section id="content-integration" class="tab-content">
-                <div class="card card-integration">
-                    <h3>신학적 종합: 주권적인 말씀 앞에 선 성도의 삶</h3>
-                    <p>오늘의 네 본문은 '하나님의 말씀의 통치성'이라는 주제로 수렴됩니다. 레위기의 언약 법전은 순종을 통해 하나님의 백성다움을 요구하며, 시편 33편은 그 말씀이 온 세상을 창조하고 보존하는 능력임을 선포합니다. 전도서는 인생의 부조리함 속에서도 주권적인 하나님의 손길을 신뢰하는 것이 진정한 지혜임을 가르치고, 디도서는 그 진리의 말씀이 교회 공동체의 질서와 경건의 토대가 되어야 함을 보여줍니다.</p>
-                    <p>성도의 삶은 우연에 맡겨진 것이 아닙니다. 창세 전부터 작정하신 하나님의 신실한 언약(디도서 1:2) 위에 기초하고 있습니다. 우리는 율법의 저주를 복으로 바꾸신 그리스도의 은혜를 힘입어, 세상의 불확실함 앞에서도 요동하지 않고 하나님을 경외하며 주의 영광을 찬송하는 삶을 살아야 합니다. 오늘 하루도 우리를 다스리시는 하나님의 말씀에 겸손히 순종하며 그분의 주권을 인정하는 복된 시간이 되기를 소망합니다.</p>
-                </div>
-            </section>
-        </main>
-    </div>
+                            <h4>③ 원어 구절 전체 분석</h4>
+                            <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; text-align:center;">
+                                <p style="font-size:1.4rem; font-weight:bold; direction:rtl;">
+                                    בִּדְבַר יְהוָה שָׁמַיִם נַעֲשׂוּ וּבְרוּחַ פִּיו כָּל־צְבָאָם
+                                    <span onclick="playOriginalAudio('בִּדְבַר יְהוָה שָׁמַיִם נַעֲשׂוּ וּבְרוּחַ פִּיו כָּל־צְבָאָם', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                </p>
+                            </div>
+                            <p><strong>[단어별 음역 및 직역 병기]</strong></p>
+                            <p>בִּדְבַר(비드바르: 말씀으로) יְהוָה(야훼: 여호와의) שָׁמַיִם(샤마임: 하늘들이) נַעֲשׂוּ(나아수: 지어졌다) וּבְרוּחַ(우베루아흐: 그리고 기운으로) פִּיו(피우: 그의 입의) כָּל(콜: 모든) צְבָאָם(체바암: 그것들의 만상이)</p>
+                            <p><strong>[직역]</strong> "여호와의 말씀으로 하늘들이 지어졌고, 그의 입의 기운(호흡)으로 그것들의 모든 군대(만상)가 지어졌다."</p>
 
-    <div class="modal-overlay" id="text-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">성경 본문</h2>
-                <button class="modal-close-btn" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="modal-iframe" src=""></iframe>
-            </div>
+                            <h4>④ 언약 신학적 묵상</h4>
+                            <p>천지를 창조하신 여호와의 '말씀(다바르)'과 '호흡(루아흐)'은 지금도 살아 역사하십니다. 무에서 유를 창조하신 그 권능의 말씀이, 죽었던 우리의 영혼을 거듭나게 하셨습니다(약 1:18). 우주의 만상을 군대처럼 다스리시는 하나님께서 우리의 아버지이심을 믿을 때, 우리는 세상의 어떤 거대한 권력(말이나 병거) 앞에서도 두려워하지 않고 온전한 찬양을 올려드릴 수 있습니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_33" data-title="시편 33편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>레위기 26장: 축복과 저주, 그리고 은혜의 언약</h3>
+                            <div class="key-question-box">
+                                <p>질문: 혹독한 징계에 대한 경고 속에서도 궁극적으로 빛나는 하나님의 성품은 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>레위기 26장은 신명기 28장과 함께 율법의 결론에 해당하는 언약적 축복과 저주의 장입니다. 1-13절은 우상을 멀리하고 안식일을 지킬 때 주어지는 풍성한 축복(비, 평화, 하나님의 임재)을 나열합니다. 14-39절은 불순종할 때 임하는 5단계의 점진적이고 끔찍한 저주(질병, 가뭄, 맹수, 염병과 전쟁, 포로됨)를 경고합니다. 40-46절은 백성이 회개할 때 조상들과 맺은 언약을 기억하시겠다는 궁극적인 회복의 약속입니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>하나님의 징계는 백성을 파멸시키려는 것이 아니라, 회개로 이끌어 언약 관계로 회복시키려는 '사랑의 매'입니다. 인간은 율법을 온전히 지킬 수 없어 저주 아래 놓일 수밖에 없으나, 그리스도께서 우리를 위하여 저주를 받은 바 되사 율법의 저주에서 우리를 속량하셨습니다(갈 3:13). 우리의 최종적인 구원은 우리의 불완전한 순종이 아니라, "내가 그들의 조상들과 맺은 언약을 기억하리라"(42절)는 하나님의 신실하심에 근거합니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>우리는 율법의 공포가 아니라 은혜의 감격으로 순종하는 자들입니다. 죄를 지었을 때 임하는 삶의 고난과 영적 침체를 우연으로 여기지 말고, 우리를 돌이키시려는 아버지의 음성으로 들어야 합니다. 자기 죄를 깨닫고 마음이 낮아져 죄악의 형벌을 기쁘게 받으며 회개할 때(41절), 하나님은 언제나 십자가의 보혈을 통해 우리의 언약을 새롭게 갱신해 주십니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_03_LEV_26.html" data-title="레위기 26장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LEV_26" data-title="레위기 26장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>시편 33편: 창조주이자 구원자이신 여호와</h3>
+                            <div class="key-question-box">
+                                <p>질문: 시인이 구원을 위해 군대의 많음이나 말의 힘을 의지하지 말라고 경고하는 영적 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>시편 33편은 표제가 없는 찬양시입니다. 이스라엘 공동체가 예배 중에 부른 수금과 비파의 찬양으로, 앞선 32편의 죄 사함의 기쁨이 온 우주적인 창조주를 향한 찬양으로 확대된 듯한 느낌을 줍니다. 1-3절은 찬양으로의 초청, 4-9절은 창조주 하나님의 말씀의 능력 찬양, 10-17절은 역사를 주관하시는 하나님의 섭리와 무력한 인간의 힘 대조, 18-22절은 여호와를 바라는 자들에 대한 구원과 확신을 담고 있습니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>하나님의 구원은 인간의 물리적 힘(많은 군대, 용사, 구원하는 말)에 달려 있지 않습니다. 역사의 주관자는 나라들의 계획을 폐하시며 민족들의 사상을 무효하게 하시는 여호와이십니다(10절). 오직 '여호와의 계획'만이 영원히 섭니다. 십자가는 세상의 지혜와 힘으로는 미련하고 약해 보이나, 하나님의 가장 완벽한 구원의 계획이 실현된 사건입니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>성도는 '새 노래'로 찬양해야 합니다(3절). 이는 곡조가 새롭다는 뜻만이 아니라, 날마다 새롭게 경험되는 구원의 은혜에 대한 감격어린 응답입니다. 우리 인생의 안전보장은 내 통장의 잔고나 세상의 권력(군대와 말)에 있지 않고, "그를 경외하는 자 곧 그의 인자하심을 바라는 자를 살피시는"(18절) 여호와의 눈에 있습니다. 우리는 환난의 기근 속에서도 오직 주님의 인자하심에 소망을 두어야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_33.html" data-title="시편 33편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_33" data-title="시편 33편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>전도서 9장: 죽음의 그림자 아래서 누리는 일상</h3>
+                            <div class="key-question-box">
+                                <p>질문: '산 개가 죽은 사자보다 낫다'는 속담을 통해 전도자가 강조하려는 현세적 삶의 가치는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>전도자는 해 아래 삶의 가장 부조리한 단면, 곧 의인이나 악인이나 지혜자나 우매자나 모두 동일하게 '죽음'이라는 운명을 맞이한다는 사실을 직시합니다(1-6절). 이 압도적인 허무의 결론은 자포자기로 향하는 듯 보이지만, 오히려 대반전을 이루어 '그러므로 지금 살아있는 동안 너의 일상을 기쁘게 누리라'는 강력한 긍정으로 나아갑니다(7-10절). 이어 지혜가 힘보다 낫지만 현실에서는 무시당하는 모순을 꼬집습니다(11-18절).</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>죽음 앞에서의 절대적 평등은 인간의 전적 타락과 죄의 삯이 사망임을 증명하는 보편적 증거입니다. 죽은 후에는 해 아래에서 수고한 어떤 상도 없다는 것은 구약 지혜문학의 한계적 관점(스올)을 보여줍니다. 이는 필연적으로 부활의 소망을 요청합니다. 그리스도께서 사망의 권세를 깨뜨리셨기에, 성도에게 죽음은 허무의 종착역이 아니라 영원한 생명으로 들어가는 관문으로 변화되었습니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>죽음이 확실하다면, 역설적으로 살아있는 '오늘'이 가장 가치 있는 시간입니다. 전도자는 흰옷을 입고 향기로운 기름을 바르며(정결과 기쁨), 사랑하는 아내와 함께 즐겁게 살라고 권합니다(8-9절). 금욕주의는 성경적이지 않습니다. "네 손이 일을 얻는 대로 힘을 다하여 할지어다"(10절)라는 말씀처럼, 하나님이 주신 소명(직업)의 자리에서 최선을 다하며 가정의 행복을 누리는 것이 개혁주의가 말하는 거룩한 일상의 영성입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_21_ECC_09.html" data-title="전도서 9장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ECC_9" data-title="전도서 9장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>디도서 1장: 바른 교훈 위에 교회를 세우라</h3>
+                            <div class="key-question-box">
+                                <p>질문: 영적 지도자(장로)의 자격 기준이 '바른 교훈'과 밀접하게 연결된 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>디도서는 바울이 그레데(크레타) 섬에 남겨둔 영적 아들 디도에게 보낸 목회 서신입니다. 그레데인들은 "항상 거짓말쟁이며 악한 짐승이며 배만 위하는 게으름뱅이"(12절)라는 악평을 받을 정도로 도덕적 수준이 낮았고, 교회 내에는 할례당 같은 거짓 교사들이 가정을 무너뜨리고 있었습니다. 1-4절의 장엄한 인사말에 이어, 5-9절은 장로의 자격을, 10-16절은 거짓 교사들을 엄히 꾸짖고 바른 믿음으로 세울 것을 명합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>바울은 서두에서 자신의 사도됨이 "거짓이 없으신 하나님이 영원 전부터 약속하신 영생의 소망"(2절)에 근거함을 밝힙니다. 구원은 시대적 유행이나 인간의 결단이 아니라 하나님의 영원한 작정에 기초합니다. 거짓 교사들은 "하나님을 시인하나 행위로는 부인하는 자"(16절)들입니다. 진정한 복음은 바른 교리(Orthodoxy)와 바른 삶(Orthopraxy)을 결코 분리하지 않으며, 그리스도의 십자가 은혜는 필연적으로 거룩한 삶의 열매를 맺게 합니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>교회의 지도자는 세상의 스펙(학력, 재력)이 아니라 도덕적 흠결이 없고 바른 말씀에 착념한 자여야 합니다. 교회는 진리의 기둥과 터이므로, "미쁜 말씀의 가르침을 그대로 지켜야"(9절) 합니다. 오늘날 세속화된 문화(그레데 같은 세상) 속에서 성도는 이원론에 빠지지 말아야 합니다. 입술의 고백이 삶의 순종으로 이어져야 하며, 진리를 왜곡하여 부당한 이득을 취하려는 이단과 거짓 가르침에 대해 영적 분별력을 가지고 엄히 책망해야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_56_TIT_01.html" data-title="디도서 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="TIT_1" data-title="디도서 1장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합: "언약 백성의 바른 믿음과 바른 삶"</h3>
+                            <h4>관통하는 주제: 말씀 안에서 세상의 헛됨을 이기는 언약적 거룩함</h4>
+                            <p>오늘 말씀들은 하나님의 언약 안에 있는 백성들이 어떻게 불의한 세상 속에서 거룩함을 유지해야 하는지 가르칩니다. 레위기 26장은 순종과 불순종에 따른 분명한 영적 원리를 제시하며, 이 원리는 인간의 힘(군대와 말)이 아닌 창조주 하나님의 말씀의 통치(시편 33편) 아래 있음을 보여줍니다. 우리가 의지할 대상은 헛된 세상의 우상이 아니라 우리를 위해 천지를 지으신 언약의 여호와이십니다.</p>
+                            <p>우리가 발 딛고 사는 세상은 전도서 9장처럼 악인과 의인의 구분이 모호해 보이고 궁극적으로 죽음이 지배하는 허무한 '그레데' 섬과 같습니다(디도서). 세상은 거짓과 탐욕으로 가득하고, 행위로 하나님을 부인하는 거짓 교훈이 넘쳐납니다. 이러한 부조리 속에서 성도가 무기력증에 빠지지 않는 방법은 오직 "영원 전부터 약속하신 영생의 소망"을 굳게 붙드는 것입니다.</p>
+                            <p>우리의 영생은 그리스도 안에서 이미 확정되었습니다. 그러므로 우리는 죽음의 그림자 앞에서도 내게 주어진 오늘의 삶(아내, 일터)을 기쁨으로 누리며(전도서), 징계 중에도 회개하면 언약을 기억하시는 하나님의 신실하심(레위기)에 소망을 둡니다. 거짓된 교훈에 휩쓸리지 않고 바른 교훈의 터 위에 서서, 창조주 여호와를 기뻐하며 거룩한 순종의 열매를 맺는 성도의 복된 일상이 되기를 소망합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
     </div>
-    
-    <div class="floating-nav" id="floating-nav">
-        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
-        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
     </div>
-
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+    </div>
     <div id="player-container"></div>
-    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
         <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
         <div style="display:flex;gap:12px;align-items:center;">
             <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
             <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
         </div>
     </div>
-
     <script src="script.js"></script>
     <script>
-        function switchTab(n) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const contents = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                tab.classList.toggle('active', index === n);
-            });
-            contents.forEach((content, index) => {
-                content.classList.toggle('active', index === n);
-            });
-            const info = document.getElementById('current-tab-info');
-            if(info) info.innerText = (n + 1) + '/6';
+        let audioUtterance = null;
+        function playOriginalAudio(text, langCode) {
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+                setTimeout(() => {
+                    audioUtterance = new SpeechSynthesisUtterance(text);
+                    audioUtterance.lang = langCode;
+                    window.speechSynthesis.speak(audioUtterance);
+                }, 50);
+            } else alert('TTS 미지원 브라우저입니다.');
         }
     </script>
 </body>

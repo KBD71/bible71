@@ -6,171 +6,260 @@
     <title>4월 26일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --overview-color: #6c757d;
-        }
-        
-        /* 로컬 오디오 버튼 숨김 (전역 플레이어 연동) */
+        :root { --overview-color: #6c757d; }
         .listen-audio-btn { display: none !important; }
-        
-        /* 전체 개요 탭 스타일 */
         .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
         .card-overview { border-color: var(--overview-color); }
         .card-overview h3 { color: var(--overview-color); }
-
-        /* 핵심 질문 박스 스타일 */
-        .key-question-box {
-            background-color: #f8f9fa;
-            border-left: 5px solid #343a40;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-        }
-        .key-question-box p {
-            margin: 0;
-            font-weight: 700;
-            color: #212529;
-            font-style: italic;
-            line-height: 1.5;
-        }
+        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
+        .key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
-        <header>
-            <h1>4월 26일 맥체인 성경읽기</h1>
-            <div class="date-info">
-                <span>2024년 4월 26일</span>
-            </div>
-        </header>
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>4월 26일</h1>
+            </header>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">민수기 3장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 37편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">아가 1장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">히브리서 1장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
+            </nav>
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>4월 26일 성경읽기 가이드</h3>
+                            <p>오늘은 구약의 예표를 뛰어넘는 위대한 대제사장이자 만물의 상속자이신 그리스도의 영광을 묵상합니다. 하나님께서 택하신 레위인의 헌신과, 세상의 형통을 부러워하지 않는 의인의 확신, 그리고 솔로몬의 아가를 통해 보여지는 신랑이신 그리스도와 신부인 교회의 친밀한 사랑을 배웁니다.</p>
+                            <ul>
+                                <li><strong>민수기 3장:</strong> 아론의 자손과 레위인의 임무를 규정하며, 레위인이 이스라엘의 모든 처음 난 자를 대속하여 하나님의 소유가 되는 구속의 원리를 다룹니다.</li>
+                                <li><strong>시편 37편:</strong> 악인의 형통을 불평하지 말고 여호와를 기뻐하라고 권면하는 지혜시로, 궁극적으로 온유한 자가 땅을 차지하게 될 것임을 선포합니다.</li>
+                                <li><strong>아가 1장:</strong> 솔로몬의 가장 아름다운 노래의 시작으로, 신랑을 향한 신부의 열렬한 갈망과 자신을 낮추는 겸손함(게달의 장막) 위에 부어지는 사랑을 묘사합니다.</li>
+                                <li><strong>히브리서 1장:</strong> 모든 선지자와 천사보다 뛰어나신 분, 곧 하나님의 영광의 광채시요 본체의 형상이신 만물의 상속자 예수 그리스도의 우월성을 장엄하게 선포합니다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">원어 묵상부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
-        <nav class="tabs">
-            <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
-            <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">민수기 3장</button>
-            <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">시편 37편</button>
-            <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">아가 1장</button>
-            <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">히브리서 1장</button>
-            <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">신학적 종합</button>
-        </nav>
+                <div id="content-hebrew" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>원어 주해: 시편 37:4</h3>
+                            <div class="key-question-box">
+                                <p>"또 여호와를 기뻐하라 그가 네 마음의 소원을 네게 이루어 주시리로다"</p>
+                            </div>
 
-        <main class="content-wrapper">
-            <section id="content-overview" class="tab-content active">
-                <div class="card card-overview">
-                    <h3>오늘의 구속사적 가이드</h3>
-                    <p>오늘의 본문은 하나님의 '구별된 소유'와 '최종적인 계시'를 주제로 흐릅니다. 민수기는 레위인을 대속물로 삼아 하나님께 구별해 드리는 질서를 세우며, 시편은 악인의 형통에 요동하지 않고 하나님을 바라는 성도의 견인을 노래합니다. 아가는 그리스도와 교회 사이의 친밀한 사랑의 시작을, 히브리서는 옛 언약의 모든 선지자보다 우월하신 하나님의 아들 예수 그리스도를 선포합니다. 우리는 오늘 본문을 통해 만물의 주인이신 하나님께서 자기 백성을 어떻게 사랑하시고, 최고의 권위로 어떻게 말씀하시는지를 발견하게 됩니다.</p>
-                </div>
-            </section>
+                            <h4>① 히브리어 가이드</h4>
+                            <p><strong>ו (바브)</strong>: '그리고' 또는 '또'를 뜻하는 접속사입니다. <strong>ה (헤)</strong>: 숨을 내쉬는 '흐' 발음으로 동사의 재귀적, 강조적 형태를 만듭니다. <strong>ע (아인)</strong>: 목구멍 깊은 곳에서 내는 후음입니다. <strong>נ (눈)</strong>: 물고기 모양에서 유래한 '느' 발음입니다. <strong>ג (기멜)</strong>: 낙타 모양에서 유래한 '그' 발음입니다.</p>
 
-            <section id="content-book1" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 하나님께서 이스라엘의 모든 처음 태어난 자 대신 레위인을 자신의 소유로 택하신 구속사적 의미는 무엇입니까?</p>
-                </div>
-                <div class="card card-book1">
-                    <h3>민수기 3장: 레위인의 선발과 사명</h3>
-                    <p>하나님께서는 아론의 아들들과 레위 지파의 직무를 규정하십니다. 특히 이스라엘의 모든 첫 태생 대신 레위인을 하나님의 소유로 삼으시는데, 이는 출애굽 당시 유월절 어린 양의 피로 구원받은 생명들이 전적으로 하나님의 것임을 상징합니다. 레위인은 성막을 관리하고 예배의 질서를 유지하는 거룩한 직무를 맡습니다.</p>
-                    <p>신학적으로 레위인의 대속적 선택은 '대리 원리'를 보여줍니다. 이는 죄로 인해 죽을 수밖에 없는 우리를 대신하여 하나님께 드려진바 되시고, 우리를 하나님 나라의 제사장 삼아주신 예수 그리스도의 대속 사역을 예표합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_03.html" data-title="민수기 3장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="NUM_3" data-title="민수기 3장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <h4>② 단어별 상세 해부</h4>
 
-            <section id="content-book2" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 악인의 형통함 앞에서도 성도가 "여호와를 기뻐하고 그를 의지해야" 하는 근거는 무엇입니까?</p>
-                </div>
-                <div class="card card-book2">
-                    <h3>시편 37편: 의인과 악인의 종말 대조</h3>
-                    <p>다윗은 악인의 일시적인 성공에 불평하지 말라고 권면합니다. 악인은 풀과 같이 곧 베임을 당할 것이나, 여호와를 바라고 그 길을 지키는 자는 땅을 차지하고 영원한 안식을 누릴 것이기 때문입니다. 성도의 걸음은 여호와께서 정하시고 그 길을 기뻐하시므로, 넘어져도 아주 엎드러지지 않습니다.</p>
-                    <p>개혁주의 신학의 '성도의 견인' 교리가 이 시편에 잘 나타나 있습니다. 하나님의 주권적 손길이 의인을 붙드시기에, 성도는 눈앞의 현실에 일희일비하지 않고 하나님의 신실하신 공의를 신뢰하며 인내할 수 있습니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_37.html" data-title="시편 37편">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="PSA_37" data-title="시편 37편">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    וְהִתְעַנַּג <span onclick="playOriginalAudio('וְהִתְעַנַּג', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(베히트아나그)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 동사 '아나그(עָנַג, 부드럽다, 기뻐하다, 즐기다)'의 히트파엘(재귀 강조) 명령형입니다.</p>
+                                <p><strong>문맥적 의미:</strong> '너 자신을 최고로 즐겁게 하라', '가장 큰 기쁨의 원천으로 삼으라'는 뜻입니다. 의무감으로 하는 억지 찬양이 아니라 영혼 깊은 곳에서 터져 나오는 황홀한 기쁨을 말합니다.</p>
+                                <p><strong>신학적 의미:</strong> 존 파이퍼가 주창한 '기독교 희락주의(Christian Hedonism)'의 핵심 구절입니다. "우리가 하나님 안에서 가장 크게 만족할 때, 하나님은 우리 안에서 가장 큰 영광을 받으신다"는 웨스트민스터 소요리문답 제1문의 실천적 명령입니다.</p>
+                            </div>
 
-            <section id="content-book3" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 술람미 여인이 자신의 검은 모습에도 불구하고 "아름답다"고 고백하는 사랑의 확신은 어디에서 비롯됩니까?</p>
-                </div>
-                <div class="card card-book3">
-                    <h3>아가 1장: 그리스도와 교회의 사랑의 교제</h3>
-                    <p>아가서는 솔로몬 왕과 술람미 여인의 사랑을 통해 그리스도와 교회 사이의 신령한 연합을 보여줍니다. 여인은 자신의 부족함(게달의 장막 같은 검음)을 인식하면서도 신랑의 사랑 안에서 자신의 존귀함(솔로몬의 휘장 같은 아름다움)을 발견합니다. 입맞춤과 향기로운 기름으로 묘사된 친밀함은 구원의 즐거움을 상징합니다.</p>
-                    <p>이는 무조건적인 하나님의 선택과 사랑을 입은 성도의 고백입니다. 그리스도께서는 죄로 검게 그을린 우리를 보배롭고 존귀하게 여기시며, 가장 친밀한 사랑의 잔치로 우리를 초대하십니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_22_SOS_01.html" data-title="아가 1장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="SOS_1" data-title="아가 1장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    עַל־יְהוָה <span onclick="playOriginalAudio('עַל־יְהוָה', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(알-야훼)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 전치사 '알(עַל, ~위에서, ~에 관하여)'과 여호와의 결합입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 내 기쁨의 근거와 대상이 환경(재물, 성공)이 아니라 전적으로 '여호와 안에서' 파생되어야 함을 보여줍니다.</p>
+                                <p><strong>신학적 의미:</strong> 악인들의 형통(1절)을 부러워하지 않을 수 있는 유일한 대안은 하나님 자체를 가장 큰 상급으로 여기는 것입니다.</p>
+                            </div>
 
-            <section id="content-book4" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 아들이 선지자들이나 천사들보다 본질적으로 우월하시며 하나님의 영광의 광채이신 이유는 무엇입니까?</p>
-                </div>
-                <div class="card card-book4">
-                    <h3>히브리서 1장: 하나님의 아들의 탁월성</h3>
-                    <p>히브리서 기자는 옛적에 선지자들을 통해 말씀하신 하나님께서 이제 '아들'을 통하여 최종적이고 완전하게 말씀하셨음을 선포합니다. 아들은 만물의 상속자이시며 하나님의 본체의 형상이십니다. 그는 죄를 정결하게 하는 일을 하시고 높은 곳에 계신 위엄의 우편에 앉으셨으며, 천사들보다 비교할 수 없이 뛰어나신 분입니다.</p>
-                    <p>개혁주의 기독론의 정점입니다. 예수 그리스도는 단순히 뛰어난 스승이 아니라, 만물을 창조하시고 보존하시는 성자 하나님이십니다. 그분의 말씀은 절대적인 권위를 가지며, 그분의 대제사장적 사역만이 우리 구원의 유일한 근거가 됩니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_58_HEB_01.html" data-title="히브리서 1장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="HEB_1" data-title="히브리서 1장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    וְיִתֶּן־לְךָ <span onclick="playOriginalAudio('וְיִתֶּן־לְךָ', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(베이텐-레카)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 접속사 '바브'와 동사 '나탄(נָתַן, 주다)'의 미완료형, 그리고 전치사구 '레카(너에게)'가 결합되어 '그리하면 그가 네게 주실 것이다'라는 뜻입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 여호와를 기뻐하는 것이 원인이고, 소원을 이루어주시는 것이 결과인 언약적 구조입니다.</p>
+                                <p><strong>신학적 의미:</strong> 기복주의적 약속이 아닙니다. 하나님을 최고로 기뻐할 때, 우리의 마음(가치관) 자체가 변화되어 결국 하나님이 원하시는 것을 나도 원하게 됩니다. 따라서 그 소원은 반드시 성취됩니다.</p>
+                            </div>
 
-            <section id="content-integration" class="tab-content">
-                <div class="card card-integration">
-                    <h3>신학적 종합: 대속적 사랑과 영광스러운 아들</h3>
-                    <p>오늘의 본문들은 하나님의 주권적인 선택과 그리스도의 탁월함을 노래합니다. 민수기의 레위인이 이스라엘 전체를 대신하여 하나님께 드려졌듯이, 히브리서의 아들 예수 그리스도는 우리의 모든 죄를 정결하게 하시는 단번의 제물이 되셨습니다. 구약의 대리 원리가 그리스도 안에서 찬란하게 완성된 것입니다.</p>
-                    <p>이 영광스러운 아들의 사랑을 입은 성도는 아가서의 여인처럼 자신의 부족함에도 불구하고 그리스도 안에서 존귀함을 누립니다. 또한 시편 37편의 약속처럼, 세상의 불의와 형통에 흔들리지 않고 우리를 끝까지 보존하시는 하나님의 신실하신 통치를 신뢰하며 걸어갈 수 있습니다. 만물의 상속자이시며 하나님의 영광의 광채이신 그리스도를 바라보며, 오늘도 그분의 소유된 백성으로서 거룩한 자부심을 가지고 살아갑시다.</p>
-                </div>
-            </section>
-        </main>
-    </div>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    מִשְׁאֲלֹת <span onclick="playOriginalAudio('מִשְׁאֲלֹת', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(미쉬알로트)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 동사 '샤알(שָׁאַל, 묻다, 구하다)'에서 파생된 명사 '미쉬알라'의 복수형으로 '간구들', '소원들'입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 마음(리베카) 가장 깊은 곳에서 우러나오는 간절한 기도 제목들입니다.</p>
+                                <p><strong>신학적 의미:</strong> 하나님은 단지 외적인 필요만 채우시는 분이 아니라 우리 내면의 가장 깊은 영적 갈망을 아시고, 그리스도 안에서 가장 선한 것으로 응답하십니다.</p>
+                            </div>
 
-    <div class="modal-overlay" id="text-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">성경 본문</h2>
-                <button class="modal-close-btn" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="modal-iframe" src=""></iframe>
-            </div>
+                            <h4>③ 원어 구절 전체 분석</h4>
+                            <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; text-align:center;">
+                                <p style="font-size:1.4rem; font-weight:bold; direction:rtl;">
+                                    וְהִתְעַנַּג עַל־יְהוָה וְיִתֶּן־לְךָ מִשְׁאֲלֹת לִבֶּךָ
+                                    <span onclick="playOriginalAudio('וְהִתְעַנַּג עַל־יְהוָה וְיִתֶּן־לְךָ מִשְׁאֲלֹת לִבֶּךָ', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                </p>
+                            </div>
+                            <p><strong>[단어별 음역 및 직역 병기]</strong></p>
+                            <p>וְהִתְעַנַּג(베히트아나그: 그리고 네 자신을 기쁘게 하라) עַל(알: ~안에서) יְהוָה(야훼: 여호와) וְיִתֶּן(베이텐: 그리하면 그가 주실 것이다) לְךָ(레카: 너에게) מִשְׁאֲלֹת(미쉬알로트: 소원들을) לִבֶּךָ(리베카: 네 마음의)</p>
+                            <p><strong>[직역]</strong> "그리고 너는 여호와 안에서 너 자신을 가장 기쁘게 하라, 그리하면 그가 네 마음의 소원들을 네게 주실 것이다."</p>
+
+                            <h4>④ 언약 신학적 묵상</h4>
+                            <p>악인은 자신의 부요함과 권력에서 기쁨을 찾지만, 결국 바람에 나는 겨와 같이 사라질 것입니다. 그러나 의인의 기쁨은 상황의 변화에 종속되지 않는 '여호와' 자신입니다. 우리가 그리스도 안에서 베푸신 구원의 은혜를 묵상하며 하나님을 최고의 보배로 즐거워할 때, 우리의 기도 제목은 세속적인 욕망에서 벗어나 하나님의 나라와 의를 구하는 거룩한 소원으로 승화됩니다. 이 소원은 아버지가 가장 기뻐하시는 뜻이기에 반드시 응답받습니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_37" data-title="시편 37편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>민수기 3장: 대속의 은혜로 구별된 레위 지파</h3>
+                            <div class="key-question-box">
+                                <p>질문: 이스라엘의 모든 처음 난 자를 대신하여 레위 지파를 취하신 하나님의 구속사적 의도는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>민수기 3장은 성막을 봉사할 레위 지파의 임무와 계수를 다룹니다. 1-4절은 아론의 아들들(나답과 아비후의 죽음 포함)의 제사장 직분을 언급하고, 5-13절은 레위 지파가 아론을 도와 성막을 섬기게 된 이유(처음 난 자의 대속)를 설명합니다. 14-39절은 게르손, 고핫, 므라리 자손의 구체적 임무와 인구수(1개월 이상 남자)를, 40-51절은 이스라엘의 장자(22,273명)와 레위인(22,000명)의 수를 비교하고 남은 273명에 대한 대속전 규례를 다룹니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>애굽에 내린 열 번째 재앙(장자 죽음) 때, 어린 양의 피로 살아난 이스라엘의 모든 장자는 생명의 주인이신 하나님의 소유가 되었습니다. 하나님은 이 장자들을 대신하여 레위 지파를 자신의 소유로 취하십니다(12절). 이는 단순한 역할 분담이 아니라 철저한 '대속(Substitution)'의 원리를 보여줍니다. 레위인은 이스라엘의 죄를 대신 지고 하나님을 섬기는 예표적 존재이며, 이 대속의 원리는 온 인류의 장자로서 우리를 대신해 십자가에 드려진 예수 그리스도 안에서 온전히 성취되었습니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>나답과 아비후가 여호와께서 명령하시지 않은 '다른 불'을 드리다 죽은 사건(4절)은 하나님을 향한 예배가 인간의 열심이 아니라 오직 하나님의 말씀과 규례(계시)에 철저히 순종해야 함을 가르쳐 줍니다. 우리 모두는 그리스도의 보혈로 대속을 받은 영적 장자들이며, 왕 같은 제사장들입니다. 내 생명이 내 것이 아니라 하나님의 것임을 고백하며, 영적 레위인으로서 세상과 구별되어 성막(교회와 예배)을 섬기는 거룩한 직분을 기쁨으로 감당해야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_03.html" data-title="민수기 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NUM_3" data-title="민수기 3장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>시편 37편: 불평을 넘어서는 여호와를 기뻐함</h3>
+                            <div class="key-question-box">
+                                <p>질문: 의인이 악인의 일시적 형통 앞에서 불평하지 말아야 할 가장 근본적인 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>시편 37편은 다윗의 지혜시로, 알파벳 순서로 진행되는 답관체(Acrostic)입니다. 노년에 이른 다윗이(25절) 악인의 형통과 의인의 고난이라는 현실적 모순 앞에서 갈등하는 젊은 세대에게 주는 인생의 지혜입니다. 1-11절은 악인을 부러워하지 말고 여호와를 의뢰하라는 권면을, 12-22절은 악인과 의인의 삶의 대조와 그들의 결말을, 23-40절은 하나님께서 의인의 걸음을 정하시고 보호하시며 궁극적인 승리를 주신다는 확신을 노래합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>악인의 번영은 풀과 같이 속히 베임을 당할 일시적인 신기루에 불과합니다(2절). 반면 여호와를 의뢰하고 선을 행하는 자에게는 영원한 기업(땅)이 약속됩니다. 예수님은 산상수훈에서 "온유한 자는 복이 있나니 그들이 땅을 기업으로 받을 것임이요"(마 5:5)라고 말씀하시며 본 시편(11절)을 인용하셨습니다. 스스로 무기를 들어 원수를 갚지 않고 모든 억울함을 십자가에 맡기신 온유하신 그리스도야말로 하늘과 땅의 모든 권세를 차지하신 진정한 상속자이십니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>세상의 불의 앞에서 불평과 시기에 사로잡히면 결국 자신도 악을 행하는 자리로 미끄러집니다(8절). 분노를 그치고 내 길을 여호와께 맡겨야 합니다(5절). 하나님은 의인의 걸음을 정하시며, 넘어지나 아주 엎드러지지 않게 그의 손으로 붙드십니다(24절). 우리는 눈앞의 불공평한 현실을 해석할 때, 내 좁은 시야를 버리고 심판주이신 하나님의 긴 호흡(영원)을 신뢰해야 합니다. 잠잠히 여호와를 바라고 기다리는 인내가 이 시대가 잃어버린 참된 신앙의 능력입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_37.html" data-title="시편 37편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_37" data-title="시편 37편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>아가 1장: 신랑을 향한 신부의 열렬한 사랑</h3>
+                            <div class="key-question-box">
+                                <p>질문: 술람미 여인이 자신이 '게달의 장막 같으나 솔로몬의 휘장과 같다'고 고백한 이중적 정체성은 무엇을 의미합니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>아가는 '노래 중의 노래(The Song of Songs)'로, 솔로몬 왕과 시골 처녀(술람미) 사이의 순수하고 열정적인 사랑을 담은 서정시입니다. 유대인들은 이 책을 유월절에 읽으며 하나님과 이스라엘의 언약적 사랑을 묵상했습니다. 1장은 신랑의 입맞춤을 구하는 신부의 강렬한 갈망(1-4절), 자신의 검은 피부(천함)에 대한 부끄러움과 신랑의 위로(5-11절), 서로를 향한 아름다운 칭찬과 사랑의 교제(12-17절)를 그리고 있습니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>신부는 햇볕에 그을린 자신의 모습을 볼품없는 '게달의 장막(유목민의 검은 텐트)'에 비유하지만, 왕의 사랑을 입어 아름다운 '솔로몬의 휘장'과 같다고 고백합니다(5절). 이는 죄로 인해 타락하고 볼품없는 죄인(교회)이, 그리스도의 십자가 사랑과 의의 전가(Imputation)를 통해 하나님 보시기에 흠 없고 영광스러운 신부로 여겨지는 구속의 신비를 가장 아름답게 묘사한 것입니다. 아가서는 인간의 에로스적 사랑을 넘어, 그리스도와 교회의 연합(엡 5:32)을 보여주는 영적 알레고리입니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>기독교 신앙은 메마른 도덕주의가 아니라 신랑이신 그리스도와의 뜨거운 연애입니다. "네 포도주는 사랑보다 낫다"(2절)는 고백처럼, 세상의 어떤 기쁨도 예수 그리스도를 아는 지식과 그분과의 교제를 능가할 수 없습니다. 우리는 세상에서 일하다 그을린 부족한 모습(게달의 장막) 그대로 주님 앞에 나아갑니다. 그때 주님은 우리의 약함을 책망하시지 않고 "내 사랑아 너는 어여쁘고 어여쁘다"(15절)고 칭찬하십니다. 이 조건 없는 사랑 안에서 교회의 참된 아름다움이 회복됩니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_22_SOS_01.html" data-title="아가 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="SOS_1" data-title="아가 1장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>히브리서 1장: 천사보다 뛰어나신 영광의 광채</h3>
+                            <div class="key-question-box">
+                                <p>질문: 구약의 선지자들과 천사들을 넘어, 마지막 날에 아들을 통해 말씀하시는 이유와 그 아들의 본질은 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>히브리서는 유대교의 핍박과 환난 속에서 배교의 유혹을 받는 유대인 그리스도인들에게, 기독교의 우월성과 예수 그리스도의 탁월성을 논증하기 위해 기록되었습니다. 1장은 서론격으로, 구약의 다양한 계시 방식과 대조되는 '아들'을 통한 최종적 계시의 완전성을 선포합니다(1-3절). 이어서 구약의 7개 본문을 인용하여, 그리스도가 피조물인 천사와는 본질적으로 다른 '창조주요, 영원한 통치자이시며, 하나님의 아들'이심을 압도적으로 증명합니다(4-14절).</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>"이는 하나님의 영광의 광채시요 그 본체의 형상이시라"(3절). 이 짧은 구절은 기독론의 절정입니다. 예수 그리스도는 단순한 피조물이나 위대한 선지자 중 하나가 아니라, 성부 하나님과 본질(Ousia)이 동일하신 제2위 성자 하나님이십니다. 그는 만물을 창조하셨고, 말씀으로 만물을 붙드시며, 십자가에서 '죄를 정결하게 하는 일'을 완수하시고 가장 높은 보좌 우편에 앉으셨습니다. 모든 구약의 그림자(천사, 제사장, 제물)는 실체이신 이 위대한 아들 안에서 종결되고 성취되었습니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>초대 교인들이 환난을 이길 수 있었던 유일한 힘은 천사보다 뛰어나신 위대한 그리스도를 바라보는 것이었습니다. 오늘날 세상은 예수님을 성인이나 도덕 교사로 격하시키려 합니다. 그러나 우리는 만물의 상속자이시며 영원히 변함없으신(11-12절) 통치자 그리스도를 온전히 예배해야 합니다. 천사는 구원받은 상속자들(우리)을 섬기라고 보내심을 받은 영들에 불과합니다(14절). 이토록 위대하신 대제사장이 우리의 구원자이심을 확신할 때, 세상의 어떤 고난도 우리의 믿음을 흔들 수 없습니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_58_HEB_01.html" data-title="히브리서 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="HEB_1" data-title="히브리서 1장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합: "가장 위대하신 분의 가장 깊은 사랑"</h3>
+                            <h4>관통하는 주제: 영광의 광채이신 그리스도가 부어주시는 십자가 대속과 신부의 기쁨</h4>
+                            <p>오늘의 본문은 측량할 수 없는 하나님의 영광(히브리서)과 그 영광의 주님이 우리에게 베푸신 대속의 사랑(민수기, 아가서)을 교차하여 보여줍니다. 히브리서 1장은 예수 그리스도가 만물의 상속자요 천사들의 경배를 받으시는 창조주이심을 장엄하게 선포합니다. 이렇게 위대하신 분이, 민수기 3장에서 레위 지파가 이스라엘의 장자를 대신하듯, 십자가에서 우리의 죄를 짊어지시는 영원한 대제사장(대속물)이 되셨습니다. 위대함이 낮아짐을 통해 구원을 완성했습니다.</p>
+                            <p>이 구속의 은혜를 받은 교회는 아가 1장의 술람미 여인처럼 감격합니다. 우리는 뙤약볕에 그을린 '게달의 장막'처럼 죄와 수치로 가득하지만, 영광의 주님은 우리를 '솔로몬의 휘장'처럼 어여쁘다 칭하십니다. 이 압도적인 은혜와 사랑을 체험한 성도는 시편 37편의 권면처럼 더 이상 악인의 헛된 형통을 부러워하지 않습니다. 세상의 성공이 아니라 오직 "여호와를 기뻐하는 것"만이 내 마음의 가장 큰 소원임을 알기 때문입니다.</p>
+                            <p>만물을 그 능력의 말씀으로 붙드시는(히 1:3) 영광의 주님이 오늘 나의 신랑이 되어 주십니다. 때로 내 삶의 걸음이 더디고 세상의 악이 득세하는 것처럼 보여도, 불평하지 마십시오. 하나님은 그분의 자녀들을 넘어지지 않게 그 손으로 붙들고 계십니다(시 37:24). 오늘 하루, 세상의 어떤 천사나 권세보다 뛰어나신 대제사장 그리스도의 품에 안겨, 십자가의 사랑을 깊이 호흡하는 영적 안식의 날이 되기를 기도합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
     </div>
-    
-    <div class="floating-nav" id="floating-nav">
-        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
-        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
     </div>
-
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+    </div>
     <div id="player-container"></div>
-    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
         <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
         <div style="display:flex;gap:12px;align-items:center;">
             <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
             <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
         </div>
     </div>
-
     <script src="script.js"></script>
     <script>
-        function switchTab(n) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const contents = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                tab.classList.toggle('active', index === n);
-            });
-            contents.forEach((content, index) => {
-                content.classList.toggle('active', index === n);
-            });
-            const info = document.getElementById('current-tab-info');
-            if(info) info.innerText = (n + 1) + '/6';
+        let audioUtterance = null;
+        function playOriginalAudio(text, langCode) {
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+                setTimeout(() => {
+                    audioUtterance = new SpeechSynthesisUtterance(text);
+                    audioUtterance.lang = langCode;
+                    window.speechSynthesis.speak(audioUtterance);
+                }, 50);
+            } else alert('TTS 미지원 브라우저입니다.');
         }
     </script>
 </body>

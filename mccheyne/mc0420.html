@@ -6,171 +6,250 @@
     <title>4월 20일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --overview-color: #6c757d;
-        }
-        
-        /* 로컬 오디오 버튼 숨김 (전역 플레이어 연동) */
+        :root { --overview-color: #6c757d; }
         .listen-audio-btn { display: none !important; }
-        
-        /* 전체 개요 탭 스타일 */
         .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
         .card-overview { border-color: var(--overview-color); }
         .card-overview h3 { color: var(--overview-color); }
-
-        /* 핵심 질문 박스 스타일 */
-        .key-question-box {
-            background-color: #f8f9fa;
-            border-left: 5px solid #343a40;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-        }
-        .key-question-box p {
-            margin: 0;
-            font-weight: 700;
-            color: #212529;
-            font-style: italic;
-            line-height: 1.5;
-        }
+        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
+        .key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
-        <header>
-            <h1>4월 20일 맥체인 성경읽기</h1>
-            <div class="date-info">
-                <span>2024년 4월 20일</span>
-            </div>
-        </header>
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>4월 20일</h1>
+            </header>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">레위기 24장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 31편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">전도서 7장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">디모데후서 3장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
+            </nav>
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>4월 20일 성경읽기 가이드</h3>
+                            <p>오늘은 성소를 밝히는 빛과 진리의 말씀에 대해 묵상합니다. 타락한 세상 속에서 거룩을 유지하는 힘은 오직 하나님의 말씀과 그분의 신실하심에 있습니다. 하나님의 임재를 상징하는 등불과 떡, 고난 중의 의탁, 인생에 대한 지혜, 그리고 말세에 우리를 지켜주는 성경의 충족성을 통해 우리의 신앙을 재정비하는 시간을 가집니다.</p>
+                            <ul>
+                                <li><strong>레위기 24장:</strong> 성막 안의 등불과 진설병 규례, 그리고 하나님의 공의를 나타내는 동형복수법을 다룹니다.</li>
+                                <li><strong>시편 31편:</strong> 극심한 고난과 대적들의 핍박 속에서도 자신의 영혼을 하나님께 온전히 의탁하는 다윗의 믿음을 보여줍니다.</li>
+                                <li><strong>전도서 7장:</strong> 형통한 날과 곤고한 날을 주장하시는 하나님의 섭리를 인정하며, 참된 지혜가 무엇인지 교훈합니다.</li>
+                                <li><strong>디모데후서 3장:</strong> 말세의 고통하는 때를 분별하고, 성경이 어떻게 하나님의 사람을 온전하게 하는지 선포합니다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">원어 묵상부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
-        <nav class="tabs">
-            <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
-            <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">레위기 24장</button>
-            <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">시편 31편</button>
-            <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">전도서 7장</button>
-            <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">디모데후서 3장</button>
-            <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">신학적 종합</button>
-        </nav>
+                <div id="content-hebrew" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>원어 주해: 디모데후서 3:16</h3>
+                            <div class="key-question-box">
+                                <p>"모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니"</p>
+                            </div>
 
-        <main class="content-wrapper">
-            <section id="content-overview" class="tab-content active">
-                <div class="card card-overview">
-                    <h3>오늘의 구속사적 가이드</h3>
-                    <p>오늘의 말씀은 타락한 세상 속에서 하나님의 백성이 붙들어야 할 '생명의 빛'과 '진리의 말씀'에 대해 증언합니다. 레위기는 성막의 등불과 진설병을 통해 하나님 임재의 지속성을, 시편은 고난 중에도 하나님께 영혼을 의탁하는 성도의 신뢰를 보여줍니다. 전도서는 인생의 지혜와 죽음을 묵상하게 하며, 디모데후서는 말세의 고통 속에서 오직 성경만이 우리를 구원과 온전함으로 인도하는 유일한 방편임을 선포합니다. 우리는 오늘 본문을 통해 어두운 세상을 이기는 하나님의 주권적 은혜를 발견하게 됩니다.</p>
-                </div>
-            </section>
+                            <h4>① 헬라어 가이드</h4>
+                            <p><strong>Θ (세타)</strong>: 영어의 th 발음과 유사하며 '하나님(Theos)'을 뜻하는 단어의 첫 글자입니다. <strong>π (피)</strong>: 입술을 파열시켜 내는 소리로 '영(Pneuma)'을 뜻하는 단어의 첫 글자입니다. 이 두 단어가 결합하여 '데오프뉴스토스'라는 중요한 신학적 단어를 형성합니다.</p>
 
-            <section id="content-book1" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 등잔불을 계속 켜두고 진설병을 매 안식일마다 새롭게 차려놓는 규례가 상징하는 영적 의미는 무엇입니까?</p>
-                </div>
-                <div class="card card-book1">
-                    <h3>레위기 24장: 등불과 진설병, 그리고 공의</h3>
-                    <p>하나님께서는 성막 안의 등잔불을 끊이지 않고 켜두며, 열두 덩이의 떡(진설병)을 매 안식일마다 교체하여 하나님 앞에 두게 하셨습니다. 이는 이스라엘 백성을 향한 하나님의 끊임없는 돌보심과 그분의 임재를 상징합니다. 또한 본장 후반부의 '동형법(Lex Talionis)'은 하나님의 공의가 백성 가운데 어떻게 실현되어야 하는지를 보여줍니다.</p>
-                    <p>개혁주의적 관점에서 등불은 세상의 빛으로 오신 그리스도를, 진설병은 생명의 떡이신 그리스도를 예표합니다. 하나님의 백성은 그리스도 안에서 공급받는 생명의 양식과 빛 없이는 단 한 순간도 거룩을 유지할 수 없음을 가르칩니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_03_LEV_24.html" data-title="레위기 24장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="LEV_24" data-title="레위기 24장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <h4>② 단어별 상세 해부</h4>
 
-            <section id="content-book2" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 다윗이 극심한 위기 속에서도 "내가 나의 영을 주의 손에 부탁하나이다"라고 고백할 수 있었던 믿음의 근거는 무엇입니까?</p>
-                </div>
-                <div class="card card-book2">
-                    <h3>시편 31편: 신실하신 하나님께 드리는 의탁</h3>
-                    <p>다윗은 대적들의 비방과 생명의 위협 속에서 자신의 영혼을 여호와의 손에 맡깁니다. 그는 하나님을 '진리의 하나님'으로 고백하며, 과거에 베푸신 은혜를 근거로 현재의 구원을 호소합니다. 비탄 중에 시작된 기도는 하나님의 선하심을 확신하는 찬양으로 마무리됩니다.</p>
-                    <p>이 고백은 예수 그리스도께서 십자가 위에서 마지막으로 남기신 말씀의 배경이 됩니다. 성도는 그리스도와 연합함으로, 어떤 환난 중에도 우리를 영원히 붙드시는 하나님의 언약적 신실하심 안에 있음을 확신할 수 있습니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_31.html" data-title="시편 31편">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="PSA_31" data-title="시편 31편">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    πᾶσα γραφὴ <span onclick="playOriginalAudio('πᾶσα γραφὴ', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(파사 그라페)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> '파사'는 '모든(all)' 또는 '전체(every)'를 뜻하고, '그라페'는 '기록된 것(scripture)'을 뜻합니다.</p>
+                                <p><strong>문맥적 의미:</strong> 구약 성경 전체를 가리키며, 더 나아가 기록된 모든 하나님의 말씀을 의미합니다.</p>
+                                <p><strong>신학적 의미:</strong> 성경의 어떤 부분만 영감된 것이 아니라 기록된 모든 말씀이 하나님의 권위를 가진다는 '축자영감설'과 '전체영감설'의 기초가 됩니다.</p>
+                            </div>
 
-            <section id="content-book3" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 전도자가 "초상집에 가는 것이 잔칫집에 가는 것보다 낫다"고 말하는 지혜의 핵심은 무엇입니까?</p>
-                </div>
-                <div class="card card-book3">
-                    <h3>전도서 7장: 참된 지혜와 인생의 평가</h3>
-                    <p>솔로몬은 형통한 날과 곤고한 날을 병행하시는 하나님의 주권을 노래합니다. 죽음과 슬픔의 문제를 직시하는 것이 웃음보다 낫다고 말하며, 인생의 유한함을 깨닫는 지혜를 촉구합니다. 또한 인간의 전적인 부패를 지적하며, 하나님께서 인간을 정직하게 지으셨으나 인간이 스스로 많은 꾀를 냈음을 탄식합니다.</p>
-                    <p>이는 인간 스스로의 지혜로는 구원에 이를 수 없음을 역설합니다. 참된 지혜는 자신의 한계를 인정하고 창조주 하나님을 경외하는 데서 시작되며, 이는 우리를 유일한 중보자이신 그리스도께로 인도하는 몽학선생 역할을 합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_21_ECC_07.html" data-title="전도서 7장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="ECC_7" data-title="전도서 7장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    θεόπνευστος <span onclick="playOriginalAudio('θεόπνευστος', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(데오프뉴스토스)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 하나님을 뜻하는 '데오스(θεός)'와 숨을 내쉬다를 뜻하는 '프네오(πνέω)'의 합성어로 '하나님이 숨을 내쉬신(God-breathed)'이라는 뜻입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 성경의 기원이 인간 저자의 사색이나 상상력이 아니라 하나님의 영(호흡)에 있음을 명확히 합니다.</p>
+                                <p><strong>신학적 의미:</strong> 성경 무오성과 신적 권위의 절대적 근거입니다. 하나님께서 자신의 호흡으로 말씀을 생명력 있게 하셨으므로 성경은 단순한 문자가 아니라 살아 역사하는 힘입니다.</p>
+                            </div>
 
-            <section id="content-book4" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 말세의 배교와 타락 속에서 성도를 온전하게 하며 선한 일을 행할 능력을 갖추게 하는 유일한 도구는 무엇입니까?</p>
-                </div>
-                <div class="card card-book4">
-                    <h3>디모데후서 3장: 성경의 영감과 충분성</h3>
-                    <p>바울은 말세에 사람들이 자기를 사랑하며 경건의 모양은 있으나 능력은 부인할 것임을 경고합니다. 이러한 어둠의 때에 성도가 붙들어야 할 것은 '배우고 확신한 일' 곧 성경입니다. 모든 성경은 하나님의 감동으로 된 것으로서, 우리를 구원에 이르는 지혜가 있게 하며 하나님의 사람으로 온전하게 합니다.</p>
-                    <p>개혁주의 신학의 핵심인 '오직 성경(Sola Scriptura)'이 이 본문에 기초합니다. 성경은 하나님의 특별 계시로서 성도의 신앙과 삶의 유일한 표준이며, 그리스도의 몸 된 교회를 보호하고 세우는 절대적인 근거입니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_55_2TI_03.html" data-title="디모데후서 3장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="2TI_3" data-title="디모데후서 3장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    ὠφέλιμος <span onclick="playOriginalAudio('ὠφέλιμος', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(오펠리모스)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> '유익한', '도움이 되는', '이익을 주는'이라는 뜻의 형용사입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 성경이 우리 삶의 실질적인 영역(교훈, 책망, 바르게 함, 의로 교육)에 절대적인 유익을 제공함을 강조합니다.</p>
+                                <p><strong>신학적 의미:</strong> 성경의 충족성(Sufficiency of Scripture)을 나타냅니다. 성도의 온전한 삶을 위해 성경 외에 다른 어떤 특별 계시도 필요하지 않음을 선포합니다.</p>
+                            </div>
 
-            <section id="content-integration" class="tab-content">
-                <div class="card card-integration">
-                    <h3>신학적 종합: 어두운 세상을 비추는 진리의 등불</h3>
-                    <p>오늘 본문들은 타락한 인간의 비참함과 이를 극복하게 하시는 하나님의 은혜를 극명하게 대조합니다. 레위기의 끊이지 않는 등불은 디모데후서가 증언하는 '하나님의 감동으로 된 성경'을 통해 우리 시대에 구체적으로 실현됩니다. 세상은 자기를 사랑하고 돈을 사랑하는 어둠 속에 빠져 있지만(디모데후서, 전도서), 하나님의 백성은 기록된 말씀을 통해 생명의 빛을 공급받습니다.</p>
-                    <p>우리는 다윗처럼 고난의 현장에서도 하나님의 신실하신 손에 우리의 영혼을 의탁할 수 있습니다(시편 31편). 그것이 가능한 이유는 하나님의 말씀이 우리에게 구원에 이르는 지혜를 주기 때문입니다. 인생의 허무와 죽음 앞에서 절망하지 않고, 오직 진리의 말씀 위에서 하나님을 경외하며 오늘 하루도 하나님의 사람으로 온전히 세워져 가기를 소망합니다.</p>
-                </div>
-            </section>
-        </main>
-    </div>
+                            <h4>③ 원어 구절 전체 분석</h4>
+                            <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; text-align:center;">
+                                <p style="font-size:1.4rem; font-weight:bold;">
+                                    πᾶσα γραφὴ θεόπνευστος καὶ ὠφέλιμος
+                                    <span onclick="playOriginalAudio('πᾶσα γραφὴ θεόπνευστος καὶ ὠφέλιμος', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                </p>
+                            </div>
+                            <p><strong>[단어별 음역 및 직역 병기]</strong></p>
+                            <p>πᾶσα(파사: 모든) γραφὴ(그라페: 성경은) θεόπνευστος(데오프뉴스토스: 하나님이 숨을 내쉬신 것이고) καὶ(카이: 그리고) ὠφέλιμος(오펠리모스: 유익하다)</p>
+                            <p><strong>[직역]</strong> "모든 성경은 하나님이 호흡하신 것이며 유익하다."</p>
 
-    <div class="modal-overlay" id="text-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">성경 본문</h2>
-                <button class="modal-close-btn" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="modal-iframe" src=""></iframe>
-            </div>
+                            <h4>④ 언약 신학적 묵상</h4>
+                            <p>성경은 하나님께서 자기 백성에게 생명을 주시기 위해 내쉬신 '생기'와 같습니다. 창세기에서 하나님이 흙으로 빚은 사람에게 생기를 불어넣으셨듯, 오늘날 영적으로 죽어 있는 자들을 살리는 호흡이 바로 성경입니다. 말씀은 단순한 도덕적 지침서가 아니라 십자가의 구원과 부활의 생명으로 우리를 인도하는 은혜의 방편입니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-secondary listen-audio-btn" data-key="2TI_3" data-title="디모데후서 3장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>레위기 24장: 성소의 등불과 공의로운 판결</h3>
+                            <div class="key-question-box">
+                                <p>질문: 등잔불을 끄지 않고 계속 켜두라는 명령은 신약 시대의 성도에게 어떤 의미를 가집니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>레위기 24장은 전반부(1-9절)에서 성막 내부의 등잔대와 진설병 규례를 다루고, 후반부(10-23절)에서는 여호와의 이름을 모독한 자에 대한 재판과 동형복수법(Lex Talionis)을 기록하고 있습니다. 거룩한 제의적 규례와 사회적 공의가 한 장에 병치되어 있는 구조는 이스라엘의 거룩이 예배 처소에만 국한되지 않고 일상의 사법적 영역까지 확장되어야 함을 보여줍니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>성막의 불이 끊이지 않아야 함은 하나님의 은혜와 임재가 언약 백성 가운데 지속됨을 예표합니다. 이 빛은 참 빛으로 오신 예수 그리스도를 지시하며, 또한 세상의 빛으로 부름받은 교회의 사명을 나타냅니다. 후반부의 '눈에는 눈, 이에는 이'라는 율법은 복수를 조장하는 것이 아니라, 과도한 개인적 보복을 제한하고 공의로운 재판을 보장하기 위한 하나님의 안전장치입니다. 그리스도께서는 십자가에서 우리의 죄악을 짊어지심으로 이 공의를 온전히 만족시키셨습니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>우리는 성령의 기름 부으심을 통해 우리 삶의 등불을 밝혀야 합니다. 진설병이 안식일마다 새로워졌듯이, 우리는 매 주일 예배를 통해 생명의 떡이신 그리스도의 은혜를 새롭게 공급받아야 합니다. 또한 일상의 삶 속에서 하나님의 공의를 실천해야 합니다. 비록 우리는 은혜로 구원받았지만, 우리의 삶은 여전히 하나님의 거룩하신 율법의 지도를 받아 이웃을 향한 정당함과 사랑을 드러내야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_03_LEV_24.html" data-title="레위기 24장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="LEV_24" data-title="레위기 24장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>시편 31편: 주의 손에 내 영을 의탁하나이다</h3>
+                            <div class="key-question-box">
+                                <p>질문: 가장 깊은 절망 속에서도 하나님을 피난처로 삼을 수 있는 신앙의 근거는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>이 시편은 다윗이 사울이나 압살롬에게 쫓기던 극심한 위기 상황에서 지은 것으로 추정됩니다. "내 일생을 슬픔으로 보내며"(10절), "내가 잊어버린 바 됨이 사망한 자를 마음에 두지 아니함 같고"(12절)라는 탄식은 그가 경험한 철저한 고립을 보여줍니다. 그러나 이 시는 단순한 비탄에 머물지 않습니다. 1-8절의 굳건한 신뢰, 9-13절의 절망적 호소, 그리고 14-24절의 궁극적 찬양으로 이어지는 구조를 통해 기도가 어떻게 절망을 소망으로 바꾸는지 보여줍니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>시편 31:5의 "내가 나의 영을 주의 손에 부탁하나이다"라는 구절은 예수님께서 십자가 위에서 마지막으로 남기신 말씀입니다(눅 23:46). 다윗의 고난과 호소는 의로운 고난받는 종이신 그리스도의 수난을 예표합니다. 우리가 절망 중에도 하나님을 신뢰할 수 있는 것은 그리스도께서 십자가에서 가장 철저한 버림받음을 당하심으로, 우리를 영원한 피난처 되신 하나님의 품으로 인도하셨기 때문입니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>다윗은 고난 중에도 "주는 나의 하나님이시라"(14절)고 고백합니다. 고난의 크기가 하나님을 향한 언약적 관계를 취소시킬 수 없습니다. 우리의 앞날은 원수의 손에 있는 것이 아니라 '주의 손'에 있습니다(15절). 그러므로 우리는 세상의 헛된 우상이나 사람의 계략을 두려워할 필요가 없습니다. 환난 속에서 여호와를 바라는 자들에게 하나님은 측량할 수 없는 은혜(19절)를 베푸심을 확신하고 강건해야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_31.html" data-title="시편 31편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_31" data-title="시편 31편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>전도서 7장: 초상집에서 배우는 참된 지혜</h3>
+                            <div class="key-question-box">
+                                <p>질문: 형통한 날과 곤고한 날을 하나님이 병행하게 하신 목적은 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>전도서 7장은 지혜문학의 특성인 금언(격언)들로 가득합니다. 솔로몬은 세상 사람들이 추구하는 가치(잔치, 웃음, 칭찬)를 뒤집어, 인간이 꺼리는 것들(초상집, 슬픔, 책망) 속에 오히려 참된 지혜가 숨어 있음을 역설합니다. 전반부(1-14절)는 유한한 인생에 대한 지혜로운 태도를, 후반부(15-29절)는 인간의 부패와 한계 속에서 중용의 지혜를 구하는 모습을 보여줍니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>전도자는 죽음을 묵상함(초상집)이 지혜의 시작임을 가르칩니다. 이는 인간의 유한성과 죄로 인한 죽음의 형벌을 직시하게 만듭니다. 또한 하나님께서 형통함과 곤고함을 병행하게 하사 사람으로 장래 일을 능히 헤아려 알지 못하게 하셨다는 것(14절)은 하나님의 절대 주권을 강조합니다. 아울러 "선만 행하고 죄를 범하지 아니하는 의인은 세상에 없기"(20절) 때문에, 참된 지혜는 결국 우리 자신의 의를 버리고 우리를 의롭게 하실 그리스도를 바라보게 합니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>성도는 형통할 때 교만하지 않고, 곤고할 때 절망하지 않는 법을 배워야 합니다. 두 가지 모두 하나님의 주권적 섭리 아래 있기 때문입니다. 우리는 스스로를 지나치게 의롭게 여기거나 지혜롭게 여기는 교만을 버려야 합니다(16절). 인생의 굽은 것을 스스로 곧게 하려는 헛된 시도를 멈추고, 모든 상황 속에서 하나님을 경외하는 삶의 태도를 견지하는 것이 칼빈주의적 세계관이 요구하는 참된 신앙의 자세입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_21_ECC_07.html" data-title="전도서 7장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ECC_7" data-title="전도서 7장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>디모데후서 3장: 말세의 고통과 성경의 충족성</h3>
+                            <div class="key-question-box">
+                                <p>질문: 시대가 타락할수록 성도가 더욱 성경의 권위에 매달려야 하는 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>바울은 말세에 나타날 타락한 현상들을 구체적으로 나열합니다(1-5절). 자기를 사랑하고 돈을 사랑하며 경건의 모양은 있으나 능력은 부인하는 세대 속에서, 이단과 거짓 교사들이 틈탈 것을 경고합니다(6-9절). 이러한 어두운 배경 속에서 바울은 자신의 고난을 회고하며(10-13절), 디모데에게 오직 어려서부터 배운 성경의 진리에 굳게 거할 것(14-17절)을 강력하게 권면합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>본장은 성경 영감설(Inspiration)과 충족성(Sufficiency)을 확립하는 가장 중요한 본문입니다(16-17절). 성경은 인간의 사상서가 아니라 하나님의 '호흡(숨)'으로 된 특별 계시입니다. 성경은 오직 '그리스도 예수 안에 있는 믿음으로 말미암아 구원에 이르는 지혜'(15절)를 제공합니다. 타락한 세상 속에서 거룩한 하나님의 사람으로 온전케 되며 선한 일을 행할 능력을 갖추는 유일한 방편은 그리스도의 복음이 계시된 성경뿐입니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>경건하게 살고자 하는 자는 박해를 받을 것입니다(12절). 세상의 가치관과 복음의 진리가 충돌하기 때문입니다. 우리는 경건의 모양만 흉내 내는 명목상의 신앙을 경계해야 합니다. 오직 성경(Sola Scriptura)만이 우리의 신앙과 삶의 유일한 무오한 법칙입니다. 흔들리는 세상 속에서 우리가 붙잡아야 할 것은 새로운 프로그램이나 인간적인 지혜가 아니라, 교훈과 책망과 바르게 함과 의로 교육하기에 절대적으로 유익한 하나님의 말씀입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_55_2TI_03.html" data-title="디모데후서 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="2TI_3" data-title="디모데후서 3장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합: "어둠을 이기는 진리의 빛과 의탁"</h3>
+                            <h4>관통하는 주제: 말씀의 빛 안에서 하나님께 영혼을 맡기는 성도</h4>
+                            <p>오늘의 네 본문은 어둡고 타락한 세상 가운데서 하나님의 백성이 어떻게 거룩과 소망을 유지할 수 있는지를 조명합니다. 레위기 24장의 끄지 않아야 할 '등불'은 디모데후서 3장의 '성경'으로 성취됩니다. 말세의 고통하는 때, 자기를 사랑하는 이기적이고 허무한 세상(전도서) 속에서 우리의 영혼을 지키는 유일한 빛은 하나님의 감동으로 된 말씀입니다. 말씀은 우리를 교훈하고 바르게 하여 형통한 날과 곤고한 날 모두를 하나님의 섭리로 수용하게 하는 지혜를 줍니다.</p>
+                            <p>시편 31편의 다윗은 극심한 환난 속에서도 이 진리의 하나님을 신뢰하며 자신의 영혼을 그분의 손에 의탁했습니다. 우리 인생은 마치 전도서가 묘사하는 초상집과 같이 유한하고 슬픔이 가득한 것처럼 보일 수 있습니다. 경건하게 살고자 할 때 박해와 오해가 뒤따르기도 합니다(디모데후서). 그러나 우리가 낙망하지 않는 것은 성막의 진설병처럼 말씀 안에서 생명의 떡이신 그리스도를 날마다 공급받기 때문입니다.</p>
+                            <p>성도의 삶은 나의 계획이 아니라 하나님의 주권적 손안에 있습니다. 내 일생이 주의 손에 있음을 고백할 때, 우리는 세상의 헛된 자랑이나 박해 앞에서도 담대할 수 있습니다. 하나님의 말씀이 나를 온전하게 빚어가심을 믿으며, 오늘 하루도 진리의 등불을 밝히고, 그리스도를 향한 흔들림 없는 믿음으로 고난을 통과하여 하나님의 공의와 사랑을 드러내는 복된 삶이 되기를 기도합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
     </div>
-    
-    <div class="floating-nav" id="floating-nav">
-        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
-        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
     </div>
-
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+    </div>
     <div id="player-container"></div>
-    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
         <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
         <div style="display:flex;gap:12px;align-items:center;">
             <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
             <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
         </div>
     </div>
-
     <script src="script.js"></script>
     <script>
-        function switchTab(n) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const contents = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                tab.classList.toggle('active', index === n);
-            });
-            contents.forEach((content, index) => {
-                content.classList.toggle('active', index === n);
-            });
-            const info = document.getElementById('current-tab-info');
-            if(info) info.innerText = (n + 1) + '/6';
+        let audioUtterance = null;
+        function playOriginalAudio(text, langCode) {
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+                setTimeout(() => {
+                    audioUtterance = new SpeechSynthesisUtterance(text);
+                    audioUtterance.lang = langCode;
+                    window.speechSynthesis.speak(audioUtterance);
+                }, 50);
+            } else alert('TTS 미지원 브라우저입니다.');
         }
     </script>
 </body>

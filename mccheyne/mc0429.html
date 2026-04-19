@@ -6,171 +6,290 @@
     <title>4월 29일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --overview-color: #6c757d;
-        }
-        
-        /* 로컬 오디오 버튼 숨김 (전역 플레이어 연동) */
+        :root { --overview-color: #6c757d; }
         .listen-audio-btn { display: none !important; }
-        
-        /* 전체 개요 탭 스타일 */
         .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
         .card-overview { border-color: var(--overview-color); }
         .card-overview h3 { color: var(--overview-color); }
-
-        /* 핵심 질문 박스 스타일 */
-        .key-question-box {
-            background-color: #f8f9fa;
-            border-left: 5px solid #343a40;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-        }
-        .key-question-box p {
-            margin: 0;
-            font-weight: 700;
-            color: #212529;
-            font-style: italic;
-            line-height: 1.5;
-        }
+        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
+        .key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
-        <header>
-            <h1>4월 29일 맥체인 성경읽기</h1>
-            <div class="date-info">
-                <span>2024년 4월 29일</span>
-            </div>
-        </header>
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>4월 29일</h1>
+            </header>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">민수기 6장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 40-41편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">아가 4장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">히브리서 4장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
+            </nav>
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>4월 29일 성경읽기 가이드</h3>
+                            <p>오늘은 하나님께 온전히 구별된 삶의 영광과, 죄악의 웅덩이에서 우리를 건지시고 참된 안식으로 인도하시는 은혜의 말씀을 묵상합니다. 신랑의 눈에 흠 없이 아름다운 신부로 부름받은 성도가, 살아 있고 활력 있는 하나님의 말씀의 검 앞에 내 영혼을 비추며 순종으로 안식에 들어가는 진리를 배웁니다.</p>
+                            <ul>
+                                <li><strong>민수기 6장:</strong> 스스로를 구별하여 하나님께 드리는 나실인 규례와, 대제사장이 이스라엘 백성을 향해 선포하는 영광스러운 여호와의 축복(아론의 축복)을 기록합니다.</li>
+                                <li><strong>시편 40-41편:</strong> 기가 막힐 웅덩이에서 건지신 구원의 은혜를 새 노래로 찬양하며(40편), 배신의 고통 속에서도 가난한 자를 돌보는 자에게 주시는 하나님의 보호를 간구합니다(41편).</li>
+                                <li><strong>아가 4장:</strong> 신랑이 신부의 온전한 아름다움(눈, 머리털, 이, 입술 등)을 세밀하게 찬양하며, 그녀를 흠 없는 순결한 동산으로 선포하는 사랑의 절정을 보여줍니다.</li>
+                                <li><strong>히브리서 4장:</strong> 여호수아가 주지 못한 참된 영원한 안식이 성도에게 남아 있음을 선포하며, 살아 있고 활력 있는 하나님의 말씀 앞에 불순종의 죄를 드러내고 은혜의 보좌로 나아가라 명합니다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">원어 묵상부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
-        <nav class="tabs">
-            <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
-            <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">민수기 6장</button>
-            <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">시편 40-41편</button>
-            <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">아가 4장</button>
-            <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">히브리서 4장</button>
-            <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">신학적 종합</button>
-        </nav>
+                <div id="content-hebrew" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>원어 주해: 시편 40:1</h3>
+                            <div class="key-question-box">
+                                <p>"내가 여호와를 기다리고 기다렸더니 귀를 기울이사 나의 부르짖음을 들으셨도다"</p>
+                            </div>
 
-        <main class="content-wrapper">
-            <section id="content-overview" class="tab-content active">
-                <div class="card card-overview">
-                    <h3>오늘의 구속사적 가이드</h3>
-                    <p>오늘의 본문은 '하나님께 구별된 삶'과 '그리스도 안에서 누리는 참된 안식'을 주제로 흐릅니다. 민수기는 나실인 규례와 제사장의 축복을 통해 거룩한 백성의 정체성을 보여주며, 시편은 고난 중에 주를 기다리는 성도의 인내와 찬양을 노래합니다. 아가는 신부의 아름다움을 찬양하며 그리스도와 교회의 연합을 예표하고, 히브리서는 우리에게 예비된 영원한 안식과 그 안식으로 인도하시는 큰 대제사장 예수 그리스도를 선포합니다. 우리는 이 말씀들을 통해 우리를 거룩하게 하시고 영원한 복으로 인도하시는 하나님의 신실하신 통치를 발견하게 됩니다.</p>
-                </div>
-            </section>
+                            <h4>① 히브리어 가이드</h4>
+                            <p><strong>ק (코프)</strong>: 목구멍 깊은 곳에서 터져 나오는 '크' 발음입니다. <strong>ו (바브)</strong>: '브' 발음으로 단어 중간에 쓰여 중복음을 만듭니다. <strong>י (요드)</strong>: '이' 발음으로 하나님의 이름(야훼)의 첫 글자입니다. <strong>ש (신)</strong>: '쉬' 발음입니다.</p>
 
-            <section id="content-book1" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 나실인 규례와 제사장의 축복 기도가 이스라엘 공동체의 정체성에 시사하는 바는 무엇입니까?</p>
-                </div>
-                <div class="card card-book1">
-                    <h3>민수기 6장: 나실인 규례와 제사장의 축복</h3>
-                    <p>하나님께서는 스스로를 구별하여 여호와께 드리는 '나실인'의 법을 주십니다. 이는 혈통적 제사장이 아니더라도 누구든지 자원하여 거룩함에 참여할 수 있는 길을 보여줍니다. 이어지는 '아론의 축복'은 하나님께서 자기 백성에게 얼굴을 비추시고 평강 주시기를 원하신다는 언약적 사랑의 선포입니다.</p>
-                    <p>신학적으로 나실인은 거룩한 자로 사신 예수 그리스도를 예표하며, 제사장의 축복은 그리스도의 중보를 통해 우리에게 임하는 하나님의 풍성한 은혜를 상징합니다. 성도는 그리스도 안에서 하나님과 화목하게 되어 그분의 얼굴 빛 아래 거하는 복된 존재입니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_06.html" data-title="민수기 6장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="NUM_6" data-title="민수기 6장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <h4>② 단어별 상세 해부 (모든 단어 분석)</h4>
 
-            <section id="content-book2" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 다윗이 고난 중에 "주께서 내 귀를 통하여 내게 들려주시기를" 원했던 하나님의 뜻과 순종의 의미는 무엇입니까?</p>
-                </div>
-                <div class="card card-book2">
-                    <h3>시편 40-41편: 인내하는 자의 찬양과 대속의 예표</h3>
-                    <p>시편 40편은 기가 막힐 웅덩이에서 건짐 받은 다윗의 새 노래이며, 41편은 병든 중에 원수와 친구의 배반을 겪으면서도 하나님의 긍휼을 바라는 기도입니다. 다윗은 제사보다 하나님의 뜻을 행하기를 즐거워하는 자의 중심을 노래합니다.</p>
-                    <p>히브리서 기자는 시편 40편을 인용하여 그리스도의 단번에 드리신 제사를 설명합니다. 또한 41편 9절의 배반 고백은 가룟 유다의 배신을 통해 그리스도의 고난에서 성취됩니다. 성도는 고난 중에도 우리를 위해 먼저 고난당하신 그리스도를 바라보며 인내의 찬양을 불러야 합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_40.html,https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_41.html" data-title="시편 40-41편">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="PSA_40_41" data-title="시편 40-41편">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    קַוֹּה <span onclick="playOriginalAudio('קַוֹּה', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(카보)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 동사 '카바(קָוָה, 기다리다, 소망하다)'의 피엘(강조형) 부정사 절대형입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 바로 뒤에 나오는 동일한 동사를 수식하여 행위의 지속성과 강렬함을 극대화합니다. '간절히', '오랫동안'이라는 부사적 의미를 띱니다.</p>
+                                <p><strong>신학적 의미:</strong> 신앙생활에서 '기다림'이 단순한 시간의 낭비가 아니라, 영혼을 팽팽하게 조율하여 하나님만 바라보게 만드는 가장 적극적이고 역동적인 믿음의 행위임을 보여줍니다.</p>
+                            </div>
 
-            <section id="content-book3" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 신랑이 신부의 아름다움을 극찬하며 "잠근 동산이요 덮은 우물이요 봉한 샘"이라 칭하는 이유는 무엇입니까?</p>
-                </div>
-                <div class="card card-book3">
-                    <h3>아가 4장: 신부의 아름다움과 사랑의 절정</h3>
-                    <p>솔로몬 왕은 술람미 여인의 전신을 세밀하게 묘사하며 그녀의 흠 없는 아름다움을 찬양합니다. 신랑은 신부를 '나의 누이, 나의 신부'라 부르며 그녀의 사랑이 포도주보다 진함을 고백합니다. 특히 닫혀진 동산과 샘으로 묘사된 신부의 순결함은 오직 신랑 한 분만을 위한 헌신을 의미합니다.</p>
-                    <p>이는 그리스도께서 교회를 보시는 시각입니다. 그리스도는 당신의 보혈로 씻음 받은 교회를 "어여쁘고 흠이 없다"고 선언하시며, 교회가 오직 주님만을 향한 거룩한 순결을 지키기를 기뻐하십니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_22_SOS_04.html" data-title="아가 4장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="SOS_4" data-title="아가 4장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    קִוִּיתִי <span onclick="playOriginalAudio('קִוִּיתִי', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(키비티)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 동사 '카바(קָוָה)'의 피엘 1인칭 단수 완료형입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 앞의 단어와 결합하여 '내가 진정으로, 참고 또 참으며 기다렸다'라는 강력한 확언입니다.</p>
+                                <p><strong>신학적 의미:</strong> 응답이 지연되는 기가 막힐 웅덩이(2절) 속에서도 결코 포기하지 않는 성도의 견인(Perseverance)을 상징합니다. 십자가의 고난 속에서도 아버지의 때를 끝까지 기다리신 그리스도의 온전한 순종을 예표합니다.</p>
+                            </div>
 
-            <section id="content-book4" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 하나님의 말씀이 좌우에 날선 검처럼 역사하는 목적과, 우리가 담대히 은혜의 보좌로 나아가야 할 근거는 무엇입니까?</p>
-                </div>
-                <div class="card card-book4">
-                    <h3>히브리서 4장: 안식과 큰 대제사장</h3>
-                    <p>히브리서 기자는 이스라엘이 불순종으로 놓쳤던 하나님의 안식이 여전히 우리에게 남아 있음을 경고합니다. 하나님의 말씀은 살아 있고 활력이 있어 우리의 마음과 뜻을 판단합니다. 무엇보다 우리에게는 하늘로 승천하신 큰 대제사장 예수 그리스도가 계시며, 그분은 우리의 연약함을 친히 담당하셨습니다.</p>
-                    <p>개혁주의 안식론과 기독론의 핵심입니다. 안식은 단순한 쉼이 아니라 그리스도 안에서 누리는 영적 통치의 평강입니다. 우리는 율법의 정죄가 아니라, 우리를 위해 중보하시는 그리스도의 긍휼을 의지하여 담대히 은혜의 보좌 앞에 나아가 때를 따라 돕는 은혜를 입어야 합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_58_HEB_04.html" data-title="히브리서 4장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="HEB_4" data-title="히브리서 4장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    יְהוָה <span onclick="playOriginalAudio('יְהוָה', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(야훼)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 이스라엘의 언약적 신, '여호와'입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 그 간절한 기다림의 유일한 대상입니다. 내 상황의 호전이나 기적 자체를 기다린 것이 아니라 인격적인 구원자 하나님을 기다렸습니다.</p>
+                                <p><strong>신학적 의미:</strong> 구원의 주체가 철저히 하나님 한 분이심을 고백합니다.</p>
+                            </div>
 
-            <section id="content-integration" class="tab-content">
-                <div class="card card-integration">
-                    <h3>신학적 종합: 거룩한 백성에게 약속된 영원한 안식</h3>
-                    <p>오늘의 본문들은 하나님의 백성이 지향해야 할 거룩함과 그들에게 주어지는 궁극적인 복을 선포합니다. 민수기의 나실인 규례와 아가서의 순결한 신부의 모습은, 그리스도 안에서 성도가 지켜야 할 '구별된 삶'의 원리를 보여줍니다. 우리는 우리의 의로움이 아니라, 제사장의 축복처럼 임하는 하나님의 전적인 은혜로 거룩함을 입었습니다.</p>
-                    <p>시편의 고통과 인내는 히브리서가 말하는 '안식'을 향한 여정입니다. 이 여정에서 우리는 우리를 꿰뚫어 보시는 하나님의 말씀 앞에 두렵게 서야 하지만, 동시에 우리의 연약함을 체휼하시는 큰 대제사장 그리스도가 계시기에 소망을 가질 수 있습니다. 세상의 웅덩이 속에서도 우리를 얼굴 빛 아래 두시는 하나님을 신뢰하며, 오늘 하루도 그리스도께서 주시는 평강 안에서 믿음의 선한 싸움을 계속해 나가는 복된 성도가 되기를 축원합니다.</p>
-                </div>
-            </section>
-        </main>
-    </div>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    וַיֵּט <span onclick="playOriginalAudio('וַיֵּט', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(바예트)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 접속사 바브와 동사 '나타(נָטָה, 기울이다, 구부리다, 뻗치다)'의 미완료형 결합(와우 연속법)입니다.</p>
+                                <p><strong>문맥적 의미:</strong> '그러자 그분께서 몸(귀)을 아래로 굽히셨다'. 지극히 높으신 분이 낮고 비천한 웅덩이로 귀를 가까이 가져다 대는 생생한 동작입니다.</p>
+                                <p><strong>신학적 의미:</strong> 기독교의 본질인 '은혜(하향성)'를 가장 잘 보여주는 단어입니다. 인간이 신에게 도달하기 위해 쌓아 올리는 종교가 아니라, 하나님께서 절망의 수렁 속에 있는 죄인에게 친히 몸을 굽혀 내려오시는 성육신(Incarnation)적 사랑입니다.</p>
+                            </div>
 
-    <div class="modal-overlay" id="text-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">성경 본문</h2>
-                <button class="modal-close-btn" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="modal-iframe" src=""></iframe>
-            </div>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    אֵלַי <span onclick="playOriginalAudio('אֵלַי', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(엘라이)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 전치사 '엘(אֶל, ~에게, ~를 향하여)'에 1인칭 단수 접미어가 붙어 '나에게로'입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 하나님의 기울이심이 세상의 권력자나 의인이 아니라, 바로 죄악의 웅덩이에 빠진 '나(다윗/죄인)'를 향하고 있음을 강조합니다.</p>
+                                <p><strong>신학적 의미:</strong> 구원의 철저한 개별적, 인격적 성격을 증언합니다.</p>
+                            </div>
+
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    וַיִּשְׁמַע <span onclick="playOriginalAudio('וַיִּשְׁמַע', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(바야쉬마)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 와우 연속법과 동사 '샤마(שָׁמַע, 듣다)'가 결합하여 '그리고 그가 들으셨다'입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 단순히 소리가 고막을 울리는 것이 아니라, 응답과 구원 행동을 전제로 하는 주의 깊은 청취입니다.</p>
+                                <p><strong>신학적 의미:</strong> 하나님은 귀가 둔하여 듣지 못하시는 분이 아닙니다(사 59:1). 그분의 '들으심'은 곧 심판과 구원의 실행(Action)을 동반합니다.</p>
+                            </div>
+
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    שַׁוְעָתִי <span onclick="playOriginalAudio('שַׁוְעָתִי', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(샤브아티)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> 명사 '샤바(שַׁוְעָה, 구원을 호소하는 절박한 부르짖음, 비명)'에 1인칭 접미어가 붙은 형태입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 점잖은 기도가 아니라, 물에 빠진 자가 살려달라고 지르는 단말마적 비명을 뜻합니다.</p>
+                                <p><strong>신학적 의미:</strong> 하나님은 화려하고 유창한 종교적 언어가 아니라, 상한 심령에서 터져 나오는 죄인의 절박한 비명(통회)에 응답하십니다. 예수께서 십자가 위에서 엘리 엘리 라마 사박다니 하신 그 큰 소리의 부르짖음(히 5:7)이 우리의 구원이 되었습니다.</p>
+                            </div>
+
+                            <h4>③ 원어 구절 전체 분석</h4>
+                            <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; text-align:center;">
+                                <p style="font-size:1.4rem; font-weight:bold; direction:rtl;">
+                                    קַוֹּה קִוִּיתִי יְהוָה וַיֵּט אֵלַי וַיִּשְׁמַע שַׁוְעָתִי
+                                    <span onclick="playOriginalAudio('קַוֹּה קִוִּיתִי יְהוָה וַיֵּט אֵלַי וַיִּשְׁמַע שַׁוְעָתִי', 'he-IL')" style="cursor:pointer;">🔊</span>
+                                </p>
+                            </div>
+                            <p><strong>[단어별 음역 및 직역 병기]</strong></p>
+                            <p>קַוֹּה(카보: 간절히) קִוִּיתִי(키비티: 내가 기다렸더니) יְהוָה(야훼: 여호와를) וַיֵּט(바예트: 그러자 그가 기울이셨고) אֵלַי(엘라이: 나에게로) וַיִּשְׁמַע(바야쉬마: 그리고 들으셨다) שַׁוְעָתִי(샤브아티: 나의 부르짖음을)</p>
+                            <p><strong>[직역]</strong> "내가 여호와를 간절히 기다리고 기다렸더니, 그가 나를 향해 (귀를) 굽히사 나의 부르짖음을 들으셨도다."</p>
+
+                            <h4>④ 언약 신학적 묵상</h4>
+                            <p>기가 막힐 웅덩이와 수렁(2절)에 빠진 자가 할 수 있는 유일한 일은 하늘을 우러러 '간절히 기다리는 것'과 '부르짖는 것'뿐입니다. 밧줄을 만들거나 벽을 타고 오를 자력구원의 능력이 인간에게는 전혀 없습니다. 오직 위에서부터 구원자가 귀를 굽히고 손을 뻗어주셔야(바예트) 합니다. 오늘 내 삶의 침체와 수렁 속에서 나의 무능함을 인정하십시오. 십자가에서 나를 위해 비명 지르신 주님의 은혜를 의지하여, 잠잠히 그러나 간절히 하늘을 향해 기다림(카바)의 닻을 내립시다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_40_41" data-title="시편 40편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>민수기 6장: 나실인의 구별됨과 여호와의 축복</h3>
+                            <div class="key-question-box">
+                                <p>질문: 태생적인 레위인이 아님에도 자발적으로 자신을 구별하여 드린 나실인 제도가 보여주는 은혜의 확장은 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>5장의 정결 규례에 이어, 6장은 자발적이고 적극적인 헌신의 형태인 '나실인(구별된 자)'의 서원 법(1-21절)을 다룹니다. 남녀를 불문하고 서원 기간 동안 포도 소산(세상의 기쁨)을 먹지 않고, 삭도(인위적 단장)를 머리에 대지 않으며, 시체(부정함)를 가까이하지 않음으로 철저히 하나님께 속한 삶을 삽니다. 22-27절은 이스라엘 백성을 향해 제사장들이 베푸는 영광스러운 '아론의 축복 기도(여호와는 네게 복을 주시고...)'를 기록하며 성막 준비를 아름답게 마칩니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>나실인(나지르) 규례는 율법의 신분적 한계를 뛰어넘습니다. 제사장이 될 수 없는 평민이나 여성도 자발적 헌신을 통해 제사장적 거룩함에 참여할 수 있는 은혜의 통로였습니다. 예수님은 포도주를 마시고 죄인들과 어울리셨기에 외형적 나실인은 아니셨으나(마 11:19), 하나님 아버지를 향한 절대적 순종과 자기 부인을 통해 가장 완벽한 '참된 나실인'의 실체가 되셨습니다. 아론의 축복 기도는 성부(지키심), 성자(은혜 베푸심), 성령(평강 주심)의 삼위일체 하나님의 구속적 축복을 예표합니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>새 언약 백성인 우리는 혈통이 아니라 그리스도의 보혈로 성별된 영적 나실인들입니다. 세상의 죄악된 즐거움(포도주)에 취하지 않고 성령의 충만함을 받아야 하며, 내 자랑(머리털)을 기르지 않고 하나님의 주권을 인정해야 합니다. 죽은 자의 풍조(시체)를 따르지 않는 삶이 요구됩니다. 우리가 이 좁은 십자가의 길을 걸어갈 때, 하나님은 그분의 빛나는 얼굴을 우리에게 향하사 은혜와 평강으로 지켜주신다는 확실한 축복(24-26절)이 우리의 걸음을 든든히 받쳐줍니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_06.html" data-title="민수기 6장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NUM_6" data-title="민수기 6장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>시편 40-41편: 수렁에서 건지심과 가난한 자를 향한 긍휼</h3>
+                            <div class="key-question-box">
+                                <p>질문: 웅덩이에서 구원받은 다윗이 제사와 예물보다 '나의 귀를 통하여 주신 주의 뜻 행하기'를 더 기뻐한 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>제1권의 마지막을 장식하는 두 시편입니다. 40편은 기가 막힐 웅덩이에서 건짐받은 은혜를 '새 노래'로 찬양하며(1-5절), 율법적 제사를 넘어선 온전한 순종의 결단(6-10절)과 다시 찾아온 고난 속의 구원 간구(11-17절)를 담습니다. 41편은 배신과 질병의 고통 속에서, 평소 빈약한 자를 보살핀 자에게 베푸시는 하나님의 자비 원리를 붙들고 원수들의 악담 앞에서도 여호와의 구원을 확신하며 끝맺습니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>"제사와 예물을 기뻐하지 아니하시며 내 귀를 통하여 내게 들려 주시기를... 두루마리 책에 나를 가리켜 기록한 것을"(40:6-7). 히브리서 10장 5-7절은 이 구절을 예수 그리스도의 성육신과 온전한 순종에 적용합니다. 짐승의 피(구약의 제사)는 죄를 온전히 없이할 수 없습니다. 아버지의 뜻을 행하기 위해 온몸으로 순종의 제사를 드리신 예수님의 십자가 사역만이 수렁에 빠진 우리를 반석 위에 세우는 참된 대속입니다. 41:9의 "내 떡을 나눠 먹던 나의 가까운 친구"의 배신 역시 가룟 유다의 배신(요 13:18)으로 완벽히 성취되었습니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>하나님이 우리에게 원하시는 가장 큰 예배는 종교적 의식(제사)의 반복이 아니라, 일상에서 주의 법을 내 심중에 두고(40:8) 순종하는 삶입니다. 나를 수렁에서 건지신 은혜를 체험했다면, 그 입술로 "여호와는 위대하시다"(40:16)라고 증언해야 합니다. 또한 내가 받은 긍휼을 기억하며, 41편의 다윗처럼 가난하고 연약한 자들을 돌아보는 자비의 삶을 살아야 합니다. 사람들의 배신과 모함 속에서도 하나님은 우리를 순전함 가운데 붙드시고 영원히 그 얼굴 앞에 세우실 것입니다(41:12).</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_40.html,https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_41.html" data-title="시편 40-41편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_40_41" data-title="시편 40-41편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>아가 4장: 흠 없는 신부의 아름다움</h3>
+                            <div class="key-question-box">
+                                <p>질문: 신랑이 신부의 각 지체를 머리부터 발끝까지 세밀하게 찬양하며 "흠이 없구나"라고 선언한 것은 어떤 구속의 진리를 모형합니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>3장의 혼인 예식 이후, 4장은 신랑(솔로몬)이 첫날밤에 신부(술람미)의 아름다움을 묘사하며 칭송하는 사랑의 노래입니다. 1-5절은 비둘기 같은 눈, 길르앗 산 기슭의 염소 떼 같은 머리털, 양 털 깎인 암양 같은 이, 홍색 실 같은 입술 등 일곱 가지 신체 부위를 자연에 빗대어 찬양합니다. 6-15절은 신부를 "잠근 동산이요 덮은 우물이요 봉한 샘"(12절)이라 부르며 그녀의 순결함과 온전함을 칭송합니다. 16절에서 신부는 북풍과 남풍을 향해 동산의 향기를 날려달라고 초청하며 응답합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>"나의 사랑 너는 어여쁘고 아무 흠이 없구나"(7절). 사실 술람미 여인은 햇볕에 그을린 평범한 촌부였습니다(1:5). 그러나 왕의 사랑 안에서 그녀는 전혀 흠 없는 완벽한 미인으로 재창조됩니다. 이는 에베소서 5장 27절의 "자기 앞에 영광스러운 교회로 세우사 티나 주름 잡힌 것이나 이런 것들이 없이 거룩하고 흠이 없게 하려 하심이라"는 교회의 영광을 정확히 예표합니다. 그리스도는 자신의 피로 신부인 교회를 씻어, 가장 순결한 '봉한 샘과 잠근 동산'(세상과 구별된 거룩)으로 하나님 앞에 세우십니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>성도의 자기 인식은 세상의 거울이 아니라 신랑이신 예수님의 말씀(칭의)에 기초해야 합니다. 내 안에는 여전히 죄의 찌꺼기가 남아있지만, 주님은 보혈의 렌즈로 나를 보시며 "너는 내 사랑, 흠이 없는 자"라고 선언하십니다. 이 사랑을 깨달은 성도는 세상의 우상에게 자신을 내어주지 않고, 오직 주님만을 위해 '잠근 동산과 봉한 샘'으로서의 영적 순결을 지켜냅니다. 내 영혼의 동산에 성령의 바람(북풍과 남풍)이 불어와, 그리스도를 향한 헌신과 사랑의 향기가 풍성하게 날리기를 기도합시다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_22_SOS_04.html" data-title="아가 4장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="SOS_4" data-title="아가 4장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>히브리서 4장: 참된 안식과 살아 있는 말씀</h3>
+                            <div class="key-question-box">
+                                <p>질문: 이스라엘이 가나안에 들어갔음에도 '우리가 들어갈 안식이 아직 남아 있다'고 한 이유는 무엇이며, 그 안식에 들어가는 열쇠는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>3장의 경고에 이어 히브리서 4장은 '안식(Katapausis)'이라는 주제를 깊이 다룹니다. 1-11절은 여호수아가 이스라엘을 가나안 땅으로 인도했으나 그것은 참된 안식의 모형일 뿐이며, 창세로부터 예비된 영원한 구원의 안식이 오늘 믿는 자들에게 남아 있으므로 '저 안식에 들어가기를 힘쓰라'고 권면합니다. 이 안식의 길에서 우리의 불신앙을 드러내고 수술하는 도구로서, 12-13절은 살아 있고 활력 있는 '하나님의 말씀'의 권능을 선포하며, 14-16절은 우리의 연약함을 동정하시는 큰 대제사장 그리스도의 은혜의 보좌로 초청합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>진정한 안식은 지리적 가나안 땅에 들어가는 것이 아니라, 예수 그리스도 안에서 '자기의 일을 쉬고' 하나님의 창조와 구원의 완성에 참여하는 것입니다(10절). 인간의 율법적 행위(자기의 일)로는 안식을 얻지 못합니다. "하나님의 말씀은 살아 있고 활력이 있어... 혼과 영과 및 관절과 골수를 찔러 쪼개기까지 하며"(12절). 복음의 말씀은 철저히 타락한 우리의 내면을 발가벗기듯 해부하여 숨은 불신앙을 드러냅니다. 심판관의 칼날 앞에서 우리가 살 길은 오직 피 흘리신 '큰 대제사장'을 굳게 붙드는 것뿐입니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>복음의 말씀은 위로이기도 하지만 먼저 우리의 숨은 교만과 죄를 찔러 쪼개는 날카로운 영적 수술칼(좌우에 날 선 검)입니다. 내 뜻대로 성경을 취사선택하지 말고, 말씀이 내 존재를 난도질하도록 정직하게 내어드리십시오. 내 죄가 낱낱이 드러나 발가벗겨질지라도 절망할 필요가 없습니다. 우리에게는 우리의 모든 연약함을 체휼하신(동정하시는) 대제사장 예수가 계시기 때문입니다. 오늘 넘어졌더라도 정죄감에 숨지 말고, 때를 따라 돕는 은혜를 얻기 위해 담대히 십자가의 은혜의 보좌 앞으로 나아가십시오.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_58_HEB_04.html" data-title="히브리서 4장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="HEB_4" data-title="히브리서 4장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합: "구별된 신부, 말씀의 검, 은혜의 보좌"</h3>
+                            <h4>관통하는 주제: 웅덩이에서 건져져 흠 없는 신부로 부름받은 성도의 안식</h4>
+                            <p>오늘 말씀들은 죄악의 웅덩이에서 우리를 구원하시어 온전히 구별된 거룩한 신부로 빚어가시는 삼위일체 하나님의 역사를 보여줍니다. 본래 우리는 시편 40편의 다윗처럼 스스로 빠져나올 수 없는 기가 막힐 수렁에 갇힌 자들이었습니다. 그러나 하나님께서 귀를 기울이사 우리를 건지셨고, 민수기 6장의 나실인처럼 세상과 구별된 거룩한 언약 백성으로 삼으셨습니다. 이 구원은 철저히 그리스도께서 아버지의 뜻을 따라 십자가에서 '순종의 두루마리(주의 뜻)'를 행하셨기 때문입니다.</p>
+                            <p>이 대속의 은혜로 말미암아 우리는 아가 4장의 신부처럼 하나님 보시기에 '아무 흠이 없는' 아름다운 잠근 동산이 되었습니다. 나의 연약함과 실패에도 불구하고, 대제사장이신 그리스도는 십자가의 피로 나를 정결케 하시고 영광스러운 신부로 인정하십니다. 그러나 아직 완성의 날(영원한 안식)에 이르기 전까지 우리 안에는 불순종과 죄의 찌꺼기가 남아 있습니다.</p>
+                            <p>그러므로 우리는 히브리서 4장의 경고처럼, 살아 있고 활력 있는 하나님의 말씀의 검 앞에 매일 내 영혼을 노출시켜야 합니다. 말씀이 내 안의 불신앙을 찔러 쪼갤 때, 감추려 하지 말고 십자가의 은혜의 보좌 앞으로 담대히 나아가십시오. 여호와의 얼굴빛(아론의 축복)이 우리를 비추고 계십니다. 오늘 하루도 헛된 자기 의(행위)를 쉬고, 나를 도우시는 대제사장 그리스도 안에서 참된 평강과 안식을 누리는 복된 시간이 되기를 기도합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
     </div>
-    
-    <div class="floating-nav" id="floating-nav">
-        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
-        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
     </div>
-
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+    </div>
     <div id="player-container"></div>
-    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
         <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
         <div style="display:flex;gap:12px;align-items:center;">
             <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
             <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
         </div>
     </div>
-
     <script src="script.js"></script>
     <script>
-        function switchTab(n) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const contents = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                tab.classList.toggle('active', index === n);
-            });
-            contents.forEach((content, index) => {
-                content.classList.toggle('active', index === n);
-            });
-            const info = document.getElementById('current-tab-info');
-            if(info) info.innerText = (n + 1) + '/6';
+        let audioUtterance = null;
+        function playOriginalAudio(text, langCode) {
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+                setTimeout(() => {
+                    audioUtterance = new SpeechSynthesisUtterance(text);
+                    audioUtterance.lang = langCode;
+                    window.speechSynthesis.speak(audioUtterance);
+                }, 50);
+            } else alert('TTS 미지원 브라우저입니다.');
         }
     </script>
 </body>

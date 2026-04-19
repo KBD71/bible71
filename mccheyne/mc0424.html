@@ -6,171 +6,250 @@
     <title>4월 24일 맥체인 성경읽기</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --overview-color: #6c757d;
-        }
-        
-        /* 로컬 오디오 버튼 숨김 (전역 플레이어 연동) */
+        :root { --overview-color: #6c757d; }
         .listen-audio-btn { display: none !important; }
-        
-        /* 전체 개요 탭 스타일 */
         .tab-btn[data-color="overview"].active { background-color: var(--overview-color); color: white; }
         .card-overview { border-color: var(--overview-color); }
         .card-overview h3 { color: var(--overview-color); }
-
-        /* 핵심 질문 박스 스타일 */
-        .key-question-box {
-            background-color: #f8f9fa;
-            border-left: 5px solid #343a40;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-        }
-        .key-question-box p {
-            margin: 0;
-            font-weight: 700;
-            color: #212529;
-            font-style: italic;
-            line-height: 1.5;
-        }
+        .key-question-box { background-color: #f1f3f5; border-left: 4px solid #495057; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; }
+        .key-question-box p { margin: 0; font-weight: 700; color: #212529; font-size: 1.1rem; }
     </style>
 </head>
 <body>
+    <div class="progress-container"><div class="progress-bar" id="reading-progress"></div></div>
     <div class="container">
-        <header>
-            <h1>4월 24일 맥체인 성경읽기</h1>
-            <div class="date-info">
-                <span>2024년 4월 24일</span>
-            </div>
-        </header>
+        <div class="content-wrapper">
+            <header>
+                <h4>M'Cheyne Bible Reading Plan</h4>
+                <h1>4월 24일</h1>
+            </header>
+            <nav class="tabs">
+                <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
+                <button class="tab-btn" data-target="content-hebrew" data-color="book4" onclick="switchTab(1)">원어 깊이 읽기</button>
+                <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(2)">민수기 1장</button>
+                <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(3)">시편 35편</button>
+                <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(4)">전도서 11장</button>
+                <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(5)">디도서 3장</button>
+                <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(6)">종합 묵상</button>
+            </nav>
+            <main>
+                <div id="content-overview" class="tab-content active">
+                    <article class="chapter-card card-overview">
+                        <div class="card-content">
+                            <h3>4월 24일 성경읽기 가이드</h3>
+                            <p>오늘은 하나님의 군대로 부름받은 성도의 정체성과 불확실한 세상을 향한 지혜로운 신앙, 그리고 중생과 칭의의 은혜를 묵상합니다. 광야 같은 세상을 행진하며 부당한 고난을 당할지라도, 우리를 새롭게 하신 성령의 능력을 의지하며 선한 일에 힘쓰는 하루가 되기를 바랍니다.</p>
+                            <ul>
+                                <li><strong>민수기 1장:</strong> 시내 광야에서 각 지파별로 20세 이상 싸움에 나갈 만한 자를 계수하는 첫 번째 인구 조사를 통해 여호와의 군대가 편성됩니다.</li>
+                                <li><strong>시편 35편:</strong> 까닭 없이 핍박하는 대적들 앞에서 하나님이 친히 방패가 되사 변호해 주시기를 구하는 다윗의 간절한 탄원시입니다.</li>
+                                <li><strong>전도서 11장:</strong> 결과를 알 수 없는 불확실한 인생 속에서도 하나님을 경외하며 적극적으로 선을 행하고(떡을 물에 던지라), 다가올 심판을 기억하라고 교훈합니다.</li>
+                                <li><strong>디도서 3장:</strong> 세상 권세에 대한 성도의 합당한 태도와, 행위가 아닌 '중생의 씻음과 성령의 새롭게 하심'으로 말미암은 구원의 교리를 선포합니다.</li>
+                            </ul>
+                            <div class="button-group">
+                                <button class="btn btn-primary" onclick="switchTab(1)">원어 묵상부터 시작하기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
-        <nav class="tabs">
-            <button class="tab-btn active" data-target="content-overview" data-color="overview" onclick="switchTab(0)">전체 개요</button>
-            <button class="tab-btn" data-target="content-book1" data-color="book1" onclick="switchTab(1)">민수기 1장</button>
-            <button class="tab-btn" data-target="content-book2" data-color="book2" onclick="switchTab(2)">시편 35편</button>
-            <button class="tab-btn" data-target="content-book3" data-color="book3" onclick="switchTab(3)">전도서 11장</button>
-            <button class="tab-btn" data-target="content-book4" data-color="book4" onclick="switchTab(4)">디도서 3장</button>
-            <button class="tab-btn" data-target="content-integration" data-color="integration" onclick="switchTab(5)">신학적 종합</button>
-        </nav>
+                <div id="content-hebrew" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>원어 주해: 디도서 3:5</h3>
+                            <div class="key-question-box">
+                                <p>"우리를 구원하시되 우리가 행한 바 의로운 행위로 말미암지 아니하고 오직 그의 긍휼하심을 따라 중생의 씻음과 성령의 새롭게 하심으로 하셨나니"</p>
+                            </div>
 
-        <main class="content-wrapper">
-            <section id="content-overview" class="tab-content active">
-                <div class="card card-overview">
-                    <h3>오늘의 구속사적 가이드</h3>
-                    <p>오늘의 본문은 언약 백성의 '질서 있는 행진'과 '은혜에 기초한 삶'을 보여줍니다. 민수기는 약속의 땅을 향한 광야 여정의 시작을 알리며 거룩한 군대를 조직하고, 시편은 불의한 대적들 사이에서 오직 하나님의 공의로운 개입을 간구하는 성도의 기도를 담고 있습니다. 전도서는 인생의 불확실함 속에서도 창조주를 경외하며 부지런히 행할 것을 가르치고, 디도서는 우리의 행위가 아닌 하나님의 자비하심으로 얻은 구원이 어떻게 선한 일로 열매 맺어야 하는지를 강조합니다. 모든 말씀은 구속의 은혜를 입은 자들이 광야 같은 세상에서 하나님의 군사로 살아가는 원리를 제시합니다.</p>
-                </div>
-            </section>
+                            <h4>① 헬라어 가이드</h4>
+                            <p><strong>π (피)</strong>: 입술을 파열시켜 내는 소리입니다. 팔링게네시아(중생)의 첫 글자입니다. <strong>λ (람다)</strong>: 혀끝을 윗니 뒤에 대고 내는 'ㄹ' 발음입니다. 루트론(씻음)의 첫 글자입니다. <strong>ἀ (알파)</strong>: 헬라어 알파벳의 첫 글자로 여기서는 '새롭게 함'이라는 단어의 접두사로 쓰입니다.</p>
 
-            <section id="content-book1" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 하나님께서 광야 행진을 시작하기 전, 이스라엘 자손의 수를 계수하게 하신 목적과 신학적 의미는 무엇입니까?</p>
-                </div>
-                <div class="card card-book1">
-                    <h3>민수기 1장: 광야의 군대 편성</h3>
-                    <p>민수기는 '광야에서'라는 제목이 시사하듯, 시내산을 떠나 가나안으로 향하는 준비 과정을 다룹니다. 하나님께서는 20세 이상의 싸움에 나갈 만한 남자의 수를 지파별로 계수하게 하십니다. 이는 단순한 인구 조사가 아니라, 아브라함에게 하신 언약(자손의 번성)의 신실한 성취를 확인하는 과정이며, 이스라엘을 오합지졸이 아닌 '여호와의 군대'로 조직하시는 주권적인 조치입니다.</p>
-                    <p>개혁주의 관점에서 교회는 세상이라는 광야를 지나는 '전투하는 교회(Church Militant)'입니다. 각 성도는 하나님의 군대에 소속된 군사로서 질서와 책임을 부여받았으며, 만군의 여호와께서 우리 대장이 되시어 앞서 행하신다는 사실이 우리의 유일한 승리의 보장입니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_01.html" data-title="민수기 1장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="NUM_1" data-title="민수기 1장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <h4>② 단어별 상세 해부</h4>
 
-            <section id="content-book2" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 다윗이 대적들에게 직접 복수하지 않고 "여호와여 나와 다투는 자와 다투시고"라고 간구하는 기도의 핵심은 무엇입니까?</p>
-                </div>
-                <div class="card card-book2">
-                    <h3>시편 35편: 의로운 재판장께 드리는 호소</h3>
-                    <p>본시는 까닭 없이 다윗을 핍박하는 원수들로부터 구원해 주시기를 간청하는 탄원시입니다. 다윗은 대적들이 함정을 파고 그물을 치는 절박한 상황에서, 하나님께서 방패와 손방패를 들고 일어나 싸워주실 것을 구합니다. 이는 자신의 감정을 배설하는 것이 아니라, 하나님의 공의가 이 땅에 실현되기를 바라는 언약적 호소입니다.</p>
-                    <p>하나님의 절대 주권을 믿는 성도는 원수 갚는 것이 하나님께 있음을 인정합니다. 우리의 진정한 대적이자 참된 승리자이신 그리스도께서 사탄의 권세를 꺾으셨음을 신뢰하며, 성도는 억울한 상황 속에서도 공의로운 재판장이신 하나님께 모든 것을 의탁하는 기도의 자리를 지켜야 합니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_35.html" data-title="시편 35편">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="PSA_35" data-title="시편 35편">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    παλιγγενεσία <span onclick="playOriginalAudio('παλιγγενεσία', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(팔링게네시아)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> '다시(palin)'와 '출생/기원(genesis)'의 합성어로 '다시 태어남', '재창조', '중생'을 뜻합니다.</p>
+                                <p><strong>문맥적 의미:</strong> 영적으로 완전히 죽었던 자가 성령의 역사로 말미암아 영적 생명을 얻고 새롭게 태어나는 구원의 첫 단계를 말합니다.</p>
+                                <p><strong>신학적 의미:</strong> 구원이 단순한 도덕적 개선이나 수양이 아니라, 창조에 버금가는 생명의 절대적 부여자(하나님)의 전적인 사역임을 증명하는 핵심 단어입니다.</p>
+                            </div>
 
-            <section id="content-book3" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. "네 떡을 물 위에 던지라"는 권면과 "바람을 살피는 자는 파종하지 못할 것"이라는 말씀이 주는 영적 지혜는 무엇입니까?</p>
-                </div>
-                <div class="card card-book3">
-                    <h3>전도서 11장: 불확실성 속에서 행하는 믿음의 삶</h3>
-                    <p>전도자는 인생의 불확실함을 이유로 나태해지거나 염려에 빠지는 것을 경계합니다. 재난이 언제 닥칠지, 바람의 길이 어떠할지 알 수 없으나, 성도는 주어진 환경에서 최선을 다해 씨를 뿌리고 구제에 힘써야 합니다. 이는 미래를 통제할 수 없는 인간의 한계를 인정하는 동시에, 모든 결과를 주관하시는 하나님의 섭리를 전적으로 신뢰하는 적극적인 신앙의 태도입니다.</p>
-                    <p>개혁주의 윤리는 '모든 것이 하나님의 손에 있다'는 믿음 위에서 부지런함을 실천합니다. 청년의 때에 창조주를 기억하며, 미래의 심판을 의식하는 가운데 오늘 나에게 주어진 사명을 기쁨으로 감당하는 것이 성도의 합당한 지혜입니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_21_ECC_11.html" data-title="전도서 11장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="ECC_11" data-title="전도서 11장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    λουτρόν <span onclick="playOriginalAudio('λουτρόν', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(루트론)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> '목욕', '씻음', '물두멍'을 뜻하는 명사입니다.</p>
+                                <p><strong>문맥적 의미:</strong> 더러운 몸을 물로 씻어내듯, 그리스도의 보혈과 성령으로 우리 영혼의 죄악이 깨끗이 씻겨졌음을 나타냅니다.</p>
+                                <p><strong>신학적 의미:</strong> 구약 성막의 물두멍에서 제사장이 씻는 행위와 신약의 세례(성례전)를 연결합니다. 물세례 자체보다 그 이면에 있는 성령의 영적 세례(씻음)를 지시합니다.</p>
+                            </div>
 
-            <section id="content-book4" class="tab-content">
-                <div class="key-question-box">
-                    <p>Q. 우리의 행한 바 의로운 행위가 아닌 오직 "그의 긍휼하심"으로 얻은 구원이 성도의 사회적 책임과 어떻게 연결됩니까?</p>
-                </div>
-                <div class="card card-book4">
-                    <h3>디도서 3장: 중생의 씻음과 선한 일의 열매</h3>
-                    <p>바울은 성도가 세상의 통치자들에게 복종하며 모든 선한 일을 준비해야 함을 강조합니다. 우리가 전에는 어리석고 순종하지 아니한 자였으나, 하나님의 자비하심과 중생의 씻음, 그리고 성령의 새롭게 하심으로 말미암아 의롭다 하심을 얻었습니다. 이 거룩한 은혜를 입은 자는 이제 무익한 변론을 피하고, 굳게 서서 선한 일에 힘써야 합니다.</p>
-                    <p>구원론적 핵심인 '오직 은혜'는 반드시 성화의 열매로 나타납니다. 우리는 우리 자신의 의로움으로 구원받은 것이 아니기에 세상 사람들을 향해 온유함을 나타낼 수 있습니다. 성령의 부어주심을 입은 자답게, 세상 속에서 그리스도의 향기를 발하며 선한 일을 도모하는 것이 구속받은 백성의 존재 목적입니다.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_56_TIT_03.html" data-title="디도서 3장">본문 보기</button>
-                        <button class="btn btn-secondary listen-audio-btn" data-key="TIT_3" data-title="디도서 3장">성경 듣기</button>
-                    </div>
-                </div>
-            </section>
+                            <div style="background:#fff; border:1px solid #dee2e6; border-radius:12px; padding:1.5rem; margin-bottom:1.2rem;">
+                                <p style="font-size:1.8rem; font-weight:bold; color:#1a5c9a;">
+                                    ἀνακαίνωσις <span onclick="playOriginalAudio('ἀνακαίνωσις', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                    <span style="font-size:1rem; color:#868e96; margin-left:10px;">(아나카이노시스)</span>
+                                </p>
+                                <p><strong>본래 의미:</strong> '위로, 다시(ana)'와 '새로운(kainos)'의 합성어로 '새롭게 함', '갱신(Renewal)'을 뜻합니다.</p>
+                                <p><strong>문맥적 의미:</strong> 중생으로 씻음받은 성도가 성령을 통해 계속해서 새 사람으로 변화되어 가는 성화의 과정을 포함합니다.</p>
+                                <p><strong>신학적 의미:</strong> 단순히 옛 것을 수리하는 것이 아니라 본질적으로 새롭고 전혀 다른 질적인 갱신을 말합니다. 로마서 12:2의 "마음을 새롭게 함으로 변화를 받아"와 동일한 단어입니다.</p>
+                            </div>
 
-            <section id="content-integration" class="tab-content">
-                <div class="card card-integration">
-                    <h3>신학적 종합: 은혜로 부름받은 여호와의 군대</h3>
-                    <p>오늘의 네 본문은 하나님의 주권적인 부르심과 그에 응답하는 성도의 삶의 태도를 일관되게 보여줍니다. 민수기에서 각 지파를 계수하여 군대를 조직하신 하나님은, 오늘날 우리를 디도서의 말씀처럼 '중생의 씻음'과 '성령의 새롭게 하심'으로 거룩한 백성 삼아 주셨습니다. 우리는 더 이상 사적인 복수를 도모하는 개인이 아니라, 시편 35편의 고백처럼 공의로운 하나님을 의지하여 선한 싸움을 싸우는 군사들입니다.</p>
-                    <p>광야 같은 인생길에서 때로는 대적의 위협과 미래의 불확실함(전도서)을 마주하지만, 우리는 결과를 주관하시는 하나님의 섭리를 신뢰하며 오늘 나에게 주어진 떡을 물 위에 던지는 믿음의 모험을 감행해야 합니다. 구원은 우리의 행위에 근거하지 않으나, 구원받은 자는 반드시 선한 일에 열심을 내는 자로 변화됩니다. 만군의 여호와의 군대로 부름받은 자답게, 오늘도 하나님의 긍휼을 힘입어 각자의 자리에서 거룩한 승리를 일궈나가는 복된 성도가 되기를 소망합니다.</p>
-                </div>
-            </section>
-        </main>
-    </div>
+                            <h4>③ 원어 구절 전체 분석</h4>
+                            <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; text-align:center;">
+                                <p style="font-size:1.4rem; font-weight:bold;">
+                                    διὰ λουτροῦ παλιγγενεσίας καὶ ἀνακαινώσεως πνεύματος ἁγίου
+                                    <span onclick="playOriginalAudio('διὰ λουτροῦ παλιγγενεσίας καὶ ἀνακαινώσεως πνεύματος ἁγίου', 'el-GR')" style="cursor:pointer;">🔊</span>
+                                </p>
+                            </div>
+                            <p><strong>[단어별 음역 및 직역 병기]</strong></p>
+                            <p>διὰ(디아: ~를 통하여) λουτροῦ(루트루: 씻음의) παλιγγενεσίας(팔링게네시아스: 중생과) καὶ(카이: 그리고) ἀνακαινώσεως(아나카이노세오스: 새롭게 하심의) πνεύματος ἁγίου(프뉴마토스 하기우: 성령의)</p>
+                            <p><strong>[직역]</strong> "... 중생의 씻음과 성령의 새롭게 하심을 통하여 (우리를 구원하셨다)."</p>
 
-    <div class="modal-overlay" id="text-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">성경 본문</h2>
-                <button class="modal-close-btn" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="modal-iframe" src=""></iframe>
-            </div>
+                            <h4>④ 언약 신학적 묵상</h4>
+                            <p>바울은 구원의 근거가 '우리의 의로운 행위'가 아니라 전적인 하나님의 '긍휼(자비)'에 있음을 명확히 합니다(Sola Gratia). 에스겔 36:25-26에 약속된 새 언약, 곧 "맑은 물을 너희에게 뿌려서... 새 영을 너희 속에 두고"라는 구약의 약속이 그리스도 안에서 성취된 것입니다. 중생(단회적)과 성화(지속적 갱신)는 결코 인간의 노력으로 성취되지 않으며, 오직 삼위일체 하나님의 협력 사역으로 이루어집니다.</p>
+
+                            <div class="button-group">
+                                <button class="btn btn-secondary listen-audio-btn" data-key="TIT_3" data-title="디도서 3장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book1" class="tab-content">
+                    <article class="chapter-card card-book1">
+                        <div class="card-content">
+                            <h3>민수기 1장: 광야의 행진을 위한 하나님의 군대</h3>
+                            <div class="key-question-box">
+                                <p>질문: 하나님께서 출애굽한 오합지졸 백성들을 '군대'로 계수하시는 목적은 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>레위기의 제의적 훈련을 마친 이스라엘은 이제 시내산을 떠나 가나안을 향한 광야 행진을 시작합니다. 민수기 1장은 출애굽 제2년 2월 1일에 행해진 첫 번째 인구 조사를 기록합니다. 1-19절은 인구 조사의 명령과 각 지파 지휘관의 임명을, 20-46절은 각 지파별 이십 세 이상으로 '싸움에 나갈 만한 자'의 명수(총 603,550명)를 열거하고, 47-54절은 레위 지파를 성막 봉사를 위해 계수에서 제외시키는 규례를 담고 있습니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>인구 조사는 단순한 통계가 아니라 '영적 병적부(Muster Roll)' 작성입니다. 노예였던 이스라엘은 하나님의 언약을 통해 약속의 땅을 정복할 거룩한 '여호와의 군대(Hosts of Yahweh)'로 재편성되었습니다. 한 사람 한 사람의 이름을 '종족과 조상의 가문'을 따라 세심하게 기록하신 것은 하나님께서 자기 백성 한 명 한 명을 아시고(요 10:3) 언약의 상속자로 삼으심을 보여줍니다. 이는 그리스도의 피로 구원받은 교회가 영적 전투를 수행하는 군대(Church Militant)로 부름받았음을 예표합니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>성도의 신앙생활은 광야를 통과하는 영적 전투의 과정입니다. 우리는 그저 구경꾼이나 무임승차자가 아니라 '싸움에 나갈 만한 자'로 소집되었습니다. 각 지파가 질서정연하게 자기의 위치와 임무를 부여받은 것처럼, 신약의 교회 역시 각자의 은사와 직분을 따라 질서를 지키며 그리스도라는 머리 아래 연합해야 합니다. 혈과 육에 대한 싸움이 아니라 악한 영들과의 싸움을 위해, 날마다 전신갑주를 입고 영적 전투의 자리로 나아가야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_04_NUM_01.html" data-title="민수기 1장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="NUM_1" data-title="민수기 1장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book2" class="tab-content">
+                    <article class="chapter-card card-book2">
+                        <div class="card-content">
+                            <h3>시편 35편: 의로운 재판장께 드리는 탄원</h3>
+                            <div class="key-question-box">
+                                <p>질문: 까닭 없이 고난받는 자가 사적 복수를 포기하고 하나님께 재판을 맡기는 것이 왜 신앙의 절정입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>이 시편은 다윗이 사울에게 쫓길 때 지은 '탄원시(Lament)'이자 '저주 시편(Imprecatory Psalm)' 중 하나입니다. 다윗은 과거 자신이 질병에 걸렸을 때 그들을 위해 금식하며 기도했던 자들이(13-14절), 오히려 다윗이 고난을 당하자 기뻐하며 모함하는(15절) 배신의 고통을 토로합니다. 1-10절은 하나님의 구원 개입 요청, 11-18절은 대적의 불의에 대한 고발과 다윗의 슬픔, 19-28절은 공의로운 판결과 찬양에 대한 서원을 담은 3연 구조를 가집니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>"나와 다투는 자와 다투시고 나와 싸우는 자와 싸우소서"(1절). 이 외침은 복수심의 폭발이 아니라 공의로우신 전사(Divine Warrior)이신 하나님께 재판을 전적으로 위탁하는 행위입니다. '까닭 없이' 미움을 받는 다윗의 모습은, 죄 없이 세상으로부터 미움과 핍박을 받으신 예수 그리스도(요 15:25)의 고난을 완벽하게 예표합니다. 그리스도는 십자가에서 끝까지 사적 보복을 행하지 않으시고 자신을 의롭게 심판하시는 이에게 부탁하셨습니다(벧전 2:23).</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>선을 악으로 갚는 세상을 향해 우리가 취할 태도는 '내가 직접 방패와 창을 드는 것'이 아닙니다. 하나님께 그분의 방패와 창을 들어 나를 도와달라고 호소하는 것(2절)이 기도입니다. 내 억울함을 내가 해결하려 할 때 우리는 가해자와 동일한 악에 빠집니다. 원수 갚는 것을 하나님께 맡기는 것은 연약함의 표지가 아니라, 하나님의 절대 주권과 공의를 철저히 신뢰하는 믿음의 가장 깊은 표현입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_19_PSA_35.html" data-title="시편 35편">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="PSA_35" data-title="시편 35편">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book3" class="tab-content">
+                    <article class="chapter-card card-book3">
+                        <div class="card-content">
+                            <h3>전도서 11장: 불확실성 앞에서의 신앙적 모험</h3>
+                            <div class="key-question-box">
+                                <p>질문: 재앙이 언제 닥칠지 모르는 현실에서, 두려워 움츠러드는 대신 '떡을 물 위에 던지라'고 하신 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>전도서 11장은 결론부로 향하며 실천적 지혜를 제공합니다. 1-6절은 인간 지식의 한계(불확실성)를 전제로 적극적인 행동과 구제를 권면합니다. 바람의 길과 아이가 배는 이치를 알지 못하듯 하나님의 일을 측량할 수 없으나(5절), 그렇기 때문에 씨를 뿌리는 일을 쉬지 말아야 한다고 말합니다. 7-10절은 젊은이들에게 주어진 인생의 빛(생명)을 기뻐하며 누리되, 하나님의 다가올 심판을 반드시 기억하라고 강력히 경고합니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>"너는 네 떡을 물 위에 던져라 여러 날 후에 도로 찾으리라"(1절). 고대 근동의 해상 무역을 비유한 이 말씀은, 결과를 보장받지 못하더라도 아낌없이 베풀고 구제하라는 의미입니다. 구원 역사는 계산적인 이기심이 아니라, 하나님의 측량할 수 없는 주권(5절)에 대한 전적인 신뢰 위에서 전진합니다. 하나님은 우리의 무지와 한계 속에서도 만사를 섭리하시며 협력하여 선을 이루십니다. 또한 인생의 모든 행위가 훗날 그리스도의 심판대 앞에 서게 될 것임을 보여주는 종말론적 신앙의 기초입니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>상황이 완벽해질 때까지(풍세를 살피고 구름을 보는 자) 핑계 대며 기다리는 자는 아무것도 거두지 못합니다(4절). 우리는 미래를 통제할 수 없으나 오늘 씨를 뿌릴 수는 있습니다. 선행과 헌신, 전도의 결과를 당장 예측할 수 없어도 믿음으로 모험을 결행하십시오. 아울러 '청년의 때'(인생의 전성기)를 즐거워하되, 나의 모든 즐거움과 선택이 하나님 앞에서 책임을 져야 할 행동(심판, 9절)임을 잊지 않는 것이 자유와 경건의 완벽한 조화입니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/OT/OT_21_ECC_11.html" data-title="전도서 11장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="ECC_11" data-title="전도서 11장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-book4" class="tab-content">
+                    <article class="chapter-card card-book4">
+                        <div class="card-content">
+                            <h3>디도서 3장: 중생의 은혜와 선한 일에의 부르심</h3>
+                            <div class="key-question-box">
+                                <p>질문: 바울이 세상 권세에 대한 순종을 명하면서, 바로 이어서 구원의 전적인 은혜성을 선포한 신학적 이유는 무엇입니까?</p>
+                            </div>
+                            <h4>역사적 문맥과 구조</h4>
+                            <p>디도서의 마지막 장으로, 바울은 성도가 교회 안(2장)을 넘어 세상 밖(3장)에서 어떻게 처신해야 하는지 가르칩니다. 1-2절은 세상의 권세 잡은 자들에게 복종하며 모든 사람에게 관용을 보일 것을 명합니다. 이 무저항적이고 희생적인 삶이 가능한 이유는 3-7절에 나타난 구원의 근거(우리의 과거의 비참함과 하나님의 전적인 자비, 중생과 칭의) 때문입니다. 8-11절은 무익한 논쟁을 피하고 선한 일에 힘쓸 것을 재차 강조하며, 12-15절의 끝인사로 마칩니다.</p>
+                            <h4>핵심 신학과 구속사적 의미</h4>
+                            <p>디도서 3:5-7은 개혁주의 구원론의 결정체입니다. 구원은 우리의 '의로운 행위'가 아니라 오직 하나님의 '긍휼하심(자비)'을 따라, 성령의 단회적인 '중생의 씻음'과 점진적인 '새롭게 하심'으로 이루어집니다. 이 성령은 우리 구주 예수 그리스도로 말미암아 우리에게 풍성히 부어졌으며, 그 은혜로 우리는 의롭다 하심(칭의)을 얻어 영생의 소망을 따라 상속자가 되었습니다. 구원의 전 과정이 삼위일체 하나님의 전적인 사역(Monergism)임을 선포합니다.</p>
+                            <h4>개혁주의 적용과 성도의 삶</h4>
+                            <p>과거에 우리는 어리석고 순종하지 않으며 악독과 투기를 일삼던 자들(3절)이었습니다. 우리가 세상의 악한 자들을 향해 관용과 온유함을 나타내야 하는 이유가 바로 여기에 있습니다. 내가 어떻게 구원받았는지를 기억하는 자만이 세상과 이웃을 향해 참된 선을 행할 수 있습니다(8절). 교리적 지식(칭의와 중생)은 머리에만 머무는 것이 아니라, 율법의 족보를 따지는 헛된 논쟁을 버리고(9절) 실제 삶에서 선한 열매를 맺는 역동적인 힘이 되어야 합니다.</p>
+                            <div class="button-group">
+                                <button class="btn btn-primary view-text-btn" data-path="https://kbd71.github.io/bible71/bible_html/NT/NT_56_TIT_03.html" data-title="디도서 3장">본문 보기</button>
+                                <button class="btn btn-secondary listen-audio-btn" data-key="TIT_3" data-title="디도서 3장">성경 듣기</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div id="content-integration" class="tab-content">
+                    <article class="integration-card">
+                        <div class="card-content">
+                            <h3>주제 중심 신학적 종합: "부르심에 합당한 거룩한 행진"</h3>
+                            <h4>관통하는 주제: 구원의 전적 은혜에 응답하여 영적 전투와 선을 행하는 백성</h4>
+                            <p>오늘의 네 본문은 우리가 '어떻게 구원받았고', '무엇을 위해 살아가야 하는지'를 선명하게 보여줍니다. 디도서 3장의 고백처럼 우리의 구원은 내 공로가 아니라 전적인 하나님의 긍휼과 성령의 씻으심으로 완성되었습니다. 이 은혜를 덧입은 자들은 민수기 1장의 이스라엘처럼 영적 광야를 행진하는 '십자가의 군사'로 재편성되었습니다. 우리는 사사로운 이익을 구하는 무리가 아니라 여호와의 언약을 위해 싸우는 군대입니다.</p>
+                            <p>군대의 행진에는 늘 대적의 방해와 고난이 뒤따릅니다. 시편 35편의 다윗처럼 까닭 없는 미움을 받을 때, 성도는 세상의 방식(보복)이 아니라 하늘의 방식(의탁과 기도)으로 싸워야 합니다. 하나님의 공의로운 심판을 굳게 믿기 때문입니다. 불확실한 미래와 핍박 속에서도(전도서 11장) 두려워 숨지 않고 과감하게 떡을 물 위에 던지는 선행을 실천할 수 있는 것은, 만사를 섭리하시는 주권자가 우리의 아버지이심을 믿기 때문입니다.</p>
+                            <p>광야의 여정은 만만치 않으나, 우리는 결코 혼자가 아닙니다. 그리스도께서 우리의 방패요 상급이 되십니다(시편). 과거의 비참함을 기억하고 십자가의 은혜를 깊이 새길 때, 세상 권세를 향해 관용하고 형제를 향해 선을 행할 수 있습니다. 성령의 새롭게 하심을 입은 군사로서, 다가올 심판의 날(전도서)을 기억하며 오늘 내게 주어진 사명의 자리에서 충성을 다하기를 소망합니다.</p>
+                            <div class="button-group">
+                                <a href="#top" class="btn btn-primary">맨 위로 돌아가기</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+            <footer>
+                <p>&copy; 2026 MacCheyne 5.0. All Rights Reserved.</p>
+            </footer>
         </div>
     </div>
-    
-    <div class="floating-nav" id="floating-nav">
-        <button class="nav-btn" id="prev-tab" title="이전"><span>◀</span></button>
-        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/6</span></div>
-        <button class="nav-btn" id="next-tab" title="다음"><span>▶</span></button>
+    <div class="modal-overlay" id="text-modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><button class="modal-close-btn" id="modal-close">&times;</button></div>
+            <div class="modal-body"><iframe id="modal-iframe" src=""></iframe></div>
+        </div>
     </div>
-
+    <div class="floating-nav" id="floating-nav">
+        <button class="nav-btn" id="prev-tab"><span>◀</span></button>
+        <div class="nav-info"><span class="current-tab" id="current-tab-info">1/7</span></div>
+        <button class="nav-btn" id="next-tab"><span>▶</span></button>
+    </div>
     <div id="player-container"></div>
-    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;font-family:var(--font-heading);transition:transform 0.3s;transform:translateY(100%);">
+    <div id="audio-player" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:1001;color:white;transition:transform 0.3s;transform:translateY(100%);">
         <span id="player-info" style="font-size:0.9rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">재생 대기 중...</span>
         <div style="display:flex;gap:12px;align-items:center;">
             <button id="play-pause-btn" style="background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;">▶</button>
             <button id="close-player-btn" style="background:none;border:none;color:#aaa;font-size:1.1rem;cursor:pointer;">✕</button>
         </div>
     </div>
-
     <script src="script.js"></script>
     <script>
-        function switchTab(n) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const contents = document.querySelectorAll('.tab-content');
-            tabs.forEach((tab, index) => {
-                tab.classList.toggle('active', index === n);
-            });
-            contents.forEach((content, index) => {
-                content.classList.toggle('active', index === n);
-            });
-            const info = document.getElementById('current-tab-info');
-            if(info) info.innerText = (n + 1) + '/6';
+        let audioUtterance = null;
+        function playOriginalAudio(text, langCode) {
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+                setTimeout(() => {
+                    audioUtterance = new SpeechSynthesisUtterance(text);
+                    audioUtterance.lang = langCode;
+                    window.speechSynthesis.speak(audioUtterance);
+                }, 50);
+            } else alert('TTS 미지원 브라우저입니다.');
         }
     </script>
 </body>
