@@ -110,7 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "MRK": "MAR",  // 마가복음: mcbible.txt는 MRK, bible_html은 MAR 사용
         "JHN": "JOH",  // 요한복음: mcbible.txt는 JHN, bible_html은 JOH 사용
         "PHP": "PHI",  // 빌립보서: mcbible.txt는 PHP, bible_html은 PHI 사용
-        "JAS": "JAM"   // 야고보서: mcbible.txt는 JAS, bible_html은 JAM 사용
+        "JAS": "JAM",  // 야고보서: mcbible.txt는 JAS, bible_html은 JAM 사용
+        "SOS": "SNG"   // 아가서: HTML 파일은 SOS, mcbible.txt는 SNG 사용
     };
 
     async function loadAudioKeys() {
