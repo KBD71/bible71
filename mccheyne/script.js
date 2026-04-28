@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "JHN": "JOH",  // 요한복음: mcbible.txt는 JHN, bible_html은 JOH 사용
         "PHP": "PHI",  // 빌립보서: mcbible.txt는 PHP, bible_html은 PHI 사용
         "JAS": "JAM",  // 야고보서: mcbible.txt는 JAS, bible_html은 JAM 사용
-        "SOS": "SNG"   // 아가서: HTML 파일은 SOS, mcbible.txt는 SNG 사용
+        "SNG": "SOS"   // 아가서: mcbible.txt는 SNG, HTML 파일은 SOS 사용
     };
 
     async function loadAudioKeys() {
@@ -131,8 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             // 책 코드 매핑 적용 (MRK → MAR 등)
                             const mappedBook = bookCodeMapping[book] || book;
                             const chapter = parseInt(keyParts.at(-1), 10);
-                            const shortKey = `${mappedBook}_${chapter}`;
-                            audioKeyMap.set(shortKey, url);
+                            
+                            // 원본 키와 매핑된 키 모두 저장하여 호환성 극대화 (JAS, JAM 혼용 문제 해결)
+                            audioKeyMap.set(`${book}_${chapter}`, url);
+                            if (mappedBook !== book) {
+                                audioKeyMap.set(`${mappedBook}_${chapter}`, url);
+                            }
                         }
                     }
                 }
@@ -195,7 +199,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let savedScrollY = 0;
 
     function openTextModal(button) {
-        const paths = button.dataset.path.split(',').map(p => p.trim());
+        let paths = button.dataset.path.split(',').map(p => {
+            let path = p.trim();
+            for (const [oldCode, newCode] of Object.entries(bookCodeMapping)) {
+                if (path.includes(`_${oldCode}_`)) {
+                    path = path.replace(`_${oldCode}_`, `_${newCode}_`);
+                }
+            }
+            return path;
+        });
         const title = button.dataset.title;
 
         modalTitle.innerText = title;
