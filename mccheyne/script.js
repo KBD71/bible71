@@ -449,6 +449,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tabContents.forEach(content => { content.classList.remove('active'); });
         tabButtons[index].classList.add('active');
         tabContents[index].classList.add('active');
+        // 활성 탭 버튼이 보이도록 스크롤
+        tabButtons[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         window.scrollTo({ top: 0, behavior: 'auto' });
         updateFloatingNav();
         setTimeout(updateReadingProgress, 150);
