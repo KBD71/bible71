@@ -1,6 +1,6 @@
 import os, glob, re
 
-path = 'mccheyne/mc*.html'
+path = 'mccheyne/mc06*.html'
 files = glob.glob(path)
 
 for f in files:
