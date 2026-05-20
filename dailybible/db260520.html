@@ -13,17 +13,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <!-- LaTeX 수식 지원을 위한 MathJax 로드 -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/tailwind.js"></script>
+    <!-- LaTeX 수식 지원을 위한 MathJax 로드 (설정을 스크립트 로드 전에 배치) -->
     <script>
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$']],
-                displayMath: [['$$', '$$']]
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
             }
         };
     </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     
     <style>
         body { 
@@ -236,10 +239,14 @@
                         <p><strong>우리의 유일한 담보물(Surety)이 되신 주님:</strong> 우리는 하나님 아버지 앞에 영영히 죄의 심판을 면치 못할 절망적인 빚쟁이들이었습니다. 그러나 유다의 후손으로 오신 예수 그리스도께서는 친히 십자가에서 자기 목숨을 우리 구원의 영원한 담보물로 내어놓으셨습니다.</p>
                     </div>
                     
-                    <div class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-center font-mono my-2 text-slate-800">
-                        <p class="text-xs mb-1 text-slate-500 font-sans">대속과 전가의 은혜적 논리 공식</p>
-                        $$ \text{유다의 담보(Suretyship)} \subset \text{예수 그리스도의 영원한 대속(Substitutionary Atonement)} $$
-                        $$ \text{그리스도의 전적인 비하(Humiliation)} \implies \text{죄인인 우리의 온전한 양자 됨(Adoption)} $$
+                    <div class="bg-slate-100 p-4 rounded-lg border border-slate-200 text-center my-2 text-slate-800 overflow-x-auto">
+                        <p class="text-xs mb-2 text-slate-500 font-sans font-semibold">대속과 전가의 은혜적 논리 공식</p>
+                        <div class="my-2">
+                            $$ \text{유다의 담보(Suretyship)} \subset \text{예수 그리스도의 영원한 대속(Substitutionary Atonement)} $$
+                        </div>
+                        <div class="my-2">
+                            $$ \text{그리스도의 전적인 비하(Humiliation)} \implies \text{죄인인 우리의 온전한 양자 됨(Adoption)} $$
+                        </div>
                     </div>
 
                     <div class="flex items-start space-x-2">
