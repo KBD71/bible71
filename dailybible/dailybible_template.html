@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="설교 요약: {{ METADATA_TITLE }}">
+    <meta property="og:description" content="{{ DESCRIPTION }}">
+    <meta property="og:image" content="{{ IMAGE }}">
+    <meta property="og:url" content="">
+    <title>설교 요약: {{ TITLE }}</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- LaTeX 수식 지원을 위한 MathJax 로드 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            background-color: #f3f4f6; 
+        }
+        .keyword { 
+            box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); 
+            font-weight: 700; 
+        }
+        .scripture-text-section p { 
+            margin-bottom: 0.5rem; 
+            line-height: 1.6; 
+        }
+        .card { 
+            transition: transform 0.2s; 
+        }
+        .card:hover { 
+            transform: translateY(-2px); 
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen py-8 px-4 sm:px-6">
+
+    <div class="max-w-3xl mx-auto">
+        <header class="bg-gradient-to-br from-indigo-950 to-slate-900 text-white rounded-2xl shadow-xl p-6 sm:p-8 mb-6">
+            <div class="flex items-center space-x-2 text-indigo-400 text-xs sm:text-sm font-semibold tracking-wider uppercase mb-3">
+                <span>{{ SERIES }}</span>
+                <span>•</span>
+                <span>새벽기도회</span>
+            </div>
+            <h1 class="text-xl sm:text-3xl font-black leading-tight mb-4 text-slate-100">
+                “{{ TITLE }}”
+            </h1>
+            <div class="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs sm:text-sm text-slate-300 border-t border-slate-700/50 pt-4 font-light">
+                <div><strong>설교자:</strong> 이희용 목사</div>
+                <div class="hidden sm:block text-slate-500">|</div>
+                <div><strong>본문:</strong> {{ SCRIPTURE_REF }}</div>
+                <div class="hidden sm:block text-slate-500">|</div>
+                <div><strong>일시:</strong> {{ DATE_STRING }}</div>
+            </div>
+            
+            <div class="mt-6 bg-slate-800/80 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                <p class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">핵심 주제</p>
+                <p class="text-sm sm:text-base text-slate-200 font-medium leading-relaxed">
+                    {{ CORE_THEME }}
+                </p>
+            </div>
+        </header>
+
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <div class="flex items-center space-x-2 mb-4">
+                <span class="p-1.5 bg-slate-100 text-slate-700 rounded">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </span>
+                <h2 class="text-lg font-bold text-slate-900">설교 본문 성경구절 ({{ SCRIPTURE_REF }})</h2>
+            </div>
+            
+            <div class="scripture-text-section bg-slate-50 rounded-xl p-4 max-h-48 overflow-y-auto text-slate-700 text-sm border border-slate-200/60 shadow-inner">
+                <div>
+                    <h3 class="font-bold text-slate-900 mb-2 border-b border-slate-200 pb-1">{{ SCRIPTURE_REF }} (개역개정)</h3>
+                    {{ SCRIPTURE_HTML }}
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. 원리/본질 -->
+        <article class="card bg-white rounded-xl shadow-lg p-6 mb-6 border-t-4 border-purple-600">
+            <header class="flex items-center space-x-3 mb-4">
+                <span class="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                </span>
+                <h2 class="text-xl font-extrabold text-purple-800">원리/본질: {{ PRINCIPLE_TITLE }}</h2>
+            </header>
+            <div class="text-slate-700 space-y-3 text-sm leading-relaxed">
+                {{ PRINCIPLE_HTML }}
+            </div>
+        </article>
+
+        <!-- 2. 역사/배경 -->
+        <article class="card bg-white rounded-xl shadow-lg p-6 mb-6 border-t-4 border-orange-500">
+            <header class="flex items-center space-x-3 mb-4">
+                <span class="p-2 bg-orange-50 text-orange-500 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                    </svg>
+                </span>
+                <h2 class="text-xl font-extrabold text-orange-800">역사/배경: {{ HISTORY_TITLE }}</h2>
+            </header>
+            <div class="text-slate-700 space-y-3 text-sm leading-relaxed">
+                {{ HISTORY_HTML }}
+            </div>
+        </article>
+
+        <!-- 3. 경고/배격 -->
+        <article class="card bg-white rounded-xl shadow-lg p-6 mb-6 border-t-4 border-rose-600">
+            <header class="flex items-center space-x-3 mb-4">
+                <span class="p-2 bg-rose-50 text-rose-600 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                </span>
+                <h2 class="text-xl font-extrabold text-rose-800">경고/배격: {{ WARNING_TITLE }}</h2>
+            </header>
+            <div class="text-slate-700 space-y-3 text-sm leading-relaxed">
+                {{ WARNING_HTML }}
+            </div>
+        </article>
+
+        <!-- 4. 적용/목적 -->
+        <article class="card bg-white rounded-xl shadow-lg p-6 mb-6 border-t-4 border-emerald-600">
+            <header class="flex items-center space-x-3 mb-4">
+                <span class="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </span>
+                <h2 class="text-xl font-extrabold text-emerald-800">적용/목적: {{ APPLICATION_TITLE }}</h2>
+            </header>
+            <div class="text-slate-700 space-y-3 text-sm leading-relaxed">
+                {{ APPLICATION_HTML }}
+            </div>
+        </article>
+
+        <!-- 5. 결론 -->
+        <article class="card bg-white rounded-xl shadow-lg p-6 mb-6 border-t-4 border-gray-600">
+            <header class="flex items-center space-x-3 mb-4">
+                <span class="p-2 bg-gray-50 text-gray-600 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                </span>
+                <h2 class="text-xl font-extrabold text-gray-800">결론: {{ CONCLUSION_TITLE }}</h2>
+            </header>
+            <div class="text-slate-700 space-y-3 text-sm leading-relaxed">
+                {{ CONCLUSION_HTML }}
+            </div>
+        </article>
+
+        <footer class="text-center text-xs text-slate-500 mt-8 mb-4">
+            <p>© 2026 나그네교회 새벽기도회 설교 요약 자료</p>
+            <p class="mt-1">개혁주의 언약신학 및 역사적 웨스트민스터 표준문서에 따른 성경 강해</p>
+        </footer>
+    </div>
+
+    <input type="hidden" id="youtube-link" value="https://youtu.be/{{ YOUTUBE_ID }}">
+    <script src="script.js"></script>
+</body>
+</html>
