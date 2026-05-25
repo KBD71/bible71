@@ -88,9 +88,15 @@ def get_playlist_videos(playlist_id, api_key, limit=5):
 
 def fetch_transcript(video_id):
     """Fetches the Korean transcript of the YouTube video."""
+    import os
+    cookies_file = 'cookies.txt' if os.path.exists('cookies.txt') else None
+
     try:
         print(f"Fetching transcript for video ID: {video_id}...")
-        transcript_list = YouTubeTranscriptApi().fetch(video_id, languages=['ko'])
+        if cookies_file:
+            transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=['ko'], cookies=cookies_file)
+        else:
+            transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=['ko'])
         full_text = " ".join([item['text'] for item in transcript_list])
         return full_text
     except Exception as e:
@@ -98,7 +104,10 @@ def fetch_transcript(video_id):
         # Try fetching auto-generated transcript as fallback
         try:
             print("Attempting to fetch generated transcripts...")
-            transcript_list = YouTubeTranscriptApi().list(video_id)
+            if cookies_file:
+                transcript_list = YouTubeTranscriptApi.list_transcripts(video_id, cookies=cookies_file)
+            else:
+                transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
             transcript = transcript_list.find_generated_transcript(['ko'])
             full_text = " ".join([item['text'] for item in transcript.fetch()])
             return full_text
@@ -139,6 +148,10 @@ def download_audio_with_ytdlp(video_id):
         'quiet': True,
         'extractor_args': {'youtube': ['client=android']},
     }
+    import os
+    if os.path.exists('cookies.txt'):
+        ydl_opts['cookiefile'] = 'cookies.txt'
+        
     print(f"Downloading audio for video {video_id} using yt-dlp...")
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
