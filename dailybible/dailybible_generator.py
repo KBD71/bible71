@@ -126,19 +126,27 @@ def fetch_sermon_metadata_from_youtube(video_id, api_key):
     return None, None
 
 def download_audio_with_ytdlp(video_id):
-    """Downloads the best audio track of the YouTube video as an M4A/MP3 file."""
-    output_filename = f"temp_audio_{video_id}.m4a"
+    """Downloads the best audio track of the YouTube video."""
+    import glob
+    # Remove any existing temp files for this video
+    for f in glob.glob(f"temp_audio_{video_id}.*"):
+        try: os.remove(f)
+        except: pass
+
     ydl_opts = {
-        'format': 'm4a/bestaudio/best',
-        'outtmpl': output_filename,
+        'format': 'bestaudio[ext=m4a]/bestaudio/best',
+        'outtmpl': f"temp_audio_{video_id}.%(ext)s",
         'quiet': True,
     }
     print(f"Downloading audio for video {video_id} using yt-dlp...")
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([f"https://www.youtube.com/watch?v={video_id}"])
-        if os.path.exists(output_filename):
-            return output_filename
+        
+        # Find the downloaded file
+        downloaded_files = glob.glob(f"temp_audio_{video_id}.*")
+        if downloaded_files:
+            return downloaded_files[0]
     except Exception as e:
         print(f"Failed to download audio: {e}")
     return None
