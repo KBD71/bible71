@@ -137,6 +137,7 @@ def download_audio_with_ytdlp(video_id):
         'format': 'bestaudio[ext=m4a]/bestaudio/best',
         'outtmpl': f"temp_audio_{video_id}.%(ext)s",
         'quiet': True,
+        'extractor_args': {'youtube': ['client=android']},
     }
     print(f"Downloading audio for video {video_id} using yt-dlp...")
     try:
