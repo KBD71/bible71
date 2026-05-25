@@ -11,11 +11,6 @@ import sys
 import json
 import argparse
 import requests
-import time
-try:
-    import yt_dlp
-except ImportError:
-    pass
 from datetime import datetime
 from google.generativeai import GenerativeModel
 import google.generativeai as genai
@@ -88,15 +83,9 @@ def get_playlist_videos(playlist_id, api_key, limit=5):
 
 def fetch_transcript(video_id):
     """Fetches the Korean transcript of the YouTube video."""
-    import os
-    cookies_file = 'cookies.txt' if os.path.exists('cookies.txt') else None
-
     try:
         print(f"Fetching transcript for video ID: {video_id}...")
-        if cookies_file:
-            transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=['ko'], cookies=cookies_file)
-        else:
-            transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=['ko'])
+        transcript_list = YouTubeTranscriptApi().fetch(video_id, languages=['ko'])
         full_text = " ".join([item['text'] for item in transcript_list])
         return full_text
     except Exception as e:
@@ -104,10 +93,7 @@ def fetch_transcript(video_id):
         # Try fetching auto-generated transcript as fallback
         try:
             print("Attempting to fetch generated transcripts...")
-            if cookies_file:
-                transcript_list = YouTubeTranscriptApi.list_transcripts(video_id, cookies=cookies_file)
-            else:
-                transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+            transcript_list = YouTubeTranscriptApi().list(video_id)
             transcript = transcript_list.find_generated_transcript(['ko'])
             full_text = " ".join([item['text'] for item in transcript.fetch()])
             return full_text
@@ -134,39 +120,8 @@ def fetch_sermon_metadata_from_youtube(video_id, api_key):
         print(f"Error fetching YouTube video metadata: {e}")
     return None, None
 
-def download_audio_with_ytdlp(video_id):
-    """Downloads the best audio track of the YouTube video."""
-    import glob
-    # Remove any existing temp files for this video
-    for f in glob.glob(f"temp_audio_{video_id}.*"):
-        try: os.remove(f)
-        except: pass
-
-    ydl_opts = {
-        'format': 'bestaudio[ext=m4a]/bestaudio/best',
-        'outtmpl': f"temp_audio_{video_id}.%(ext)s",
-        'quiet': True,
-        'extractor_args': {'youtube': ['client=android']},
-    }
-    import os
-    if os.path.exists('cookies.txt'):
-        ydl_opts['cookiefile'] = 'cookies.txt'
-        
-    print(f"Downloading audio for video {video_id} using yt-dlp...")
-    try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([f"https://www.youtube.com/watch?v={video_id}"])
-        
-        # Find the downloaded file
-        downloaded_files = glob.glob(f"temp_audio_{video_id}.*")
-        if downloaded_files:
-            return downloaded_files[0]
-    except Exception as e:
-        print(f"Failed to download audio: {e}")
-    return None
-
-def query_gemini_summarization(transcript_or_audio, title_context, description_context, is_audio=False):
-    """Sends the transcript or audio to Gemini API to generate the structured Reformed theology summary in JSON."""
+def query_gemini_summarization(transcript, title_context, description_context):
+    """Sends the transcript to Gemini API to generate the structured Reformed theology summary in JSON."""
     gemini_key = os.environ.get('GEMINI_API_KEY')
     if not gemini_key:
         print("ERROR: GEMINI_API_KEY environment variable is not set.")
@@ -182,20 +137,16 @@ def query_gemini_summarization(transcript_or_audio, title_context, description_c
         "존 칼빈과 개혁주의 신학자들의 가르침에 부합하도록 문장 하나하나를 품위 있고 은혜로운 경어체(하십시오체)로 작성하십시오."
     )
     
-    if is_audio:
-        prompt_content = "첨부된 오디오 파일"
-        transcript_section = ""
-    else:
-        prompt_content = "녹취록"
-        transcript_section = f"\n[녹취록 텍스트]\n{transcript_or_audio}\n"
-
     prompt = f"""
-아래 설교 자료(유튜브 제목, 본문 설명, 그리고 {prompt_content})을 분석하여 깊이 있는 개혁주의 설교 요약을 생성해 주십시오.
+아래 설교 자료(유튜브 제목, 본문 설명, 그리고 녹취록)를 분석하여 깊이 있는 개혁주의 설교 요약을 생성해 주십시오.
 
 [설교 정보]
 유튜브 제목: {title_context}
 영상 본문 설명: {description_context}
-{transcript_section}
+
+[녹취록 텍스트]
+{transcript}
+
 ---
 [요구사항 및 출력 스키마]
 반드시 다음 스키마를 따르는 순수한 JSON 형식으로만 응답해 주십시오. 마크다운 백틱(```json) 없이 온전한 JSON 문자열만 출력해 주십시오.
@@ -253,12 +204,9 @@ def query_gemini_summarization(transcript_or_audio, title_context, description_c
 """
     
     print("Calling Gemini API to generate Reformed sermon summary...")
-    model = GenerativeModel('gemini-3-flash-preview', system_instruction=system_instruction)
-    
-    contents = [transcript_or_audio, prompt] if is_audio else [prompt]
-    
+    model = GenerativeModel('gemini-3-flash-preview')
     response = model.generate_content(
-        contents,
+        prompt,
         generation_config={
             "response_mime_type": "application/json",
             "temperature": 0.2
@@ -332,42 +280,11 @@ def process_single_video(video_id, date_yymmdd, api_key):
     """Processes a single video: fetches title/description, transcript, queries Gemini, and creates the page."""
     print(f"\nProcessing YouTube Video {video_id} for date {date_yymmdd}...")
     
-    # 1. Fetch transcript or download audio
+    # 1. Fetch transcript
     transcript = fetch_transcript(video_id)
-    audio_file = None
-    uploaded_file = None
-    
-    if transcript:
-        content_to_process = transcript
-        is_audio = False
-    else:
-        print(f"No transcript found for video {video_id}. Attempting to download audio...")
-        audio_file = download_audio_with_ytdlp(video_id)
-        if not audio_file:
-            print(f"Skipping video {video_id} because both transcript and audio download failed.")
-            return False
-            
-        print("Uploading audio to Gemini File API...")
-        try:
-            uploaded_file = genai.upload_file(audio_file)
-            print(f"Uploaded audio as {uploaded_file.uri}. Waiting for processing...")
-            
-            # Wait for the file to be processed
-            while uploaded_file.state.name == "PROCESSING":
-                print(".", end="", flush=True)
-                time.sleep(2)
-                uploaded_file = genai.get_file(uploaded_file.name)
-            print()
-            
-            if uploaded_file.state.name == "FAILED":
-                print("Audio file processing failed in Gemini.")
-                return False
-                
-            content_to_process = uploaded_file
-            is_audio = True
-        except Exception as e:
-            print(f"Failed to upload/process audio with Gemini: {e}")
-            return False
+    if not transcript:
+        print(f"Skipping video {video_id} because no transcript could be retrieved.")
+        return False
         
     # 2. Fetch video title and description as context for Gemini
     title, description = fetch_sermon_metadata_from_youtube(video_id, api_key)
@@ -395,21 +312,7 @@ def process_single_video(video_id, date_yymmdd, api_key):
         print(f"Warning: Failed to parse/adjust date: {e}")
     
     # 3. Query Gemini for structured Reformed theological summary
-    sermon_data = query_gemini_summarization(content_to_process, title, description, is_audio=is_audio)
-    
-    # Clean up audio files
-    if uploaded_file:
-        try:
-            genai.delete_file(uploaded_file.name)
-            print(f"Deleted remote file {uploaded_file.name}")
-        except:
-            pass
-    if audio_file and os.path.exists(audio_file):
-        try:
-            os.remove(audio_file)
-        except:
-            pass
-
+    sermon_data = query_gemini_summarization(transcript, title, description)
     if not sermon_data:
         print("Failed to get structured summary from Gemini.")
         return False
