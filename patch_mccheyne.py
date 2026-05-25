@@ -22,7 +22,7 @@ for f in files:
                     prefix = '_'.join(parts[:-1])
                     new_paths = []
                     for ch in range(start_ch, end_ch + 1):
-                        new_paths.append(f"{prefix}_{ch:02d}.html")
+                        new_paths.append(f"{prefix}_{ch}.html")
                     new_data_path = ','.join(new_paths)
                     content = content.replace(f'data-path="{data_path}"', f'data-path="{new_data_path}"')
 
