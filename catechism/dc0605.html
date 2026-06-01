@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Reformed Doctrine & English Learning - June 5th</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for sharp iconography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Pretendard Font Family for elegant Korean and English rendering -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 min-h-screen text-slate-800 antialiased selection:bg-indigo-500 selection:text-white pb-16">
+
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center bg-indigo-600 text-white font-extrabold text-sm px-4 py-1.5 rounded-full shadow-sm">
+                    June 5th
+                </span>
+                <h1 class="text-xl font-extrabold text-slate-900 tracking-tight">Daily Reformed Doctrine & English</h1>
+            </div>
+            <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-md hidden sm:inline-block">
+                Sola Scriptura & Coram Deo
+            </span>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+        
+        <!-- Hero Title Card -->
+        <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 rounded-3xl p-8 text-white shadow-xl mb-8 relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-indigo-600/10 blur-3xl"></div>
+            <div class="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-blue-600/10 blur-3xl"></div>
+            
+            <div class="relative z-10 max-w-3xl">
+                <p class="text-indigo-300 font-bold tracking-widest text-xs uppercase mb-3">
+                    <i class="fa-solid fa-cross mr-1.5 animate-pulse"></i> Today's Core Topic
+                </p>
+                <h2 class="text-3xl sm:text-4xl font-black mb-4 tracking-tight leading-tight">
+                    The Concreteness of Sincere Repentance
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
+                    Explore how Reformed dogmatics warns against vague, superficial confessions. Learn the vital duty of seeking God's face through the meticulous, particularized repentance of our specific sins, transforming abstract remorse into a vibrant, joyful walk with God.
+                </p>
+                <div class="mt-6 flex flex-wrap gap-2 text-xs">
+                    <span class="bg-indigo-900/60 border border-indigo-700/80 text-indigo-200 px-3.5 py-1.5 rounded-full font-semibold">
+                        WCF Chapter 15.5
+                    </span>
+                    <span class="bg-indigo-900/60 border border-indigo-700/80 text-indigo-200 px-3.5 py-1.5 rounded-full font-semibold">
+                        Particular Repentance
+                    </span>
+                    <span class="bg-indigo-900/60 border border-indigo-700/80 text-indigo-200 px-3.5 py-1.5 rounded-full font-semibold">
+                        Against Formalism
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio Player Section -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 mb-8 shadow-sm">
+            <div class="flex items-center gap-2.5 mb-2">
+                <span class="flex h-3 w-3 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                </span>
+                <h3 class="text-lg font-bold text-slate-800">Today's Audio Commentary (06/05)</h3>
+            </div>
+            <p class="text-xs text-slate-500 mb-5">Listen to today's professional English pronunciation practice and theological analysis.</p>
+            
+            <!-- YouTube Video Embed Container (Target Iframe Element) -->
+            <div id="audio-player-wrapper" class="overflow-hidden rounded-2xl bg-black aspect-video max-w-xl mx-auto hidden border-4 border-slate-100 shadow-md">
+                <div id="audio-player-container"></div>
+            </div>
+            
+            <!-- Dynamic Status Messages -->
+            <div id="audio-status" class="text-sm text-center text-slate-600 font-medium py-8 bg-slate-50 border border-dashed border-slate-200 rounded-2xl">
+                <i class="fa-solid fa-spinner fa-spin mr-2 text-indigo-600"></i> Parsing daily media settings...
+            </div>
+            
+            <!-- Custom Controller Buttons -->
+            <div class="mt-5 flex justify-center gap-3 hidden" id="audio-controls">
+                <button onclick="window.player.playVideo()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-xl shadow-md hover:shadow-lg transition-all text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-play"></i> Play Audio
+                </button>
+                <button onclick="window.player.pauseVideo()" class="bg-slate-600 hover:bg-slate-700 text-white font-semibold py-2 px-6 rounded-xl shadow-md hover:shadow-lg transition-all text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-pause"></i> Pause
+                </button>
+            </div>
+        </div>
+
+        <!-- Reformed Standards Tab Section -->
+        <div class="bg-white border border-slate-200/80 rounded-3xl shadow-sm overflow-hidden mb-8">
+            <div class="bg-slate-50 border-b border-slate-200 px-6 py-5 flex justify-between items-center flex-wrap gap-4">
+                <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2.5">
+                    <i class="fa-solid fa-book-open text-indigo-600"></i>
+                    Westminster Confession of Faith (신앙고백서)
+                </h3>
+                <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-md">WCF 15.5</span>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="p-6 sm:p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- English Original -->
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-globe"></i> English Original
+                        </div>
+                        <h4 class="text-xl font-extrabold text-slate-900 leading-tight">WCF 15.5. The Duty of Particular Confession</h4>
+                        <p class="text-slate-700 text-base leading-relaxed bg-slate-50/70 p-5 rounded-2xl border border-slate-100 italic font-serif">
+                            "Men ought not to content themselves with a general repentance, but it is every man’s duty to endeavor to repent of his particular sins, particularly."
+                        </p>
+                    </div>
+                    <!-- Korean Translation -->
+                    <div class="space-y-4 lg:border-l lg:border-slate-100 lg:pl-8">
+                        <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-language"></i> Korean translation (한글 번역)
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 leading-tight">제15장 5항. 회개의 구체성</h4>
+                        <p class="text-slate-700 text-base leading-relaxed bg-slate-50/70 p-5 rounded-2xl border border-slate-100">
+                            "어떤 사람도 막연한 회개로 만족해서는 안 된다. 자신의 특정한 죄를 낱낱이 회개하기를 힘쓰는 것은 각 사람의 의무이다."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripture Verses Section -->
+        <div class="bg-gradient-to-br from-amber-50/70 via-orange-50/50 to-amber-50/40 border border-amber-200/60 rounded-3xl p-6 sm:p-8 mb-8 shadow-sm">
+            <h3 class="text-lg font-bold text-amber-950 mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-scroll text-amber-700"></i>
+                Key Biblical Verses (말씀 요절)
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Verse 1 -->
+                <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-amber-200/40 shadow-sm flex flex-col justify-between hover:scale-[1.01] transition-transform">
+                    <div>
+                        <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-1 rounded-md">Psalms (시) 19:13</span>
+                        <p class="text-slate-700 text-sm mt-3 leading-relaxed italic font-serif">
+                            "Keep back your servant also from presumptuous sins; let them not have dominion over me! Then I shall be blameless, and innocent of great transgression."
+                        </p>
+                    </div>
+                    <p class="text-slate-600 text-xs mt-4 border-t border-slate-100 pt-3 font-medium">
+                        "또 주의 종에게 고의로 죄를 짓지 말게 하사 그 죄가 나를 주장하지 못하게 하소서 그리하면 내가 정직하여 큰 죄과에서 벗어나겠나이다"
+                    </p>
+                </div>
+
+                <!-- Verse 2 -->
+                <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-amber-200/40 shadow-sm flex flex-col justify-between hover:scale-[1.01] transition-transform">
+                    <div>
+                        <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-1 rounded-md">Luke (눅) 19:8</span>
+                        <p class="text-slate-700 text-sm mt-3 leading-relaxed italic font-serif">
+                            "And Zacchaeus stood and said to the Lord, 'Behold, Lord, the half of my goods I give to the poor. And if I have defrauded anyone of anything, I restore it fourfold.'"
+                        </p>
+                    </div>
+                    <p class="text-slate-600 text-xs mt-4 border-t border-slate-100 pt-3 font-medium">
+                        "삭개오가 서서 주께 여짜오되 주여 보시옵소서 내 소유의 절반을 가난한 자들에게 주겠사오며 만일 누구의 것을 속여 빼앗은 일이 있으면 네 갑절이나 갚겠나이다"
+                    </p>
+                </div>
+
+                <!-- Verse 3 -->
+                <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl border border-amber-200/40 shadow-sm flex flex-col justify-between hover:scale-[1.01] transition-transform md:col-span-2">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-1 rounded-md">1 Timothy (딤전) 1:13</span>
+                            <p class="text-slate-700 text-sm mt-2 leading-relaxed italic font-serif">
+                                "though formerly I was a blasphemer, persecutor, and insolent opponent. But I received mercy because I had acted ignorantly in unbelief,"
+                            </p>
+                            <p class="text-slate-600 text-xs mt-2 font-medium">
+                                "내가 전에는 비방자요 박해자요 폭행자였으나 도리어 긍휼을 입은 것은 내가 믿지 아니할 때에 알지 못하고 행하였음이라"
+                            </p>
+                        </div>
+                        <div class="md:border-l md:border-slate-200 md:pl-4">
+                            <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-1 rounded-md">1 Timothy (딤전) 1:15</span>
+                            <p class="text-slate-700 text-sm mt-2 leading-relaxed italic font-serif">
+                                "The saying is trustworthy and deserving of full acceptance, that Christ Jesus came into the world to save sinners, of whom I am the foremost."
+                            </p>
+                            <p class="text-slate-600 text-xs mt-2 font-medium">
+                                "미쁘다 모든 사람이 받을 만한 이 말이여 그리스도 예수께서 죄인을 구원하시려고 세상에 임하셨다 하였도다 죄인 중에 내가 괴수니라"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doctrine Exposition Card -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 mb-8 shadow-sm">
+            <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2.5 border-b border-slate-100 pb-4">
+                <i class="fa-solid fa-feather text-indigo-600"></i>
+                Doctrine Exposition (교리 해설)
+            </h3>
+            
+            <div class="space-y-6 text-slate-700 text-sm sm:text-base leading-relaxed">
+                <p>
+                    Today’s standard from the Westminster Confession of Faith (WCF) 15.5 addresses a critical, practical dimension of our spiritual lives: the <strong class="text-indigo-600">absolute concreteness of repentance</strong>. The confession explicitly states that <strong class="text-indigo-600">"Men ought not to content themselves with a general repentance."</strong> Simply reciting a generic formula such as "I am a sinner" is not sufficient, for true, saving faith demands that each person meticulously examine their heart and strive to repent of their <strong class="text-indigo-600">particular sins, particularly</strong>. This targets the perennial human temptation to gloss over personal guilt using vague generalizations, hiding specific acts of rebellion behind abstract moral categories.
+                </p>
+
+                <p>
+                    Historically, this theological formulation served as a direct refutation of two distinct errors. First, it countered the Roman Catholic system of ritualistic penance, which during the late medieval period often reduced repentance to a mechanical duty. In this system, participation in the sacraments, such as attending Mass or receiving priestly absolution, was believed to apply grace through the mere performance of the rite—a concept known as <strong class="text-indigo-600">ex opere operato (사효성)</strong>. The Reformers strongly rejected this physical-only mechanism, asserting that mechanical ritual cannot substitute for a heart that is internally transformed and actively mourning over specific transgressions.
+                </p>
+
+                <p>
+                    Second, this standard opposes the dangerous error of <strong class="text-indigo-600">antinomianism (율법폐기론)</strong>. Antinomians mistakenly argue that because believers are fully justified by grace through faith in Christ, they are entirely liberated from the moral law as a rule of life. Consequently, they devalue personal repentance, treating it as either unnecessary or merely superficial. Against this, the confession declares that a genuine confession must be thorough, transparent, and direct. The transformation of <strong class="text-indigo-600">Zacchaeus</strong> beautifully illustrates this level of concreteness (Luke 19:8). He did not stop at declaring generic sorrow; he immediately specified his financial crimes and pledged a fourfold restitution, proving that true repentance acts with surgical precision.
+                </p>
+
+                <!-- Highlight Box -->
+                <div class="bg-indigo-50/50 border-l-4 border-indigo-500 rounded-r-2xl p-5 my-6">
+                    <h4 class="font-bold text-indigo-950 mb-2.5 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-indigo-600"></i>
+                        The Practical Question of Hidden Sins
+                    </h4>
+                    <p class="text-xs text-slate-600 mb-3">
+                        If we are required to repent of our sins "particularly," what happens to the sins we have forgotten, or those we are entirely unaware of?
+                    </p>
+                    <ul class="list-disc list-inside space-y-3 text-slate-700 text-sm">
+                        <li>
+                            <strong class="text-indigo-900">Limitation of Human Knowledge:</strong> Humans are not omniscient. Sins of ignorance and forgotten faults inevitably exist, and the Confession does not demand an impossible, exhaustive listing of every subconscious flaw to secure salvation.
+                        </li>
+                        <li>
+                            <strong class="text-indigo-900">Sincerity Over Perfection:</strong> What God requires is a posture of absolute honesty. We must not deliberately conceal, minimize, or ignore any sin that the Holy Spirit brings to our conscious awareness.
+                        </li>
+                        <li>
+                            <strong class="text-indigo-900">Active Self-Examination:</strong> True repentance is fueled by active, scriptural self-scrutiny (Psalm 139:23-24). It invites the searching light of God to expose hidden motives, transforming general, lazy admissions into detailed, honest confessions.
+                        </li>
+                    </ul>
+                </div>
+
+                <p>
+                    Ultimately, WCF 15.5 frames this painstaking work as "every man's duty." This duty, however, is not a grim, legalistic exercise designed to induce morbid introspection or spiritual despair. Far from being a source of misery, <strong class="text-indigo-600">concrete repentance is the gateway to profound joy and lasting assurance</strong>. When we hide our specific offenses, our inner lives suffer under the heavy conviction of God's hand (Psalm 32:3-4). But when we step into the light, naming our sins one by one and laying them at the foot of the cross, we experience the deep, liberating reality of God's forgiveness (Psalm 32:5). Sincere, detailed confession reconciles our daily communion with the Father and restores the sweet "joy of salvation" (Psalm 51:12).
+                </p>
+            </div>
+        </div>
+
+        <!-- Theological & English Notes Section -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 mb-8 shadow-sm">
+            <h3 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2.5">
+                <i class="fa-solid fa-graduation-cap text-indigo-600"></i>
+                Theological & English Notes (신학 및 영어 학습 노트)
+            </h3>
+            <p class="text-slate-500 text-xs sm:text-sm mb-6">Explore the precise grammatical patterns and deep theological terms used in today's lesson. Click on each card to expand detailed linguistic insights.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Note 1 -->
+                <div class="border border-slate-100 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all cursor-pointer bg-slate-50/50" onclick="toggleDetail('note-detail-1')">
+                    <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase">Grammar Focus 01</span>
+                    <h4 class="font-bold text-slate-900 text-base mt-1">Ought not to content themselves with...</h4>
+                    <p class="text-slate-600 text-xs mt-2">"~에 만족해서는 안 된다" (자기만족 금지의 표현)</p>
+                    <div id="note-detail-1" class="hidden mt-3 pt-3 border-t border-slate-200/60 text-xs text-slate-500 leading-relaxed">
+                        <strong class="text-indigo-900">ought not to + 동사원형</strong>은 도덕적 의무를 나타내는 표현입니다. <strong class="text-indigo-900">content oneself with...</strong>는 수동적으로 어떠한 선에서 "만족하다, 자위하다"라는 뜻으로, 피상적인 회개 수준에만 머물러 있으려는 인간의 태도를 경고하는 장엄한 문어체적 어휘입니다.
+                    </div>
+                </div>
+
+                <!-- Note 2 -->
+                <div class="border border-slate-100 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all cursor-pointer bg-slate-50/50" onclick="toggleDetail('note-detail-2')">
+                    <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase">Theology Focus 02</span>
+                    <h4 class="font-bold text-slate-900 text-base mt-1">Ex Opere Operato</h4>
+                    <p class="text-slate-600 text-xs mt-2">사효성 (일 자체의 행함으로 인해 발생하는 효력)</p>
+                    <div id="note-detail-2" class="hidden mt-3 pt-3 border-t border-slate-200/60 text-xs text-slate-500 leading-relaxed">
+                        라틴어로 "행해진 일 자체로부터"라는 뜻으로, 천주교 성례론의 핵심입니다. 세례나 미사 등의 의식이 집례될 때, 참여하는 개인의 신앙이나 마음 상태와 상관없이 기계적이고 물리적으로 은혜가 주입된다는 이론입니다. 종교개혁자들은 성령을 통한 참된 믿음과 회개 없는 이러한 '기계적 구원관'을 철저히 거부했습니다.
+                    </div>
+                </div>
+
+                <!-- Note 3 -->
+                <div class="border border-slate-100 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all cursor-pointer bg-slate-50/50" onclick="toggleDetail('note-detail-3')">
+                    <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase">Grammar Focus 03</span>
+                    <h4 class="font-bold text-slate-900 text-base mt-1">Endeavor to repent</h4>
+                    <p class="text-slate-600 text-xs mt-2">"회개하기를 온 힘을 다해 애쓰다" (노력과 의지)</p>
+                    <div id="note-detail-3" class="hidden mt-3 pt-3 border-t border-slate-200/60 text-xs text-slate-500 leading-relaxed">
+                        <strong class="text-indigo-900">endeavor</strong>는 단순히 한 번 시도하는 것을 넘어, 구체적인 목표를 향해 정성과 온 힘을 기울여 노력하고 애쓰는 행동(strive, struggle)을 의미합니다. 회개가 감정의 우발적 고조가 아니라, 인격적이고 부단한 영적 투쟁의 과정임을 강조하는 단어입니다.
+                    </div>
+                </div>
+
+                <!-- Note 4 -->
+                <div class="border border-slate-100 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all cursor-pointer bg-slate-50/50" onclick="toggleDetail('note-detail-4')">
+                    <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase">Theology Focus 04</span>
+                    <h4 class="font-bold text-slate-900 text-base mt-1">Antinomianism</h4>
+                    <p class="text-slate-600 text-xs mt-2">율법폐기론 / 도덕폐기론</p>
+                    <div id="note-detail-4" class="hidden mt-3 pt-3 border-t border-slate-200/60 text-xs text-slate-500 leading-relaxed">
+                        그리스어 <strong class="text-indigo-900">anti</strong>(~에 반대하여)와 <strong class="text-indigo-900">nomos</strong>(율법)에서 유래한 용어로, 믿음으로 구원받았으니 신자는 더 이상 구체적인 도덕법을 따르거나 회개할 의무가 없다고 주장하는 신학적 오류입니다. 본문은 이 율법폐기론이 가져오는 피상적 신앙을 강력하게 비판합니다.
+                    </div>
+                </div>
+
+                <!-- Note 5 -->
+                <div class="border border-slate-100 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all cursor-pointer bg-slate-50/50" onclick="toggleDetail('note-detail-5')">
+                    <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase">Grammar Focus 05</span>
+                    <h4 class="font-bold text-slate-900 text-base mt-1">Particular sins, particularly</h4>
+                    <p class="text-slate-600 text-xs mt-2">"특정한 죄들을 낱낱이/구체적으로" (중복적 강조)</p>
+                    <div id="note-detail-5" class="hidden mt-3 pt-3 border-t border-slate-200/60 text-xs text-slate-500 leading-relaxed">
+                        동일한 어원인 형용사 <strong class="text-indigo-900">particular</strong>(특별한, 구체적인)와 부사 <strong class="text-indigo-900">particularly</strong>(낱낱이, 개별적으로)를 병렬 배치하여, 회개의 대상과 회개 방식 모두가 지독할 정도로 선명하고 확실해야 함을 수사학적으로 보여주는 유서 깊은 고어 문체입니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Vocabulary Quick Quiz -->
+        <div class="bg-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl">
+            <h3 class="text-lg sm:text-xl font-bold mb-2 flex items-center gap-2.5">
+                <i class="fa-solid fa-circle-question text-indigo-300"></i>
+                Quick Quiz: Test Your Understanding!
+            </h3>
+            <p class="text-xs text-indigo-200 mb-6">Choose and click below to reveal the correct theological and linguistic matches.</p>
+            
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-indigo-900/50 border border-indigo-800/80 rounded-2xl gap-3">
+                    <span class="font-semibold text-sm text-indigo-100">1. What danger does general, vague repentance pose to a believer?</span>
+                    <button onclick="revealQuizAnswer(this, 'It creates a superficial illusion of repentance, allowing individuals to hide specific sins behind generalized confessions.')" class="bg-indigo-600 hover:bg-indigo-500 text-xs font-bold py-2 px-4 rounded-xl transition-all shadow">
+                        Reveal Correct Answer
+                    </button>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-indigo-900/50 border border-indigo-800/80 rounded-2xl gap-3">
+                    <span class="font-semibold text-sm text-indigo-100">2. Why did Reformers reject Roman Catholic ritualism and ex opere operato?</span>
+                    <button onclick="revealQuizAnswer(this, 'Because mechanical participation in sacraments cannot replace a heart that truly repents of specific sins before God.')" class="bg-indigo-600 hover:bg-indigo-500 text-xs font-bold py-2 px-4 rounded-xl transition-all shadow">
+                        Reveal Correct Answer
+                    </button>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-indigo-900/50 border border-indigo-800/80 rounded-2xl gap-3">
+                    <span class="font-semibold text-sm text-indigo-100">3. Is complete exhaustive recollection of all hidden sins necessary for justification?</span>
+                    <button onclick="revealQuizAnswer(this, 'No, God requires absolute honesty for conscious sins, but does not demand a checklist of forgotten ones for forgiveness.')" class="bg-indigo-600 hover:bg-indigo-500 text-xs font-bold py-2 px-4 rounded-xl transition-all shadow">
+                        Reveal Correct Answer
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="mt-16 border-t border-slate-300/60 pt-8 text-center px-4">
+        <p class="text-xs sm:text-sm text-slate-500 tracking-wide font-medium">
+            The textbook used is the Westminster Standard Doctrine (Youngumsa), read as daily food.
+        </p>
+        <p class="text-[10px] text-slate-400 mt-2">
+            &copy; 2026 날마다 읽는 교리 & 영어 학습 HTML 생성기. All rights reserved.
+        </p>
+    </footer>
+
+    <!-- JavaScript Section -->
+    <script>
+        // Declare global player variable as strictly required by specs
+        window.player = null;
+
+        // Toggle Expandable Details within Study Cards
+        function toggleDetail(detailId) {
+            const el = document.getElementById(detailId);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                el.classList.add('fade-in');
+            } else {
+                el.classList.add('hidden');
+                el.classList.remove('fade-in');
+            }
+        }
+
+        // Beautifully append dynamic answers inside the quiz cards
+        function revealQuizAnswer(button, answerText) {
+            const container = button.parentElement;
+            button.remove();
+            
+            const textSpan = document.createElement('span');
+            textSpan.className = "text-xs font-bold text-emerald-300 mt-2 sm:mt-0 text-left sm:text-right block sm:inline-block max-w-sm fade-in";
+            textSpan.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> ${answerText}`;
+            container.appendChild(textSpan);
+        }
+
+        // Initialize YouTube Iframe Player API Dynamically
+        function loadYouTubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // Global callback triggered when YT API becomes operational
+        window.onYouTubeIframeAPIReady = function() {
+            findAndPlayTodayAudio();
+        };
+
+        // Reads dcaddr.txt, extracts current date video, and initializes player
+        async function findAndPlayTodayAudio() {
+            const statusText = document.getElementById('audio-status');
+            const wrapper = document.getElementById('audio-player-wrapper');
+            const controls = document.getElementById('audio-controls');
+            
+            try {
+                // Fetch the relative text document containing daily YT URLs
+                const response = await fetch('../address/dcaddr.txt');
+                if (!response.ok) {
+                    throw new Error("Target file dcaddr.txt could not be fetched.");
+                }
+                const textData = await response.text();
+                
+                // Today's target date code is "0605"
+                const lineArray = textData.split('\n');
+                let matchesToday = null;
+                for (let row of lineArray) {
+                    if (row.includes('0605')) {
+                        matchesToday = row;
+                        break;
+                    }
+                }
+
+                if (!matchesToday) {
+                    statusText.textContent = "Today's AI summary audio has not been uploaded yet.";
+                    return;
+                }
+
+                // Regular expression designed to correctly isolate standard YouTube video IDs
+                const videoIdRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                const extracted = matchesToday.match(videoIdRegex);
+
+                if (extracted && extracted[1]) {
+                    const videoId = extracted[1];
+                    
+                    // Bind player instance to the window.player namespace per spec
+                    window.player = new YT.Player('audio-player-container', {
+                        height: '100%',
+                        width: '100%',
+                        videoId: videoId,
+                        playerVars: {
+                            'playsinline': 1,
+                            'modestbranding': 1,
+                            'rel': 0,
+                            'controls': 1
+                        },
+                        events: {
+                            'onReady': () => {
+                                statusText.classList.add('hidden');
+                                wrapper.classList.remove('hidden');
+                                controls.classList.remove('hidden');
+                            },
+                            'onError': () => {
+                                statusText.textContent = "Today's AI summary audio has not been uploaded yet.";
+                            }
+                        }
+                    });
+                } else {
+                    statusText.textContent = "Today's AI summary audio has not been uploaded yet.";
+                }
+
+            } catch (err) {
+                console.error(err);
+                statusText.textContent = "Today's AI summary audio has not been uploaded yet.";
+            }
+        }
+
+        // Trigger API loads on initial mount
+        document.addEventListener("DOMContentLoaded", () => {
+            loadYouTubeAPI();
+        });
+    </script>
+</body>
+</html>
