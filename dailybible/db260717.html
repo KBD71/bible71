@@ -377,6 +377,12 @@ function togglePlay() {
     videoId = getYouTubeID(link);
     var btn = _ensureListenBtn();
     btn.addEventListener("click", togglePlay);
+    // 앱 셸(iframe) 안이면 개별 페이지 컨트롤을 숨긴다 — 제어는 하단 전역 플레이어가 담당
+    // (숨겨도 셸이 programmatic click / window.player 로 제어 가능)
+    if (window.self !== window.top) {
+        var w = btn.parentElement || btn;
+        w.style.display = "none";
+    }
     if (videoId) {
         initYouTubeAPI();
     } else {
