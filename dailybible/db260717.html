@@ -214,134 +214,174 @@
     <input type="hidden" id="youtube-link" value="https://youtu.be/CM-XQRGvFDI?si=Qx9xtcWuoZfscJPB">
     <script>
 // 설교 요약 페이지 공통 스크립트
-// #youtube-link 값이 오디오 파일 경로면 오디오 플레이어를,
-// 유튜브 링크면 '소리만 듣기' 플레이어(숨김 유튜브 재생)를 넣는다.
-(function () {
-  var el = document.getElementById("youtube-link");
-  var link = el ? (el.value || "").trim() : "";
-  var og = document.querySelector('meta[property="og:url"]');
-  if (og && !og.getAttribute("content")) og.setAttribute("content", location.href);
-  if (!link) return;
+// bible71 앱 셸(index.html)의 '전역 플레이어'와 연동:
+//  - 개별 페이지는 '설교 듣기' 버튼(#listen-btn) 하나만 노출 (진행바·속도조절 없음)
+//  - 셸이 iframe 안의 window.player(YT)를 찾아 하단 전역 바에서 진행바·속도를 제어
+// #youtube-link 값이 mp3 등 오디오 파일이면(녹음 업로드) 기본 오디오 플레이어를 넣는다.
 
-  var header = document.querySelector("header");
-  var inner = header ? (header.querySelector(".relative.z-10") || header) : document.body;
+var player;            // 전역 노출 필수: 셸이 contentWindow.player 로 접근한다
+var videoId = null;
+var isPlayerReady = false;
+var _rawLink = "";
 
-  // --- 1) 오디오 파일 → 기본 오디오 플레이어 ---
-  var isAudio = /\.(mp3|m4a|wav|ogg|aac|flac)(\?.*)?$/i.test(link);
-  if (isAudio) {
+function getYouTubeID(url) {
+    var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|shorts\/|live\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    return m ? m[1] : null;
+}
+
+function _inner() {
+    var header = document.querySelector("header");
+    return header ? (header.querySelector(".relative.z-10") || header) : document.body;
+}
+
+// 페이지에 #listen-btn 마크업이 없으면 헤더에 자동 생성 (사이트 표준 id 유지)
+function _ensureListenBtn() {
+    var btn = document.getElementById("listen-btn");
+    if (btn) return btn;
     var wrap = document.createElement("div");
     wrap.style.cssText = "margin-top:16px;position:relative;z-index:10;";
-    var label = document.createElement("div");
-    label.textContent = "🎧 설교 음성 듣기";
-    label.style.cssText = "font-size:13px;font-weight:700;color:#fff;margin-bottom:6px;";
-    var audio = document.createElement("audio");
-    audio.controls = true;
-    audio.preload = "none";
-    audio.src = link;
-    audio.style.cssText = "width:100%;max-width:420px;";
-    wrap.appendChild(label);
-    wrap.appendChild(audio);
-    inner.appendChild(wrap);
-    return;
-  }
+    wrap.innerHTML =
+        '<button id="listen-btn" disabled style="display:inline-flex;align-items:center;gap:8px;' +
+        'padding:9px 22px;background:#dc2626;color:#fff;border:none;border-radius:9999px;' +
+        'font-size:14px;font-weight:700;cursor:pointer;">' +
+        '<svg id="play-icon" style="display:none;width:18px;height:18px;" viewBox="0 0 20 20" fill="currentColor">' +
+        '<path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.34-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>' +
+        '<svg id="pause-icon" style="display:none;width:18px;height:18px;" viewBox="0 0 20 20" fill="currentColor">' +
+        '<path d="M5 3.5A1.5 1.5 0 016.5 2h1A1.5 1.5 0 019 3.5v13A1.5 1.5 0 017.5 18h-1A1.5 1.5 0 015 16.5v-13zM11 3.5A1.5 1.5 0 0112.5 2h1A1.5 1.5 0 0115 3.5v13a1.5 1.5 0 01-1.5 1.5h-1a1.5 1.5 0 01-1.5-1.5v-13z"/></svg>' +
+        '<svg id="loading-icon" style="width:18px;height:18px;" viewBox="0 0 20 20" fill="currentColor">' +
+        '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 102 0V6z" clip-rule="evenodd"/></svg>' +
+        '<span id="button-text">로딩 중...</span></button>';
+    _inner().appendChild(wrap);
+    var st = document.createElement("style");
+    st.textContent = "@keyframes _spin{to{transform:rotate(360deg)}} #loading-icon{animation:_spin 1s linear infinite;}";
+    document.head.appendChild(st);
+    return document.getElementById("listen-btn");
+}
 
-  // --- 2) 유튜브 링크 → 소리만 듣기 (플레이어 숨김) ---
-  var m = link.match(/(?:youtu\.be\/|[?&]v=|shorts\/|live\/|embed\/)([A-Za-z0-9_-]{11})/);
-  var vid = m ? m[1] : null;
-
-  if (!vid) {
-    // 유튜브가 아닌 일반 링크 → 기존처럼 이동 버튼
-    var a = document.createElement("a");
-    a.href = link;
-    a.target = "_blank";
-    a.rel = "noopener";
-    a.textContent = "▶ 설교 영상 보기";
-    a.style.cssText =
-      "display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:8px 16px;" +
-      "background:#dc2626;color:#fff;border-radius:9999px;font-size:14px;font-weight:700;" +
-      "text-decoration:none;position:relative;z-index:10;";
-    inner.appendChild(a);
-    return;
-  }
-
-  var wrap2 = document.createElement("div");
-  wrap2.style.cssText = "margin-top:16px;position:relative;z-index:10;";
-  var label2 = document.createElement("div");
-  label2.textContent = "🎧 설교 음성 듣기";
-  label2.style.cssText = "font-size:13px;font-weight:700;color:#fff;margin-bottom:6px;";
-  var btn = document.createElement("button");
-  btn.textContent = "▶ 재생";
-  btn.style.cssText =
-    "display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#dc2626;" +
-    "color:#fff;border:none;border-radius:9999px;font-size:14px;font-weight:700;cursor:pointer;";
-  var time = document.createElement("span");
-  time.style.cssText = "margin-left:10px;font-size:13px;color:#fff;opacity:.85;font-variant-numeric:tabular-nums;";
-  var vlink = document.createElement("a");
-  vlink.href = link;
-  vlink.target = "_blank";
-  vlink.rel = "noopener";
-  vlink.textContent = "영상으로 보기";
-  vlink.style.cssText = "margin-left:12px;font-size:12px;color:#fff;opacity:.7;text-decoration:underline;";
-  var holder = document.createElement("div");
-  holder.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;";
-  wrap2.appendChild(label2);
-  wrap2.appendChild(btn);
-  wrap2.appendChild(time);
-  wrap2.appendChild(vlink);
-  wrap2.appendChild(holder);
-  inner.appendChild(wrap2);
-
-  var player = null, ready = false, timer = null;
-  function fmt(s) {
-    s = Math.max(0, Math.floor(s));
-    return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
-  }
-  function tick() {
-    if (player && player.getCurrentTime) {
-      var d = player.getDuration() || 0;
-      time.textContent = fmt(player.getCurrentTime()) + (d ? " / " + fmt(d) : "");
+function updateButtonState(state, text) {
+    var btn = document.getElementById("listen-btn");
+    if (!btn) return;
+    var bt = document.getElementById("button-text");
+    if (bt && text) bt.textContent = text;
+    ["play-icon", "pause-icon", "loading-icon"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = "none";
+    });
+    function show(id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = "inline-block";
     }
-  }
-  function fallbackToLink() {
-    btn.textContent = "▶ 유튜브에서 듣기";
-    btn.onclick = function () { window.open(link, "_blank"); };
-  }
-  function ensureApi(cb) {
-    if (window.YT && window.YT.Player) return cb();
-    var prev = window.onYouTubeIframeAPIReady;
-    window.onYouTubeIframeAPIReady = function () { if (prev) prev(); cb(); };
-    var s = document.createElement("script");
-    s.src = "https://www.youtube.com/iframe_api";
-    s.onerror = fallbackToLink;
-    document.head.appendChild(s);
-  }
-  btn.onclick = function () {
-    if (player && ready) {
-      if (player.getPlayerState() === 1) { player.pauseVideo(); }
-      else { player.playVideo(); }
-      return;
+    switch (state) {
+        case "loading":
+            btn.disabled = true; show("loading-icon"); break;
+        case "ready":
+            btn.disabled = false; btn.style.opacity = "1"; show("play-icon"); break;
+        case "playing":
+            btn.disabled = false; show("pause-icon"); break;
+        case "unavailable":
+            btn.disabled = true; btn.style.opacity = ".5"; break;
     }
-    btn.textContent = "… 준비 중";
-    ensureApi(function () {
-      player = new YT.Player(holder.appendChild(document.createElement("div")), {
-        videoId: vid, width: "1", height: "1",
+}
+
+function initYouTubeAPI() {
+    if (window.YT && window.YT.Player) {
+        createPlayer();
+    } else {
+        var tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
+    }
+}
+
+// 전역 콜백: YT IFrame API가 로드되면 호출
+function onYouTubeIframeAPIReady() {
+    createPlayer();
+}
+
+function createPlayer() {
+    if (isPlayerReady || !videoId) return;
+    var containerId = "hidden-player-container";
+    var c = document.getElementById(containerId);
+    if (!c) {
+        c = document.createElement("div");
+        c.id = containerId;
+        c.style.cssText = "width:1px;height:1px;position:absolute;top:-9999px;left:-9999px;";
+        document.body.appendChild(c);
+    }
+    player = new YT.Player(containerId, {
+        height: "1", width: "1", videoId: videoId,
         playerVars: { playsinline: 1 },
         events: {
-          onReady: function () {
-            ready = true;
-            player.playVideo();
-            timer = setInterval(tick, 500);
-          },
-          onStateChange: function (e) {
-            if (e.data === 1) btn.textContent = "⏸ 일시정지";
-            else if (e.data === 2) btn.textContent = "▶ 재생";
-            else if (e.data === 0) btn.textContent = "▶ 다시 듣기";
-          },
-          onError: fallbackToLink
+            onReady: function () {
+                isPlayerReady = true;
+                updateButtonState("ready", "설교 듣기");
+            },
+            onStateChange: function (e) {
+                if (e.data === 1) updateButtonState("playing", "일시 정지");
+                else if (e.data === 2 || e.data === 0) updateButtonState("ready", "설교 듣기");
+                else if (e.data === 3) updateButtonState("loading", "로딩 중...");
+            },
+            onError: function () {
+                updateButtonState("ready", "유튜브에서 듣기");
+                videoId = null; // 이후 클릭은 새 탭으로
+            }
         }
-      });
     });
-  };
+}
+
+function togglePlay() {
+    if (!videoId) {
+        if (_rawLink) window.open(_rawLink, "_blank");
+        return;
+    }
+    if (!player || !isPlayerReady) return;
+    if (player.getPlayerState() === 1) player.pauseVideo();
+    else {
+        updateButtonState("loading", "로딩 중...");
+        player.playVideo();
+    }
+}
+
+(function () {
+    var el = document.getElementById("youtube-link");
+    var link = el ? (el.value || "").trim() : "";
+    var og = document.querySelector('meta[property="og:url"]');
+    if (og && !og.getAttribute("content")) og.setAttribute("content", location.href);
+    if (!link) return;
+    // 마크다운 형태 [url](url) 정리
+    if (link.charAt(0) === "[" && link.indexOf("](") !== -1) {
+        var mm = link.match(/\((.*?)\)/);
+        if (mm) link = mm[1];
+    }
+    _rawLink = link;
+
+    // 오디오 파일(녹음 업로드) → 기본 오디오 플레이어 (자체 진행바 제공)
+    if (/\.(mp3|m4a|wav|ogg|aac|flac)(\?.*)?$/i.test(link)) {
+        var wrap = document.createElement("div");
+        wrap.style.cssText = "margin-top:16px;position:relative;z-index:10;";
+        var label = document.createElement("div");
+        label.textContent = "🎧 설교 음성 듣기";
+        label.style.cssText = "font-size:13px;font-weight:700;color:#fff;margin-bottom:6px;";
+        var audio = document.createElement("audio");
+        audio.controls = true;
+        audio.preload = "none";
+        audio.src = link;
+        audio.style.cssText = "width:100%;max-width:420px;";
+        wrap.appendChild(label);
+        wrap.appendChild(audio);
+        _inner().appendChild(wrap);
+        return;
+    }
+
+    // 유튜브(또는 일반 링크) → 설교 듣기 버튼 + 숨김 전역 플레이어
+    videoId = getYouTubeID(link);
+    var btn = _ensureListenBtn();
+    btn.addEventListener("click", togglePlay);
+    if (videoId) {
+        initYouTubeAPI();
+    } else {
+        updateButtonState("ready", "설교 영상 보기");
+    }
 })();
 
 </script>
