@@ -62,7 +62,7 @@ if not OR_KEY:
 pipeline.read_openrouter_key = lambda *a, **k: OR_KEY
 
 OR_BASE = pipeline.OPENROUTER_BASE_URL  # https://openrouter.ai/api/v1
-LLM_MODEL = os.environ.get("LLM_MODEL", "google/gemma-4-31b-it").strip()
+LLM_MODEL = os.environ.get("LLM_MODEL", "anthropic/claude-sonnet-5").strip()
 STT_MODEL = os.environ.get("STT_MODEL", "openai/whisper-1").strip()
 CHUNK_SEC = int(os.environ.get("CHUNK_SEC", "300") or "300")
 
