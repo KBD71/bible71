@@ -70,6 +70,18 @@ jobs:
       - name: Install Python deps
         run: python -m pip install --upgrade pip -r sermon_ci/requirements-ci.txt
 
+      - name: Write YouTube cookies
+        env:
+          YOUTUBE_COOKIES: ${{ secrets.YOUTUBE_COOKIES }}
+        run: |
+          if [ -n "$YOUTUBE_COOKIES" ]; then
+            printf '%s' "$YOUTUBE_COOKIES" > "$RUNNER_TEMP/yt_cookies.txt"
+            echo "YT_COOKIES_FILE=$RUNNER_TEMP/yt_cookies.txt" >> "$GITHUB_ENV"
+            echo "쿠키 파일 생성 완료"
+          else
+            echo "YOUTUBE_COOKIES 시크릿이 없어 쿠키 없이 진행합니다(차단될 수 있음)."
+          fi
+
       - name: Run sermon pipeline
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}

@@ -213,6 +213,9 @@ def fetch_youtube_metadata(url):
     """유튜브 링크 메타데이터에서 설교자/날짜/본문 등을 파싱해 반환."""
     import yt_dlp
     base = {"quiet": True, "no_warnings": True, "skip_download": True, "noplaylist": True}
+    _ck = os.environ.get("YT_COOKIES_FILE")
+    if _ck and os.path.exists(_ck):
+        base["cookiefile"] = _ck
     info = None
     last_err = None
     for clients in (None, ["tv"], ["ios"], ["android"], ["web_safari"]):
@@ -523,6 +526,10 @@ def download_youtube_audio(url, work_dir, log, progress=None):
             "no_warnings": True,
             "progress_hooks": [_hook],
         }
+        _ck = os.environ.get("YT_COOKIES_FILE")
+        if _ck and os.path.exists(_ck):
+            base["cookiefile"] = _ck
+            log(f"[yt-dlp] 쿠키 파일 사용: {_ck}")
         # 기본 -> 여러 클라이언트 순차 폴백 (YouTube 차단/플레이어 변경 대응)
         attempts = [None, ["tv"], ["ios"], ["android"], ["mweb"], ["web_safari"]]
         last_err = None
