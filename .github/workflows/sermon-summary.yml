@@ -1,0 +1,90 @@
+name: Sermon Summary
+
+# 트리거:
+#  1) repository_dispatch  — 아이폰 단축어가 GitHub API 로 호출 (event_type: sermon)
+#  2) workflow_dispatch    — GitHub 웹 UI 에서 수동 실행(테스트용)
+on:
+  repository_dispatch:
+    types: [sermon]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "유튜브 링크"
+        required: true
+        type: string
+      type:
+        description: "설교 종류"
+        required: true
+        type: choice
+        default: "매일성경"
+        options:
+          - "매일성경"
+          - "주일오전교육"
+          - "주일설교"
+          - "주일오후설교"
+          - "기타"
+      custom_prefix:
+        description: "기타 선택 시 접두어(2글자)"
+        required: false
+        type: string
+      date_yymmdd:
+        description: "날짜 YYMMDD (비우면 영상/오늘 날짜)"
+        required: false
+        type: string
+      preacher:
+        description: "설교자 (비우면 자동추출)"
+        required: false
+        type: string
+      scripture:
+        description: "본문 예: 이사야 3:1-12 (비우면 자동추출/추정)"
+        required: false
+        type: string
+      title:
+        description: "제목 (비우면 자동추출)"
+        required: false
+        type: string
+
+# 같은 repo 에 push 하므로 쓰기 권한 필요, 동시 실행은 직렬화(푸시 충돌 방지)
+permissions:
+  contents: write
+concurrency:
+  group: sermon-summary
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout bible71
+        uses: actions/checkout@v4
+        # 기본 GITHUB_TOKEN 자격증명을 유지해 run_ci.py 의 git push 가 그대로 동작
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Python deps
+        run: python -m pip install --upgrade pip -r sermon_ci/requirements-ci.txt
+
+      - name: Run sermon pipeline
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          # 모델·청크(선택): repo Variables 로 덮어쓸 수 있음
+          LLM_MODEL: ${{ vars.LLM_MODEL || 'anthropic/claude-sonnet-5' }}
+          STT_MODEL: ${{ vars.STT_MODEL || 'openai/whisper-1' }}
+          CHUNK_SEC: ${{ vars.CHUNK_SEC || '300' }}
+          DEFAULT_PREACHER: ${{ vars.DEFAULT_PREACHER || '이희용 목사' }}
+          CHURCH: ${{ vars.CHURCH || '나그네교회 온라인선교' }}
+          # 단축어(client_payload) 우선, 없으면 수동 실행(inputs)
+          YT_URL:        ${{ github.event.client_payload.url        || github.event.inputs.url }}
+          SERMON_TYPE:   ${{ github.event.client_payload.type       || github.event.inputs.type }}
+          CUSTOM_PREFIX: ${{ github.event.client_payload.custom_prefix || github.event.inputs.custom_prefix }}
+          DATE_YYMMDD:   ${{ github.event.client_payload.date_yymmdd || github.event.inputs.date_yymmdd }}
+          PREACHER:      ${{ github.event.client_payload.preacher   || github.event.inputs.preacher }}
+          SCRIPTURE:     ${{ github.event.client_payload.scripture  || github.event.inputs.scripture }}
+          TITLE:         ${{ github.event.client_payload.title      || github.event.inputs.title }}
+        run: python sermon_ci/run_ci.py
