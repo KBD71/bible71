@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6월 29일: 의식법 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터신앙고백서 19.3</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">의식법</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">6월 29일</span>
+                    <span>19장 하나님의 율법</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">의식법은 이스라엘 백성에게 주어진 상징적 규례로서 그리스도의 사역을 예표하며 도덕적 교훈을 전달하지만, 실체이신 그리스도가 오심으로 인해 신약 시대에는 모두 폐기되었습니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">6월 29일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-4">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 text-gray-700 italic bg-teal-50/50 rounded-r-lg">
+                    <p class="font-bold text-teal-900 mb-1">웨스트민스터신앙고백서 19.3</p>
+                    흔히 도덕법이라 일컫는 이 율법에 더하여, 하나님께서 성년에 이르지 못한 교회인 이스라엘 백성에게 의식법을 주시기를 기뻐하셨다. 의식법은 몇 가지 상징적인 규례를 담고 있다. 한 부분은 예배에 관한 것으로 그리스도와 그분의 은혜, 사역, 고난과 은택들을 예표하고, 다른 한 부분은 도덕적 의무에 대한 다양한 교훈을 제시한다. 지금 신약 아래에서는 이러한 의식법이 모두 폐기되었다.
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base text-gray-700 space-y-3">
+                <p><strong class="text-teal-700">히 10:1</strong> “율법은 장차 올 좋은 일의 그림자일 뿐이요 참 형상이 아니므로 해마다 늘 드리는 같은 제사로는 나아오는 자들을 언제나 온전하게 할 수 없느니라”</p>
+                <p><strong class="text-teal-700">갈 4:1-3</strong> “내가 또 말하노니 유업을 이을 자가 모든 것의 주인이나 어렸을 동안에는 종과 다름이 없어서 그 아버지가 정한 때까지 후견인과 청지기 아래에 있나니 이와 같이 우리도 어렸을 때에 이 세상의 초등학문 아래에 있어서 종 노릇 하였더니”</p>
+                <p><strong class="text-teal-700">고전 5:7</strong> “너희는 누룩 없는 자인데 새 덩어리가 되기 위하여 묵은 누룩을 내버리라 우리의 유월절 양 곧 그리스도께서 희생되셨느니라”</p>
+                <p><strong class="text-teal-700">고후 6:17-18</strong> “그러므로 너희는 그들 중에서 나와서 따로 있고 부정한 것을 만지지 말라 내가 너희를 영접하여 너희에게 아버지가 되고 너희는 내게 자녀가 되리라 전능하신 주의 말씀이니라 하셨느니라”</p>
+                <p><strong class="text-teal-700">골 2:14, 16-17</strong> “우리를 거스르고 불리하게 하는 법조문으로 쓴 증서를 지우시고 제하여 버리사 십자가에 못 박으시고 ... 그러므로 먹고 마시는 것과 절기나 초하루나 안식일을 이유로 누구든지 너희를 비판하지 못하게 하라 이것들은 장래 일의 그림자이나 몸은 그리스도의 것이니라”</p>
+                <p><strong class="text-teal-700">엡 2:15-16</strong> “법조문으로 된 계명의 율법을 폐하셨으니 이는 이 둘로 자기 안에서 한 새 사람을 지어 화평하게 하시고 또 십자가로 이 둘을 한 몸으로 하나님과 화목하게 하려 하심이라 원수 된 것을 십자가로 소멸하시고”</p>
+            </div>
+        </section>
+
+        <!-- 인포그래픽 카드 섹션 -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의/개관 (Orange) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">의식법의 정의와 성격</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>하나님께서는 율법 시대의 교회인 이스라엘에게 도덕법 외에 <span class="keyword">의식법</span>을 추가로 주셨습니다. 이는 구속 역사의 단계적 특성을 반영합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">성년에 이르지 못한 교회</span>: 이스라엘은 그리스도의 구속 사역이 완전히 드러나기 전의 단계로, 마치 <span class="keyword">어린 시절</span>과 같은 상태에 있었습니다.</li>
+                        <li><span class="font-semibold text-gray-800">상징적 규례</span>: 의식법은 단순한 규칙이 아니라, 특정한 영적 진리를 시각적으로 보여주는 상징들을 담고 있습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 원리/본질 (Purple) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">의식법의 두 가지 기능</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>의식법은 크게 두 가지 측면에서 하나님의 뜻을 전달하며, <span class="keyword">그리스도를 향한 시선</span>을 고정시킵니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">그리스도의 예표</span>: 예배 의식은 장차 오실 그리스도를 미리 보여줍니다. 유월절 어린 양은 <span class="keyword">어린 양 그리스도</span>를, 희생제물은 그분의 속죄 사역을, 제사장의 사역은 참 제사장이신 그리스도를 예표합니다.</li>
+                        <li><span class="font-semibold text-gray-800">도덕적 교훈 제시</span>: 의식법은 도덕적 의무와 연결됩니다. 희생제사는 죄의 무서움과 하나님의 공의를, 절기와 음식법은 <span class="keyword">정결의 의무</span>와 하나님의 자비하심을 가르칩니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 세부 분류 (Blue) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">은혜 언약의 연속성</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>의식법이 방식은 달랐지만, <span class="keyword">은혜 언약</span>이라는 본질은 동일합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">구약의 방식</span>: 율법 시대에는 약속, 예언, 희생제사, 할례 등을 통해 메시아를 믿는 믿음을 양육했습니다.</li>
+                        <li><span class="font-semibold text-gray-800">구원의 확실성</span>: 비록 그림자인 모형을 통해 믿었을지라도, 그들은 메시아를 통하여 <span class="keyword">완전한 죄 사함과 영원한 구원</span>을 받았습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 경고/폐기 (Rose) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-600 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">신약 시대의 폐기</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>의식법은 그리스도를 가리키는 <span class="keyword">그림자</span>이므로, 실체이신 그리스도가 오신 이후에는 그 효력을 다했습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">의식의 종결</span>: 신약 시대에는 더 이상 의식법을 따라 예배하지 않으며, 모든 규례는 폐기되었습니다.</li>
+                        <li><span class="font-semibold text-gray-800">영과 진리의 예배</span>: 신자는 이제 그림자가 아닌, <span class="keyword">실체이신 그리스도</span>를 드러내는 말씀에 확신을 가지고 영과 진리로 예배해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 5: 결론 (Emerald) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">결론 및 권면</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>의식법은 그리스도를 향한 이정표였습니다. 이제 우리는 <span class="keyword">그림자에 매이지 말고</span> 실체이신 그리스도께 나아가야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">경건의 본질</span>: 어떤 의식이나 절기 자체에 마음을 빼앗겨 그것으로 거룩성을 추구하려 해서는 안 됩니다.</li>
+                        <li><span class="font-semibold text-gray-800">말씀 중심의 신앙</span>: 실체이신 그리스도를 온전히 드러내는 <span class="keyword">하나님의 말씀</span>에 더욱 확신을 가져야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 적용 질문 (Gray) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적용 질문</h3>
+                </div>
+                <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                    <li>구약 성경을 읽으면 의식법에 속한 많은 규례들이 이어져 나오는 부분을 만납니다. 흔히들 성경 읽기는 창세기, 출애굽기를 넘어서 레위기에 이르면 더 이상 나가지 못하고 멈추게 된다는 말을 합니다. 여러분도 그러한 경험이 있으십니까?</li>
+                    <li>신약 교회의 신자는 구약 성경에 기록된 의식법에 관한 많은 것들을 통해서 어떠한 은혜를 받을 수 있습니까?</li>
+                    <li>여러분은 구약 성도들도 신약 성도와 마찬가지로 메시야이신 예수님을 믿어 구원을 받았다고 생각하십니까? 그리스도께서는 아직 오시기 이전인데 이러한 설명이 어떻게 가능하겠습니까?</li>
+                    <li>의식법이 이제 신약 시대에는 폐기되었다는 오늘의 가르침이 여러분의 신앙 생활에 어떠한 영향을 줍니까? 여러분의 신앙 가운데 혹시 의식법에 따른 무엇인가가 여전히 행해지고 있는 것은 없습니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0629";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

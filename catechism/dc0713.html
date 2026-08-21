@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7월 13일: 제1계명이 요구하는 의무 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터소요리문답 46 · 대요리문답 104</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">제1계명이 요구하는 의무</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">7월 13일</span>
+                    
+                    
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">하나님만이 유일하신 참 하나님이심을 알고 인정하며, 그분만을 합당하게 예배하고 영화롭게 하는 전인적인 의무를 다해야 합니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">7월 13일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-6">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 rounded-r-lg">
+                    <p class="font-bold text-teal-900 mb-1">웨스트민스터소요리문답 46</p>
+                    <p class="text-slate-800">문46. 제1계명에서 요구하는 것은 무엇입니까?</p>
+                    <p class="text-slate-700 mt-2">답: 제1계명에서 요구하는 의무는 하나님만이 유일하신 참 하나님이시며 우리의 하나님이심을 알고 인정하며, 그분만을 합당하게 예배하고 영화롭게 하라는 것입니다.</p>
+                </blockquote>
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 rounded-r-lg">
+                    <p class="font-bold text-teal-900 mb-1">웨스트민스터대요리문답 104</p>
+                    <p class="text-slate-800">문104. 제1계명에서 요구하는 의무는 무엇입니까?</p>
+                    <p class="text-slate-700 mt-2">답: 제1계명에서 요구하는 의무는 하나님만이 유일하신 참 하나님이시며 우리의 하나님이심을 알고 인정하며, 그분만을 합당하게 예배하고 영화롭게 하라는 것입니다. 이를 위하여 그분만을 생각하고, 묵상하며, 기억하고, 높이며, 존경하고, 찬양하며, 택하고, 사랑하며, 사모하고, 경외하며, 하나님을 믿고, 그분만을 의지하며, 바라고, 기뻐하며, 즐거워하고, 그분에 대한 열심을 품으며, 그분을 부르고, 모든 찬양과 감사를 드리라는 것입니다. 또한 전인으로 그분에게 완전히 순종하고, 복종하며, 그분을 기쁘시게 하기 위하여 범사에 조심하고, 만일 무슨 일에든지 그분을 노엽게 하였으면 슬퍼하며, 겸손하게 하나님과 함께 행하라는 것입니다.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base text-gray-700">
+                <p><strong class="text-slate-900">신 26:17</strong> “네가 오늘 여호와를 네 하나님으로 인정하고 또 그 도를 행하고 그의 규례와 명령과 법도를 지키며 그의 소리를 들으라”</p>
+                <p><strong class="text-slate-900">시 95:6-7</strong> “오라 우리가 굽혀 경배하며 우리를 지으신 여호와 앞에 무릎을 꿇자 그는 우리의 하나님이시요 우리는 그가 기르시는 백성이며 그의 손이 돌보시는 양이기 때문이라 너희가 오늘 그의 음성을 듣거든”</p>
+                <p><strong class="text-slate-900">말 3:16</strong> “그 때에 여호와를 경외하는 자들이 피차에 말하매 여호와께서 그것을 분명히 들으시고 여호와를 경외하는 자와 그 이름을 존중히 여기는 자를 위하여 여호와 앞에 있는 기념책에 기록하셨느니라”</p>
+                <p><strong class="text-slate-900">시 63:6</strong> “내가 나의 침상에서 주를 기억하며 새벽에 주의 말씀을 작은 소리로 읊조릴 때에 하오리니”</p>
+                <p><strong class="text-slate-900">전 12:1</strong> “여호와여 도우소서 경건한 자가 끊어지며 충실한 자들이 인생 중에 없어지나이다”</p>
+                <p><strong class="text-slate-900">시 71:19</strong> “하나님이여 주의 의가 또한 지극히 높으시니이다 하나님이여 주께서 큰 일을 행하셨사오니 누가 주와 같으리이까”</p>
+                <p><strong class="text-slate-900">말 1:6</strong> “내 이름을 멸시하는 제사장들아 나 만군의 여호와가 너희에게 이르기를 아들은 그 아버지를, 종은 그 주인을 공경하나니 내가 아버지일진대 나를 공경함이 어디 있느냐 내가 주인일진대 나를 두려워함이 어디 있느냐 하나 너희는 이르기를 우리가 어떻게 주의 이름을 멸시하였나이까 하는도다”</p>
+                <p><strong class="text-slate-900">사 45:23</strong> “내가 나를 두고 맹세하기를 내 입에서 공의로운 말이 나갔은즉 돌아오지 아니하나니 내게 모든 무릎이 꿇겠고 모든 혀가 맹세하리라 하였노라”</p>
+                <p><strong class="text-slate-900">신 6:5</strong> “너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라”</p>
+                <p><strong class="text-slate-900">시 73:25</strong> “하늘에서는 주 외에 누가 내게 있으리요 땅에서는 주 밖에 내가 사모할 이 없나이다”</p>
+                <p><strong class="text-slate-900">사 8:13</strong> “만군의 여호와 그를 너희가 거룩하다 하고 그를 너희가 두려워하며 무서워할 자로 삼으라”</p>
+                <p><strong class="text-slate-900">출 14:31</strong> “이스라엘이 여호와께서 애굽 사람들에게 행하신 그 큰 능력을 보았으므로 백성이 여호와를 경외하며 여호와와 그의 종 모세를 믿었더라”</p>
+                <p><strong class="text-slate-900">시 130:7</strong> “이스라엘아 여호와를 바랄지어다 여호와께서는 인자하심과 풍성한 속량이 있음이라”</p>
+                <p><strong class="text-slate-900">시 37:4</strong> “또 여호와를 기뻐하라 그가 네 마음의 소원을 네게 이루어 주시리로다”</p>
+                <p><strong class="text-slate-900">시 32:11</strong> “너희 의인들아 여호와를 기뻐하며 즐거워할지어다 마음이 정직한 너희들아 다 즐거이 외칠지어다”</p>
+                <p><strong class="text-slate-900">민 25:11</strong> “제사장 아론의 손자 엘르아살의 아들 비느하스가 내 질투심으로 질투하여 이스라엘 자손 중에서 내 노를 돌이켜서 내 질투심으로 그들을 소멸하지 않게 하였도다”</p>
+                <p><strong class="text-slate-900">빌 4:6</strong> “아무 것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라”</p>
+                <p><strong class="text-slate-900">렘 7:23</strong> “오직 내가 이것을 그들에게 명령하여 이르기를 너희는 내 목소리를 들으라 그리하면 나는 너희 하나님이 되겠고 너희는 내 백성이 되리라 너희는 내가 명령한 모든 길로 걸어가라 그리하면 복을 받으리라 하였으나”</p>
+                <p><strong class="text-slate-900">요일 3:22</strong> “무엇이든지 구하는 바를 그에게서 받나니 이는 우리가 그의 계명을 지키고 그 앞에서 기뻐하시는 것을 행함이라”</p>
+                <p><strong class="text-slate-900">시 119:136</strong> “그들이 주의 법을 지키지 아니하므로 내 눈물이 시냇물 같이 흐르나이다”</p>
+                <p><strong class="text-slate-900">미 6:8</strong> “사람아 주께서 선한 것이 무엇임을 네게 보이셨나니 여호와께서 네게 구하시는 것은 오직 정의를 행하며 인자를 사랑하며 겸손하게 네 하나님과 함께 행하는 것이 아니냐”</p>
+            </div>
+        </section>
+
+        <!-- 인포그래픽 카드 섹션 -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의와 토대 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">제1계명의 기초: 하나님을 앎</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>제1계명을 지키는 신자에게 요구되는 <span class="keyword">첫 번째 토대</span>는 하나님이 누구신지를 올바르게 아는 것입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">유일하신 하나님:</span> 오직 하나님만이 유일하신 참 하나님이심을 인정해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">언약의 하나님:</span> 우리를 언약 아래 두시고 긍휼과 자비를 베푸시는 분임을 알아야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">지식의 성격:</span> 이 지식은 단순한 머릿속 정보에 머물지 않고, 하나님을 영화롭게 하는 <span class="keyword">실천적 의무</span>로 이어져야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 지성과 정서 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">지성과 정서의 반응</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>하나님을 아는 지식은 우리의 <span class="keyword">마음과 정서</span>를 통해 깊은 경배로 나타납니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">지성적 활동:</span> 하나님의 완전함과 거룩함을 성경을 통해 생각하고, 묵상하며, 잘 기억해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">정서적 경배:</span> 하나님을 높이고 존경하며, 찬양과 사랑, 그리고 간절히 사모하는 마음으로 대해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">경외와 선택:</span> 하나님의 위엄 앞에 경외하며, 오직 하나님만을 선택하기로 결단하는 마음이 필요합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 인격적 교제와 의지 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">인격적 교제와 신뢰</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>깊은 지성과 정서를 넘어, 이제 하나님과 <span class="keyword">인격적인 관계</span> 속으로 나아가야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">믿음과 의지:</span> 말씀을 진리로 믿고 전적으로 하나님만을 신뢰하며 그분만을 의지해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">소망과 기쁨:</span> 하나님의 약속을 소망으로 바라며, 하나님 그분 자신만으로 가장 만족하여 기뻐해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">열심과 찬양:</span> 하나님을 향한 열심을 품고 주님을 부르며, 모든 감사와 찬양을 드려야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 전인적 순종 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">전인적 순종과 삶의 태도</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>제1계명은 마음과 의지와 정서와 몸을 포함한 <span class="keyword">전인적 인격체</span>로서의 순종을 요구합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">완전한 복종:</span> 하나님께 완전히 순종하고 복종하며, 그분을 기쁘시게 하기 위해 범사에 조심해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">회개와 겸손:</span> 만일 하나님을 노엽게 했다면 슬퍼하며, 모든 일에 겸손히 주님과 함께 행해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">결론적 삶:</span> 정의를 행하고 인자를 사랑하며 <span class="keyword">겸손하게 하나님과 함께 행하는 것</span>이 제1계명을 실행하는 핵심입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 적용 질문 카드 -->
+            <div class="card bg-gray-100 rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-200 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적용 질문</h3>
+                </div>
+                <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                    <li>제 1계명에서 요구하는 의무는 무엇입니까?</li>
+                    <li>하나님을 알고 인정하고 합당하게 예배하기 위하여 무엇을 구체적으로 실행하면 좋을까요? 대요리문답 104항이 이와 관련해 제시한 것들을 기억하며 말씀해 보시기 바랍니다.</li>
+                    <li>하나님을 알고 인정하기 위하여 여러분은 어떤 일을 행하였습니까? 특별히 지성의 측면과 관련하여 행한 바를 말하시기 바랍니다.</li>
+                    <li>여러분이 어떤 일에서인가 하나님을 노엽게 하였음을 알았을 때, 여러분은 어떻게 행하였습니까? 이것이 제 1계명이 요구하는 바를 행하는 의무와 어떻게 관련됩니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0713";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

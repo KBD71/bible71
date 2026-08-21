@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 3일: 윗사람과 부모 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터대요리문답 125</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">윗사람과 부모</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">8월 3일</span>
+                    
+                    
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">윗사람은 부모와 같은 사랑과 부드러움으로 아랫사람을 대해야 하며, 아랫사람은 윗사람에게 자원함과 즐거움으로 순종함으로써 관계의 온전함을 이루어야 합니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">8월 3일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-6">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 rounded-r-lg">
+                    <p class="font-bold text-slate-800 mb-2">문125. 윗사람들을 왜 부모라고 했습니까?</p>
+                    <p class="text-slate-700 leading-relaxed">답: 윗사람들을 부모라고 한 것은 한편으로는 이들에게 아랫사람들에 대한 모든 의무를 가르쳐 여러 관계에 따라 마치 육신의 부모와 같이 아랫사람들을 사랑과 부드러움으로 대하게 하려는 것입니다. 다른 한편으로는 아랫사람들이 마치 자신의 부모에게 하듯이 윗사람들에 대한 의무를 더욱 자원함과 즐거움으로 행하도록 하기 위함입니다.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base text-gray-700">
+                <p><strong class="text-slate-900">엡 6:4</strong> “왕들은 네 양부가 되며 왕비들은 네 유모가 될 것이며 그들이 얼굴을 땅에 대고 네게 절하고 네 발의 티끌을 핥을 것이니 네가 나를 여호와인 줄을 알리라 나를 바라는 자는 수치를 당하지 아니하리라”</p>
+                <p><strong class="text-slate-900">고후 12:14</strong> “보라 내가 이제 세 번째 너희에게 가기를 준비하였으나 너희에게 폐를 끼치지 아니하리라 내가 구하는 것은 너희의 재물이 아니요 오직 너희니라 어린 아이가 부모를 위하여 재물을 저축하는 것이 아니요 부모가 어린 아이를 위하여 하느니라”</p>
+                <p><strong class="text-slate-900">민 11:11-12</strong> “모세가 여호와께 여짜오되 어찌하여 주께서 종을 괴롭게 하시나이까 어찌하여 내게 주의 목전에서 은혜를 입게 아니하시고 이 모든 백성을 내게 맡기사 내가 그 짐을 지게 하시나이까”</p>
+                <p><strong class="text-slate-900">고전 4:14-16</strong> “내가 너희를 부끄럽게 하려고 이것을 쓰는 것이 아니라 오직 너희를 내 사랑하는 자녀 같이 권하려 하는 것이라 그리스도 안에서 일만 스승이 있으되 아버지는 많지 아니하니 그리스도 예수 안에서 내가 복음으로써 너희를 낳았음이라 그러므로 내가 너희에게 권하노니 너희는 나를 본받는 자가 되라”</p>
+                <p><strong class="text-slate-900">왕하 5:13</strong> “그의 종들이 나아와서 말하여 이르되 내 아버지여 선지자가 당신에게 큰 일을 행하라 말하였더면 행하지 아니하였으리이까 하물며 당신에게 이르기를 씻어 깨끗하게 하라 함이리이까 하니”</p>
+            </div>
+        </section>
+
+        <!-- 섹션 3~N: 본문요약 (인포그래픽 카드) -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의/개관 (Orange) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">윗사람을 '부모'라 부르는 이유</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>제5계명의 대상인 '부모'는 단순히 혈연관계를 넘어 <span class="keyword">권위를 가진 모든 윗사람</span>을 포함합니다. 이는 가정, 교회, 사회의 각 관계 속에서 부모가 지닌 의무와 원리를 적용하기 위함입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">의무의 전이</span>: 윗사람은 각자의 위치에서 부모가 자녀를 대하듯 아랫사람을 돌보아야 할 의무를 가집니다.</li>
+                        <li><span class="font-semibold text-gray-800">태도의 변화</span>: 아랫사람이 윗사람을 대할 때, 마치 자신의 부모를 대하듯 <span class="keyword">자원함과 즐거움</span>으로 행하게 하려는 목적이 있습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 세부 분류 (Blue) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-500 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">관계별 윗사람의 의무</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>각 영역의 윗사람은 <span class="keyword">사랑과 부드러움</span>을 바탕으로 아랫사람을 양육하고 다스려야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">가정의 가장</span>: 부모가 아니더라도 가정 내의 가장은 아랫사람을 자애롭게 돌보고 양육해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">교회의 목사</span>: 그리스도의 양무리인 교인을 진리의 말씀으로 먹이며, <span class="keyword">사랑과 인내</span>로 목양해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">시민 정부의 관리</span>: 시민을 공정하게 다스려야 하며, 부모가 자녀를 노엽게 하지 않듯 시민을 노엽게 해서는 안 됩니다.</li>
+                        <li><span class="font-semibold text-gray-800">고용주</span>: 종업원을 공정하게 대하며, 그들의 존엄성을 인정하고 존중해 주어야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 경고/주의 (Rose) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-500 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">오해하지 말아야 할 점</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>윗사람이 사랑과 부드러움으로 대한다고 해서 <span class="keyword">아랫사람의 의무가 면제되는 것은 아닙니다.</span></p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">공정성의 유지</span>: 재판장이 법의 판정을 굽혀 형벌을 내리지 않아서는 안 되며, 고용주가 종업원의 나태함을 묵인해서도 안 됩니다.</li>
+                        <li><span class="font-semibold text-gray-800">의무의 전가 금지</span>: 윗사람의 자애로움을 이용하여 아랫사람이 마땅히 해야 할 의무를 윗사람에게 떠넘기는 잘못을 범해서는 안 됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 결론/요약 (Emerald) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-500 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">교리의 핵심 요약</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>하나님의 계명은 외적인 복종을 넘어 <span class="keyword">내적인 기쁨</span>을 요구합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">윗사람의 태도</span>: 부모가 하듯이 아랫사람을 사랑으로 다스려야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">아랫사람의 태도</span>: 하나님을 섬기듯 윗사람에게 <span class="keyword">기쁨과 자원함의 순종</span>으로 대하여야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 적용 질문 (Gray) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-500 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적용 질문</h3>
+                </div>
+                <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                    <li>대요리문답이 부모의 개념에 윗사람을 포함하는 이유는 무엇입니까? 이렇게 함으로 어떤 교훈을 전하고자 함입니까?</li>
+                    <li>윗사람이 아랫사람을 사랑과 부드러움으로 대하는 것을 아랫사람이 이용하여 아랫사람이 지어야 할 의무를 윗사람에게 넘기는 잘못을 본 적이 있습니까?</li>
+                    <li>여러분이 윗사람의 위치에서 아랫사람을 어떻게 대합니까? 혹시 달라져야 할 점이 있습니까?</li>
+                    <li>여러분은 아랫사람의 위치에서 윗사람의 뜻에 자원함과 즐거움으로 순종하며 공경하셨습니까? 이러한 순종을 행하기가 어려운 까닭은 무엇입니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0803";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

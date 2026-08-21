@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 12일: 제6계명 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터소요리문답 67 · 대요리문답 134</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">제6계명</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">8월 12일</span>
+                    <span>제6계명 학습</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">제6계명은 불법적인 살인을 금할 뿐만 아니라, 생명의 주권자이신 하나님을 경외하며 하나님의 형상인 이웃의 생명을 적극적으로 보호하고 사랑하라는 명령입니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">8월 12일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-6">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 rounded-r-lg">
+                    <p class="font-bold text-slate-900 mb-1">문67. 제6계명은 무엇입니까?</p>
+                    <p class="text-slate-700">답: 제6계명은 “살인하지 말라”입니다.</p>
+                </blockquote>
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 rounded-r-lg">
+                    <p class="font-bold text-slate-900 mb-1">문134. 제6계명은 무엇입니까?</p>
+                    <p class="text-slate-700">답: 제6계명은 “살인하지 말라”입니다.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base text-gray-700">
+                <p><strong class="text-slate-900">출 20:13</strong> "살인하지 말라"</p>
+            </div>
+        </section>
+
+        <!-- 섹션 3~N: 본문요약 (인포그래픽 카드) -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의와 범위 (Orange) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">제6계명의 정의와 범위</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>제6계명은 단순히 생명을 해치지 않는 소극적 금지를 넘어, <span class="keyword">생명의 가치를 보호하고 사랑하는 적극적 명령</span>입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">금지의 범위</span>: 전쟁이나 형 집행, 도살과 같은 일반적 현상이 아니라, 의도적으로 상대를 부당하게 죽이는 <span class="keyword">반도덕적 행위 일체</span>를 금합니다.</li>
+                        <li><span class="font-semibold text-gray-800">적극적 의무</span>: 육체의 생명을 해치지 않는 것을 넘어, 이웃의 생명을 보호하고 화목한 삶을 통해 <span class="keyword">적극적으로 사랑을 나누어야</span> 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 신학적 근거 1 - 생명의 주권 (Purple) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">하나님의 생명 주권</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>살인하지 말아야 할 첫 번째 이유는 <span class="keyword">하나님께서 생명의 주권자</span>이시기 때문입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">창조주의 권한</span>: 하나님은 죽이기도 하시며 살리기도 하시는 분으로, 모든 생사의 주권은 하나님의 통치 아래 있습니다.</li>
+                        <li><span class="font-semibold text-gray-800">인간의 한계</span>: 사람은 하나님의 교훈에 따라 살아야 하는 존재이기에, 타인의 생명을 해하거나 <span class="keyword">자신의 생명을 스스로 빼앗을 권한</span>이 없습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 신학적 근거 2 - 하나님의 형상 (Blue) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">하나님의 형상으로서의 존엄성</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>두 번째 이유는 사람이 <span class="keyword">하나님의 형상으로 창조된 특별한 존재</span>이기 때문입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">형상의 파괴</span>: 사람의 생명을 해치는 것은 하나님의 형상을 파괴하는 것이며, 이는 곧 <span class="keyword">하나님을 대적하는 행위</span>와 같습니다.</li>
+                        <li><span class="font-semibold text-gray-800">사탄의 살인</span>: 사탄은 사람을 죄의 정욕에 빠뜨려 하나님께 드릴 경배를 자신에게 돌리게 함으로써, <span class="keyword">하나님의 형상을 살인</span>하는 죄를 범합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 결론 (Emerald) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">교리의 결론</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>따라서 "살인하지 말라"는 명령을 불순종하는 죄는 단순한 윤리적 잘못을 넘어 <span class="keyword">하나님을 모독하고 대적하는 악행</span>입니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 마지막 카드: 적용 질문 (Gray) -->
+        <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800 mt-6">
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="p-2 bg-gray-100 rounded-lg">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold">적용 질문</h3>
+            </div>
+            <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                <li>사람의 생명의 주권은 하나님께 있습니다. 이 말이 뜻하는 바는 무엇입니까?</li>
+                <li>사람을 살인하는 것이 육체를 죽이는 것 이상의 어떤 의미를 갖습니까?</li>
+                <li>사람이 살인하는 행위와 사탄의 행위를 비교할 때 공통된 특징은 무엇입니까?</li>
+                <li>여러분은 사람을 대할 때 하나님의 형상이라는 존엄성을 의식하십니까? 그러한 의식이 사람에 대하여 어떤 말과 태도와 행동을 갖도록 합니까? 여러분이 지금까지 해오신 것 가운데 변화할 것이 있다면 무엇입니까?</li>
+            </ol>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0812";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

@@ -1,286 +1,335 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>9월 28일: 예배의 날</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 28일: 예배의 날 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
         body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: #f0f2f5;
-            color: #1a202c;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
         }
-        .infographic-card {
-            background-color: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            padding: 2rem;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .infographic-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .card-icon {
-            flex-shrink: 0;
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 9999px;
-            background-color: #e0e7ff;
-            color: #4338ca;
-        }
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1e3a8a;
-        }
-        .catechism-q {
-            font-weight: 600;
-            color: #1e3a8a;
-            margin-bottom: 0.5rem;
-        }
-        .catechism-a {
-            color: #374151;
-            padding-left: 1rem;
-            border-left: 3px solid #6366f1;
-        }
-        .sub-heading {
-            font-weight: 700;
-            color: #1e40af;
-            margin-top: 1.25rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-        #player {
-            display: none;
-        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
     </style>
 </head>
-<body class="antialiased">
-<div class="container mx-auto p-4 md:p-8 max-w-3xl">
-<header class="text-center mb-12">
-<h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">예배의 날</h1>
-<p class="text-lg md:text-xl text-gray-500">소요리문답 59문 &amp; 신앙고백서 21장 7항</p>
-<div class="mt-6 flex justify-center">
-<button class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300" id="audio-toggle">
-<svg class="h-6 w-6 mr-2" fill="none" id="play-icon" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<svg class="h-6 w-6 mr-2 hidden" fill="none" id="pause-icon" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<span id="button-text">AI 요약</span>
-</button>
-</div>
-</header>
-<main class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<section class="infographic-card md:col-span-2">
-<div class="card-header">
-<div class="card-icon">
-<svg class="h-8 w-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-<h2 class="card-title">예배의 날에 대한 교리</h2>
-</div>
-<div class="space-y-6">
-<div>
-<h3 class="font-semibold text-lg text-indigo-700 mb-2">소요리문답 제59문</h3>
-<p class="catechism-q">문: 하나님께서 칠 일 중에 어떤 날을 매주 안식일로 지정하셨습니까?</p>
-<p class="catechism-a">답: 하나님께서 창세로부터 그리스도의 부활까지는 일곱째 날을 매주 안식일로, 그러나 그 이후부터 세상 끝날까지는 계속 한 주의 첫째 날을 기독교 안식일로 정하셨습니다.</p>
-</div>
-<div>
-<h3 class="font-semibold text-lg text-indigo-700 mb-2">신앙고백서 제21장 7항</h3>
-<p class="catechism-a">본성의 법을 따라 하나님을 예배하기 위하여 일반적으로 적당한 분량의 시간을 따로 마련하듯이, 하나님께서 자신의 말씀 안에서 모든 시대에 걸쳐 모든 사람에게 구속력이 있는, 의지로 정해주신, 도덕적이고 영구한 계명으로 칠 일 가운데 특별히 어느 한 날을 안식일로 지정하시어 하나님을 향해 거룩히 지키도록 하셨다. 이날은 창세로부터 그리스도의 부활까지 한 주의 마지막 날이었으나, 그리스도의 부활 이후 한 주의 첫날로 바뀌었다. 이날은 성경에서 주의 날이라 불리며, 기독교 안식일로 세상의 끝날까지 계속 지켜져야 한다.</p>
-</div>
-</div>
-</section>
-<section class="infographic-card">
-<div class="card-header">
-<div class="card-icon">
-<svg class="h-8 w-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-<h2 class="card-title">안식일의 성격</h2>
-</div>
-<div class="space-y-4 text-gray-600">
-<div>
-<h3 class="sub-heading">보편적 도덕법</h3>
-<p>하나님을 예배하기 위해 일정한 시간을 구별해야 한다는 의무는, 하나님이 창조 시 모든 사람에게 주신 이성과 양심의 법(본성의 법)을 통해 알 수 있는 보편적이고 도덕적인 의무입니다.</p>
-</div>
-<div>
-<h3 class="sub-heading">하나님의 의지에 의한 제정</h3>
-<p>하나님께서는 '칠 일 중 하루'를 안식일로 지정하셨는데, 이는 그분의 성품에서 필연적으로 나오는 것이 아니라 그분의 기쁘신 뜻과 의지에 따라 정하신 '제정법'입니다. 따라서 하나님의 의지에 따라 그 특정일은 변경될 수 있습니다.</p>
-</div>
-</div>
-</section>
-<section class="infographic-card">
-<div class="card-header">
-<div class="card-icon">
-<svg class="h-8 w-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-<h2 class="card-title">안식일의 변경</h2>
-</div>
-<div class="space-y-4 text-gray-600">
-<div>
-<h3 class="sub-heading">구약: 일곱째 날 (토요일)</h3>
-<p>창세부터 그리스도의 부활 전까지 안식일은 일곱째 날이었습니다. 이는 창조 사역의 완성과 그로 인한 안식을 기념하는 의미를 가졌습니다.</p>
-</div>
-<div>
-<h3 class="sub-heading">신약: 첫째 날 (주일)</h3>
-<p>그리스도의 부활은 타락한 세상을 새롭게 하시는 '재창조'를 선언합니다. 따라서 부활하신 '주의 날'(한 주의 첫날)은 새 하늘과 새 땅의 참된 안식이 회복되었음을 보여주는 날입니다. 사도 시대 교회는 이 날에 모여 예배했으며, 이 '기독교 안식일'은 주님 다시 오실 날까지 영구히 지켜져야 합니다.</p>
-</div>
-</div>
-</section>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
 
-</main>
-<div id="player"></div>
-<footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
-            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터소요리문답 59 · 웨스트민스터신앙고백서 21.7</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">예배의 날</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">9월 28일</span>
+                    <span>21장 경건한 예배와 안식일</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">하나님께서는 창세로부터 그리스도의 부활까지는 일곱째 날을, 그 이후부터 세상 끝날까지는 한 주의 첫째 날을 기독교 안식일로 정하셨습니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">9월 28일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-6">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 text-slate-700 italic">
+                    <p class="font-bold mb-1 text-teal-900">문59. 하나님께서 칠 일 중에 어떤 날을 매주 안식일로 지정하셨습니까?</p>
+                    <p class="not-italic">답: 하나님께서 창세로부터 그리스도의 부활까지는 일곱째 날을 매주 안식일로, 그러나 그 이후부터 세상 끝날까지는 계속 한 주의 첫째 날을 기독교 안식일로 정하셨습니다.</p>
+                </blockquote>
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 text-slate-700 italic">
+                    <p class="font-bold mb-1 text-teal-900">고백서 21.7</p>
+                    <p class="not-italic">본성의 법을 따라 하나님을 예배하기 위하여 일반적으로 적당한 분량의 시간을 따로 마련하듯이, 하나님께서 자신의 말씀 안에서 모든 시대에 걸쳐 모든 사람에게 구속력이 있는, 의지로 정해주신, 도덕적이고 영구한 계명으로 칠 일 가운데 특별히 어느 한 날을 안식일로 지정하시어 하나님을 향해 거룩히 지키도록 하셨다. 이날은 창세로부터 그리스도의 부활까지 한 주의 마지막 날이었으나, 그리스도의 부활 이후 한 주의 첫날로 바뀌었다. 이날은 성경에서 주의 날이라 불리며, 기독교 안식일로 세상의 끝날까지 계속 지켜져야 한다.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base text-gray-700 space-y-3">
+                <p><strong class="text-teal-700">창 2:2-3</strong> “하나님이 그가 하시던 일을 일곱째 날에 마치시니 그가 하시던 모든 일을 그치고 일곱째 날에 안식하시니라 하나님이 그 일곱째 날을 복되게 하사 거룩하게 하셨으니 이는 하나님이 그 창조하시며 만드시던 모든 일을 마치시고 그 날에 안식하셨음이니라”</p>
+                <p><strong class="text-teal-700">고전 16:1-2</strong> “성도를 위하는 연보에 관하여는 내가 갈라디아 교회들에게 명한 것 같이 너희도 그렇게 하라 매주 첫날에 너희 각 사람이 수입에 따라 모아 두어서 내가 갈 때에 연보를 하지 않게 하라”</p>
+                <p><strong class="text-teal-700">행 20:7</strong> “그 주간의 첫날에 우리가 떡을 떼려 하여 모였더니 바울이 이튿날 떠나고자 하여 그들에게 강론할새 말을 밤중까지 계속하매”</p>
+                <p><strong class="text-teal-700">계 1:10</strong> “주의 날에 내가 성령에 감동되어 내 뒤에서 나는 나팔 소리 같은 큰 음성을 들으니”</p>
+                <p><strong class="text-teal-700">마 5:17-18</strong> “오늘 내가 네게 명하는 이 말씀을 너는 마음에 새기고 네 자녀에게 부지런히 가르치며 집에 앉았을 때에든지 길을 갈 때에든지 누워 있을 때에든지 일어날 때에든지 이 말씀을 강론할 것이며”</p>
+            </div>
+        </section>
+
+        <!-- 섹션 3~N: 본문요약 (인포그래픽 카드) -->
+        <div class="space-y-6">
+            <!-- Card 1: 정의 (Orange) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">예배를 위한 시간 마련의 근거</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>하나님을 예배하기 위해 적당한 분량의 시간을 따로 마련하는 것은 <span class="keyword">본성의 법</span>에 따른 합당한 의무입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">본성의 법:</span> 하나님이 창조 때 주신 이성과 양심의 빛을 의미하며, 이를 통해 사람은 하나님의 존재와 도덕적 의무를 인식합니다.</li>
+                        <li><span class="font-semibold text-gray-800">도덕적 의무:</span> 시간을 따로 분별하여 마련하는 것은 이성과 양심에 따른 지극히 합당한 사려분별이며, 이를 통해 예배의 의무를 지킬 수 있습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 2: 원리 (Purple) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">안식일 지정의 신학적 성격</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>안식일의 지정은 하나님의 성품에 기초한 것이 아니라, 오로지 <span class="keyword">하나님의 의지</span>에 의해 결정된 것입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">제정에 의한 도덕법:</span> 안식일은 하나님의 의지로 정해진 'positive' 계명입니다. 따라서 하나님은 그분의 뜻에 따라 날을 바꾸실 수 있습니다.</li>
+                        <li><span class="font-semibold text-gray-800">도덕적이고 영구한 계명:</span> 안식일을 지키는 것은 도덕적 의무이며, 세상 끝날까지 계속되는 영구적인 의무이므로 이를 소홀히 하는 것은 죄가 됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 3: 세부 분류 (Blue) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">시대에 따른 안식일의 변화</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>하나님의 의지에 따라 안식일은 <span class="keyword">구약의 일곱째 날</span>에서 <span class="keyword">신약의 첫째 날</span>로 바뀌었습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">구약의 안식일:</span> 창조의 완성과 함께 주어지는 평강과 안식을 기념하며 일곱째 날을 지켰습니다.</li>
+                        <li><span class="font-semibold text-gray-800">신약의 주의 날:</span> 그리스도의 부활은 세상을 새롭게 하시는 재창조를 의미하며, 참된 안식이 회복되었음을 보여줍니다. 따라서 사도 시대부터 첫째 날을 '주의 날'로 지켰습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 4: 결론 (Emerald) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">기독교 안식일의 영구성</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>기독교 안식일은 종말론적 구속 사역의 완성과 연결되어 있으므로 <span class="keyword">세상 끝날까지</span> 계속 지켜져야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">종말론적 의미:</span> 부활의 날은 마지막 날에 임할 새 하늘과 새 땅의 창조를 미리 보여주는 날입니다.</li>
+                        <li><span class="font-semibold text-gray-800">지속적 의무:</span> 이 날은 주님께서 다시 오시는 세상의 끝날까지 영구한 계명으로 우리에게 주어진 것입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 5: 적용 질문 (Gray) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적용 질문</h3>
+                </div>
+                <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                    <li>안식일의 지정이 “본성에 의한 도덕법”이 아니라 “제정에 의한 도덕법”이라고 할 때, 이것이 의미하는 바는 무엇입니까?</li>
+                    <li>구약 시대에는 안식일이 왜 일곱째 날로, 신약 시대에는 첫째 날로 정해졌는지 신학적 이유에 관하여 여러분이 이해하고 있는 바는 무엇입니까? 이것에 대하여 오늘 학습한 내용이 말하는 바는 무엇입니까?</li>
+                    <li>여러분은 하나님을 예배하기 위해 일정한 시간을 따로 구별하는 것이 단순한 전통이 아니라 하나님이 주신 도덕적 의무임을 실천적으로 인정하십니까?</li>
+                    <li>주의 날 예배가 종말론적 구속과 새 창조를 기념한다는 의미를 기억하며, 매 주일 예배를 부활 신앙으로 드리고 있습니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
-</div>
-<script>
-        // YouTube IFrame Player API 비동기 로드
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </div>
 
-        let player;
-        let playerState;
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0928";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
 
-        const audioToggleButton = document.getElementById('audio-toggle');
-        const buttonText = document.getElementById('button-text');
-        const playIcon = document.getElementById('play-icon');
-        const pauseIcon = document.getElementById('pause-icon');
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
 
-        // YouTube API가 준비되면 이 함수가 호출됨
-        function onYouTubeIframeAPIReady() {
-            // 플레이어는 버튼 클릭 시 생성되므로 여기서는 비워둠
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
         }
 
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
         function onPlayerReady(event) {
-            // 플레이어가 준비되면 즉시 재생
-            event.target.playVideo();
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
         }
 
         function onPlayerStateChange(event) {
-            playerState = event.data;
-            updateButtonUI(playerState);
-        }
-
-        function updateButtonUI(state) {
-            if (state === YT.PlayerState.PLAYING) {
-                buttonText.textContent = '일시정지';
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-            } else { // PAUSED, ENDED, CUED 등
-                buttonText.textContent = 'AI 요약';
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
             }
         }
-        
-        function extractVideoID(url) {
-            // 다양한 YouTube URL 형식에서 비디오 ID를 추출하는 정규식
-            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-            const match = url.match(regex);
-            return match ? match[1] : null;
-        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (audioToggleButton) {
-                audioToggleButton.addEventListener('click', () => {
-                    // 플레이어가 있고, 재생 중이거나 버퍼링 중이면 일시정지
-                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
-                        player.pauseVideo();
-                    } 
-                    // 플레이어가 있고, 일시정지 상태이면 다시 재생
-                    else if (player && playerState === YT.PlayerState.PAUSED) {
-                        player.playVideo();
-                    } 
-                    // 플레이어가 없는 경우, 새로 생성
-                    else {
-                        const audioFilePath = '../address/dcaddr.txt';
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
 
-                        fetch(audioFilePath)
-                            .then(response => {
-                                if (!response.ok) {
-                                    // 404 Not Found 등 파일 접근 실패
-                                    throw new Error('404');
-                                }
-                                return response.text();
-                            })
-                            .then(fileContent => {
-                                if (!fileContent || fileContent.trim() === '') {
-                                    alert('유효한 오디오 주소가 파일에 없습니다.');
-                                    return;
-                                }
-
-                                // 0928 날짜에 해당하는 링크 찾기
-                                const lines = fileContent.split('\n');
-                                const targetDate = '0928'; // 파일명에서 추출한 날짜
-                                let url = '';
-
-                                for (const line of lines) {
-                                    if (line.trim().startsWith(targetDate + ' ')) {
-                                        url = line.trim().substring(5); // '0928 ' 부분 제거
-                                        break;
-                                    }
-                                }
-
-                                if (!url) {
-                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
-                                    return;
-                                }
-
-                                const videoId = extractVideoID(url.trim());
-
-                                if (!videoId) {
-                                    alert('유효한 YouTube URL이 아닙니다.');
-                                    return;
-                                }
-
-                                if (player) {
-                                    // 기존 플레이어가 있다면 비디오만 로드
-                                    player.loadVideoById(videoId);
-                                } else {
-                                    // 새 플레이어 생성
-                                    player = new YT.Player('player', {
-                                        height: '0',
-                                        width: '0',
-                                        videoId: videoId,
-                                        playerVars: {
-                                            'playsinline': 1
-                                        },
-                                        events: {
-                                            'onReady': onPlayerReady,
-                                            'onStateChange': onPlayerStateChange
-                                        }
-                                    });
-                                }
-                            })
-                            .catch(error => {
-                                if (error.message === '404') {
-                                    alert('아직 업로드 전입니다.');
-                                } else {
-                                    console.error('오디오 파일 로드 중 오류 발생:', error);
-                                }
-                            });
-                    }
-                });
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
             }
         });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
     </script>
 </body>
 </html>

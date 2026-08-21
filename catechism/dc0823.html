@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 23일: 제9계명이 금지하는 죄 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터소요리문답 78 · 대요리문답 145</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">제9계명이 금지하는 죄</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">8월 23일</span>
+                    
+                    
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">제9계명은 진실을 해치는 모든 것과 자신 및 이웃의 명예를 해치는 모든 행위를 금지합니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">8월 23일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-6">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-1 text-gray-700 italic">
+                    <p class="font-bold not-italic text-slate-900 mb-1">문78. 제9계명에서 금지하는 것은 무엇입니까?</p>
+                    <p>답: 제9계명에서 금지하는 것은 진실을 해치는 모든 것과 우리 자신뿐만 아니라 우리 이웃의 명예를 해치는 모든 것입니다.</p>
+                </blockquote>
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-1 text-gray-700 italic">
+                    <p class="font-bold not-italic text-slate-900 mb-1">문145. 제9계명에서 금지하는 죄는 무엇입니까?</p>
+                    <p>답: 제9계명에서 금지하는 죄는 진실을 해치는 모든 것과 우리 자신뿐만 아니라 우리 이웃의 명예를 해치는 것입니다. 특히 공적인 재판에서 그러합니다. 거짓 증거를 제시하는 것, 거짓 증언을 사주하는 것, 악한 소송을 위해 고의로 공중 앞에 나아가 증언하며 진실을 대적하고 짓누르는 것, 불의한 판결을 하여 선을 악하다고 하고 악한 것을 선하다고 하는 것, 악한 자에게 의로운 자의 보상을 주고, 의로운 자에게 악한 자의 벌을 내리는 것입니다. 또한 위조, 진실을 은폐하는 것과 의로운 소송 사건에서 침묵하는 것, 또한 불의로 인해 자신을 책망해야 하거나, 다른 사람에게 항의해야 하는 상황에서도 자신의 평안함을 추구하는 것, 적절하지 않은 때에 진실을 말하거나, 또는 잘못된 목적을 위해 사악한 의도로 진실을 말하거나, 잘못된 의미나 의심스럽거나 애매한 표현으로 왜곡하여, 진실과 공의를 손상시키는 것입니다. 그리고 진실이 아닌 것을 말하는 것, 거짓말, 중상모략, 뒷담화, 험담, 악한 소문을 퍼뜨리는 일, 수군수군하기, 비웃음, 욕하기, 조급하고 가혹하며 편파적인 비난, 다른 사람의 의도나 말이나 행동을 곡해하는 일, 아첨, 헛된 자랑입니다. 그리고 자신이나 다른 사람을 지나치게 높이거나 낮추어 생각하거나 말하는 일, 하나님께서 주신 재능과 은사를 부인하는 일, 사소한 잘못을 큰 잘못으로 만드는 일, 죄를 스스로 고백할 수 있는 상황에도 감추거나 핑계를 대고 모면하려 하거나 가볍게 여기는 일, 쓸데없이 남의 약점을 찾는 일, 거짓 소문을 만들어 내는 일, 나쁜 소문을 받아들이고 장려하는 일과 공정한 변호에 대해 우리의 귀를 막는 일, 사악한 의심, 다른 사람이 마땅히 받아야 할 존중을 시기하거나 배 아파하거나, 손상하고자 애쓰거나 바라는 일, 다른 사람의 수치와 불명예를 즐거워하는 일, 조롱에 찬 멸시, 다른 사람에 대한 어리석은 칭송입니다. 또한 합법적 약속을 어기는 일, 좋은 평판을 무시하는 것과 불명예를 초래하는 일을 스스로 행하거나 피하지 않는 것, 또는 다른 사람과 관련하여 불명예를 초래하는 것을 막을 수 있으나 막지 않는 것입니다.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm text-gray-700 space-y-2">
+                <p><strong class="text-slate-900">삼상 17:28</strong> “큰형 엘리압이 다윗이 사람들에게 하는 말을 들은지라 그가 다윗에게 노를 발하여 이르되 네가 어찌하여 이리로 내려왔느냐 들에 있는 양들을 누구에게 맡겼느냐 나는 네 교만과 네 마음의 완악함을 아노니 네가 전쟁을 구경하러 왔도다”</p>
+                <p><strong class="text-slate-900">레 19:16</strong> “너는 네 백성 중에 돌아다니며 사람을 비방하지 말며 네 이웃의 피를 흘려 이익을 도모하지 말라 나는 여호와이니라”</p>
+                <p><strong class="text-slate-900">시 15:3</strong> “그의 혀로 남을 허물하지 아니하고 그의 이웃에게 악을 행하지 아니하며 그의 이웃을 비방하지 아니하며”</p>
+                <p><strong class="text-slate-900">롬 12:16</strong> “서로 마음을 같이하며 높은 데 마음을 두지 말고 도리어 낮은 데 처하며 스스로 지혜 있는 체 하지 말라”</p>
+                <p><strong class="text-slate-900">시 69:9-11</strong> “주의 집을 위하는 열성이 나를 삼키고 주를 비방하는 비방이 내게 미쳤나이다 내가 곡하고 금식하였더니 그것이 도리어 나의 욕이 되었으며 내가 굵은 베로 내 옷을 삼았더니 내가 그들의 말 거리가 되었나이다“</p>
+                <p><strong class="text-slate-900">왕하 5:24-25</strong> “언덕에 이르러서는 게하시가 그 물건을 두 사환의 손에서 받아 집에 감추고 그들을 보내 가게 한 후 들어가 그의 주인 앞에 서니 엘리사가 이르되 게하시야 네가 어디서 오느냐 하니 대답하되 당신의 종이 아무데도 가지 아니하였나이다 하니라”</p>
+                <p><strong class="text-slate-900">민 11:29</strong> “모세가 그에게 이르되 네가 나를 두고 시기하느냐 여호와께서 그의 영을 그의 모든 백성에게 주사 다 선지자가 되게 하시기를 원하노라”</p>
+                <p><strong class="text-slate-900">시 35:15-16</strong> “그러나 내가 넘어지매 그들이 기뻐하여 서로 모임이여 불량배가 내가 알지 못하는 중에 모여서 나를 치며 찢기를 마지아니하도다 그들은 연회에서 망령되이 조롱하는 자 같이 나를 향하여 그들의 이를 갈도다”</p>
+                <p><strong class="text-slate-900">삼하 13:10-12</strong> “암논이 다말에게 이르되 음식물을 가지고 침실로 들어오라 내가 네 손에서 먹으리라 하니 다말이 자기가 만든 과자를 가지고 침실에 들어가 그의 오라버니 암논에게 이르러 그에게 먹이려고 가까이 가지고 갈 때에 암논이 그를 붙잡고 그에게 이르되 나의 누이야 와서 나와 동침하자 하는지라 그가 그에게 대답하되 아니라 내 오라버니여 나를 욕되게 하지 말라 이런 일은 이스라엘에서 마땅히 행하지 못할 것이니 이 어리석은 일을 행하지 말라”</p>
+            </div>
+        </section>
+
+        <!-- 인포그래픽 카드 섹션 -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의 및 개관 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">제9계명의 핵심 원리</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>제9계명이 금지하는 죄는 <span class="keyword">진실을 해치는 것</span>과 자신 및 이웃의 <span class="keyword">명예를 해치는 것</span>으로 요약됩니다. 이는 사람 사이의 진실과 명예 유지라는 의무를 저버리는 것입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">진실의 의무</span>: 사람과 사람 사이에 반드시 진실이 있어야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">명예의 의무</span>: 진실을 기반으로 서로의 명예를 유지하고 증진해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 공적 재판의 불의 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">공적인 재판에서의 죄</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>법정에서 공적 판단을 내리는 자리를 <span class="keyword">부정과 불의로 더럽히는 행위</span>들입니다. 이는 사회적 공의를 무너뜨리는 중대한 죄입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">증언의 왜곡</span>: 거짓 증거를 제시하거나, 타인에게 거짓 증언을 사주하는 행위입니다.</li>
+                        <li><span class="font-semibold text-gray-800">진실 대적</span>: 악한 소송을 위해 고의로 공중 앞에 나아가 진실을 짓누르는 행위입니다.</li>
+                        <li><span class="font-semibold text-gray-800">불의한 판결</span>: 선과 악을 뒤바꾸어 판결하며, 의인에게 벌을 주고 악인에게 보상을 주는 행위입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 말과 관련된 죄 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-600 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">언어와 관련된 다양한 죄</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>말을 통해 <span class="keyword">진실과 공의를 손상</span>시키는 행위들입니다. 이는 단순한 거짓말을 넘어 타인의 평판을 훼손하는 모든 언어적 행위를 포함합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">진실 왜곡</span>: 위조, 진실 은폐, 부적절한 때에 말하기, 사악한 의도나 애매한 표현으로 사실을 왜곡하는 것입니다.</li>
+                        <li><span class="font-semibold text-gray-800">비방과 험담</span>: 거짓말, 중상모략, 뒷담화, 험담, 악한 소문을 퍼뜨리거나 수군거리는 행위입니다.</li>
+                        <li><span class="font-semibold text-gray-800">비난과 조롱</span>: 조급하고 가혹하며 편파적인 비난, 타인의 의도를 곡해하거나 비웃고 욕하는 행위입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 태도와 마음의 죄 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">자기중심적이고 사악한 태도</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>자신의 안위나 교만을 위해 <span class="keyword">정직하지 못한 판단</span>을 내리거나 이웃의 고통을 즐거워하는 마음의 상태를 말합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">교만과 위선</span>: 아첨, 헛된 자랑, 자신이나 타인을 지나치게 높이거나 낮추어 말하는 행위입니다.</li>
+                        <li><span class="font-semibold text-gray-800">은혜의 부정</span>: 하나님이 주신 재능을 부인하거나, 자신의 죄를 감추고 핑계 대는 행위입니다.</li>
+                        <li><span class="font-semibold text-gray-800">악한 마음</span>: 타인의 존중을 시기하거나, 타인의 수치와 불명예를 즐거워하고 조롱하는 태도입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 5: 약속과 명예의 책임 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">신뢰와 명예를 지킬 책임</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>성도는 <span class="keyword">하나님의 법에 따른 약속</span>을 지키고, 자신과 이웃의 명예를 보호할 책임을 가집니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">약속 이행</span>: 혼인, 직분 서약 등 합법적인 약속을 어기는 것은 신뢰를 저버리는 죄입니다.</li>
+                        <li><span class="font-semibold text-gray-800">명예 보호</span>: 타인의 선한 평판을 무시하거나, 불명예를 초래하는 일을 방조하는 것은 책임을 방기하는 것입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 요약 카드 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800">
+                <div class="text-center space-y-2">
+                    <h3 class="text-lg font-bold text-gray-900">결론</h3>
+                    <p class="text-sm md:text-base text-gray-700">
+                        이 모든 것들은 제 9계명이 금지하는 죄에 대하여 <span class="keyword">“진실을 해치는” 죄</span>이며 <span class="keyword">“자신과 이웃의 명예를 해치는” 죄</span>입니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 적용 질문 -->
+            <div class="card bg-gray-100 rounded-lg shadow-md p-6 border-t-4 border-gray-500 text-gray-800">
+                <h3 class="text-lg font-bold mb-4 flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>적용 질문</span>
+                </h3>
+                <ol class="list-decimal pl-5 space-y-3 text-sm md:text-base">
+                    <li>제 9계명이 요구하는 의무의 요점을 토대로 제 9계명이 금지하는 죄를 설명하면 어떻게 됩니까? 결국 의무나 죄를 결정하는 두 가지 요점은 무엇입니까?</li>
+                    <li>여러분은 여러 상황에서 “진실을 말하지 않는 것”이 죄이기보다는 지혜로운 행위라고 생각하시지는 않았습니까? 죄가 되는 경우와 지혜로운 행위가 되는 경우를 어떻게 구별하시겠습니까?</li>
+                    <li>여러분은 상대방에게서 제 3자의 흉을 보거나 비방하는 말을 들을 때 어떻게 처신하십니까? 어떻게 해야 하겠습니까?</li>
+                    <li>여러분은 지금까지 서약을 하신 일이 있으셨을 것입니다. 굳이 서약이 아니어도 약속을 한 일이 허다할 것입니다. 그 약속이나 서약을 깨뜨리신 적은 없으십니까? 교회 교인 서약이나 직분 서약에 대해서는 어떠셨습니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0823";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

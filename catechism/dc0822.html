@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 22일: 제9계명이 요구하는 의무 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터소요리문답 77 · 대요리문답 144</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">제9계명이 요구하는 의무</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">8월 22일</span>
+                    <span>제9계명 강해</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">제9계명은 사람 사이의 진실을 보존하고, 자신과 이웃의 명예를 유지하며 증진할 것을 요구합니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">8월 22일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 1단계: 가시적 헤더 -->
+        
+
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-6">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-gray-50">
+                    <p class="font-bold text-slate-800 mb-1">문77. 제9계명에서 요구하는 것은 무엇입니까?</p>
+                    <p class="text-slate-700">답: 제9계명에서 요구하는 것은 사람과 사람 사이의 진실과 우리 자신뿐만 아니라 우리 이웃의 명예를 유지하고 증진하라는 것인데, 특히 증언할 때 그렇습니다.</p>
+                </blockquote>
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-gray-50">
+                    <p class="font-bold text-slate-800 mb-1">문144. 제9계명에서 요구하는 의무는 무엇입니까?</p>
+                    <p class="text-slate-700">답: 제9계명에서 요구하는 의무는 사람과 사람 사이의 진실과 우리 자신뿐만 아니라 우리 이웃의 명예를 보존하고 증진하는 것입니다. 또한 판결과 재판 문제에 있어서, 그리고 다른 모든 일에 있어서도 진실을 밝히기 위해 공중 앞에 나아가 진실 편에 서서, 마음으로부터 참되고 자유롭게, 그리고 분명하고도 온전하게 진실을 그리고 오직 진실만을 말하는 것입니다. 우리 이웃을 넉넉한 마음으로 평가하여 존중하는 것, 이들의 명예를 사랑하고 원하며 기뻐하고, 이들의 연약함에 대해서는 슬퍼하고 덮어주며, 이들의 재능과 은사를 기쁘게 인정하고, 이들의 결백을 변호하며, 이들에 대한 좋은 말은 기꺼이 들으려 하고, 이들에 대한 나쁜 말은 잘 받아들이지 않으려고 하며, 남의 말 하기를 좋아하는 자나 아첨하는 자나 중상모략하는 자를 제지하고, 우리 자신의 명예를 사랑하고 돌보며, 필요한 때에는 그것을 변호하며, 합법적인 약속을 지키고, 참되고 경건하며 사랑받을 만하고 칭찬받을 만한 말을 찾고 실천하는 것입니다.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base space-y-3">
+                <p><strong class="text-teal-700">슥 8:16</strong> "너희가 행할 일은 이러하니라 너희는 이웃과 더불어 진리를 말하며 너희 성문에서 진실하고 화평한 재판을 베풀고"</p>
+                <p><strong class="text-teal-700">요삼 1:12</strong> "데메드리오는 뭇 사람에게도, 진리에게서도 증거를 받았으매 우리도 증언하노니 너는 우리의 증언이 참된 줄을 아느니라"</p>
+                <p><strong class="text-teal-700">잠 14:5, 25</strong> "신실한 증인은 거짓말을 아니하여도 거짓 증인은 거짓말을 뱉느니라 ... 진실한 증인은 사람의 생명을 구원하여도 거짓말을 뱉는 사람은 속이느니라"</p>
+                <p><strong class="text-teal-700">잠 31:8-9</strong> "너는 말 못하는 자와 모든 고독한 자의 송사를 위하여 입을 열지니라 너는 입을 열어 공의로 재판하여 곤고한 자와 궁핍한 자를 신원할지니라"</p>
+                <p><strong class="text-teal-700">고후 1:17-18</strong> "이렇게 계획할 때에 어찌 경솔히 하였으리요 혹 계획하기를 육체를 따라 계획하여 예 예 하면서 아니라 아니라 하는 일이 내게 있겠느냐 하나님은 미쁘시니라 우리가 너희에게 한 말은 예 하고 아니라 함이 없노라"</p>
+                <p><strong class="text-teal-700">엡 4:25</strong> "그런즉 거짓을 버리고 각각 그 이웃과 더불어 참된 것을 말하라 이는 우리가 서로 지체가 됨이라"</p>
+                <p><strong class="text-teal-700">빌 4:8</strong> "끝으로 형제들아 무엇에든지 참되며 무엇에든지 경건하며 무엇에든지 옳으며 무엇에든지 정결하며 무엇에든지 사랑 받을 만하며 무엇에든지 칭찬 받을 만하며 무슨 덕이 있든지 무슨 기림이 있든지 이것들을 생각하라"</p>
+            </div>
+        </section>
+
+        <!-- 섹션 3~N: 인포그래픽 카드 -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">제9계명의 핵심 요점</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>제9계명은 <span class="keyword">사람과 사람 사이의 진실</span>을 보존하고, 자신과 이웃의 <span class="keyword">명예를 유지 및 증진</span>하는 것을 목적으로 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">진실의 보존</span>: 모든 인간관계에서 정직한 진실을 바탕으로 신뢰를 쌓아야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">명예의 증진</span>: 단순히 거짓을 말하지 않는 것을 넘어, 서로의 명예를 높여주는 적극적인 태도가 필요합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 진실을 말하는 태도 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">진실을 밝히는 구체적 의무</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>판결이나 재판, 그리고 삶의 모든 영역에서 <span class="keyword">공중 앞에 나아가 진실 편</span>에 서야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">자발적 진실</span>: 어떤 억압이나 강요 없이 <span class="keyword">자유로운 마음</span>으로 참된 것을 말해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">명확한 진술</span>: 숨은 의도를 가지고 사실을 모호하게 하거나 일부를 누락하여 진실을 가려서는 안 됩니다.</li>
+                        <li><span class="font-semibold text-gray-800">온전한 진실</span>: 마음으로부터 참되고 분명하며, 오직 진실만을 말하는 태도를 견지해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 이웃을 대하는 태도 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">이웃의 명예를 존중하는 법</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>이웃을 <span class="keyword">넉넉한 마음으로 평가</span>하며, 그들의 명예를 자신의 것처럼 소중히 여겨야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">허물 덮어주기</span>: 이웃의 연약함이나 죄를 폭로하기보다 <span class="keyword">슬퍼하며 덮어주고</span> 인격을 보호해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">은사 인정</span>: 타인의 재능과 은사를 시기하지 말고, 하나님이 주신 것을 기쁘게 인정하고 격려해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">비방 제지</span>: 험담꾼, 아첨꾼, 중상모략하는 자들을 막아내어 이웃의 결백을 변호해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 자신의 명예와 약속 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-600 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">신자의 도덕적 책임과 신실함</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>자신의 명예를 돌보는 것은 개인적 차원을 넘어 <span class="keyword">하나님의 영광</span>을 위한 책임입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">자기 변호</span>: 악의적인 왜곡에 맞서 진실을 밝힘으로써 복음의 능력이 약화되지 않도록 해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">약속 이행</span>: 혼인, 세례, 직분자 서약 등 <span class="keyword">합법적인 약속</span>을 불이익을 염려하여 파기하지 말고 끝까지 지켜야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 5: 결론 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적극적인 언어 생활의 실천</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>제9계명은 단순히 거짓을 말하지 않는 소극적 자세를 넘어, <span class="keyword">적극적인 선의 실천</span>을 요구합니다.</p>
+                    <p class="italic">"무엇에든지 참되며 무엇에든지 경건하며 무엇에든지 옳으며 무엇에든지 정결하며 무엇에든지 사랑 받을 만하며 무엇에든지 칭찬 받을 만하며 무슨 덕이 있든지 무슨 기림이 있든지 이것들을 생각하고 실천해야 합니다." (빌 4:8)</p>
+                </div>
+            </div>
+
+            <!-- 마지막 카드: 적용 질문 -->
+            <div class="card bg-gray-100 rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-200 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적용 질문</h3>
+                </div>
+                <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                    <li>오늘 읽은 소요리문답 77항과 대요리문답 144항이 제 9계명이 요구하는 의무에 대하여 공통적으로 요약하는 두 가지 요점은 무엇입니까?</li>
+                    <li>제 9계명이 다른 사람만이 아니라 자신의 명예를 사랑하고 돌보며 변호하는 일에도 관련하는 까닭은 무엇입니까?</li>
+                    <li>여러분이 다른 사람의 약점이나 허물, 또는 범죄에 대하여 들었을 때 어떻게 반응하십니까? 주변에서 확실한 증거를 확인하기도 전에 험담하고 비난과 정죄를 하는 경향성을 보신 적이 있으십니까? 이러한 반응을 만났을 때, 어떻게 해야 하겠습니까?</li>
+                    <li>제 9계명이 요구하는 의무를 살피면서, 여러분이 달라지기를 바라는 행위는 어떠한 것입니까? 여러분에게 있어서 가장 무심하게 무의식적으로 해온 실수나 잘못은 무엇입니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0822";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

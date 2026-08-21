@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6월 13일: 중생하지 않은 자들의 행위 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>16장 선행</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">중생하지 않은 자들의 행위</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">6월 13일</span>
+                    <span>웨스트민스터신앙고백서 16.7</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">중생하지 않은 자들의 행위는 외적으로 유익할 수 있으나, 그 근원이 죄성에 있고 목적과 방식이 잘못되었기에 하나님을 기쁘시게 할 수 없습니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">6월 13일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 1단계: 가시적 헤더(Body Header) 구성 -->
+        
+
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span class="text-slate-800">교리 문답</span>
+            </h2>
+            <blockquote class="border-l-4 border-teal-500 pl-4 py-2 text-slate-700 italic bg-teal-50/50 rounded-r-lg">
+                <p class="font-semibold text-slate-900 mb-2">웨스트민스터신앙고백서 16.7</p>
+                중생하지 않은 사람들이 행한 일들은 그 내용이 하나님께서 명령하신 것일 수 있고, 이들 자신뿐만 아니라 다른 사람들에게도 상당히 유익할 수 있다. 그럴지라도 이 일들은 믿음으로 정결해진 마음에서 나온 것이 아닐뿐더러, 하나님의 말씀에 따라 올바른 방식으로 행해진 것도 아니며, 또한 하나님의 영광이라는 올바른 목적을 위한 것이 아니다. 그러므로 이것들은 죄 된 것이며 하나님을 기쁘시게 하지 못하고, 또한 사람을 하나님에게서 은혜 받기에 합당한 자로 만들지 못한다. 그럼에도 중생하지 않은 사람들이 이러한 일들을 무시하는 것은 더욱 죄 된 것이고 하나님을 더욱 노엽게 하는 것이다.
+            </blockquote>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span class="text-slate-800">참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base text-gray-700 space-y-3">
+                <p><strong class="text-slate-900">빌 1:15-16, 18</strong> “어떤 이들은 투기와 분쟁으로, 어떤 이들은 착한 뜻으로 그리스도를 전파하나니 이들은 내가 복음을 변증하기 위하여 세우심을 받은 줄 알고 사랑으로 하나 ... 그러면 무엇이냐 겉치레로 하나 참으로 하나 무슨 방도로 하든지 전파되는 것은 그리스도니 이로써 나는 기뻐하고 또한 기뻐하리라”</p>
+                <p><strong class="text-slate-900">히 11:4, 6</strong> “믿음으로 아벨은 가인보다 더 나은 제사를 하나님께 드림으로 의로운 자라 하시는 증거를 얻었으니 하나님이 그 예물에 대하여 증언하심이라 그가 죽었으나 그 믿음으로써 지금도 말하느니라 ... 믿음이 없이는 하나님을 기쁘시게 하지 못하나니 하나님께 나아가는 자는 반드시 그가 계신 것과 또한 그가 자기를 찾는 자들에게 상 주시는 이심을 믿어야 할지니라”</p>
+                <p><strong class="text-slate-900">고전 13:3</strong> “내가 내게 있는 모든 것으로 구제하고 또 내 몸을 불사르게 내줄지라도 사랑이 없으면 내게 아무 유익이 없느니라”</p>
+                <p><strong class="text-slate-900">마 6:2</strong> “그러므로 구제할 때에 외식하는 자가 사람에게서 영광을 받으려고 회당과 거리에서 하는 것 같이 너희 앞에 나팔을 불지 말라 진실로 너희에게 이르노니 그들은 자기 상을 이미 받았느니라”</p>
+                <p><strong class="text-slate-900">딛 1:15</strong> “깨끗한 자들에게는 모든 것이 깨끗하나 더럽고 믿지 아니하는 자들에게는 아무 것도 깨끗한 것이 없고 오직 그들의 마음과 양심이 더러운지라”</p>
+                <p><strong class="text-slate-900">시 14:4</strong> “죄악을 행하는 자는 다 무지하냐 그들이 떡 먹듯이 내 백성을 먹으면서 여호와를 부르지 아니하는도다”</p>
+            </div>
+        </section>
+
+        <!-- 핵심 내용 인포그래픽 카드 -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의/개관 (Orange) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">중생하지 않은 자들의 행위의 외적 양상</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>중생하지 않은 자들의 행위가 반드시 악한 내용만을 담고 있는 것은 아닙니다. 그들은 <span class="keyword">사회적 유익</span>을 주는 도덕적 행동을 할 수 있습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">내용적 일치</span>: 가난한 자를 구제하거나 생명을 보호하는 등 하나님이 명령하신 도덕적 내용과 일치할 수 있습니다.</li>
+                        <li><span class="font-semibold text-gray-800">사회적 기여</span>: 이들의 행동은 자신과 타인에게 유익을 주며 사회의 선한 질서와 문화에 기여하기도 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">아합의 사례</span>: 악한 왕 아합도 하나님의 재앙 소식에 옷을 찢고 금식하며 외적으로 <span class="keyword">겸비한 태도</span>를 보였고, 하나님은 그로 인해 심판을 유예하시기도 했습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 원리/본질 (Purple) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">행위의 결함: 왜 하나님이 받지 않으시는가?</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>겉모양은 도덕적일지라도 그 행위의 <span class="keyword">내적 근거</span>가 결여되어 있기 때문에 하나님께 상달되지 못합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">부정한 마음</span>: 중생하지 않은 자의 행위는 정결한 마음에서 나온 것이 아닙니다. 가인이 분노하며 제사를 드린 것처럼 그 뿌리는 죄성에 있습니다.</li>
+                        <li><span class="font-semibold text-gray-800">잘못된 방식</span>: 하나님의 말씀에 따른 올바른 방법으로 행해진 것이 아닙니다. 이스라엘 백성이 언약 아래 있으면서도 말씀대로 제사 드리지 않은 것과 같습니다.</li>
+                        <li><span class="font-semibold text-gray-800">잘못된 목적</span>: 하나님의 영광이 아닌 자기 자신이나 사람의 영광을 목적으로 합니다. 외식하는 자가 구제하며 나팔을 부는 것처럼 <span class="keyword">사람의 영광</span>을 구하는 행위입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 경고/결과 (Rose) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-600 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">죄 된 행위의 영적 결과</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>도덕적인 모양을 갖추었을지라도, 그 실상은 <span class="keyword">죄 된 것</span>이며 구원과 아무런 상관이 없습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">하나님의 불기쁨</span>: 그 행위의 근원이 죄성이기에 하나님을 기쁘시게 할 수 없으며, 그들을 은혜 받기에 합당한 자로 만들지도 못합니다.</li>
+                        <li><span class="font-semibold text-gray-800">공로의 부재</span>: 이러한 행위는 하나님 앞에서 구원을 얻기 위해 필요한 어떤 공로도 이루지 못합니다.</li>
+                        <li><span class="font-semibold text-gray-800">무시의 죄</span>: 도덕적 행위를 할 수 있음에도 이를 소홀히 하는 것은 더욱 죄 된 것이며 하나님을 노엽게 하는 일입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 결론 (Emerald) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">결론: 신앙고백의 단호한 선언</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>웨스트민스터 신앙고백서는 겉보기에 동일한 도덕적 행위를 한다는 이유로 <span class="keyword">중생의 증거</span>가 나타나고 있다고 판단하는 것을 단호히 부정합니다.</p>
+                    <p class="font-medium">중생하지 않은 자의 행위는 형태적으로는 도덕적일 수 있으나, 그 뿌리가 죄성에 박혀 있는 한 결코 하나님께 받아들여질 수 없습니다.</p>
+                </div>
+            </div>
+
+            <!-- 마지막 카드: 적용 질문 (Gray) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적용 질문</h3>
+                </div>
+                <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                    <li>하나님을 믿지 않는 타 종교인들이나 이웃들에게서 성경에 하나님께서 명하시는 바를 행하고 있는 경우를 본 적은 없으십니까? 사회에 유익을 끼치는 이러한 행위를 볼 때 여러분은 이들의 구원에 대해 어떠한 판단을 하게 됩니까?</li>
+                    <li>중생하지 않은 사람들이 겉보기에 도덕적 행위를 하지만 그것이 하나님을 기쁘시게 할 수 없는 이유는 무엇입니까?</li>
+                    <li>중생하지 않은 사람들이 자신과 다른 사람들에게 상당히 유익한 일을 무시한다면 이것에 대해 하나님께서는 어떻게 대응하십니까?</li>
+                    <li>여러분은 하나님께서 명하신 일을 하는 것에 있어서 중생한 사람과 중생하지 않은 사람 사이에 차이가 있다고 생각하십니까? 이 차이가 실제로 나타나고 있음을 본 적이 있습니까? 어떠할 때에 그 차이를 발견합니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0613";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

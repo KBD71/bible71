@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6월 30일: 사법적 율법 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터신앙고백서 19.4</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">사법적 율법</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">6월 30일</span>
+                    <span>19장 하나님의 율법</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">이스라엘이라는 국가의 사법 체계를 위해 주어졌던 시민법은 그 국가와 함께 소멸되었으나, 그 안에 담긴 일반적인 공정성과 공의는 오늘날 성도에게도 중요한 교훈이 됩니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">6월 30일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-4">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 text-slate-700 italic">
+                    <p class="font-bold not-italic text-teal-900 mb-1">웨스트민스터신앙고백서 19.4</p>
+                    하나님께서 정치적 집단이기도 한 이스라엘에 또한 여러 가지 사법적 율법을 주셨다. 이 율법은 이들의 국가와 함께 소멸되었다. 지금 이 율법은 일반적인 공정성을 요구하는 것 외에 다른 의무를 더 이상 부과하지 않는다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm text-gray-700 space-y-2">
+                <p><strong class="text-slate-900">출 21:1</strong> “네가 백성 앞에 세울 법규는 이러하니라”</p>
+                <p><strong class="text-slate-900">출 22:21-23</strong> “너는 이방 나그네를 압제하지 말며 그들을 학대하지 말라 너희도 애굽 땅에서 나그네였음이라 너는 과부나 고아를 해롭게 하지 말라 네가 만일 그들을 해롭게 하므로 그들이 내게 부르짖으면 내가 반드시 그 부르짖음을 들으리라”</p>
+                <p><strong class="text-slate-900">창 49:10</strong> “규가 유다를 떠나지 아니하며 통치자의 지팡이가 그 발 사이에서 떠나지 아니하기를 실로가 오시기까지 이르리니 그에게 모든 백성이 복종하리로다”</p>
+                <p><strong class="text-slate-900">벧전 2:13-14</strong> “인간의 모든 제도를 주를 위하여 순종하되 혹은 위에 있는 왕이나 혹은 그가 악행하는 자를 징벌하고 선행하는 자를 포상하기 위하여 보낸 총독에게 하라”</p>
+                <p><strong class="text-slate-900">마 5:17, 38-39</strong> “내가 율법이나 선지자를 폐하러 온 줄로 생각하지 말라 폐하러 온 것이 아니요 완전하게 하려 함이라 ... 또 눈은 눈으로, 이는 이로 갚으라 하였다는 것을 너희가 들었으나 나는 너희에게 이르노니 악한 자를 대적하지 말라 누구든지 네 오른편 뺨을 치거든 왼편도 돌려 대며”</p>
+                <p><strong class="text-slate-900">고전 9:8-10</strong> “내가 사람의 예대로 이것을 말하느냐 율법도 이것을 말하지 아니하느냐 모세의 율법에 곡식을 밟아 떠는 소에게 망을 씌우지 말라 기록하였으니 하나님께서 어찌 소들을 위하여 염려하심이냐 오로지 우리를 위하여 말씀하심이 아니냐 과연 우리를 위하여 기록된 것이니 밭 가는 자는 소망을 가지고 갈며 곡식 떠는 자는 함께 얻을 소망을 가지고 떠는 것이라”</p>
+            </div>
+        </section>
+
+        <!-- 섹션 3~N: 본문요약 (인포그래픽 카드) -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">사법적 율법의 정의와 목적</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>하나님께서는 이스라엘을 하나의 <span class="keyword">정치적 집단(국가)</span>으로 세우시고, 그 국가 기능을 유지하기 위한 사법 체계를 마련해 주셨습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">국가적 기능:</span> 이스라엘이 국가로서 작동하기 위해 필요한 형사 재판과 민사 재판의 내용을 망라합니다.</li>
+                        <li><span class="font-semibold text-gray-800">범위:</span> 사회 질서를 유지하기 위해 살인, 부모 구타, 납치, 인신매매, 저주, 상해 등 다양한 죄를 다스립니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 분류 (형사) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-500 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">형사 재판에 관한 규례</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>사법적 율법은 공동체의 안전을 위협하는 중대한 범죄들에 대해 엄격한 <span class="keyword">형벌 규정</span>을 제시합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">생명과 인권:</span> 살인, 부모를 치는 행위, 납치 및 인신매매, 저주 등은 반드시 죽음에 이르는 엄중한 죄로 다스려졌습니다.</li>
+                        <li><span class="font-semibold text-gray-800">동태복수법:</span> 상해 사건의 경우 "눈은 눈으로, 이는 이로" 갚으라는 원칙을 통해 죄의 무게에 상응하는 처벌을 명시했습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 분류 (민사) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-500 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">민사 재판에 관한 규례</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>재산권 보호와 사회적 관계의 질서를 위해 <span class="keyword">경제적 보상과 계약</span>에 관한 구체적인 지침을 제공합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">절도와 배상:</span> 도둑질한 물건에 대해 갑절 혹은 그 이상의 배상을 요구하며, 배상 능력이 없을 경우 몸을 팔아서라도 책임지게 했습니다.</li>
+                        <li><span class="font-semibold text-gray-800">재산 손해:</span> 남의 밭이나 포도원에서 짐승을 먹게 하여 피해를 준 경우, 자기 소유의 가장 좋은 것으로 배상하도록 규정했습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 원리/본질 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">신약 시대의 적용 원리</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>이스라엘이라는 국가는 소멸되었기에 시민법의 의무는 끝났지만, 그 속에 흐르는 <span class="keyword">보편적 정의</span>는 여전히 유효합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">일반적 공정성:</span> 법의 조문 자체를 지키는 것이 아니라, 그 법이 요구하는 도덕적 정의와 공의를 배우고 실천해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">주의할 왜곡:</span> 시민법을 오늘날에도 문자 그대로 모두 적용해야 한다고 주장하는 것은 성경의 교훈을 왜곡하는 것입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 5: 예시 (공정성) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">공정성의 원리 예시</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>우리는 사법적 율법의 구체적인 조항을 통해 <span class="keyword">삶의 도덕적 원리</span>를 발견할 수 있습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">안전 책임:</span> 지붕에 난간을 만들어 사람이 떨어지지 않게 하라는 말씀은 소유주가 타인의 안전에 책임을 져야 함을 가르칩니다.</li>
+                        <li><span class="font-semibold text-gray-800">적법한 절차:</span> 두세 증인의 입으로 사건을 확정하라는 말씀은 임의적 재판을 금하고 적절한 증거와 절차를 중시해야 함을 뜻합니다.</li>
+                        <li><span class="font-semibold text-gray-800">충분한 보상:</span> 도둑질에 대해 갑절을 갚게 하는 규정은 잘못된 행위에 대해 피해자에게 공정한 보상을 충분히 해야 한다는 교훈을 줍니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 마지막 요약 카드 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">결론</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base">
+                    <p>사법적 율법은 그 국가와 함께 소멸되었으나, 그 안에 담긴 <span class="keyword">일반적인 공정성을 요구하는 것</span> 외에 다른 의무를 더 이상 부과하지 않으면서도, 오늘날 우리가 지켜야 할 도덕적 정의의 기준을 제시해 줍니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 적용 질문 -->
+        <div class="mt-8 card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-400 text-gray-800">
+            <h3 class="text-lg font-bold mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                </svg>
+                <span>적용 질문</span>
+            </h3>
+            <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                <li>여러분은 구약 성경을 읽다가 출애굽기, 레위기, 민수기, 신명기 등에서 사법적 재판이나 시민법에 관한 명령을 많이 보았을 것입니다. 이러한 구절들을 어떻게 해석하셨습니까?</li>
+                <li>구약에 나오는 이러한 사법적 또는 시민법적 명령을 엄격히 지키는 것이 하나님의 말씀을 바르게 지키는 것이라는 주장을 들어 보신 적이 있습니까? 이러한 주장은 이슬람의 원리주의자들의 태도와 비교할 때 어떠하겠습니까?</li>
+                <li>구약의 사법적 또는 시민법적 명령은 형사에 관한 것이든 민사에 관한 것이든 오늘날 성도에게 주는 유익한 교훈이 있다면 그것은 무엇이겠습니까?</li>
+                <li>여러분은 이러한 구절들을 읽으면서 여러분의 시민 생활에 적용을 받은 적이 있습니까?</li>
+            </ol>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0630";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

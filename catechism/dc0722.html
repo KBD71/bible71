@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7월 22일: 제3계명이 금지하는 죄 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>교리 학습</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">제3계명이 금지하는 죄</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">7월 22일</span>
+                    <span>웨스트민스터 소요리문답 · 대요리문답</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">하나님의 이름과 그분이 자신을 알리시는 모든 것들을 무시하거나 모독, 남용 또는 오용하는 일체의 행위를 금합니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">7월 22일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 1단계: 가시적 헤더(Body Header) 구성 -->
+        
+
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-6">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 rounded-r-lg">
+                    <p class="font-bold text-slate-800 mb-1">웨스트민스터소요리문답 55</p>
+                    <p class="text-slate-700">문55. 제3계명에서 금지하는 것은 무엇입니까?</p>
+                    <p class="text-slate-900 font-medium mt-1">답: 제3계명에서 금지하는 것은 하나님께서 자신을 알리도록 만드신 것들을 모독하거나 악용하는 모든 것입니다.</p>
+                </blockquote>
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 rounded-r-lg">
+                    <p class="font-bold text-slate-800 mb-1">웨스트민스터대요리문답 113</p>
+                    <p class="text-slate-700">문113. 제3계명에서 금지하는 죄는 무엇입니까?</p>
+                    <p class="text-slate-900 font-medium mt-1">답: 제3계명에서 금지하는 죄는 하나님의 이름을 요구된 대로 사용하지 않는 것과 남용하는 것입니다. 즉 그분의 칭호들, 속성, 규례, 혹은 사역을 무지하게, 헛되이, 불경하게, 욕되게, 미신적으로, 혹은 악하게 언급하거나, 모독하는 일과 위증함으로써 오용하는 것입니다. 또한 모든 죄악된 저주와 맹세와 서원과 제비뽑기를 행하는 것이며 합법적인 맹세와 서원을 어기는 것과 불법적인 맹세와 서원을 지키는 것입니다. 그리고 하나님의 작정과 섭리에 대하여 불평하고 항변하며 호기심을 가지고 파고들거나 잘못 적용하는 것입니다. 또한 하나님의 말씀을 어떤 식으로든 어느 부분이라도 잘못 해석하거나, 잘못 적용하거나, 왜곡하여 신성을 모독하는 농담과 호기심에 찬 무익한 질문, 헛된 말다툼이나 혹은 거짓된 교리를 주장하는 데 사용하는 것입니다. 그리고 하나님의 말씀이나 피조물이나 하나님의 이름 안에 포함되어 있는 어떤 것이라도 하나님의 이름으로 오용하여 홀리게 하거나 또는 죄악된 정욕과 행위를 하게 하는 것입니다. 또한 하나님의 진리와 은혜 및 방편들을 훼방하고, 경멸하며, 욕하고, 혹은 교활하게 반대하는 것입니다. 그리고 외식으로든지 사악한 목적을 위해서 신앙을 고백하는 것입니다. 또한 신앙고백을 부끄러워하거나 또는 이것에 불일치하고 지혜롭지 못하며 열매가 없고 이것을 거스르는 삶을 살거나 이것에서 퇴보하여 신앙고백을 부끄럽게 만드는 것입니다.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base text-gray-700 space-y-3">
+                <p><strong class="text-slate-900">말 1:6-7, 12</strong> "내 이름을 멸시하는 제사장들아 나 만군의 여호와가 너희에게 이르기를 아들은 그 아버지를, 종은 그 주인을 공경하나니 내가 아버지일진대 나를 공경함이 어디 있느냐 내가 주인일진대 나를 두려워함이 어디 있느냐 하나 너희는 이르기를 우리가 어떻게 주의 이름을 멸시하였나이까 하는도다 너희가 더러운 떡을 나의 제단에 드리고도 말하기를 우리가 어떻게 주를 더럽게 하였나이까 하는도다 이는 너희가 여호와의 식탁은 경멸히 여길 것이라 말하기 때문이라 ... 그러나 너희는 말하기를 여호와의 식탁은 더러워졌고 그 위에 있는 과일 곧 먹을 것은 경멸히 여길 것이라 하여 내 이름을 더럽히는도다"</p>
+                <p><strong class="text-slate-900">말 2:2</strong> "만군의 여호와가 이르노라 너희가 만일 듣지 아니하며 마음에 두지 아니하여 내 이름을 영화롭게 하지 아니하면 내가 너희에게 저주를 내려 너희의 복을 저주하리라 내가 이미 저주하였나니 이는 너희가 그것을 마음에 두지 아니하였음이라"</p>
+                <p><strong class="text-slate-900">말 3:14</strong> "이는 너희가 말하기를 하나님을 섬기는 것이 헛되니 만군의 여호와 앞에서 그 명령을 지키며 슬프게 행하는 것이 무엇이 유익하리요"</p>
+            </div>
+        </section>
+
+        <!-- 섹션 3~N: 본문요약 (인포그래픽 카드) -->
+        <div class="space-y-6">
+            <!-- 카드 1: 하나님의 이름 남용 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">하나님의 이름과 속성의 남용</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>하나님의 이름을 <span class="keyword">요구된 대로 사용하지 않는 것</span>은 제3계명을 어기는 것입니다. 이는 하나님의 칭호나 사역을 잘못된 방식으로 언급하는 것을 포함합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">부적절한 언급</span>: 하나님의 칭호, 속성, 규례, 사역을 무지하게, 헛되이, 불경하게 혹은 미신적으로 부르는 행위입니다.</li>
+                        <li><span class="font-semibold text-gray-800">잘못된 태도</span>: 하나님께 속하거나 그분이 제정하신 일들을 <span class="keyword">불경하게 부르거나 잘못 사용하는 태도</span>는 모두 금지됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 규례와 섭리에 대한 오용 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-500 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">말과 섭리에 관한 오용</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>하나님께서 제정하신 <span class="keyword">말과 관련된 규례</span>나 섭리에 관한 일들을 모독하거나 잘못 다루는 것을 경계해야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">맹세와 서원의 오용</span>: 죄악된 저주나 맹세, 서원, 제비뽑기를 행하거나, 합법적인 맹세를 어기거나 불법적인 맹세를 지키는 것은 하나님의 이름을 악하게 사용하는 것입니다.</li>
+                        <li><span class="font-semibold text-gray-800">위증과 모독</span>: 위증을 통해 하나님의 이름을 오용하거나, 하나님에 속한 모든 것을 모독하는 행위가 포함됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 말씀과 작정에 대한 반역 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-500 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">계시와 섭리에 대한 대항</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>하나님의 <span class="keyword">말씀과 섭리</span>를 통해 나타내시는 뜻에 대하여 불만을 표하거나 이를 왜곡하는 것은 하나님의 뜻에 대항하는 반역입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">섭리에 대한 항변</span>: 하나님의 작정과 섭리에 대하여 불평하거나, 호기심을 가지고 파고들며 잘못 적용하는 행위입니다.</li>
+                        <li><span class="font-semibold text-gray-800">말씀의 왜곡</span>: 하나님의 말씀을 잘못 해석하거나, 왜곡하여 계시의 뜻을 뒤틀어버리는 모든 행위를 금합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 경건하지 않은 사용과 방해 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-500 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">신성 모독과 진리 훼방</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>거룩한 것을 <span class="keyword">농담거리나 정욕의 도구</span>로 삼거나, 하나님의 진리를 대적하는 모든 행위가 이 범주에 속합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">경박한 사용</span>: 신성을 모독하는 농담, 무익한 질문, 헛된 말다툼을 위해 하나님의 이름을 사용하는 죄입니다.</li>
+                        <li><span class="font-semibold text-gray-800">미신적 오용</span>: 피조물이나 하나님의 이름 안에 포함된 것을 부적, 마법, 주술처럼 홀리게 하거나 죄악된 정욕을 위해 사용하는 것입니다.</li>
+                        <li><span class="font-semibold text-gray-800">진리 훼방</span>: 하나님의 진리와 은혜, 방편들을 경멸하거나 교활하게 반대하고 훼방하는 행위입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 5: 삶을 통한 신앙고백의 수치 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-500 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">삶으로 인한 신앙고백의 수치</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>제3계명은 입술의 고백뿐 아니라 <span class="keyword">삶의 일치성</span>까지 요구합니다. 우리의 삶이 하나님의 이름을 부끄럽게 만들어서는 안 됩니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">외식적 고백</span>: 사악한 목적을 위해 신앙을 고백하거나 외식으로 고백하는 것은 죄입니다.</li>
+                        <li><span class="font-semibold text-gray-800">불일치하는 삶</span>: 신앙고백과 불일치하거나, 지혜롭지 못하고 열매가 없는 삶을 사는 것은 하나님의 이름을 수치스럽게 만드는 일입니다.</li>
+                        <li><span class="font-semibold text-gray-800">퇴보하는 삶</span>: 신앙에서 퇴보하여 결과적으로 <span class="keyword">신앙고백을 부끄럽게 만드는 삶</span>은 제3계명을 어기는 것입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 마지막 카드: 적용 질문 -->
+            <div class="card bg-gray-100 rounded-lg shadow-lg p-6 border-t-4 border-gray-500 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-200 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적용 질문</h3>
+                </div>
+                <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                    <li>소요리문답 55항과 대요리문답 113항이 요약하여 제시하는 제 3계명이 금하는 것은 무엇입니까?</li>
+                    <li>대요리문답 113항이 나열하고 있는 금지된 행위들을 6개의 주제 별로 구별할 때 그것들은 무엇입니까?</li>
+                    <li>여러분은 하나님의 계시나 섭리에 대하여 호기심을 가지고 계속 질문하는 사람을 본 적이 있습니까? 이러한 일이 제 3계명을 범하는 죄가 될 수가 있는 경우란 어떠합니까?</li>
+                    <li>오늘 대요리문답 113항이 나열한 모든 행위들을 살필 때, 여러분 자신에게 해당되는 것이 있지는 않습니까? 이것을 알면서도 행하였습니까? 아니면 미처 모르고 행한 것입니까? 오늘 학습의 내용이 주는 유익은 무엇입니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0722";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

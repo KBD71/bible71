@@ -1,217 +1,331 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10월 20일: 날마다 읽는 교리</title>
+    <title>10월 20일: 보이는 교회의 목적과 이를 위한 수단 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" as="style" crossorigin
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: 'Pretendard', sans-serif;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
         }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
     </style>
 </head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
 
-<body class="bg-gray-50 text-gray-800">
-
-    <div class="max-w-3xl mx-auto p-4 sm:p-6 md:p-8">
-        <!-- Header -->
-        <header class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-gray-900">10월 20일</h1>
-            <h2 class="mt-2 text-2xl font-semibold text-gray-700">보이는 교회의 목적과 이를 위한 수단</h2>
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터 신앙고백서 25.3</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">보이는 교회의 목적과 이를 위한 수단</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">10월 20일</span>
+                    
+                    
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">그리스도께서는 성도를 모으고 온전하게 하기 위하여 보이는 교회에 직분과 말씀과 규례를 주셨으며, 성령의 역사로 이를 효과 있게 하십니다.</p>
+                </div>
+            </div>
         </header>
-        <main class="space-y-6">
 
-            <section id="player-container" class="bg-white p-5 rounded-xl shadow-md">
-                <div id="player-ui" class="flex items-center justify-between">
-                    <h3 class="text-lg font-bold text-gray-800">AI요약 듣기</h3>
-                    <button id="play-pause-button"
-                        class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center w-32 transition-colors duration-300 ease-in-out disabled:bg-gray-400 disabled:cursor-wait"
-                        disabled aria-label="교리 오디오 로딩 중">
-                        로딩 중...
-                    </button>
-                </div>
-                <div id="error-message" class="hidden text-center text-gray-600 font-semibold py-4"></div>
-                <div id="player" class="hidden"></div>
-            </section>
-
-            <!-- 신앙고백서 Card -->
-            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-900">신앙고백서 25.3</h3>
-                <p class="text-lg leading-relaxed">
-                    현세에서 세상 끝 날까지 성도를 모으고 온전하게 하기 위하여 그리스도께서 보이는 보편교회에 하나님의 직분과 말씀과 규례를 주셨다. 그리고 그분 자신의 약속에 따라서 자신의 임재와
-                    성령에 의하여 이것들이 그 목적에 효과 있게 하신다.
-                </p>
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">10월 20일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
             </div>
 
-            <!-- 교리 해설 Card -->
-            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-900">교리 해설</h3>
-                <div class="space-y-4 text-lg leading-relaxed">
-                    <p>
-                        오늘 신앙고백서 25.3은 <strong class="text-blue-600">‘보이는 교회’</strong>의 목적과 그 목적을 이루기 위한 수단에 대해 설명합니다.
-                        이는 하나님께서 역사 속에서 교회를 구체적으로 어떻게 세워가시는지 이해하도록 돕습니다. 이를 통해 한편으로는 로마 가톨릭의 성례주의적 교회관을 거부하고, 다른 한편으로는
-                        무교회적·반(反)교회적 개인주의를 배격합니다.
-                    </p>
-                    <p>
-                        첫째, 교회의 목적은 <strong class="text-blue-600">“현세에서 세상 끝날까지 성도를 모으고 온전하게 하기 위함”</strong>입니다. 그리스도께서는
-                        자신의 양 무리를 ‘보이는 교회’ 안으로 불러 모으십니다(요 10:16). 이는 복음 전파와 선교라는 교회의 활동적 사명을 통해 이루어집니다(행 1:8, 마
-                        28:19-20). 교회는 단순히 믿는 자들의 정적인 모임이 아니라, 하나님의 택한 백성을 계속해서 불러 모으는 능동적인 공동체입니다.
-                    </p>
-                    <p>
-                        또한, 교회는 모인 성도들을 <strong class="text-blue-600">“온전하게”</strong> 하는 사명을 가집니다. 여기서 ‘온전하게 한다’는 말은
-                        ‘완전히 적합하도록 맞추어 준비하고, 잘못된 것을 바로잡아 회복시킨다’는 의미를 가집니다(갈 6:1). 이는 성도를 죄 사함의 복음으로 불러내어, 훈련하고 성장시켜
-                        “그리스도의 장성한 분량이 충만한 데까지 이르게”(엡 4:13) 하는 교육적 사명을 의미합니다. 따라서 성도의 성숙은 개인의 내적 체험에만 의존하는 것이 아니라, 교회의
-                        양육과 훈련을 통해 이루어집니다.
-                    </p>
-                    <p>
-                        둘째, 그리스도께서는 교회의 목적 달성을 위해 필요한 수단을 주셨습니다. 교회는 스스로의 힘이 아닌, 그리스도께서 공급하시는 방편을 통해서만 세워지고 유지됩니다.
-                        신앙고백서는 세 가지 방편을 제시합니다.
-                    </p>
-                    <ul class="list-disc list-inside space-y-2 pl-4">
-                        <li>
-                            <strong class="text-blue-600">하나님의 직분(Ministry)</strong>: 말씀을 전하고 권징을 시행하는 목사, 교사, 장로와 같은
-                            직분입니다. 이들은 교회의 행정을 넘어 성도를 가르치고 권면하는 사역을 감당합니다.
-                        </li>
-                        <li>
-                            <strong class="text-blue-600">하나님의 말씀(Oracles)</strong>: 교회에 위탁된, 계시적 권위를 가진 성경 전체를 의미합니다.
-                            교회는 직분을 통해 말씀을 보존하고 가르치며 다음 세대에 전수해야 하는 핵심 사명을 가집니다.
-                        </li>
-                        <li>
-                            <strong class="text-blue-600">규례(Ordinances)</strong>: 그리스도께서 제정하신 성례(세례와 성찬)와 예배, 기도, 성도의
-                            교제 등 교회의 질서를 위한 실천 지침들을 포함합니다.
-                        </li>
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-4">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 text-slate-700 italic">
+                    <p class="font-bold not-italic mb-2 text-teal-900">제25장 3절</p>
+                    "현세에서 세상 끝날까지 성도를 모으고 온전하게 하기 위하여 그리스도께서 보이는 보편교회에 하나님의 직분과 말씀과 규례를 주셨다. 그리고 그분 자신의 약속에 따라서 자신의 임재와 성령에 의하여 이것들이 그 목적에 효과 있게 하신다."
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm text-gray-700 space-y-3">
+                <p><strong class="text-teal-700">고전 12:28</strong> "하나님이 교회 중에 몇을 세우셨으니 첫째는 사도요 둘째는 선지자요 셋째는 교사요 그 다음은 능력을 행하는 자요 그 다음은 병 고치는 은사와 서로 돕는 것과 다스리는 것과 각종 방언을 말하는 것이라"</p>
+                <p><strong class="text-teal-700">엡 4:11-13</strong> "그가 어떤 사람은 사도로, 어떤 사람은 선지자로, 어떤 사람은 복음 전하는 자로, 어떤 사람은 목사와 교사로 삼으셨으니 이는 성도를 온전하게 하여 봉사의 일을 하게 하며 그리스도의 몸을 세우려 하심이라 우리가 다 하나님의 아들을 믿는 것과 아는 일에 하나가 되어 온전한 사람을 이루어 그리스도의 장성한 분량이 충만한 데까지 이르리니"</p>
+                <p><strong class="text-teal-700">마 28:19-20</strong> "그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 세례를 베풀고 내가 너희에게 분부한 모든 것을 가르쳐 지키게 하라 볼지어다 내가 세상 끝날까지 너희와 항상 함께 있으리라 하시니라"</p>
+                <p><strong class="text-teal-700">사 59:21</strong> "여호와께서 이르시되 내가 그들과 세운 나의 언약이 이러하니 곧 네 위에 있는 나의 영과 네 입에 둔 나의 말이 이제부터 영원하도록 네 입에서와 네 후손의 입에서와 네 후손의 후손의 입에서 떠나지 아니하리라 하시니라 여호와의 말씀이니라"</p>
+            </div>
+        </section>
+
+        <!-- 섹션 3~N: 인포그래픽 카드 -->
+        <div class="space-y-6">
+            <!-- 카드 1: 교회의 목적 (Orange) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">교회의 두 가지 사명: 모으고 온전하게 함</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>그리스도께서는 <span class="keyword">보이지 않는 교회의 회원들</span>을 보이는 교회 안으로 불러 모으시며, 그들을 영적으로 성숙하게 만드시는 것을 교회의 목적으로 삼으셨습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">성도를 모으는 사명</span>: 단순히 믿는 사람들의 정적인 모임이 아니라, 하나님의 택하신 자들을 계속해서 불러 모으는 <span class="keyword">활동적 공동체</span>로서 복음 전파와 선교를 수행합니다.</li>
+                        <li><span class="font-semibold text-gray-800">성도를 온전하게 함</span>: '온전하게 하다'는 것은 잘못된 것을 바로잡아 제 기능을 하도록 회복시키고, 성도를 훈련하여 <span class="keyword">그리스도의 장성한 분량</span>까지 성장시키는 것을 뜻합니다.</li>
                     </ul>
-                    <p>
-                        이러한 은혜의 외적 방편들을 부정하는 급진적 개인주의나, 방편 자체에 마법적 효력이 있다고 여기는 형식적 성례주의는 모두 비성경적입니다.
-                    </p>
-                    <p>
-                        셋째, 이 방편들이 효과를 내는 것은 <strong class="text-blue-600">“그분 자신의 약속에 따라서 자신의 임재와 성령에 의하여”</strong>
-                        이루어집니다. 그리스도께서는 세상 끝 날까지 교회와 함께하시겠다고 약속하셨으며(마 28:20), 이 임재의 약속을 통해 직분, 말씀, 규례가 효과를 발휘하도록 보증하십니다.
-                        그러나 결정적으로, 이 모든 방편은 성령의 능력 안에서만 효과를 나타냅니다(고전 2:4-5). 성령의 역사 없이는 말씀도, 성례도 아무런 효력이 없습니다.
-                    </p>
-                    <p>
-                        이러한 가르침은 로마 가톨릭의 성례주의, 즉 <strong class="text-blue-600">‘사효적(ex opere operato)’</strong> 견해를 명백히
-                        반대합니다. 로마 가톨릭은 성례가 집행되는 행위 자체로 은혜가 전달된다고 주장하며, 수찬자의 믿음보다는 의식의 정확한 집행을 더 중요시합니다. 이는 성례를 기계적이고
-                        미신적인 수단으로 전락시킬 위험이 있습니다. 개혁신앙은 오직 성령께서 믿음 안에서 역사하실 때에만 은혜의 방편들이 우리에게 유익이 된다고 가르칩니다.
-                    </p>
                 </div>
             </div>
 
+            <!-- 카드 2: 교회의 수단 (Blue) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">교회를 세우는 세 가지 은혜의 방편</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>교회는 인간의 힘으로 유지되는 집단이 아니라, 그리스도께서 주신 <span class="keyword">세 가지 구체적인 수단</span>을 통해서만 그 사명을 완수할 수 있습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">하나님의 직분</span>: 말씀과 권징에 수고하는 목사, 교사, 장로 등을 세워 말씀을 전하고 가르치며 권면하는 사역을 감당하게 하십니다.</li>
+                        <li><span class="font-semibold text-gray-800">하나님의 말씀</span>: 하나님께서 교회에 위탁하신 <span class="keyword">계시적 권위의 성경 전체</span>를 의미하며, 교회의 가장 핵심적이고 본질적인 사역입니다.</li>
+                        <li><span class="font-semibold text-gray-800">규례</span>: 세례와 성찬 같은 성례뿐만 아니라, 기도를 중심으로 한 예배와 질서를 위한 다양한 <span class="keyword">실천적 지침</span>들을 포함합니다.</li>
+                    </ul>
+                </div>
+            </div>
 
+            <!-- 카드 3: 경계할 오류 (Rose) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-600 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">경계해야 할 두 가지 극단</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>신앙고백서는 교회의 사명을 왜곡하는 <span class="keyword">두 가지 잘못된 태도</span>를 분명히 경계하고 있습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">급진적 개인주의</span>: 성령의 내적 체험이나 개인의 순결한 경험만을 강조하며, 교회의 제도성과 <span class="keyword">선교적·교육적 사명</span>을 부정하는 태도입니다.</li>
+                        <li><span class="font-semibold text-gray-800">형식적 성례주의</span>: 성례와 직분 자체를 은혜의 저장소처럼 여기는 로마 가톨릭적 관점으로, 성례가 행위 자체로 효과를 낸다는 <span class="keyword">기계주의적 미신</span>에 빠지는 것을 말합니다.</li>
+                    </ul>
+                </div>
+            </div>
 
-            <!-- Footer -->
-            <footer class="text-center text-sm text-gray-500 mt-12 py-4">
-                교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
-            </footer>
+            <!-- 카드 4: 효과의 근거 (Emerald) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">효과의 보증: 그리스도의 임재와 성령</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>은혜의 외적 방편들이 실제로 성도에게 효력을 나타내는 것은 <span class="keyword">오직 하나님의 역사</span>로 말미암습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">그리스도의 임재</span>: 주님께서는 세상 끝날까지 항상 함께하시겠다고 약속하심으로써, 직분을 통해 행해지는 모든 사역이 <span class="keyword">효과 있게 될 것</span>을 보증하십니다.</li>
+                        <li><span class="font-semibold text-gray-800">성령의 역사</span>: 말씀과 규례가 사람의 지혜가 아닌 <span class="keyword">하나님의 능력</span>으로 나타나게 하는 분은 성령 하나님이십니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 마지막 카드: 적용 질문 (Gray) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적용 질문</h3>
+                </div>
+                <ol class="list-decimal pl-5 space-y-3 text-gray-700 text-sm md:text-base">
+                    <li>신앙고백서 25장 3절에 따르면, 그리스도께서 ‘보이는 교회’를 세우신 목적은 무엇입니까? 여러분은 교회를 단순히 모임이나 기관으로 이해하지 않고, 하나님께서 택하신 자들을 불러 모으고 온전하게 하는 사명을 감당하는 공동체로 경험하고 있습니까?</li>
+                    <li>그리스도께서 ‘보이는 교회’에 주신 첫 번째 사명은 무엇이며, 성경 어디에서 그 사명이 증언됩니까? 여러분은 교회의 복음 전파와 선교 사명에 어떻게 동참하고 있습니까? 단순한 관람자가 아니라, ‘증인’으로 살아가고 있습니까?</li>
+                    <li>신앙고백서가 ‘보이는 교회’의 사명을 설명할 때 사용하는 “온전하게”라는 말의 성경적 의미는 무엇입니까? 여러분은 교회 안에서 훈련받고 다듬어져, 그리스도의 장성한 분량에 이르도록 성장하기 위해 어떻게 자신을 말씀과 교회의 권면에 맡기고 있습니까?</li>
+                    <li>직분, 말씀, 규례와 같은 은혜의 외적 방편들이 실제로 효과를 나타내는 근거는 무엇입니까? 로마 가톨릭이 주장하는 ex opere operato와 개혁교회의 입장은 어떻게 다릅니까? 여러분은 교회가 베푸는 성례와 말씀을 단순한 의식으로만 여기지 않고, 그리스도와 성령께서 함께 역사하시는 은혜의 수단으로 믿고 의지하고 있습니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
     </div>
 
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
     <script>
-        let player;
-        const playPauseButton = document.getElementById('play-pause-button');
-        const playerUi = document.getElementById('player-ui');
-        const errorMessageDiv = document.getElementById('error-message');
+        const DATE_KEY = "1020";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
 
-        function onYouTubeIframeAPIReady() {
-            fetchAudioAddressAndCreatePlayer();
-        }
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
 
-        async function fetchAudioAddressAndCreatePlayer() {
-            const today = '1020'; // For generating the static page for Oct 18th
-            let todayLine;
-
+        async function initAudioPlayer() {
             try {
-                const response = await fetch('../address/dcaddr.txt');
-                if (!response.ok) {
-                    throw new Error('오류: 오디오 주소 파일을 불러오는 데 실패했습니다.');
-                }
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
                 const text = await response.text();
                 const lines = text.split('\n');
-                todayLine = lines.find(line => line.trim().startsWith(today));
-
-                if (!todayLine) {
-                    displayError("오늘의 AI요약 음성은 아직 업로드 전입니다.");
-                    return;
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
                 }
-
-                const url = todayLine.substring(today.length).trim();
-                const videoId = parseYouTubeVideoId(url);
-
-                if (!videoId) {
-                    throw new Error('오류: 발견된 주소가 유효한 YouTube 주소가 아닙니다.');
-                }
-
-                createPlayer(videoId);
-
             } catch (error) {
-                console.error('Audio Player Error:', error);
-                displayError(error.message);
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
             }
         }
 
-        function parseYouTubeVideoId(url) {
-            if (!url) return null;
-            const regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-            const match = url.match(regExp);
-            return (match && match[1]) ? match[1] : null;
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
         }
 
-        function createPlayer(videoId) {
-            player = new YT.Player('player', {
-                height: '0',
-                width: '0',
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
                 videoId: videoId,
-                playerVars: { 'playsinline': 1 },
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
                 events: {
                     'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
                 }
             });
-        }
+        };
 
         function onPlayerReady(event) {
-            playPauseButton.disabled = false;
-            playPauseButton.innerHTML = '▶&nbsp;재생';
-            playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
-            playPauseButton.addEventListener('click', togglePlayPause);
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
         }
 
         function onPlayerStateChange(event) {
-            const isPlaying = (event.data === YT.PlayerState.PLAYING);
-            if (isPlaying) {
-                playPauseButton.innerHTML = '⏸️&nbsp;일시정지';
-                playPauseButton.setAttribute('aria-label', '교리 오디오 일시정지');
-            } else {
-                playPauseButton.innerHTML = '▶&nbsp;재생';
-                playPauseButton.setAttribute('aria-label', '교리 오디오 재생');
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
             }
         }
 
-        function togglePlayPause() {
-            if (player && typeof player.getPlayerState === 'function') {
-                const playerState = player.getPlayerState();
-                if (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING) {
-                    player.pauseVideo();
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
                 } else {
-                    player.playVideo();
+                    window.player.playVideo();
                 }
             }
-        }
+        });
 
-        function displayError(message) {
-            playerUi.classList.add('hidden');
-            errorMessageDiv.textContent = message;
-            errorMessageDiv.classList.remove('hidden');
-        }
-
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
     </script>
 </body>
-
 </html>

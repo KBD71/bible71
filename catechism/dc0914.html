@@ -1,249 +1,357 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>날마다 읽는 교리 - 기도해야 할 일들</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 14일: 기도해야 할 일들 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
         body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: #f0f4f8;
-        }
-        .infographic-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem;
-            overflow: hidden;
-            border-left: 8px solid;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .infographic-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .icon-bg {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            width: 64px;
-            height: 64px;
-            flex-shrink: 0;
-        }
-        .card-header {
-            display: flex;
-            align-items: center;
-            padding: 1.5rem;
-        }
-        .card-content {
-            padding: 0 1.5rem 1.5rem;
-        }
-        .card-content h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-        .card-content p, .card-content li {
-            color: #475569;
-            line-height: 1.75;
-        }
-        .card-content strong {
-            color: #0f172a;
-        }
-        .card-content ul {
-            list-style-position: inside;
-            padding-left: 0.5rem;
-        }
-        .card-content ul li::marker {
-            color: #38bdf8;
-        }
-        .quote {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             background-color: #f8fafc;
-            border-left: 4px solid #cbd5e1;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            font-style: italic;
-            color: #475569;
         }
-        .ai-summary-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: #38bdf8;
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .ai-summary-btn:hover {
-            background-color: #0ea5e9;
-            transform: scale(1.05);
-        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
-<div id="player-container" style="display: none;"></div>
-<div class="container mx-auto px-4 py-8 md:py-16">
-<header class="text-center mb-12">
-<h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-2">기도해야 할 일들</h1>
-<p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mt-4">우리의 기도가 하나님의 뜻에 합당하고 그분께 영광이 되도록, 무엇을 구해야 하는지에 대한 성경적 원리를 명확하게 살펴봅니다.</p>
-<div class="mt-8">
-<button class="ai-summary-btn" id="ai-summary-btn">
-<svg class="w-6 h-6" fill="currentColor" id="play-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.648c1.295.742 1.295 2.545 0 3.286L7.279 20.99c-1.25.717-2.779-.217-2.779-1.643V5.653Z" fill-rule="evenodd"></path>
-</svg>
-<svg class="w-6 h-6" fill="currentColor" id="pause-icon" style="display:none;" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75.75v12a.75.75 0 0 1-1.5 0v-12a.75.75 0 0 1 .75-.75Zm9 0a.75.75 0 0 1 .75.75v12a.75.75 0 0 1-1.5 0v-12a.75.75 0 0 1 .75-.75Z" fill-rule="evenodd"></path>
-</svg>
-<span>AI요약</span>
-</button>
-</div>
-</header>
-<main>
-<section class="infographic-card" style="border-color: #38bdf8;">
-<div class="card-header">
-<div class="icon-bg" style="background-color: #e0f2fe;">
-<svg class="h-8 w-8 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 6.253v11.494m-9-5.747h18" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-</div>
-<h2 class="font-bold"><span class="ml-4 text-2xl font-bold text-slate-700">오늘의 교리: 대요리문답 184문답</span></h2>
-</div>
-<div class="card-content">
-<div class="bg-sky-50 p-6 rounded-lg">
-<p class="font-semibold text-sky-800 text-lg">문: 우리는 무엇을 위하여 기도해야 합니까?</p>
-<p class="mt-4 text-slate-700 leading-relaxed">답: 우리는 하나님께 영광이 될 수 있는 모든 것을 위하여, 교회의 평화와 우리 자신과 다른 사람의 유익을 위하여 기도해야 합니다. 하지만 불법적인 것을 위해서는 어떤 것도 기도해서는 안 됩니다.</p>
-</div>
-</div>
-</section>
-<section class="infographic-card" style="border-color: #f43f5e;">
-<div class="card-header">
-<div class="icon-bg" style="background-color: #ffe4e6;">
-<svg class="h-8 w-8 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-</div>
-<h2 class="font-bold"><span class="ml-4 text-2xl font-bold text-slate-700">기도의 기본 원칙: 합법적인 일</span></h2>
-</div>
-<div class="card-content">
-<h3>'합법적'의 의미</h3>
-<p>우리의 기도는 '합법적인 일'을 위한 것이어야 합니다. 이는 단순히 법률적인 문제를 넘어, <strong>하나님의 계시된 뜻과 일치하는 것</strong>을 의미합니다. 즉, 도덕적으로 옳고 영적으로 바르며, 궁극적으로 하나님의 영광에 부합하는 것이어야 합니다.</p>
-<h3 class="mt-6">기도해서는 안 되는 '불법적인' 것</h3>
-<p>반대로, 다음과 같은 '불법적인' 것들을 위해 기도해서는 안 됩니다.</p>
-<ul class="mt-4 space-y-2 list-disc list-inside">
-<li>그 자체로 죄악된 것 (예: 누군가의 불행)</li>
-<li>하나님의 도덕법이나 양심에 어긋나는 것</li>
-<li>이기적인 욕심이나 탐욕에서 비롯된 것</li>
-<li>하나님의 영광이나 명예를 훼손하는 것</li>
-</ul>
-<p class="quote">"그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라" (요한1서 5:14)</p>
-</div>
-</section>
-<section class="infographic-card" style="border-color: #34d399;">
-<div class="card-header">
-<div class="icon-bg" style="background-color: #d1fae5;">
-<svg class="h-8 w-8 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-</div>
-<h2 class="font-bold"><span class="ml-4 text-2xl font-bold text-slate-700">무엇을 기도해야 하는가?</span></h2>
-</div>
-<div class="card-content">
-<p>대요리문답은 우리가 기도해야 할 내용을 크게 세 가지로 제시합니다. 이는 우리의 기도가 가져야 할 방향성을 보여줍니다.</p>
-<div class="mt-6 space-y-6">
-<div class="p-4 bg-emerald-50 rounded-lg">
-<h3 class="mt-0 text-emerald-800">1. 하나님께 영광이 될 수 있는 모든 것</h3>
-<p>모든 기도의 최우선 목적은 하나님의 영광입니다. 인간의 제일 되는 목적이 '하나님을 영화롭게 하고 영원토록 그를 즐거워하는 것'이듯, 기도 역시 이 목적을 이루기 위한 수단입니다. 이는 자기중심적 필요를 구하는 것을 넘어, 하나님의 선과 공의가 이 땅에 이루어지기를 바라는 것입니다.</p>
-</div>
-<div class="p-4 bg-emerald-50 rounded-lg">
-<h3 class="mt-0 text-emerald-800">2. 교회의 평화</h3>
-<p>성도의 기도는 개인의 울타리를 넘어 공동체적인 성격을 지닙니다. 우리는 지상에 있는 모든 교회의 안녕과 복됨을 위해 기도해야 합니다. 구체적으로 교회가 진리를 순결하게 보존하고, 통일성을 유지하며, 복음 전파를 통해 확장되고, 핍박 속에서도 믿음을 지키도록 기도해야 합니다.</p>
-</div>
-<div class="p-4 bg-emerald-50 rounded-lg">
-<h3 class="mt-0 text-emerald-800">3. 우리 자신과 다른 사람의 유익</h3>
-<p>이 기도는 "네 이웃을 네 자신과 같이 사랑하라"는 계명의 실천입니다. 먼저, 우리 자신의 영적 성장을 위해 기도해야 합니다. 자신의 성숙 없이는 타인을 제대로 도울 수 없기 때문입니다. 나아가 형제와 이웃, 심지어 원수의 육체적, 정신적, 영적인 유익을 위해 진실한 마음으로 기도해야 합니다.</p>
-</div>
-</div>
-</div>
-</section>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
 
-</main>
-<footer class="text-center mt-16 text-sm text-gray-500">
-<p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.</p>
-</footer>
-</div>
-<script>
-        // YouTube IFrame Player API 로드
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터대요리문답 184 · 신앙고백서 21.4</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">기도해야 할 일들</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">9월 14일</span>
+                    <span>21장 경건한 예배와 안식일</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">우리는 하나님의 뜻과 일치하는 합법적인 일을 위하여 기도해야 하며, 하나님의 영광과 교회의 평화, 그리고 자신과 타인의 유익을 구하는 기도를 드려야 합니다.</p>
+                </div>
+            </div>
+        </header>
 
-        var player;
-        var isPlaying = false;
-        const videoId = 'IymsVPucfVA'; 
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">9월 14일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player-container', {
-                height: '0',
-                width: '0',
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-6">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-gray-50 text-gray-700 italic">
+                    <p class="font-bold not-italic text-slate-800 mb-2">문184. 우리는 무엇을 위하여 기도해야 합니까?</p>
+                    <p>답: 우리는 하나님께 영광이 될 수 있는 모든 것을 위하여, 교회의 평화와 우리 자신과 다른 사람의 유익을 위하여 기도해야 합니다. 하지만 불법적인 것을 위해서는 어떤 것도 기도해서는 안 됩니다.</p>
+                </blockquote>
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-gray-50 text-gray-700 italic">
+                    <p class="font-bold not-italic text-slate-800 mb-2">고백서 21.4</p>
+                    <p>기도는 합법적인 일을 위하여, 그리고 현재 살아있거나 이후에 살게 될 모든 사람을 위하여 해야 한다. 그러나 죽은 사람을 위해서나 죽음에 이르는 죄를 범한 것으로 알려진 사람을 위하여 해서는 안 된다.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base text-gray-700">
+                <p><strong class="text-slate-900">마 6:9</strong> “그러므로 너희는 이렇게 기도하라 하늘에 계신 우리 아버지여 이름이 거룩히 여김을 받으시오며”</p>
+                <p><strong class="text-slate-900">시 51:18</strong> “주의 은택으로 시온에 선을 행하시고 예루살렘 성을 쌓으소서”</p>
+                <p><strong class="text-slate-900">마 7:11</strong> “너희가 악한 자라도 좋은 것으로 자식에게 줄 줄 알거든 하물며 하늘에 계신 너희 아버지께서 구하는 자에게 좋은 것으로 주시지 않겠느냐”</p>
+                <p><strong class="text-slate-900">시 125:4</strong> “여호와여 선한 자들과 마음이 정직한 자들에게 선대하소서”</p>
+                <p><strong class="text-slate-900">요일 5:14</strong> “그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라”</p>
+            </div>
+        </section>
+
+        <!-- 섹션 3~N: 본문요약 (인포그래픽 카드) -->
+        <div class="space-y-6">
+            <!-- Card 1: 정의 (Orange) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">기도의 전제: 합법적인 일</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>기도는 반드시 <span class="keyword">하나님의 뜻과 일치</span>하는 합법적인 일을 위하여 드려져야 합니다. 이는 단순히 도덕적 선을 넘어 영적인 옳음을 의미합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">합법적 일의 의미</span>: 하나님께서 계시하신 뜻에 부합하며, 영적으로 옳고 하나님의 영광에 적합한 일을 말합니다.</li>
+                        <li><span class="font-semibold text-gray-800">기도해서는 안 될 것</span>: 죄악된 일, 도덕법이나 양심에 어긋난 일, 개인의 욕심을 따르는 일, 하나님의 영광을 거스르는 일은 제외됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 2: 하나님 영광 (Purple) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">하나님께 영광이 되는 기도</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>기도는 자기중심적인 소원을 나열하는 것이 아니라, <span class="keyword">하나님의 선이 이루어지기를</span> 바라는 행위입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">기도의 본질</span>: 그리스도의 이름으로 성령님의 도우심을 받아 죄를 자백하고 하나님의 긍휼에 감사하며 소원을 올리는 것입니다.</li>
+                        <li><span class="font-semibold text-gray-800">최고의 목적</span>: 인간의 가장 높은 목적인 '하나님을 영화롭게 함과 즐거워함'을 이루기 위해 하나님의 도움을 구하는 것입니다.</li>
+                        <li><span class="font-semibold text-gray-800">간구의 내용</span>: 하나님의 긍휼을 선포하고 복음을 증언하며, 세상을 공의로 심판하시고 교회를 거룩하게 하시는 일을 구해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 3: 교회 평화 (Blue) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">교회의 평화와 안녕</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>신자의 기도는 개인을 넘어 <span class="keyword">공동체적 성격</span>을 띠어야 합니다. 하나님의 사랑이 교회에 있기 때문입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">기도의 대상</span>: 지상에 있는 그리스도의 보이는 교회 전체와 각 지교회의 안녕과 복됨을 위해 기도해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">교회를 위한 간구</span>: 복음 진리의 순결한 보존, 도덕적 순결, 교회의 통일성 유지, 복음 선포를 통한 하나님 나라의 확장을 위해 기도합니다.</li>
+                        <li><span class="font-semibold text-gray-800">성도의 역할</span>: 목사와 성도가 건덕을 이루고, 박해 중에도 인내하며 믿음으로 복음을 지켜나가도록 기도해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 4: 유익 (Emerald) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">자신과 타인의 유익</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>이웃을 내 몸과 같이 사랑하라는 말씀을 실천하기 위해, <span class="keyword">진정성 있는 사랑의 마음</span>으로 유익을 구해야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">이웃 사랑의 실천</span>: 부모 공경, 계명 준수(살인, 간음, 도둑질 금지 등), 이웃의 소유를 탐내지 않는 삶을 위해 기도합니다.</li>
+                        <li><span class="font-semibold text-gray-800">포괄적 도움</span>: 타인의 육체적 필요뿐 아니라 도덕적, 정신적, 영적 성장을 위해서도 기도해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">자신의 유익</span>: 자신의 영적 성장이 있어야 타인을 위한 기도도 제대로 할 수 있으므로, 자신을 위해서도 마땅히 기도해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 5: 경고 (Rose) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-600 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">금지된 기도</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>불법적인 것을 위해서는 <span class="keyword">어떤 것도 기도해서는 안 됩니다.</span> 이는 기도의 거룩함을 지키기 위함입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">대상에 대한 제한</span>: 죽은 사람을 위해서나, 죽음에 이르는 죄를 범한 것으로 알려진 사람을 위해서는 기도하지 않습니다.</li>
+                        <li><span class="font-semibold text-gray-800">내용에 대한 제한</span>: 하나님의 영광을 거스르거나 도덕법에 어긋나는 불법적인 요청은 기도의 대상이 될 수 없습니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 적용 질문 -->
+        <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800 mt-6">
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="p-2 bg-gray-100 rounded-lg">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold">적용 질문</h3>
+            </div>
+            <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                <li>오늘 읽은 대요리문답 184항은 기도하여야 할 일들과 관련하여 행하여야 할 세 가지 주제와 하지 말아야 할 한 가지 주제를 진술합니다. 이것들은 무엇입니까?</li>
+                <li>여러분은 하나님의 영광과 교회의 평안을 위하여 기도합니까? 그렇지 않았다면 그 이유는 무엇입니까?</li>
+                <li>여러분은 단지 자신의 필요와 유익을 구하는 것에 그치지 않고, 다른 사람의 유익을 위해서도 기도하십니까? 그렇지 않았다면 어떻게 기도의 방향을 바꾸어 나가야 하겠습니까?</li>
+                <li>여러분은 혹시 하나님의 뜻에 일치하지 않는 불법적인 기도를 드린 적이 있습니까? 그런 경험이 있다면 왜 그런 일이 있게 되었습니까? 어떻게 기도 내용을 조정하면 좋겠습니까?</li>
+            </ol>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0914";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
                 videoId: videoId,
                 playerVars: {
                     'playsinline': 1,
-                    'autoplay': 0,
-                    'controls': 0,
+                    'controls': 1,
+                    'modestbranding': 1
                 },
                 events: {
                     'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
                 }
             });
-        }
+        };
 
         function onPlayerReady(event) {
-            // 플레이어 준비 완료
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                isPlaying = false;
-                updateButtonState();
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
             }
         }
-        
-        const summaryBtn = document.getElementById('ai-summary-btn');
-        const playIcon = document.getElementById('play-icon');
-        const pauseIcon = document.getElementById('pause-icon');
 
-        function updateButtonState() {
-            if (isPlaying) {
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'block';
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
             } else {
-                playIcon.style.display = 'block';
-                pauseIcon.style.display = 'none';
-            }
-        }
-
-        summaryBtn.addEventListener('click', function() {
-            if (player && typeof player.playVideo === 'function') {
-                if (isPlaying) {
-                    player.pauseVideo();
-                    isPlaying = false;
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
                 } else {
-                    player.playVideo();
-                    isPlaying = true;
+                    window.player.playVideo();
                 }
-                updateButtonState();
             }
         });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
     </script>
 </body>
 </html>

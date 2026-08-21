@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7월 1일: 도덕법의 효력 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터 신앙고백서 19.5</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">도덕법의 효력</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">7월 1일</span>
+                    <span>교리 학습</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">도덕법은 모든 인류에게 적용되는 의의 규칙이며, 특히 의롭다 함을 받은 신자들에게도 폐지되지 않고 오히려 더욱 강화된 복종의 의무를 부여합니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">7월 1일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <blockquote class="border-l-4 border-teal-500 pl-4 py-2 text-gray-700 italic bg-teal-50 rounded-r-lg">
+                <p class="font-bold text-slate-900 mb-2">제 19장 5절</p>
+                "도덕법은 다른 사람들뿐만 아니라 의롭다 함을 받은 사람들까지 모두에게 복종할 의무를 영원히 부과한다."
+            </blockquote>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm md:text-base text-gray-700 space-y-4">
+                <p><strong class="text-slate-900">롬 13:8-10</strong> "피차 사랑의 빚 외에는 아무에게든지 아무 빚도 지지 말라 남을 사랑하는 자는 율법을 다 이루었느니라 간음하지 말라, 살인하지 말라, 도둑질하지 말라, 탐내지 말라 한 것과 그 외에 다른 계명이 있을지라도 네 이웃을 네 자신과 같이 사랑하라 하신 그 말씀 가운데 다 들었느니라 사랑은 이웃에게 악을 행하지 아니하나니 그러므로 사랑은 율법의 완성이니라"</p>
+                <p><strong class="text-slate-900">요일 2:7-8</strong> "사랑하는 자들아 내가 새 계명을 너희에게 쓰는 것이 아니라 너희가 처음부터 가진 옛 계명이니 이 옛 계명은 너희가 들은 바 말씀이거니와 다시 내가 너희에게 새 계명을 쓰노니 그에게와 너희에게도 참된 것이라 이는 어둠이 지나가고 참빛이 벌써 비침이니라"</p>
+                <p><strong class="text-slate-900">약 2:10-11</strong> "누구든지 온 율법을 지키다가 그 하나를 범하면 모두 범한 자가 되나니 간음하지 말라 하신 이가 또한 살인하지 말라 하셨은즉 네가 비록 간음하지 아니하여도 살인하면 율법을 범한 자가 되느니라"</p>
+                <p><strong class="text-slate-900">마 5:17-19</strong> "내가 율법이나 선지자를 폐하러 온 줄로 생각하지 말라 폐하러 온 것이 아니요 완전하게 하려 함이라 진실로 너희에게 이르노니 천지가 없어지기 전에는 율법의 일점 일획도 결코 없어지지 아니하고 다 이루리라 그러므로 누구든지 이 계명 중의 지극히 작은 것 하나라도 버리고 또 그같이 사람을 가르치는 자는 천국에서 지극히 작다 일컬음을 받을 것이요 누구든지 이를 행하며 가르치는 자는 천국에서 크다 일컬음을 받으리라"</p>
+                <p><strong class="text-slate-900">약 2:8</strong> "너희가 만일 성경에 기록된 대로 네 이웃 사랑하기를 네 몸과 같이 하라 하신 최고의 법을 지키면 잘하는 것이거니와"</p>
+                <p><strong class="text-slate-900">롬 3:31</strong> "그런즉 우리가 믿음으로 말미암아 율법을 파기하느냐 그럴 수 없느니라 도리어 율법을 굳게 세우느니라"</p>
+            </div>
+        </section>
+
+        <!-- 인포그래픽 카드 섹션 -->
+        <div class="space-y-6">
+            <!-- 카드 1: 율법폐기론 배격 (Purple) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">율법폐기론의 오류 배격</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>신앙고백서는 의롭다 하심을 받은 신자가 도덕법의 의무에서 벗어났다고 주장하는 <span class="keyword">율법폐기론을 단호히 배격</span>합니다. 신자의 구원과 율법의 관계를 바로 알아야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">의무의 강화</span>: 은혜로 의롭다 함을 받는 것은 도덕법에 대한 순종의 의무를 폐기하는 것이 아니라, 오히려 그 의무를 더욱 강화합니다.</li>
+                        <li><span class="font-semibold text-gray-800">생활의 규칙</span>: 신자는 율법을 지켜서 의로워지는 것이 아니라, 이미 받은 <span class="keyword">의롭다 하심에 감사하며</span> 거룩한 삶을 살기 위한 생활의 규칙으로 율법에 순종합니다.</li>
+                        <li><span class="font-semibold text-gray-800">은혜 언약의 관계</span>: 신자는 행위 언약이 아닌 은혜 언약 아래 있으므로, 율법은 구원의 조건이 아니라 거룩하게 하시는 은혜 아래서 지켜야 할 도리입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 율법주의 배격 (Rose) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-600 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">율법주의의 오류 배격</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>신자가 율법에 순종해야만 의롭다 함을 받을 수 있다고 믿는 <span class="keyword">율법주의적 태도 또한 경계</span>해야 합니다. 순종의 선후 관계를 명확히 해야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">의롭다 함의 근거</span>: 인간이 의롭게 되는 것은 율법의 행위가 아니라 오직 <span class="keyword">예수 그리스도를 믿음</span>으로 말미암는 것이지, 순종이 의로움의 조건이 아닙니다.</li>
+                        <li><span class="font-semibold text-gray-800">순종의 전제</span>: 신앙고백서가 '의롭다 함을 받은 사람들까지'라고 명시한 것은, 이미 의롭다 함을 받은 자가 순종의 삶을 사는 것임을 전제합니다.</li>
+                        <li><span class="font-semibold text-gray-800">지음 받은 목적</span>: 우리는 선행으로 구원을 받는 것이 아니라, 그리스도 예수 안에서 <span class="keyword">선한 일을 위하여</span> 지으심을 받은 자들입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 도덕법의 근거와 권위 (Blue) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">도덕법의 선함과 권위</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>도덕법은 단순히 규칙의 나열이 아니라, <span class="keyword">하나님의 성품을 반영</span>하는 절대적인 기준입니다. 우리가 이 법에 복종해야 하는 이유는 두 가지 측면에서 설명됩니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">내용적 선함</span>: 도덕법은 거룩하고 공의로우신 하나님의 특성을 계시하며, 타락 이후에도 양심을 통해 <span class="keyword">마음에 새겨진 율법</span>으로서 작용합니다.</li>
+                        <li><span class="font-semibold text-gray-800">제정자의 권위</span>: 도덕법은 창조주 하나님의 권위로 주어진 것이므로, 인간은 법의 내용을 판단하거나 선택적으로 순종할 권한이 없습니다.</li>
+                        <li><span class="font-semibold text-gray-800">불순종의 부당성</span>: 법의 내용이 선하지 않다는 이유로 불순종하는 것은 정당화될 수 없으며, 이는 하나님께 반문하는 교만한 태도입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 결론 (Emerald) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">요약 및 결론</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>도덕법은 모든 인류에게 적용되는 의의 완전한 규칙입니다. <span class="keyword">신자는 율법을 통해 구원받는 것이 아니라,</span> 이미 받은 은혜에 응답하여 거룩한 삶의 규범으로 율법을 지켜야 합니다.</p>
+                </div>
+            </div>
+
+            <!-- 적용 질문 (Gray) -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">적용 질문</h3>
+                </div>
+                <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                    <li>이 세상의 모든 사람들은 양심과 도덕 의식을 따라 다른 사람과 자신의 행동을 판단합니다. 이러한 양심과 도덕 의식은 어디로부터 오는 것일까요? 사람이 양심과 도덕의 소리를 따라 살아야할 의무가 있을까요?</li>
+                    <li>사람이 도덕법에 따라 살아야 하는 이유는 무엇일까요? 오늘 학습을 통해 배운 두 가지를 찾아 말해보시기 바랍니다.</li>
+                    <li>그리스도 안에서 이미 의롭다 하심을 받은 사람은 도덕법의 정죄에서 자유로와진 것이며 따라서 도덕법에 따라 살아야 하는 의무에서 벗어난 것이라는 주장에 대해서 여러분은 무엇이라 답하시겠습니까?</li>
+                    <li>도덕법은 모든 사람이 지켜야 하는 의의 규칙임을 강조하면서, 이 규칙을 잘 준수함으로써 의롭다고 인정을 받는 것이라는 주장에 대해서 여러분은 무엇이라 답하시겠습니까?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0701";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>

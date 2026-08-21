@@ -1,278 +1,351 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>10월 2일: 맹세의 한계</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10월 2일: 맹세의 한계 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
         body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: #f0f2f5;
-            color: #1a202c;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
         }
-        .infographic-card {
-            background-color: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            padding: 2rem;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .infographic-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .card-icon {
-            flex-shrink: 0;
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 9999px;
-            background-color: #e0e7ff;
-            color: #4338ca;
-        }
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1e3a8a;
-        }
-        .catechism-body {
-            color: #374151;
-            padding-left: 1rem;
-            border-left: 3px solid #6366f1;
-            line-height: 1.7;
-        }
-        .sub-heading {
-            font-weight: 700;
-            color: #1e40af;
-            margin-top: 1.25rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-        #player {
-            display: none;
-        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
     </style>
 </head>
-<body class="antialiased">
-<div class="container mx-auto p-4 md:p-8 max-w-3xl">
-<header class="text-center mb-12">
-<h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">맹세의 한계</h1>
-<p class="text-lg md:text-xl text-gray-500">신앙고백서 22장 3항</p>
-<div class="mt-6 flex justify-center">
-<button class="flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300" id="audio-toggle">
-<svg class="h-6 w-6 mr-2" fill="none" id="play-icon" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<svg class="h-6 w-6 mr-2 hidden" fill="none" id="pause-icon" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<span id="button-text">AI 요약</span>
-</button>
-</div>
-</header>
-<main class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<section class="infographic-card md:col-span-2">
-<div class="card-header">
-<div class="card-icon">
-<svg class="h-8 w-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-<h2 class="card-title">신앙고백서 제22장 3항</h2>
-</div>
-<div class="catechism-body">
-<p>맹세하는 사람은 누구든지 그처럼 엄숙한 행위의 무게를 마땅히 고려해야만 하며, 맹세함에 있어 자신이 진실이라고 온전히 확신하는 것 외에는 어떤 것도 단언해서는 안 된다. 어떤 사람도 선하고 의로운 것, 그리고 스스로 그렇다고 믿는 것, 또한 그가 행할 수도 있고 행하기로 결심할 수도 있는 것이 아닌 어떤 것에 맹세로 자신을 속박해서는 안 된다. 그러나 합법적인 권위에 의해 요구될 때 선하고 의로운 것에 관한 맹세를 거부하는 것은 죄이다.</p>
-</div>
-</section>
-<section class="infographic-card">
-<div class="card-header">
-<div class="card-icon">
-<svg class="h-8 w-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 12l2 2 4-4m6-6l-6.5 6.5L12 10.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-<h2 class="card-title">무엇을 맹세해야 하는가?</h2>
-</div>
-<div class="space-y-4 text-gray-600">
-<div>
-<h3 class="sub-heading">진실한 것</h3>
-<p>맹세는 엄숙한 행위이므로, 맹세하는 사람은 자신이 "진실이라고 온전히 확신하는 것"만을 단언해야 합니다. 하나님의 이름은 오직 진리를 위해서만 불려야 합니다.</p>
-</div>
-<div>
-<h3 class="sub-heading">선하고 의로운 것</h3>
-<p>맹세의 내용은 반드시 "선하고 의로운 것"이어야 합니다. 다른 사람의 생명을 해치거나 불의하게 대할 것을 맹세해서는 안 되며, 이러한 맹세는 처음부터 무효입니다.</p>
-</div>
-<div>
-<h3 class="sub-heading">수행 가능한 것</h3>
-<p>자신이 실제로 "행할 수도 있고 행하기로 결심할 수도 있는 것"만을 맹세해야 합니다. 지킬 능력이 없는 것을 경솔하게 맹세하여 스스로를 속박해서는 안 됩니다.</p>
-</div>
-</div>
-</section>
-<section class="infographic-card">
-<div class="card-header">
-<div class="card-icon">
-<svg class="h-8 w-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-<h2 class="card-title">맹세의 의무</h2>
-</div>
-<div class="space-y-4 text-gray-600">
-<div>
-<h3 class="sub-heading">지켜야 할 의무</h3>
-<p>일단 합법적으로 행한 맹세는 상황이 불리하게 변하더라도 끝까지 지켜야 합니다. 만일 맹세를 지키지 못했다면, 이는 하나님 앞에서 신실하지 못한 행위이므로 성급함을 회개하고 속히 약속을 이행하거나 바로잡아야 합니다.</p>
-</div>
-<div>
-<h3 class="sub-heading">해야 할 의무</h3>
-<p>맹세가 엄숙하고 무겁다는 이유로 모든 맹세를 거부해서는 안 됩니다. 하나님께서 세우신 합법적인 권위가 "선하고 의로운 것"에 관해 맹세를 요구할 때, 이를 거부하는 것은 하나님께 대한 순종을 거부하는 죄가 됩니다.</p>
-</div>
-</div>
-</section>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
 
-</main>
-<div id="player"></div>
-<footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t">
-            교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다.
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터 신앙고백서 22.3</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">맹세의 한계</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">10월 2일</span>
+                    
+                    
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">맹세는 하나님의 이름으로 행하는 엄숙한 행위이므로, 오직 진실하고 선하며 의로운 것만을 대상으로 해야 하며, 합법적 권위의 요구에는 마땅히 응해야 합니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">10월 2일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-6">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 text-gray-700 italic bg-teal-50/50 rounded-r-lg">
+                    <p class="font-bold text-teal-900 mb-1">웨스트민스터 신앙고백서 22.3</p>
+                    맹세하는 사람은 누구든지 그처럼 엄숙한 행위의 무게를 마땅히 고려해야만 하며, 맹세함에 있어 자신이 진실이라고 온전히 확신하는 것 외에는 어떤 것도 단언해서는 안 된다. 어떤 사람도 선하고 의로운 것, 그리고 스스로 그렇다고 믿는 것, 또한 그가 행할 수도 있고 행하기로 결심할 수도 있는 것이 아닌 어떤 것에 맹세로 자신을 속박해서는 안 된다. 그러나 합법적인 권위에 의해 요구될 때 선하고 의로운 것에 관한 맹세를 거부하는 것은 죄이다.
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm text-gray-700 space-y-2">
+                <p><strong class="text-teal-700">출 20:7</strong> “너는 네 하나님 여호와의 이름을 망령되게 부르지 말라 여호와는 그의 이름을 망령되게 부르는 자를 죄 없다 하지 아니하리라”</p>
+                <p><strong class="text-teal-700">렘 4:2</strong> “진실과 정의와 공의로 여호와의 삶을 두고 맹세하면 나라들이 나로 말미암아 스스로 복을 빌며 나로 말미암아 자랑하리라”</p>
+                <p><strong class="text-teal-700">창 24:3</strong> “내가 너에게 하늘의 하나님, 땅의 하나님이신 여호와를 가리켜 맹세하게 하노니 너는 내가 거주하는 이 지방 가나안 족속의 딸 중에서 내 아들을 위하여 아내를 택하지 말고 ... ”</p>
+                <p><strong class="text-teal-700">창 24:7</strong> “하늘의 하나님 여호와께서 나를 내 아버지의 집과 내 고향 땅에서 떠나게 하시고 내게 말씀하시며 내게 맹세하여 이르시기를 이 땅을 네 씨에게 주리라 하셨으니 그가 그 사자를 너보다 앞서 보내실지라”</p>
+                <p><strong class="text-teal-700">창 24:9</strong> “네가 거기서 내 아들을 위하여 아내를 택할지니라 ... 그 종이 이에 그의 주인 아브라함의 허벅지 아래에 손을 넣고 이 일에 대하여 그에게 맹세하였더라”</p>
+                <p><strong class="text-teal-700">민 5:19, 21</strong> “여인에게 맹세하게 하여 그에게 이르기를 네가 네 남편을 두고 탈선하여 다른 남자와 동침하여 더럽힌 일이 없으면 저주가 되게 하는 이 쓴 물의 해독을 면하리라 ... 여호와께서 네 넓적다리가 마르고 네 배가 부어서 네가 네 백성 중에 저줏거리, 맹셋거리가 되게 하실지라”</p>
+                <p><strong class="text-teal-700">느 5:12</strong> “그들이 말하기를 우리가 당신의 말씀대로 행하여 돌려보내고 그들에게서 아무것도 요구하지 아니하리이다 하기로 내가 제사장들을 불러 그들에게 그 말대로 행하겠다고 맹세하게 하고”</p>
+            </div>
+        </section>
+
+        <!-- 인포그래픽 카드 섹션 -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의와 태도 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">맹세의 엄숙함과 태도</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>맹세는 그 근거가 하나님이시며 하나님의 이름으로 하는 것이기에 매우 <span class="keyword">엄숙한 행위</span>입니다. 따라서 우리는 맹세를 대할 때 경건한 자세를 유지해야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">경외심의 유지</span>: 맹세할 때는 지극히 거룩한 두려움과 경외심을 가지고 임해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">경솔함의 경계</span>: 하나님의 이름을 망령되게 부르거나 성급하게 맹세하는 것을 피해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 맹세의 세 가지 조건 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">맹세가 갖추어야 할 조건</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>맹세가 정당성을 얻기 위해서는 내용이 반드시 <span class="keyword">하나님의 성품</span>에 부합해야 합니다. 다음의 세 가지 요건을 충족하지 못하면 맹세해서는 안 됩니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">진실성</span>: 자신이 진실이라고 온전히 확신하는 것만을 맹세해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">의로움</span>: 선하고 의로운 것, 즉 하나님의 이름이 진리와 의를 위해서만 불려야 한다는 원리에 따라 선한 내용이어야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">실행 가능성</span>: 자신이 실제로 행할 수 있고, 행하기로 결심할 수도 있는 일이어야 합니다. 지킬 능력이 없는 것을 맹세하여 자신을 속박해서는 안 됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 금지되는 맹세 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-600 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">금지 및 무효인 맹세</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>불의한 목적이나 거짓된 내용을 담은 맹세는 <span class="keyword">처음부터 무효</span>입니다. 성경은 이러한 행위를 엄격히 금지합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">거짓과 불의</span>: 거짓 증거나 불의한 언약을 맺는 맹세는 허용되지 않습니다.</li>
+                        <li><span class="font-semibold text-gray-800">해로운 약속</span>: 타인의 생명을 해치거나 불의하게 대할 것을 맹세하는 것은 결코 해서는 안 됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 합법적 권위에 대한 순종 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">합법적 권위와 맹세</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>맹세가 엄숙하다는 이유로 모든 요구를 거부해서는 안 됩니다. <span class="keyword">합법적 권위</span>가 요구하는 맹세에는 응해야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">순종의 의무</span>: 하나님이 세우신 합법적 권위가 선하고 의로운 목적을 위해 맹세를 요구할 때 이를 거부하는 것은 하나님께 대한 순종을 거부하는 죄가 됩니다.</li>
+                        <li><span class="font-semibold text-gray-800">거부의 죄성</span>: 합법성과 도덕성이 인정되는 맹세 요구를 불순종하는 것은 단순한 선택의 문제가 아니라 죄입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 5: 결론 및 성도의 책임 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">성도의 신실한 삶</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>성도는 맹세의 무게를 기억하며, <span class="keyword">하나님 앞에서 신실함</span>을 유지해야 합니다. 이미 한 맹세는 상황이 변하더라도 끝까지 지켜야 할 책임이 있습니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">서약의 이행</span>: 정당한 맹세는 상황이 불리하게 변해도 끝까지 지켜야 하며, 이를 깨뜨리는 것은 하나님 앞에 신실하지 못한 행위입니다.</li>
+                        <li><span class="font-semibold text-gray-800">회개와 바로잡음</span>: 만약 지키지 못한 서약이 있다면, 자신의 성급함과 불신실함을 회개하고 가능한 한 속히 약속을 이행하거나 바로잡아야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 적용 질문 -->
+        <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800 mt-6">
+            <h3 class="text-lg font-bold mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>적용 질문</span>
+            </h3>
+            <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                <li>맹세가 합법적이고 하나님 앞에서 정당하려면 반드시 갖추어야 할 세 가지 조건은 무엇입니까?</li>
+                <li>여러분은 지금까지 맹세나 서약을 할 때 신중히 하나님의 이름을 불렀습니까? 그리고 맹세와 서약의 그 내용을 끝까지 지켰습니까? 지키지 못했다면 여러분의 서약을 어떻게 평가해야 합니까?</li>
+                <li>합법적이고 선한 맹세를 합당한 권위가 요구할 때 이를 거부하는 것이 왜 죄가 됩니까? 여러분은 맹세를 거부한 적이 있습니까? 그 이유가 무엇이었습니까?</li>
+                <li>불의하거나 거짓된 맹세가 처음부터 무효라고 할 때, 그 이유는 무엇입니까?</li>
+            </ol>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
         </footer>
-</div>
-<script>
-        // YouTube IFrame Player API 비동기 로드
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </div>
 
-        let player;
-        let playerState;
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "1002";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
 
-        const audioToggleButton = document.getElementById('audio-toggle');
-        const buttonText = document.getElementById('button-text');
-        const playIcon = document.getElementById('play-icon');
-        const pauseIcon = document.getElementById('pause-icon');
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
 
-        // YouTube API가 준비되면 이 함수가 호출됨
-        function onYouTubeIframeAPIReady() {
-            // 플레이어는 버튼 클릭 시 생성되므로 여기서는 비워둠
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
         }
 
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
         function onPlayerReady(event) {
-            // 플레이어가 준비되면 즉시 재생
-            event.target.playVideo();
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
         }
 
         function onPlayerStateChange(event) {
-            playerState = event.data;
-            updateButtonUI(playerState);
-        }
-
-        function updateButtonUI(state) {
-            if (state === YT.PlayerState.PLAYING) {
-                buttonText.textContent = '일시정지';
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-            } else { // PAUSED, ENDED, CUED 등
-                buttonText.textContent = 'AI 요약';
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
             }
         }
-        
-        function extractVideoID(url) {
-            // 다양한 YouTube URL 형식에서 비디오 ID를 추출하는 정규식
-            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0.9_-]{11})/;
-            const match = url.match(regex);
-            return match ? match[1] : null;
-        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (audioToggleButton) {
-                audioToggleButton.addEventListener('click', () => {
-                    // 플레이어가 있고, 재생 중이거나 버퍼링 중이면 일시정지
-                    if (player && (playerState === YT.PlayerState.PLAYING || playerState === YT.PlayerState.BUFFERING)) {
-                        player.pauseVideo();
-                    } 
-                    // 플레이어가 있고, 일시정지 상태이면 다시 재생
-                    else if (player && playerState === YT.PlayerState.PAUSED) {
-                        player.playVideo();
-                    } 
-                    // 플레이어가 없는 경우, 새로 생성
-                    else {
-                        const audioFilePath = '../address/dcaddr.txt';
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
 
-                        fetch(audioFilePath)
-                            .then(response => {
-                                if (!response.ok) {
-                                    // 404 Not Found 등 파일 접근 실패
-                                    throw new Error('404');
-                                }
-                                return response.text();
-                            })
-                            .then(fileContent => {
-                                if (!fileContent || fileContent.trim() === '') {
-                                    alert('유효한 오디오 주소가 파일에 없습니다.');
-                                    return;
-                                }
-
-                                // 1002 날짜에 해당하는 링크 찾기
-                                const lines = fileContent.split('\n');
-                                const targetDate = '1002'; // 파일명에서 추출한 날짜
-                                let url = '';
-
-                                for (const line of lines) {
-                                    if (line.trim().startsWith(targetDate + ' ')) {
-                                        url = line.trim().substring(5); // '1002 ' 부분 제거
-                                        break;
-                                    }
-                                }
-
-                                if (!url) {
-                                    alert('해당 날짜의 오디오 주소를 찾을 수 없습니다.');
-                                    return;
-                                }
-
-                                const videoId = extractVideoID(url.trim());
-
-                                if (!videoId) {
-                                    alert('유효한 YouTube URL이 아닙니다.');
-                                    return;
-                                }
-
-                                if (player) {
-                                    // 기존 플레이어가 있다면 비디오만 로드
-                                    player.loadVideoById(videoId);
-                                } else {
-                                    // 새 플레이어 생성
-                                    player = new YT.Player('player', {
-                                        height: '0',
-                                        width: '0',
-                                        videoId: videoId,
-                                        playerVars: {
-                                            'playsinline': 1
-                                        },
-                                        events: {
-                                            'onReady': onPlayerReady,
-                                            'onStateChange': onPlayerStateChange
-                                        }
-                                    });
-                                }
-                            })
-                            .catch(error => {
-                                if (error.message === '404') {
-                                    alert('아직 업로드 전입니다.');
-                                } else {
-                                    console.error('오디오 파일 로드 중 오류 발생:', error);
-                                }
-                            });
-                    }
-                });
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
             }
         });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
     </script>
 </body>
 </html>

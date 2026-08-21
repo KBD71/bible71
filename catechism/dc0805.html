@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 5일: 윗사람에 대한 존경 | 날마다 읽는 교리</title>
+    <!-- Pretendard Font & Tailwind CSS -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            background-color: #f8fafc;
+        }
+        .keyword { box-shadow: inset 0 -0.5em 0 0 rgba(255, 255, 0, 0.3); font-weight: 700; }
+        .card { transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-2px); }
+        .keep-all { word-break: keep-all; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-16">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 opacity-60"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>웨스트민스터대요리문답 127</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 keep-all">윗사람에 대한 존경</h1>
+                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/80 pt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">8월 5일</span>
+                    <span>제 5계명 적용</span>
+                    <span class="text-slate-400">| 지평서원</span>
+                </div>
+                <!-- 핵심 주제 박스 -->
+                <div class="mt-5 bg-slate-800/90 border border-slate-700/80 rounded-xl p-4 text-sm md:text-base text-slate-200">
+                    <span class="text-blue-400 font-bold block mb-1">핵심 주제</span>
+                    <p class="keep-all leading-relaxed">아랫사람은 윗사람에게 마음과 말과 행동으로 합당한 존경을 표하며, 그들의 권위와 인격을 보호하고 연약함을 사랑으로 덮음으로써 하나님께 영광을 돌려야 합니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 오디오 플레이어 섹션 -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    오늘의 AI요약 듣기
+                </span>
+                <span class="text-xs font-medium text-slate-400">8월 5일 교리 해설</span>
+            </h2>
+            
+            <div id="audio-player-container" class="w-full aspect-video bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden hidden shadow-inner">
+                <div id="player"></div>
+            </div>
+
+            <div id="audio-controls" class="mt-4 text-center">
+                <div id="status-message" class="text-sm text-slate-500 mb-2 min-h-[20px]">오디오 정보를 확인하고 있습니다...</div>
+                <button id="play-pause-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mx-auto" aria-label="교리 오디오 재생/일시정지">
+                    <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span id="btn-text">로딩 중...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 본문 내용 (교리 문답, 참고 성경구절, 인포그래픽 카드, 적용 질문 등) -->
+        <!-- 섹션 1: 교리 문답 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                </svg>
+                <span>교리 문답</span>
+            </h2>
+            <div class="space-y-4">
+                <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 rounded-r-lg">
+                    <p class="font-bold text-slate-900 mb-1">문 127. 아랫사람들은 윗사람들에 대한 존경을 어떻게 표해야 합니까?</p>
+                    <p class="text-slate-700 leading-relaxed">답: 아랫사람들이 윗사람들에게 마땅히 표해야 할 존경은 마음과 말과 행동으로 합당한 공경을 나타내는 것이고, 그들을 위한 기도와 감사를 하는 것이며, 그들의 덕과 은혜를 본받는 것이고, 그들의 합법적인 명령과 권면에 즐겨 순종하는 것이며, 그들의 교정에 마땅히 복종하는 것이고, 그들의 여러 지위와 신분의 성격에 따라 윗사람들의 인격과 권위에 충성하고 보호하며 지지하는 것이고, 아울러 그들의 연약함을 참고 사랑으로 덮음으로써 그들과 그들의 다스림이 명예롭게 될 수 있도록 하는 것입니다.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- 섹션 2: 참고 성경구절 -->
+        <section class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>참고 성경구절</span>
+            </h2>
+            <div class="scripture-text-section text-sm text-gray-700 space-y-2">
+                <p><strong>말 1:6</strong> “내 이름을 멸시하는 제사장들아 나 만군의 여호와가 너희에게 이르기를 아들은 그 아버지를, 종은 그 주인을 공경하나니 내가 아버지일진대 나를 공경함이 어디 있느냐 내가 주인일진대 나를 두려워함이 어디 있느냐 하나 너희는 이르기를 우리가 어떻게 주의 이름을 멸시하였나이까 하는도다”</p>
+                <p><strong>딤전 2:1-2</strong> “그러므로 내가 첫째로 권하노니 모든 사람을 위하여 간구와 기도와 도고와 감사를 하되 임금들과 높은 지위에 있는 모든 사람을 위하여 하라 이는 우리가 모든 경건과 단정함으로 고요하고 평안한 생활을 하려 함이라”</p>
+                <p><strong>히 13:7</strong> “하나님의 말씀을 너희에게 일러 주고 너희를 인도하던 자들을 생각하며 그들의 행실의 결말을 주의하여 보고 그들의 믿음을 본받으라”</p>
+                <p><strong>히 12:9</strong> “또 우리 육신의 아버지가 우리를 징계하여도 공경하였거든 하물며 모든 영의 아버지께 더욱 복종하며 살려 하지 않겠느냐”</p>
+                <p><strong>딛 2:9-10</strong> “종들은 자기 상전들에게 범사에 순종하여 기쁘게 하고 거슬러 말하지 말며 훔치지 말고 오히려 모든 참된 신실성을 나타내게 하라 이는 범사에 우리 구주 하나님의 교훈을 빛나게 하려 함이라”</p>
+                <p><strong>벧전 2:18</strong> “사환들아 범사에 두려워함으로 주인들에게 순종하되 선하고 관용하는 자들에게만 아니라 또한 까다로운 자들에게도 그리하라”</p>
+                <p><strong>시 127:3-5</strong> “보라 자식들은 여호와의 기업이요 태의 열매는 그의 상급이로다 젊은 자의 자식은 장사의 수중의 화살 같으니 이것이 그의 화살통에 가득한 자는 복되도다 그들이 성문에서 그들의 원수와 담판할 때에 수치를 당하지 아니하리로다”</p>
+            </div>
+        </section>
+
+        <!-- 섹션 3~N: 본문요약 (인포그래픽 카드) -->
+        <div class="space-y-6">
+            <!-- 카드 1: 정의/개관 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-orange-500 text-orange-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">존경의 범위와 성격</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>제 5계명의 적용은 가정뿐만 아니라 <span class="keyword">모든 사회적 관계</span>에 적용됩니다. 아랫사람은 윗사람에게 마땅한 존경을 표해야 하며, 이는 단순한 예의를 넘어선 영적 원리입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">관계의 확장</span>: 부모와 자녀 사이를 넘어 윗사람과 아랫사람, 그리고 다양한 지위와 역할 속에 있는 모든 사람 사이의 관계에 반영됩니다.</li>
+                        <li><span class="font-semibold text-gray-800">존경의 목적</span>: 윗사람을 세우신 하나님께 영광을 돌리기 위해 <span class="keyword">마땅한 존경</span>을 나타내야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 2: 내적/외적 표현 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-600 text-purple-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">존경의 구체적 방식 (1)</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>존경은 겉모습뿐만 아니라 <span class="keyword">내면의 태도</span>를 포함하여 전인격적으로 나타나야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">내외적 표현</span>: 마음으로 존경하며, 이에 합당한 말의 어투와 몸짓, 표정, 자세 등 행위로 나타내야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">기도와 감사</span>: 윗사람의 권위 있는 행위에 대해 하나님과 그들에게 감사를 표하며, 그들을 위해 기도하고 하나님의 도우심을 구해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">덕과 은혜의 본받음</span>: 윗사람의 도덕적 품성(정직, 근면 등)과 성령의 열매(사랑, 온유 등)를 본받고자 하는 마음으로 순종해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 3: 순종과 교정 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-600 text-blue-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">순종과 권위의 인정</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>윗사람의 권위는 하나님으로부터 온 것이기에 <span class="keyword">합법적인 명령</span>에 대하여 기꺼이 반응해야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">즐거운 순종</span>: 하나님의 법에 일치하는 합법적 명령에는 마지못해 하는 것이 아니라 마음을 담아 즐거이 순종해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">교정에 대한 복종</span>: 하나님의 교훈에 따른 꾸짖음을 받을 때, 화를 내거나 자기 의를 주장하지 말고 겸손히 허물을 인정해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">신분과 권위 보호</span>: 윗사람이 가진 신분의 존엄성을 인정하고, 그 권위가 부당하게 침해받지 않도록 충성스럽게 지키고 지지해야 합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 4: 경고/주의 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-rose-600 text-rose-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-rose-100 rounded-lg">
+                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">연약함을 대하는 자세</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>모든 사람은 타락한 존재이기에 윗사람 또한 <span class="keyword">연약함과 죄</span>를 가질 수 있음을 기억해야 합니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">연약함의 정의</span>: 여기서 말하는 연약함은 명백한 불법 행위가 아니라, 인내로 참아야 할 성격상의 결점이나 약점을 의미합니다.</li>
+                        <li><span class="font-semibold text-gray-800">사랑으로 덮음</span>: 이러한 약점을 드러내어 비난하기보다, 인내로 참고 사랑으로 감추어 덮어주는 것이 마땅합니다.</li>
+                        <li><span class="font-semibold text-gray-800">주의할 점</span>: 윗사람의 연약함을 빌미로 합당한 존경을 거부하는 것은 옳지 않은 태도입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 카드 5: 결론 -->
+            <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-emerald-600 text-emerald-800">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-emerald-100 rounded-lg">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold">궁극적인 목적</h3>
+                </div>
+                <div class="text-gray-700 text-sm md:text-base space-y-3">
+                    <p>이 모든 존경의 표현은 결국 <span class="keyword">하나님의 영광</span>을 위한 것입니다.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        <li><span class="font-semibold text-gray-800">명예로운 다스림</span>: 아랫사람이 존경을 표함으로써 윗사람과 그들의 다스림이 명예롭게 되도록 해야 합니다.</li>
+                        <li><span class="font-semibold text-gray-800">하나님의 영광</span>: 윗사람을 세우신 하나님께 영광을 돌리는 것이 아랫사람의 마땅한 도리입니다. 만일 이를 행하지 않으면 하나님의 이름을 빛내지 못하는 잘못을 범하게 됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 적용 질문 -->
+        <div class="card bg-white rounded-lg shadow-lg p-6 border-t-4 border-gray-600 text-gray-800 mt-6">
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="p-2 bg-gray-100 rounded-lg">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold">적용 질문</h3>
+            </div>
+            <ol class="list-decimal pl-5 space-y-3 text-gray-700">
+                <li>오늘 학습한 대요리문답 127항은 아랫사람이 윗사람을 향해 보여야 할 존경의 방식을 몇 가지로 구별하여 제시합니까?</li>
+                <li>윗사람의 명령과 권면이 불법적일 경우에도 순종해야 합니까? 윗사람의 명령과 권면이 합법적일 경우 아랫사람이 기꺼이 즐겨 순종해야 하는 이유는 무엇입니까?</li>
+                <li>여러분은 가정, 교회, 또는 사회 속에서 윗사람에 대하여 어떠한 방식으로 존경을 표하여 왔습니까? 구체적으로 돌아보면서 오늘의 교훈을 적용하여 보시기 바랍니다.</li>
+                <li>여러분은 윗사람의 연약함이나 허물을 지금까지 어떻게 대하여 왔습니까? 윗사람의 잘못에 대해 실망하고 이를 비난한 적을 없습니까? 참고 사랑으로 덮으라는 오늘의 교훈이 정당하다고 받아들이십니까?</li>
+            </ol>
+        </div>
+
+        <!-- 푸터 -->
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p>교재는 날마다 양식으로 읽는 웨스트민스터 표준교리(영음사)를 사용합니다</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Logic (오디오 플레이어 및 YouTube IFrame API) -->
+    <script>
+        const DATE_KEY = "0805";
+        const ADDRESS_FILE_URL = "../address/dcaddr.txt";
+
+        const playBtn = document.getElementById('play-pause-btn');
+        const btnText = document.getElementById('btn-text');
+        const statusMessage = document.getElementById('status-message');
+        const playerContainer = document.getElementById('audio-player-container');
+        window.player = null;
+        let videoId = null;
+        let isPlayerReady = false;
+
+        async function initAudioPlayer() {
+            try {
+                const response = await fetch(ADDRESS_FILE_URL);
+                if (!response.ok) throw new Error('주소 파일을 불러올 수 없습니다.');
+                
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                const targetLine = lines.find(line => line.trim().startsWith(DATE_KEY));
+                
+                if (targetLine) {
+                    const match = targetLine.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                        loadYouTubeAPI();
+                    } else {
+                        handleAudioStatus("오디오 주소 형식이 올바르지 않습니다.", false);
+                    }
+                } else {
+                    handleAudioStatus("오늘의 AI요약 음성은 아직 업로드 전입니다.", false);
+                }
+            } catch (error) {
+                console.error("Audio Load Error:", error);
+                handleAudioStatus("오디오 정보를 불러오는 중 오류가 발생했습니다.", false);
+            }
+        }
+
+        function handleAudioStatus(msg, isAvailable) {
+            statusMessage.textContent = msg;
+            if (!isAvailable) {
+                btnText.textContent = "음성 준비 중";
+                playBtn.disabled = true;
+                playBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                statusMessage.textContent = "";
+                btnText.textContent = "AI요약 듣기";
+                playBtn.disabled = false;
+            }
+        }
+
+        function loadYouTubeAPI() {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                onYouTubeIframeAPIReady();
+            }
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            window.player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 1,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        };
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            handleAudioStatus("", true);
+        }
+
+        function onPlayerError(event) {
+            handleAudioStatus("오디오를 재생할 수 없습니다. (에러 코드: " + event.data + ")", false);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                btnText.textContent = "일시정지";
+                playerContainer.classList.remove('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                btnText.textContent = "계속 듣기";
+            } else if (event.data === YT.PlayerState.ENDED) {
+                btnText.textContent = "다시 듣기";
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlayerReady || !window.player) return;
+
+            const state = window.player.getPlayerState();
+            if (playerContainer.classList.contains('hidden')) {
+                playerContainer.classList.remove('hidden');
+                window.player.playVideo();
+            } else {
+                if (state === YT.PlayerState.PLAYING) {
+                    window.player.pauseVideo();
+                } else {
+                    window.player.playVideo();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initAudioPlayer);
+    </script>
+</body>
+</html>
